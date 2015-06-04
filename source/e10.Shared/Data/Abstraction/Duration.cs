@@ -18,5 +18,6 @@ namespace e10.Shared.Data.Abstraction
         public string Google { get; set; }
         public string LinkedIn { get; set; }
         public string Rss { get; set; }
+        public string WebSite { get; set; }
     }
 }
