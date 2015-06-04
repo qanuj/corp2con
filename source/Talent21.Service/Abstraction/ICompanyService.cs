@@ -2,6 +2,6 @@
 {
     public interface ICompanyService : IService
     {
-        
+        void CreateCompany(string name);
     }
 }

@@ -9,13 +9,19 @@ using Talent21.Service.Abstraction;
 namespace Talent21.Web.Controllers
 {
     [Authorize]
-    [Route("~/api/v1/candidate")]
-    public class CandidateController : ApiController
+    [Route("~/api/v1/company")]
+    public class CompanyController : ApiController
     {
-        private readonly ICandidateService _service;
-        public CandidateController(ICandidateService service)
+        private readonly ICompanyService _service;
+        public CompanyController(ICompanyService service)
         {
             _service = service;
         }
+
+        public bool Create(string name)
+        {
+            _service.CreateCompany(name);
+            return _service.SaveChanges()>0 ;
+        } 
     }
 }

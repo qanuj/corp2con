@@ -8,5 +8,6 @@ namespace Talent21.Service.Abstraction
 {
     public interface IService
     {
+        int SaveChanges();
     }
 }
