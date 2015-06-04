@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -248,13 +249,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\e10.Shared\e10.Shared.csproj">
-      <Project>{689cac89-1917-4604-9d32-c742c1e826ce}</Project>
-      <Name>e10.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Talent21.Data\Talent21.Data.csproj">
-      <Project>{94fbeaad-ce61-42ac-9337-39c1a0e9eb7e}</Project>
-      <Name>Talent21.Data</Name>
+    <ProjectReference Include="..\Talent21.Service\Talent21.Service.csproj">
+      <Project>{f91cb753-c94d-4452-b2a6-5cb236ca580d}</Project>
+      <Name>Talent21.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
