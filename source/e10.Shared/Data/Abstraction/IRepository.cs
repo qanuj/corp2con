@@ -19,12 +19,6 @@ namespace e10.Shared.Data.Abstraction
         void Attach(TEntity entity); //returns Rows Affected
         void Delete(ICollection<TEntity> entities); //returns Rows Affected
 
-        Task CreateAsync(TEntity entity); //returns Rows Affected
-        Task CreateAsync(ICollection<TEntity> entities); //returns Rows Affected
-        Task UpdateAsync(TEntity entity); //returns Rows Affected
-        Task DeleteAsync(TEntity entity); //returns Rows Affected
-        Task DeleteAsync(ICollection<TEntity> entities); //returns Rows Affected
-
         IQueryable<TEntity> All { get; }
         IEventManager EventManager { get; }
     }
