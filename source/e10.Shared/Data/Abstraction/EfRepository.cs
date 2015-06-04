@@ -18,7 +18,10 @@ namespace e10.Shared.Data.Abstraction
 
         protected DbContext Context { get; private set; }
 
-        public abstract IQueryable<TEntity> ById(IEnumerable<int> ids);
+        public IQueryable<TEntity> ById(IEnumerable<int> ids)
+        {
+            return All.Where(x => ids.Contains(x.Id));
+        }
 
         public virtual IQueryable<TEntity> All
         {
