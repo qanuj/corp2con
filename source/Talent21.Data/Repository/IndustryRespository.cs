@@ -10,7 +10,7 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
-    class IndustryRepository : EfRepository<Industry>, IIndustryRepository
+    public class IndustryRepository : EfRepository<Industry>, IIndustryRepository
     {
         public IndustryRepository(DbContext context, IEventManager eventManager)
             : base(context, eventManager)

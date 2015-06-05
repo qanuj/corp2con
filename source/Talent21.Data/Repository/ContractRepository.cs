@@ -9,7 +9,7 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
-    class ContractRepository : EfRepository<Contract>, IContractRepository 
+    public class ContractRepository : EfRepository<Contract>, IContractRepository 
 
     {
         public ContractRepository(DbContext context , IEventManager eventManager) : base (context , eventManager)

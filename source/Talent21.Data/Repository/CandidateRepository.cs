@@ -8,8 +8,8 @@ using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
-{ 
-    class CandidateRepository : EfRepository<Candidate>, ICandidateRepository 
+{
+    public class CandidateRepository : EfRepository<Candidate>, ICandidateRepository 
     {
         public CandidateRepository (DbContext context , IEventManager eventManager ) : base (context, eventManager)
         { 

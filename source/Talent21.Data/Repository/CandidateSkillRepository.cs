@@ -9,7 +9,7 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
-    class CandidateSkillRepository : EfRepository<CandidateSkill>, ICandidateSkillRepository
+    public class CandidateSkillRepository : EfRepository<CandidateSkill>, ICandidateSkillRepository
     {
         public CandidateSkillRepository (DbContext context , IEventManager eventManager) : base (context , eventManager)
         {

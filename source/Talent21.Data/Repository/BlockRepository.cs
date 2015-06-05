@@ -9,7 +9,7 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
-    class BlockRepository : EfRepository<Block>, IBlockRepository
+    public class BlockRepository : EfRepository<Block>, IBlockRepository
     {
         public BlockRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
         {
