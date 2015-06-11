@@ -4,8 +4,14 @@
     {
         void CreateCompany(string name);
         CompanyProfileViewModel UpdateProfile(CompanyProfileViewModel profile);
-       CompanyAddProfileViewModel AddProfile(CompanyAddProfileViewModel profile1); 
-
+        CompanyProfileAddModel AddProfile(CompanyProfileAddModel profile);
+        CandidateRejectModel RejectCandidate(CandidateRejectModel jobApplication);
+        CompanyApproveModel ApproveCompany(CompanyApproveModel jobApplication);
+        CompanyCreateJobModel CreateJob(CompanyCreateJobModel jobApplication);
+        CompanyUpdateJobModel UpdateJob(CompanyUpdateJobModel jobApplication);
+        CompanyCancelJobModel CancelJob(CompanyCancelJobModel jobApplication);
+        CompanyDeleteJobModel DeleteJob(CompanyDeleteJobModel jobApplication);
+        CompanyPublishJobModel PublishJob(CompanyPublishJobModel jobApplication);
 
     }
 }
