@@ -80,6 +80,14 @@
     <Compile Include="Repository\CandidateSkillRepository.cs" />
     <Compile Include="Repository\CandidateVisitRepository.cs" />
     <Compile Include="Repository\CompanyRepository.cs" />
+    <Compile Include="Repository\LocationRepository.cs" />
+    <Compile Include="Repository\PaymentRepository.cs" />
+    <Compile Include="Repository\PlanRepository.cs" />
+    <Compile Include="Repository\ScheduleRepository.cs" />
+    <Compile Include="Repository\SkillExtendedRepository.cs" />
+    <Compile Include="Repository\SkillRepository.cs" />
+    <Compile Include="Repository\SubscriptionRepository.cs" />
+    <Compile Include="Repository\TransactionRepository.cs" />
     <Compile Include="Repository\CompanyVisitRepository.cs" />
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\ContractScheduleRepository.cs" />
