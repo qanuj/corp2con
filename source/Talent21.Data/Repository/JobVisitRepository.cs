@@ -11,9 +11,10 @@ namespace Talent21.Data.Repository
 {
     public class JobVisitRepository : EfRepository<JobVisit>, IJobVisitRepository
     {
-        public JobVisitRepository ( DbContext context, IEventManager eventManager) : base( context, eventManager)
+        public JobVisitRepository(DbContext context, IEventManager eventManager)
+            : base(context, eventManager)
         { }
     }
-    public interface IJobVisitRepository: IRepository<JobVisit>
+    public interface IJobVisitRepository : IRepository<JobVisit>
     { }
 }
