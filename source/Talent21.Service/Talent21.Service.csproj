@@ -44,6 +44,9 @@
     <Compile Include="Abstraction\IJobService.cs" />
     <Compile Include="Abstraction\IService.cs" />
     <Compile Include="Abstraction\ISystemService.cs" />
+    <Compile Include="Models\ScheduleViewModel.cs" />
+    <Compile Include="Models\ScheduleCreateViewModel.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Core\CandidateService.cs" />
     <Compile Include="Core\CompanyService.cs" />
     <Compile Include="Core\JobService.cs" />
@@ -60,9 +63,7 @@
       <Name>Talent21.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
