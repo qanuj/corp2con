@@ -1,4 +1,5 @@
 ﻿using Talent21.Service.Models;
+using Talent21.Service.Models.Core;
 
 namespace Talent21.Service.Abstraction
 {
@@ -8,9 +9,12 @@ namespace Talent21.Service.Abstraction
         SystemEditIndustryModel EditIndustry(SystemEditIndustryModel model);
         SystemDeleteIndustryModel DeleteIndustry(SystemDeleteIndustryModel model);
         SystemViewIndustryModel ViewIndustry(SystemViewIndustryModel model);
+
         SystemAddSkillModel AddSkill(SystemAddSkillModel model);
         SystemEditSkillModel EditSkill(SystemEditSkillModel model);
         SystemDeleteSkillModel DeleteSkill(SystemDeleteSkillModel model);
         SystemViewSkillModel ViewSkill(SystemViewSkillModel model);
+
+        LocationViewModel AddLocation(LocationCreateViewModel model);
     }
 }

@@ -7,5 +7,8 @@ namespace Talent21.Service.Models
 {
     public class SystemEditIndustryModel
     {
+        public int Id { get; set; }
+
+        public string Title { get; set; }
     }
 }
