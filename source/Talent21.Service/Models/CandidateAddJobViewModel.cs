@@ -19,7 +19,8 @@ namespace Talent21.Service.Models
        [DataType(DataType.EmailAddress),EmailAddress,Required]
         public string Email{get; set;}
 
-       public int ContactNo{get;set;}
+       [DataType(DataType.PhoneNumber), Phone, Required]
+       public int Phone { get; set; }
 
        public int DateofBirth{get;set;}
 
