@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Talent21.Service.Abstraction
 {
-    class CandidateUpdateScheduleModel
+    public class CandidateUpdateScheduleModel
     {
     }
 }
