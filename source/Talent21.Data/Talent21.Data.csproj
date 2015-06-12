@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{94FBEAAD-CE61-42AC-9337-39C1A0E9EB7E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Talent21.Data</RootNamespace>
+    <AssemblyName>Talent21.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Block.cs" />
+    <Compile Include="Core\Candidate.cs" />
+    <Compile Include="Core\CandidateSkill.cs" />
+    <Compile Include="Core\CandidateVisit.cs" />
+    <Compile Include="Core\Company.cs" />
+    <Compile Include="Core\CompanyOrCandidateEnum.cs" />
+    <Compile Include="Core\CompanyVisit.cs" />
+    <Compile Include="Core\Contract.cs" />
+    <Compile Include="Core\ContractSchedule.cs" />
+    <Compile Include="Core\Industry.cs" />
+    <Compile Include="Core\Job.cs" />
+    <Compile Include="Core\JobActionEnum.cs" />
+    <Compile Include="Core\JobApplication.cs" />
+    <Compile Include="Core\JobSkill.cs" />
+    <Compile Include="Core\JobVisit.cs" />
+    <Compile Include="Core\LevelEnum.cs" />
+    <Compile Include="Core\Location.cs" />
+    <Compile Include="Core\Payment.cs" />
+    <Compile Include="Core\Person.cs" />
+    <Compile Include="Core\Plan.cs" />
+    <Compile Include="Core\Schedule.cs" />
+    <Compile Include="Core\Skill.cs" />
+    <Compile Include="Core\SkillExtended.cs" />
+    <Compile Include="Core\Subscription.cs" />
+    <Compile Include="Core\Transaction.cs" />
+    <Compile Include="Core\Visit.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BlockRepository.cs" />
+    <Compile Include="Repository\CandidateRepository.cs" />
+    <Compile Include="Repository\CandidateSkillRepository.cs" />
+    <Compile Include="Repository\CandidateVisitRepository.cs" />
+    <Compile Include="Repository\CompanyRepository.cs" />
+    <Compile Include="Repository\LocationRepository.cs" />
+    <Compile Include="Repository\PaymentRepository.cs" />
+    <Compile Include="Repository\PlanRepository.cs" />
+    <Compile Include="Repository\ScheduleRepository.cs" />
+    <Compile Include="Repository\SkillExtendedRepository.cs" />
+    <Compile Include="Repository\SkillRepository.cs" />
+    <Compile Include="Repository\SubscriptionRepository.cs" />
+    <Compile Include="Repository\TransactionRepository.cs" />
+    <Compile Include="Repository\CompanyVisitRepository.cs" />
+    <Compile Include="Repository\ContractRepository.cs" />
+    <Compile Include="Repository\ContractScheduleRepository.cs" />
+    <Compile Include="Repository\IndustryRespository.cs" />
+    <Compile Include="Repository\JobApplicationRepository.cs" />
+    <Compile Include="Repository\JobRepository.cs" />
+    <Compile Include="Repository\JobSkillRepository.cs" />
+    <Compile Include="Repository\JobVisitRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\e10.Shared\e10.Shared.csproj">
+      <Project>{689cac89-1917-4604-9d32-c742c1e826ce}</Project>
+      <Name>e10.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="EntityDataModels.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
