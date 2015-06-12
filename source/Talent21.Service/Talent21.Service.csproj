@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,6 +40,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
+    <Compile Include="Models\JobApplictionCreateViewModel.cs" />
+    <Compile Include="Models\JobApplictionViewModel.cs" />
+    <Compile Include="Models\CandidateCreateViewModel.cs" />
+    <Compile Include="Models\CandidateViewModel.cs" />
+    <Compile Include="Models\CompanyViewModel.cs" />
+    <Compile Include="Models\SystemAddIndustryModel.cs" />
+    <Compile Include="Models\SystemAddSkillModel.cs" />
+    <Compile Include="Models\SystemDeleteIndustryModel.cs" />
+    <Compile Include="Models\SystemDeleteSkillModel.cs" />
+    <Compile Include="Models\SystemEditIndustryModel.cs" />
+    <Compile Include="Models\SystemEditSkillModel.cs" />
+    <Compile Include="Models\SystemViewIndustryModel.cs" />
+    <Compile Include="Models\SystemViewSkillModel.cs" />
+    <Compile Include="Models\CandidateRejectModel.cs" />
+    <Compile Include="Models\CandidateRevokeJobModel.cs" />
+    <Compile Include="Models\CompanyApproveModel.cs" />
+    <Compile Include="Models\CompanyCancelJobModel.cs" />
+    <Compile Include="Models\CompanyCreateJobModel.cs" />
+    <Compile Include="Models\CompanyDeleteJobModel.cs" />
+    <Compile Include="Models\CompanyProfileAddModel.cs" />
+    <Compile Include="Models\CompanyPublishJobModel.cs" />
+    <Compile Include="Models\CompanyUpdateJobModel.cs" />
+    <Compile Include="Models\CandidateAddScheduleModel.cs" />
+    <Compile Include="Models\CandidateDeleteScheduleModel.cs" />
+    <Compile Include="Models\CandidateUpdateScheduleModel.cs" />
+    <Compile Include="Models\CandidateViewScheduleModel.cs" />
+    <Compile Include="Models\CompanyAddProfileViewModel.cs" />
+    <Compile Include="Models\CandidateAddJobViewModel.cs" />
+    <Compile Include="Models\CompanyProfileViewModel.cs" />
+    <Compile Include="Models\CandidateJobViewModel.cs" />
+    <Compile Include="Models\CandidateDeleteProfileModel.cs" />
     <Compile Include="Abstraction\ICandidateService.cs" />
     <Compile Include="Abstraction\ICompanyService.cs" />
     <Compile Include="Abstraction\IJobService.cs" />
@@ -46,7 +79,7 @@
     <Compile Include="Abstraction\ISystemService.cs" />
     <Compile Include="Models\ScheduleViewModel.cs" />
     <Compile Include="Models\ScheduleCreateViewModel.cs" />
-    <Compile Include="Models\ProfileViewModel.cs" />
+    <Compile Include="Models\CandidateProfileViewModel.cs" />
     <Compile Include="Core\CandidateService.cs" />
     <Compile Include="Core\CompanyService.cs" />
     <Compile Include="Core\JobService.cs" />
