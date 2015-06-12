@@ -4,8 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
+using System.Xml;
 using System.Xml.XPath;
+using System.Xml.Xsl;
 using Talent21.Web.Areas.HelpPage.ModelDescriptions;
+using Talent21.Web.Areas.HelpPage.Models;
 
 namespace Talent21.Web.Areas.HelpPage
 {
@@ -15,24 +18,42 @@ namespace Talent21.Web.Areas.HelpPage
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
         private XPathNavigator _documentNavigator;
-        private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
-        private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
-        private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
-        private const string FieldExpression = "/doc/members/member[@name='F:{0}']";
+        private const string TypeExpression = "/docs/doc/members/member[@name='T:{0}']";
+        private const string MethodExpression = "/docs/doc/members/member[@name='M:{0}']";
+        private const string PropertyExpression = "/docs/doc/members/member[@name='P:{0}']";
+        private const string FieldExpression = "/docs/doc/members/member[@name='F:{0}']";
         private const string ParameterExpression = "param[@name='{0}']";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
         /// <param name="documentPath">The physical path to XML document.</param>
-        public XmlDocumentationProvider(string documentPath)
+        public XmlDocumentationProvider(string documentPath):this(new []{documentPath}){}
+
+        /// <summary>
+        ///  Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
+        /// </summary>
+        /// <param name="documentPath"><see cref="System.Array"/> of The physical path to XML document.</param>
+        public XmlDocumentationProvider(string[] documentPaths)
         {
-            if (documentPath == null)
+            if(documentPaths == null || documentPaths.Length==0)
             {
-                throw new ArgumentNullException("documentPath");
+                throw new ArgumentNullException("documentPaths");
             }
-            XPathDocument xpath = new XPathDocument(documentPath);
-            _documentNavigator = xpath.CreateNavigator();
+            var doc = new XmlDocument();
+            var element = doc.CreateElement("docs");
+            foreach(var documentPath in documentPaths)
+            {
+                var subDoc = new XmlDocument();
+                subDoc.Load(documentPath);
+                var oNode = subDoc.SelectSingleNode("/doc");
+                if (oNode == null) continue;
+
+                var importNode=doc.ImportNode(oNode,true);
+                element.AppendChild(importNode);
+            }
+            doc.AppendChild(element);
+            _documentNavigator = doc.CreateNavigator();
         }
 
         public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
@@ -50,16 +71,30 @@ namespace Talent21.Web.Areas.HelpPage
         public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
             ReflectedHttpParameterDescriptor reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
-            if (reflectedParameterDescriptor != null)
+            if(reflectedParameterDescriptor != null)
             {
-                XPathNavigator methodNode = GetMethodNode(reflectedParameterDescriptor.ActionDescriptor);
-                if (methodNode != null)
+                if(reflectedParameterDescriptor.ParameterInfo is CustomParameterInfo)
                 {
-                    string parameterName = reflectedParameterDescriptor.ParameterInfo.Name;
-                    XPathNavigator parameterNode = methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, ParameterExpression, parameterName));
-                    if (parameterNode != null)
+                    
+                    var pi = (CustomParameterInfo)reflectedParameterDescriptor.ParameterInfo;
+                    string selectExpression = String.Format(CultureInfo.InvariantCulture, PropertyExpression, pi.Prop.DeclaringType.FullName + "." + pi.Prop.Name);
+                    XPathNavigator methodNode = _documentNavigator.SelectSingleNode(selectExpression);
+                    if(methodNode != null)
                     {
-                        return parameterNode.Value.Trim();
+                        return methodNode.Value.Trim();
+                    }
+                }
+                else
+                {
+                    XPathNavigator methodNode = GetMethodNode(reflectedParameterDescriptor.ActionDescriptor);
+                    if(methodNode != null)
+                    {
+                        string parameterName = reflectedParameterDescriptor.ParameterInfo.Name;
+                        XPathNavigator parameterNode = methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, ParameterExpression, parameterName));
+                        if(parameterNode != null)
+                        {
+                            return parameterNode.Value.Trim();
+                        }
                     }
                 }
             }
