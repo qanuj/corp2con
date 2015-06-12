@@ -1,8 +1,10 @@
-﻿namespace Talent21.Service.Abstraction
+﻿using Talent21.Service.Models;
+
+namespace Talent21.Service.Abstraction
 {
     public interface ICompanyService : IService
     {
-        void CreateCompany(string name);
+        CompanyViewModel CreateCompany(string name);
         CompanyProfileViewModel UpdateProfile(CompanyProfileViewModel profile);
         CompanyProfileAddModel AddProfile(CompanyProfileAddModel profile);
         CandidateRejectModel RejectCandidate(CandidateRejectModel jobApplication);
@@ -12,6 +14,6 @@
         CompanyCancelJobModel CancelJob(CompanyCancelJobModel jobApplication);
         CompanyDeleteJobModel DeleteJob(CompanyDeleteJobModel jobApplication);
         CompanyPublishJobModel PublishJob(CompanyPublishJobModel jobApplication);
-
+        //CompanyVisit
     }
 }

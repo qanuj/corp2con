@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Talent21.Service.Models
+namespace Talent21.Service.Core
 {
-   public class CandidateDeleteProfileModel
+    public class JobApplictionViewModel
     {
         public int Id { get; set; }
+
+        public Data.Core.JobActionEnum Act { get; set; }
     }
 }

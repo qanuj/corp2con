@@ -15,6 +15,11 @@ namespace Talent21.Data.Repository
         {
 
         }
+
+        public override IQueryable<Block> All
+        {
+            get { return base.All.Where(x=>!x.IsDeleted); }
+        }
     }
 
     public interface IBlockRepository : IRepository<Block>

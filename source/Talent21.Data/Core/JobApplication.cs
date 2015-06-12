@@ -7,6 +7,9 @@ namespace Talent21.Data.Core
         public Candidate Candidate { get; set; }
         public int CandidateId { get; set; }
 
+        public Job Job { get; set; }
+        public int JobId { get; set; }
+
         public JobActionEnum Act { get; set; }
     }
 }

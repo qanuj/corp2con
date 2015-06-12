@@ -20,8 +20,8 @@ namespace Talent21.Web.Controllers
 
         public bool Create(string name)
         {
-            _service.CreateCompany(name);
-            return _service.SaveChanges()>0 ;
+            var company=_service.CreateCompany(name);
+            return company.Id > 0;
         } 
     }
 }

@@ -52,6 +52,21 @@ namespace e10.Shared.Data.Abstraction
         public virtual void Create(TEntity entity) {
             Guard.ArgumentNotNull(entity, "Create Entity");
             Context.Entry(entity).State = EntityState.Added;
+            if (entity is IState)
+            {
+                UpdateCreateState(entity as IState);
+            }
+        }
+
+        private void UpdateCreateState(IState state)
+        {
+            state.Created = DateTime.UtcNow;
+            state.LastModified = DateTime.UtcNow;
+        }
+
+        private void UpdateState(IState state)
+        {
+            state.LastModified = DateTime.UtcNow;
         }
 
         public virtual TEntity ById(int id) {
@@ -81,6 +96,10 @@ namespace e10.Shared.Data.Abstraction
             Guard.ArgumentNotNull(entity, "Update Entity");
             Context.Set<TEntity>().Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
+            if(entity is IState)
+            {
+                UpdateState(entity as IState);
+            }
         }
 
         protected void AttachDetachedCollection<T>(ICollection<T> entities) where T : class {

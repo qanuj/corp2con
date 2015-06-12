@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\CreateCandidateAndApplyToJobViewModel.cs" />
+    <Compile Include="Core\JobApplictionCreateViewModel.cs" />
+    <Compile Include="Core\JobApplictionViewModel.cs" />
+    <Compile Include="Models\CandidateCreateViewModel.cs" />
+    <Compile Include="Models\CandidateViewModel.cs" />
+    <Compile Include="Models\CompanyViewModel.cs" />
     <Compile Include="Models\SystemAddIndustryModel.cs" />
     <Compile Include="Models\SystemAddSkillModel.cs" />
     <Compile Include="Models\SystemDeleteIndustryModel.cs" />

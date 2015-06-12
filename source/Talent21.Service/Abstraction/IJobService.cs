@@ -1,9 +1,13 @@
-﻿namespace Talent21.Service.Abstraction
+﻿using Talent21.Service.Models;
+
+namespace Talent21.Service.Abstraction
 {
     public interface IJobService : IService
     {
         CandidateJobViewModel ApplyToJob(CandidateJobViewModel job);
         CandidateAddJobViewModel CancelJob(CandidateAddJobViewModel job);
         CandidateRevokeJobModel RevokeJob(CandidateRevokeJobModel job); 
+        //JobVisit
+
     }
 }
