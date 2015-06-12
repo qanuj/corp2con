@@ -40,9 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\CreateCandidateAndApplyToJobViewModel.cs" />
-    <Compile Include="Core\JobApplictionCreateViewModel.cs" />
-    <Compile Include="Core\JobApplictionViewModel.cs" />
+    <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
+    <Compile Include="Models\JobApplictionCreateViewModel.cs" />
+    <Compile Include="Models\JobApplictionViewModel.cs" />
     <Compile Include="Models\CandidateCreateViewModel.cs" />
     <Compile Include="Models\CandidateViewModel.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
