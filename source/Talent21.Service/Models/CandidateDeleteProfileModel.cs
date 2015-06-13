@@ -10,9 +10,11 @@ namespace Talent21.Service.Models
 {
    public class CandidateDeleteProfileModel
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
+       /// <summary>
+       /// 
+       /// </summary>
+       [Required]
+       public int Id { get; set; }
 
     }
 }

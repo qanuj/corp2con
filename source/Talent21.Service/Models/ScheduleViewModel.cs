@@ -1,6 +1,26 @@
-﻿namespace Talent21.Service.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
+
+namespace Talent21.Service.Models
 {
     public class ScheduleViewModel
     {
+        [Required]
+        public int CandidateId { get; set; }
+
+        [Required]
+        public int Name { get; set; }
+
+        [DataType(DataType.EmailAddress), EmailAddress, Required]
+        public string Email { get; set; }
+
+        [DataType(DataType.PhoneNumber), Phone, Required]
+        public int Phone { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

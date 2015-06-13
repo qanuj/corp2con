@@ -12,12 +12,13 @@ namespace Talent21.Service.Models
         [Required]
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
-        
-        public int? LocationId { get; set; }
 
-        [DataType(DataType.EmailAddress),EmailAddress,Required]
+        public int LocationId { get; set; }
+
         public string Email { get; set; }
+
+        public string ProfileUrl { get; set; }
+       
     }
 }

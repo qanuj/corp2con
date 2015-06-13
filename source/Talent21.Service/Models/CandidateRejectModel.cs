@@ -1,28 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Linq;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Talent21.Service.Models
 {
     public class CandidateRejectModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// 
         [Required]
-        public int Id { get; set; }
+        public int CandidateId { get; set; }
 
-        [Required]
-        public string Name { get; set; }
-
-        [DataType(DataType.EmailAddress), EmailAddress, Required]
-        public string Email { get; set; }
-
-        [DataType(DataType.PhoneNumber), Phone, Required]
-        public int Phone { get; set; }
-
-        public string Experience { get; set; }
-
-        public string Qualification { get; set; }
+        public string Experience { get; set; } //in Years and Months
+        
     }
 }

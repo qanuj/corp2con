@@ -9,7 +9,7 @@ namespace Talent21.Service.Core
     {
         private readonly ICandidateRepository _candidateRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
-        public CandidateService(ICandidateRepository candidateRepository,IJobApplicationRepository jobApplicationRepository)
+        public CandidateService(ICandidateRepository candidateRepository, IJobApplicationRepository jobApplicationRepository)
         {
             _candidateRepository = candidateRepository;
             _jobApplicationRepository = jobApplicationRepository;
@@ -30,7 +30,7 @@ namespace Talent21.Service.Core
         public JobApplictionViewModel CreateCandidateAndApplyToJob(
             CreateCandidateAndApplyToJobViewModel model)
         {
-            var candiate=CreateCandidate(new CandidateCreateViewModel()
+            var candiate = CreateCandidate(new CandidateCreateViewModel()
             {
                 Name = model.Name
             });
@@ -46,7 +46,7 @@ namespace Talent21.Service.Core
             {
                 Act = JobActionEnum.Application,
                 CandidateId = job.CandidateId,
-                JobId=job.JobId,
+                JobId = job.JobId,
             };
             _jobApplicationRepository.Create(jobApplication);
             _candidateRepository.SaveChanges();
@@ -58,7 +58,7 @@ namespace Talent21.Service.Core
         }
         public CandidateProfileViewModel UpdateProfile(CandidateProfileViewModel profile)
         {
-            var candidate=_candidateRepository.ById(profile.Id);
+            var candidate = _candidateRepository.ById(profile.Id);
             candidate.Name = profile.Name;
             candidate.LocationId = profile.LocationId;
             candidate.Email = profile.Email;
@@ -76,7 +76,7 @@ namespace Talent21.Service.Core
         {
             var candidate = _candidateRepository.ById(profile.Id);
             _candidateRepository.Delete(candidate);
-            return _candidateRepository.SaveChanges()>0;
+            return _candidateRepository.SaveChanges() > 0;
         }
 
         public CandidateAddScheduleModel AddSchedule(CandidateAddScheduleModel schedule)

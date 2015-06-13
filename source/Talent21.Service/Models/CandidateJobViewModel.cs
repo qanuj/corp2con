@@ -11,20 +11,10 @@ namespace Talent21.Service.Models
    public class CandidateJobViewModel
     {
        [Required]
-       public int JobId{get; set;}
+       public int CandidateId { get; set; }
 
        [Required]
-       public string CompanyName{get;set;}
+       public int JobId { get; set; }
 
-       public string ContactDetails{get;set;}
-
-       public string CompanyDescription{get; set;}
-
-       public string Skills{get; set;}
-
-       public string Experience{get; set;}
-
-       public string Role{get; set;}
-
-    }
+   }
 }
