@@ -7,5 +7,8 @@ namespace Talent21.Service.Abstraction
 {
    public class CompanyVisitJobModel
     {
+       public int CompanyId { get; set; }
+
+       public int JobId { get; set; }
     }
 }
