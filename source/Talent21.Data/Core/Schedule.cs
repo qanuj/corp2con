@@ -5,6 +5,9 @@ namespace Talent21.Data.Core
 {
     public class Schedule : Entity
     {
+       /// <summary>
+       /// 
+       /// </summary>
         public Candidate Candidate { get; set; }
         public int CandidateId { get; set; }
 
