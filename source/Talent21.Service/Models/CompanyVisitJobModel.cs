@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Talent21.Service.Models
+namespace Talent21.Service.Abstraction
 {
-    public class SystemDeleteIndustryModel
+   public class CompanyVisitJobModel
     {
     }
 }

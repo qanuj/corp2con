@@ -23,7 +23,7 @@ namespace Talent21.Service.Core
             return new CandidateViewModel
             {
                 Name = candidate.Name,
-                Id = candidate.Id
+                CandidateId = candidate.Id
             };
         }
 
@@ -36,7 +36,7 @@ namespace Talent21.Service.Core
             });
             return ApplyToJob(new JobApplictionCreateViewModel
             {
-                CandidateId = candiate.Id,
+                CandidateId = candiate.CandidateId,
                 JobId = model.JobId
             });
         }

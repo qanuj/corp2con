@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class SystemViewIndustryModel
+    public class SkillEditViewModel
     {
     }
 }

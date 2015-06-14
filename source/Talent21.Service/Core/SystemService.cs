@@ -24,12 +24,12 @@ namespace Talent21.Service.Core
             throw new System.NotImplementedException();
         }
 
-        public SystemAddIndustryModel AddIndustry(SystemAddIndustryModel model)
+        public IndustryAddViewModel AddIndustry(IndustryAddViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemEditIndustryModel EditIndustry(SystemEditIndustryModel model)
+        public IndustryEditViewModel EditIndustry(IndustryEditViewModel model)
         {
             var industry = _industryRepository.ById(model.Id);
             industry.Title = model.Title;
@@ -38,32 +38,32 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public SystemDeleteIndustryModel DeleteIndustry(SystemDeleteIndustryModel model)
+        public IndustryDeleteViewModel DeleteIndustry(IndustryDeleteViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemViewIndustryModel ViewIndustry(SystemViewIndustryModel model)
+        public IndustryViewModel ViewIndustry(IndustryViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemAddSkillModel AddSkill(SystemAddSkillModel model)
+        public SkillAddViewModel AddSkill(SkillAddViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemEditSkillModel EditSkill(SystemEditSkillModel model)
+        public SkillEditViewModel EditSkill(SkillEditViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemDeleteSkillModel DeleteSkill(SystemDeleteSkillModel model)
+        public SkillDeleteViewModel DeleteSkill(SkillDeleteViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemViewSkillModel ViewSkill(SystemViewSkillModel model)
+        public SkillViewModel ViewSkill(SkillViewModel model)
         {
             throw new System.NotImplementedException();
         }
