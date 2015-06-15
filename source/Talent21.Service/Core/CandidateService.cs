@@ -114,7 +114,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
-      
+
         public CandidateViewScheduleModel ViewSchedule(CandidateViewScheduleModel model)
         {
             throw new System.NotImplementedException();
