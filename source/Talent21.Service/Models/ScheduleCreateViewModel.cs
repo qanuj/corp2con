@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Talent21.Service.Models
 {
-   public class ScheduleCreateViewModel
+    public class ScheduleCreateViewModel
     {
         [Required]
         public int CandidateId { get; set; }
