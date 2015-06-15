@@ -22,5 +22,7 @@ namespace Talent21.Service.Models
         public int Phone { get; set; }
 
         public DateTime Date { get; set; }
+
+        public int Id { get; set; }
     }
 }
