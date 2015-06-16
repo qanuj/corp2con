@@ -23,14 +23,7 @@ namespace Talent21.Service.Models
         public int Phone { get; set; }
 
         public DateTime Date { get; set; }
-        [Required]
-        public int CandidateId { get; set; }
 
-        public string Name { get; set; }
-
-        public DateTime Start { get; set; }
-        public DateTime? End { get; set; }
-
-        public bool IsAvailable { get; set; }
+        public int Id { get; set; }
     }
 }

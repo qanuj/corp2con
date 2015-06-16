@@ -9,10 +9,15 @@ namespace Talent21.Service.Core
     {
         private readonly ICandidateRepository _candidateRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
-        public CandidateService(ICandidateRepository candidateRepository, IJobApplicationRepository jobApplicationRepository)
+        private readonly IScheduleRepository _scheduleRepository;
+
+        public CandidateService(ICandidateRepository candidateRepository,
+            IJobApplicationRepository jobApplicationRepository,
+            IScheduleRepository scheduleRepository)
         {
             _candidateRepository = candidateRepository;
             _jobApplicationRepository = jobApplicationRepository;
+            _scheduleRepository = scheduleRepository;
         }
 
         public CandidateViewModel CreateCandidate(CandidateCreateViewModel profile)
@@ -23,7 +28,7 @@ namespace Talent21.Service.Core
             return new CandidateViewModel
             {
                 Name = candidate.Name,
-                CandidateId = candidate.Id
+                Id = candidate.Id
             };
         }
 
@@ -36,7 +41,7 @@ namespace Talent21.Service.Core
             });
             return ApplyToJob(new JobApplictionCreateViewModel
             {
-                CandidateId = candiate.CandidateId,
+                CandidateId = candiate.Id,
                 JobId = model.JobId
             });
         }
@@ -66,11 +71,24 @@ namespace Talent21.Service.Core
             _candidateRepository.SaveChanges();
             return profile;
         }
-
-        public ScheduleCreateViewModel CreateSchedule(ScheduleCreateViewModel schedule)
+        public CandidateAddScheduleModel AddSchedule(CandidateAddScheduleModel model)
         {
             throw new System.NotImplementedException();
         }
+
+
+        public ScheduleCreateViewModel CreateSchedule(ScheduleCreateViewModel model)
+        {
+            var entity = new Schedule() { CandidateId = model.CandidateId };
+            _scheduleRepository.Create(entity);
+            _scheduleRepository.SaveChanges();
+            return new ScheduleCreateViewModel
+            {
+                Id = entity.Id,
+                CandidateId = entity.CandidateId,
+            };
+        }
+
 
         public bool DeleteProfile(CandidateDeleteProfileModel profile)
         {
@@ -79,24 +97,29 @@ namespace Talent21.Service.Core
             return _candidateRepository.SaveChanges() > 0;
         }
 
-        public CandidateAddScheduleModel AddSchedule(CandidateAddScheduleModel schedule)
+        public CandidateUpdateScheduleModel UpdateSchedule(CandidateUpdateScheduleModel model)
+        {
+            var entity = _scheduleRepository.ById(model.CandidateId);
+            entity.Start = model.Start;
+            entity.End = model.End;
+            _scheduleRepository.Update(entity);
+            _scheduleRepository.SaveChanges();
+            return model;
+        }
+
+        public CandidateDeleteScheduleModel DeleteSchedule(CandidateDeleteScheduleModel model)
+        {
+            var entity = _scheduleRepository.ById(model.CandidateId);
+            _scheduleRepository.Delete(entity);
+            return model;
+        }
+
+      
+        public CandidateViewScheduleModel ViewSchedule(CandidateViewScheduleModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public CandidateUpdateScheduleModel UpdateSchedule(CandidateUpdateScheduleModel schedule)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public CandidateDeleteScheduleModel DeleteSchedule(CandidateDeleteScheduleModel schedule)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public CandidateViewScheduleModel ViewSchedule(CandidateViewScheduleModel schedule)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

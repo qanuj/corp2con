@@ -15,9 +15,7 @@ namespace Talent21.Service.Models
         public string CompanyName { get; set; }
 
         [Required]
-        public int CandidateId { get; set; }
-
-        
+        public int CandidateId { get; set; }        
 
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using System.Linq;
@@ -13,18 +12,16 @@ namespace Talent21.Service.Models
         [Required]
         public int CandidateId { get; set; }
 
-        [Required]
-        public int CandidateId { get; set; }
+        //[DataType(DataType.EmailAddress), EmailAddress, Required]
+        //public string Email { get; set; }
 
-        [Required]
-        public int Name { get; set; }
-
-        [DataType(DataType.EmailAddress), EmailAddress, Required]
-        public string Email { get; set; }
-
-        [DataType(DataType.PhoneNumber), Phone, Required]
-        public int Phone { get; set; }
+        //[DataType(DataType.PhoneNumber), Phone, Required]
+        //public int Phone { get; set; }
 
         public DateTime Date { get; set; }
+
+        public DateTime Start { get; set; }
+        public DateTime? End { get; set; }
+
     }
 }

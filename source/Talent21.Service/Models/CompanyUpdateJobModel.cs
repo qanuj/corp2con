@@ -12,9 +12,10 @@ namespace Talent21.Service.Models
     public class CompanyUpdateJobModel
     {
         [Required]
-        public int ComapanyId { get; set; }
+        public int CompanyId { get; set; }
 
         public int JobId { get; set; }
+
     
     }
 }
