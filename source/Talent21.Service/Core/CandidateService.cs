@@ -107,6 +107,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
+
         public CandidateDeleteScheduleModel DeleteSchedule(CandidateDeleteScheduleModel model)
         {
             var entity = _scheduleRepository.ById(model.CandidateId);
