@@ -18,30 +18,29 @@ namespace Talent21.Service.Core
         {
             _jobApplicationRepository = jobApplicationRepository;
             _jobRepository = jobRepository;
+            _candidateRepository = candidateRepository;
         }
-       
+
         public int SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return _jobRepository.SaveChanges();
         }
-
-
-        public CandidateJobViewModel ApplyToJob(CandidateJobViewModel model)
+       
+        public JobApplictionViewModel ApplyToJob(JobApplictionViewModel model)
         {
-            throw new System.NotImplementedException();
-            //var entity = new Entity
-            //{
-            //    Act = JobActionEnum.Application,
-            //    CandidateId = model.CandidateId,
-            //    JobId = model.JobId,
-            //};
-            //_jobRepository.Create(entity);
-            //_candidateRepository.SaveChanges();
-            //return new CandidateJobViewModel
-            //{
-            //    CandidateId = entity.CandidateId,
-            //    JobId = entity.JobId
-            //};
+            var entity = new JobApplication
+            {
+                Act = JobActionEnum.Application,
+                Id = model.Id,
+                
+            };
+            _jobApplicationRepository.Create(entity);
+            _jobApplicationRepository.SaveChanges();
+            return new JobApplictionViewModel
+            {
+                Id = entity.Id,
+                Act = entity.Act
+            };
         }
 
         public bool CancelJob(CancelJobViewModel model)
@@ -50,8 +49,8 @@ namespace Talent21.Service.Core
             entity.IsCancelled = true;
             entity.Cancelled = DateTime.UtcNow;
             _jobRepository.Update(entity);
-            var rowAffected=_jobRepository.SaveChanges();
-            return rowAffected>0;
+            var rowAffected = _jobRepository.SaveChanges();
+            return rowAffected > 0;
         }
 
         public bool RevokeJobApplication(RevokeJobApplicationViewModel model)
@@ -63,5 +62,7 @@ namespace Talent21.Service.Core
             var rowAffected = _jobRepository.SaveChanges();
             return rowAffected > 0;
         }
+
+        public ICandidateRepository candidateRepository { get; set; }
     }
 }
