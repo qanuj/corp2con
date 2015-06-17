@@ -74,22 +74,22 @@ namespace Talent21.Service.Core
 
         public CandidateAddScheduleModel AddSchedule(CandidateAddScheduleModel model)
         {
-            {
-                var schedule = new Schedule
-                {
-                    Start = model.Start,
-                    End = model.End
 
-                };
-                _scheduleRepository.Create(schedule);
-                _scheduleRepository.SaveChanges();
-                return new CandidateAddScheduleModel
-                {
-                    CandidateId = schedule.CandidateId,
-                    Start = schedule.Start,
-                    End = schedule.End
-                };
-            }
+            var schedule = new Schedule
+            {
+                Start = model.Start,
+                End = model.End
+
+            };
+            _scheduleRepository.Create(schedule);
+            _scheduleRepository.SaveChanges();
+            return new CandidateAddScheduleModel
+            {
+                CandidateId = schedule.CandidateId,
+                Start = schedule.Start,
+                End = schedule.End
+            };
+
 
         }
 
@@ -139,7 +139,7 @@ namespace Talent21.Service.Core
             //entity.Candidate = model.Name;
             //if(entity== null)
             //{
-                
+
             //}
             //int employeeCode = Convert.ToInt16(context.Request["id"]);
 
