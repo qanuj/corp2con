@@ -14,7 +14,7 @@ namespace Talent21.Service.Models
         /// </summary>
        
         [Required]
-        public string Candidate { get; set; }
+        public int CandidateId { get; set; }
 
         public DateTime Start { get; set; }
         public DateTime? End { get; set; }
