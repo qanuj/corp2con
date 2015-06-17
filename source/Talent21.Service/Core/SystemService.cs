@@ -10,23 +10,40 @@ namespace Talent21.Service.Core
     {
         private readonly ILocationRepository _locationRepository;
         private readonly IIndustryRepository _industryRepository;
+        private readonly ISkillRepository _skillRepository;
 
         public SystemService(ILocationRepository locationRepository,
-            IIndustryRepository industryRepository
-            )
+            IIndustryRepository industryRepository, ISkillRepository skillRepository
+                )
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
+            _skillRepository = skillRepository;
         }
 
         public int SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return _industryRepository.SaveChanges();
         }
 
         public IndustryAddViewModel AddIndustry(IndustryAddViewModel model)
         {
-            throw new System.NotImplementedException();
+            var industry = new Industry
+
+            {
+                IndustryName = model.IndustryName
+            };
+            _industryRepository.Create(industry);
+            _industryRepository.SaveChanges();
+            return new IndustryAddViewModel
+            {
+                IndustryName = industry.IndustryName,
+            };
+        }
+
+        private void Create(Industry industry)
+        {
+ 	        throw new System.NotImplementedException();
         }
 
         public IndustryEditViewModel EditIndustry(IndustryEditViewModel model)
@@ -40,7 +57,9 @@ namespace Talent21.Service.Core
 
         public IndustryDeleteViewModel DeleteIndustry(IndustryDeleteViewModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _industryRepository.ById(model.IndustryId);
+            _industryRepository.Delete(entity);
+            return model;
         }
 
         public IndustryViewModel ViewIndustry(IndustryViewModel model)
@@ -50,7 +69,17 @@ namespace Talent21.Service.Core
 
         public SkillAddViewModel AddSkill(SkillAddViewModel model)
         {
-            throw new System.NotImplementedException();
+            var Skill = new Skill
+            {
+                CandidateId = model.CandidateId
+            };
+            _skillRepository.Create(Skill);
+            _skillRepository.SaveChanges();
+            return new SkillAddViewModel
+            {
+                CandidateId = model.CandidateId,
+                Skill = model.Skill
+            };
         }
 
         public SkillEditViewModel EditSkill(SkillEditViewModel model)
@@ -60,7 +89,9 @@ namespace Talent21.Service.Core
 
         public SkillDeleteViewModel DeleteSkill(SkillDeleteViewModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _industryRepository.ById(model.CandidateId);
+            _industryRepository.Delete(entity);
+            return model;
         }
 
         public SkillViewModel ViewSkill(SkillViewModel model)

@@ -68,12 +68,6 @@ namespace Talent21.Service.Core
             };
 
         }
-
-        //private object CreateCompany(CompanyCreateJobModel companyCreateJobModel)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
         public CompanyUpdateJobModel UpdateJob(CompanyUpdateJobModel model)
         {
             var entity = _companyRepository.ById(model.CompanyId);

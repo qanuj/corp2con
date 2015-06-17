@@ -8,7 +8,7 @@ namespace Talent21.Service.Models
 {
     public class SkillAddViewModel
     {
-        
+        public int CandidateId { get; set; }
         public string Skill { get; set; }
 
     }
