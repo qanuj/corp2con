@@ -10,26 +10,43 @@ namespace Talent21.Service.Core
     {
         private readonly ILocationRepository _locationRepository;
         private readonly IIndustryRepository _industryRepository;
+        private readonly ISkillRepository _skillRepository;
 
         public SystemService(ILocationRepository locationRepository,
-            IIndustryRepository industryRepository
-            )
+            IIndustryRepository industryRepository, ISkillRepository skillRepository
+                )
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
+            _skillRepository = skillRepository;
         }
 
         public int SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return _industryRepository.SaveChanges();
         }
 
-        public SystemAddIndustryModel AddIndustry(SystemAddIndustryModel model)
+        public IndustryAddViewModel AddIndustry(IndustryAddViewModel model)
         {
-            throw new System.NotImplementedException();
+            var industry = new Industry
+
+            {
+                IndustryName = model.IndustryName
+            };
+            _industryRepository.Create(industry);
+            _industryRepository.SaveChanges();
+            return new IndustryAddViewModel
+            {
+                IndustryName = industry.IndustryName,
+            };
         }
 
-        public SystemEditIndustryModel EditIndustry(SystemEditIndustryModel model)
+        private void Create(Industry industry)
+        {
+ 	        throw new System.NotImplementedException();
+        }
+
+        public IndustryEditViewModel EditIndustry(IndustryEditViewModel model)
         {
             var industry = _industryRepository.ById(model.Id);
             industry.Title = model.Title;
@@ -38,32 +55,46 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public SystemDeleteIndustryModel DeleteIndustry(SystemDeleteIndustryModel model)
+        public IndustryDeleteViewModel DeleteIndustry(IndustryDeleteViewModel model)
+        {
+            var entity = _industryRepository.ById(model.IndustryId);
+            _industryRepository.Delete(entity);
+            return model;
+        }
+
+        public IndustryViewModel ViewIndustry(IndustryViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemViewIndustryModel ViewIndustry(SystemViewIndustryModel model)
+        public SkillAddViewModel AddSkill(SkillAddViewModel model)
+        {
+            var Skill = new Skill
+            {
+                CandidateId = model.CandidateId
+            };
+            _skillRepository.Create(Skill);
+            _skillRepository.SaveChanges();
+            return new SkillAddViewModel
+            {
+                CandidateId = model.CandidateId,
+                Skill = model.Skill
+            };
+        }
+
+        public SkillEditViewModel EditSkill(SkillEditViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SystemAddSkillModel AddSkill(SystemAddSkillModel model)
+        public SkillDeleteViewModel DeleteSkill(SkillDeleteViewModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _industryRepository.ById(model.CandidateId);
+            _industryRepository.Delete(entity);
+            return model;
         }
 
-        public SystemEditSkillModel EditSkill(SystemEditSkillModel model)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public SystemDeleteSkillModel DeleteSkill(SystemDeleteSkillModel model)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public SystemViewSkillModel ViewSkill(SystemViewSkillModel model)
+        public SkillViewModel ViewSkill(SkillViewModel model)
         {
             throw new System.NotImplementedException();
         }
