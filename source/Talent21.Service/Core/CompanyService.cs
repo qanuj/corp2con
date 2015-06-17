@@ -1,4 +1,5 @@
-﻿using Talent21.Data.Core;
+﻿using System;
+using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
@@ -31,14 +32,30 @@ namespace Talent21.Service.Core
         }
 
 
-        public CompanyProfileViewModel UpdateProfile(CompanyProfileViewModel profile)
+        public CompanyProfileViewModel UpdateProfile(CompanyProfileViewModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _companyRepository.ById(model.CompanyId);
+            entity.Name = model.CompanyName;
+            _companyRepository.Update(entity);
+            _companyRepository.SaveChanges();
+            return model;
         }
 
-        public CompanyProfileAddModel AddProfile(CompanyProfileAddModel profile)
+        public CompanyProfileAddModel AddProfile(CompanyProfileAddModel model)
         {
-            throw new System.NotImplementedException();
+            var company = new Company
+            {
+                CompanyId = model.CompanyId,
+                CompanyName = model.CompanyName
+            };
+
+            _companyRepository.Create(company);
+            _companyRepository.SaveChanges();
+            return new CompanyProfileAddModel
+            {
+                CompanyId = company.CompanyId,
+                CompanyName = company.CompanyName
+            };
         }
 
         public CandidateRejectModel RejectCandidate(CandidateRejectModel jobApplication)
@@ -51,14 +68,24 @@ namespace Talent21.Service.Core
             throw new System.NotImplementedException();
         }
 
-        public CompanyCreateJobModel CreateJob(CompanyCreateJobModel jobApplication)
+        public CompanyCreateJobModel CreateJob(CompanyCreateJobModel model)
         {
-            throw new System.NotImplementedException();
-        }
+            var job = new Job() { CompanyId = model.CompanyId };
+           // _companyRepository.Create(job);
+            _companyRepository.SaveChanges();
+            return new CompanyCreateJobModel
+            {
+                CompanyId = job.CompanyId,           
+                
+            };
 
-        public CompanyUpdateJobModel UpdateJob(CompanyUpdateJobModel jobApplication)
+        }
+        public CompanyUpdateJobModel UpdateJob(CompanyUpdateJobModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _companyRepository.ById(model.CompanyId);
+            _companyRepository.Update(entity);
+            _companyRepository.SaveChanges();
+            return model;
         }
 
         public CompanyCancelJobModel CancelJob(CompanyCancelJobModel jobApplication)
@@ -68,7 +95,10 @@ namespace Talent21.Service.Core
 
         public CompanyDeleteJobModel DeleteJob(CompanyDeleteJobModel jobApplication)
         {
-            throw new System.NotImplementedException();
+            var entity = _companyRepository.ById(jobApplication.CompanyId);
+            _companyRepository.Delete(entity);
+            return jobApplication;
+
         }
 
         public CompanyPublishJobModel PublishJob(CompanyPublishJobModel jobApplication)

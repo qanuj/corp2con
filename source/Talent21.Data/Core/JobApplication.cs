@@ -11,5 +11,9 @@ namespace Talent21.Data.Core
         public int JobId { get; set; }
 
         public JobActionEnum Act { get; set; }
+
+        public bool IsRevoked { get; set; }
+
+        public System.DateTime Revoked { get; set; }
     }
 }

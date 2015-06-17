@@ -25,26 +25,31 @@ namespace e10.Shared.Data.Abstraction
 
         public virtual IQueryable<TEntity> All
         {
-            get { return Context.Set<TEntity>(); }
+            get { return Set; }
         }
 
-        protected void Attach<T>(T entity,EntityState state) where T : class
+        private DbSet<TEntity> Set
         {
-            Context.Set<T>().Attach(entity);
+            get { return Context.Set<TEntity>(); } 
+        }
+
+        protected void Attach(TEntity entity, EntityState state)
+        {
+            Set.Attach(entity);
             Context.Entry(entity).State = state;
         }
 
 
-        protected int UpdateEntity<T>(T entity) where T : class
+        protected int UpdateEntity(TEntity entity)
         {
-            Context.Set<T>().Attach(entity);
+            Set.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
             return Context.SaveChanges();
         }
 
-        protected int CreateEntity<T>(T entity) where T : class
+        protected int CreateEntity(TEntity entity)
         {
-            Context.Set<T>().Attach(entity);
+            Set.Attach(entity);
             Context.Entry(entity).State = EntityState.Added;
             return Context.SaveChanges();
         }
@@ -70,7 +75,7 @@ namespace e10.Shared.Data.Abstraction
         }
 
         public virtual TEntity ById(int id) {
-            var entity = Context.Set<TEntity>().Find(id);
+            var entity = Set.Find(id);
             if(entity is ISoftDelete) if((entity as ISoftDelete).IsDeleted) return null;
             return entity;
         }
@@ -84,7 +89,7 @@ namespace e10.Shared.Data.Abstraction
 
         public virtual void Delete(TEntity entity) {
             Guard.ArgumentNotNull(entity, "Delete Entity");
-            Context.Set<TEntity>().Attach(entity);
+            Attach(entity);
             if (entity is ISoftDelete){
                 SoftDelete(entity as ISoftDelete);
             }else{
@@ -94,7 +99,7 @@ namespace e10.Shared.Data.Abstraction
 
         public virtual void Update(TEntity entity) {
             Guard.ArgumentNotNull(entity, "Update Entity");
-            Context.Set<TEntity>().Attach(entity);
+            Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
             if(entity is IState)
             {
@@ -102,21 +107,22 @@ namespace e10.Shared.Data.Abstraction
             }
         }
 
-        protected void AttachDetachedCollection<T>(ICollection<T> entities) where T : class {
-            foreach(T entity in entities) {
-                Context.Set<T>().Attach(entity);
+        protected void AttachDetachedCollection(ICollection<TEntity> entities)
+        {
+            foreach(var entity in entities)
+            {
+                Attach(entity);
                 Context.Entry(entity).State = EntityState.Unchanged;
             }
         }
 
         public void Attach(TEntity entity) {
-            Context.Set<TEntity>().Attach(entity);
+            Set.Attach(entity);
         }
 
         internal void Attach(ICollection<TEntity> entities)
         {
-            throw new NotImplementedException();
-            // Context.Set<TEntity>().Attach(entities);
+            AttachDetachedCollection(entities);
         }
 
         internal delegate void EntityEvent(TEntity entity);
@@ -130,7 +136,10 @@ namespace e10.Shared.Data.Abstraction
         }
 
         public virtual void Delete(ICollection<TEntity> entities) {
-            throw new NotImplementedException();
+            foreach(var entity in entities)
+            {
+                Delete(entity);
+            }
         }
 
         public int SaveChanges()

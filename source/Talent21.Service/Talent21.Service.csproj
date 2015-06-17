@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CompanyVisitJobModel.cs" />
     <Compile Include="Models\Core\LocationCreateViewModel.cs" />
     <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
     <Compile Include="Models\JobApplictionCreateViewModel.cs" />
@@ -48,14 +49,14 @@
     <Compile Include="Models\CandidateCreateViewModel.cs" />
     <Compile Include="Models\CandidateViewModel.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
-    <Compile Include="Models\SystemAddIndustryModel.cs" />
-    <Compile Include="Models\SystemAddSkillModel.cs" />
-    <Compile Include="Models\SystemDeleteIndustryModel.cs" />
-    <Compile Include="Models\SystemDeleteSkillModel.cs" />
-    <Compile Include="Models\SystemEditIndustryModel.cs" />
-    <Compile Include="Models\SystemEditSkillModel.cs" />
-    <Compile Include="Models\SystemViewIndustryModel.cs" />
-    <Compile Include="Models\SystemViewSkillModel.cs" />
+    <Compile Include="Models\IndustryAddViewModel.cs" />
+    <Compile Include="Models\SkillAddViewModel.cs" />
+    <Compile Include="Models\IndustryDeleteViewModel.cs" />
+    <Compile Include="Models\SkillDeleteViewModel.cs" />
+    <Compile Include="Models\IndustryEditViewModel.cs" />
+    <Compile Include="Models\SkillEditViewModel.cs" />
+    <Compile Include="Models\IndustryViewModel.cs" />
+    <Compile Include="Models\SkillViewModel.cs" />
     <Compile Include="Models\CandidateRejectModel.cs" />
     <Compile Include="Models\CandidateRevokeJobModel.cs" />
     <Compile Include="Models\CompanyApproveModel.cs" />
@@ -66,7 +67,7 @@
     <Compile Include="Models\CompanyPublishJobModel.cs" />
     <Compile Include="Models\CompanyUpdateJobModel.cs" />
     <Compile Include="Models\CandidateAddScheduleModel.cs" />
-    <Compile Include="Models\CandidateDeleteScheduleModel.cs" />
+    <Compile Include="Models\DeleteScheduleViewModel.cs" />
     <Compile Include="Models\CandidateUpdateScheduleModel.cs" />
     <Compile Include="Models\CandidateViewScheduleModel.cs" />
     <Compile Include="Models\CompanyAddProfileViewModel.cs" />

@@ -14,6 +14,7 @@ namespace Talent21.Service.Abstraction
         CompanyCancelJobModel CancelJob(CompanyCancelJobModel jobApplication);
         CompanyDeleteJobModel DeleteJob(CompanyDeleteJobModel jobApplication);
         CompanyPublishJobModel PublishJob(CompanyPublishJobModel jobApplication);
+      //  CompanyVisitJobModel CompanyVisit(CompanyVisitJobModel jobApplication);
         //CompanyVisit
     }
 }

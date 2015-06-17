@@ -19,6 +19,12 @@ namespace Talent21.Service.Models
        public string Experience{get;set;}
 
     }
+
+    public class CancelJobViewModel
+    {
+
+        public int JobId { get; set; }
+    }
 }
 
 
