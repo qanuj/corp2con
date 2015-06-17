@@ -1,4 +1,5 @@
-﻿using Talent21.Data.Core;
+﻿using System;
+using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
@@ -40,9 +41,21 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public CompanyProfileAddModel AddProfile(CompanyProfileAddModel profile)
+        public CompanyProfileAddModel AddProfile(CompanyProfileAddModel model)
         {
-            throw new System.NotImplementedException();
+            var company = new Company
+            {
+                CompanyId = model.CompanyId,
+                CompanyName = model.CompanyName
+            };
+
+            _companyRepository.Create(company);
+            _companyRepository.SaveChanges();
+            return new CompanyProfileAddModel
+            {
+                CompanyId = company.CompanyId,
+                CompanyName = company.CompanyName
+            };
         }
 
         public CandidateRejectModel RejectCandidate(CandidateRejectModel jobApplication)
@@ -62,8 +75,7 @@ namespace Talent21.Service.Core
             _companyRepository.SaveChanges();
             return new CompanyCreateJobModel
             {
-                CompanyId = job.CompanyId,
-                
+                CompanyId = job.CompanyId,           
                 
             };
 

@@ -13,10 +13,5 @@ namespace Talent21.Service.Models
         [Required]
         public string CompanyName { get; set; }
 
-        public string Location { get; set; }
-
-        public DateTime SartUpDate { get; set; }
-
-        public int RegistrationId { get; set; }
     }
 }
