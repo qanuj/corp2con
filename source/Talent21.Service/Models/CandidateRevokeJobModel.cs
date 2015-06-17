@@ -7,12 +7,9 @@ using System.Runtime.CompilerServices;
 
 namespace Talent21.Service.Models
 {
-    public class CandidateRevokeJobModel
+    public class RevokeJobApplicationViewModel
     {
         [Required]
-        public int CandidateId { get; set; }
-
-        [Required]
-        public int JobId { get; set; }
+        public int JobApplicationId { get; set; }
     }
 }

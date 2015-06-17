@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Talent21.Service.Models
 {
-    public class CandidateAddScheduleModel
+    public class CreateScheduleViewModel
     {
         /// <summary>
         /// 
