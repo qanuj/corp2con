@@ -9,10 +9,11 @@ namespace Talent21.Service.Core
     {
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IJobRepository _jobRepository;
+        private readonly ICandidateRepository _candidateRepository;
 
 
         public JobService(IJobApplicationRepository jobApplicationRepository,
-            IJobRepository jobRepository)
+            IJobRepository jobRepository, ICandidateRepository _candidateRepository)
         {
             _jobApplicationRepository = jobApplicationRepository;
             _jobRepository = jobRepository;
@@ -23,20 +24,42 @@ namespace Talent21.Service.Core
             throw new System.NotImplementedException();
         }
 
-      
-        public CandidateJobViewModel ApplyToJob(CandidateJobViewModel job)
+
+        public CandidateJobViewModel ApplyToJob(CandidateJobViewModel model)
         {
             throw new System.NotImplementedException();
+            //var entity = new Entity
+            //{
+            //    Act = JobActionEnum.Application,
+            //    CandidateId = model.CandidateId,
+            //    JobId = model.JobId,
+            //};
+            //_jobRepository.Create(entity);
+            //_candidateRepository.SaveChanges();
+            //return new CandidateJobViewModel
+            //{
+            //    CandidateId = entity.CandidateId,
+            //    JobId = entity.JobId
+            //};
         }
 
-        public CandidateAddJobViewModel CancelJob(CandidateAddJobViewModel job)
+        public CandidateAddJobViewModel CancelJob(CandidateAddJobViewModel model)
         {
             throw new System.NotImplementedException();
+            //var entity = _jobRepository.ById(model.CompanyId);
+            //_jobRepository.Cancel(entity);
+            //return model;
         }
 
-        public CandidateRevokeJobModel RevokeJob(CandidateRevokeJobModel job)
+        public CandidateRevokeJobModel RevokeJob(CandidateRevokeJobModel model)
         {
             throw new System.NotImplementedException();
+            //var entity = _jobRepository.ById(model.JobId);
+            //_jobRepository.Revoke(entity);
+            //return model;
         }
+
+
+       
     }
 }

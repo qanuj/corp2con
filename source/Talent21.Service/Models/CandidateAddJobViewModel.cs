@@ -11,6 +11,9 @@ namespace Talent21.Service.Models
    public class CandidateAddJobViewModel
     {
        [Required]
+       public int CompanyId { get; set; }
+
+       [Required]
        public string Name{get; set;}
 
        public string Experience{get;set;}
