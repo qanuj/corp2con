@@ -4,16 +4,16 @@ namespace Talent21.Service.Abstraction
 {
     public interface ICandidateService : IService
     {
-        JobApplictionViewModel CreateCandidateAndApplyToJob(CreateCandidateAndApplyToJobViewModel model);
-        CandidateProfileViewModel UpdateProfile(CandidateProfileViewModel profile);
-        CandidateViewModel CreateCandidate(CandidateCreateViewModel profile);
+        JobApplicationViewModel CreateCandidateAndApplyToJob(CreateCandidateAndApplyToJobViewModel model);
+        UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile);
+        CreateCandidateViewModel CreateCandidate(CreateCandidateViewModel profile);
         //ScheduleViewModel AddSchedule(ScheduleCreateViewModel schedule);
-        ScheduleCreateViewModel CreateSchedule(ScheduleCreateViewModel schedule);
-        bool DeleteProfile(CandidateDeleteProfileModel profile);
-        CreateScheduleViewModel AddSchedule(CreateScheduleViewModel schedule);
-        CandidateUpdateScheduleModel UpdateSchedule(CandidateUpdateScheduleModel schedule);
+        CreateScheduleViewModel CreateSchedule(CreateScheduleViewModel schedule);
+        bool DeleteProfile(DeleteProfileViewModel profile);
+        AddScheduleViewModel AddSchedule(AddScheduleViewModel schedule);
+        UpdateScheduleViewModel UpdateSchedule(UpdateScheduleViewModel schedule);
         DeleteScheduleViewModel DeleteSchedule(DeleteScheduleViewModel schedule);
-        CandidateViewScheduleModel ViewSchedule(CandidateViewScheduleModel schedule);
+        ScheduleViewModel ViewSchedule(ScheduleViewModel schedule);
         //CandidateJob
     }
 }

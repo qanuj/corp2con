@@ -5,14 +5,14 @@ namespace Talent21.Service.Abstraction
 {
     public interface ISystemService : IService
     {
-        IndustryAddViewModel AddIndustry(IndustryAddViewModel model);
-        IndustryEditViewModel EditIndustry(IndustryEditViewModel model);
-        IndustryDeleteViewModel DeleteIndustry(IndustryDeleteViewModel model);
+        AddIndustryViewModel AddIndustry(AddIndustryViewModel model);
+        EditIndustryViewModel EditIndustry(EditIndustryViewModel model);
+        DeleteIndustryViewModel DeleteIndustry(DeleteIndustryViewModel model);
         IndustryViewModel ViewIndustry(IndustryViewModel model);
 
-        SkillAddViewModel AddSkill(SkillAddViewModel model);
-        SkillEditViewModel EditSkill(SkillEditViewModel model);
-        SkillDeleteViewModel DeleteSkill(SkillDeleteViewModel model);
+        AddSkillViewModel AddSkill(AddSkillViewModel model);
+        EditSkillViewModel EditSkill(EditSkillViewModel model);
+        DeleteSkillViewModel DeleteSkill(DeleteSkillViewModel model);
         SkillViewModel ViewSkill(SkillViewModel model);
 
         LocationViewModel AddLocation(LocationCreateViewModel model);

@@ -18,15 +18,25 @@ namespace Talent21.Service.Core
         {
             _jobApplicationRepository = jobApplicationRepository;
             _jobRepository = jobRepository;
+            _candidateRepository = candidateRepository;
         }
        
         public int SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return _jobApplicationRepository.SaveChanges();
         }
 
+        public JobApplictionViewModel ApplyToJob(JobApplictionViewModel model)
+        {
+            var entity = new JobApplication
+            {
+                Act = JobActionEnum.Application,
+                Id = model.Id,
 
-        public CandidateJobViewModel ApplyToJob(CandidateJobViewModel model)
+            };
+            _jobApplicationRepository.Create(entity);
+            _jobApplicationRepository.SaveChanges();
+            return new JobApplictionViewModel
         {
             throw new System.NotImplementedException();
             //var entity = new Entity
@@ -44,14 +54,14 @@ namespace Talent21.Service.Core
             //};
         }
 
-        public bool CancelJob(CancelJobViewModel model)
+        public bool CancelJob(CancelJobApplicationViewModel model)
         {
             var entity = _jobRepository.ById(model.JobId);
             entity.IsCancelled = true;
             entity.Cancelled = DateTime.UtcNow;
             _jobRepository.Update(entity);
-            var rowAffected=_jobRepository.SaveChanges();
-            return rowAffected>0;
+            var rowAffected = _jobRepository.SaveChanges();
+            return rowAffected > 0;
         }
 
         public bool RevokeJobApplication(RevokeJobApplicationViewModel model)
@@ -63,5 +73,7 @@ namespace Talent21.Service.Core
             var rowAffected = _jobRepository.SaveChanges();
             return rowAffected > 0;
         }
+
+        public ICandidateRepository candidateRepository { get; set; }
     }
 }

@@ -6,16 +6,15 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class CompanyApproveModel
+    public class CancelJobApplicationViewModel
     {
         [Required]
         public int CompanyId { get; set; }
 
-        [Required]
-        public string CompanyName { get; set; }
+        public string CompayName { get; set; }
 
-        [Required]
-        public int CandidateId { get; set; }        
+        public string Experience { get; set; }
 
+        public int JobId { get; set; }
     }
 }
