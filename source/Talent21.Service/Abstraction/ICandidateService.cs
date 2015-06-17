@@ -10,9 +10,9 @@ namespace Talent21.Service.Abstraction
         //ScheduleViewModel AddSchedule(ScheduleCreateViewModel schedule);
         ScheduleCreateViewModel CreateSchedule(ScheduleCreateViewModel schedule);
         bool DeleteProfile(CandidateDeleteProfileModel profile);
-        CandidateAddScheduleModel AddSchedule(CandidateAddScheduleModel schedule);
+        CreateScheduleViewModel AddSchedule(CreateScheduleViewModel schedule);
         CandidateUpdateScheduleModel UpdateSchedule(CandidateUpdateScheduleModel schedule);
-        CandidateDeleteScheduleModel DeleteSchedule(CandidateDeleteScheduleModel schedule);
+        DeleteScheduleViewModel DeleteSchedule(DeleteScheduleViewModel schedule);
         CandidateViewScheduleModel ViewSchedule(CandidateViewScheduleModel schedule);
         //CandidateJob
     }

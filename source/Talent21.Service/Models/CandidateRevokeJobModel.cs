@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class CandidateRevokeJobModel
+    public class RevokeJobApplicationViewModel
     {
-        public int JobId { get; set; }
-
-        public bool RevokeStatus { get; set; }
-
-        public string RevokeReason { get; set; }
+        [Required]
+        public int JobApplicationId { get; set; }
     }
 }

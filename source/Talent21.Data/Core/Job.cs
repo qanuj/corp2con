@@ -22,5 +22,9 @@ namespace Talent21.Data.Core
 
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+
+        public bool IsCancelled { get; set; }
+
+        public DateTime Cancelled { get; set; }
     }
 }

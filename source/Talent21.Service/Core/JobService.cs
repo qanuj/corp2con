@@ -1,4 +1,5 @@
-﻿using Talent21.Data.Core;
+﻿using System;
+using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
@@ -43,23 +44,24 @@ namespace Talent21.Service.Core
             //};
         }
 
-        public CandidateAddJobViewModel CancelJob(CandidateAddJobViewModel model)
+        public bool CancelJob(CancelJobViewModel model)
         {
-            throw new System.NotImplementedException();
-            //var entity = _jobRepository.ById(model.CompanyId);
-            //_jobRepository.Cancel(entity);
-            //return model;
+            var entity = _jobRepository.ById(model.JobId);
+            entity.IsCancelled = true;
+            entity.Cancelled = DateTime.UtcNow;
+            _jobRepository.Update(entity);
+            var rowAffected=_jobRepository.SaveChanges();
+            return rowAffected>0;
         }
 
-        public CandidateRevokeJobModel RevokeJob(CandidateRevokeJobModel model)
+        public bool RevokeJobApplication(RevokeJobApplicationViewModel model)
         {
-            throw new System.NotImplementedException();
-            //var entity = _jobRepository.ById(model.JobId);
-            //_jobRepository.Revoke(entity);
-            //return model;
+            var entity = _jobApplicationRepository.ById(model.JobApplicationId);
+            entity.IsRevoked = true;
+            entity.Revoked = DateTime.UtcNow;
+            _jobApplicationRepository.Update(entity);
+            var rowAffected = _jobRepository.SaveChanges();
+            return rowAffected > 0;
         }
-
-
-       
     }
 }

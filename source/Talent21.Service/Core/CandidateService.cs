@@ -72,7 +72,7 @@ namespace Talent21.Service.Core
             return profile;
         }
 
-        public CandidateAddScheduleModel AddSchedule(CandidateAddScheduleModel model)
+        public CreateScheduleViewModel AddSchedule(CreateScheduleViewModel model)
         {
 
             var schedule = new Schedule
@@ -83,7 +83,7 @@ namespace Talent21.Service.Core
             };
             _scheduleRepository.Create(schedule);
             _scheduleRepository.SaveChanges();
-            return new CandidateAddScheduleModel
+            return new CreateScheduleViewModel
             {
                 CandidateId = schedule.CandidateId,
                 Start = schedule.Start,
@@ -99,7 +99,7 @@ namespace Talent21.Service.Core
             _scheduleRepository.Create(entity);
             _scheduleRepository.SaveChanges();
             return new ScheduleCreateViewModel
-        {
+            {
                 Id = entity.Id,
                 CandidateId = entity.CandidateId,
             };
@@ -123,7 +123,8 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public CandidateDeleteScheduleModel DeleteSchedule(CandidateDeleteScheduleModel model)
+
+        public DeleteScheduleViewModel DeleteSchedule(DeleteScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.CandidateId);
             _scheduleRepository.Delete(entity);

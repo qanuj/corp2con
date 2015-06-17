@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class CandidateDeleteScheduleModel
+    public class DeleteScheduleViewModel
     {
         /// <summary>
         /// 
