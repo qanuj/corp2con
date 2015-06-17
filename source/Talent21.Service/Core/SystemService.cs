@@ -41,9 +41,9 @@ namespace Talent21.Service.Core
             };
         }
 
-        private void Create(Industry industry)
+        private void Create(Industry model)
         {
- 	        throw new System.NotImplementedException();
+            
         }
 
         public IndustryEditViewModel EditIndustry(IndustryEditViewModel model)
@@ -81,10 +81,13 @@ namespace Talent21.Service.Core
                 Skill = model.Skill
             };
         }
-
+        
         public SkillEditViewModel EditSkill(SkillEditViewModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _skillRepository.ById(model.CandidateId);
+            _skillRepository.Update(entity);
+            _skillRepository.SaveChanges();
+            return model;
         }
 
         public SkillDeleteViewModel DeleteSkill(SkillDeleteViewModel model)
