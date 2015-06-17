@@ -71,11 +71,27 @@ namespace Talent21.Service.Core
             _candidateRepository.SaveChanges();
             return profile;
         }
+
         public CandidateAddScheduleModel AddSchedule(CandidateAddScheduleModel model)
         {
-            throw new System.NotImplementedException();
-        }
 
+            var schedule = new Schedule
+            {
+                Start = model.Start,
+                End = model.End
+
+            };
+            _scheduleRepository.Create(schedule);
+            _scheduleRepository.SaveChanges();
+            return new CandidateAddScheduleModel
+            {
+                CandidateId = schedule.CandidateId,
+                Start = schedule.Start,
+                End = schedule.End
+            };
+
+
+        }
 
         public ScheduleCreateViewModel CreateSchedule(ScheduleCreateViewModel model)
         {
@@ -83,7 +99,7 @@ namespace Talent21.Service.Core
             _scheduleRepository.Create(entity);
             _scheduleRepository.SaveChanges();
             return new ScheduleCreateViewModel
-            {
+        {
                 Id = entity.Id,
                 CandidateId = entity.CandidateId,
             };
@@ -114,10 +130,24 @@ namespace Talent21.Service.Core
             return model;
         }
 
-      
         public CandidateViewScheduleModel ViewSchedule(CandidateViewScheduleModel model)
         {
             throw new System.NotImplementedException();
+            //var entity = _scheduleRepository.ById(model.Id);
+            //entity.Candidate = model.Name;
+            //if(entity== null)
+            //{
+
+            //}
+            //int employeeCode = Convert.ToInt16(context.Request["id"]);
+
+            //emp = dal.GetEmployee(employeeCode);
+            //if (emp == null)
+            //    context.Response.Write(employeeCode + "No Employee Found");
+
+            //string serializedEmployee = Serialize(emp);
+            //context.Response.ContentType = "text/xml";
+            //WriteResponse(serializedEmployee);
         }
 
 
