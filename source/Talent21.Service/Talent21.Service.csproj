@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Talent21.Service.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,20 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CompanyVisitJobModel.cs" />
+    <Compile Include="Models\Core\LocationCreateViewModel.cs" />
     <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
     <Compile Include="Models\JobApplictionCreateViewModel.cs" />
     <Compile Include="Models\JobApplictionViewModel.cs" />
     <Compile Include="Models\CandidateCreateViewModel.cs" />
     <Compile Include="Models\CandidateViewModel.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
-    <Compile Include="Models\SystemAddIndustryModel.cs" />
-    <Compile Include="Models\SystemAddSkillModel.cs" />
-    <Compile Include="Models\SystemDeleteIndustryModel.cs" />
-    <Compile Include="Models\SystemDeleteSkillModel.cs" />
-    <Compile Include="Models\SystemEditIndustryModel.cs" />
-    <Compile Include="Models\SystemEditSkillModel.cs" />
-    <Compile Include="Models\SystemViewIndustryModel.cs" />
-    <Compile Include="Models\SystemViewSkillModel.cs" />
+    <Compile Include="Models\IndustryAddViewModel.cs" />
+    <Compile Include="Models\SkillAddViewModel.cs" />
+    <Compile Include="Models\IndustryDeleteViewModel.cs" />
+    <Compile Include="Models\SkillDeleteViewModel.cs" />
+    <Compile Include="Models\IndustryEditViewModel.cs" />
+    <Compile Include="Models\SkillEditViewModel.cs" />
+    <Compile Include="Models\IndustryViewModel.cs" />
+    <Compile Include="Models\SkillViewModel.cs" />
     <Compile Include="Models\CandidateRejectModel.cs" />
     <Compile Include="Models\CandidateRevokeJobModel.cs" />
     <Compile Include="Models\CompanyApproveModel.cs" />
@@ -96,7 +99,6 @@
       <Name>Talent21.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

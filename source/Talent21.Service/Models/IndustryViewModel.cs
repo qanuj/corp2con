@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class SystemViewIndustryModel
+    public class IndustryViewModel
     {
+        [Required]
+        public int IndustryId { get; set; }
     }
 }
