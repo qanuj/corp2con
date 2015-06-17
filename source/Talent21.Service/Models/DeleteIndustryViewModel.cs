@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class IndustryDeleteViewModel
+    public class DeleteIndustryViewModel
     {
         [Required]
         public int IndustryId { get; set; }

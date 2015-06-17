@@ -26,7 +26,7 @@ namespace Talent21.Service.Core
             return _industryRepository.SaveChanges();
         }
 
-        public IndustryAddViewModel AddIndustry(IndustryAddViewModel model)
+        public AddIndustryViewModel AddIndustry(AddIndustryViewModel model)
         {
             var industry = new Industry
 
@@ -35,7 +35,7 @@ namespace Talent21.Service.Core
             };
             _industryRepository.Create(industry);
             _industryRepository.SaveChanges();
-            return new IndustryAddViewModel
+            return new AddIndustryViewModel
             {
                 IndustryName = industry.IndustryName,
             };
@@ -46,7 +46,7 @@ namespace Talent21.Service.Core
             
         }
 
-        public IndustryEditViewModel EditIndustry(IndustryEditViewModel model)
+        public EditIndustryViewModel EditIndustry(EditIndustryViewModel model)
         {
             var industry = _industryRepository.ById(model.Id);
             industry.Title = model.Title;
@@ -55,7 +55,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public IndustryDeleteViewModel DeleteIndustry(IndustryDeleteViewModel model)
+        public DeleteIndustryViewModel DeleteIndustry(DeleteIndustryViewModel model)
         {
             var entity = _industryRepository.ById(model.IndustryId);
             _industryRepository.Delete(entity);
@@ -67,7 +67,7 @@ namespace Talent21.Service.Core
             throw new System.NotImplementedException();
         }
 
-        public SkillAddViewModel AddSkill(SkillAddViewModel model)
+        public AddSkillViewModel AddSkill(AddSkillViewModel model)
         {
             var Skill = new Skill
             {
@@ -75,14 +75,14 @@ namespace Talent21.Service.Core
             };
             _skillRepository.Create(Skill);
             _skillRepository.SaveChanges();
-            return new SkillAddViewModel
+            return new AddSkillViewModel
             {
                 CandidateId = model.CandidateId,
                 Skill = model.Skill
             };
         }
-        
-        public SkillEditViewModel EditSkill(SkillEditViewModel model)
+
+        public EditSkillViewModel EditSkill(EditSkillViewModel model)
         {
             var entity = _skillRepository.ById(model.CandidateId);
             _skillRepository.Update(entity);
@@ -90,7 +90,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public SkillDeleteViewModel DeleteSkill(SkillDeleteViewModel model)
+        public DeleteSkillViewModel DeleteSkill(DeleteSkillViewModel model)
         {
             var entity = _industryRepository.ById(model.CandidateId);
             _industryRepository.Delete(entity);
