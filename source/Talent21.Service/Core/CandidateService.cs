@@ -99,7 +99,7 @@ namespace Talent21.Service.Core
             _scheduleRepository.Create(entity);
             _scheduleRepository.SaveChanges();
             return new ScheduleCreateViewModel
-            {
+        {
                 Id = entity.Id,
                 CandidateId = entity.CandidateId,
             };
@@ -122,7 +122,6 @@ namespace Talent21.Service.Core
             _scheduleRepository.SaveChanges();
             return model;
         }
-
 
         public CandidateDeleteScheduleModel DeleteSchedule(CandidateDeleteScheduleModel model)
         {

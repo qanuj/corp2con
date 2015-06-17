@@ -6,12 +6,9 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class CompanyProfileViewModel
+    public class SkillDeleteViewModel
     {
         [Required]
-        public int CompanyId { get; set; }
-        [Required]
-        public string CompanyName { get; set; }
-
+        public int CandidateId { get; set; }
     }
 }
