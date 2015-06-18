@@ -14,12 +14,12 @@ namespace Talent21.Service.Core
             _companyRepository = companyRepository;
         }
 
-        public CompanyViewModel CreateCompany(string name)
+        public CreateCompanyViewModel CreateCompany(string name)
         {
             var company = new Company() {Name = name};
             _companyRepository.Create(company);
             SaveChanges();
-            return new CompanyViewModel
+            return new CreateCompanyViewModel
             {
                 Name = company.Name,
                 Id = company.Id
@@ -32,7 +32,7 @@ namespace Talent21.Service.Core
         }
 
 
-        public CompanyProfileViewModel UpdateProfile(CompanyProfileViewModel model)
+        public AddProfileViewModel UpdateProfile(AddProfileViewModel model)
         {
             var entity = _companyRepository.ById(model.CompanyId);
             entity.Name = model.CompanyName;
@@ -41,7 +41,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public CompanyProfileAddModel AddProfile(CompanyProfileAddModel model)
+        public AddProfileViewModel AddProfile(AddProfileViewModel model)
         {
             var company = new Company
             {
@@ -51,36 +51,36 @@ namespace Talent21.Service.Core
 
             _companyRepository.Create(company);
             _companyRepository.SaveChanges();
-            return new CompanyProfileAddModel
+            return new AddProfileViewModel
             {
                 CompanyId = company.CompanyId,
                 CompanyName = company.CompanyName
             };
         }
 
-        public CandidateRejectModel RejectCandidate(CandidateRejectModel jobApplication)
+        public RejectCandidateViewModel RejectCandidate(RejectCandidateViewModel jobApplication)
         {
             throw new System.NotImplementedException();
         }
 
-        public CompanyApproveModel ApproveCompany(CompanyApproveModel jobApplication)
+        public ApproveCompanyViewModel ApproveCompany(ApproveCompanyViewModel jobApplication)
         {
             throw new System.NotImplementedException();
         }
 
-        public CompanyCreateJobModel CreateJob(CompanyCreateJobModel model)
+        public CreateJobApplicationViewModel CreateJob(CreateJobApplicationViewModel model)
         {
             var job = new Job() { CompanyId = model.CompanyId };
            // _companyRepository.Create(job);
             _companyRepository.SaveChanges();
-            return new CompanyCreateJobModel
+            return new CreateJobApplicationViewModel
             {
                 CompanyId = job.CompanyId,           
                 
             };
 
         }
-        public CompanyUpdateJobModel UpdateJob(CompanyUpdateJobModel model)
+        public UpdateJobApplicationViewModel UpdateJob(UpdateJobApplicationViewModel model)
         {
             var entity = _companyRepository.ById(model.CompanyId);
             _companyRepository.Update(entity);
@@ -88,12 +88,12 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public CompanyCancelJobModel CancelJob(CompanyCancelJobModel jobApplication)
+        public CancelJobApplicationViewModel CancelJob(CancelJobApplicationViewModel jobApplication)
         {
             throw new System.NotImplementedException();
         }
 
-        public CompanyDeleteJobModel DeleteJob(CompanyDeleteJobModel jobApplication)
+        public DeleteJobApplicationViewModel DeleteJob(DeleteJobApplicationViewModel jobApplication)
         {
             var entity = _companyRepository.ById(jobApplication.CompanyId);
             _companyRepository.Delete(entity);
@@ -101,7 +101,7 @@ namespace Talent21.Service.Core
 
         }
 
-        public CompanyPublishJobModel PublishJob(CompanyPublishJobModel jobApplication)
+        public PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication)
         {
             throw new System.NotImplementedException();
         }

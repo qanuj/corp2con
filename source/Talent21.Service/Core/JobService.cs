@@ -22,29 +22,17 @@ namespace Talent21.Service.Core
        
         public int SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return _jobApplicationRepository.SaveChanges();
         }
 
 
-        public CandidateJobViewModel ApplyToJob(CandidateJobViewModel model)
+        public ApplyJobApplicationViewModel ApplyToJob(ApplyJobApplicationViewModel model)
         {
             throw new System.NotImplementedException();
-            //var entity = new Entity
-            //{
-            //    Act = JobActionEnum.Application,
-            //    CandidateId = model.CandidateId,
-            //    JobId = model.JobId,
-            //};
-            //_jobRepository.Create(entity);
-            //_candidateRepository.SaveChanges();
-            //return new CandidateJobViewModel
-            //{
-            //    CandidateId = entity.CandidateId,
-            //    JobId = entity.JobId
-            //};
+           
         }
 
-        public bool CancelJob(CancelJobViewModel model)
+        public bool CancelJob(CancelJobApplicationViewModel model)
         {
             var entity = _jobRepository.ById(model.JobId);
             entity.IsCancelled = true;
