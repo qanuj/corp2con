@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\VisitJobApplicationViewModel.cs" />
+    <Compile Include="Core\Entity.cs" />
+    <Compile Include="Models\CompanyVisitJobModel.cs" />
     <Compile Include="Models\Core\LocationCreateViewModel.cs" />
     <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
     <Compile Include="Models\ApplyJobApplicationViewModel.cs" />

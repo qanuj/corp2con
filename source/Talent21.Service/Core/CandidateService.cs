@@ -54,8 +54,8 @@ namespace Talent21.Service.Core
                 JobId = job.JobId,
             };
             _jobApplicationRepository.Create(jobApplication);
-            _candidateRepository.SaveChanges();
-            return new JobApplicationViewModel
+            _jobApplicationRepository.SaveChanges();
+            return new JobApplictionViewModel
             {
                 Id = jobApplication.Id,
                 Act = jobApplication.Act
@@ -134,7 +134,7 @@ namespace Talent21.Service.Core
         public ScheduleViewModel ViewSchedule(ScheduleViewModel model)
         {
             throw new System.NotImplementedException();
-           
+
         }
 
 

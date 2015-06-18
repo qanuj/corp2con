@@ -13,6 +13,8 @@ namespace Talent21.Service.Models
 
         public string CompayName { get; set; }
 
+        public string Experience { get; set; }
+
         public int JobId { get; set; }
     }
 }

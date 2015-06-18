@@ -9,5 +9,7 @@ namespace Talent21.Service.Models
 {
     public class EditSkillViewModel
     {
+        [Required]
+        public int CandidateId { get; set; }
     }
 }

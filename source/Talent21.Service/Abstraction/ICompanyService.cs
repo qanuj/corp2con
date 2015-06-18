@@ -4,16 +4,16 @@ namespace Talent21.Service.Abstraction
 {
     public interface ICompanyService : IService
     {
-        CreateCompanyViewModel CreateCompany(string name);
-        AddProfileViewModel UpdateProfile(AddProfileViewModel profile);
-        AddProfileViewModel AddProfile(AddProfileViewModel profile);
-        RejectCandidateViewModel RejectCandidate(RejectCandidateViewModel jobApplication);
-        ApproveCompanyViewModel ApproveCompany(ApproveCompanyViewModel jobApplication);
-        CreateJobApplicationViewModel CreateJob(CreateJobApplicationViewModel jobApplication);
-        UpdateJobApplicationViewModel UpdateJob(UpdateJobApplicationViewModel jobApplication);
-        CancelJobApplicationViewModel CancelJob(CancelJobApplicationViewModel jobApplication);
-        DeleteJobApplicationViewModel DeleteJob(DeleteJobApplicationViewModel jobApplication);
-        PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication);
+        CompanyViewModel CreateCompany(string name);
+        CompanyProfileViewModel UpdateProfile(CompanyProfileViewModel profile);
+        CompanyProfileAddModel AddProfile(CompanyProfileAddModel profile);
+        bool RejectCandidate(CandidateRejectModel jobApplication);
+        bool ApproveCompany(CompanyApproveModel jobApplication);
+        CompanyCreateJobModel CreateJob(CompanyCreateJobModel jobApplication);
+        CompanyUpdateJobModel UpdateJob(CompanyUpdateJobModel jobApplication);
+        bool CancelJob(CompanyCancelJobModel jobApplication);
+        CompanyDeleteJobModel DeleteJob(CompanyDeleteJobModel jobApplication);
+        CompanyPublishJobModel PublishJob(CompanyPublishJobModel jobApplication);
       //  CompanyVisitJobModel CompanyVisit(CompanyVisitJobModel jobApplication);
         //CompanyVisit
     }

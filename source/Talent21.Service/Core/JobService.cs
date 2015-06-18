@@ -18,6 +18,7 @@ namespace Talent21.Service.Core
         {
             _jobApplicationRepository = jobApplicationRepository;
             _jobRepository = jobRepository;
+            _candidateRepository = candidateRepository;
         }
        
         public int SaveChanges()
@@ -25,11 +26,32 @@ namespace Talent21.Service.Core
             return _jobApplicationRepository.SaveChanges();
         }
 
+        public JobApplictionViewModel ApplyToJob(JobApplictionViewModel model)
+        {
+            var entity = new JobApplication
+            {
+                Act = JobActionEnum.Application,
+                Id = model.Id,
 
-        public ApplyJobApplicationViewModel ApplyToJob(ApplyJobApplicationViewModel model)
+            };
+            _jobApplicationRepository.Create(entity);
+            _jobApplicationRepository.SaveChanges();
+            return new JobApplictionViewModel
         {
             throw new System.NotImplementedException();
-           
+            //var entity = new Entity
+            //{
+            //    Act = JobActionEnum.Application,
+            //    CandidateId = model.CandidateId,
+            //    JobId = model.JobId,
+            //};
+            //_jobRepository.Create(entity);
+            //_candidateRepository.SaveChanges();
+            //return new CandidateJobViewModel
+            //{
+            //    CandidateId = entity.CandidateId,
+            //    JobId = entity.JobId
+            //};
         }
 
         public bool CancelJob(CancelJobApplicationViewModel model)
@@ -38,8 +60,8 @@ namespace Talent21.Service.Core
             entity.IsCancelled = true;
             entity.Cancelled = DateTime.UtcNow;
             _jobRepository.Update(entity);
-            var rowAffected=_jobRepository.SaveChanges();
-            return rowAffected>0;
+            var rowAffected = _jobRepository.SaveChanges();
+            return rowAffected > 0;
         }
 
         public bool RevokeJobApplication(RevokeJobApplicationViewModel model)
@@ -51,5 +73,7 @@ namespace Talent21.Service.Core
             var rowAffected = _jobRepository.SaveChanges();
             return rowAffected > 0;
         }
+
+        public ICandidateRepository candidateRepository { get; set; }
     }
 }

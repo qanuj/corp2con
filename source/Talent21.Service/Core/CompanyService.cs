@@ -9,9 +9,13 @@ namespace Talent21.Service.Core
     public class CompanyService : ICompanyService
     {
         private readonly ICompanyRepository _companyRepository;
-        public CompanyService(ICompanyRepository companyRepository)
+        private readonly IJobRepository _jobRepository;
+        private readonly ICandidateRepository _candidateRepository;
+        public CompanyService(ICompanyRepository companyRepository, IJobRepository jobRepository, ICandidateRepository candidateRepository)
         {
             _companyRepository = companyRepository;
+            _jobRepository = jobRepository;
+            _candidateRepository = candidateRepository;
         }
 
         public CreateCompanyViewModel CreateCompany(string name)
@@ -58,14 +62,24 @@ namespace Talent21.Service.Core
             };
         }
 
-        public RejectCandidateViewModel RejectCandidate(RejectCandidateViewModel jobApplication)
+        public bool RejectCandidate(CandidateRejectModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _candidateRepository.ById(model.CandidateId);
+            entity.IsRejected = true;
+            entity.Cancelled = DateTime.UtcNow;
+            _candidateRepository.Update(entity);
+            var rowAffected = _candidateRepository.SaveChanges();
+            return rowAffected > 0;
         }
 
-        public ApproveCompanyViewModel ApproveCompany(ApproveCompanyViewModel jobApplication)
+        public bool ApproveCompany(CompanyApproveModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _companyRepository.ById(model.CandidateId);
+            entity.IsApproved = true;
+            entity.Cancelled = DateTime.UtcNow;
+            _companyRepository.Update(entity);
+            var rowAffected = _companyRepository.SaveChanges();
+            return rowAffected > 0;
         }
 
         public CreateJobApplicationViewModel CreateJob(CreateJobApplicationViewModel model)
@@ -88,9 +102,14 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public CancelJobApplicationViewModel CancelJob(CancelJobApplicationViewModel jobApplication)
+        public bool CancelJob(CompanyCancelJobModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _jobRepository.ById(model.JobId);
+            entity.IsCancelled = true;
+            entity.Cancelled = DateTime.UtcNow;
+            _jobRepository.Update(entity);
+            var rowAffected = _jobRepository.SaveChanges();
+            return rowAffected > 0;
         }
 
         public DeleteJobApplicationViewModel DeleteJob(DeleteJobApplicationViewModel jobApplication)

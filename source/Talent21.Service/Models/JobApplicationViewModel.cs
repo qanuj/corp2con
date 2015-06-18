@@ -1,7 +1,10 @@
-﻿namespace Talent21.Service.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace Talent21.Service.Models
+
 {
     public class JobApplicationViewModel
     {
+        [Required]
         public int Id { get; set; }
 
         public Data.Core.JobActionEnum Act { get; set; }
