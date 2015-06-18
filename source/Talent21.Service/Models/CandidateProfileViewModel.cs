@@ -21,4 +21,13 @@ namespace Talent21.Service.Models
         public string ProfileUrl { get; set; }
        
     }
+
+
+    public class CandidatePublicProfileViewModel
+    {
+
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+    }
 }

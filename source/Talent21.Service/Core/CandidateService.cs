@@ -1,4 +1,5 @@
-﻿using Talent21.Data.Core;
+﻿using System.Linq;
+using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
@@ -151,6 +152,38 @@ namespace Talent21.Service.Core
             //WriteResponse(serializedEmployee);
         }
 
+        public CandidatePublicProfileViewModel GetProfile(int id)
+        {
+            var candidate=_candidateRepository.ById(id);
+            if (candidate == null) return null;
+            return new CandidatePublicProfileViewModel()
+            {
+                Id = candidate.Id,
+                Name = candidate.Name
+            };
+        }
 
+
+        public IQueryable<CandidatePublicProfileViewModel> GetProfileQuery()
+        {
+            var query = from row in _candidateRepository.All
+                select new CandidatePublicProfileViewModel
+                {
+                    Id = row.Id,
+                    Name = row.Name
+                };
+            return query;
+        }
+
+
+        public ScheduleViewModel GetSchedule(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IQueryable<ScheduleViewModel> GetSchedules()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
