@@ -26,7 +26,7 @@ namespace Talent21.Service.Core
             return _jobApplicationRepository.SaveChanges();
         }
 
-        public JobApplictionViewModel ApplyToJob(JobApplictionViewModel model)
+        public JobApplicationViewModel ApplyToJob(JobApplicationViewModel model)
         {
             var entity = new JobApplication
             {
@@ -36,24 +36,13 @@ namespace Talent21.Service.Core
             };
             _jobApplicationRepository.Create(entity);
             _jobApplicationRepository.SaveChanges();
-            return new JobApplictionViewModel
-        {
-            throw new System.NotImplementedException();
-            //var entity = new Entity
-            //{
-            //    Act = JobActionEnum.Application,
-            //    CandidateId = model.CandidateId,
-            //    JobId = model.JobId,
-            //};
-            //_jobRepository.Create(entity);
-            //_candidateRepository.SaveChanges();
-            //return new CandidateJobViewModel
-            //{
-            //    CandidateId = entity.CandidateId,
-            //    JobId = entity.JobId
-            //};
-        }
 
+            return new JobApplicationViewModel
+            {
+                Id = entity.Id,
+                Act = entity.Act
+            };
+        }
         public bool CancelJob(CancelJobApplicationViewModel model)
         {
             var entity = _jobRepository.ById(model.JobId);
@@ -73,7 +62,26 @@ namespace Talent21.Service.Core
             var rowAffected = _jobRepository.SaveChanges();
             return rowAffected > 0;
         }
-
         public ICandidateRepository candidateRepository { get; set; }
+
+        JobApplicationViewModel IJobService.ApplyToJob(JobApplicationViewModel job)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IJobService.CancelJob(CancelJobApplicationViewModel jobApplication)
+        {
+            throw new NotImplementedException();
+        }
+
+        ApplyJobApplicationViewModel IJobService.ApplyToJob(ApplyJobApplicationViewModel job)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IJobService.RevokeJobApplication(RevokeJobApplicationViewModel job)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

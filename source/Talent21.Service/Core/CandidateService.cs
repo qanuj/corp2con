@@ -55,7 +55,7 @@ namespace Talent21.Service.Core
             };
             _jobApplicationRepository.Create(jobApplication);
             _jobApplicationRepository.SaveChanges();
-            return new JobApplictionViewModel
+            return new JobApplicationViewModel
             {
                 Id = jobApplication.Id,
                 Act = jobApplication.Act
