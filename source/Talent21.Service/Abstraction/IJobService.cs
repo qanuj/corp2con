@@ -4,8 +4,9 @@ namespace Talent21.Service.Abstraction
 {
     public interface IJobService : IService
     {
-        CandidateJobViewModel ApplyToJob(CandidateJobViewModel job);
-        bool CancelJob(CancelJobViewModel model);
+        JobApplicationViewModel ApplyToJob(JobApplicationViewModel job);
+        bool CancelJob(CancelJobApplicationViewModel jobApplication);
+        ApplyJobApplicationViewModel ApplyToJob(ApplyJobApplicationViewModel job);
         bool RevokeJobApplication(RevokeJobApplicationViewModel job); 
         //JobVisit
 

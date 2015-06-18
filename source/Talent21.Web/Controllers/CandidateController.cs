@@ -47,7 +47,7 @@ namespace Talent21.Web.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut]
-        public HttpResponseMessage UpdateProfile(CandidateProfileViewModel model)
+        public HttpResponseMessage UpdateProfile(UpdateProfileViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace Talent21.Web.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpDelete]
-        public HttpResponseMessage DeleteProfile(CandidateDeleteProfileModel model)
+        public HttpResponseMessage DeleteProfile(DeleteProfileViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace Talent21.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("schedule")]
-        public HttpResponseMessage AddSchedule(CreateScheduleViewModel model)
+        public HttpResponseMessage AddSchedule(AddScheduleViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -131,7 +131,7 @@ namespace Talent21.Web.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("schedule")]
-        public HttpResponseMessage UpdateSchedule(CandidateUpdateScheduleModel model)
+        public HttpResponseMessage UpdateSchedule(UpdateScheduleViewModel model)
         {
             if(ModelState.IsValid)
             {

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
-    public class CandidateProfileViewModel
+    public class UpdateProfileViewModel
     {
         [Required]
         public int Id { get; set; }
