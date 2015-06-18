@@ -9,7 +9,7 @@ using Talent21.Service.Core;
 namespace Talent21.Web.Controllers
 {
     [Authorize]
-    [Route("~/api/v1/company")]
+    [RoutePrefix("~/api/v1/company")]
     public class CompanyController : ApiController
     {
         private readonly ICompanyService _service;
