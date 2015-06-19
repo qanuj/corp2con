@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Talent21.Service.Abstraction
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IService
     {
         

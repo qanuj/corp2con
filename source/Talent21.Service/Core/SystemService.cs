@@ -6,12 +6,21 @@ using Talent21.Service.Models.Core;
 
 namespace Talent21.Service.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SystemService : ISystemService
     {
         private readonly ILocationRepository _locationRepository;
         private readonly IIndustryRepository _industryRepository;
         private readonly ISkillRepository _skillRepository;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locationRepository"></param>
+        /// <param name="industryRepository"></param>
+        /// <param name="skillRepository"></param>
         public SystemService(ILocationRepository locationRepository,
             IIndustryRepository industryRepository, ISkillRepository skillRepository
                 )
@@ -21,11 +30,20 @@ namespace Talent21.Service.Core
             _skillRepository = skillRepository;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int SaveChanges()
         {
             return _industryRepository.SaveChanges();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public AddIndustryViewModel AddIndustry(AddIndustryViewModel model)
         {
             var industry = new Industry
@@ -46,6 +64,11 @@ namespace Talent21.Service.Core
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public EditIndustryViewModel EditIndustry(EditIndustryViewModel model)
         {
             var industry = _industryRepository.ById(model.Id);
@@ -55,6 +78,11 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public DeleteIndustryViewModel DeleteIndustry(DeleteIndustryViewModel model)
         {
             var entity = _industryRepository.ById(model.IndustryId);
@@ -62,11 +90,21 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public IndustryViewModel ViewIndustry(IndustryViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public AddSkillViewModel AddSkill(AddSkillViewModel model)
         {
             var Skill = new Skill
@@ -82,6 +120,11 @@ namespace Talent21.Service.Core
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public EditSkillViewModel EditSkill(EditSkillViewModel model)
         {
             var entity = _skillRepository.ById(model.CandidateId);
@@ -90,6 +133,11 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public DeleteSkillViewModel DeleteSkill(DeleteSkillViewModel model)
         {
             var entity = _industryRepository.ById(model.CandidateId);
@@ -97,12 +145,21 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public SkillViewModel ViewSkill(SkillViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public LocationViewModel AddLocation(LocationCreateViewModel model)
         {
             var location = new Location

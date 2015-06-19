@@ -140,6 +140,11 @@ namespace Talent21.Web.Controllers
             return Bad(ModelState);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("schedule")]
         public HttpResponseMessage DeleteSchedule(DeleteScheduleViewModel model)

@@ -9,16 +9,27 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
-     public class SkillRepository : EfRepository<Skill>, ISkillRepository
-{
-    public SkillRepository(DbContext context, IEventManager eventManager)
-        : base(context, eventManager)
+    /// <summary>
+    /// 
+    /// </summary>
+    public class SkillRepository : EfRepository<Skill>, ISkillRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="eventManager"></param>
+        public SkillRepository(DbContext context, IEventManager eventManager)
+            : base(context, eventManager)
+        {
+        }
     }
-}
 
-public interface ISkillRepository : IRepository<Skill>
-{
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface ISkillRepository : IRepository<Skill>
+    {
 
-}
+    }
 }
