@@ -11,7 +11,9 @@ namespace Talent21.Service.Core
         private readonly ICompanyRepository _companyRepository;
         private readonly IJobRepository _jobRepository;
         private readonly ICandidateRepository _candidateRepository;
-        public CompanyService(ICompanyRepository companyRepository, IJobRepository jobRepository, ICandidateRepository candidateRepository)
+        public CompanyService(ICompanyRepository companyRepository, 
+            IJobRepository jobRepository,
+            ICandidateRepository candidateRepository)
         {
             _companyRepository = companyRepository;
             _jobRepository = jobRepository;
@@ -62,7 +64,7 @@ namespace Talent21.Service.Core
             };
         }
 
-        public bool RejectCandidate(CandidateRejectModel model)
+        public bool RejectCandidate(RejectCandidateViewModel model)
         {
             var entity = _candidateRepository.ById(model.CandidateId);
             entity.IsRejected = true;
@@ -72,7 +74,7 @@ namespace Talent21.Service.Core
             return rowAffected > 0;
         }
 
-        public bool ApproveCompany(CompanyApproveModel model)
+        public bool ApproveCompany(ApproveCompanyViewModel model)
         {
             var entity = _companyRepository.ById(model.CandidateId);
             entity.IsApproved = true;
@@ -102,7 +104,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public bool CancelJob(CompanyCancelJobModel model)
+        public bool CancelJob(CancelJobApplicationViewModel model)
         {
             var entity = _jobRepository.ById(model.JobId);
             entity.IsCancelled = true;
@@ -123,6 +125,12 @@ namespace Talent21.Service.Core
         public PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication)
         {
             throw new System.NotImplementedException();
+        }
+
+
+        public UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile)
+        {
+            throw new NotImplementedException();
         }
     }
 }

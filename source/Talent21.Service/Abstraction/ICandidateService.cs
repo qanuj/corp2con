@@ -1,4 +1,5 @@
-﻿using Talent21.Service.Models;
+﻿using System.Linq;
+using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
@@ -15,5 +16,12 @@ namespace Talent21.Service.Abstraction
         DeleteScheduleViewModel DeleteSchedule(DeleteScheduleViewModel schedule);
         ScheduleViewModel ViewSchedule(ScheduleViewModel schedule);
         //CandidateJob
+
+        CandidatePublicProfileViewModel GetProfile(int id);
+
+        IQueryable<CandidatePublicProfileViewModel> GetProfileQuery();
+
+        ScheduleViewModel GetSchedule(int id);
+        IQueryable<ScheduleViewModel> GetSchedules();
     }
 }
