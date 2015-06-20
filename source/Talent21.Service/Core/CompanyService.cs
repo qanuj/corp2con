@@ -132,5 +132,11 @@ namespace Talent21.Service.Core
         {
             throw new NotImplementedException();
         }
+
+
+        public CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
