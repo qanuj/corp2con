@@ -112,7 +112,7 @@ namespace Talent21.Web.Controllers
         /// <param name="jobApplication"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Create")]
+        [Route("create")]
         public HttpResponseMessage CreateJob(CreateJobApplicationViewModel model)
         {
             if (ModelState.IsValid)
@@ -142,7 +142,7 @@ namespace Talent21.Web.Controllers
         /// <param name="jobApplication"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("job")]
+        [Route("delete")]
         public HttpResponseMessage DeleteJob(DeleteJobApplicationViewModel model)
         {
             if (ModelState.IsValid)
