@@ -27,7 +27,6 @@ namespace Talent21.Service.Abstraction
         /// <returns></returns>
         CreateCandidateViewModel CreateCandidate(CreateCandidateViewModel profile);
         
-        //ScheduleViewModel AddSchedule(ScheduleCreateViewModel schedule);
         /// <summary>
         /// 
         /// </summary>

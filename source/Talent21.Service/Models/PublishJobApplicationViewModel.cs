@@ -6,8 +6,14 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PublishJobApplicationViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public int CompanyId { get; set; }
 

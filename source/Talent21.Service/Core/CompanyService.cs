@@ -178,7 +178,6 @@ namespace Talent21.Service.Core
             var entity = _companyRepository.ById(jobApplication.CompanyId);
             _companyRepository.Delete(entity);
             return jobApplication;
-
         }
 
         /// <summary>
@@ -188,7 +187,10 @@ namespace Talent21.Service.Core
         /// <returns></returns>
         public PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication)
         {
-            throw new System.NotImplementedException();
+            var entity = _companyRepository.ById(jobApplication.CompanyId);
+            _companyRepository.SaveChanges();
+            return jobApplication;
+ 
         }
 
         /// <summary>
@@ -198,7 +200,10 @@ namespace Talent21.Service.Core
         /// <returns></returns>
         public UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile)
         {
-            throw new NotImplementedException();
+            var entity = _companyRepository.ById(profile.Id);
+            _companyRepository.Update(entity);
+            _companyRepository.SaveChanges();
+            return profile; ;
         }
     }
 }

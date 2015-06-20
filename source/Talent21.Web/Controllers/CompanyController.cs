@@ -37,9 +37,7 @@ namespace Talent21.Web.Controllers
         {
             var company=_service.CreateCompany(name);
             return company.Id > 0;
-        }
-
-     
+        }    
 
     }
 }

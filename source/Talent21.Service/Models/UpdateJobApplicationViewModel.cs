@@ -11,9 +11,15 @@ namespace Talent21.Service.Models
     /// </summary>
     public class UpdateJobApplicationViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public int CompanyId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int JobId { get; set; }
 
     

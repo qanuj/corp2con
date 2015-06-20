@@ -30,6 +30,5 @@ namespace Talent21.Data.Repository
     public interface ICompanyRepository : IRepository<Company>
     {
 
-        //void Create(Job job);
     }
 }
