@@ -29,7 +29,7 @@ namespace Talent21.Web.Controllers
         /// <summary>
         /// Create a Syetem Record and Apply to Job
         /// </summary>
-        /// <param name="model">Model with candidate Name and Job Id, more fields to come</param>
+        /// <param name="model">Model with System Name and Job Id, more fields to come</param>
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
