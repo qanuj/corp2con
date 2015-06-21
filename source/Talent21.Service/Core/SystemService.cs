@@ -179,5 +179,11 @@ namespace Talent21.Service.Core
             };
         }
 
+
+
+        public object AddIndustryViewModel(AddIndustryViewModel model)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

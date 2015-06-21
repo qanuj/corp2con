@@ -59,5 +59,6 @@ namespace Talent21.Service.Abstraction
         /// <param name="model"></param>
         /// <returns></returns>
         LocationViewModel AddLocation(LocationCreateViewModel model);
+
     }
 }
