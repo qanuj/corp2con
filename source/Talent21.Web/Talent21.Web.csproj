@@ -240,6 +240,11 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HttpView.cs" />
+    <Compile Include="Controllers\HttpApprove.cs" />
+    <Compile Include="Controllers\HttpCancel.cs" />
+    <Compile Include="Controllers\HttpReject.cs" />
+    <Compile Include="Controllers\HttpRevoke.cs" />
+    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Global.asax.cs">

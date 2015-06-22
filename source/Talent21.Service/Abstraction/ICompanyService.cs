@@ -47,7 +47,8 @@ namespace Talent21.Service.Abstraction
         /// <returns></returns>
         UpdateJobApplicationViewModel UpdateJob(UpdateJobApplicationViewModel jobApplication);
 
-        // bool CancelJob(CancelJobApplicationViewModel jobApplication);
+       // bool CancelJob(CancelJobApplicationViewModel jobApplication);
+
         /// <summary>
         /// 
         /// </summary>
@@ -61,7 +62,9 @@ namespace Talent21.Service.Abstraction
         /// <returns></returns>
         PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication);
 
-        //  CompanyVisitJobModel CompanyVisit(CompanyVisitJobModel jobApplication);
+      //  CompanyVisitJobModel CompanyVisit(CompanyVisitJobModel jobApplication);
         //CompanyVisit
+
+        CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model);
     }
 }

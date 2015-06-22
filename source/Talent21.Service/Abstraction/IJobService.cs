@@ -30,5 +30,11 @@ namespace Talent21.Service.Abstraction
         bool RevokeJobApplication(RevokeJobApplicationViewModel job); 
         //JobVisit
 
+
+        object JobApplicationViewModel(JobApplicationViewModel model);
+
+        object ApplyJobApplicationViewModel(ApplyJobApplicationViewModel model);
+
+        object RevokeJobApplicationViewModel(RevokeJobApplicationViewModel model);
     }
 }

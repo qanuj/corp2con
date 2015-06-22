@@ -205,5 +205,11 @@ namespace Talent21.Service.Core
             _companyRepository.SaveChanges();
             return profile; ;
         }
+
+
+        public CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
