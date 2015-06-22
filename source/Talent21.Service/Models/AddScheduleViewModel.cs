@@ -7,6 +7,9 @@ using System.Runtime.CompilerServices;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AddScheduleViewModel
     {
         /// <summary>
@@ -16,7 +19,13 @@ namespace Talent21.Service.Models
         [Required]
         public int CandidateId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime Start { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime? End { get; set; }
        
     }

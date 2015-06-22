@@ -1,19 +1,24 @@
 ﻿using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using Talent21.Service.Abstraction;
+using Talent21.Service.Core;
+using Talent21.Service.Models;
 using Talent21.Service.Models;
 
 namespace Talent21.Web.Controllers
 {
     /// <summary>
-    /// Company Api
+    /// 
     /// </summary>
     [Authorize]
     [RoutePrefix("~/api/v1/company")]
-    public class CompanyController : BasicApiController
+    
+    public class CompanyController : ApiController
     {
         private readonly ICompanyService _service;
         /// <summary>
@@ -162,6 +167,7 @@ namespace Talent21.Web.Controllers
         private HttpResponseMessage Bad(System.Web.Http.ModelBinding.ModelStateDictionary ModelState)
         {
             throw new System.NotImplementedException();
-        }
+        } 
+
     }
 }

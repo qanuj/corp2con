@@ -6,8 +6,14 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SkillViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public int CandidateId { get; set; }
     }

@@ -7,8 +7,14 @@ using System.Runtime.CompilerServices;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EditSkillViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public int CandidateId { get; set; }
     }

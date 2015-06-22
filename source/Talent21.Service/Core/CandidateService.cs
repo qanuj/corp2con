@@ -6,12 +6,21 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CandidateService : ICandidateService
     {
         private readonly ICandidateRepository _candidateRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IScheduleRepository _scheduleRepository;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="candidateRepository"></param>
+        /// <param name="jobApplicationRepository"></param>
+        /// <param name="scheduleRepository"></param>
         public CandidateService(ICandidateRepository candidateRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository)
@@ -21,6 +30,11 @@ namespace Talent21.Service.Core
             _scheduleRepository = scheduleRepository;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="profile"></param>
+        /// <returns></returns>
         public CreateCandidateViewModel CreateCandidate(CreateCandidateViewModel profile)
         {
             var candidate = new Candidate() { Name = profile.Name };
@@ -33,6 +47,11 @@ namespace Talent21.Service.Core
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public JobApplicationViewModel CreateCandidateAndApplyToJob(
             CreateCandidateAndApplyToJobViewModel model)
         {
@@ -46,6 +65,12 @@ namespace Talent21.Service.Core
                 JobId = model.JobId
             });
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="job"></param>
+        /// <returns></returns>
         public JobApplicationViewModel ApplyToJob(ApplyJobApplicationViewModel job)
         {
             var jobApplication = new JobApplication
@@ -62,6 +87,12 @@ namespace Talent21.Service.Core
                 Act = jobApplication.Act
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="profile"></param>
+        /// <returns></returns>
         public UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile)
         {
             var candidate = _candidateRepository.ById(profile.Id);
@@ -73,6 +104,11 @@ namespace Talent21.Service.Core
             return profile;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public AddScheduleViewModel AddSchedule(AddScheduleViewModel model)
         {
 
@@ -94,6 +130,12 @@ namespace Talent21.Service.Core
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public CreateScheduleViewModel CreateSchedule(CreateScheduleViewModel model)
         {
             var entity = new Schedule() { CandidateId = model.CandidateId };
@@ -106,7 +148,11 @@ namespace Talent21.Service.Core
             };
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="profile"></param>
+        /// <returns></returns>
         public bool DeleteProfile(DeleteProfileViewModel profile)
         {
             var candidate = _candidateRepository.ById(profile.Id);
@@ -114,6 +160,11 @@ namespace Talent21.Service.Core
             return _candidateRepository.SaveChanges() > 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public UpdateScheduleViewModel UpdateSchedule(UpdateScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.CandidateId);
@@ -124,7 +175,11 @@ namespace Talent21.Service.Core
             return model;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public DeleteScheduleViewModel DeleteSchedule(DeleteScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.CandidateId);
@@ -132,12 +187,23 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ScheduleViewModel ViewSchedule(ScheduleViewModel model)
         {
             throw new System.NotImplementedException();
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public CandidatePublicProfileViewModel GetProfile(int id)
         {
             var candidate=_candidateRepository.ById(id);
@@ -150,6 +216,10 @@ namespace Talent21.Service.Core
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<CandidatePublicProfileViewModel> GetProfileQuery()
         {
             var query = from row in _candidateRepository.All
@@ -161,12 +231,20 @@ namespace Talent21.Service.Core
             return query;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ScheduleViewModel GetSchedule(int id)
         {
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<ScheduleViewModel> GetSchedules()
         {
             throw new System.NotImplementedException();

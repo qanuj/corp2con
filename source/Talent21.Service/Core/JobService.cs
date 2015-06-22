@@ -6,13 +6,24 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class JobService : IJobService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IJobRepository _jobRepository;
         private readonly ICandidateRepository _candidateRepository;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobApplicationRepository"></param>
+        /// <param name="jobRepository"></param>
+        /// <param name="_candidateRepository"></param>
         public JobService(IJobApplicationRepository jobApplicationRepository,
             IJobRepository jobRepository, ICandidateRepository _candidateRepository)
         {
@@ -21,11 +32,21 @@ namespace Talent21.Service.Core
             _candidateRepository = candidateRepository;
         }
        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int SaveChanges()
         {
             return _jobApplicationRepository.SaveChanges();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public JobApplicationViewModel ApplyToJob(JobApplicationViewModel model)
         {
             var entity = new JobApplication
@@ -43,6 +64,12 @@ namespace Talent21.Service.Core
                 Act = entity.Act
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool CancelJob(CancelJobApplicationViewModel model)
         {
             var entity = _jobRepository.ById(model.JobId);
@@ -53,6 +80,12 @@ namespace Talent21.Service.Core
             return rowAffected > 0;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool RevokeJobApplication(RevokeJobApplicationViewModel model)
         {
             var entity = _jobApplicationRepository.ById(model.JobApplicationId);
@@ -62,6 +95,10 @@ namespace Talent21.Service.Core
             var rowAffected = _jobRepository.SaveChanges();
             return rowAffected > 0;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ICandidateRepository candidateRepository { get; set; }
 
         JobApplicationViewModel IJobService.ApplyToJob(JobApplicationViewModel job)

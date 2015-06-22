@@ -6,8 +6,14 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AddIndustryViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public string IndustryName { get; set; }
     

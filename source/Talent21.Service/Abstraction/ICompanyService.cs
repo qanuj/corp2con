@@ -8,7 +8,7 @@ namespace Talent21.Service.Abstraction
         /// 
         /// </summary>
         /// <param name="name"></param>
-        /// <reurns></returns>
+        /// <returns></returns>
         CreateCompanyViewModel CreateCompany(string name);
         /// <summary>
         /// 
@@ -46,6 +46,7 @@ namespace Talent21.Service.Abstraction
         /// <param name="jobApplication"></param>
         /// <returns></returns>
         UpdateJobApplicationViewModel UpdateJob(UpdateJobApplicationViewModel jobApplication);
+
        // bool CancelJob(CancelJobApplicationViewModel jobApplication);
 
         /// <summary>
@@ -60,6 +61,7 @@ namespace Talent21.Service.Abstraction
         /// <param name="jobApplication"></param>
         /// <returns></returns>
         PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication);
+
       //  CompanyVisitJobModel CompanyVisit(CompanyVisitJobModel jobApplication);
         //CompanyVisit
 
