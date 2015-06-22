@@ -120,5 +120,21 @@ namespace Talent21.Service.Core
         {
             throw new NotImplementedException();
         }
+
+
+        public object JobApplicationViewModel(JobApplicationViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ApplyJobApplicationViewModel(ApplyJobApplicationViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object RevokeJobApplicationViewModel(RevokeJobApplicationViewModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
