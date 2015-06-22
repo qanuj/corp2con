@@ -1,27 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ScheduleViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
-        public int CandidateId { get; set; }
+        public int Id { get; set; }
 
-        //[DataType(DataType.EmailAddress), EmailAddress, Required]
-        //public string Email { get; set; }
-
-        //[DataType(DataType.PhoneNumber), Phone, Required]
-        //public int Phone { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public DateTime Start { get; set; }
-        public DateTime? End { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        public string Name{ get; set;}
     }
 }

@@ -11,5 +11,9 @@ namespace Talent21.Data.Core
         public IList<ContractSchedule> Schedules { get; set; }
         public IList<CompanyVisit> Visits { get; set; }
         public IList<Job> Jobs { get; set; }
+
+        public bool IsApproved { get; set; }
+
+        public System.DateTime Cancelled { get; set; }
     }
 }

@@ -12,6 +12,9 @@ namespace Talent21.Service.Models
     /// </summary>
     public class CreateCandidateAndApplyToJobViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public int CandidateId { get; set; }
 

@@ -16,6 +16,9 @@ namespace Talent21.Web.Models
 
     public class ManageLoginsViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public IList<UserLoginInfo> CurrentLogins { get; set; }
         public IList<AuthenticationDescription> OtherLogins { get; set; }
     }

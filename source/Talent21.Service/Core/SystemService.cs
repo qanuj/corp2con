@@ -6,12 +6,21 @@ using Talent21.Service.Models.Core;
 
 namespace Talent21.Service.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SystemService : ISystemService
     {
         private readonly ILocationRepository _locationRepository;
         private readonly IIndustryRepository _industryRepository;
         private readonly ISkillRepository _skillRepository;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locationRepository"></param>
+        /// <param name="industryRepository"></param>
+        /// <param name="skillRepository"></param>
         public SystemService(ILocationRepository locationRepository,
             IIndustryRepository industryRepository, ISkillRepository skillRepository
                 )
@@ -21,12 +30,21 @@ namespace Talent21.Service.Core
             _skillRepository = skillRepository;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int SaveChanges()
         {
             return _industryRepository.SaveChanges();
         }
 
-        public IndustryAddViewModel AddIndustry(IndustryAddViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public AddIndustryViewModel AddIndustry(AddIndustryViewModel model)
         {
             var industry = new Industry
 
@@ -35,18 +53,23 @@ namespace Talent21.Service.Core
             };
             _industryRepository.Create(industry);
             _industryRepository.SaveChanges();
-            return new IndustryAddViewModel
+            return new AddIndustryViewModel
             {
                 IndustryName = industry.IndustryName,
             };
         }
 
-        private void Create(Industry industry)
+        private void Create(Industry model)
         {
- 	        throw new System.NotImplementedException();
+            
         }
 
-        public IndustryEditViewModel EditIndustry(IndustryEditViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public EditIndustryViewModel EditIndustry(EditIndustryViewModel model)
         {
             var industry = _industryRepository.ById(model.Id);
             industry.Title = model.Title;
@@ -55,19 +78,34 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public IndustryDeleteViewModel DeleteIndustry(IndustryDeleteViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public DeleteIndustryViewModel DeleteIndustry(DeleteIndustryViewModel model)
         {
             var entity = _industryRepository.ById(model.IndustryId);
             _industryRepository.Delete(entity);
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public IndustryViewModel ViewIndustry(IndustryViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-        public SkillAddViewModel AddSkill(SkillAddViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public AddSkillViewModel AddSkill(AddSkillViewModel model)
         {
             var Skill = new Skill
             {
@@ -75,31 +113,53 @@ namespace Talent21.Service.Core
             };
             _skillRepository.Create(Skill);
             _skillRepository.SaveChanges();
-            return new SkillAddViewModel
+            return new AddSkillViewModel
             {
                 CandidateId = model.CandidateId,
                 Skill = model.Skill
             };
         }
 
-        public SkillEditViewModel EditSkill(SkillEditViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public EditSkillViewModel EditSkill(EditSkillViewModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = _skillRepository.ById(model.CandidateId);
+            _skillRepository.Update(entity);
+            _skillRepository.SaveChanges();
+            return model;
         }
 
-        public SkillDeleteViewModel DeleteSkill(SkillDeleteViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public DeleteSkillViewModel DeleteSkill(DeleteSkillViewModel model)
         {
             var entity = _industryRepository.ById(model.CandidateId);
             _industryRepository.Delete(entity);
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public SkillViewModel ViewSkill(SkillViewModel model)
         {
             throw new System.NotImplementedException();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public LocationViewModel AddLocation(LocationCreateViewModel model)
         {
             var location = new Location
@@ -119,5 +179,11 @@ namespace Talent21.Service.Core
             };
         }
 
+
+
+        public object AddIndustryViewModel(AddIndustryViewModel model)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
