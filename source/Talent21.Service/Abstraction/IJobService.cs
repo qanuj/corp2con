@@ -28,7 +28,7 @@ namespace Talent21.Service.Abstraction
         /// <param name="job"></param>
         /// <returns></returns>
         bool RevokeJobApplication(RevokeJobApplicationViewModel job); 
-        //JobVisit
+        
 
 
         object JobApplicationViewModel(JobApplicationViewModel model);
