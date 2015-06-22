@@ -9,8 +9,16 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BlockRepository : EfRepository<Block>, IBlockRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="eventManager"></param>
         public BlockRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
         {
 
@@ -21,6 +29,9 @@ namespace Talent21.Data.Repository
             get { return base.All.Where(x=>!x.IsDeleted); }
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
 
     public interface IBlockRepository : IRepository<Block>
     { 

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RejectCandidateViewModel
     {
         /// <summary>
@@ -16,6 +19,9 @@ namespace Talent21.Service.Models
         [Required]
         public int CandidateId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Experience { get; set; } //in Years and Months
         
     }

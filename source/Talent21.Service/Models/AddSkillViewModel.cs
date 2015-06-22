@@ -6,9 +6,18 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AddSkillViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int CandidateId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Skill { get; set; }
 
     }

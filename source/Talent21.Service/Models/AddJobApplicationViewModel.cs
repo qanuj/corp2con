@@ -8,14 +8,26 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AddJobApplicationViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
        [Required]
        public int CompanyId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
        [Required]
        public string Name{get; set;}
 
+        /// <summary>
+        /// 
+        /// </summary>
        public string Experience{get;set;}
 
     }  

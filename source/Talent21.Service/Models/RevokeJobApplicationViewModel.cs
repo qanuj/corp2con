@@ -6,8 +6,14 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RevokeJobApplicationViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public int JobApplicationId { get; set; }
     }

@@ -6,11 +6,21 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CompanyService : ICompanyService
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IJobRepository _jobRepository;
         private readonly ICandidateRepository _candidateRepository;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="companyRepository"></param>
+        /// <param name="jobRepository"></param>
+        /// <param name="candidateRepository"></param>
         public CompanyService(ICompanyRepository companyRepository, 
             IJobRepository jobRepository,
             ICandidateRepository candidateRepository)
@@ -20,6 +30,11 @@ namespace Talent21.Service.Core
             _candidateRepository = candidateRepository;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public CreateCompanyViewModel CreateCompany(string name)
         {
             var company = new Company() {Name = name};
@@ -32,12 +47,20 @@ namespace Talent21.Service.Core
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int SaveChanges()
         {
             return _companyRepository.SaveChanges();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public AddProfileViewModel UpdateProfile(AddProfileViewModel model)
         {
             var entity = _companyRepository.ById(model.CompanyId);
@@ -47,6 +70,11 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public AddProfileViewModel AddProfile(AddProfileViewModel model)
         {
             var company = new Company
@@ -64,6 +92,11 @@ namespace Talent21.Service.Core
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool RejectCandidate(RejectCandidateViewModel model)
         {
             var entity = _candidateRepository.ById(model.CandidateId);
@@ -74,6 +107,11 @@ namespace Talent21.Service.Core
             return rowAffected > 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool ApproveCompany(ApproveCompanyViewModel model)
         {
             var entity = _companyRepository.ById(model.CandidateId);
@@ -84,6 +122,11 @@ namespace Talent21.Service.Core
             return rowAffected > 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public CreateJobApplicationViewModel CreateJob(CreateJobApplicationViewModel model)
         {
             var job = new Job() { CompanyId = model.CompanyId };
@@ -96,6 +139,12 @@ namespace Talent21.Service.Core
             };
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public UpdateJobApplicationViewModel UpdateJob(UpdateJobApplicationViewModel model)
         {
             var entity = _companyRepository.ById(model.CompanyId);
@@ -104,6 +153,11 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool CancelJob(CancelJobApplicationViewModel model)
         {
             var entity = _jobRepository.ById(model.JobId);
@@ -114,23 +168,42 @@ namespace Talent21.Service.Core
             return rowAffected > 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobApplication"></param>
+        /// <returns></returns>
         public DeleteJobApplicationViewModel DeleteJob(DeleteJobApplicationViewModel jobApplication)
         {
             var entity = _companyRepository.ById(jobApplication.CompanyId);
             _companyRepository.Delete(entity);
             return jobApplication;
-
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobApplication"></param>
+        /// <returns></returns>
         public PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication)
         {
-            throw new System.NotImplementedException();
+            var entity = _companyRepository.ById(jobApplication.CompanyId);
+            _companyRepository.SaveChanges();
+            return jobApplication;
+ 
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="profile"></param>
+        /// <returns></returns>
         public UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile)
         {
-            throw new NotImplementedException();
+            var entity = _companyRepository.ById(profile.Id);
+            _companyRepository.Update(entity);
+            _companyRepository.SaveChanges();
+            return profile; ;
         }
     }
 }

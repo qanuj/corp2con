@@ -9,16 +9,26 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CompanyRepository : EfRepository<Company>, ICompanyRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="eventManager"></param>
         public CompanyRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
         {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ICompanyRepository : IRepository<Company>
     {
 
-        //void Create(Job job);
     }
 }
