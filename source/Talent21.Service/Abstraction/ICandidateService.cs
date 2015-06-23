@@ -63,7 +63,7 @@ namespace Talent21.Service.Abstraction
         /// <param name="schedule"></param>
         /// <returns></returns>
         ScheduleViewModel ViewSchedule(ScheduleViewModel schedule);
-        //CandidateJob
+        
         /// <summary>
         /// 
         /// </summary>
