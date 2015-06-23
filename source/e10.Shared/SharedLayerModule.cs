@@ -8,7 +8,6 @@ namespace e10.Shared
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationRoleStore>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();

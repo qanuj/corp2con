@@ -10,14 +10,9 @@ namespace e10.Shared.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, string, IdentityUserLogin, UserRole, IdentityUserClaim>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection")
+        public ApplicationDbContext(string connectionString)
+            : base(connectionString)
         {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
         }
     }
 }

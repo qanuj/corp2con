@@ -11,7 +11,7 @@ namespace Talent21.Data
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule<SharedLayerModule>();
-
+            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();
 
             //TODO add all repositories.
             builder.RegisterType<SkillRepository>().As<ISkillRepository>();
