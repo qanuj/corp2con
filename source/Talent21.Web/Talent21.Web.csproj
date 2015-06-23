@@ -206,7 +206,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\IocHelper.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -252,7 +251,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -419,6 +417,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\e10.Shared\e10.Shared.csproj">
+      <Project>{689cac89-1917-4604-9d32-c742c1e826ce}</Project>
+      <Name>e10.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talent21.Service\Talent21.Service.csproj">
       <Project>{f91cb753-c94d-4452-b2a6-5cb236ca580d}</Project>
       <Name>Talent21.Service</Name>
