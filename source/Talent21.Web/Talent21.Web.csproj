@@ -256,6 +256,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\shell\apps\app.js" />
+    <Content Include="App\shell\controllers\headerController.js" />
+    <Content Include="App\shell\controllers\homeController.js" />
+    <Content Include="App\shell\router\router.js" />
+    <Content Include="App\shell\services\headerFactory.js" />
+    <Content Include="App\shell\views\home.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />
     <Content Include="App\template\candidates.html" />
@@ -327,6 +333,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\angular-bootstrap.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -408,7 +417,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App\shell\directives\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

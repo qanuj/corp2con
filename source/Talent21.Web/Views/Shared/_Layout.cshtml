@@ -1,187 +1,81 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title Corp2con</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <link rel="shortcut icon" href="~/App/template/images/favicon.png">
+﻿<html>
+    <head>
+        <base href="/">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title Corp2con</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <link rel="shortcut icon" href="~/App/template/images/favicon.png">
 
-    <!-- Main Stylesheet -->
-    <link href="~/App/template/css/style.css" rel="stylesheet">
-</head>
-<body id="home">
-    <!-- ============ HEADER START ============ -->
-
-    <header>
-        <div id="header-background"></div>
-        <div class="container">
-            <div class="pull-left">
-                <div id="logo"><a href="index.html"><img src="~/App/template/images/logo.png" alt="Jobseek - Job Board Responsive HTML Template" /></a></div>
-            </div>
-            <div id="menu-open" class="pull-right">
-                <a class="fm-button"><i class="fa fa-bars fa-lg"></i></a>
-            </div>
-            <div id="searchbox" class="pull-right">
-                <form>
-                    <div class="form-group">
-                        <label class="sr-only" for="searchfield">Searchbox</label>
-                        <input type="text" class="form-control" id="searchfield" placeholder="Type keywords and press enter">
-                    </div>
-                </form>
-            </div>
-            <div id="search" class="pull-right">
-                <a><i class="fa fa-search fa-lg"></i></a>
-            </div>
-        </div>
-    </header>
-
-    <!-- ============ HEADER END ============ -->
-    <!-- ============ PAGE LOADER START ============ -->
-
-    <div id="loader">
-        <i class="fa fa-cog fa-4x fa-spin"></i>
-    </div>
-
-    <!-- ============ PAGE LOADER END ============ -->
-    <!-- ============ NAVBAR START ============ -->
-
-    <div class="fm-container">
-        <!-- Menu -->
-        <div class="menu">
-            <div class="button-close text-right">
-                <a class="fm-button"><i class="fa fa-close fa-2x"></i></a>
-            </div>
-            <ul class="nav">
-                <li class="active"><a href="#home">Home</a></li>
-                <li><a href="jobs.html">Jobs</a></li>
-                <li><a href="post-a-job.html">Post a job</a></li>
-                <li><a href="candidates.html">Candidates</a></li>
-                <li><a href="post-a-resume.html">Post a Resume</a></li>
-                <li>
-                    <a href="#">Pages</a>
-                    <ul>
-                        <li><a href="job-details.html">Job Details</a></li>
-                        <li><a href="resume.html">Resume</a></li>
-                        <li><a href="company.html">Company</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="post.html">Single Post</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="testimonials.html">Testimonials</a></li>
-                        <li><a href="options.html">Options</a></li>
-                    </ul>
-                </li>
-                <li><a class="link-register">Register</a></li>
-                <li><a class="link-login">Login</a></li>
-            </ul>
-        </div>
-        <!-- end Menu -->
-    </div>
-
-    <!-- ============ NAVBAR END ============ -->
-
-    <div class=" fm-container">
+        <!-- Main Stylesheet -->
+        <link href="~/App/template/css/style.css" rel="stylesheet">
+    </head>
+    <body id="home" ng-app="app">
         @RenderBody()
 
-        <!-- ============ FOOTER START ============ -->
-
-        <footer>
-            <div id="prefooter">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6" id="newsletter">
-                            <h2>Newsletter</h2>
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <label class="sr-only" for="newsletter-email">Email address</label>
-                                    <input type="email" class="form-control" id="newsletter-email" placeholder="Email address">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Sign up</button>
-                            </form>
-                        </div>
-                        <div class="col-sm-6" id="social-networks">
-                            <h2>Get in touch</h2>
-                            <a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
-                            <a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
-                            <a href="#"><i class="fa fa-2x fa-google-plus-square"></i></a>
-                            <a href="#"><i class="fa fa-2x fa-youtube-square"></i></a>
-                            <a href="#"><i class="fa fa-2x fa-vimeo-square"></i></a>
-                            <a href="#"><i class="fa fa-2x fa-pinterest-square"></i></a>
-                            <a href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="credits">
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p>&copy; @DateTime.Now.Year - <b>Corp to Corn</b> Powered By <a href="http://e10.in/">e10</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <!-- ============ FOOTER END ============ -->
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
-    <!-- Modernizr Plugin -->
-    <script src="~/App/template/js/modernizr.custom.79639.js"></script>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="~/App/template/js/jquery-1.11.2.min.js"></script>
-
-    <!-- Bootstrap Plugins -->
-    <script src="~/App/template/js/bootstrap.min.js"></script>
-
-    <!-- Retina Plugin -->
-    <script src="~/App/template/js/retina.min.js"></script>
-
-    <!-- ScrollReveal Plugin -->
-    <script src="~/App/template/js/scrollReveal.min.js"></script>
-
-    <!-- Flex Menu Plugin -->
-    <script src="~/App/template/js/jquery.flexmenu.js"></script>
-
-    <!-- Slider Plugin -->
-    <script src="~/App/template/js/jquery.ba-cond.min.js"></script>
-    <script src="~/App/template/js/jquery.slitslider.js"></script>
-
-    <!-- Carousel Plugin -->
-    <script src="~/App/template/js/owl.carousel.min.js"></script>
-
-    <!-- Parallax Plugin -->
-    <script src="~/App/template/js/parallax.js"></script>
-
-    <!-- Counterup Plugin -->
-    <script src="~/App/template/js/jquery.counterup.min.js"></script>
-    <script src="~/App/template/js/waypoints.min.js"></script>
-
-    <!-- No UI Slider Plugin -->
-    <script src="~/App/template/js/jquery.nouislider.all.min.js"></script>
-
-    <!-- Bootstrap Wysiwyg Plugin -->
-    <script src="~/App/template/js/bootstrap-wysiwyg.js"></script>
-    <script src="~/App/template/js/jquery.hotkeys.js"></script>
-
-    <!-- Flickr Plugin -->
-    <script src="~/App/template/js/jflickrfeed.min.js"></script>
-
-    <!-- Fancybox Plugin -->
-    <script src="~/App/template/js/fancybox.pack.js"></script>
-
-    <!-- Magic Form Processing -->
-    <script src="~/App/template/js/magic.js"></script>
-
-    <!-- jQuery Settings -->
-    <script src="~/App/template/js/settings.js"></script>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
 
-</body>
+        <!-- angular files for the application-->
+        <script src="~/Scripts/angular.js"></script>
+        <script src="~/Scripts/angular-route.js"></script>
+        <script src="~/App/shell/apps/app.js"></script>
+        <script src="~/App/shell/router/router.js"></script>
+        <script src="~/App/shell/controllers/headerController.js"></script>
+
+        <!-- Modernizr Plugin -->
+        <script src="~/App/template/js/modernizr.custom.79639.js"></script>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="~/App/template/js/jquery-1.11.2.min.js"></script>
+
+        <!-- Bootstrap Plugins -->
+        <script src="~/App/template/js/bootstrap.min.js"></script>
+
+        <!-- Retina Plugin -->
+        <script src="~/App/template/js/retina.min.js"></script>
+
+        <!-- ScrollReveal Plugin -->
+        <script src="~/App/template/js/scrollReveal.min.js"></script>
+
+        <!-- Flex Menu Plugin -->
+        <script src="~/App/template/js/jquery.flexmenu.js"></script>
+
+        <!-- Slider Plugin -->
+        <script src="~/App/template/js/jquery.ba-cond.min.js"></script>
+        <script src="~/App/template/js/jquery.slitslider.js"></script>
+
+        <!-- Carousel Plugin -->
+        <script src="~/App/template/js/owl.carousel.min.js"></script>
+
+        <!-- Parallax Plugin -->
+        <script src="~/App/template/js/parallax.js"></script>
+
+        <!-- Counterup Plugin -->
+        <script src="~/App/template/js/jquery.counterup.min.js"></script>
+        <script src="~/App/template/js/waypoints.min.js"></script>
+
+        <!-- No UI Slider Plugin -->
+        <script src="~/App/template/js/jquery.nouislider.all.min.js"></script>
+
+        <!-- Bootstrap Wysiwyg Plugin -->
+        <script src="~/App/template/js/bootstrap-wysiwyg.js"></script>
+        <script src="~/App/template/js/jquery.hotkeys.js"></script>
+
+        <!-- Flickr Plugin -->
+        <script src="~/App/template/js/jflickrfeed.min.js"></script>
+
+        <!-- Fancybox Plugin -->
+        <script src="~/App/template/js/fancybox.pack.js"></script>
+
+        <!-- Magic Form Processing -->
+        <script src="~/App/template/js/magic.js"></script>
+
+        <!-- jQuery Settings -->
+        <script src="~/App/template/js/settings.js"></script>
+
+    </body>
 </html>
