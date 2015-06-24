@@ -1,13 +1,12 @@
-﻿/// <reference path="../views/home.html" />
-app.config(function($routeProvider, $locationProvider) {
+﻿app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: '../views/home.html',
-            controller: '../controllers/homeController.js'
+            templateUrl: '/app/shell/views/home.html',
+            controller: 'homeController'
         })
-        .when('/other', {
-            templateUrl: '~/App/shell/views/home.html',
-            controller: '../controllers/headerController.js'
+        .when('/others', {
+            templateUrl: '/app/shell/views/candidate/other.html',
+            controller: 'otherController'
         });
     $locationProvider.html5Mode(true);
 });

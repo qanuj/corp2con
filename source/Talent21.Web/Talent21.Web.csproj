@@ -257,10 +257,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\shell\apps\app.js" />
-    <Content Include="App\shell\controllers\headerController.js" />
+    <Content Include="App\shell\controllers\otherController.js" />
     <Content Include="App\shell\controllers\homeController.js" />
     <Content Include="App\shell\router\router.js" />
     <Content Include="App\shell\services\headerFactory.js" />
+    <Content Include="App\shell\views\candidate\other.html" />
     <Content Include="App\shell\views\home.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />
@@ -419,6 +420,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\shell\directives\" />
+    <Folder Include="App\shell\views\company\" />
+    <Folder Include="App\shell\views\system\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
