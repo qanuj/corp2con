@@ -112,7 +112,7 @@
     <Compile Include="Repository\CompanyVisitRepository.cs" />
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\ContractScheduleRepository.cs" />
-    <Compile Include="Repository\IndustryRespository.cs" />
+    <Compile Include="Repository\IndustryRepository.cs" />
     <Compile Include="Repository\JobApplicationRepository.cs" />
     <Compile Include="Repository\JobRepository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
