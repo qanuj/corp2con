@@ -1,90 +1,16 @@
-﻿<html>
-    <head style="overflow-y: scroll">
+﻿<!DOCTYPE html>
+<html>
+    <head>
         <base href="@Url.Content("~/")">
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title Corp2con</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-        <link rel="shortcut icon" href="~/App/template/images/favicon.png">
-
-        <!-- Main Stylesheet -->
-        <link href="~/App/template/css/style.css" rel="stylesheet">
+        <link rel="shortcut icon" href="~/images/favicon.png">
+        @Styles.Render("~/Content/site")
     </head>
     <body id="home" ng-app="app">
         @RenderBody()
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/scripts/site")
         @RenderSection("scripts", required: false)
-
-
-        
-
-        <!-- Modernizr Plugin -->
-        <script src="~/App/template/js/modernizr.custom.79639.js"></script>
-
-
-        <!-- Bootstrap Plugins -->
-        <script src="~/App/template/js/bootstrap.min.js"></script>
-
-        <!-- Retina Plugin -->
-        <script src="~/App/template/js/retina.min.js"></script>
-
-        <!-- ScrollReveal Plugin -->
-        <script src="~/App/template/js/scrollReveal.min.js"></script>
-
-        <!-- Flex Menu Plugin -->
-        <script src="~/App/template/js/jquery.flexmenu.js"></script>
-
-        <!-- Slider Plugin -->
-        <script src="~/App/template/js/jquery.ba-cond.min.js"></script>
-        <script src="~/App/template/js/jquery.slitslider.js"></script>
-
-        <!-- Carousel Plugin -->
-        <script src="~/App/template/js/owl.carousel.min.js"></script>
-
-        <!-- Parallax Plugin -->
-        <script src="~/App/template/js/parallax.js"></script>
-
-        <!-- Counterup Plugin -->
-        <script src="~/App/template/js/jquery.counterup.min.js"></script>
-        <script src="~/App/template/js/waypoints.min.js"></script>
-
-        <!-- No UI Slider Plugin -->
-        <script src="~/App/template/js/jquery.nouislider.all.min.js"></script>
-
-        <!-- Bootstrap Wysiwyg Plugin -->
-        <script src="~/App/template/js/bootstrap-wysiwyg.js"></script>
-        <script src="~/App/template/js/jquery.hotkeys.js"></script>
-
-        <!-- Flickr Plugin -->
-        <script src="~/App/template/js/jflickrfeed.min.js"></script>
-
-        <!-- Fancybox Plugin -->
-        <script src="~/App/template/js/fancybox.pack.js"></script>
-
-        <!-- Magic Form Processing -->
-        <script src="~/App/template/js/magic.js"></script>
-
-        <!-- jQuery Settings -->
-        <script src="~/App/template/js/settings.js"></script>
-        
-        <!-- angular files for the application-->
-        <script src="~/Scripts/angular.js"></script>
-        <script src="~/Scripts/angular-route.js"></script>
-        <script src="~/Scripts/angular-animate.js"></script>
-        <script src="~/Scripts/angular-bootstrap.js"></script>
-        <script src="~/App/shell/apps/app.js"></script>
-        <script src="~/App/shell/router/router.js"></script>
-        <script src="~/App/shell/controllers/otherController.js"></script>
-        <script src="~/App/shell/controllers/homeController.js"></script>
-        <script src="~/App/shell/controllers/candidateProfileController.js"></script>
-        <script src="~/App/shell/controllers/companyProfileController.js"></script>
-        <script src="~/App/shell/controllers/postjobsController.js"></script>
-        <script src="~/App/shell/controllers/testimonialsController.js"></script>
-        <script src="~/App/shell/controllers/companyListController.js"></script>
-        <script src="~/App/shell/controllers/jobListingController.js"></script>
-        <script src="~/App/shell/controllers/aboutCompanyController.js"></script>
     </body>
 </html>
