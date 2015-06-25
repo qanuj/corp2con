@@ -8,5 +8,5 @@
             templateUrl: '/app/shell/views/candidate/other.html',
             controller: 'otherController'
         });
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false).hashPrefix('');
 });
