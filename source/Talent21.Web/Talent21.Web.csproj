@@ -15,7 +15,7 @@
     <AssemblyName>Talent21.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -257,10 +257,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\shell\apps\app.js" />
+    <Content Include="App\shell\controllers\candidateProfileController.js" />
     <Content Include="App\shell\controllers\otherController.js" />
     <Content Include="App\shell\controllers\homeController.js" />
     <Content Include="App\shell\router\router.js" />
     <Content Include="App\shell\services\headerFactory.js" />
+    <Content Include="App\shell\views\candidate\CandidateProfile.html" />
     <Content Include="App\shell\views\candidate\other.html" />
     <Content Include="App\shell\views\home.html" />
     <Content Include="App\template\about.html" />
@@ -290,6 +292,7 @@
     <Content Include="App\template\images\fancybox_sprite%402x.png" />
     <Content Include="App\template\images\fancybox_sprite.png" />
     <Content Include="App\template\images\favicon.png" />
+    <Content Include="App\template\images\job1.jpg" />
     <Content Include="App\template\images\logo%402x.png" />
     <Content Include="App\template\images\logo.png" />
     <Content Include="App\template\images\map-marker.png" />
@@ -459,7 +462,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62106</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Talent21.Web</IISUrl>
+          <IISUrl>http://localhost:62106/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

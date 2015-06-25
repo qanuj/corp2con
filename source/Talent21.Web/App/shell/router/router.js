@@ -7,6 +7,11 @@
         .when('/others', {
             templateUrl: '/app/shell/views/candidate/other.html',
             controller: 'otherController'
-        });
+        })
+          .when('/candidateprofile', {
+              templateUrl: '/app/shell/views/candidate/candidateProfile.html',
+              controller: 'candidateProfileController'
+          })
+    ;
     $locationProvider.html5Mode(false).hashPrefix('');
 });
