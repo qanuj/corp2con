@@ -8,9 +8,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace e10.Shared.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User, Role, string, IdentityUserLogin, UserRole, IdentityUserClaim>
+    public abstract class ApplicationDbContext : IdentityDbContext<User, Role, string, IdentityUserLogin, UserRole, IdentityUserClaim>
     {
-        public ApplicationDbContext(string connectionString)
+        protected ApplicationDbContext(string connectionString)
             : base(connectionString)
         {
         }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using e10.Shared.Data;
+using Talent21.Data.Repository;
 
 namespace Talent21.Data
 {
@@ -13,6 +15,14 @@ namespace Talent21.Data
        public static ApplicationDataContext Create()
        {
            return new ApplicationDataContext();
-       }
+        }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            BlockRepository.Register(modelBuilder);
+            CandidateRepository.Register(modelBuilder);
+            CompanyRepository.Register(modelBuilder);
+            JobRepository.Register(modelBuilder);
+        }
     }
 }
