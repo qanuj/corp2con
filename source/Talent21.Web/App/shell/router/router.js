@@ -12,6 +12,11 @@
               templateUrl: '/app/shell/views/candidate/candidateProfile.html',
               controller: 'candidateProfileController'
           })
+    .when('/companyprofile', {
+        templateUrl: '/app/shell/views/company/companyprofile.html',
+        controller: 'companyprofileController'
+    })
+    ;
         .when('/joblisting', {
             templateUrl: '/app/shell/views/job/jobListing.html',
             controller: 'jobListingController'
