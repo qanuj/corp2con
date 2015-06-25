@@ -16,6 +16,10 @@
         templateUrl: '/app/shell/views/company/companyprofile.html',
         controller: 'companyprofileController'
     })
+    .when('/postjobs', {
+        templateUrl: '/app/shell/views/job/postjobs.html',
+        controller: 'postjobsController'
+    })
     ;
     $locationProvider.html5Mode(false).hashPrefix('');
 });
