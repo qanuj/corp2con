@@ -20,10 +20,15 @@
         templateUrl: '/app/shell/views/job/postjobs.html',
         controller: 'postjobsController'
     })
-    ;
+    
         .when('/joblisting', {
             templateUrl: '/app/shell/views/job/jobListing.html',
             controller: 'jobListingController'
-        });
+        })
+     .when('/testimonials', {
+         templateUrl: '/app/shell/views/Testimonials.html',
+         controller: 'testimonialsController'
+     })
+    ;
     $locationProvider.html5Mode(false).hashPrefix('');
 });
