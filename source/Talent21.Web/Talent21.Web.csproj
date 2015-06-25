@@ -262,27 +262,27 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\shell\apps\app.js" />
-    <Content Include="App\shell\controllers\aboutCompanyController.js" />
-    <Content Include="App\shell\controllers\candidateProfileController.js" />
-    <Content Include="App\shell\controllers\companyListController.js" />
-    <Content Include="App\shell\controllers\companyProfileController.js" />
-    <Content Include="App\shell\controllers\jobListingController.js" />
-    <Content Include="App\shell\controllers\otherController.js" />
-    <Content Include="App\shell\controllers\homeController.js" />
-    <Content Include="App\shell\controllers\postjobsController.js" />
-    <Content Include="App\shell\controllers\testimonialsController.js" />
-    <Content Include="App\shell\router\router.js" />
-    <Content Include="App\shell\services\headerFactory.js" />
-    <Content Include="App\shell\views\candidate\CandidateProfile.html" />
-    <Content Include="App\shell\views\candidate\other.html" />
-    <Content Include="App\shell\views\company\CompanyList.html" />
-    <Content Include="App\shell\views\company\aboutcompany.html" />
-    <Content Include="App\shell\views\company\CompanyProfile.html" />
-    <Content Include="App\shell\views\home.html" />
-    <Content Include="App\shell\views\job\PostJobs.html" />
-    <Content Include="App\shell\views\job\JobListing.html" />
-    <Content Include="App\shell\views\Testimonials.html" />
+    <Content Include="App\app.js" />
+    <Content Include="App\controllers\aboutCompanyController.js" />
+    <Content Include="App\controllers\candidateProfileController.js" />
+    <Content Include="App\controllers\companyListController.js" />
+    <Content Include="App\controllers\companyProfileController.js" />
+    <Content Include="App\controllers\jobListingController.js" />
+    <Content Include="App\controllers\otherController.js" />
+    <Content Include="App\controllers\homeController.js" />
+    <Content Include="App\controllers\postjobsController.js" />
+    <Content Include="App\controllers\testimonialsController.js" />
+    <Content Include="App\router\router.js" />
+    <Content Include="App\services\headerFactory.js" />
+    <Content Include="App\views\candidate\CandidateProfile.html" />
+    <Content Include="App\views\candidate\other.html" />
+    <Content Include="App\views\company\CompanyList.html" />
+    <Content Include="App\views\company\aboutcompany.html" />
+    <Content Include="App\views\company\CompanyProfile.html" />
+    <Content Include="App\views\home.html" />
+    <Content Include="App\views\job\PostJobs.html" />
+    <Content Include="App\views\job\JobListing.html" />
+    <Content Include="App\views\Testimonials.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />
     <Content Include="App\template\candidates.html" />
@@ -437,8 +437,8 @@
     <Content Include="Views\Home\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\shell\directives\" />
-    <Folder Include="App\shell\views\system\" />
+    <Folder Include="App\directives\" />
+    <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

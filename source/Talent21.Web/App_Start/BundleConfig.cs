@@ -87,12 +87,12 @@ namespace Talent21.Web
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-*")
-                .Include("~/app/shell/apps/app.js")
-                .Include("~/app/shell/apps/app.*")
-                .Include("~/app/shell/router/*.js")
-                .Include("~/app/shell/directives/*.js")
-                .Include("~/app/shell/services/*.js")
-                .Include("~/app/shell/controllers/*.js")
+                .Include("~/app/app.js")
+                .Include("~/app/app.*")
+                .Include("~/app/router/*.js")
+                .Include("~/app/directives/*.js")
+                .Include("~/app/services/*.js")
+                .Include("~/app/controllers/*.js")
             );
 
         }

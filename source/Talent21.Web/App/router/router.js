@@ -1,27 +1,27 @@
 ﻿app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: '/app/shell/views/home.html',
+            templateUrl: '/app/views/home.html',
             controller: 'homeController'
         })
         .when('/others', {
-            templateUrl: '/app/shell/views/candidate/other.html',
+            templateUrl: '/app/views/candidate/other.html',
             controller: 'otherController'
         })
           .when('/candidateprofile', {
-              templateUrl: '/app/shell/views/candidate/candidateProfile.html',
+              templateUrl: '/app/views/candidate/candidateProfile.html',
               controller: 'candidateProfileController'
           })
     .when('/companyprofile', {
-        templateUrl: '/app/shell/views/company/companyprofile.html',
+        templateUrl: '/app/views/company/companyprofile.html',
         controller: 'companyprofileController'
     })
     .when('/postjobs', {
-        templateUrl: '/app/shell/views/job/postjobs.html',
+        templateUrl: '/app/views/job/postjobs.html',
         controller: 'postjobsController'
     })
     .when('/joblisting', {
-        templateUrl: '/app/shell/views/job/jobListing.html',
+        templateUrl: '/app/views/job/jobListing.html',
         controller: 'jobListingController'
     })
     .otherwise({
