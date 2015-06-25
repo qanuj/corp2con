@@ -29,6 +29,10 @@
          templateUrl: '/app/shell/views/Testimonials.html',
          controller: 'testimonialsController'
      })
+    .when('/companylist', {
+        templateUrl: '/app/shell/views/company/companylist.html',
+        controller: 'companyListController'
+    })
     ;
     $locationProvider.html5Mode(false).hashPrefix('');
 });
