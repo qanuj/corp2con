@@ -16,7 +16,7 @@ namespace Talent21.Web.Controllers
     /// 
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/company")]
+    [RoutePrefix("api/v1/company")]
     public class CompanyController : BasicApiController
     {
         private readonly ICompanyService _service;

@@ -1,6 +1,11 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using e10.Shared.Data;
+using e10.Shared.Data.Abstraction;
 using e10.Shared.Security;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
 using Owin;
 
 namespace e10.Shared
@@ -10,8 +15,6 @@ namespace e10.Shared
         
         protected override void Load(ContainerBuilder builder)
         {
-           
-
             builder.RegisterType<ApplicationUserStore>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationRoleStore>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();

@@ -12,7 +12,7 @@ namespace Talent21.Web.Controllers
     /// Candidate Api
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/candidate")]
+    [RoutePrefix("api/v1/candidate")]
     public class CandidateController : BasicApiController
     {
         private readonly ICandidateService _service;
@@ -77,7 +77,6 @@ namespace Talent21.Web.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id}")]
         public HttpResponseMessage GetProfile(int id)
         {
             var profile=_service.GetProfile(id);

@@ -12,7 +12,7 @@ namespace Talent21.Web.Controllers
     /// Job API
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/job")]
+    [RoutePrefix("api/v1/job")]
     public class JobController : BasicApiController
     {
         private readonly IJobService _service;

@@ -13,7 +13,7 @@ namespace Talent21.Web.Controllers
     /// System Api
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/system")]
+    [RoutePrefix("api/v1/system")]
     public class SystemController : BasicApiController
     {
         private readonly ISystemService _service;

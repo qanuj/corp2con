@@ -4,15 +4,13 @@ namespace Talent21.Web.Controllers
 {
     public class HomeController : Controller
     {
+        //[Authorize]
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated) {
-                return View();
-            }
-            return View("Welcome");
+            return View();
         }
 
-        [Route("~/welcome")]
+        [Route("welcome")]
         public ActionResult Welcome()
         {
             ViewBag.Message = "Your application description page.";

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using Talent21.Web.Areas.HelpPage;
 
 [assembly: OwinStartupAttribute(typeof(Talent21.Web.Startup))]
 namespace Talent21.Web
@@ -9,6 +10,7 @@ namespace Talent21.Web
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            IocHelper.CreateContainer(app);
         }
     }
 }

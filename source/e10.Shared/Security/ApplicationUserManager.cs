@@ -1,7 +1,9 @@
 ﻿using System;
+using e10.Shared.Data;
 using e10.Shared.Data.Abstraction;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 
 namespace e10.Shared.Security
@@ -49,6 +51,10 @@ namespace e10.Shared.Security
             this.UserTokenProvider = DefaultTokenProvider();
         }
 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
+        {
+            return new ApplicationUserManager(context.GetUserManager<ApplicationUserStore>(), new SmsService(), new EmailService());
+        }
         public static IUserTokenProvider<User, string> DefaultTokenProvider()
         {
             return new DataProtectorTokenProvider<User>(new DpapiDataProtectionProvider("FbHireSuperLockerd").Create("EmailConfirmation")); ;
