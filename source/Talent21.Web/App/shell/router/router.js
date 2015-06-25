@@ -20,10 +20,12 @@
         templateUrl: '/app/shell/views/job/postjobs.html',
         controller: 'postjobsController'
     })
-    
-        .when('/joblisting', {
-            templateUrl: '/app/shell/views/job/jobListing.html',
-            controller: 'jobListingController'
-        });
+    .when('/joblisting', {
+        templateUrl: '/app/shell/views/job/jobListing.html',
+        controller: 'jobListingController'
+    })
+    .otherwise({
+        redirectTo : '/'
+    });
     $locationProvider.html5Mode(false).hashPrefix('');
 });
