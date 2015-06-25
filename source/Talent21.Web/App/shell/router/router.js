@@ -12,6 +12,9 @@
               templateUrl: '/app/shell/views/candidate/candidateProfile.html',
               controller: 'candidateProfileController'
           })
-    ;
+        .when('/joblisting', {
+            templateUrl: '/app/shell/views/job/jobListing.html',
+            controller: 'jobListingController'
+        });
     $locationProvider.html5Mode(false).hashPrefix('');
 });

@@ -258,6 +258,7 @@
   <ItemGroup>
     <Content Include="App\shell\apps\app.js" />
     <Content Include="App\shell\controllers\candidateProfileController.js" />
+    <Content Include="App\shell\controllers\jobListingController.js" />
     <Content Include="App\shell\controllers\otherController.js" />
     <Content Include="App\shell\controllers\homeController.js" />
     <Content Include="App\shell\router\router.js" />
@@ -265,6 +266,7 @@
     <Content Include="App\shell\views\candidate\CandidateProfile.html" />
     <Content Include="App\shell\views\candidate\other.html" />
     <Content Include="App\shell\views\home.html" />
+    <Content Include="App\shell\views\job\JobListing.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />
     <Content Include="App\template\candidates.html" />
