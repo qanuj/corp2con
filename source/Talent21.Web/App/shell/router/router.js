@@ -21,5 +21,9 @@
         controller: 'postjobsController'
     })
     ;
+        .when('/joblisting', {
+            templateUrl: '/app/shell/views/job/jobListing.html',
+            controller: 'jobListingController'
+        });
     $locationProvider.html5Mode(false).hashPrefix('');
 });
