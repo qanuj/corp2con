@@ -42,7 +42,8 @@ namespace Talent21.Web
                       "~/Content/css/spa.css"));
 
 
-            bundles.Add(new ScriptBundle("~/scripts/site")
+            bundles.Add(new ScriptBundle("~/script/site")
+                .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/site/modernizr.custom.79639.js")
                 .Include("~/Scripts/site/bootstrap.min.js")
                 .Include("~/Scripts/site/retina.min.js")
