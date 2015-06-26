@@ -10,6 +10,8 @@ using e10.Shared.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Talent21.Service.Abstraction;
+using Talent21.Service.Models;
 using Talent21.Web.Models;
 
 namespace Talent21.Web.Controllers
@@ -19,15 +21,15 @@ namespace Talent21.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly ICandidateService _candidateService;
+        private readonly ICompanyService _companyService;
 
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ICompanyService companyService, ICandidateService candidateService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _companyService = companyService;
+            _candidateService = candidateService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -157,6 +159,28 @@ namespace Talent21.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if(result.Succeeded)
                 {
+                    if(model.What == "Register as Contractor")
+                    {
+                        _candidateService.CreateCandidate(new CreateCandidateViewModel()
+                        {
+                            UserId = user.Id, Name = user.Email
+                        });
+                        if(!UserManager.IsInRole(user.Id, "Contractor"))
+                        {
+                            UserManager.AddToRole(user.Id, "Contractor");
+                        }
+                    }
+                    else if (model.What == "Register as Company")
+                    {
+                        _companyService.CreateCompany(new CreateCompanyViewModel()
+                        {
+                            UserId = user.Id, Name = user.Email
+                        });
+                        if (!UserManager.IsInRole(user.Id, "Company"))
+                        {
+                            UserManager.AddToRole(user.Id, "Company");
+                        }
+                }
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -392,6 +416,15 @@ namespace Talent21.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
+        // POST: /Account/LogOut
+        [HttpGet]
+        public ActionResult LogOut()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");

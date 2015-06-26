@@ -8,24 +8,21 @@
             templateUrl: '/app/views/candidate/other.html',
             controller: 'otherController'
         })
-          .when('/candidateprofile', {
-              templateUrl: '/app/views/candidate/candidateProfile.html',
-              controller: 'candidateProfileController'
-          })
-    .when('/companyprofile', {
-        templateUrl: '/app/views/company/companyprofile.html',
-        controller: 'companyprofileController'
-    })
-    .when('/postjobs', {
-        templateUrl: '/app/views/job/postjobs.html',
-        controller: 'postjobsController'
-    })
-    .when('/joblisting', {
-        templateUrl: '/app/views/job/jobListing.html',
-        controller: 'jobListingController'
-    })
-    .otherwise({
-        redirectTo : '/'
-    });
+        .when('/candidateprofile', {
+            templateUrl: '/app/views/candidate/candidateProfile.html',
+            controller: 'candidateProfileController'
+        })
+        .when('/companyprofile', {
+            templateUrl: '/app/views/company/companyprofile.html',
+            controller: 'companyProfileController'
+        })
+        .when('/postjobs', {
+            templateUrl: '/app/views/job/postjobs.html',
+            controller: 'postjobsController'
+        })
+        .when('/joblisting', {
+            templateUrl: '/app/views/job/jobListing.html',
+            controller: 'jobListingController'
+        });
     $locationProvider.html5Mode(false).hashPrefix('');
 });

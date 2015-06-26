@@ -37,7 +37,7 @@ namespace Talent21.Service.Core
         /// <returns></returns>
         public CreateCandidateViewModel CreateCandidate(CreateCandidateViewModel profile)
         {
-            var candidate = new Candidate() { Name = profile.Name };
+            var candidate = new Candidate() { Name = profile.Name, OwnerId = profile.UserId};
             _candidateRepository.Create(candidate);
             _candidateRepository.SaveChanges();
             return new CreateCandidateViewModel
