@@ -4,7 +4,7 @@
         $routeProvider
             .when('/', {
                 templateUrl: '/app/views/contractor/profile.html',
-                controller: 'contractorController'
+                controller: 'contractorProfileController'
             })
             .when('/others', {
                 templateUrl: '/app/views/candidate/other.html',
