@@ -12,14 +12,18 @@
               templateUrl: '/app/shell/views/candidate/candidateProfile.html',
               controller: 'candidateProfileController'
           })
-    .when('/companyprofile', {
-        templateUrl: '/app/shell/views/company/companyprofile.html',
-        controller: 'companyprofileController'
-    })
-    ;
+        .when('/companyprofile', {
+            templateUrl: '/app/shell/views/company/companyprofile.html',
+            controller: 'companyprofileController'
+        })
+
         .when('/joblisting', {
             templateUrl: '/app/shell/views/job/jobListing.html',
             controller: 'jobListingController'
+        })
+        .when('/aboutcompany', {
+            templateUrl: '/app/shell/views/company/aboutcompany.html',
+            controller: 'aboutCompanyController'
         });
     $locationProvider.html5Mode(false).hashPrefix('');
 });
