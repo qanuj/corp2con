@@ -5,6 +5,10 @@ using Microsoft.Owin.Security;
 
 namespace Talent21.Web.Models
 {
+    public class FrontEndViewModel
+    {
+        public string Role { get; set; }
+    }
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

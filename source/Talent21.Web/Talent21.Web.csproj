@@ -274,8 +274,8 @@
     <Content Include="App\controllers\testimonialsController.js" />
     <Content Include="App\router\router.js" />
     <Content Include="App\services\headerFactory.js" />
-    <Content Include="App\views\candidate\CandidateProfile.html" />
-    <Content Include="App\views\candidate\other.html" />
+    <Content Include="App\views\contractor\profile.html" />
+    <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
     <Content Include="App\views\company\CompanyProfile.html" />
