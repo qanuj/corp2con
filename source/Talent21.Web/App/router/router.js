@@ -14,7 +14,7 @@
           })
     .when('/companyprofile', {
         templateUrl: '/app/views/company/companyprofile.html',
-        controller: 'companyprofileController'
+        controller: 'companyProfileController'
     })
     .when('/postjobs', {
         templateUrl: '/app/views/job/postjobs.html',
@@ -24,6 +24,14 @@
         templateUrl: '/app/views/job/jobListing.html',
         controller: 'jobListingController'
     })
+        .when('/companylist', {
+            templateUrl: '/app/views/company/CompanyList.html',
+            controller: 'companyListController'
+        })
+       .when('/testimonials', {
+           templateUrl: '/app/views/Testimonials.html',
+           controller: 'testimonialsController'
+       })
     .otherwise({
         redirectTo : '/'
     });
