@@ -1,3 +1,3 @@
-﻿app.controller("aboutCompanyController", function ($scope) {
+﻿app.controller("aboutCompanyController",['$scope', function ($scope) {
     $scope.text = "CCCCCCCCC";
-});
+}]);
