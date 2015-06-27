@@ -13,7 +13,7 @@ namespace Talent21.Web.Controllers
     /// System Api
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/system")]
+    [RoutePrefix("api/v1/system")]
     public class SystemController : BasicApiController
     {
         private readonly ISystemService _service;
@@ -79,7 +79,7 @@ namespace Talent21.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpView]
+        [HttpGet]
         public HttpResponseMessage ViewIndustry(IndustryViewModel model)
         {
             if (ModelState.IsValid)
@@ -144,7 +144,7 @@ namespace Talent21.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpView]
+        [HttpGet]
         [Route("skill")]
         public HttpResponseMessage ViewSkill(SkillViewModel model)
         {

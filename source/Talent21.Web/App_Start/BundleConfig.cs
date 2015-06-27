@@ -19,13 +19,83 @@ namespace Talent21.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            bundles.Add(new StyleBundle("~/Content/site").Include(
+                      "~/Content/css/bootstrap.css",
+                      "~/Content/css/jquery.flexmenu.css",
+                      "~/Content/css/owl.carousel.css",
+                      "~/Content/css/animate.css",
+                      "~/Content/css/jquery.fancybox.css",
+                      "~/Content/css/jquery.nouislider.css",
+                      "~/Content/css/font-awesome.min.css",
+                      "~/Content/css/style.css",
+                      "~/Content/css/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/spa").Include(
+                      "~/Content/css/bootstrap.css",
+                      "~/Content/css/jquery.flexmenu.css",
+                      "~/Content/css/owl.carousel.css",
+                      "~/Content/css/animate.css",
+                      "~/Content/css/jquery.fancybox.css",
+                      "~/Content/css/jquery.nouislider.css",
+                      "~/Content/css/font-awesome.min.css",
+                      "~/Content/css/style.css",
+                      "~/Content/css/spa.css"));
+
+
+            bundles.Add(new ScriptBundle("~/script/site")
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/site/modernizr.custom.79639.js")
+                .Include("~/Scripts/site/bootstrap.min.js")
+                .Include("~/Scripts/site/retina.min.js")
+                .Include("~/Scripts/site/scrollReveal.min.js")
+                .Include("~/Scripts/site/jquery.flexmenu.js")
+                .Include("~/Scripts/site/jquery.ba-cond.min.js")
+                .Include("~/Scripts/site/jquery.slitslider.js")
+                .Include("~/Scripts/site/owl.carousel.min.js")
+                .Include("~/Scripts/site/parallax.js")
+                .Include("~/Scripts/site/jquery.counterup.min.js")
+                .Include("~/Scripts/site/waypoints.min.js")
+                .Include("~/Scripts/site/jquery.nouislider.all.min.js")
+                .Include("~/Scripts/site/bootstrap-wysiwyg.js")
+                .Include("~/Scripts/site/jquery.hotkeys.js")
+                .Include("~/Scripts/site/jflickrfeed.min.js")
+                .Include("~/Scripts/site/fancybox.pack.js")
+                .Include("~/Scripts/site/magic.js")
+                .Include("~/Scripts/site/settings.js")
+            );
+
+            bundles.Add(new ScriptBundle("~/script/spa")
+                .Include("~/Scripts/site/modernizr.custom.79639.js")
+                .Include("~/Scripts/site/bootstrap.min.js")
+                .Include("~/Scripts/site/retina.min.js")
+                .Include("~/Scripts/site/scrollReveal.min.js")
+                .Include("~/Scripts/site/jquery.flexmenu.js")
+                .Include("~/Scripts/site/jquery.ba-cond.min.js")
+                .Include("~/Scripts/site/jquery.slitslider.js")
+                .Include("~/Scripts/site/owl.carousel.min.js")
+                .Include("~/Scripts/site/parallax.js")
+                .Include("~/Scripts/site/jquery.counterup.min.js")
+                .Include("~/Scripts/site/waypoints.min.js")
+                .Include("~/Scripts/site/jquery.nouislider.all.min.js")
+                .Include("~/Scripts/site/bootstrap-wysiwyg.js")
+                .Include("~/Scripts/site/jquery.hotkeys.js")
+                .Include("~/Scripts/site/jflickrfeed.min.js")
+                .Include("~/Scripts/site/fancybox.pack.js")
+                .Include("~/Scripts/site/magic.js")
+                .Include("~/Scripts/site/settings.js")
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/bootstrap.js")
+                .Include("~/Scripts/angular.js")
+                .Include("~/Scripts/angular-*")
+                .Include("~/app/app.js")
+                .Include("~/app/app.*")
+                .Include("~/app/router/*.js")
+                .Include("~/app/directives/*.js")
+                .Include("~/app/services/*.js")
+                .Include("~/app/controllers/*.js")
+                .IncludeDirectory("~/app/views/", "*.js", true)
+            );
+
         }
     }
 }

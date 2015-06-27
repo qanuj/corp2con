@@ -17,11 +17,5 @@ namespace Talent21.Data.Core
         {
             Experience = new Duration();
         }
-
-        public bool IsCancelled { get; set; }
-
-        public System.DateTime Cancelled { get; set; }
-
-        public bool IsRejected { get; set; }
     }
 }

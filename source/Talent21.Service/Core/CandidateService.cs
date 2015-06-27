@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -37,7 +38,7 @@ namespace Talent21.Service.Core
         /// <returns></returns>
         public CreateCandidateViewModel CreateCandidate(CreateCandidateViewModel profile)
         {
-            var candidate = new Candidate() { Name = profile.Name };
+            var candidate = new Candidate() { Name = profile.Name, OwnerId = profile.UserId};
             _candidateRepository.Create(candidate);
             _candidateRepository.SaveChanges();
             return new CreateCandidateViewModel

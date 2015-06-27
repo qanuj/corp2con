@@ -5,9 +5,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using e10.Shared.Data.Abstraction;
+using e10.Shared.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Talent21.Service.Abstraction;
+using Talent21.Service.Models;
 using Talent21.Web.Models;
 
 namespace Talent21.Web.Controllers
@@ -17,15 +21,21 @@ namespace Talent21.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+        private readonly ICandidateService _candidateService;
+        private readonly ICompanyService _companyService;
 
-        public AccountController()
-        {
-        }
+        public static string Contractor = "Contractor";
+        public static string Company = "Company";
+        public static string Admin = "Admin";
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ICompanyService companyService, ICandidateService candidateService, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _companyService = companyService;
+            _candidateService = candidateService;
+            _roleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -34,9 +44,9 @@ namespace Talent21.Web.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -68,7 +78,7 @@ namespace Talent21.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -76,7 +86,7 @@ namespace Talent21.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            switch(result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
@@ -97,7 +107,7 @@ namespace Talent21.Web.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
+            if(!await SignInManager.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
@@ -111,7 +121,7 @@ namespace Talent21.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -120,8 +130,8 @@ namespace Talent21.Web.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
-            switch (result)
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+            switch(result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
@@ -134,11 +144,15 @@ namespace Talent21.Web.Controllers
             }
         }
 
+        private const string RegisterAsCompany = "Register As Company";
+        private const string RegisterAsContractor = "Register As Contractor";
         //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.RegisterAsCompany = RegisterAsCompany;
+            ViewBag.RegisterAsContractor = RegisterAsContractor;
             return View();
         }
 
@@ -149,24 +163,52 @@ namespace Talent21.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if(result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    if(!_roleManager.RoleExists(Contractor)) _roleManager.Create(new Role(Contractor));
+                    if(!_roleManager.RoleExists(Company)) _roleManager.Create(new Role(Company));
+                    if(!_roleManager.RoleExists(Admin)) _roleManager.Create(new Role(Admin));
+
+                    if(model.What == RegisterAsContractor)
+                    {
+                        _candidateService.CreateCandidate(new CreateCandidateViewModel()
+                        {
+                            UserId = user.Id, Name = user.Email
+                        });
+                        if(!UserManager.IsInRole(user.Id, Contractor))
+                        {
+                            UserManager.AddToRole(user.Id, Contractor);
+                        }
+                    }
+                    else if(model.What == RegisterAsCompany)
+                    {
+                        _companyService.CreateCompany(new CreateCompanyViewModel()
+                        {
+                            UserId = user.Id, Name = user.Email
+                        });
+                        if (!UserManager.IsInRole(user.Id, Company))
+                        {
+                            UserManager.AddToRole(user.Id, Company);
+                        }
+                    }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
+            ViewBag.RegisterAsCompany = RegisterAsCompany;
+            ViewBag.RegisterAsContractor = RegisterAsContractor;
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -177,7 +219,7 @@ namespace Talent21.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == null || code == null)
+            if(userId == null || code == null)
             {
                 return View("Error");
             }
@@ -200,10 +242,10 @@ namespace Talent21.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if(user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -244,18 +286,18 @@ namespace Talent21.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View(model);
             }
             var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            if(user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
+            if(result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
@@ -288,7 +330,7 @@ namespace Talent21.Web.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
+            if(userId == null)
             {
                 return View("Error");
             }
@@ -304,13 +346,13 @@ namespace Talent21.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View();
             }
 
             // Generate the token and send it
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if(!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return View("Error");
             }
@@ -323,14 +365,14 @@ namespace Talent21.Web.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
+            if(loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
+            switch(result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
@@ -354,25 +396,25 @@ namespace Talent21.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
+            if(User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Manage");
             }
 
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                if(info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
+                if(result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
+                    if(result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
@@ -396,6 +438,15 @@ namespace Talent21.Web.Controllers
         }
 
         //
+        // POST: /Account/LogOut
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
@@ -405,15 +456,15 @@ namespace Talent21.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if(disposing)
             {
-                if (_userManager != null)
+                if(_userManager != null)
                 {
                     _userManager.Dispose();
                     _userManager = null;
                 }
 
-                if (_signInManager != null)
+                if(_signInManager != null)
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
@@ -437,7 +488,7 @@ namespace Talent21.Web.Controllers
 
         private void AddErrors(IdentityResult result)
         {
-            foreach (var error in result.Errors)
+            foreach(var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }
@@ -445,7 +496,7 @@ namespace Talent21.Web.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if(Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
@@ -473,7 +524,7 @@ namespace Talent21.Web.Controllers
             public override void ExecuteResult(ControllerContext context)
             {
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
+                if(UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;
                 }

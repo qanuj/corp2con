@@ -28,6 +28,11 @@ namespace Talent21.Data.Repository
         {
             get { return base.All.Where(x=>!x.IsDeleted); }
         }
+
+        internal static void Register(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Block>().HasKey(x => x.Id);
+        }
     }
     /// <summary>
     /// 

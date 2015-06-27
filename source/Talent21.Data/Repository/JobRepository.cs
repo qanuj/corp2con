@@ -24,6 +24,11 @@ namespace Talent21.Data.Repository
         { 
             
         }
+
+        internal static void Register(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Job>().HasKey(x => x.Id);
+        }
     }
     /// <summary>
     /// 

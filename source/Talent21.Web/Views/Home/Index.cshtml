@@ -1,31 +1,64 @@
-﻿@{
+﻿@model Talent21.Web.Models.FrontEndViewModel
+@{
+    Layout = "";
     ViewBag.Title = "Home Page";
+    var Product = "Corp2Con";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<!DOCTYPE html>
+<html data-role="@Model.Role">
+<head>
+    <base href="@Url.Content("~/")">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title @Product</title>
+    <link rel="shortcut icon" href="~/content/images/favicon.png">
+    @Styles.Render("~/Content/spa")
+</head>
+<body ng-app="app">
+    <header>
+        <div id="header-background"></div>
+        <div class="container">
+            <div class="pull-left">
+                <div id="logo"><a href="/#"><img src="~/content/images/logo.png" alt="Jobseek - Job Board Responsive HTML Template" /></a></div>
+            </div>
+            <div id="menu-open" class="pull-right">
+                <a class="fm-button"><i class="fa fa-bars fa-lg"></i></a>
+            </div>
+            <div id="searchbox" class="pull-right">
+                <form>
+                    <div class="form-group">
+                        <label class="sr-only" for="searchfield">Searchbox</label>
+                        <input type="text" class="form-control" id="searchfield" placeholder="Type keywords and press enter">
+                    </div>
+                </form>
+            </div>
+            <div id="search" class="pull-right">
+                <a><i class="fa fa-search fa-lg"></i></a>
+            </div>
+        </div>
+    </header>
+    <div id="loader">
+        <i class="fa fa-cog fa-4x fa-spin"></i>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="fm-container">
+        <!-- Menu -->
+        <div class="menu">
+            <div class="button-close text-right">
+                <a class="fm-button"><i class="fa fa-close fa-2x"></i></a>
+            </div>
+            <ul class="nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/#/jobs">Jobs</a></li>
+                <li><a href="/#/jobs/create">Post a job</a></li>
+                <li><a href="/#/search/candidate">Candidates</a></li>
+                <li><a href="/#/search/job">Jobs</a></li>
+                <li><a href="/#/search/company">Companies</a></li>
+                <li><a href="/#/profile">Post a Resume</a></li>
+                <li><a href="/account/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div ng-view></div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    @Scripts.Render("~/script/spa")
+</body>
+</html>

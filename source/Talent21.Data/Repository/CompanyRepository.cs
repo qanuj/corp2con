@@ -22,6 +22,12 @@ namespace Talent21.Data.Repository
         public CompanyRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
         {
         }
+
+
+        internal static void Register(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Company>().HasKey(x => x.Id);
+        }
     }
 
     /// <summary>

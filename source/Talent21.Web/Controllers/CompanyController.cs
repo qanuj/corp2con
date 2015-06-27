@@ -16,7 +16,7 @@ namespace Talent21.Web.Controllers
     /// 
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/company")]
+    [RoutePrefix("api/v1/company")]
     public class CompanyController : BasicApiController
     {
         private readonly ICompanyService _service;
@@ -81,7 +81,7 @@ namespace Talent21.Web.Controllers
         /// </summary>
         /// <param name="jobApplication"></param>
         /// <returns></returns>
-        [HttpReject]
+        [HttpPut]
         [Route("reject")]
         public HttpResponseMessage RejectCandidate(RejectCandidateViewModel model)
         {
@@ -99,7 +99,7 @@ namespace Talent21.Web.Controllers
         /// </summary>
         /// <param name="jobApplication"></param>
         /// <returns></returns>
-        [HttpApprove]
+        [HttpPut]
         [Route("approve")]
         public HttpResponseMessage ApproveCompany(ApproveCompanyViewModel model)
         {
@@ -155,18 +155,5 @@ namespace Talent21.Web.Controllers
             }
             return Bad(ModelState);
         }
-        /// <summary>
-        /// Publish Job
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        /// <returns></returns>
-
-
-
-        private HttpResponseMessage Bad(System.Web.Http.ModelBinding.ModelStateDictionary ModelState)
-        {
-            throw new System.NotImplementedException();
-        } 
-
     }
 }
