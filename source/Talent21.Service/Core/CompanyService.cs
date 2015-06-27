@@ -251,6 +251,8 @@ namespace Talent21.Service.Core
             var entity = new Company
             {
                 Name = model.Name,
+
+                OwnerId = model.OwnerId,
                 Email = model.Email
             };
             _companyRepository.Create(entity);

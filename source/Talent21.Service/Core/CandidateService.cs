@@ -292,6 +292,7 @@ namespace Talent21.Service.Core
             var entity = new Candidate
             {
                 Name = model.Name,
+                OwnerId = model.OwnerId,
                 Email = model.Email
             };
             _candidateRepository.Create(entity);
