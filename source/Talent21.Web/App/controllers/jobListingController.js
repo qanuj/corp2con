@@ -1,3 +1,3 @@
-﻿app.controller("jobListingController", function ($scope) {
+﻿app.controller("jobListingController",['$scope', function ($scope) {
     $scope.text = "BBBBBBBBBB";
-});
+}]);

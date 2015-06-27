@@ -1,3 +1,3 @@
-﻿app.controller("companyListController", function($scope) {
+﻿app.controller("companyListController",['$scope', function($scope) {
     $scope.text = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-});
+}]);

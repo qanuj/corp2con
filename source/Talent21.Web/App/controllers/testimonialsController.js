@@ -1,3 +1,3 @@
-﻿app.controller("testimonialsController", function($scope) {
+﻿app.controller("testimonialsController",['$scope', function($scope) {
     $scope.text = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-});
+}]);
