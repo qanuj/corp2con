@@ -16,6 +16,7 @@ namespace e10.Shared.Data.Abstraction
         void Create(ICollection<TEntity> entity); //returns Rows Affected
         void Update(TEntity entity); //returns Rows Affected
         void Delete(TEntity entity); //returns Rows Affected
+        void Delete(TKey id); //returns Rows Affected
         void Attach(TEntity entity); //returns Rows Affected
         void Delete(ICollection<TEntity> entities); //returns Rows Affected
 

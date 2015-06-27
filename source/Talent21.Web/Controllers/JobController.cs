@@ -12,7 +12,7 @@ namespace Talent21.Web.Controllers
     /// Job API
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/job")]
+    [RoutePrefix("api/v1/job")]
     public class JobController : BasicApiController
     {
         private readonly IJobService _service;
@@ -45,7 +45,7 @@ namespace Talent21.Web.Controllers
         /// </summary>
         /// <param name="jobApplication"></param>
         /// <returns></returns>
-        [HttpCancel]
+        [HttpPut]
         [Route("cancel")]
         public HttpResponseMessage CancelJob(CancelJobApplicationViewModel model)
         {
@@ -75,7 +75,7 @@ namespace Talent21.Web.Controllers
         /// </summary>
         /// <param name="job"></param>
         /// <returns></returns>
-        [HttpRevoke]
+        [HttpPut]
         [Route("revoke")]
         public HttpResponseMessage RevokeJobApplication(RevokeJobApplicationViewModel model)
         {

@@ -4,7 +4,6 @@ namespace Talent21.Data.Core
 {
     public class Skill : Dictionary
     {
-        public int CandidateId { get; set; }
-
+        
     }
 }

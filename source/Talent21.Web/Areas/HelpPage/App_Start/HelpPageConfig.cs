@@ -37,9 +37,10 @@ namespace Talent21.Web.Areas.HelpPage
             config.SetDocumentationProvider(new XmlDocumentationProvider(new string[]
             {
                 HttpContext.Current.Server.MapPath("~/bin/Talent21.Web.XML"),
-                HttpContext.Current.Server.MapPath("~/bin/Talent21.Service.XML"),
-                HttpContext.Current.Server.MapPath("~/bin/Talent21.Data.XML"),
-                HttpContext.Current.Server.MapPath("~/bin/e10.Shared.XML"),
+                //TODO:uncomment to see other help.
+                //HttpContext.Current.Server.MapPath("~/bin/Talent21.Service.XML"),
+                //HttpContext.Current.Server.MapPath("~/bin/Talent21.Data.XML"),
+                //HttpContext.Current.Server.MapPath("~/bin/e10.Shared.XML"),
             }));
 
             //// Uncomment the following to use "sample string" as the sample for all actions that have string as the body parameter or return type.

@@ -1,8 +1,10 @@
 ﻿using System;
+using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
+using System.Linq;
 
 namespace Talent21.Service.Core
 {
@@ -29,6 +31,31 @@ namespace Talent21.Service.Core
             _jobRepository = jobRepository;
             _candidateRepository = candidateRepository;
         }
+
+        public IQueryable<CompanyViewModel> Companies
+        {
+            get
+            {
+                return _companyRepository.All.Select(x => new CompanyViewModel
+                {
+                    Id = x.Id,
+                    About = x.About,
+                    Email = x.Email,
+                    Facebook = x.Social.Facebook,
+                    Google = x.Social.Google,
+                    LinkedIn = x.Social.LinkedIn,
+                    LocationId = x.LocationId,
+                    Mobile = x.Mobile,
+                    Name = x.Name,
+                    Rss = x.Social.Rss,
+                    Twitter = x.Social.Twitter,
+                    WebSite = x.Social.WebSite,
+                    Yahoo = x.Social.Yahoo,
+                    PictureUrl = x.PictureUrl,
+                    Industry=new DictionaryViewModel(){ Code  = x.Industry.Code, Title = x.Industry.Title}
+                });
+            }
+        } 
 
         /// <summary>
         /// 
@@ -100,8 +127,8 @@ namespace Talent21.Service.Core
         public bool RejectCandidate(RejectCandidateViewModel model)
         {
             var entity = _candidateRepository.ById(model.CandidateId);
-            entity.IsRejected = true;
-            entity.Cancelled = DateTime.UtcNow;
+            //entity.IsRejected = true;
+            //entity.Cancelled = DateTime.UtcNow;
             _candidateRepository.Update(entity);
             var rowAffected = _candidateRepository.SaveChanges();
             return rowAffected > 0;
@@ -115,8 +142,8 @@ namespace Talent21.Service.Core
         public bool ApproveCompany(ApproveCompanyViewModel model)
         {
             var entity = _companyRepository.ById(model.CandidateId);
-            entity.IsApproved = true;
-            entity.Cancelled = DateTime.UtcNow;
+            //entity.IsApproved = true;
+            //entity.Cancelled = DateTime.UtcNow;
             _companyRepository.Update(entity);
             var rowAffected = _companyRepository.SaveChanges();
             return rowAffected > 0;
@@ -206,10 +233,63 @@ namespace Talent21.Service.Core
             return profile; ;
         }
 
-
         public CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model)
         {
             throw new NotImplementedException();
+        }
+
+
+        public bool Delete(IdModel model)
+        {
+            _companyRepository.Delete(model.Id);
+            var rowsAffested = _companyRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        public CompanyEditViewModel Create(CompanyCreateViewModel model)
+        {
+            var entity = new Company
+            {
+                Name = model.Name,
+
+                OwnerId = model.OwnerId,
+                Email = model.Email
+            };
+            _companyRepository.Create(entity);
+            _companyRepository.SaveChanges();
+            return new CompanyEditViewModel()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Email = entity.Email
+            };
+        }
+
+        public CompanyEditViewModel Update(CompanyEditViewModel model)
+        {
+            var entity = _companyRepository.ById(model.Id);
+            if(entity == null) return null;
+
+            entity.Name = model.Name;
+            entity.Email = model.Email;
+            entity.About = model.About;
+            entity.LocationId = model.LocationId;
+            entity.Mobile = model.Mobile;
+            entity.Social = new Social
+            {
+                Twitter = model.Twitter,
+                Facebook = model.Facebook,
+                Yahoo = model.Yahoo,
+                Google = model.Google,
+                LinkedIn = model.LinkedIn,
+                Rss = model.Rss,
+                WebSite = model.WebSite
+            };
+
+            _companyRepository.Update(entity);
+            _companyRepository.SaveChanges();
+
+            return model;
         }
     }
 }

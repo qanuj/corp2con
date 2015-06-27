@@ -7,6 +7,10 @@ using e10.Shared.Util;
 
 namespace e10.Shared.Data.Abstraction
 {
+    public class DefaultEventManager : IEventManager
+    {
+    }
+
     public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
     {
         protected EfRepository(DbContext context, IEventManager eventManager) {
@@ -150,6 +154,11 @@ namespace e10.Shared.Data.Abstraction
         public async Task<int> SaveChangesAsync()
         {
             return await Context.SaveChangesAsync();
+        }
+
+        public void Delete(int id)
+        {
+            Delete(ById(id));
         }
     }
 }

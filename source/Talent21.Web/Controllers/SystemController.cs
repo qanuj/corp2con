@@ -5,7 +5,6 @@ using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
-using Talent21.Service.Models.Core;
 
 namespace Talent21.Web.Controllers
 {
@@ -13,165 +12,121 @@ namespace Talent21.Web.Controllers
     /// System Api
     /// </summary>
     [Authorize]
-    [RoutePrefix("~/api/v1/system")]
+    [RoutePrefix("api/v1/system")]
     public class SystemController : BasicApiController
     {
         private readonly ISystemService _service;
-        /// <summary>
-        /// Create Instance of System Controller
-        /// </summary>
-        /// <param name="service"></param>
+
         public SystemController(ISystemService service)
         {
             _service = service;
         }
 
-        /// <summary>
-        /// Create a Syetem Record and Apply to Job
-        /// </summary>
-        /// <param name="model">Model with System Name and Job Id, more fields to come</param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("add")]
-        public HttpResponseMessage AddIndustry(AddIndustryViewModel model)
+        [HttpGet]
+        [Route("industry/paged")]
+        public PageResult<IndustryDictionaryViewModel> ViewIndustries(ODataQueryOptions<IndustryDictionaryViewModel> options)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.AddIndustry(model));
-            }
-            return Bad(ModelState);
+            return Page(_service.Industries, options);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        [HttpGet]
+        [Route("industry/all")]
+        public IQueryable<IndustryDictionaryViewModel> ViewIndustriesQuery()
+        {
+            return _service.Industries;
+        }
+
+        [HttpPost]
+        [Route("industry/create")]
+        public HttpResponseMessage AddIndustry(IndustryDictionaryCreateViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+        }
+
         [HttpPut]
-        public HttpResponseMessage EditIndustry(EditIndustryViewModel model)
+        [Route("industry/update")]
+        public HttpResponseMessage EditIndustry(IndustryDictionaryEditViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.EditIndustry(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         [HttpDelete]
-        public HttpResponseMessage DeleteIndustry(DeleteIndustryViewModel model)
+        [Route("industry/delete")]
+        public HttpResponseMessage DeleteIndustry(IndustryDeleteViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.DeleteIndustry(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpView]
-        public HttpResponseMessage ViewIndustry(IndustryViewModel model)
+        [HttpGet]
+        [Route("skill/paged")]
+        public PageResult<SkillDictionaryViewModel> ViewSkills(ODataQueryOptions<SkillDictionaryViewModel> options)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.ViewIndustry(model));
-            }
-            return Bad(ModelState);
+            return Page(_service.Skills, options);
         }
 
+        [HttpGet]
+        [Route("skill/all")]
+        public IQueryable<SkillDictionaryViewModel> ViewSkillsQuery()
+        {
+            return _service.Skills;
+        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         [HttpPost]
-        [Route("skill")]
-        public HttpResponseMessage AddSkill(AddSkillViewModel model)
+        [Route("skill/create")]
+        public HttpResponseMessage AddSkill(SkillDictionaryCreateViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.AddSkill(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         [HttpPut]
-        [Route("skill")]
-        public HttpResponseMessage EditSkill(EditSkillViewModel model)
+        [Route("skill/update")]
+        public HttpResponseMessage EditSkill(SkillDictionaryEditViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.EditSkill(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         [HttpDelete]
-        [Route("schedule")]
-        public HttpResponseMessage DeleteSkill(DeleteSkillViewModel model)
+        [Route("skill/delete")]
+        public HttpResponseMessage DeleteSkill(SkillDeleteViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.DeleteSkill(model));
-            }
-            return Bad(ModelState);
-        }
-        
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpView]
-        [Route("skill")]
-        public HttpResponseMessage ViewSkill(SkillViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.ViewSkill(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
-       
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        [HttpGet]
+        [Route("location/paged")]
+        public PageResult<LocationDictionaryViewModel> ViewLocations(ODataQueryOptions<LocationDictionaryViewModel> options)
+        {
+            return Page(_service.Locations, options);
+        }
+
+        [HttpGet]
+        [Route("location/all")]
+        public IQueryable<LocationDictionaryViewModel> ViewLocationsQuery()
+        {
+            return _service.Locations;
+        }
+
         [HttpPost]
-        [Route("location")]
-        public HttpResponseMessage AddLocation(LocationCreateViewModel model)
+        [Route("location/create")]
+        public HttpResponseMessage AddLocation(LocationDictionaryCreateViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.AddLocation(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
+        [HttpPut]
+        [Route("location/update")]
+        public HttpResponseMessage EditLocation(LocationDictionaryEditViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("location/delete")]
+        public HttpResponseMessage DeleteLocation(LocationDeleteViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+        }
 
     }
 }

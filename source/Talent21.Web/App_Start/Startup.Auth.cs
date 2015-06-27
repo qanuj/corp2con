@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+using e10.Shared.Data.Abstraction;
+using e10.Shared.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using Talent21.Data;
 using Talent21.Web.Models;
 
 namespace Talent21.Web
@@ -14,8 +18,12 @@ namespace Talent21.Web
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //TODO: Fix Security Owin
+            var dbContext = ApplicationDataContext.Create();
+            app.CreatePerOwinContext(() => dbContext);
+            app.CreatePerOwinContext(() => new ApplicationUserStore(dbContext));
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
@@ -30,7 +38,7 @@ namespace Talent21.Web
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }

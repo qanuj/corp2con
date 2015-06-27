@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -30,6 +32,34 @@ namespace Talent21.Service.Core
             _scheduleRepository = scheduleRepository;
         }
 
+        public IQueryable<ContractorViewModel> Contractors
+        {
+            get
+            {
+                return _candidateRepository.All.Select(x => new ContractorViewModel
+                {
+                    Id = x.Id,
+                    About = x.About,
+                    Email = x.Email,
+                    ExperienceMonths = x.Experience.Months,
+                    ExperienceYears = x.Experience.Years,
+                    Facebook = x.Social.Facebook,
+                    Google = x.Social.Google,
+                    LinkedIn = x.Social.LinkedIn,
+                    LocationId = x.LocationId,
+                    Mobile = x.Mobile,
+                    Name = x.Name,
+                    Rss = x.Social.Rss,
+                    Twitter = x.Social.Twitter,
+                    WebSite = x.Social.WebSite,
+                    Yahoo = x.Social.Yahoo,
+                    PictureUrl =x.PictureUrl,
+                    Rate=x.Rate,
+                    Skills=x.Skills.Select(y=> new DictionaryViewModel(){ Code = y.Code,Title = y.Title})
+                });
+            }
+        } 
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,7 +67,7 @@ namespace Talent21.Service.Core
         /// <returns></returns>
         public CreateCandidateViewModel CreateCandidate(CreateCandidateViewModel profile)
         {
-            var candidate = new Candidate() { Name = profile.Name };
+            var candidate = new Candidate() { Name = profile.Name, OwnerId = profile.UserId };
             _candidateRepository.Create(candidate);
             _candidateRepository.SaveChanges();
             return new CreateCandidateViewModel
@@ -206,8 +236,8 @@ namespace Talent21.Service.Core
         /// <returns></returns>
         public CandidatePublicProfileViewModel GetProfile(int id)
         {
-            var candidate=_candidateRepository.ById(id);
-            if (candidate == null) return null;
+            var candidate = _candidateRepository.ById(id);
+            if(candidate == null) return null;
             return new CandidatePublicProfileViewModel()
             {
                 Id = candidate.Id,
@@ -223,11 +253,11 @@ namespace Talent21.Service.Core
         public IQueryable<CandidatePublicProfileViewModel> GetProfileQuery()
         {
             var query = from row in _candidateRepository.All
-                select new CandidatePublicProfileViewModel
-                {
-                    Id = row.Id,
-                    Name = row.Name
-                };
+                        select new CandidatePublicProfileViewModel
+                        {
+                            Id = row.Id,
+                            Name = row.Name
+                        };
             return query;
         }
 
@@ -248,6 +278,59 @@ namespace Talent21.Service.Core
         public IQueryable<ScheduleViewModel> GetSchedules()
         {
             throw new System.NotImplementedException();
+        }
+
+        public bool Delete(IdModel model)
+        {
+            _candidateRepository.Delete(model.Id);
+            var rowsAffested = _candidateRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        public ContractorEditViewModel Create(ContractorCreateViewModel model)
+        {
+            var entity = new Candidate
+            {
+                Name = model.Name,
+                OwnerId = model.OwnerId,
+                Email = model.Email
+            };
+            _candidateRepository.Create(entity);
+            _candidateRepository.SaveChanges();
+            return new ContractorEditViewModel()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Email = entity.Email
+            };
+        }
+
+        public ContractorEditViewModel Update(ContractorEditViewModel model)
+        {
+            var entity = _candidateRepository.ById(model.Id);
+            if(entity == null) return null;
+
+            entity.Name = model.Name;
+            entity.Email = model.Email;
+            entity.About = model.About;
+            entity.Experience=new Duration(){Months = model.ExperienceMonths,Years = model.ExperienceYears};
+            entity.LocationId = model.LocationId;
+            entity.Mobile = model.Mobile;
+            entity.Social = new Social
+            {
+                Twitter = model.Twitter,
+                Facebook = model.Facebook,
+                Yahoo = model.Yahoo,
+                Google = model.Google,
+                LinkedIn = model.LinkedIn,
+                Rss = model.Rss,
+                WebSite = model.WebSite
+            };
+
+            _candidateRepository.Update(entity);
+            _candidateRepository.SaveChanges();
+
+            return model;
         }
     }
 }
