@@ -1,189 +1,189 @@
-﻿using Talent21.Data.Core;
+﻿using System.Linq;
+using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
-using Talent21.Service.Models.Core;
 
 namespace Talent21.Service.Core
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     public class SystemService : ISystemService
     {
         private readonly ILocationRepository _locationRepository;
         private readonly IIndustryRepository _industryRepository;
         private readonly ISkillRepository _skillRepository;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="locationRepository"></param>
-        /// <param name="industryRepository"></param>
-        /// <param name="skillRepository"></param>
         public SystemService(ILocationRepository locationRepository,
-            IIndustryRepository industryRepository, ISkillRepository skillRepository
-                )
+           IIndustryRepository industryRepository, ISkillRepository skillRepository
+               )
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
             _skillRepository = skillRepository;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int SaveChanges()
+        public bool Delete(IndustryDeleteViewModel model)
         {
-            return _industryRepository.SaveChanges();
+            _industryRepository.Delete(model.Id);
+            var rowsAffested = _industryRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+        public bool Delete(SkillDeleteViewModel model)
+        {
+            _skillRepository.Delete(model.Id);
+            var rowsAffested = _skillRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+        public bool Delete(LocationDeleteViewModel model)
+        {
+            _locationRepository.Delete(model.Id);
+            var rowsAffested = _locationRepository.SaveChanges();
+            return rowsAffested > 0;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public AddIndustryViewModel AddIndustry(AddIndustryViewModel model)
-        {
-            var industry = new Industry
 
+        public IndustryEditViewModel Create(IndustryCreateViewModel model)
+        {
+            var entity = new Industry
             {
-                IndustryName = model.IndustryName
+                Code = model.Code,
+                Title = model.Title
             };
-            _industryRepository.Create(industry);
+            _industryRepository.Create(entity);
             _industryRepository.SaveChanges();
-            return new AddIndustryViewModel
+            return new IndustryEditViewModel()
             {
-                IndustryName = industry.IndustryName,
+                Code = entity.Code,
+                Title = entity.Title,
+                Id = entity.Id
             };
         }
 
-        private void Create(Industry model)
+        public SkillEditViewModel Create(SkillCreateViewModel model)
         {
-            
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public EditIndustryViewModel EditIndustry(EditIndustryViewModel model)
-        {
-            var industry = _industryRepository.ById(model.Id);
-            industry.Title = model.Title;
-            _industryRepository.Update(industry);
-            _industryRepository.SaveChanges();
-            return model;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public DeleteIndustryViewModel DeleteIndustry(DeleteIndustryViewModel model)
-        {
-            var entity = _industryRepository.ById(model.IndustryId);
-            _industryRepository.Delete(entity);
-            return model;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public IndustryViewModel ViewIndustry(IndustryViewModel model)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public AddSkillViewModel AddSkill(AddSkillViewModel model)
-        {
-            var Skill = new Skill
+            var entity = new Skill
             {
-                CandidateId = model.CandidateId
+                Code = model.Code,
+                Title = model.Title
             };
-            _skillRepository.Create(Skill);
+            _skillRepository.Create(entity);
             _skillRepository.SaveChanges();
-            return new AddSkillViewModel
+            return new SkillEditViewModel()
             {
-                CandidateId = model.CandidateId,
-                Skill = model.Skill
+                Code = entity.Code,
+                Title = entity.Title,
+                Id = entity.Id
+            };
+        }
+        public LocationEditViewModel Create(LocationCreateViewModel model)
+        {
+            var entity = new Location
+            {
+                Code = model.Code,
+                Title = model.Title,
+                PinCode = model.PinCode,
+                Country = model.Country,
+                State = model.State
+            };
+
+            _locationRepository.Create(entity);
+            _locationRepository.SaveChanges();
+            return new LocationEditViewModel()
+            {
+                Code = entity.Code,
+                Title = entity.Title,
+                PinCode = entity.PinCode,
+                Country = entity.Country,
+                State = entity.State,
+                Id = entity.Id
             };
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public EditSkillViewModel EditSkill(EditSkillViewModel model)
+
+        public IndustryEditViewModel Update(IndustryEditViewModel model)
         {
-            var entity = _skillRepository.ById(model.CandidateId);
+            var entity = _industryRepository.ById(model.Id);
+            if (entity == null) return null;
+
+            entity.Code = model.Code;
+            entity.Title = model.Title;
+
+            _industryRepository.Update(entity);
+            _industryRepository.SaveChanges();
+
+            return model;
+        }
+
+        public SkillEditViewModel Update(SkillEditViewModel model)
+        {
+            var entity = _skillRepository.ById(model.Id);
+            if(entity == null) return null;
+
+            entity.Code = model.Code;
+            entity.Title = model.Title;
+
             _skillRepository.Update(entity);
             _skillRepository.SaveChanges();
+
             return model;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public DeleteSkillViewModel DeleteSkill(DeleteSkillViewModel model)
+        public LocationEditViewModel Update(LocationEditViewModel model)
         {
-            var entity = _industryRepository.ById(model.CandidateId);
-            _industryRepository.Delete(entity);
-            return model;
-        }
+            var entity = _locationRepository.ById(model.Id);
+            if(entity == null) return null;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public SkillViewModel ViewSkill(SkillViewModel model)
-        {
-            throw new System.NotImplementedException();
-        }
+            entity.Code = model.Code;
+            entity.Title = model.Title;
+            entity.Country = model.Country;
+            entity.State = model.State;
+            entity.PinCode = model.PinCode;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public LocationViewModel AddLocation(LocationCreateViewModel model)
-        {
-            var location = new Location
-            {
-                State = model.State, 
-                Country = model.Country, 
-                PinCode = model.PinCode
-            };
-            _locationRepository.Create(location);
+            _locationRepository.Update(entity);
             _locationRepository.SaveChanges();
-            return new LocationViewModel
-            {
-                Id=location.Id,
-                State = location.State,
-                Country = location.Country,
-                PinCode = location.PinCode
-            };
+
+            return model;
         }
 
-
-
-        public object AddIndustryViewModel(AddIndustryViewModel model)
+        public IQueryable<IndustryViewModel> Industries
         {
-            throw new System.NotImplementedException();
+            get {
+                return _industryRepository.All.Select(x=> new IndustryViewModel
+                {
+                    Id=x.Id,
+                    Code = x.Code,
+                    Title = x.Title
+                }); 
+            }
+        }
+
+        public IQueryable<LocationViewModel> Locations
+        {
+            get
+            {
+                return _locationRepository.All.Select(x => new LocationViewModel
+                {
+                    Id = x.Id,
+                    Code = x.Code,
+                    Title = x.Title,
+                    State = x.State,
+                    Country = x.Country,
+                    PinCode = x.PinCode
+                });
+            }
+        }
+
+        public IQueryable<SkillViewModel> Skills
+        {
+            get
+            {
+                return _skillRepository.All.Select(x => new SkillViewModel
+                {
+                    Id = x.Id,
+                    Code = x.Code,
+                    Title = x.Title
+                });
+            }
         }
     }
 }
