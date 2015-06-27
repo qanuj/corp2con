@@ -10,6 +10,8 @@ using e10.Shared.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Talent21.Service.Abstraction;
+using Talent21.Service.Models;
 using Talent21.Web.Models;
 
 namespace Talent21.Web.Controllers
@@ -19,15 +21,21 @@ namespace Talent21.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+        private readonly ICandidateService _candidateService;
+        private readonly ICompanyService _companyService;
 
-        public AccountController()
-        {
-        }
+        public static string Contractor = "Contractor";
+        public static string Company = "Company";
+        public static string Admin = "Admin";
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ICompanyService companyService, ICandidateService candidateService, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _companyService = companyService;
+            _candidateService = candidateService;
+            _roleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -136,11 +144,15 @@ namespace Talent21.Web.Controllers
             }
         }
 
+        private const string RegisterAsCompany = "Register As Company";
+        private const string RegisterAsContractor = "Register As Contractor";
         //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.RegisterAsCompany = RegisterAsCompany;
+            ViewBag.RegisterAsContractor = RegisterAsContractor;
             return View();
         }
 
@@ -157,6 +169,32 @@ namespace Talent21.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if(result.Succeeded)
                 {
+                    if(!_roleManager.RoleExists(Contractor)) _roleManager.Create(new Role(Contractor));
+                    if(!_roleManager.RoleExists(Company)) _roleManager.Create(new Role(Company));
+                    if(!_roleManager.RoleExists(Admin)) _roleManager.Create(new Role(Admin));
+
+                    if(model.What == RegisterAsContractor)
+                    {
+                        _candidateService.CreateCandidate(new CreateCandidateViewModel()
+                        {
+                            UserId = user.Id, Name = user.Email
+                        });
+                        if(!UserManager.IsInRole(user.Id, Contractor))
+                        {
+                            UserManager.AddToRole(user.Id, Contractor);
+                        }
+                    }
+                    else if(model.What == RegisterAsCompany)
+                    {
+                        _companyService.CreateCompany(new CreateCompanyViewModel()
+                        {
+                            UserId = user.Id, Name = user.Email
+                        });
+                        if (!UserManager.IsInRole(user.Id, Company))
+                        {
+                            UserManager.AddToRole(user.Id, Company);
+                        }
+                    }
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -169,6 +207,8 @@ namespace Talent21.Web.Controllers
                 }
                 AddErrors(result);
             }
+            ViewBag.RegisterAsCompany = RegisterAsCompany;
+            ViewBag.RegisterAsContractor = RegisterAsContractor;
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -392,6 +432,15 @@ namespace Talent21.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
+        // POST: /Account/LogOut
+        [HttpGet]
+        public ActionResult LogOut()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");

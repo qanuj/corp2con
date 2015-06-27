@@ -1,10 +1,11 @@
-﻿@{
+﻿@model Talent21.Web.Models.FrontEndViewModel
+@{
     Layout = "";
     ViewBag.Title = "Home Page";
     var Product = "Corp2Con";
 }
 <!DOCTYPE html>
-<html>
+<html data-role="@Model.Role">
 <head>
     <base href="@Url.Content("~/")">
     <meta charset="utf-8" />
@@ -53,6 +54,7 @@
                 <li><a href="/#/search/job">Jobs</a></li>
                 <li><a href="/#/search/company">Companies</a></li>
                 <li><a href="/#/profile">Post a Resume</a></li>
+                <li><a href="/account/logout">Logout</a></li>
             </ul>
         </div>
         <div ng-view></div>

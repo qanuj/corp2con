@@ -16,6 +16,12 @@ namespace e10.Shared.Data.Abstraction
         public DateTime LastModified { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+
+        protected Entity()
+        {
+            Created = DateTime.UtcNow;
+            LastModified = DateTime.UtcNow;
+        }
     }
 
     public abstract class Dictionary : Entity, IDictionary

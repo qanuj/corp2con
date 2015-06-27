@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201506231104521_Init.Designer.cs">
       <DependentUpon>201506231104521_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506261524329_Candidate Fixes.cs" />
+    <Compile Include="Migrations\201506261524329_Candidate Fixes.Designer.cs">
+      <DependentUpon>201506261524329_Candidate Fixes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
@@ -132,6 +136,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506231104521_Init.resx">
       <DependentUpon>201506231104521_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506261524329_Candidate Fixes.resx">
+      <DependentUpon>201506261524329_Candidate Fixes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

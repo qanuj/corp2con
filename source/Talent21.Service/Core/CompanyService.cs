@@ -100,8 +100,8 @@ namespace Talent21.Service.Core
         public bool RejectCandidate(RejectCandidateViewModel model)
         {
             var entity = _candidateRepository.ById(model.CandidateId);
-            entity.IsRejected = true;
-            entity.Cancelled = DateTime.UtcNow;
+            //entity.IsRejected = true;
+            //entity.Cancelled = DateTime.UtcNow;
             _candidateRepository.Update(entity);
             var rowAffected = _candidateRepository.SaveChanges();
             return rowAffected > 0;
@@ -115,8 +115,8 @@ namespace Talent21.Service.Core
         public bool ApproveCompany(ApproveCompanyViewModel model)
         {
             var entity = _companyRepository.ById(model.CandidateId);
-            entity.IsApproved = true;
-            entity.Cancelled = DateTime.UtcNow;
+            //entity.IsApproved = true;
+            //entity.Cancelled = DateTime.UtcNow;
             _companyRepository.Update(entity);
             var rowAffected = _companyRepository.SaveChanges();
             return rowAffected > 0;
