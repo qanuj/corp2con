@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
@@ -11,5 +12,7 @@ namespace Talent21.Service.Abstraction
         IQueryable<IndustryDictionaryViewModel> Industries { get; }
         IQueryable<LocationDictionaryViewModel> Locations { get; }
         IQueryable<SkillDictionaryViewModel> Skills { get; }
+
+        string Upgrade();
     }
 }

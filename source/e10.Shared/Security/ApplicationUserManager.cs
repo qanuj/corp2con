@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using System.Threading.Tasks;
 
 namespace e10.Shared.Security
 {
@@ -58,6 +59,21 @@ namespace e10.Shared.Security
         public static IUserTokenProvider<User, string> DefaultTokenProvider()
         {
             return new DataProtectorTokenProvider<User>(new DpapiDataProtectionProvider("FbHireSuperLockerd").Create("EmailConfirmation")); ;
+        }
+
+        public async Task<User> CreateGodAsync(string email, string password)
+        {
+            var user = await FindByEmailAsync(email);
+            if( user == null)
+            {
+                user = new User { UserName = email, Email = email };
+                var result = await CreateAsync(user, password);
+                if(result.Succeeded)
+                {
+                    this.AddToRole(user.Id, SecurityManager.God);
+                }
+            }
+            return user;
         }
     }
 }
