@@ -24,28 +24,28 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("industry/paged")]
-        public PageResult<IndustryViewModel> ViewIndustries(ODataQueryOptions<IndustryViewModel> options)
+        public PageResult<IndustryDictionaryViewModel> ViewIndustries(ODataQueryOptions<IndustryDictionaryViewModel> options)
         {
             return Page(_service.Industries, options);
         }
 
         [HttpGet]
         [Route("industry/all")]
-        public IQueryable<IndustryViewModel> ViewIndustriesQuery()
+        public IQueryable<IndustryDictionaryViewModel> ViewIndustriesQuery()
         {
             return _service.Industries;
         }
 
         [HttpPost]
         [Route("industry/create")]
-        public HttpResponseMessage AddIndustry(IndustryCreateViewModel model)
+        public HttpResponseMessage AddIndustry(IndustryDictionaryCreateViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("industry/update")]
-        public HttpResponseMessage EditIndustry(IndustryEditViewModel model)
+        public HttpResponseMessage EditIndustry(IndustryDictionaryEditViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
@@ -60,28 +60,28 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("skill/paged")]
-        public PageResult<SkillViewModel> ViewSkills(ODataQueryOptions<SkillViewModel> options)
+        public PageResult<SkillDictionaryViewModel> ViewSkills(ODataQueryOptions<SkillDictionaryViewModel> options)
         {
             return Page(_service.Skills, options);
         }
 
         [HttpGet]
         [Route("skill/all")]
-        public IQueryable<SkillViewModel> ViewSkillsQuery()
+        public IQueryable<SkillDictionaryViewModel> ViewSkillsQuery()
         {
             return _service.Skills;
         }
 
         [HttpPost]
         [Route("skill/create")]
-        public HttpResponseMessage AddSkill(SkillCreateViewModel model)
+        public HttpResponseMessage AddSkill(SkillDictionaryCreateViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("skill/update")]
-        public HttpResponseMessage EditSkill(SkillEditViewModel model)
+        public HttpResponseMessage EditSkill(SkillDictionaryEditViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
@@ -95,28 +95,28 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("location/paged")]
-        public PageResult<LocationViewModel> ViewLocations(ODataQueryOptions<LocationViewModel> options)
+        public PageResult<LocationDictionaryViewModel> ViewLocations(ODataQueryOptions<LocationDictionaryViewModel> options)
         {
             return Page(_service.Locations, options);
         }
 
         [HttpGet]
         [Route("location/all")]
-        public IQueryable<LocationViewModel> ViewLocationsQuery()
+        public IQueryable<LocationDictionaryViewModel> ViewLocationsQuery()
         {
             return _service.Locations;
         }
 
         [HttpPost]
         [Route("location/create")]
-        public HttpResponseMessage AddLocation(LocationCreateViewModel model)
+        public HttpResponseMessage AddLocation(LocationDictionaryCreateViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("location/update")]
-        public HttpResponseMessage EditLocation(LocationEditViewModel model)
+        public HttpResponseMessage EditLocation(LocationDictionaryEditViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }

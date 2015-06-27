@@ -2,7 +2,7 @@
 
 namespace Talent21.Service.Abstraction
 {
-    public interface ICompanyService : IService
+    public interface ICompanyService : IService, IPersonDataService<CompanyEditViewModel, CompanyCreateViewModel, IdModel>
     {
         /// <summary>
         /// 

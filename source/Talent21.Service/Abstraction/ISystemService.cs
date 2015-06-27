@@ -3,25 +3,13 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
-    public interface IDictionaryDataService<TEditModel, TCreateModel, TDeleteModel>
-        where TCreateModel : DictionaryViewModel
-        where TEditModel : EditDictionaryViewModel
-        where TDeleteModel : IdModel
-    {
-        bool Delete(TDeleteModel model);
-        TEditModel Create(TCreateModel model);
-        TEditModel Update(TEditModel model);
-    }
-
     public interface ISystemService : IService,
-        IDictionaryDataService<IndustryEditViewModel, IndustryCreateViewModel, IndustryDeleteViewModel>,
-        IDictionaryDataService<SkillEditViewModel, SkillCreateViewModel, SkillDeleteViewModel>,
-        IDictionaryDataService<LocationEditViewModel, LocationCreateViewModel, LocationDeleteViewModel>
+        IDictionaryDataService<IndustryDictionaryEditViewModel, IndustryDictionaryCreateViewModel, IndustryDeleteViewModel>,
+        IDictionaryDataService<SkillDictionaryEditViewModel, SkillDictionaryCreateViewModel, SkillDeleteViewModel>,
+        IDictionaryDataService<LocationDictionaryEditViewModel, LocationDictionaryCreateViewModel, LocationDeleteViewModel>
     {
-        IQueryable<IndustryViewModel> Industries { get; }
-        IQueryable<LocationViewModel> Locations { get; }
-        IQueryable<SkillViewModel> Skills { get; }
+        IQueryable<IndustryDictionaryViewModel> Industries { get; }
+        IQueryable<LocationDictionaryViewModel> Locations { get; }
+        IQueryable<SkillDictionaryViewModel> Skills { get; }
     }
-
-
 }

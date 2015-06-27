@@ -1,11 +1,11 @@
 ﻿namespace Talent21.Service.Models
 {
-    public class LocationEditViewModel : EditDictionaryViewModel
+    public class LocationDictionaryEditViewModel : DictionaryEditViewModel
     {
         public string PinCode { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
     }
 
-    public class LocationViewModel : LocationEditViewModel {}
+    public class LocationDictionaryViewModel : LocationDictionaryEditViewModel {}
 }

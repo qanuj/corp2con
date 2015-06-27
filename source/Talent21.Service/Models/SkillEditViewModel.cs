@@ -1,8 +1,8 @@
 ﻿namespace Talent21.Service.Models
 {
-    public class SkillEditViewModel : EditDictionaryViewModel { }
+    public class SkillDictionaryEditViewModel : DictionaryEditViewModel { }
 
-    public class SkillViewModel : SkillEditViewModel
+    public class SkillDictionaryViewModel : SkillDictionaryEditViewModel
     {
     }
 }

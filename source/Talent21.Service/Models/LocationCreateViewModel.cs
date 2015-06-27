@@ -1,5 +1,5 @@
 ﻿namespace Talent21.Service.Models
 {
-    public class LocationCreateViewModel : LocationEditViewModel { 
+    public class LocationDictionaryCreateViewModel : LocationDictionaryEditViewModel { 
     }
 }

@@ -46,9 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstraction\IDataService.cs" />
+    <Compile Include="Abstraction\IDictionaryDataService.cs" />
+    <Compile Include="Abstraction\IPersonDataService.cs" />
     <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
     <Compile Include="Models\ApplyJobApplicationViewModel.cs" />
-    <Compile Include="Models\EditDictionaryViewModel.cs" />
+    <Compile Include="Models\DictionaryEditViewModel.cs" />
     <Compile Include="Models\IndustryCreateViewModel.cs" />
     <Compile Include="Models\IndustryDeleteViewModel.cs" />
     <Compile Include="Models\IndustryEditViewModel.cs" />
@@ -59,7 +62,9 @@
     <Compile Include="Models\LocationCreateViewModel.cs" />
     <Compile Include="Models\LocationDeleteViewModel.cs" />
     <Compile Include="Models\LocationEditViewModel.cs" />
-    <Compile Include="Models\MasterViewModel.cs" />
+    <Compile Include="Models\DictionaryViewModel.cs" />
+    <Compile Include="Models\PersonEditViewModel.cs" />
+    <Compile Include="Models\PersonViewModel.cs" />
     <Compile Include="Models\RejectCandidateViewModel.cs" />
     <Compile Include="Models\RevokeJobApplicationViewModel.cs" />
     <Compile Include="Models\ApproveCompanyViewModel.cs" />

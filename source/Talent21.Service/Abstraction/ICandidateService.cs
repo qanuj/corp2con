@@ -6,7 +6,7 @@ namespace Talent21.Service.Abstraction
     /// <summary>
     /// 
     /// </summary>
-    public interface ICandidateService : IService
+    public interface ICandidateService : IService, IPersonDataService<ContractorEditViewModel, ContractorCreateViewModel,IdModel>
     {
         /// <summary>
         /// 

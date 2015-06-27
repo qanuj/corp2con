@@ -1,4 +1,5 @@
 ﻿using System;
+using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -206,10 +207,61 @@ namespace Talent21.Service.Core
             return profile; ;
         }
 
-
         public CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model)
         {
             throw new NotImplementedException();
+        }
+
+
+        public bool Delete(IdModel model)
+        {
+            _companyRepository.Delete(model.Id);
+            var rowsAffested = _companyRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        public CompanyEditViewModel Create(CompanyCreateViewModel model)
+        {
+            var entity = new Company
+            {
+                Name = model.Name,
+                Email = model.Email
+            };
+            _companyRepository.Create(entity);
+            _companyRepository.SaveChanges();
+            return new CompanyEditViewModel()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Email = entity.Email
+            };
+        }
+
+        public CompanyEditViewModel Update(CompanyEditViewModel model)
+        {
+            var entity = _companyRepository.ById(model.Id);
+            if(entity == null) return null;
+
+            entity.Name = model.Name;
+            entity.Email = model.Email;
+            entity.About = model.About;
+            entity.LocationId = model.LocationId;
+            entity.Mobile = model.Mobile;
+            entity.Social = new Social
+            {
+                Twitter = model.Twitter,
+                Facebook = model.Facebook,
+                Yahoo = model.Yahoo,
+                Google = model.Google,
+                LinkedIn = model.LinkedIn,
+                Rss = model.Rss,
+                WebSite = model.WebSite
+            };
+
+            _companyRepository.Update(entity);
+            _companyRepository.SaveChanges();
+
+            return model;
         }
     }
 }

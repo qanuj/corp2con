@@ -7,6 +7,39 @@ using System.Text;
 
 namespace Talent21.Service.Models
 {
+    public class CompanyEditViewModel : PersonViewModel
+    {
+        public int ExperienceMonths { get; set; }
+        public int ExperienceYears { get; set; }
+    }
+
+    public class CompanyCreateViewModel : ContractorEditViewModel
+    {
+
+    }
+
+    public class CompanyViewModel : ContractorEditViewModel
+    {
+
+    }
+
+
+    public class ContractorEditViewModel : PersonViewModel
+    {
+        public int ExperienceMonths { get; set; }
+        public int ExperienceYears { get; set; }
+    }
+
+    public class ContractorCreateViewModel : ContractorEditViewModel
+    {
+        
+    }
+
+    public class ContractorViewModel : ContractorEditViewModel
+    {
+        
+    }
+
     /// <summary>
     /// 
     /// </summary>

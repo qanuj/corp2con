@@ -42,7 +42,7 @@ namespace Talent21.Service.Core
         }
 
 
-        public IndustryEditViewModel Create(IndustryCreateViewModel model)
+        public IndustryDictionaryEditViewModel Create(IndustryDictionaryCreateViewModel model)
         {
             var entity = new Industry
             {
@@ -51,7 +51,7 @@ namespace Talent21.Service.Core
             };
             _industryRepository.Create(entity);
             _industryRepository.SaveChanges();
-            return new IndustryEditViewModel()
+            return new IndustryDictionaryEditViewModel()
             {
                 Code = entity.Code,
                 Title = entity.Title,
@@ -59,7 +59,7 @@ namespace Talent21.Service.Core
             };
         }
 
-        public SkillEditViewModel Create(SkillCreateViewModel model)
+        public SkillDictionaryEditViewModel Create(SkillDictionaryCreateViewModel model)
         {
             var entity = new Skill
             {
@@ -68,14 +68,14 @@ namespace Talent21.Service.Core
             };
             _skillRepository.Create(entity);
             _skillRepository.SaveChanges();
-            return new SkillEditViewModel()
+            return new SkillDictionaryEditViewModel()
             {
                 Code = entity.Code,
                 Title = entity.Title,
                 Id = entity.Id
             };
         }
-        public LocationEditViewModel Create(LocationCreateViewModel model)
+        public LocationDictionaryEditViewModel Create(LocationDictionaryCreateViewModel model)
         {
             var entity = new Location
             {
@@ -88,7 +88,7 @@ namespace Talent21.Service.Core
 
             _locationRepository.Create(entity);
             _locationRepository.SaveChanges();
-            return new LocationEditViewModel()
+            return new LocationDictionaryEditViewModel()
             {
                 Code = entity.Code,
                 Title = entity.Title,
@@ -100,7 +100,7 @@ namespace Talent21.Service.Core
         }
 
 
-        public IndustryEditViewModel Update(IndustryEditViewModel model)
+        public IndustryDictionaryEditViewModel Update(IndustryDictionaryEditViewModel model)
         {
             var entity = _industryRepository.ById(model.Id);
             if (entity == null) return null;
@@ -114,7 +114,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public SkillEditViewModel Update(SkillEditViewModel model)
+        public SkillDictionaryEditViewModel Update(SkillDictionaryEditViewModel model)
         {
             var entity = _skillRepository.ById(model.Id);
             if(entity == null) return null;
@@ -128,7 +128,7 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public LocationEditViewModel Update(LocationEditViewModel model)
+        public LocationDictionaryEditViewModel Update(LocationDictionaryEditViewModel model)
         {
             var entity = _locationRepository.ById(model.Id);
             if(entity == null) return null;
@@ -145,10 +145,10 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public IQueryable<IndustryViewModel> Industries
+        public IQueryable<IndustryDictionaryViewModel> Industries
         {
             get {
-                return _industryRepository.All.Select(x=> new IndustryViewModel
+                return _industryRepository.All.Select(x=> new IndustryDictionaryViewModel
                 {
                     Id=x.Id,
                     Code = x.Code,
@@ -157,11 +157,11 @@ namespace Talent21.Service.Core
             }
         }
 
-        public IQueryable<LocationViewModel> Locations
+        public IQueryable<LocationDictionaryViewModel> Locations
         {
             get
             {
-                return _locationRepository.All.Select(x => new LocationViewModel
+                return _locationRepository.All.Select(x => new LocationDictionaryViewModel
                 {
                     Id = x.Id,
                     Code = x.Code,
@@ -173,11 +173,11 @@ namespace Talent21.Service.Core
             }
         }
 
-        public IQueryable<SkillViewModel> Skills
+        public IQueryable<SkillDictionaryViewModel> Skills
         {
             get
             {
-                return _skillRepository.All.Select(x => new SkillViewModel
+                return _skillRepository.All.Select(x => new SkillDictionaryViewModel
                 {
                     Id = x.Id,
                     Code = x.Code,
