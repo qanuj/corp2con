@@ -4,6 +4,7 @@ using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
+using System.Linq;
 
 namespace Talent21.Service.Core
 {
@@ -30,6 +31,31 @@ namespace Talent21.Service.Core
             _jobRepository = jobRepository;
             _candidateRepository = candidateRepository;
         }
+
+        public IQueryable<CompanyViewModel> Companies
+        {
+            get
+            {
+                return _companyRepository.All.Select(x => new CompanyViewModel
+                {
+                    Id = x.Id,
+                    About = x.About,
+                    Email = x.Email,
+                    Facebook = x.Social.Facebook,
+                    Google = x.Social.Google,
+                    LinkedIn = x.Social.LinkedIn,
+                    LocationId = x.LocationId,
+                    Mobile = x.Mobile,
+                    Name = x.Name,
+                    Rss = x.Social.Rss,
+                    Twitter = x.Social.Twitter,
+                    WebSite = x.Social.WebSite,
+                    Yahoo = x.Social.Yahoo,
+                    PictureUrl = x.PictureUrl,
+                    Industry=new DictionaryViewModel(){ Code  = x.Industry.Code, Title = x.Industry.Title}
+                });
+            }
+        } 
 
         /// <summary>
         /// 

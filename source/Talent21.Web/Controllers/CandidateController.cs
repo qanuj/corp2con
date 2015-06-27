@@ -25,146 +25,41 @@ namespace Talent21.Web.Controllers
             _service = service;
         }
 
-        /// <summary>
-        /// Create a Candidate Record and Apply to Job
-        /// </summary>
-        /// <param name="model">Model with candidate Name and Job Id, more fields to come</param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("apply")]
-        public HttpResponseMessage Create(CreateCandidateAndApplyToJobViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.CreateCandidateAndApplyToJob(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPut]
-        public HttpResponseMessage UpdateProfile(UpdateProfileViewModel model)
-        {
-            if(ModelState.IsValid)
-            {
-                return Ok(_service.UpdateProfile(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        public HttpResponseMessage DeleteProfile(DeleteProfileViewModel model)
-        {
-            if(ModelState.IsValid)
-            {
-                return Ok(_service.DeleteProfile(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public HttpResponseMessage GetProfile(int id)
-        {
-            var profile=_service.GetProfile(id);
-            if (profile == null) return NotFound("Profile not found");
-            return Ok(profile);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("all"), EnableQuery]
-        public IQueryable<CandidatePublicProfileViewModel> GetProfileQuery()
-        {
-            return _service.GetProfileQuery();
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [Route("paged")]
-        public PageResult<CandidatePublicProfileViewModel> GetProfilePaged(ODataQueryOptions<CandidatePublicProfileViewModel> options)
+        public PageResult<ContractorViewModel> ViewIndustries(ODataQueryOptions<ContractorViewModel> options)
         {
-            return Page(_service.GetProfileQuery(),options);
+            return Page(_service.Contractors, options);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("schedule")]
-        public HttpResponseMessage AddSchedule(AddScheduleViewModel model)
-        {
-            if(ModelState.IsValid)
-            {
-                return Ok(_service.AddSchedule(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("schedule")]
-        public HttpResponseMessage UpdateSchedule(UpdateScheduleViewModel model)
-        {
-            if(ModelState.IsValid)
-            {
-                return Ok(_service.UpdateSchedule(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("schedule")]
-        public HttpResponseMessage DeleteSchedule(DeleteScheduleViewModel model)
-        {
-            if(ModelState.IsValid)
-            {
-                return Ok(_service.DeleteSchedule(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
-        [Route("schedule/paged")]
-        public PageResult<ScheduleViewModel> GetSchedulePaged(ODataQueryOptions<ScheduleViewModel> options)
+        [Route("all")]
+        public IQueryable<ContractorViewModel> ViewIndustriesQuery()
         {
-            return Page(_service.GetSchedules(), options);
+            return _service.Contractors;
         }
+
+        [HttpPost]
+        [Route("create")]
+        public HttpResponseMessage AddIndustry(ContractorCreateViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public HttpResponseMessage EditIndustry(ContractorEditViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public HttpResponseMessage DeleteIndustry(IdModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+        }
+
 
     }
 }

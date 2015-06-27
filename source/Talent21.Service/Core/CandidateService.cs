@@ -32,6 +32,34 @@ namespace Talent21.Service.Core
             _scheduleRepository = scheduleRepository;
         }
 
+        public IQueryable<ContractorViewModel> Contractors
+        {
+            get
+            {
+                return _candidateRepository.All.Select(x => new ContractorViewModel
+                {
+                    Id = x.Id,
+                    About = x.About,
+                    Email = x.Email,
+                    ExperienceMonths = x.Experience.Months,
+                    ExperienceYears = x.Experience.Years,
+                    Facebook = x.Social.Facebook,
+                    Google = x.Social.Google,
+                    LinkedIn = x.Social.LinkedIn,
+                    LocationId = x.LocationId,
+                    Mobile = x.Mobile,
+                    Name = x.Name,
+                    Rss = x.Social.Rss,
+                    Twitter = x.Social.Twitter,
+                    WebSite = x.Social.WebSite,
+                    Yahoo = x.Social.Yahoo,
+                    PictureUrl =x.PictureUrl,
+                    Rate=x.Rate,
+                    Skills=x.Skills.Select(y=> new DictionaryViewModel(){ Code = y.Code,Title = y.Title})
+                });
+            }
+        } 
+
         /// <summary>
         /// 
         /// </summary>

@@ -9,18 +9,18 @@ namespace Talent21.Service.Models
 {
     public class CompanyEditViewModel : PersonViewModel
     {
-        public int ExperienceMonths { get; set; }
-        public int ExperienceYears { get; set; }
+
     }
 
-    public class CompanyCreateViewModel : ContractorEditViewModel
+    public class CompanyCreateViewModel : CompanyEditViewModel
     {
 
     }
 
-    public class CompanyViewModel : ContractorEditViewModel
+    public class CompanyViewModel : CompanyEditViewModel
     {
-
+        public string PictureUrl { get; set; }
+        public DictionaryViewModel Industry { get; set; }
     }
 
 
@@ -37,7 +37,9 @@ namespace Talent21.Service.Models
 
     public class ContractorViewModel : ContractorEditViewModel
     {
-        
+        public string PictureUrl { get; set; }
+        public int Rate { get; set; }
+        public IEnumerable<DictionaryViewModel> Skills { get; set; }
     }
 
     /// <summary>

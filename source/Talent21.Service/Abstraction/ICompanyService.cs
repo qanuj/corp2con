@@ -1,4 +1,5 @@
-﻿using Talent21.Service.Models;
+﻿using System.Linq;
+using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
@@ -66,5 +67,7 @@ namespace Talent21.Service.Abstraction
         //CompanyVisit
 
         CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model);
+
+        IQueryable<CompanyViewModel> Companies { get; }
     }
 }

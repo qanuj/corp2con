@@ -86,5 +86,7 @@ namespace Talent21.Service.Abstraction
         /// </summary>
         /// <returns></returns>
         IQueryable<ScheduleViewModel> GetSchedules();
+
+        IQueryable<ContractorViewModel> Contractors { get; }
     }
 }
