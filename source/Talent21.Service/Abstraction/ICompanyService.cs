@@ -9,7 +9,6 @@ namespace Talent21.Service.Abstraction
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        CreateCompanyViewModel CreateCompany(string name);
         /// <summary>
         /// 
         /// </summary>

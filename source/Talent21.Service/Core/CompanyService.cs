@@ -35,11 +35,11 @@ namespace Talent21.Service.Core
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public CreateCompanyViewModel CreateCompany(string name)
+        public CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model)
         {
-            var company = new Company() {Name = name};
+            var company = new Company() { Name = model.Name, OwnerId = model.UserId };
             _companyRepository.Create(company);
-            SaveChanges();
+            _companyRepository.SaveChanges();
             return new CreateCompanyViewModel
             {
                 Name = company.Name,
@@ -204,12 +204,6 @@ namespace Talent21.Service.Core
             _companyRepository.Update(entity);
             _companyRepository.SaveChanges();
             return profile; ;
-        }
-
-
-        public CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model)
-        {
-            throw new NotImplementedException();
         }
     }
 }
