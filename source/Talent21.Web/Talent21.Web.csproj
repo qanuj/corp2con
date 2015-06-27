@@ -266,17 +266,19 @@
     <Content Include="App\app.js" />
     <Content Include="App\controllers\aboutCandidateController.js" />
     <Content Include="App\controllers\aboutCompanyController.js" />
-    <Content Include="App\controllers\contractorProfileController.js" />
     <Content Include="App\controllers\companyListController.js" />
     <Content Include="App\controllers\companyProfileController.js" />
     <Content Include="App\controllers\jobListingController.js" />
     <Content Include="App\controllers\otherController.js" />
     <Content Include="App\controllers\postjobsController.js" />
     <Content Include="App\controllers\testimonialsController.js" />
+    <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
     <Content Include="App\services\headerFactory.js" />
-    <Content Include="App\views\contractor\profile.js" />
-    <Content Include="App\views\contractor\profile.html" />
+    <Content Include="App\views\company\dashboard.html" />
+    <Content Include="App\views\company\dashboard.js" />
+    <Content Include="App\views\contractor\dashboard.js" />
+    <Content Include="App\views\contractor\dashboard.html" />
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\candidate\aboutcandidate.html" />
     <Content Include="App\views\company\CompanyList.html" />
@@ -441,7 +443,6 @@
     <Content Include="Views\Setup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\directives\" />
     <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>
