@@ -1,64 +1,15 @@
-﻿using Talent21.Service.Models;
-using Talent21.Service.Models.Core;
+﻿using System.Linq;
+using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
-    public interface ISystemService : IService
+    public interface ISystemService : IService,
+        IDictionaryDataService<IndustryDictionaryEditViewModel, IndustryDictionaryCreateViewModel, IndustryDeleteViewModel>,
+        IDictionaryDataService<SkillDictionaryEditViewModel, SkillDictionaryCreateViewModel, SkillDeleteViewModel>,
+        IDictionaryDataService<LocationDictionaryEditViewModel, LocationDictionaryCreateViewModel, LocationDeleteViewModel>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        AddIndustryViewModel AddIndustry(AddIndustryViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        EditIndustryViewModel EditIndustry(EditIndustryViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        DeleteIndustryViewModel DeleteIndustry(DeleteIndustryViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        IndustryViewModel ViewIndustry(IndustryViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        AddSkillViewModel AddSkill(AddSkillViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        EditSkillViewModel EditSkill(EditSkillViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        DeleteSkillViewModel DeleteSkill(DeleteSkillViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        SkillViewModel ViewSkill(SkillViewModel model);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        LocationViewModel AddLocation(LocationCreateViewModel model);
-
+        IQueryable<IndustryDictionaryViewModel> Industries { get; }
+        IQueryable<LocationDictionaryViewModel> Locations { get; }
+        IQueryable<SkillDictionaryViewModel> Skills { get; }
     }
 }

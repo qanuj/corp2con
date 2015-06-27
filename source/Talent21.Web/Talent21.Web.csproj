@@ -263,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\controllers\aboutCandidateController.js" />
     <Content Include="App\controllers\aboutCompanyController.js" />
     <Content Include="App\controllers\candidateProfileController.js" />
     <Content Include="App\controllers\companyListController.js" />
@@ -277,6 +278,7 @@
     <Content Include="App\views\contractor\profile.js" />
     <Content Include="App\views\contractor\profile.html" />
     <Content Include="App\views\contractor\other.html" />
+    <Content Include="App\views\candidate\aboutcandidate.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
     <Content Include="App\views\company\CompanyProfile.html" />
