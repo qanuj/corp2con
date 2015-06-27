@@ -38,15 +38,15 @@ namespace e10.Shared.Security
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            this.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<User>
-            {
-                MessageFormat = "Your security code is {0}"
-            });
-            this.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User>
-            {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
-            });
+            //this.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<User>
+            //{
+            //    MessageFormat = "Your security code is {0}"
+            //});
+            //this.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User>
+            //{
+            //    Subject = "Security Code",
+            //    BodyFormat = "Your security code is {0}"
+            //});
             this.EmailService = emailService;
             this.SmsService = smsService;
             this.UserTokenProvider = DefaultTokenProvider();
