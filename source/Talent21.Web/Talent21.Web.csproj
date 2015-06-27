@@ -266,12 +266,11 @@
     <Content Include="App\app.js" />
     <Content Include="App\controllers\aboutCandidateController.js" />
     <Content Include="App\controllers\aboutCompanyController.js" />
-    <Content Include="App\controllers\candidateProfileController.js" />
+    <Content Include="App\controllers\contractorProfileController.js" />
     <Content Include="App\controllers\companyListController.js" />
     <Content Include="App\controllers\companyProfileController.js" />
     <Content Include="App\controllers\jobListingController.js" />
     <Content Include="App\controllers\otherController.js" />
-    <Content Include="App\controllers\homeController.js" />
     <Content Include="App\controllers\postjobsController.js" />
     <Content Include="App\controllers\testimonialsController.js" />
     <Content Include="App\router\router.js" />

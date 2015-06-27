@@ -1,9 +1,10 @@
 ﻿app.config(function ($routeProvider, $locationProvider) {
     var role = document.querySelector('html').dataset.role;
+    console.log(role);
     if (role === 'Contractor') {
         $routeProvider
             .when('/', {
-                templateUrl: '/app/views/contractor/profile.html',
+                templateUrl: '/App/views/candidate/aboutcandidate.html',
                 controller: 'contractorProfileController'
             })
             .when('/others', {
