@@ -14,7 +14,7 @@ namespace Talent21.Service.Models
 
     public class CompanyCreateViewModel : CompanyEditViewModel
     {
-
+        public string OwnerId { get; set; }
     }
 
     public class CompanyViewModel : CompanyEditViewModel
@@ -32,7 +32,8 @@ namespace Talent21.Service.Models
 
     public class ContractorCreateViewModel : ContractorEditViewModel
     {
-        
+
+        public string OwnerId { get; set; }
     }
 
     public class ContractorViewModel : ContractorEditViewModel

@@ -252,6 +252,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -265,18 +266,20 @@
     <Content Include="App\app.js" />
     <Content Include="App\controllers\aboutCandidateController.js" />
     <Content Include="App\controllers\aboutCompanyController.js" />
-    <Content Include="App\controllers\candidateProfileController.js" />
     <Content Include="App\controllers\companyListController.js" />
     <Content Include="App\controllers\companyProfileController.js" />
     <Content Include="App\controllers\jobListingController.js" />
     <Content Include="App\controllers\otherController.js" />
-    <Content Include="App\controllers\homeController.js" />
     <Content Include="App\controllers\postjobsController.js" />
     <Content Include="App\controllers\testimonialsController.js" />
+    <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
+    <Content Include="App\services\contractorDataService.js" />
     <Content Include="App\services\headerFactory.js" />
-    <Content Include="App\views\contractor\profile.js" />
-    <Content Include="App\views\contractor\profile.html" />
+    <Content Include="App\views\company\dashboard.html" />
+    <Content Include="App\views\company\dashboard.js" />
+    <Content Include="App\views\contractor\dashboard.js" />
+    <Content Include="App\views\contractor\dashboard.html" />
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\candidate\aboutcandidate.html" />
     <Content Include="App\views\company\CompanyList.html" />
@@ -322,7 +325,18 @@
     <Content Include="App\template\job-details.html" />
     <Content Include="App\template\jobs.html" />
     <Content Include="Content\css\spa.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\site\bootstrap-wysiwyg.js" />
@@ -438,9 +452,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Views\Setup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\directives\" />
+    <Folder Include="App\controllers\contractor\" />
     <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>

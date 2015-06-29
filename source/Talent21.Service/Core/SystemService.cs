@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Talent21.Data;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -184,6 +187,12 @@ namespace Talent21.Service.Core
                     Title = x.Title
                 });
             }
+        }
+
+
+        public string Upgrade()
+        {
+            return IndustryRepository.Upgrade();
         }
     }
 }
