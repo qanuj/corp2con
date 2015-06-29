@@ -274,6 +274,7 @@
     <Content Include="App\controllers\testimonialsController.js" />
     <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
+    <Content Include="App\services\contractorDataService.js" />
     <Content Include="App\services\headerFactory.js" />
     <Content Include="App\views\company\dashboard.html" />
     <Content Include="App\views\company\dashboard.js" />
@@ -454,6 +455,7 @@
     <Content Include="Views\Setup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\controllers\contractor\" />
     <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>
