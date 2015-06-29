@@ -1,10 +1,13 @@
 ﻿using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
-using Microsoft.AspNet.Identity;
 using Talent21.Service.Abstraction;
+using Talent21.Service.Core;
+using Talent21.Service.Models;
 using Talent21.Service.Models;
 
 namespace Talent21.Web.Controllers
@@ -25,7 +28,8 @@ namespace Talent21.Web.Controllers
         {
             _service = service;
         }
-        
+
+
         [HttpGet]
         [Route("paged")]
         public PageResult<CompanyViewModel> ViewIndustries(ODataQueryOptions<CompanyViewModel> options)
@@ -38,18 +42,6 @@ namespace Talent21.Web.Controllers
         public IQueryable<CompanyViewModel> ViewIndustriesQuery()
         {
             return _service.Companies;
-        }
-          
-        [HttpGet]
-        [Route("profile")]
-        public CompanyViewModel GetCompanyProfile()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Identity.GetUserId<string>(); 
-                return _service.GetProfile(userId);
-            }
-            return null;
         }
 
         [HttpPost]
@@ -73,7 +65,5 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
-
-        public string userId { get; set; }
     }
 }
