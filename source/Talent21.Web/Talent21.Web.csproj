@@ -267,7 +267,6 @@
     <Content Include="App\controllers\aboutCandidateController.js" />
     <Content Include="App\controllers\aboutCompanyController.js" />
     <Content Include="App\controllers\companyListController.js" />
-    <Content Include="App\controllers\companyProfileController.js" />
     <Content Include="App\controllers\jobListingController.js" />
     <Content Include="App\controllers\otherController.js" />
     <Content Include="App\controllers\postjobsController.js" />
@@ -276,6 +275,7 @@
     <Content Include="App\router\router.js" />
     <Content Include="App\services\dataService.js" />
     <Content Include="App\services\headerFactory.js" />
+    <Content Include="App\views\company\profile.js" />
     <Content Include="App\views\company\search.html" />
     <Content Include="App\views\company\dashboard.html" />
     <Content Include="App\views\company\dashboard.js" />
@@ -284,7 +284,7 @@
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
-    <Content Include="App\views\company\CompanyProfile.html" />
+    <Content Include="App\views\company\profile.html" />
     <Content Include="App\views\contractor\profile.html" />
     <Content Include="App\views\contractor\profile.js" />
     <Content Include="App\views\home.html" />

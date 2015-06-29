@@ -52,11 +52,12 @@ namespace Talent21.Service.Core
                     WebSite = x.Social.WebSite,
                     Yahoo = x.Social.Yahoo,
                     PictureUrl = x.PictureUrl,
+                    OwnerId = x.OwnerId,
                     Industry=new DictionaryViewModel(){ Code  = x.Industry.Code, Title = x.Industry.Title}
                 });
             }
-        } 
-
+        }
+      
         /// <summary>
         /// 
         /// </summary>
@@ -117,6 +118,16 @@ namespace Talent21.Service.Core
                 CompanyId = company.CompanyId,
                 CompanyName = company.CompanyName
             };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public CompanyViewModel GetProfile(string userId)
+        {
+            return Companies.FirstOrDefault(x => x.OwnerId == userId);
         }
 
         /// <summary>
