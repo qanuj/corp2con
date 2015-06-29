@@ -38,6 +38,7 @@ namespace Talent21.Service.Models
 
     public class ContractorViewModel : ContractorEditViewModel
     {
+        internal string OwnerId { get; set; }
         public string PictureUrl { get; set; }
         public int Rate { get; set; }
         public IEnumerable<DictionaryViewModel> Skills { get; set; }

@@ -64,12 +64,7 @@ namespace Talent21.Service.Abstraction
         /// <returns></returns>
         ScheduleViewModel ViewSchedule(ScheduleViewModel schedule);
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        CandidatePublicProfileViewModel GetProfile(int id);
+        ContractorViewModel GetProfile(string userId);
         /// <summary>
         /// 
         /// </summary>

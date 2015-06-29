@@ -7,17 +7,17 @@
                 templateUrl: '/App/views/contractor/dashboard.html',
                 controller: 'contractorDashboardController'
             })
-            .when('/others', {
-                templateUrl: '/app/views/contractor/other.html',
-                controller: 'otherController'
+            .when('/profile', {
+                templateUrl: '/app/views/contractor/profile.html',
+                controller: 'contractorProfileController'
             })
-            .when('/candidateprofile', {
-                templateUrl: '/app/views/contractor/aboutcandidate.html',
-                controller: 'candidateProfileController'
+            .when('/search', {
+                templateUrl: '/app/views/contractor/search.html',
+                controller: 'contractorSearchController'
             })
-            .when('/companylist', {
-                templateUrl: '/app/views/company/CompanyList.html',
-                controller: 'companyListController'
+            .when('/applications', {
+                templateUrl: '/app/views/contractor/applications.html',
+                controller: 'contractorApplicationController'
             })
             .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
@@ -26,9 +26,9 @@
                 templateUrl: '/App/views/company/dashboard.html',
                 controller: 'companyDashboardController'
             })
-            .when('/others', {
-                templateUrl: '/app/views/Company/other.html',
-                controller: 'otherController'
+            .when('/search', {
+                templateUrl: '/app/views/company/search.html',
+                controller: 'companySearchController'
             })
             .when('/candidateprofile', {
                 templateUrl: '/app/views/Company/candidateProfile.html',

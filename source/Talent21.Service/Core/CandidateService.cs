@@ -54,6 +54,7 @@ namespace Talent21.Service.Core
                     WebSite = x.Social.WebSite,
                     Yahoo = x.Social.Yahoo,
                     PictureUrl =x.PictureUrl,
+                    OwnerId=x.OwnerId,
                     Rate=x.Rate,
                     Skills=x.Skills.Select(y=> new DictionaryViewModel(){ Code = y.Code,Title = y.Title})
                 });
@@ -229,20 +230,9 @@ namespace Talent21.Service.Core
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public CandidatePublicProfileViewModel GetProfile(int id)
+        public ContractorViewModel GetProfile(string userId)
         {
-            var candidate = _candidateRepository.ById(id);
-            if(candidate == null) return null;
-            return new CandidatePublicProfileViewModel()
-            {
-                Id = candidate.Id,
-                Name = candidate.Name
-            };
+            return Contractors.FirstOrDefault(x => x.OwnerId == userId);
         }
 
 
