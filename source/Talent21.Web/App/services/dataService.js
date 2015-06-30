@@ -34,7 +34,7 @@
     }
 
     factory.contractor.editProfile = function (formData) {
-        return $http.put(v + 'candidate/profile/update', formData);
+        return $http.put(v + 'candidate/profile', formData);
     }
     return factory;
 }]);
