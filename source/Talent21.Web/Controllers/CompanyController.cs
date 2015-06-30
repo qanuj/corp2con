@@ -73,6 +73,39 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+        [HttpGet]
+        [Route("job")]
+        public CompanyViewModel GetJobProfile()
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId<string>();
+                return _service.GetProfile(userId);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        [Route("job")]
+        public HttpResponseMessage AddJob(JobPublishViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job")]
+        public HttpResponseMessage EditJob(JobEditViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("job")]
+        public HttpResponseMessage DeleteJob(IdModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+        }
+
 
         public string userId { get; set; }
     }

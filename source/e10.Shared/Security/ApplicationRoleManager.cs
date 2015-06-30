@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -17,17 +16,6 @@ namespace e10.Shared.Security
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, ApplicationRoleStore store)
         {
             return new ApplicationRoleManager(store);
-        }
-
-        public async Task CreateRolesAsync(string[] systemRoles)
-        {
-            foreach (var role in systemRoles)
-            {
-                if (!await RoleExistsAsync(role))
-                {
-                    await CreateAsync(new Role(role));
-                }
-            }
         }
     }
 
