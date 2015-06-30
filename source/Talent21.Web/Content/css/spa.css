@@ -4,3 +4,8 @@
 .margtop {
     margin-top: 20px;
 }
+
+.img-circle {
+    height: 60px !important;
+    width: 60px !important;
+}
