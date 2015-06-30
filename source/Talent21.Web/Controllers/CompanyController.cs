@@ -87,14 +87,14 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("job")]
-        public HttpResponseMessage AddJob(JobPublishViewModel model)
+        public HttpResponseMessage AddJob(PublishJobViewModel model)
         {
-            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Publish(model)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("job")]
-        public HttpResponseMessage EditJob(JobEditViewModel model)
+        public HttpResponseMessage EditJob(EditJobViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }

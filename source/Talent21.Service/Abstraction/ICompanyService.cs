@@ -19,10 +19,4 @@ namespace Talent21.Service.Abstraction
         
 
     }
-    public class CreateJobViewModel { }
-    public class EditJobViewModel { }
-    public class JobViewModel { }
-    public class DeleteJobViewModel { }
-    public class CancelJobViewModel { }
-    public class PublishJobViewModel { }
 }

@@ -24,7 +24,9 @@ namespace Talent21.Data.Core
         public DateTime End { get; set; }
 
         public bool IsCancelled { get; set; }
+        public DateTime? Cancelled { get; set; }
 
-        public DateTime Cancelled { get; set; }
+        public bool IsPublished { get; set; }
+        public DateTime? Published { get; set; }
     }
 }
