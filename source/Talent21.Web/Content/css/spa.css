@@ -8,4 +8,5 @@
 .editbtn {
     position: fixed;
     right: 20px;
+    z-index:23;
 }

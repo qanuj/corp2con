@@ -21,6 +21,10 @@
         return $http.get(v + 'candidate/profile');
     }
 
+    factory.contractor.editProfile = function (formData) {
+        return $http.put(v + 'candidate/profile', formData);
+    }
+
     factory.company.paged = function () {
         return $http.get(v + 'company/paged?$inlinecount=allpages');
     }
@@ -33,8 +37,9 @@
         return $http.get(v + 'company/profile');
     }
 
-    factory.contractor.editProfile = function (formData) {
-        return $http.put(v + 'candidate/profile', formData);
+    factory.company.editProfile = function (formData) {
+        return $http.put(v + 'company/profile', formData);
     }
+
     return factory;
 }]);

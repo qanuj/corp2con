@@ -155,10 +155,5 @@ namespace e10.Shared.Data.Abstraction
         {
             return await Context.SaveChangesAsync();
         }
-
-        public void Delete(int id)
-        {
-            Delete(ById(id));
-        }
     }
 }
