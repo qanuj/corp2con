@@ -53,21 +53,21 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("profile")]
         public HttpResponseMessage AddIndustry(CompanyCreateViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
         [HttpPut]
-        [Route("update")]
+        [Route("profile")]
         public HttpResponseMessage EditIndustry(CompanyEditViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("profile")]
         public HttpResponseMessage DeleteIndustry(IdModel model)
         {
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
