@@ -7,6 +7,8 @@
         system: {}
     };
 
+    factory.currentPage = window.location.href;
+
     //For Contractors
 
     factory.contractor.paged = function () {
@@ -19,6 +21,26 @@
 
     factory.contractor.profile = function () {
         return $http.get(v + 'candidate/profile');
+    }
+
+    factory.contractor.editProfile = function (formData) {
+        return $http.put(v + 'candidate/profile', formData);
+    }
+
+    factory.company.paged = function () {
+        return $http.get(v + 'company/paged?$inlinecount=allpages');
+    }
+
+    factory.company.all = function () {
+        return $http.get(v + 'company/all');
+    }
+
+    factory.company.profile = function () {
+        return $http.get(v + 'company/profile');
+    }
+
+    factory.company.editProfile = function (formData) {
+        return $http.put(v + 'company/profile', formData);
     }
 
     //For companies

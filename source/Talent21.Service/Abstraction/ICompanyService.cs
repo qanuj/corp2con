@@ -23,6 +23,8 @@ namespace Talent21.Service.Abstraction
         /// <param name="profile"></param>
         /// <returns></returns>
         AddProfileViewModel AddProfile(AddProfileViewModel profile);
+
+        CompanyViewModel GetProfile(string userId);
         /// <summary>
         /// 
         /// </summary>
@@ -69,5 +71,7 @@ namespace Talent21.Service.Abstraction
         CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model);
 
         IQueryable<CompanyViewModel> Companies { get; }
+
+        
     }
 }

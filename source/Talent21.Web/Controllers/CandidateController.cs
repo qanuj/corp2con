@@ -40,6 +40,7 @@ namespace Talent21.Web.Controllers
             return _service.Contractors;
         }
 
+
         [HttpGet]
         [Route("profile")]
         public ContractorViewModel GetCandidateProfile()
@@ -53,21 +54,21 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("profile")]
         public HttpResponseMessage AddProfile(ContractorCreateViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
         [HttpPut]
-        [Route("update")]
+        [Route("profile")]
         public HttpResponseMessage EditProfile(ContractorEditViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("profile")]
         public HttpResponseMessage DeleteProfile(IdModel model)
         {
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
