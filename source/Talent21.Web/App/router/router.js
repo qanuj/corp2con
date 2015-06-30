@@ -30,9 +30,9 @@
                 templateUrl: '/app/views/company/search.html',
                 controller: 'companySearchController'
             })
-            .when('/candidateprofile', {
-                templateUrl: '/app/views/Company/candidateProfile.html',
-                controller: 'candidateProfileController'
+            .when('/profile', {
+                templateUrl: '/app/views/Company/profile.html',
+                controller: 'companyProfileController'
             })
             .when('/companylist', {
                 templateUrl: '/app/views/Company/CompanyList.html',

@@ -276,6 +276,7 @@
     <Content Include="App\router\router.js" />
     <Content Include="App\services\dataService.js" />
     <Content Include="App\services\headerFactory.js" />
+    <Content Include="App\views\company\profile.js" />
     <Content Include="App\views\company\search.html" />
     <Content Include="App\views\company\dashboard.html" />
     <Content Include="App\views\company\dashboard.js" />
@@ -284,9 +285,12 @@
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
-    <Content Include="App\views\company\CompanyProfile.html" />
+    <Content Include="App\views\company\profile.html" />
     <Content Include="App\views\contractor\profile.html" />
     <Content Include="App\views\contractor\profile.js" />
+    <Content Include="App\views\contractor\search.html" />
+    <Content Include="App\views\contractor\search.js" />
+    <Content Include="App\views\dummy.html" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\job\PostJobs.html" />
     <Content Include="App\views\job\JobListing.html" />
@@ -318,6 +322,7 @@
     <Content Include="Content\images\fancybox_sprite%402x.png" />
     <Content Include="Content\images\fancybox_sprite.png" />
     <Content Include="Content\images\favicon.png" />
+    <Content Include="Content\images\gitprofile.png" />
     <Content Include="Content\images\job1.jpg" />
     <Content Include="Content\images\logo%402x.png" />
     <Content Include="Content\images\logo.png" />

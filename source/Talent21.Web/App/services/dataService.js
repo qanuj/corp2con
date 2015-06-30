@@ -7,6 +7,8 @@
         system: {}
     };
 
+    //For Contractors
+
     factory.contractor.paged = function () {
         return $http.get(v + 'candidate/paged?$inlinecount=allpages');
     }
@@ -19,5 +21,20 @@
         return $http.get(v + 'candidate/profile');
     }
 
+    //For companies
+
+    factory.company.paged = function () {
+        return $http.get(v + 'company/paged?$inlinecount=allpages');
+    }
+
+    factory.company.all = function () {
+        return $http.get(v + 'company/all');
+    }
+
+    factory.company.profile = function () {
+        return $http.get(v + 'company/profile');
+    }
+
+   
     return factory;
 }]);
