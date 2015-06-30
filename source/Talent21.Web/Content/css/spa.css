@@ -4,3 +4,8 @@
 .margtop {
     margin-top: 20px;
 }
+
+.editbtn {
+    position: fixed;
+    right: 20px;
+}

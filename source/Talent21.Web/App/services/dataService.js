@@ -32,5 +32,9 @@
     factory.company.profile = function () {
         return $http.get(v + 'company/profile');
     }
+
+    factory.contractor.editProfile = function (formData) {
+        return $http.put(v + 'candidate/profile/update', formData);
+    }
     return factory;
 }]);

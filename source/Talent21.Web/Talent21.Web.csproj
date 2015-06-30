@@ -281,6 +281,8 @@
     <Content Include="App\views\company\dashboard.js" />
     <Content Include="App\views\contractor\dashboard.js" />
     <Content Include="App\views\contractor\dashboard.html" />
+    <Content Include="App\views\contractor\editProfile.html" />
+    <Content Include="App\views\contractor\editProfile.js" />
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />

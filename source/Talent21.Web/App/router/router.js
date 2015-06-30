@@ -14,6 +14,10 @@
               .when('/profile', {
                 templateUrl: '/app/views/contractor/profile.html',
                 controller: 'contractorProfileController'
+              })
+            .when('/profile/edit', {
+                templateUrl: '/app/views/contractor/editProfile.html',
+                controller: 'contractorEditProfileController'
             })
             .when('/search', {
                 templateUrl: '/app/views/contractor/search.html',
@@ -37,6 +41,10 @@
             .when('/profile', {
                 templateUrl: '/app/views/company/profile.html',
                 controller: 'companyProfileController'
+            })
+            .when('/profile/edit', {
+                templateUrl: '/app/views/company/editProfile.html',
+                controller: 'companyEditProfileController'
             })
             .when('/companylist', {
                 templateUrl: '/app/views/Company/CompanyList.html',
