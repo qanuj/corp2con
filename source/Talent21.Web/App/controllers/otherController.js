@@ -1,3 +1,3 @@
-﻿app.controller('otherController', function($scope) {
+﻿app.controller('otherController',['$scope', function($scope) {
     $scope.text = "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello ";
-});
+}]);

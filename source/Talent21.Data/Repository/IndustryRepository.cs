@@ -24,6 +24,23 @@ namespace Talent21.Data.Repository
             : base(context, eventManager)
         { 
         }
+
+        public static string Upgrade()
+        {
+            try
+            {
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDataContext, Migrations.Configuration>());
+                using(var db = new ApplicationDataContext())
+                {
+                    db.Database.Initialize(true);
+                    return "Completed";
+                }
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 
     /// <summary>

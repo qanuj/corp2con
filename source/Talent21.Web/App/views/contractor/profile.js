@@ -1,3 +1,5 @@
-﻿app.controller('contractorProfileController', function ($scope) {
-    $scope.text = "Hello add";
-});
+﻿app.controller('contractorProfileController', ['$scope', 'dataService', function ($scope, db) {
+    db.contractor.profile().success(function (result) {
+        $scope.record = result;
+    });
+}]);

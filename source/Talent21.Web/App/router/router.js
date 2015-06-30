@@ -1,22 +1,54 @@
-﻿app.config(function ($routeProvider, $locationProvider) {
+﻿app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     var role = document.querySelector('html').dataset.role;
+    console.log(role);
     if (role === 'Contractor') {
         $routeProvider
             .when('/', {
+                templateUrl: '/App/views/contractor/dashboard.html',
+                controller: 'contractorDashboardController'
+            })
+            .when('/profile', {
                 templateUrl: '/app/views/contractor/profile.html',
                 controller: 'contractorProfileController'
             })
-            .when('/others', {
-                templateUrl: '/app/views/candidate/other.html',
-                controller: 'otherController'
+              .when('/profile', {
+                templateUrl: '/app/views/contractor/profile.html',
+                controller: 'contractorProfileController'
+              })
+            .when('/profile/edit', {
+                templateUrl: '/app/views/contractor/editProfile.html',
+                controller: 'contractorEditProfileController'
             })
-            .when('/candidateprofile', {
-                templateUrl: '/app/views/candidate/candidateProfile.html',
-                controller: 'candidateProfileController'
+            .when('/search', {
+                templateUrl: '/app/views/contractor/search.html',
+                controller: 'contractorSearchController'
             })
-            .when('/companyprofile', {
-                templateUrl: '/app/views/company/companyprofile.html',
+            .when('/applications', {
+                templateUrl: '/app/views/contractor/applications.html',
+                controller: 'contractorApplicationController'
+            })
+            .otherwise({ redirectTo: '/' });
+    } else if (role === 'Company') {
+        $routeProvider
+            .when('/', {
+                templateUrl: '/App/views/company/dashboard.html',
+                controller: 'companyDashboardController'
+            })
+            .when('/search', {
+                templateUrl: '/app/views/company/search.html',
+                controller: 'companySearchController'
+            })
+            .when('/profile', {
+                templateUrl: '/app/views/company/profile.html',
                 controller: 'companyProfileController'
+            })
+            .when('/profile/edit', {
+                templateUrl: '/app/views/company/editProfile.html',
+                controller: 'companyEditProfileController'
+            })
+            .when('/companylist', {
+                templateUrl: '/app/views/Company/CompanyList.html',
+                controller: 'companyListController'
             })
             .when('/postjobs', {
                 templateUrl: '/app/views/job/postjobs.html',
@@ -26,15 +58,7 @@
                 templateUrl: '/app/views/job/jobListing.html',
                 controller: 'jobListingController'
             })
-            .otherwise({ redirectTo:'/' });
-    }else if(role === 'Company')
-    {
-        $routeProvider
-           .when('/', {
-               templateUrl: '/app/views/company/profile.html',
-               controller: 'companyController'
-           })
-           .otherwise({ redirectTo: '/' });
+            .otherwise({ redirectTo: '/' });
     }
-    $locationProvider.html5Mode(false).hashPrefix('');
-});
+
+}]);

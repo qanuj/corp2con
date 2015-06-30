@@ -13,6 +13,8 @@ namespace Talent21.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.LowercaseUrls = true;
+
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(

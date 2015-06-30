@@ -175,9 +175,9 @@ namespace Talent21.Web.Controllers
 
                     if(model.What == RegisterAsContractor)
                     {
-                        _candidateService.CreateCandidate(new CreateCandidateViewModel()
+                        _candidateService.Create(new ContractorCreateViewModel()
                         {
-                            UserId = user.Id, Name = user.Email
+                            OwnerId = user.Id, Name = user.Email
                         });
                         if(!UserManager.IsInRole(user.Id, Contractor))
                         {
@@ -186,9 +186,9 @@ namespace Talent21.Web.Controllers
                     }
                     else if(model.What == RegisterAsCompany)
                     {
-                        _companyService.CreateCompany(new CreateCompanyViewModel()
+                        _companyService.Create(new CompanyCreateViewModel()
                         {
-                            UserId = user.Id, Name = user.Email
+                            OwnerId = user.Id, Name = user.Email
                         });
                         if (!UserManager.IsInRole(user.Id, Company))
                         {

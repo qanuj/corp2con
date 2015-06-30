@@ -6,7 +6,7 @@ namespace Talent21.Service.Abstraction
     /// <summary>
     /// 
     /// </summary>
-    public interface ICandidateService : IService
+    public interface ICandidateService : IService, IPersonDataService<ContractorEditViewModel, ContractorCreateViewModel,IdModel>
     {
         /// <summary>
         /// 
@@ -64,12 +64,7 @@ namespace Talent21.Service.Abstraction
         /// <returns></returns>
         ScheduleViewModel ViewSchedule(ScheduleViewModel schedule);
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        CandidatePublicProfileViewModel GetProfile(int id);
+        ContractorViewModel GetProfile(string userId);
         /// <summary>
         /// 
         /// </summary>
@@ -86,5 +81,7 @@ namespace Talent21.Service.Abstraction
         /// </summary>
         /// <returns></returns>
         IQueryable<ScheduleViewModel> GetSchedules();
+
+        IQueryable<ContractorViewModel> Contractors { get; }
     }
 }

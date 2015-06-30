@@ -1,4 +1,5 @@
-﻿@model Talent21.Web.Models.FrontEndViewModel
+﻿@using Talent21.Web.Controllers
+@model Talent21.Web.Models.FrontEndViewModel
 @{
     Layout = "";
     ViewBag.Title = "Home Page";
@@ -19,7 +20,7 @@
         <div id="header-background"></div>
         <div class="container">
             <div class="pull-left">
-                <div id="logo"><a href="/#"><img src="~/content/images/logo.png" alt="Jobseek - Job Board Responsive HTML Template" /></a></div>
+                <div id="logo"><a href="#/"><img src="~/content/images/logo.png" alt="Jobseek - Job Board Responsive HTML Template" /></a></div>
             </div>
             <div id="menu-open" class="pull-right">
                 <a class="fm-button"><i class="fa fa-bars fa-lg"></i></a>
@@ -47,13 +48,21 @@
                 <a class="fm-button"><i class="fa fa-close fa-2x"></i></a>
             </div>
             <ul class="nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/#/jobs">Jobs</a></li>
-                <li><a href="/#/jobs/create">Post a job</a></li>
-                <li><a href="/#/search/candidate">Candidates</a></li>
-                <li><a href="/#/search/job">Jobs</a></li>
-                <li><a href="/#/search/company">Companies</a></li>
-                <li><a href="/#/profile">Post a Resume</a></li>
+                @if(Model.Role == AccountController.Company)
+                {
+                    <li><a href="/#/jobs/create">Post a job</a></li>
+                    <li><a href="/#/jobs">Jobs</a></li>
+                    <li><a href="/#/search">Search Contractor</a></li>
+                    <li><a href="/#/profile">Company Profile</a></li>
+                    <li><a href="/#/bench">Bench Management</a></li>
+                }
+                else if(Model.Role == AccountController.Contractor)
+                {
+                    <li><a href="/#/search">Search Jobs</a></li>
+                    <li><a href="/#/jobs">Jobs</a></li>
+                    <li><a href="/#/profile">Manage Profile</a></li>
+                    <li><a href="/#/schedule">Manage Schedule</a></li>
+                }
                 <li><a href="/account/logout">Logout</a></li>
             </ul>
         </div>

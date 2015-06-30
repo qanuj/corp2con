@@ -1,13 +1,10 @@
 ﻿using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
+using Microsoft.AspNet.Identity;
 using Talent21.Service.Abstraction;
-using Talent21.Service.Core;
-using Talent21.Service.Models;
 using Talent21.Service.Models;
 
 namespace Talent21.Web.Controllers
@@ -28,132 +25,55 @@ namespace Talent21.Web.Controllers
         {
             _service = service;
         }
+        
+        [HttpGet]
+        [Route("paged")]
+        public PageResult<CompanyViewModel> ViewIndustries(ODataQueryOptions<CompanyViewModel> options)
+        {
+            return Page(_service.Companies, options);
+        }
 
-        /// <summary>
-        /// Create Company
-        /// </summary>
-        /// <param name="name">Model with Company Name and more fields to come</param>
-        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public IQueryable<CompanyViewModel> ViewIndustriesQuery()
+        {
+            return _service.Companies;
+        }
+          
+        [HttpGet]
+        [Route("profile")]
+        public CompanyViewModel GetCompanyProfile()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId<string>(); 
+                return _service.GetProfile(userId);
+            }
+            return null;
+        }
+
         [HttpPost]
         [Route("create")]
-        public HttpResponseMessage CreateCompany(CreateCompanyViewModel model)
+        public HttpResponseMessage AddIndustry(CompanyCreateViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.CreateCompany(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
-        /// <summary>
-        /// Add Profile
-        /// </summary>
-        /// <param name="ModelState"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("add")]
-        public HttpResponseMessage AddProfile(AddProfileViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.AddProfile(model));
-            }
-            return Bad(ModelState);
-        }
-        /// <summary>
-        /// Update Profile
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
         [HttpPut]
-        public HttpResponseMessage UpdateProfile(UpdateProfileViewModel model)
+        [Route("update")]
+        public HttpResponseMessage EditIndustry(CompanyEditViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.UpdateProfile(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
-        //bool RejectCandidate(RejectCandidateViewModel jobApplication);
-        /// <summary>
-        /// Reject Candidate
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("reject")]
-        public HttpResponseMessage RejectCandidate(RejectCandidateViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.RejectCandidate(model));
-            }
-            return Bad(ModelState);
-        }
-
-
-        //bool ApproveCompany(ApproveCompanyViewModel jobApplication);
-        /// <summary>
-        /// Approve Company
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("approve")]
-        public HttpResponseMessage ApproveCompany(ApproveCompanyViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.ApproveCompany(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// Create Job
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("create")]
-        public HttpResponseMessage CreateJob(CreateJobApplicationViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.CreateJob(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// Update Job
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        [HttpPut]
-        public HttpResponseMessage UpdateJob(UpdateJobApplicationViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.UpdateJob(model));
-            }
-            return Bad(ModelState);
-        }
-
-        /// <summary>
-        /// Delete Job
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        /// <returns></returns>
         [HttpDelete]
         [Route("delete")]
-        public HttpResponseMessage DeleteJob(DeleteJobApplicationViewModel model)
+        public HttpResponseMessage DeleteIndustry(IdModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(_service.DeleteJob(model));
-            }
-            return Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
+
+
+        public string userId { get; set; }
     }
 }
