@@ -276,6 +276,7 @@
     <Content Include="App\router\router.js" />
     <Content Include="App\services\dataService.js" />
     <Content Include="App\services\headerFactory.js" />
+    <Content Include="App\views\company\profile.html" />
     <Content Include="App\views\company\profile.js" />
     <Content Include="App\views\company\search.html" />
     <Content Include="App\views\company\dashboard.html" />
@@ -285,7 +286,6 @@
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
-    <Content Include="App\views\company\profile.html" />
     <Content Include="App\views\contractor\profile.html" />
     <Content Include="App\views\contractor\profile.js" />
     <Content Include="App\views\contractor\search.html" />
