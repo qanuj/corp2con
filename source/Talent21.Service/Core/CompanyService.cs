@@ -222,6 +222,7 @@ namespace Talent21.Service.Core
             {
                 return _jobRepository.All.Where(x => x.Company.OwnerId == CurrentUserId).Select(x => new JobViewModels
                 {
+                    Id = x.Id,
                     Applied = x.Applications.Count,
                     Company = x.Company.CompanyName,
                     IsCancelled = x.IsCancelled,
