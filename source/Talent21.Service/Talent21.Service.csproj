@@ -49,6 +49,7 @@
     <Compile Include="Abstraction\IDataService.cs" />
     <Compile Include="Abstraction\IDictionaryDataService.cs" />
     <Compile Include="Abstraction\IPersonDataService.cs" />
+    <Compile Include="Core\SharedService.cs" />
     <Compile Include="Models\JobViewModels.cs" />
     <Compile Include="Models\JobApplicationViewModels.cs" />
     <Compile Include="Models\CandidateViewModels.cs" />

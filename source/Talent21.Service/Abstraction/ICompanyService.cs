@@ -4,10 +4,17 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
+    public interface ISharedService
+    {
+        IQueryable<JobViewModels> Jobs { get; }
+    }
+
+
      public interface ICompanyService : IService,
-        IPersonDataService<CompanyEditViewModel, CompanyCreateViewModel, IdModel>
+         ISecuredService,
+         ISharedService,
+         IPersonDataService<CompanyEditViewModel, CompanyCreateViewModel, IdModel>
      {
-        string CurrentUserId {set;}
         CompanyViewModel GetProfile(string userId);
 
         JobViewModels  Create(CreateJobViewModel model);
@@ -17,7 +24,6 @@ namespace Talent21.Service.Abstraction
         bool Cancel(CancelJobViewModel model);
 
         IQueryable<CompanyViewModel> Companies { get; }
-        IQueryable<JobViewModels> Jobs { get; }
 
         IQueryable<JobApplicationViewModel> Applications(int id);
         bool ActOnApplication(CompanyActJobApplicationViewModel act);

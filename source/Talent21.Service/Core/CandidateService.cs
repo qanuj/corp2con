@@ -10,18 +10,17 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CandidateService : ICandidateService
+    public class CandidateService : SharedService, ICandidateService
     {
         private readonly ICandidateRepository _candidateRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IScheduleRepository _scheduleRepository;
 
         public CandidateService(ICandidateRepository candidateRepository,
+            IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository)
+            : base(jobRepository)
         {
             _candidateRepository = candidateRepository;
             _jobApplicationRepository = jobApplicationRepository;
@@ -169,12 +168,10 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        public string CurrentUserId { set; private get; }
-
         public ScheduleViewModel Update(EditScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.Id);
-            if(entity==null) throw new Exception("Schedule not found");
+            if(entity == null) throw new Exception("Schedule not found");
 
             entity.Start = model.Start;
             entity.End = model.End;
