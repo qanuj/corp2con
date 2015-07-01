@@ -36,6 +36,7 @@ namespace Talent21.Service.Core
                 return _companyRepository.All.Select(x => new CompanyViewModel
                 {
                     Id = x.Id,
+                    OwnerId = x.OwnerId,
                     About = x.About,
                     Email = x.Email,
                     Facebook = x.Social.Facebook,
@@ -221,6 +222,7 @@ namespace Talent21.Service.Core
             {
                 return _jobRepository.All.Where(x => x.Company.OwnerId == CurrentUserId).Select(x => new JobViewModels
                 {
+                    Id = x.Id,
                     Applied = x.Applications.Count,
                     Company = x.Company.CompanyName,
                     IsCancelled = x.IsCancelled,
