@@ -60,6 +60,52 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+        [HttpGet]
+        [Route("paged")]
+        public PageResult<JobApplicationViewModel> ViewIndustries(ODataQueryOptions<JobApplicationViewModel> options)
+        {
+            return Page(_service.Jobs, options);
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public IQueryable<JobApplicationViewModel> ViewobsQuery()
+        {
+            return _service.Jobs;
+        }
+        [HttpGet]
+        [Route("job")]
+        public JobApplicationViewModel Get()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId<string>();
+                return _service.GetProfile(userId);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        [Route("job")]
+        public HttpResponseMessage AddIndustry(CompanyCreateViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job")]
+        public HttpResponseMessage EditIndustry(CompanyEditViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("job")]
+        public HttpResponseMessage DeleteIndustry(IdModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+        }
+
 
         //Job Related Api.
 
