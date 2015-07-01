@@ -9,8 +9,6 @@
 
     factory.currentPage = window.location.href;
 
-    //For Contractors
-
     factory.contractor.paged = function () {
         return $http.get(v + 'candidate/paged?$inlinecount=allpages');
     }
@@ -43,23 +41,5 @@
         return $http.put(v + 'company/profile', formData);
     }
 
-    //For companies
-
-    factory.company.paged = function () {
-        return $http.get(v + 'company/paged?$inlinecount=allpages');
-    }
-
-    factory.company.all = function () {
-        return $http.get(v + 'company/all');
-    }
-
-    factory.company.profile = function () {
-        return $http.get(v + 'company/profile');
-    }
-
-    factory.company = function () {
-        return $http.get(v + 'company/postjobs');
-
-    }
     return factory;
 }]);
