@@ -16,6 +16,6 @@ namespace Talent21.Service.Abstraction
         bool Cancel(CancelJobViewModel model);
 
         IQueryable<CompanyViewModel> Companies { get; }
-        IQueryable<JobViewModels> Jobs(string userId);
+        IQueryable<JobViewModels> Jobs { get; }
     }
 }

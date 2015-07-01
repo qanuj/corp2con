@@ -67,34 +67,55 @@ namespace Talent21.Web.Controllers
         [Route("job/paged")]
         public PageResult<JobViewModels> ViewJobs(ODataQueryOptions<JobViewModels> options)
         {
-            return Page(_service.Jobs(User.Identity.GetUserId()), options);
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Jobs, options);
         }
 
         [HttpGet]
         [Route("job/all")]
-        public IQueryable<CompanyViewModel> ViewJobsQuery()
+        public IQueryable<JobViewModels> ViewJobsQuery()
         {
-            return _service.Companies;
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Jobs;
         }
 
         [HttpPost]
         [Route("job")]
-        public HttpResponseMessage CreateJob(PublishJobViewModel model)
+        public HttpResponseMessage CreateJob(CreateJobViewModel model)
         {
-            return ModelState.IsValid ? Ok(_service.Publish(model)) : Bad(ModelState);
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("job")]
         public HttpResponseMessage EditJob(EditJobViewModel model)
         {
+            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job/publish")]
+        public HttpResponseMessage PublishJob(PublishJobViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.Publish(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job/cancel")]
+        public HttpResponseMessage CancelJob(CancelJobViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.Cancel(model)) : Bad(ModelState);
         }
 
         [HttpDelete]
         [Route("job")]
         public HttpResponseMessage DeleteJob(IdModel model)
         {
+            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 

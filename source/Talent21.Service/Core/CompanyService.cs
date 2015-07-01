@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
@@ -259,7 +260,7 @@ namespace Talent21.Service.Core
             _jobRepository.Create(entity);
             _jobRepository.SaveChanges();
 
-            return Jobs(CurrentUserId).FirstOrDefault(x => x.Id == entity.Id);
+            return Jobs.FirstOrDefault(x => x.Id == entity.Id);
 
         }
 
@@ -277,12 +278,39 @@ namespace Talent21.Service.Core
 
         public JobViewModels Update(EditJobViewModel model)
         {
-            throw new NotImplementedException();
+            var entity = _jobRepository.ById(model.Id);
+            if(entity==null) throw new Exception("Job Not Found");
+
+            entity.Description = model.Description;
+            entity.Code = model.Code;
+            entity.Title = model.Title;
+            entity.End = model.End;
+            entity.LocationId = model.LocationId;
+            entity.Rate = model.Rate;
+            entity.Start = model.Start;
+           
+            var skills = _skillRepository.ById(model.Skills.Where(x=> entity.Skills.All(y => y.Id != x.Id)).Select(x => x.Id)).ToList();
+            for(var i = 0; i < skills.Count; i++){
+                entity.Skills.Add(skills[i]);
+            }
+
+            var skillDeleted = entity.Skills.Where(x=> model.Skills.All(y => y.Id != x.Id)).ToList();
+            for(var i = 0; i < skillDeleted.Count; i++)
+            {
+                entity.Skills.Remove(skills[i]);
+            }
+
+            _jobRepository.Update(entity);
+            _jobRepository.SaveChanges();
+
+            return Jobs.FirstOrDefault(x => x.Id == entity.Id);
         }
 
         public bool Delete(DeleteJobViewModel model)
         {
-            throw new NotImplementedException();
+            _jobRepository.Delete(model.Id);
+            var rowsAffested = _jobRepository.SaveChanges();
+            return rowsAffested > 0;
         }
 
         public bool Publish(PublishJobViewModel model)
@@ -309,28 +337,30 @@ namespace Talent21.Service.Core
             return rowsAffested > 0;
         }
 
-
-        public IQueryable<JobViewModels> Jobs(string userId)
+        public IQueryable<JobViewModels> Jobs
         {
-            return _jobRepository.All.Where(x => x.Company.OwnerId == userId).Select(x => new JobViewModels
+            get
             {
-                Applied = x.Applications.Count,
-                Company = x.Company.CompanyName,
-                IsCancelled = x.IsCancelled,
-                Cancelled = x.Cancelled,
-                IsPublished = x.IsPublished,
-                Published = x.Published,
-                Location = x.Location.Title,
-                Skills = x.Skills.Select(y=>new SkillDictionaryViewModel{ Code = y.Code,Id=y.Id, Title = y.Title}),
-                CompanyId = x.CompanyId,
-                Description = x.Description,
-                Code = x.Code,
-                Title = x.Title,
-                End = x.End,
-                LocationId = x.LocationId,
-                Rate = x.Rate,
-                Start = x.Start
-            });
+                return _jobRepository.All.Where(x => x.Company.OwnerId == CurrentUserId).Select(x => new JobViewModels
+                {
+                    Applied = x.Applications.Count,
+                    Company = x.Company.CompanyName,
+                    IsCancelled = x.IsCancelled,
+                    Cancelled = x.Cancelled,
+                    IsPublished = x.IsPublished,
+                    Published = x.Published,
+                    Location = x.Location.Title,
+                    Skills = x.Skills.Select(y => new SkillDictionaryViewModel {Code = y.Code, Id = y.Id, Title = y.Title}),
+                    CompanyId = x.CompanyId,
+                    Description = x.Description,
+                    Code = x.Code,
+                    Title = x.Title,
+                    End = x.End,
+                    LocationId = x.LocationId,
+                    Rate = x.Rate,
+                    Start = x.Start
+                });
+            }
         }
     }
 }

@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CancelJobViewModel.cs" />
-    <Compile Include="Models\DeleteJobViewModel.cs" />
     <Compile Include="Abstraction\IDataService.cs" />
     <Compile Include="Abstraction\IDictionaryDataService.cs" />
     <Compile Include="Abstraction\IPersonDataService.cs" />

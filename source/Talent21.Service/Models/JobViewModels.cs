@@ -35,4 +35,6 @@ namespace Talent21.Service.Models
         public int Applied { get; set; }
         public string Company { get; set; }
     }
+
+    public class DeleteJobViewModel : IdModel { }
 }
