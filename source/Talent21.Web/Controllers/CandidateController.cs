@@ -73,6 +73,23 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+        //Schedule Related Api
+
+        [HttpGet]
+        [Route("schedule/paged")]
+        public PageResult<ScheduleViewModel> ViewSchedules(ODataQueryOptions<ScheduleViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Schedules, options);
+        }
+
+        [HttpGet]
+        [Route("schedule/all")]
+        public IQueryable<ScheduleViewModel> ViewSchedulesQuery()
+        {
+            return _service.Schedules;
+        }
+
 
     }
 }

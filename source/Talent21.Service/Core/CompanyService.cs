@@ -14,17 +14,19 @@ namespace Talent21.Service.Core
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IJobRepository _jobRepository;
+        private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly ICandidateRepository _candidateRepository;
         private readonly ISkillRepository _skillRepository;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
-            ICandidateRepository candidateRepository, ISkillRepository skillRepository)
+            ICandidateRepository candidateRepository, ISkillRepository skillRepository, IJobApplicationRepository jobApplicationRepository)
         {
             _companyRepository = companyRepository;
             _jobRepository = jobRepository;
             _candidateRepository = candidateRepository;
             _skillRepository = skillRepository;
+            _jobApplicationRepository = jobApplicationRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -51,130 +53,6 @@ namespace Talent21.Service.Core
                 });
             }
         }
-
-        public CreateCompanyViewModel CreateCompany(string name)
-        {
-            var company = new Company() { Name = name };
-            _companyRepository.Create(company);
-            SaveChanges();
-            return new CreateCompanyViewModel
-            {
-                Name = company.Name,
-                Id = company.Id
-            };
-        }
-
-        public int SaveChanges()
-        {
-            return _companyRepository.SaveChanges();
-        }
-
-        public AddProfileViewModel UpdateProfile(AddProfileViewModel model)
-        {
-            var entity = _companyRepository.ById(model.CompanyId);
-            entity.Name = model.CompanyName;
-            _companyRepository.Update(entity);
-            _companyRepository.SaveChanges();
-            return model;
-        }
-
-        public AddProfileViewModel AddProfile(AddProfileViewModel model)
-        {
-            var company = new Company
-            {
-                CompanyId = model.CompanyId,
-                CompanyName = model.CompanyName
-            };
-
-            _companyRepository.Create(company);
-            _companyRepository.SaveChanges();
-            return new AddProfileViewModel
-            {
-                CompanyId = company.CompanyId,
-                CompanyName = company.CompanyName
-            };
-        }
-
-        public bool RejectCandidate(RejectCandidateViewModel model)
-        {
-            var entity = _candidateRepository.ById(model.CandidateId);
-
-
-            _candidateRepository.Update(entity);
-            var rowAffected = _candidateRepository.SaveChanges();
-            return rowAffected > 0;
-        }
-
-        public bool ApproveCompany(ApproveCompanyViewModel model)
-        {
-            var entity = _companyRepository.ById(model.CandidateId);
-
-
-            _companyRepository.Update(entity);
-            var rowAffected = _companyRepository.SaveChanges();
-            return rowAffected > 0;
-        }
-
-
-        public CreateJobApplicationViewModel CreateJob(CreateJobApplicationViewModel model)
-        {
-            var job = new Job() { CompanyId = model.CompanyId };
-
-            _companyRepository.SaveChanges();
-            return new CreateJobApplicationViewModel
-            {
-                CompanyId = job.CompanyId,
-
-            };
-
-        }
-
-        public UpdateJobApplicationViewModel UpdateJob(UpdateJobApplicationViewModel model)
-        {
-            var entity = _companyRepository.ById(model.CompanyId);
-            _companyRepository.Update(entity);
-            _companyRepository.SaveChanges();
-            return model;
-        }
-
-        public bool CancelJob(CancelJobApplicationViewModel model)
-        {
-            var entity = _jobRepository.ById(model.JobId);
-            entity.IsCancelled = true;
-            entity.Cancelled = DateTime.UtcNow;
-            _jobRepository.Update(entity);
-            var rowAffected = _jobRepository.SaveChanges();
-            return rowAffected > 0;
-        }
-
-        public DeleteJobApplicationViewModel DeleteJob(DeleteJobApplicationViewModel jobApplication)
-        {
-            var entity = _companyRepository.ById(jobApplication.CompanyId);
-            _companyRepository.Delete(entity);
-            return jobApplication;
-        }
-
-        public PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication)
-        {
-            var entity = _companyRepository.ById(jobApplication.CompanyId);
-            _companyRepository.SaveChanges();
-            return jobApplication;
-
-        }
-
-        public UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile)
-        {
-            var entity = _companyRepository.ById(profile.Id);
-            _companyRepository.Update(entity);
-            _companyRepository.SaveChanges();
-            return profile; ;
-        }
-
-        public CreateCompanyViewModel CreateCompany(CreateCompanyViewModel model)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public bool Delete(IdModel model)
         {
@@ -361,6 +239,64 @@ namespace Talent21.Service.Core
                     Start = x.Start
                 });
             }
+        }
+
+        public IQueryable<JobApplicationViewModel> Applications(int id)
+        {
+            return _jobApplicationRepository.All.Where(x => x.JobId == id).Select(x=> new JobApplicationViewModel
+            {
+                Actions = x.History.Select(y=> new JobApplicationHistoryViewModel(){ Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy}),
+                Id = x.Id,
+                Contractor = new ContractorViewModel
+                {
+                    Id = x.Candidate.Id,
+                    About = x.Candidate.About,
+                    Email = x.Candidate.Email,
+                    ExperienceMonths = x.Candidate.Experience.Months,
+                    ExperienceYears = x.Candidate.Experience.Years,
+                    Facebook = x.Candidate.Social.Facebook,
+                    Google = x.Candidate.Social.Google,
+                    LinkedIn = x.Candidate.Social.LinkedIn,
+                    LocationId = x.Candidate.LocationId,
+                    Mobile = x.Candidate.Mobile,
+                    Name = x.Candidate.Name,
+                    Rss = x.Candidate.Social.Rss,
+                    Twitter = x.Candidate.Social.Twitter,
+                    WebSite = x.Candidate.Social.WebSite,
+                    Yahoo = x.Candidate.Social.Yahoo,
+                    PictureUrl = x.Candidate.PictureUrl,
+                    OwnerId = x.Candidate.OwnerId,
+                    Rate = x.Candidate.Rate,
+                    Skills = x.Candidate.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                }
+            });
+        }
+
+        public bool ActOnApplication(CompanyActJobApplicationViewModel model)
+        {
+            var entity = _jobApplicationRepository.ById(model.Id);
+            if(entity == null) return false;
+
+            entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
+
+            var rowsAffested = _jobApplicationRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        public bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum act)
+        {
+            return ActOnApplication(new CompanyActJobApplicationViewModel(model, act));
+        }
+
+        public bool MoveApplication(MoveJobApplicationViewModel model)
+        {
+            var entity = _jobApplicationRepository.ById(model.Id);
+            if(entity == null) return false;
+
+            entity.Folder = model.Folder;
+
+            var rowsAffested = _jobApplicationRepository.SaveChanges();
+            return rowsAffested > 0;
         }
     }
 }

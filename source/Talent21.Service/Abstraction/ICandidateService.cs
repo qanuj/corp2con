@@ -10,6 +10,7 @@ namespace Talent21.Service.Abstraction
     {
         ContractorViewModel GetProfile(string userId);
         IQueryable<ContractorViewModel> Contractors { get; }
-        IQueryable<ScheduleViewModel> Schedules(int contractorId);
+        string CurrentUserId { set; }
+        IQueryable<ScheduleViewModel> Schedules { get; }
     }
 }

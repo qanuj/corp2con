@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
@@ -55,21 +57,51 @@ namespace Talent21.Service.Core
             }
         }
 
+        public IQueryable<JobApplicationViewModel> Applications(int id)
+        {
+            return _jobApplicationRepository.All.Where(x => x.JobId == id).Select(x => new JobApplicationViewModel
+            {
+                Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
+                Id = x.Id,
+                Contractor = new ContractorViewModel
+                {
+                    Id = x.Candidate.Id,
+                    About = x.Candidate.About,
+                    Email = x.Candidate.Email,
+                    ExperienceMonths = x.Candidate.Experience.Months,
+                    ExperienceYears = x.Candidate.Experience.Years,
+                    Facebook = x.Candidate.Social.Facebook,
+                    Google = x.Candidate.Social.Google,
+                    LinkedIn = x.Candidate.Social.LinkedIn,
+                    LocationId = x.Candidate.LocationId,
+                    Mobile = x.Candidate.Mobile,
+                    Name = x.Candidate.Name,
+                    Rss = x.Candidate.Social.Rss,
+                    Twitter = x.Candidate.Social.Twitter,
+                    WebSite = x.Candidate.Social.WebSite,
+                    Yahoo = x.Candidate.Social.Yahoo,
+                    PictureUrl = x.Candidate.PictureUrl,
+                    OwnerId = x.Candidate.OwnerId,
+                    Rate = x.Candidate.Rate,
+                    Skills = x.Candidate.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                }
+            });
+        }
+
         public JobApplicationViewModel ApplyToJob(ApplyJobApplicationViewModel job)
         {
             var jobApplication = new JobApplication
             {
-                Act = JobActionEnum.Application,
                 CandidateId = job.CandidateId,
                 JobId = job.JobId,
             };
+            var history = new JobApplicationHistory() {Act = JobActionEnum.Application};
+            jobApplication.History.Add(history);
+
             _jobApplicationRepository.Create(jobApplication);
             _jobApplicationRepository.SaveChanges();
-            return new JobApplicationViewModel
-            {
-                Id = jobApplication.Id,
-                Act = jobApplication.Act
-            };
+
+            return Applications(job.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
 
 
@@ -91,20 +123,6 @@ namespace Talent21.Service.Core
                 End = schedule.End
             };
 
-
-        }
-
-
-        public CreateScheduleViewModel CreateSchedule(CreateScheduleViewModel model)
-        {
-            var entity = new Schedule() { CandidateId = model.CandidateId };
-            _scheduleRepository.Create(entity);
-            _scheduleRepository.SaveChanges();
-            return new CreateScheduleViewModel
-            {
-                Id = entity.Id,
-                CandidateId = entity.CandidateId,
-            };
         }
 
         public bool DeleteProfile(DeleteProfileViewModel profile)
@@ -134,28 +152,6 @@ namespace Talent21.Service.Core
         public ContractorViewModel GetProfile(string userId)
         {
             return Contractors.FirstOrDefault(x => x.OwnerId == userId);
-        }
-
-
-        public IQueryable<CandidatePublicProfileViewModel> GetProfileQuery()
-        {
-            var query = from row in _candidateRepository.All
-                        select new CandidatePublicProfileViewModel
-                        {
-                            Id = row.Id,
-                            Name = row.Name
-                        };
-            return query;
-        }
-
-        public ScheduleViewModel GetSchedule(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IQueryable<ScheduleViewModel> GetSchedules()
-        {
-            throw new System.NotImplementedException();
         }
 
         public bool Delete(IdModel model)
@@ -212,12 +208,17 @@ namespace Talent21.Service.Core
         }
 
 
-        public IQueryable<ScheduleViewModel> Schedules(int contractorId)
+        public IQueryable<ScheduleViewModel> Schedules
         {
-            return _scheduleRepository.All.Where(x=>x.CandidateId==contractorId).Select(x => new ScheduleViewModel
+            get
             {
-                Id = x.Id, //TODO: Add more fields.
-            });
+                return _scheduleRepository.All.Where(x => x.Candidate.OwnerId == CurrentUserId).Select(x => new ScheduleViewModel
+                {
+                    Id = x.Id, //TODO: Add more fields.
+                });
+            }
         }
+
+        public string CurrentUserId { set; private get; }
     }
 }

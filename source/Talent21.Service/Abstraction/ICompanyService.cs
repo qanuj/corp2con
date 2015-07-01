@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Talent21.Data.Core;
 using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
@@ -17,5 +18,10 @@ namespace Talent21.Service.Abstraction
 
         IQueryable<CompanyViewModel> Companies { get; }
         IQueryable<JobViewModels> Jobs { get; }
-    }
+
+        IQueryable<JobApplicationViewModel> Applications(int id);
+        bool ActOnApplication(CompanyActJobApplicationViewModel act);
+        bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum act);
+        bool MoveApplication(MoveJobApplicationViewModel model);
+     }
 }

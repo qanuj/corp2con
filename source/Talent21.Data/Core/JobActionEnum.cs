@@ -7,6 +7,8 @@ namespace Talent21.Data.Core
     {
         Application,
         Favorite,
-        Reported
+        Reported,
+        Rejected,
+        Shortlist
     }
 }

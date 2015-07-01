@@ -37,4 +37,6 @@ namespace Talent21.Service.Models
     }
 
     public class DeleteJobViewModel : IdModel { }
+    public class CancelJobViewModel : IdModel { }
+    public class PublishJobViewModel : IdModel { }
 }

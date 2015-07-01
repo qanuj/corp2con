@@ -4,23 +4,19 @@ using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using Microsoft.AspNet.Identity;
+using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 
 namespace Talent21.Web.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     [Authorize]
     [RoutePrefix("api/v1/company")]
     public class CompanyController : BasicApiController
     {
         private readonly ICompanyService _service;
-        /// <summary>
-        /// Create instance of Company Controller
-        /// </summary>
-        /// <param name="service"></param>
+
         public CompanyController(ICompanyService service)
         {
             _service = service;
@@ -59,7 +55,6 @@ namespace Talent21.Web.Controllers
         {
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
-
 
         //Job Related Api.
 
@@ -119,5 +114,46 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+        //Job Application Related Api.
+
+        [HttpGet]
+        [Route("job/{id}/applications/paged")]
+        public PageResult<JobApplicationViewModel> ViewJobs(int id,ODataQueryOptions<JobApplicationViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Applications(id), options);
+        }
+
+        [HttpGet]
+        [Route("job/{id}/applications/all")]
+        public IQueryable<JobApplicationViewModel> ViewJobsQuery(int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Applications(id);
+        }
+
+        [HttpPut]
+        [Route("job/application/{id}/reject")]
+        public HttpResponseMessage RejectJobApplication(CreateJobApplicationHistoryViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Rejected)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job/application/{id}/shortlist")]
+        public HttpResponseMessage ShortlistJobApplication(CreateJobApplicationHistoryViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Shortlist)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job/application/{id}/move/{folder}")]
+        public HttpResponseMessage MoveJobApplication(MoveJobApplicationViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.MoveApplication(model)) : Bad(ModelState);
+        }
     }
 }

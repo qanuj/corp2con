@@ -110,6 +110,10 @@
     <Compile Include="Migrations\201507010641299_Jobs and Contractors have skills Part 2.Designer.cs">
       <DependentUpon>201507010641299_Jobs and Contractors have skills Part 2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507010910523_Job Application History.cs" />
+    <Compile Include="Migrations\201507010910523_Job Application History.Designer.cs">
+      <DependentUpon>201507010910523_Job Application History.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
@@ -160,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507010641299_Jobs and Contractors have skills Part 2.resx">
       <DependentUpon>201507010641299_Jobs and Contractors have skills Part 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507010910523_Job Application History.resx">
+      <DependentUpon>201507010910523_Job Application History.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
