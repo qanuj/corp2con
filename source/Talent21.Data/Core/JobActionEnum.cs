@@ -9,6 +9,7 @@ namespace Talent21.Data.Core
         Favorite,
         Reported,
         Rejected,
-        Shortlist
+        Shortlist,
+        Revoke
     }
 }

@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using Microsoft.AspNet.Identity;
+using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 
@@ -90,6 +91,48 @@ namespace Talent21.Web.Controllers
             return _service.Schedules;
         }
 
+        [HttpPost]
+        [Route("schedule")]
+        public HttpResponseMessage AddProfile(CreateScheduleViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+        }
 
+        [HttpPut]
+        [Route("schedule")]
+        public HttpResponseMessage EditProfile(EditScheduleViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("schedule")]
+        public HttpResponseMessage DeleteProfile(DeleteScheduleViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+        }
+
+        [HttpPost]
+        [Route("job/{id}/apply")]
+        public HttpResponseMessage ApplyToJob(JobApplicationCreateViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Apply(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job/application/{id}/revoke")]
+        public HttpResponseMessage RejectJobApplication(CreateJobApplicationHistoryViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Revoke)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("job/application/{id}/favorite")]
+        public HttpResponseMessage ShortlistJobApplication(CreateJobApplicationHistoryViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Favorite)) : Bad(ModelState);
+        }
     }
 }

@@ -7,21 +7,23 @@ using System.Runtime.CompilerServices;
 
 namespace Talent21.Service.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class ScheduleViewModel
+    public class ScheduleViewModel : EditScheduleViewModel
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required]
-        public int Id { get; set; }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required]
-        public string Name{ get; set;}
+    public class EditScheduleViewModel : CreateScheduleViewModel
+    {
+        public int Id { get; set; }
+    }
+
+    public class DeleteScheduleViewModel : IdModel
+    {
+
+    }
+
+    public class CreateScheduleViewModel
+    {
+        public DateTime Start { get; set; }
+        public DateTime? End { get; set; }
     }
 }

@@ -26,6 +26,12 @@ namespace Talent21.Service.Models
         public JobActionEnum Act { get; set; }
     }
 
+    public class JobApplicationCreateViewModel
+    {
+
+        public int Id { get; set; }
+    }
+
     public class CompanyActJobApplicationViewModel : CreateJobApplicationHistoryViewModel
     {
         public JobActionEnum Act { get; set; }
