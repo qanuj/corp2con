@@ -291,7 +291,10 @@
     <Content Include="App\views\company\profile.html" />
     <Content Include="App\views\contractor\profile.html" />
     <Content Include="App\views\contractor\profile.js" />
+    <Content Include="App\views\contractor\search.html" />
+    <Content Include="App\views\contractor\search.js" />
     <Content Include="App\views\home.html" />
+    <Content Include="App\views\job\postjob.js" />
     <Content Include="App\views\job\PostJobs.html" />
     <Content Include="App\views\job\JobListing.html" />
     <Content Include="App\views\Testimonials.html" />
