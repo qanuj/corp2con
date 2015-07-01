@@ -36,6 +36,7 @@ namespace Talent21.Service.Core
                 return _companyRepository.All.Select(x => new CompanyViewModel
                 {
                     Id = x.Id,
+                    OwnerId = x.OwnerId,
                     About = x.About,
                     Email = x.Email,
                     Facebook = x.Social.Facebook,
