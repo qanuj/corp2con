@@ -57,7 +57,7 @@
         return $http.get(v + 'company/profile');
     }
 
-    factory.company. = function () {
+    factory.company = function () {
         return $http.get(v + 'company/postjobs');
 
     }

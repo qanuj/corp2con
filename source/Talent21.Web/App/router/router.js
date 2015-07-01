@@ -12,8 +12,8 @@
                 controller: 'contractorProfileController'
             })
               .when('/profile', {
-                templateUrl: '/app/views/contractor/profile.html',
-                controller: 'contractorProfileController'
+                  templateUrl: '/app/views/contractor/profile.html',
+                  controller: 'contractorProfileController'
               })
             .when('/profile/edit', {
                 templateUrl: '/app/views/contractor/editProfile.html',
@@ -45,6 +45,7 @@
             .when('/profile/edit', {
                 templateUrl: '/app/views/company/editProfile.html',
                 controller: 'companyEditProfileController'
+            })
             .when('/profile', {
                 templateUrl: '/app/views/Company/profile.html',
                 controller: 'companyProfileController'
@@ -61,10 +62,10 @@
                 templateUrl: '/app/views/job/jobListing.html',
                 controller: 'jobListingController'
             })
-             .when('/postjobs', {
-                 templateUrl: '/app/views/job/PostJobs.html',
-                 controller: 'postjobsController'
-             })
+            .when('/postjobs', {
+                templateUrl: '/app/views/job/PostJobs.html',
+                controller: 'postjobsController'
+            })
             .otherwise({ redirectTo: '/' });
     }
 

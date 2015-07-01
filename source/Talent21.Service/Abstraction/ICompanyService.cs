@@ -72,6 +72,8 @@ namespace Talent21.Service.Abstraction
 
         IQueryable<CompanyViewModel> Companies { get; }
 
-        
+
+
+        IQueryable<JobApplicationViewModel> Jobs { get; set; }
     }
 }

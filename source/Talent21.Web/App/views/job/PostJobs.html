@@ -12,6 +12,14 @@
 
                     <div class="col-sm-8 col-md-offset-2">
                         <h2>{{record.name}}</h2>
+                        <div class="form-group" id="job-title-group">
+                            <label for="job-title">Title</label>
+                            <input type="text" class="form-control" ng-model="record.Title" placeholder="Enter Job Title">
+                        </div>
+                        <div class="form-group" id="job-title-group">
+                            <label for="job-title">Job Code</label>
+                            <input type="text" class="form-control" ng-model="record.Code" placeholder="eg. IBM-123">
+                        </div>   
                         <div class="form-group wysiwyg" id="job-description-group">
                             <label>Description</label>
 
@@ -51,25 +59,13 @@
                             <input type="email" class="form-control" ng-model="record.Rate" placeholder="In Thousand">
                         </div>
                         <div class="form-group" id="job-title-group">
-                            <label for="job-title">Company</label>
-                            <input type="text" class="form-control" ng-model="record.CompanyId" placeholder="Enter company name">
-                        </div>
-                        <div class="form-group" id="job-title-group">
                             <label for="job-title">Start</label>
                             <input type="text" class="form-control" ng-model="record.Start" placeholder="Enter Start Date">
                         </div>
                         <div class="form-group" id="job-title-group">
                             <label for="job-title">End</label>
                             <input type="text" class="form-control" ng-model="record.End" placeholder="Enter End Date">
-                        </div>
-                        <div class="form-group" id="job-title-group">
-                            <label for="job-title">Title</label>
-                            <input type="text" class="form-control" ng-model="record.Title" placeholder="Enter Job Title">
-                        </div>
-                        <div class="form-group" id="job-title-group">
-                            <label for="job-title">Job Code</label>
-                            <input type="text" class="form-control" ng-model="record.Code" placeholder="eg. IBM-123">
-                        </div>                       
+                        </div>                    
                     </div>
                 </div>
                 <div class="row text-center">
