@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
+using System.Web.Http.Description;
 
 namespace Talent21.Web.Controllers
 {
@@ -74,8 +75,20 @@ namespace Talent21.Web.Controllers
             return _service.Jobs;
         }
 
+        [HttpGet]
+        [Route("job/{id}")]
+        [ResponseType(typeof(JobViewModels))]
+        public HttpResponseMessage SingleJob(int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            var model=_service.ById(id);
+            return model == null ? NotFound() : Ok(model);
+        }
+
+
         [HttpPost]
         [Route("job")]
+        [ResponseType(typeof(JobViewModels))]
         public HttpResponseMessage CreateJob(CreateJobViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -84,6 +97,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("job")]
+        [ResponseType(typeof(JobViewModels))]
         public HttpResponseMessage EditJob(EditJobViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -92,6 +106,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("job/publish")]
+        [ResponseType(typeof(bool))]
         public HttpResponseMessage PublishJob(PublishJobViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -100,6 +115,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("job/cancel")]
+        [ResponseType(typeof(bool))]
         public HttpResponseMessage CancelJob(CancelJobViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -108,6 +124,7 @@ namespace Talent21.Web.Controllers
 
         [HttpDelete]
         [Route("job")]
+        [ResponseType(typeof(bool))]
         public HttpResponseMessage DeleteJob(IdModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();

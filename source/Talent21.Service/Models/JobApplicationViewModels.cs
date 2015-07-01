@@ -28,7 +28,6 @@ namespace Talent21.Service.Models
 
     public class JobApplicationCreateViewModel
     {
-
         public int Id { get; set; }
     }
 

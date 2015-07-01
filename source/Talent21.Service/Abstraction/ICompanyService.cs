@@ -23,5 +23,7 @@ namespace Talent21.Service.Abstraction
         bool ActOnApplication(CompanyActJobApplicationViewModel act);
         bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum act);
         bool MoveApplication(MoveJobApplicationViewModel model);
+
+        JobViewModels ById(int id);
      }
 }
