@@ -26,19 +26,6 @@ namespace Talent21.Web.Controllers
             _service = service;
         }
         
-        [HttpGet]
-        [Route("paged")]
-        public PageResult<CompanyViewModel> ViewIndustries(ODataQueryOptions<CompanyViewModel> options)
-        {
-            return Page(_service.Companies, options);
-        }
-
-        [HttpGet]
-        [Route("all")]
-        public IQueryable<CompanyViewModel> ViewIndustriesQuery()
-        {
-            return _service.Companies;
-        }
           
         [HttpGet]
         [Route("profile")]
@@ -73,21 +60,26 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+
+        //Job Related Api.
+
         [HttpGet]
-        [Route("job")]
-        public CompanyViewModel GetJobProfile()
+        [Route("job/paged")]
+        public PageResult<JobViewModels> ViewJobs(ODataQueryOptions<JobViewModels> options)
         {
-            if(User.Identity.IsAuthenticated)
-            {
-                var userId = User.Identity.GetUserId<string>();
-                return _service.GetProfile(userId);
-            }
-            return null;
+            return Page(_service.Jobs(User.Identity.GetUserId()), options);
+        }
+
+        [HttpGet]
+        [Route("job/all")]
+        public IQueryable<CompanyViewModel> ViewJobsQuery()
+        {
+            return _service.Companies;
         }
 
         [HttpPost]
         [Route("job")]
-        public HttpResponseMessage AddJob(PublishJobViewModel model)
+        public HttpResponseMessage CreateJob(PublishJobViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Publish(model)) : Bad(ModelState);
         }
@@ -106,7 +98,5 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
-
-        public string userId { get; set; }
     }
 }

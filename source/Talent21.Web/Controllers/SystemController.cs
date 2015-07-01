@@ -16,10 +16,27 @@ namespace Talent21.Web.Controllers
     public class SystemController : BasicApiController
     {
         private readonly ISystemService _service;
+        private readonly ICompanyService _companyService;
 
-        public SystemController(ISystemService service)
+        public SystemController(ISystemService service, ICompanyService companyService)
         {
             _service = service;
+            _companyService = companyService;
+        }
+
+
+        [HttpGet]
+        [Route("company/paged")]
+        public PageResult<CompanyViewModel> ViewCompanies(ODataQueryOptions<CompanyViewModel> options)
+        {
+            return Page(_companyService.Companies, options);
+        }
+
+        [HttpGet]
+        [Route("company/all")]
+        public IQueryable<CompanyViewModel> ViewCompaniesQuery()
+        {
+            return _companyService.Companies;
         }
 
         [HttpGet]

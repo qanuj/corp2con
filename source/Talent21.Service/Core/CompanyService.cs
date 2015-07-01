@@ -8,28 +8,22 @@ using System.Linq;
 
 namespace Talent21.Service.Core
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     public class CompanyService : ICompanyService
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IJobRepository _jobRepository;
         private readonly ICandidateRepository _candidateRepository;
+        private readonly ISkillRepository _skillRepository;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="companyRepository"></param>
-        /// <param name="jobRepository"></param>
-        /// <param name="candidateRepository"></param>
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
-            ICandidateRepository candidateRepository)
+            ICandidateRepository candidateRepository, ISkillRepository skillRepository)
         {
             _companyRepository = companyRepository;
             _jobRepository = jobRepository;
             _candidateRepository = candidateRepository;
+            _skillRepository = skillRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -57,11 +51,6 @@ namespace Talent21.Service.Core
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
         public CreateCompanyViewModel CreateCompany(string name)
         {
             var company = new Company() { Name = name };
@@ -74,20 +63,11 @@ namespace Talent21.Service.Core
             };
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public int SaveChanges()
         {
             return _companyRepository.SaveChanges();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public AddProfileViewModel UpdateProfile(AddProfileViewModel model)
         {
             var entity = _companyRepository.ById(model.CompanyId);
@@ -97,11 +77,6 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public AddProfileViewModel AddProfile(AddProfileViewModel model)
         {
             var company = new Company
@@ -119,45 +94,31 @@ namespace Talent21.Service.Core
             };
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public bool RejectCandidate(RejectCandidateViewModel model)
         {
             var entity = _candidateRepository.ById(model.CandidateId);
-            //entity.IsRejected = true;
-            //entity.Cancelled = DateTime.UtcNow;
+
+
             _candidateRepository.Update(entity);
             var rowAffected = _candidateRepository.SaveChanges();
             return rowAffected > 0;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public bool ApproveCompany(ApproveCompanyViewModel model)
         {
             var entity = _companyRepository.ById(model.CandidateId);
-            //entity.IsApproved = true;
-            //entity.Cancelled = DateTime.UtcNow;
+
+
             _companyRepository.Update(entity);
             var rowAffected = _companyRepository.SaveChanges();
             return rowAffected > 0;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+
         public CreateJobApplicationViewModel CreateJob(CreateJobApplicationViewModel model)
         {
             var job = new Job() { CompanyId = model.CompanyId };
-            // _companyRepository.Create(job);
+
             _companyRepository.SaveChanges();
             return new CreateJobApplicationViewModel
             {
@@ -167,11 +128,6 @@ namespace Talent21.Service.Core
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public UpdateJobApplicationViewModel UpdateJob(UpdateJobApplicationViewModel model)
         {
             var entity = _companyRepository.ById(model.CompanyId);
@@ -180,11 +136,6 @@ namespace Talent21.Service.Core
             return model;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public bool CancelJob(CancelJobApplicationViewModel model)
         {
             var entity = _jobRepository.ById(model.JobId);
@@ -195,11 +146,6 @@ namespace Talent21.Service.Core
             return rowAffected > 0;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        /// <returns></returns>
         public DeleteJobApplicationViewModel DeleteJob(DeleteJobApplicationViewModel jobApplication)
         {
             var entity = _companyRepository.ById(jobApplication.CompanyId);
@@ -207,11 +153,6 @@ namespace Talent21.Service.Core
             return jobApplication;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jobApplication"></param>
-        /// <returns></returns>
         public PublishJobApplicationViewModel PublishJob(PublishJobApplicationViewModel jobApplication)
         {
             var entity = _companyRepository.ById(jobApplication.CompanyId);
@@ -220,11 +161,6 @@ namespace Talent21.Service.Core
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
         public UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile)
         {
             var entity = _companyRepository.ById(profile.Id);
@@ -292,17 +228,54 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        public string CurrentUserId { set; private get; }
+
         public CompanyViewModel GetProfile(string userId)
         {
             return Companies.FirstOrDefault(x => x.OwnerId == userId);
         }
 
-        public JobViewModel Create(CreateJobViewModel model)
+        public JobViewModels Create(CreateJobViewModel model)
         {
-            throw new NotImplementedException();
+            var company = FindCompany(CurrentUserId);
+            var entity = new Job
+            {
+                CompanyId = company.Id,
+                Description = model.Description,
+                Code = model.Code,
+                Title = model.Title,
+                End = model.End,
+                LocationId = model.LocationId,
+                Rate = model.Rate,
+                Start = model.Start
+            };
+
+            var skills = _skillRepository.ById(model.Skills.Select(x => x.Id)).ToList();
+            for (var i = 0; i < skills.Count; i++)
+            {
+                entity.Skills.Add(skills[i]);
+            }
+
+            _jobRepository.Create(entity);
+            _jobRepository.SaveChanges();
+
+            return Jobs(CurrentUserId).FirstOrDefault(x => x.Id == entity.Id);
+
         }
 
-        public JobViewModel Update(EditJobViewModel model)
+        private Company FindCompany(string userId)
+        {
+            var company = ByOwner(CurrentUserId);
+            if(company == null) throw new Exception("Company Not found");
+            return company;
+        }
+
+        private Company ByOwner(string userId)
+        {
+            return _companyRepository.All.FirstOrDefault(x => x.OwnerId == userId);
+        }
+
+        public JobViewModels Update(EditJobViewModel model)
         {
             throw new NotImplementedException();
         }
@@ -315,7 +288,7 @@ namespace Talent21.Service.Core
         public bool Publish(PublishJobViewModel model)
         {
             var entity = _jobRepository.ById(model.Id);
-            if (entity == null) return false;
+            if(entity == null) return false;
 
             entity.IsPublished = true;
             entity.Published = DateTime.UtcNow;
@@ -326,7 +299,38 @@ namespace Talent21.Service.Core
 
         public bool Cancel(CancelJobViewModel model)
         {
-            throw new NotImplementedException();
+            var entity = _jobRepository.ById(model.Id);
+            if(entity == null) return false;
+
+            entity.IsCancelled = true;
+            entity.Cancelled = DateTime.UtcNow;
+
+            var rowsAffested = _jobRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+
+        public IQueryable<JobViewModels> Jobs(string userId)
+        {
+            return _jobRepository.All.Where(x => x.Company.OwnerId == userId).Select(x => new JobViewModels
+            {
+                Applied = x.Applications.Count,
+                Company = x.Company.CompanyName,
+                IsCancelled = x.IsCancelled,
+                Cancelled = x.Cancelled,
+                IsPublished = x.IsPublished,
+                Published = x.Published,
+                Location = x.Location.Title,
+                Skills = x.Skills.Select(y=>new SkillDictionaryViewModel{ Code = y.Code,Id=y.Id, Title = y.Title}),
+                CompanyId = x.CompanyId,
+                Description = x.Description,
+                Code = x.Code,
+                Title = x.Title,
+                End = x.End,
+                LocationId = x.LocationId,
+                Rate = x.Rate,
+                Start = x.Start
+            });
         }
     }
 }

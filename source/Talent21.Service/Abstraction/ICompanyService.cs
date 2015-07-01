@@ -5,18 +5,17 @@ namespace Talent21.Service.Abstraction
 {
      public interface ICompanyService : IService,
         IPersonDataService<CompanyEditViewModel, CompanyCreateViewModel, IdModel>
-    {
+     {
+        string CurrentUserId {set;}
         CompanyViewModel GetProfile(string userId);
 
-        JobViewModel  Create(CreateJobViewModel model);
-        JobViewModel Update(EditJobViewModel model);
+        JobViewModels  Create(CreateJobViewModel model);
+        JobViewModels Update(EditJobViewModel model);
         bool Delete(DeleteJobViewModel model);
         bool Publish(PublishJobViewModel model);
         bool Cancel(CancelJobViewModel model);
 
         IQueryable<CompanyViewModel> Companies { get; }
-
-        
-
+        IQueryable<JobViewModels> Jobs(string userId);
     }
 }

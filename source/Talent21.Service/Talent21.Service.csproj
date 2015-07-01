@@ -47,13 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CancelJobViewModel.cs" />
-    <Compile Include="Models\CreateJobViewModel.cs" />
     <Compile Include="Models\DeleteJobViewModel.cs" />
-    <Compile Include="Models\EditJobViewModel.cs" />
     <Compile Include="Abstraction\IDataService.cs" />
     <Compile Include="Abstraction\IDictionaryDataService.cs" />
     <Compile Include="Abstraction\IPersonDataService.cs" />
-    <Compile Include="Models\JobViewModel.cs" />
+    <Compile Include="Models\JobViewModels.cs" />
     <Compile Include="Models\PublishJobViewModel.cs" />
     <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
     <Compile Include="Models\ApplyJobApplicationViewModel.cs" />

@@ -40,7 +40,6 @@ namespace Talent21.Web.Controllers
             return _service.Contractors;
         }
 
-
         [HttpGet]
         [Route("profile")]
         public ContractorViewModel GetCandidateProfile()
