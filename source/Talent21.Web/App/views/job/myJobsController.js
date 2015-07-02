@@ -3,6 +3,6 @@
     db.company.myJobs().success(function (result) {
         $scope.records = result;
         $scope.page = db.currentPage;
-        console.log($scope.record);
+        console.log($scope.records);
     });
 }]);
