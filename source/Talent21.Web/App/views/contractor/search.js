@@ -1,6 +1,6 @@
 ﻿app.controller('contractorSearchController', ['$scope', 'dataService', function ($scope, db) {
-	$scope.title = "Companies : Search Result";
+	$scope.title = "Jobs : Search Result";
 	db.contractor.searchJob().success(function (result) {
-	    $scope.records = result
-    });
+	    $scope.records = result;
+	});
 }]);

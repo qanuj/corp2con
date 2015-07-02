@@ -1,4 +1,4 @@
-﻿app.controller('postjobsController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('createJobController', ['$scope', 'dataService', function ($scope, db) {
 
     $scope.save = function (record) {
         record.skills = [];
