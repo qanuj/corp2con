@@ -47,14 +47,21 @@
 
     factory.company = function () {
         return $http.get(v + 'company/postjobs');
-
     }
 
     factory.company.editProfile = function (formData) {
         return $http.put(v + 'company/profile', formData);
     }
 
+    factory.company.myJobs = function() {
+        return $http.get(v + 'company/job/all');
+    }
+
     //For Jobs
+
+    factory.job.profile = function (id) {
+        return $http.get(v + 'company/job/ ' + id);
+    }
 
     factory.job.newjob = function (formData) {
         return $http.post(v + 'company/job', formData);
