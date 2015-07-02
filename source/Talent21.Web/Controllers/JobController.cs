@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
+using Microsoft.AspNet.Identity;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 
@@ -19,5 +20,12 @@ namespace Talent21.Web.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        [Route("search")]
+        public PageResult<JobSearchResultViewModel> ViewsCandidates(SearchJobViewModel model, ODataQueryOptions<JobSearchResultViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Search(model), options);
+        }
     }
 }

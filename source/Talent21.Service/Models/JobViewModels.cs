@@ -4,6 +4,16 @@ using Talent21.Data.Core;
 
 namespace Talent21.Service.Models
 {
+    public class SearchJobViewModel
+    {
+
+        public string Location { get; set; }
+
+        public string Skills { get; set; }
+
+        public string Keywords { get; set; }
+    }
+
     public class CreateJobViewModel : DictionaryViewModel
     {
         public string Description { get; set; }

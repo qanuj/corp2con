@@ -8,7 +8,7 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public class JobService : IJobService, ISecuredService
+    public class JobService : IJobService
     {
         private readonly IJobRepository _jobRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
@@ -46,6 +46,23 @@ namespace Talent21.Service.Core
                             };
                 return query;
             }
+        }
+
+        public IQueryable<JobSearchResultViewModel> Search(SearchJobViewModel model)
+        {
+            var query = Jobs;
+            //Rules of searching.
+            if(!string.IsNullOrWhiteSpace(model.Location))
+            {
+                query = query.Where(x => x.Location.Contains(model.Location));
+            }
+            if(!string.IsNullOrWhiteSpace(model.Skills))
+            {
+                //TODO: AND OR LOGIC
+                var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
+            }
+            return query;
         }
     }
 }
