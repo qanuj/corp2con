@@ -66,6 +66,10 @@
                 templateUrl: '/app/views/job/jobs.html',
                 controller: 'myJobsController'
             })
+             .when('/job/:id', {
+                 templateUrl: '/app/views/job/profile.html',
+                 controller: 'jobProfileController'
+             })
             .otherwise({ redirectTo: '/' });
     }
 
