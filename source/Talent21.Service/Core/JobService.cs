@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using e10.Shared.Util;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -6,9 +8,44 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public class JobService : IJobService
+    public class JobService : IJobService, ISecuredService
     {
-        
+        private readonly IJobRepository _jobRepository;
+        private readonly IJobApplicationRepository _jobApplicationRepository;
 
+        public JobService(IJobRepository jobRepository, IJobApplicationRepository jobApplicationRepository)
+        {
+            _jobRepository = jobRepository;
+            _jobApplicationRepository = jobApplicationRepository;
+        }
+        
+        public string CurrentUserId { private get; set; }
+
+        protected IQueryable<JobSearchResultViewModel> Jobs
+        {
+            get
+            {
+                var query = from job in _jobRepository.All
+                            join ja in _jobApplicationRepository.All on new { userId = CurrentUserId, id = job.Id } equals new { userId = ja.Candidate.OwnerId, id = ja.JobId } into g
+                            from ja in g.DefaultIfEmpty()
+                            where !job.IsCancelled && job.IsPublished
+                            select new JobSearchResultViewModel
+                            {
+                                Code=job.Code,
+                                Title=job.Title,
+                                Description=job.Description,
+                                Location=job.Location.Title,
+                                Company=job.Company.CompanyName,
+                                Rate=job.Rate,
+                                Start=job.Start,
+                                End=job.End,
+                                Id=job.Id,
+                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title }),
+                                IsFavorite=ja!=null && ja.History.Any(x=>x.Act==JobActionEnum.Favorite),
+                                IsApplied=ja!=null && ja.History.Any(x=>x.Act==JobActionEnum.Application)
+                            };
+                return query;
+            }
+        }
     }
 }

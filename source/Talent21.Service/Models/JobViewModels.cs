@@ -17,6 +17,33 @@ namespace Talent21.Service.Models
 
     }
 
+    public class JobSearchResultViewModel
+    {
+
+        public string Code { get; set; }
+
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public string Location { get; set; }
+
+        public string Company { get; set; }
+
+        public int Rate { get; set; }
+
+        public DateTime Start { get; set; }
+
+        public DateTime End { get; set; }
+
+        public int Id { get; set; }
+
+        public IEnumerable<DictionaryViewModel> Skills { get; set; }
+        public bool IsFavorite { get; set; }
+
+        public bool IsApplied { get; set; }
+    }
+
     public class EditJobViewModel : CreateJobViewModel
     {
         public int Id { get; set; }
@@ -28,7 +55,14 @@ namespace Talent21.Service.Models
         public DateTime? Published { get; set; }
     }
 
-    public class JobViewModels : EditJobViewModel
+    public class JobTinyViewModel : EditJobViewModel
+    {
+        public int CompanyId { get; set; }
+        public string Company { get; set; }
+        public string Location { get; set; }
+    }
+
+    public class JobViewModel : EditJobViewModel
     {
         public int CompanyId { get; set; }
         public string Location { get; set; }

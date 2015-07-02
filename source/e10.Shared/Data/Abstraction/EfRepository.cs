@@ -30,7 +30,10 @@ namespace e10.Shared.Data.Abstraction
 
         public virtual IQueryable<TEntity> All
         {
-            get { return Set; }
+            get
+            {
+                return Set;
+            }
         }
 
         private DbSet<TEntity> Set

@@ -19,7 +19,7 @@ namespace Talent21.Service.Core
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
-            ISkillRepository skillRepository, IJobApplicationRepository jobApplicationRepository):base(jobRepository)
+            ISkillRepository skillRepository, IJobApplicationRepository jobApplicationRepository):base()
         {
             _companyRepository = companyRepository;
             _jobRepository = jobRepository;
@@ -111,7 +111,7 @@ namespace Talent21.Service.Core
             return Companies.FirstOrDefault(x => x.OwnerId == userId);
         }
 
-        public JobViewModels Create(CreateJobViewModel model)
+        public JobViewModel Create(CreateJobViewModel model)
         {
             var company = FindCompany(CurrentUserId);
             var entity = new Job
@@ -151,7 +151,7 @@ namespace Talent21.Service.Core
             return _companyRepository.All.FirstOrDefault(x => x.OwnerId == userId);
         }
 
-        public JobViewModels Update(EditJobViewModel model)
+        public JobViewModel Update(EditJobViewModel model)
         {
             var entity = _jobRepository.ById(model.Id);
             if(entity==null) throw new Exception("Job Not Found");
@@ -213,9 +213,9 @@ namespace Talent21.Service.Core
         }
 
 
-        public IQueryable<JobApplicationViewModel> Applications(int id)
+        public IQueryable<JobApplicationCompanyViewModel> Applications(int id)
         {
-            return _jobApplicationRepository.All.Where(x => x.JobId == id).Select(x=> new JobApplicationViewModel
+            return _jobApplicationRepository.All.Where(x => x.JobId == id).Select(x => new JobApplicationCompanyViewModel
             {
                 Actions = x.History.Select(y=> new JobApplicationHistoryViewModel(){ Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy}),
                 Id = x.Id,
@@ -272,9 +272,36 @@ namespace Talent21.Service.Core
         }
 
 
-        public JobViewModels ById(int id)
+        public JobViewModel ById(int id)
         {
             return Jobs.FirstOrDefault(x => x.Id == id);
+        }
+
+        public virtual IQueryable<JobViewModel> Jobs
+        {
+            get
+            {
+                return _jobRepository.All.Where(x => x.Company.OwnerId == CurrentUserId).Select(x => new JobViewModel
+                {
+                    Id = x.Id,
+                    Applied = x.Applications.Count,
+                    Company = x.Company.CompanyName,
+                    IsCancelled = x.IsCancelled,
+                    Cancelled = x.Cancelled,
+                    IsPublished = x.IsPublished,
+                    Published = x.Published,
+                    Location = x.Location.Title,
+                    Skills = x.Skills.Select(y => new SkillDictionaryViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                    CompanyId = x.CompanyId,
+                    Description = x.Description,
+                    Code = x.Code,
+                    Title = x.Title,
+                    End = x.End,
+                    LocationId = x.LocationId,
+                    Rate = x.Rate,
+                    Start = x.Start
+                });
+            }
         }
     }
 }

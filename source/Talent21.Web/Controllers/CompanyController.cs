@@ -61,7 +61,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/paged")]
-        public PageResult<JobViewModels> ViewJobs(ODataQueryOptions<JobViewModels> options)
+        public PageResult<JobViewModel> ViewJobs(ODataQueryOptions<JobViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Jobs, options);
@@ -69,7 +69,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/all")]
-        public IQueryable<JobViewModels> ViewJobsQuery()
+        public IQueryable<JobViewModel> ViewJobsQuery()
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Jobs;
@@ -77,7 +77,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/{id}")]
-        [ResponseType(typeof(JobViewModels))]
+        [ResponseType(typeof(JobViewModel))]
         public HttpResponseMessage SingleJob(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -88,7 +88,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("job")]
-        [ResponseType(typeof(JobViewModels))]
+        [ResponseType(typeof(JobViewModel))]
         public HttpResponseMessage CreateJob(CreateJobViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -97,7 +97,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("job")]
-        [ResponseType(typeof(JobViewModels))]
+        [ResponseType(typeof(JobViewModel))]
         public HttpResponseMessage EditJob(EditJobViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();

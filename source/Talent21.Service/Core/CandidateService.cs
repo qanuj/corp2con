@@ -20,7 +20,7 @@ namespace Talent21.Service.Core
             IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository)
-            : base(jobRepository)
+            : base()
         {
             _candidateRepository = candidateRepository;
             _jobApplicationRepository = jobApplicationRepository;
@@ -56,33 +56,29 @@ namespace Talent21.Service.Core
             }
         }
 
-        public IQueryable<JobApplicationViewModel> Applications(int id)
+        public IQueryable<JobApplicationContractorViewModel> Applications(int id=0)
         {
-            return _jobApplicationRepository.All.Where(x => x.JobId == id).Select(x => new JobApplicationViewModel
+            return _jobApplicationRepository.All.Where(x => x.JobId == id || id == 0).Select(x => new JobApplicationContractorViewModel
             {
                 Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
                 Id = x.Id,
-                Contractor = new ContractorViewModel
+                Job = new JobViewModel
                 {
-                    Id = x.Candidate.Id,
-                    About = x.Candidate.About,
-                    Email = x.Candidate.Email,
-                    ExperienceMonths = x.Candidate.Experience.Months,
-                    ExperienceYears = x.Candidate.Experience.Years,
-                    Facebook = x.Candidate.Social.Facebook,
-                    Google = x.Candidate.Social.Google,
-                    LinkedIn = x.Candidate.Social.LinkedIn,
-                    LocationId = x.Candidate.LocationId,
-                    Mobile = x.Candidate.Mobile,
-                    Name = x.Candidate.Name,
-                    Rss = x.Candidate.Social.Rss,
-                    Twitter = x.Candidate.Social.Twitter,
-                    WebSite = x.Candidate.Social.WebSite,
-                    Yahoo = x.Candidate.Social.Yahoo,
-                    PictureUrl = x.Candidate.PictureUrl,
-                    OwnerId = x.Candidate.OwnerId,
-                    Rate = x.Candidate.Rate,
-                    Skills = x.Candidate.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                    Id = x.Job.Id,
+                    Company = x.Job.Company.CompanyName,
+                    IsCancelled = x.Job.IsCancelled,
+                    Cancelled = x.Job.Cancelled,
+                    Published = x.Job.Published,
+                    Location = x.Job.Location.Title,
+                    Skills = x.Job.Skills.Select(y => new SkillDictionaryViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                    CompanyId = x.Job.CompanyId,
+                    Description = x.Job.Description,
+                    Code = x.Job.Code,
+                    Title = x.Job.Title,
+                    End = x.Job.End,
+                    LocationId = x.Job.LocationId,
+                    Rate = x.Job.Rate,
+                    Start = x.Job.Start
                 }
             });
         }

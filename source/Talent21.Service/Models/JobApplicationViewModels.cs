@@ -5,11 +5,20 @@ using System.ComponentModel.DataAnnotations;
 using Talent21.Data.Core;
 namespace Talent21.Service.Models
 {
+    public class JobApplicationCompanyViewModel : JobApplicationViewModel
+    {
+        public ContractorViewModel Contractor { get; set; }
+    }
+
     public class JobApplicationViewModel
     {
         public int Id { get; set; }
         public IEnumerable<JobApplicationHistoryViewModel> Actions { get; set; }
-        public ContractorViewModel Contractor { get; set; }
+    }
+
+    public class JobApplicationContractorViewModel : JobApplicationViewModel
+    {
+        public JobViewModel Job { get; set; }
     }
 
     public class JobApplicationHistoryViewModel

@@ -264,7 +264,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\testimonialsController.js" />
     <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
     <Content Include="App\services\dataService.js" />
