@@ -264,12 +264,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\aboutCandidateController.js" />
-    <Content Include="App\controllers\aboutCompanyController.js" />
-    <Content Include="App\controllers\companyListController.js" />
-    <Content Include="App\controllers\jobListingController.js" />
-    <Content Include="App\controllers\otherController.js" />
-    <Content Include="App\controllers\postjobsController.js" />
     <Content Include="App\controllers\testimonialsController.js" />
     <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
@@ -285,6 +279,8 @@
     <Content Include="App\views\contractor\dashboard.html" />
     <Content Include="App\views\contractor\editProfile.html" />
     <Content Include="App\views\contractor\editProfile.js" />
+    <Content Include="App\views\contractor\jobschedule.html" />
+    <Content Include="App\views\contractor\jobschedule.js" />
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
@@ -318,6 +314,7 @@
     <Content Include="Content\css\owl.carousel.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\table.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\background.jpg" />
     <Content Include="Content\images\bullet.png" />
@@ -468,7 +465,6 @@
     <Content Include="Views\Setup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\controllers\contractor\" />
     <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>

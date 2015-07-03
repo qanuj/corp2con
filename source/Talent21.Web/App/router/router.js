@@ -31,6 +31,10 @@
                   templateUrl: '/app/views/contractor/search.html',
                   controller: 'contractorSearchController'
               })
+              .when('/jobschedule', {
+                  templateUrl: '/app/views/contractor/jobschedule.html',
+                  controller: 'jobscheduleController'
+              })
             .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider
