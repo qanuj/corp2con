@@ -33,6 +33,11 @@
         return $http.get(v + 'company/job/all');
     }
 
+    factory.contractor.createSchedule = function (formData) {
+        return $http.post(v + 'candidate/schedule', formData);
+    }
+
+    
     //For companies
 
     factory.company.paged = function () {

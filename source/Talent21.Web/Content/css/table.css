@@ -8,8 +8,9 @@
 }
 
 .table-remove {
-  color: #700;
+  color: #E2D2D2;
   cursor: pointer;
+  margin-top:3px;
   
   &:hover {
     color: #f00;
