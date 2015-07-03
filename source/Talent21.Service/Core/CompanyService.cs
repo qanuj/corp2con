@@ -19,7 +19,8 @@ namespace Talent21.Service.Core
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
-            ISkillRepository skillRepository, IJobApplicationRepository jobApplicationRepository):base()
+            ISkillRepository skillRepository,
+            IJobApplicationRepository jobApplicationRepository):base()
         {
             _companyRepository = companyRepository;
             _jobRepository = jobRepository;

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lucene.Net.Linq.Mapping;
 using Talent21.Data.Core;
 
 namespace Talent21.Service.Models
 {
     public class SearchJobViewModel
     {
-
         public string Location { get; set; }
-
         public string Skills { get; set; }
-
         public string Keywords { get; set; }
     }
 
@@ -29,29 +27,40 @@ namespace Talent21.Service.Models
 
     public class JobSearchResultViewModel
     {
+        [Field("text", Store = StoreMode.No)]
+        public string SearchText
+        {
+            get { return string.Join(" ", new[] { Code, Title, Description, Location, Company }); }
+        }
 
-        public string Code { get; set; }
-
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public string Location { get; set; }
-
-        public string Company { get; set; }
-
-        public int Rate { get; set; }
-
-        public DateTime Start { get; set; }
-
-        public DateTime End { get; set; }
-
+        [NumericField]
         public int Id { get; set; }
 
+        public string Code { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Location { get; set; }
+        public string Company { get; set; }
+
+        [NumericField]
+        public int Rate { get; set; }
+
+        public DateTimeOffset Start { get; set; }
+        public DateTimeOffset End { get; set; }
+
+        [Field(Converter = typeof(SkillConverter))]
         public IEnumerable<DictionaryViewModel> Skills { get; set; }
+
+        [IgnoreField]
         public bool IsFavorite { get; set; }
 
+        [IgnoreField]
         public bool IsApplied { get; set; }
+    }
+
+    public class SkillConverter
+    {
+        
     }
 
     public class EditJobViewModel : CreateJobViewModel
