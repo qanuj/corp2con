@@ -17,15 +17,22 @@
                 </div>
                 <div class="form-group" id="job-region-group">
                     <label>Experience (Years and Months)</label>
-                        <input type="number" class="form-control" ng-model="record.experience">
+                </div>
+                <div class="row text-center">
+                    <div class="col-sm-6">
+                            <input type="text" class="form-control" ng-model="record.experienceMonths" placeholder="In Month ">
+                     </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" ng-model="record.experienceYears" placeholder="In Year">
+                    </div>
                 </div>
                 <div class="form-group" id="job-location-group">
                     <label for="job-location">Location</label>
-                    <input type="text" class="form-control" ng-model="record.locationId" placeholder="e.g. New Delhi">
+                    <input type="text" class="form-control" ng-model="record.locationId" placeholder="e.g. 4">
                 </div>
                 <div class="form-group" id="job-location-group">
                     <label for="job-location">Skills</label>
-                    <input type="text" class="form-control" ng-model="record.skills" placeholder="e.g. New Delhi">
+                    <input type="text" class="form-control" ng-model="record.skills" placeholder="e.g. Asp.net">
                 </div>
                 <div class="form-group">
                     <label>Rate (in 1000 per hour)</label>
@@ -93,7 +100,7 @@
         </div>
         <div class="row text-center">
             <p>&nbsp;</p>
-            <input type="submit" id="submit" value="Save" class="btn btn-primary"/>
+            <input type="submit" id="submit" value="Save" class="btn btn-primary" />
         </div>
     </form>
 </div>
