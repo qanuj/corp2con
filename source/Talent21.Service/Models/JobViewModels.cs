@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Lucene.Net.Linq.Mapping;
 using Talent21.Data.Core;
 
@@ -58,7 +59,7 @@ namespace Talent21.Service.Models
         public bool IsApplied { get; set; }
     }
 
-    public class SkillConverter
+    public class SkillConverter : TypeConverter
     {
         
     }

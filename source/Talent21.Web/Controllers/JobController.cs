@@ -20,7 +20,7 @@ namespace Talent21.Web.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("search")]
         public PageResult<JobSearchResultViewModel> ViewsCandidates(SearchJobViewModel model, ODataQueryOptions<JobSearchResultViewModel> options)
         {
