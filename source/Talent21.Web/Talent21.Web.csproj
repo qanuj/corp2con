@@ -270,6 +270,7 @@
     <Content Include="App\services\headerFactory.js" />
     <Content Include="App\views\company\editProfile.html" />
     <Content Include="App\views\company\editProfile.js" />
+    <Content Include="App\views\company\jobs.js" />
     <Content Include="App\views\company\profile.js" />
     <Content Include="App\views\company\search.html" />
     <Content Include="App\views\company\dashboard.html" />
@@ -290,11 +291,11 @@
     <Content Include="App\views\contractor\search.js" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\job\profile.html" />
-    <Content Include="App\views\job\jobsController.js" />
-    <Content Include="App\views\job\jobs.html" />
+    <Content Include="App\views\company\jobs.html" />
     <Content Include="App\views\job\postjob.js" />
     <Content Include="App\views\job\PostJobs.html" />
     <Content Include="App\views\job\profile.js" />
+    <Content Include="App\views\searchController.js" />
     <Content Include="App\views\Testimonials.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />

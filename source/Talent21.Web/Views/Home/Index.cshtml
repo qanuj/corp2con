@@ -4,6 +4,7 @@
     Layout = "";
     ViewBag.Title = "Home Page";
     var Product = "Corp2Con";
+    var searchController = Model.Role == AccountController.Company ? "companySearchController" : "contractorSearchController";
 }
 <!DOCTYPE html>
 <html data-role="@Model.Role">
@@ -25,11 +26,11 @@
             <div id="menu-open" class="pull-right">
                 <a class="fm-button"><i class="fa fa-bars fa-lg"></i></a>
             </div>
-            <div id="searchbox" class="pull-right">
-                <form>
+            <div id="searchbox" class="pull-right" ng-controller="searchController">
+                <form ng-submit="search(query)">
                     <div class="form-group">
                         <label class="sr-only" for="searchfield">Searchbox</label>
-                        <input type="text" class="form-control" id="searchfield" placeholder="Type keywords and press enter">
+                        <input type="text" class="form-control" id="searchfield" ng-model="query" placeholder="Type keywords and press enter">
                     </div>
                 </form>
             </div>

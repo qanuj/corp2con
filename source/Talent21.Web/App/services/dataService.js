@@ -29,8 +29,8 @@
         return $http.put(v + 'candidate/profile', formData);
     }
 
-    factory.contractor.searchJob = function () {
-        return $http.get(v + 'company/job/all');
+    factory.contractor.searchJob = function (query) {
+        return $http.post(v + 'job/search',query);
     }
 
     factory.contractor.createSchedule = function (formData) {
