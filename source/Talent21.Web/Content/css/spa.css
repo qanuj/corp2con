@@ -15,3 +15,7 @@
     height: 60px !important;
     width: 60px !important;
  }
+.nopadding{
+    padding-left: 0;
+    padding-right: 0;
+}

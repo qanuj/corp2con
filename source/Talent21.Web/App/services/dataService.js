@@ -36,6 +36,9 @@
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'candidate/schedule', formData);
     }
+    factory.contractor.getSchedule = function () {
+        return $http.get(v + 'candidate/schedule/all');
+    }
 
     
     //For companies

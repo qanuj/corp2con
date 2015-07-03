@@ -4,8 +4,10 @@
         console.log(record)
         db.contractor.createSchedule(record).success(function (result) {
             console.log(result);
-
-    
         });
     }
+    db.contractor.getSchedule().success(function (result) {
+        console.log(result)
+        $scope.schedule = result;
+    });
 }]);
