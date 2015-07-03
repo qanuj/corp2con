@@ -3,7 +3,26 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>{{title}} {{records.count}}</h2>
+                <form ng-submit="search(query)">
 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" ng-model="query.location" placeholder="e.g. Mumbai OR Delhi or Chennnai" />
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" ng-click="search(query)"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
                 <div class="jobs">
                     <a href="#" ng-repeat="row in records.items">
                         <div class="featured"></div>
@@ -19,7 +38,6 @@
                         </div>
                     </a>
                 </div>
-
                 <nav>
                     <ul class="pagination">
                         <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -31,20 +49,18 @@
                         <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
                     </ul>
                 </nav>
-
             </div>
             <div class="col-sm-4" id="sidebar">
-
                 <!-- Featured Jobs Start -->
                 <div class="sidebar-widget">
-                    <h2>Featured Candidate</h2>
+                    <h2>Featured Jobs</h2>
                     <a href="#">
                         <img src="http://placehold.it/400x265.jpg" alt="Featured Job" class="img-responsive" />
                         <div class="featured-job">
                             <img src="/Content/images/job1.jpg" alt="" class="img-circle pull-left" />
                             <div class="title">
-                                <h5>Susie Johnson</h5>
-                                <p>Project Manager</p>
+                                <h5>Senior Project Manager</h5>
+                                <p>3 Months</p>
                             </div>
                             <div class="data">
                                 <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
@@ -58,7 +74,7 @@
                 <!-- Featured Jobs End -->
                 <!-- Find a Job Start -->
                 <div class="sidebar-widget" id="jobsearch">
-                    <h2>Find a Candidate</h2>
+                    <h2>Find a Job</h2>
                     <form>
                         <div class="row">
                             <div class="col-xs-12">
@@ -247,7 +263,6 @@
                     </form>
                 </div>
                 <!-- Find a Job End -->
-
             </div>
         </div>
     </div>

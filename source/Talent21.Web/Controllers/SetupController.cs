@@ -1,9 +1,7 @@
-﻿using System.Data.Entity;
+﻿using e10.Shared.Security;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using e10.Shared.Data.Abstraction;
-using e10.Shared.Security;
-using Microsoft.AspNet.Identity;
 using Talent21.Service.Abstraction;
 using Talent21.Web.Models;
 
@@ -15,7 +13,9 @@ namespace Talent21.Web.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private readonly string[] _systemRoles = new string[] { AccountController.Admin, AccountController.Company, AccountController.Contractor };
-        public SetupController(ISystemService service, ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        public SetupController(ISystemService service,
+            ApplicationUserManager userManager,
+            ApplicationRoleManager roleManager)
         {
             _service = service;
             _userManager = userManager;
@@ -26,6 +26,20 @@ namespace Talent21.Web.Controllers
         {
             return Json(_service.Upgrade(), JsonRequestBehavior.AllowGet);
         }
+
+        //public ActionResult Demo()
+        //{
+        //    var locationString =
+       //    var locations = JsonConvert.DeserializeObject<TitleData[]>(locationString);
+        //    foreach (var loc in locations)
+        //    {
+        //        _service.Create(new LocationDictionaryCreateViewModel()
+        //        {
+        //            Code = loc.Title.ToLower(),
+        //            Title = loc.Title
+        //        });
+        //    }
+        //}
 
         public async Task<ActionResult> Index()
         {
