@@ -5,9 +5,11 @@
         location: $routeParams.location||'',
         skills: $routeParams.skills || ''
     }
+
     function fetchResults(query,page) {
         db.contractor.searchJob(query, page).success(function (result) {
             $scope.records = result;
+            console.log(result)
         });
     }
 

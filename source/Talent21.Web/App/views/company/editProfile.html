@@ -12,25 +12,17 @@
                     <label>Email</label>
                     <input type="email" class="form-control" ng-model="record.email">
                 </div>
-                <div class="form-group" id="company-tagline-group">
-                    <label for="company-tagline">Tagline (Optional)</label>
-                    <input type="text" class="form-control" id="company-tagline" placeholder="Brief description">
-                </div>
                 <div class="form-group">
                     <label>Contact Number </label>
                     <input type="text" class="form-control" ng-model="record.mobile" placeholder="Enter Mobile Number">
                 </div>
                 <div class="form-group" id="job-location-group">
                     <label for="job-location">Location</label>
-                    <input type="text" class="form-control" ng-model="record.locationId" placeholder="e.g. New Delhi">
-                </div>
-                <div class="form-group" id="job-location-group">
-                    <label for="job-location">Region</label>
-                    <input type="text" class="form-control" ng-model="record.region" placeholder="Choose a Region">
+                    <input type="text" class="form-control" ng-model="record.locationId" typeahead="city.id as city.title for city in cities | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
                 </div>
                 <div class="form-group">
                     <label>Industry</label>
-                    <input type="text" class="form-control" ng-model="record.industry" placeholder="Choose a Industry">
+                    <input type="text" class="form-control" ng-model="record.industryId" typeahead="industry.id as industry.title for industry in industries | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="Choose a Industry">
                 </div>
                  <div class="form-group wysiwyg" id="job-description-group">
                     <label>Description</label>
@@ -60,10 +52,6 @@
                     </div>
 
                     <div class="editor" id="job-description" contenteditable="true">Job description</div>
-                </div>
-                <div class="form-group" id="company-video-group">
-                    <label for="company-video">Video (Optional)</label>
-                    <input type="text" class="form-control" id="company-video" ng-model="record.video" placeholder="Video URL">
                 </div>
                 <div class="form-group">
                     <label>Website (Optional)</label>

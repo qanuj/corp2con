@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <img src="http://placehold.it/332x120.gif" class="img-responsive" alt="" />
+                        <img src="{{record.pictureUrl}}" class="img-responsive" alt="" />
                     </div>
                 </div>
             </div>
@@ -21,102 +21,28 @@
                     <div class="col-sm-8">
                         <article>
                             <h2>{{record.name}}</h2>
-                            <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
-                            <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
+                            <p>{{record.about}}</p>
                             <hr>
-                            <h2>Location</h2>
+                            <h2>{{record.location}}</h2>
 
                             <hr>
                             <h2>Jobs</h2>
 
                             <div class="jobs">
-
                                 <!-- Job offer 1 -->
-                                <a href="#">
+                                <a href="#" ng-repeat="j in jobs">
                                     <div class="featured"></div>
                                     <img src="images/job1.jpg" alt="" class="img-circle" />
                                     <div class="title">
-                                        <h5>Web Designer</h5>
-                                        <p>Amazon Inc.</p>
+                                        <h5>{{j.title}}</h5>
+                                        <p>{{j.company || Google}}</p>
                                     </div>
                                     <div class="data">
-                                        <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
-                                        <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
-                                        <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
+                                        <span class="city"><i class="fa fa-map-marker"></i>{{j.location || India}}</span>
+                                        <span class="type part-time"><i class="fa fa-clock-o"></i>Contract</span>
+                                        <span class="sallary"><i class="fa fa-dollar"></i>{{j.rate}}</span>
                                     </div>
                                 </a>
-
-                                <!-- Job offer 2 -->
-                                <a href="#">
-                                    <div class="featured"></div>
-                                    <img src="images/job2.jpg" alt="" class="img-circle" />
-                                    <div class="title">
-                                        <h5>Senior Web Developer</h5>
-                                        <p>Dropbox Inc.</p>
-                                    </div>
-                                    <div class="data">
-                                        <span class="city"><i class="fa fa-map-marker"></i>Los Angeles</span>
-                                        <span class="type part-time"><i class="fa fa-clock-o"></i>Part Time</span>
-                                        <span class="sallary"><i class="fa fa-dollar"></i>85,000</span>
-                                    </div>
-                                </a>
-
-                                <!-- Job offer 3 -->
-                                <a href="#">
-                                    <img src="images/job3.jpg" alt="" class="img-circle" />
-                                    <div class="title">
-                                        <h5>Project Manager</h5>
-                                        <p>Apple Inc.</p>
-                                    </div>
-                                    <div class="data">
-                                        <span class="city"><i class="fa fa-map-marker"></i>San Francisco</span>
-                                        <span class="type freelance"><i class="fa fa-clock-o"></i>Freelance</span>
-                                        <span class="sallary"><i class="fa fa-dollar"></i>60,000</span>
-                                    </div>
-                                </a>
-
-                                <!-- Job offer 4 -->
-                                <a href="#">
-                                    <img src="images/job4.jpg" alt="" class="img-circle" />
-                                    <div class="title">
-                                        <h5>Key Account Manager</h5>
-                                        <p>Dell Inc.</p>
-                                    </div>
-                                    <div class="data">
-                                        <span class="city"><i class="fa fa-map-marker"></i>Boston</span>
-                                        <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
-                                        <span class="sallary"><i class="fa fa-dollar"></i>55,000</span>
-                                    </div>
-                                </a>
-
-                                <!-- Job offer 5 -->
-                                <a href="#">
-                                    <img src="images/job5.jpg" alt="" class="img-circle" />
-                                    <div class="title">
-                                        <h5>Front End Developer</h5>
-                                        <p>Ebay Inc.</p>
-                                    </div>
-                                    <div class="data">
-                                        <span class="city"><i class="fa fa-map-marker"></i>Chicago</span>
-                                        <span class="type part-time"><i class="fa fa-clock-o"></i>Part Time</span>
-                                        <span class="sallary"><i class="fa fa-dollar"></i>75,000</span>
-                                    </div>
-                                </a>
-
-                                <!-- Job offer 6 -->
-                                <a href="#">
-                                    <img src="images/job1.jpg" alt="" class="img-circle" />
-                                    <div class="title">
-                                        <h5>Web Designer</h5>
-                                        <p>Amazon Inc.</p>
-                                    </div>
-                                    <div class="data">
-                                        <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
-                                        <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
-                                        <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
-                                    </div>
-                                </a>
-
                             </div>
 
                         </article>
@@ -125,10 +51,10 @@
                         <div class="sidebar-widget" id="share">
                             <h2>Share it</h2>
                             <ul>
-                                <li><a href="https://www.facebook.com/sharer/sharer.php?u={{page}}"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://twitter.com/home?status={{page}}"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://plus.google.com/share?url=http:/{{page}}"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{page}}"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://www.facebook.com/sharer/sharer.php?u={{dataService.currentPage}}"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/home?status={{dataService.currentPage}}"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://plus.google.com/share?url=http:/{{dataService.currentPage}}"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{dataService.currentPage}}"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                         <hr>

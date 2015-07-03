@@ -15,7 +15,24 @@
     height: 60px !important;
     width: 60px !important;
  }
+
 .nopadding{
     padding-left: 0;
+    padding-right: 0;
+}
+
+.srch-btn-pad {
+      padding: 11px 25px;
+}
+
+.margbottom {
+    margin-bottom: 50px;
+}
+
+.nopadding-left {
+    padding-left: 0;
+}
+
+.nopadding-right {
     padding-right: 0;
 }

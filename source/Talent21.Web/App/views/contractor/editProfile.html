@@ -11,28 +11,21 @@
                     <label>Email</label>
                     <input type="email" class="form-control" ng-model="record.email">
                 </div>
-                <div class="form-group" id="job-title-group">
-                    <label>Title</label>
-                    <input type="text" class="form-control" ng-model="record.title" placeholder="e.g. Web Developer">
+                <div class="form-group nopadding-left col-xs-6" id="job-region-group">
+                    <label>Experience (Years)</label>
+                    <input type="number" class="form-control col-xs-6" ng-model="record.experienceYears">
                 </div>
-                <div class="form-group" id="job-region-group">
-                    <label>Experience (Years and Months)</label>
-                </div>
-                <div class="row text-center">
-                    <div class="col-sm-6">
-                            <input type="text" class="form-control" ng-model="record.experienceMonths" placeholder="In Month ">
-                     </div>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" ng-model="record.experienceYears" placeholder="In Year">
-                    </div>
+                <div class="form-group col-xs-6 nopadding-right" id="job-region-group">
+                    <label>Experience (Months)</label>
+                    <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" max="12">
                 </div>
                 <div class="form-group" id="job-location-group">
                     <label for="job-location">Location</label>
-                    <input type="text" class="form-control" ng-model="record.locationId" placeholder="e.g. 4">
+                    <input type="text" class="form-control" ng-model="record.locationId" typeahead="city.id as city.title for city in cities | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
                 </div>
                 <div class="form-group" id="job-location-group">
                     <label for="job-location">Skills</label>
-                    <input type="text" class="form-control" ng-model="record.skills" placeholder="e.g. Asp.net">
+                    <input type="text" class="form-control" ng-model="record.skills" typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
                 </div>
                 <div class="form-group">
                     <label>Rate (in 1000 per hour)</label>
@@ -102,5 +95,6 @@
             <p>&nbsp;</p>
             <input type="submit" id="submit" value="Save" class="btn btn-primary" />
         </div>
+        <div class="loading-spiner-holder" data-loading><div class="loading-spiner"><img src="/Content/images/fancybox_loading.gif" /></div></div>
     </form>
 </div>

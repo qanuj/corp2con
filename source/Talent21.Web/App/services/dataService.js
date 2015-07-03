@@ -30,17 +30,18 @@
     }
 
     factory.contractor.searchJob = function (query) {
-        return $http.post(v + 'job/search',query);
+        return $http.post(v + 'job/search', query);
     }
 
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'candidate/schedule', formData);
     }
+
     factory.contractor.getSchedule = function () {
         return $http.get(v + 'candidate/schedule/all');
     }
 
-    
+
     //For companies
 
     factory.company.paged = function () {
@@ -63,8 +64,12 @@
         return $http.put(v + 'company/profile', formData);
     }
 
-    factory.company.myJobs = function() {
+    factory.company.myJobs = function () {
         return $http.get(v + 'company/job/all');
+    }
+
+    factory.company.limitJobs = function () {
+        return $http.get(v + 'company/job/paged');
     }
 
     //For Jobs
@@ -75,6 +80,20 @@
 
     factory.job.newjob = function (formData) {
         return $http.post(v + 'company/job', formData);
+    }
+
+    //System requests
+
+    factory.system.getLocations = function () {
+        return $http.get(v + 'system/location/all');
+    }
+
+    factory.system.getSkills = function () {
+        return $http.get(v + 'system/skill/all');
+    }
+
+    factory.system.getIndustries = function () {
+        return $http.get(v + 'system/industry/all');
     }
 
     return factory;

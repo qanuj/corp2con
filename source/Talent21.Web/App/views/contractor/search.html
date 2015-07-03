@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>{{title}} {{records.count}}</h2>
-                <form ng-submit="search(query)">
+                <form ng-submit="search(query)" class="margbottom">
 
                     <div class="row">
                         <div class="col-md-4">
@@ -16,7 +16,7 @@
                             <div class="input-group">
                                 <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary" ng-click="search(query)"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -25,11 +25,11 @@
                 </form>
                 <div class="jobs">
                     <a href="#" ng-repeat="row in records.items">
-                        <div class="featured"></div>
-                        <img src="/Content/images/job1.jpg" alt="" class="img-circle" />
+                        <div class="featured" ></div>
+                        <!--<img src="/Content/images/job1.jpg" alt="" class="img-circle" />-->
                         <div class="title">
-                            <h5>{{row.name}}</h5>
-                            <p>{{row.about}}</p>
+                            <h5>{{row.title}}</h5>
+                            <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
                         </div>
                         <div class="data">
                             <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
