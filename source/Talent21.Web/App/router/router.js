@@ -64,12 +64,16 @@
             })
             .when('/postjob', {
                 templateUrl: '/app/views/job/PostJobs.html',
-                controller: 'postjobsController'
+                controller: 'createJobController'
             })
             .when('/myjobs', {
                 templateUrl: '/app/views/job/jobs.html',
                 controller: 'myJobsController'
             })
+             .when('/job/:id', {
+                 templateUrl: '/app/views/job/profile.html',
+                 controller: 'jobProfileController'
+             })
             .otherwise({ redirectTo: '/' });
     }
 

@@ -7,6 +7,8 @@
         system: {}
     };
 
+    factory.role = document.querySelector('html').dataset.role;
+
     factory.currentPage = window.location.href;
 
     //For Contractors
@@ -45,8 +47,8 @@
         return $http.get(v + 'company/profile');
     }
 
-    factory.company = function () {
-        return $http.get(v + 'company/postjobs');
+    factory.company.newjob = function (formData) {
+        return $http.put(v + 'company/job', formData);
     }
 
     factory.company.editProfile = function (formData) {

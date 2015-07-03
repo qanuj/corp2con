@@ -1,5 +1,73 @@
-﻿This is where the job profile comes :
-
-<br/>
-
-
+﻿<div>
+    <a class="btn btn-primary margtop visible-xs" ng-if="role === 'Company'" href="/#/job/{{record.id}}/edit"><i class="fa fa-edit"></i> Edit Job</a>
+    <section id="title">
+        <a class="btn btn-primary editbtn hidden-xs" ng-if="role === 'Company'" href="/#/job/{{record.id}}/edit"><i class="fa fa-edit"></i> Edit Job</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <img src="http://placehold.it/332x120.gif" class="img-responsive" alt="Company Logo" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="jobs">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <article>
+                        <h2>{{record.location}}</h2>
+                        <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
+                        <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
+                        <hr>
+                        <h2>{{record.title}}</h2>
+                        <hr>
+                        <h2>{{record.description}}</h2>
+                        <hr>
+                        <h2>{{record.start}}</h2>
+                        <hr>
+                        <h2>{{record.end}}</h2>
+                        <hr>
+                        <h2>{{record.rate}}</h2>
+                        <hr>
+                        <h2>{{record.skills}}</h2>
+                        <hr>
+                        <h2>{{record.cancelled}}</h2>
+                        <hr>
+                        <h2>{{record.id}}</h2>
+                        <hr>
+                        <h2>{{record.company}}</h2>
+                        <hr>
+                        <h2>{{record.location}}</h2>
+                        <hr>
+                    </article>
+                </div>
+                <div class="col-sm-4" id="sidebar">
+                    <div class="sidebar-widget" id="share">
+                        <h2>Share it</h2>
+                        <ul>
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{page}}"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/home?status={{page}}"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://plus.google.com/share?url={{page}}"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{page}}"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="sidebar-widget" id="widget-contact">
+                        <h2>Contact</h2>
+                        <ul>
+                            <li><i class="fa fa-building"></i>Netvibes</li>
+                            <li><i class="fa fa-map-marker"></i>2 Madison Avenue</li>
+                            <li><i class="fa"></i>New York City, 29478 USA</li>
+                            <li><i class="fa fa-phone"></i>01.22.987.8392</li>
+                            <li><i class="fa fa-envelope"></i><a href="mailto:company@yourdomain.com">Send an email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center" ng-if="role === 'Contractor'">
+                <p>&nbsp;</p>
+                <input type="submit" id="submit" value="Apply" class="btn btn-primary" />
+            </div>
+        </div>
+    </section>
+</div>

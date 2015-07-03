@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h2>{{title}} {{records.count}}</h2>
+                <h2>{{title}}</h2>
 
-                <div class="jobs">
-                    <a href="#" ng-repeat="row in records.items">
+                <div class="jobs" ng-repeat="row in records.items">
+                    <a href="#">
                         <div class="featured"></div>
                         <img src="/Content/images/job1.jpg" alt="" class="img-circle" />
                         <div class="title">
@@ -35,27 +35,6 @@
             </div>
             <div class="col-sm-4" id="sidebar">
 
-                <!-- Featured Jobs Start -->
-                <div class="sidebar-widget">
-                    <h2>Featured Candidate</h2>
-                    <a href="#">
-                        <img src="http://placehold.it/400x265.jpg" alt="Featured Job" class="img-responsive" />
-                        <div class="featured-job">
-                            <img src="/Content/images/job1.jpg" alt="" class="img-circle pull-left" />
-                            <div class="title">
-                                <h5>Susie Johnson</h5>
-                                <p>Project Manager</p>
-                            </div>
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
-                                <span class="experience"><i class="fa fa-trophy"></i>12 years</span>
-                                <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
-                            </div>
-                            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique euismod lorem, a consequat orci consequat a. Donec ullamcorper tincidunt nunc, ut aliquam est pellentesque porta. In neque erat, malesuada sit amet orci ac, laoreet laoreet mauris.</div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Featured Jobs End -->
                 <!-- Find a Job Start -->
                 <div class="sidebar-widget" id="jobsearch">
                     <h2>Find a Candidate</h2>
