@@ -52,11 +52,6 @@ namespace Talent21.Service.Models
         [Field(Converter = typeof(SkillConverter))]
         public IEnumerable<DictionaryViewModel> Skills { get; set; }
 
-        [IgnoreField]
-        public bool IsFavorite { get; set; }
-
-        [IgnoreField]
-        public bool IsApplied { get; set; }
     }
 
     public class SkillConverter : TypeConverter

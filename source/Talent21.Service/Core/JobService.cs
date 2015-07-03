@@ -26,8 +26,6 @@ namespace Talent21.Service.Core
             get
             {
                 var query = from job in _jobRepository.All
-                            join ja in _jobApplicationRepository.All on new { userId = CurrentUserId, id = job.Id } equals new { userId = ja.Candidate.OwnerId, id = ja.JobId } into g
-                            from ja in g.DefaultIfEmpty()
                             where !job.IsCancelled && job.IsPublished
                             select new JobSearchResultViewModel
                             {
@@ -40,9 +38,7 @@ namespace Talent21.Service.Core
                                 Start=job.Start,
                                 End=job.End,
                                 Id=job.Id,
-                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title }),
-                                IsFavorite=ja!=null && ja.History.Any(x=>x.Act==JobActionEnum.Favorite),
-                                IsApplied=ja!=null && ja.History.Any(x=>x.Act==JobActionEnum.Application)
+                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
                             };
                 return query;
             }
