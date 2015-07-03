@@ -2,41 +2,12 @@
 
 <div class="container margtop">
     <h2>Job Schedule</h2>       
-    <!--<div class="row">
+    <div class="row">
         <div class="col-sm-11">
             <div>
                 <button class="btn btn-info" ng-click="isCollapsed = !isCollapsed">New Schedule</button>
                 <hr>
                 <div collapse="isCollapsed">
-
-                    <div class="col-sm-3">
-                        <label for="job-location">Company</label>
-                        <input type="text" class="form-control" ng-model="record.CompanyId" placeholder="e.g. IBM">
-                    </div>
-                    <div class="col-sm-3">
-                        <label for="job-location">Start Date</label>
-                        <input type="date" class="form-control" ng-model="record.Start">
-                    </div>
-                    <div class="col-sm-3">
-                        <label for="job-location">End Date</label>
-                        <input type="date" class="form-control" ng-model="record.End">
-                    </div>
-                    <div class="col-sm-3" style=" margin-top:32px;">
-                        <button class="btn btn-info">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-    <div class="row text-center">
-        <div class="col-sm-12" style="margin-top:30px;">
-        
-            <div class="container">
-               
-                <div id="table" class="table-editable">
-                    <span class="table-add glyphicon glyphicon-plus ">
-                       
-                    </span>
                     <form ng-submit="save(record)">
                         <table class="table">
                             <tr>
@@ -61,26 +32,13 @@
                                     <input type="submit" id="submit" value="Delete" class="btn btn-danger table-remove" />
                                 </td>
                             </tr>
-                            <!-- This is our clonable table line -->
-                            <tr class="hide">
-                                <td contenteditable="true">
-                                    <input type="text" class="form-control" ng-model="record.CompanyId" placeholder="e.g. IBM">
-                                </td>
-                                <td contenteditable="true">
-                                    <input type="date" class="form-control" ng-model="record.Start">
-                                </td>
-                                <td contenteditable="true">
-                                    <input type="date" class="form-control" ng-model="record.End">
-                                </td>
-                                <td>
-                                    <input type="submit" id="submit" value="Save" class="btn btn-success" />
-                                    <input type="submit" id="delete" value="Delete" class="btn btn-danger table-remove" />
-                            </tr>
+                          
                         </table>
                     </form>
+               
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
+    

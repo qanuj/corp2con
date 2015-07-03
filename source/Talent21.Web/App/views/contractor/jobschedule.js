@@ -4,6 +4,8 @@
         console.log(record)
         db.contractor.createSchedule(record).success(function (result) {
             console.log(result);
+
+    
         });
     }
 }]);
