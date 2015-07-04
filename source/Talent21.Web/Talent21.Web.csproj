@@ -307,6 +307,7 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\pace.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\jquery.fancybox.css" />
     <Content Include="Content\css\jquery.flexmenu.css" />
@@ -349,6 +350,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\pace.js" />
     <Content Include="Scripts\site\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\site\bootstrap.js" />
     <Content Include="Scripts\site\bootstrap.min.js" />
