@@ -13,4 +13,5 @@
         $scope.page = db.currentPage;
         console.log($scope.jobs);
     });
+
 }]);

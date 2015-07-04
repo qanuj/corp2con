@@ -67,13 +67,17 @@
                 controller: 'createJobController'
             })
             .when('/myjobs', {
-                templateUrl: '/app/views/job/jobs.html',
+                templateUrl: '/app/views/company/jobs.html',
                 controller: 'myJobsController'
             })
-             .when('/job/:id', {
-                 templateUrl: '/app/views/job/profile.html',
-                 controller: 'jobProfileController'
-             })
+            .when('/job/:id', {
+                templateUrl: '/app/views/job/profile.html',
+                controller: 'jobProfileController'
+            })
+            .when('/editjob', {
+                templateUrl: '/app/views/company/editJob.html',
+                controller: 'editJobController'
+            })
             .otherwise({ redirectTo: '/' });
     }
 

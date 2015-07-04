@@ -1,7 +1,35 @@
 ﻿<div>
-    <a class="btn btn-primary margtop visible-xs" ng-if="role === 'Company'" href="/#/job/{{record.id}}/edit"><i class="fa fa-edit"></i> Edit Job</a>
+    <div class=" visible-xs" ng-if="role === 'Company'">
+        <a class=" btn btn-primary margtop" href="/#/editjob">
+            <i class="fa fa-edit"></i> Edit Job
+        </a>
+        <div class=" btn btn-info margtop" ng-click="publish(record)">
+            <i class="fa fa-check"></i> Publish
+        </div>
+        <div class=" btn btn-warning margtop" ng-click="cancel(record)">
+            <i class="fa fa-cross"></i> Cancel
+        </div>
+        <div class=" btn btn-danger margtop" ng-click="delete(record)">
+            <i class="fa fa-thumbs-o-down"></i> Delete
+        </div>
+    </div>
     <section id="title">
-        <a class="btn btn-primary editbtn hidden-xs" ng-if="role === 'Company'" href="/#/job/{{record.id}}/edit"><i class="fa fa-edit"></i> Edit Job</a>
+        <div class=" editbtn hidden-xs" ng-click="editjob(record)">
+            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/editjob/"><i class="fa fa-edit"></i> Edit Job</a>
+            <br />
+            <div class=" btn btn-info margtop" ng-click="publish(record)">
+                <i class="fa fa-check"></i> Publish
+            </div>
+            <br />
+            <div class=" btn btn-warning margtop" ng-click="cancel(record)">
+                <i class="fa fa-thumbs-o-down"></i> Cancel
+            </div>
+            <br />
+            <div class=" btn btn-danger margtop" ng-click="delete(record)">
+                <i class="fa fa-trash"></i> Delete
+            </div>
+            <br />
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center">
@@ -15,29 +43,21 @@
             <div class="row">
                 <div class="col-sm-8">
                     <article>
-                        <h2>{{record.location}}</h2>
-                        <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
-                        <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
-                        <hr>
                         <h2>{{record.title}}</h2>
+                        <p>{{record.description}}</p>
                         <hr>
-                        <h2>{{record.description}}</h2>
-                        <hr>
-                        <h2>{{record.start}}</h2>
-                        <hr>
-                        <h2>{{record.end}}</h2>
+                        <h2>{{record.location}}</h2>
                         <hr>
                         <h2>{{record.rate}}</h2>
                         <hr>
-                        <h2>{{record.skills}}</h2>
+                        <h2>Required Skills :</h2>
+                        <p>{{record.skills}}</p>
                         <hr>
-                        <h2>{{record.cancelled}}</h2>
+                        <h2>Company </h2>
+                        <p>{{record.company}}</p>
                         <hr>
-                        <h2>{{record.id}}</h2>
-                        <hr>
-                        <h2>{{record.company}}</h2>
-                        <hr>
-                        <h2>{{record.location}}</h2>
+                        <h2>Location :</h2>
+                        <p>{{record.location}}</p>
                         <hr>
                     </article>
                 </div>

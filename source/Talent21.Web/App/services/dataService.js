@@ -72,6 +72,18 @@
         return $http.get(v + 'company/job/paged');
     }
 
+    factory.job.publish = function (record) {
+        return $http.put( v + 'company/job/publish', record);
+    }
+
+    factory.job.cancel = function (record) {
+        return $http.put(v + 'company/job/cancel', record);
+    }
+
+    factory.job.delete = function (record) {
+        return $http.delete(v + 'company/job', record);
+    }
+
     //For Jobs
 
     factory.job.profile = function (id) {
@@ -80,6 +92,10 @@
 
     factory.job.newjob = function (formData) {
         return $http.post(v + 'company/job', formData);
+    }
+
+    factory.job.editjob = function (record) {
+        return $http.put(v + 'company/job', record);
     }
 
     //System requests
