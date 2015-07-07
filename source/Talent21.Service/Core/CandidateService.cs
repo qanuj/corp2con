@@ -56,7 +56,7 @@ namespace Talent21.Service.Core
             }
         }
 
-        public IQueryable<JobApplicationContractorViewModel> Applications(int id=0)
+        public IQueryable<JobApplicationContractorViewModel> Applications(int id = 0)
         {
             return _jobApplicationRepository.All.Where(x => x.JobId == id || id == 0).Select(x => new JobApplicationContractorViewModel
             {
@@ -139,7 +139,7 @@ namespace Talent21.Service.Core
         public ContractorEditViewModel Update(ContractorEditViewModel model)
         {
             var entity = _candidateRepository.ById(model.Id);
-            if(entity == null) return null;
+            if (entity == null) return null;
 
             entity.Name = model.Name;
             entity.Email = model.Email;
@@ -167,7 +167,7 @@ namespace Talent21.Service.Core
         public ScheduleViewModel Update(EditScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.Id);
-            if(entity == null) throw new Exception("Schedule not found");
+            if (entity == null) throw new Exception("Schedule not found");
 
             entity.Start = model.Start;
             entity.End = model.End;
@@ -200,11 +200,10 @@ namespace Talent21.Service.Core
             return Schedules.FirstOrDefault(x => x.Id == entity.Id);
         }
 
-
         public bool ActOnApplication(CompanyActJobApplicationViewModel model)
         {
             var entity = _jobApplicationRepository.ById(model.Id);
-            if(entity == null) return false;
+            if (entity == null) return false;
 
             entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
 

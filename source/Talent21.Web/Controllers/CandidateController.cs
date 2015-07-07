@@ -98,7 +98,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("schedule")]
-        public HttpResponseMessage AddProfile(CreateScheduleViewModel model)
+        public HttpResponseMessage AddSchedule(CreateScheduleViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
@@ -106,7 +106,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("schedule")]
-        public HttpResponseMessage EditProfile(EditScheduleViewModel model)
+        public HttpResponseMessage EditSchedule(EditScheduleViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
@@ -114,7 +114,7 @@ namespace Talent21.Web.Controllers
 
         [HttpDelete]
         [Route("schedule")]
-        public HttpResponseMessage DeleteProfile(DeleteScheduleViewModel model)
+        public HttpResponseMessage DeleteSchedule(DeleteScheduleViewModel model)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
@@ -131,15 +131,19 @@ namespace Talent21.Web.Controllers
         [HttpPut]
         [Route("job/application/{id}/revoke")]
         public HttpResponseMessage RejectJobApplication(CreateJobApplicationHistoryViewModel model)
-        {_service.CurrentUserId = User.Identity.GetUserId();
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Revoke)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("job/application/{id}/favorite")]
         public HttpResponseMessage ShortlistJobApplication(CreateJobApplicationHistoryViewModel model)
-        {_service.CurrentUserId = User.Identity.GetUserId();
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Favorite)) : Bad(ModelState);
         }
-    }
+
+
+    } 
 }

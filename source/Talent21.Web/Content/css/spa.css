@@ -36,3 +36,15 @@
 .nopadding-right {
     padding-right: 0;
 }
+
+.listings {
+      margin: 5px 0;
+  border: 1px solid #e7e7e7;
+  color: #888;
+  display: block;
+  float: left;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}

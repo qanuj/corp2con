@@ -37,6 +37,13 @@
         return $http.post(v + 'candidate/schedule', formData);
     }
 
+    factory.contractor.editSchedule = function (formData) {
+        return $http.put(v + 'candidate/schedule', formData);
+    }
+    factory.contractor.deleteSchedule = function (formData) {
+        return $http.delete(v + 'candidate/schedule', formData);
+    }
+
     factory.contractor.getSchedule = function () {
         return $http.get(v + 'candidate/schedule/all');
     }

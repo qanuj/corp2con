@@ -18,7 +18,7 @@ namespace Talent21.Service.Models
 
     public class DeleteScheduleViewModel : IdModel
     {
-
+      
     }
 
     public class CreateScheduleViewModel

@@ -19,6 +19,10 @@
                 templateUrl: '/app/views/contractor/editProfile.html',
                 controller: 'contractorEditProfileController'
             })
+             .when('/schedule', {
+                 templateUrl: '/app/views/contractor/jobschedule.html',
+                 controller: 'jobscheduleController'
+             })
             .when('/search', {
                 templateUrl: '/app/views/contractor/search.html',
                 controller: 'companySearchController'
