@@ -21,17 +21,13 @@
             })
             .when('/search', {
                 templateUrl: '/app/views/contractor/search.html',
-                controller: 'contractorSearchController'
+                controller: 'companySearchController'
             })
             .when('/applications', {
                 templateUrl: '/app/views/contractor/applications.html',
                 controller: 'contractorApplicationController'
             })
-              .when('/search', {
-                  templateUrl: '/app/views/contractor/search.html',
-                  controller: 'contractorSearchController'
-              })
-              .when('/jobschedule', {
+            .when('/jobschedule', {
                   templateUrl: '/app/views/contractor/jobschedule.html',
                   controller: 'jobscheduleController'
               })

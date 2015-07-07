@@ -14,7 +14,7 @@
     //For Contractors
 
     factory.contractor.paged = function () {
-        return $http.get(v + 'candidate/paged?$inlinecount=allpages');
+        return $http.get(v + 'candidate/paged');
     }
 
     factory.contractor.all = function () {
@@ -83,7 +83,10 @@
     factory.job.delete = function (record) {
         return $http.delete(v + 'company/job', record);
     }
-
+    
+    factory.company.search = function (query) {
+        return $http.post(v + 'company/search', query);
+    }   
     //For Jobs
 
     factory.job.profile = function (id) {

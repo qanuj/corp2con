@@ -5,10 +5,7 @@
         location: '',
         skills:'',
     }
-    $scope.search = function (query) {
-
-        db.contractor.paged(query).success(function (result) {
-            $scope.records = result;
-        });
-    }
+    db.contractor.paged().success(function (result) {
+        $scope.records = result;
+    });
 }]);
