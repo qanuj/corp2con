@@ -3019,7 +3019,7 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #ffffff;
+  color: black;
   background-color: transparent;
   border-color: #ffffff;
 }

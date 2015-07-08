@@ -1,4 +1,4 @@
-﻿app.controller('jobscheduleController', ['$scope', 'dataService', '$window', '$timeout',function ($scope, db, window, $timeout) {
+﻿app.controller('jobscheduleController', ['$scope', 'dataService', '$window', function ($scope, db, window) {
 
     $scope.isCollapsed = false;
 
@@ -11,11 +11,10 @@
 
     db.contractor.getSchedule().success(function (result) {
         $scope.schedule = result;
-        console.log(result);
     });
 
     $scope.save = function (record) {
-    db.contractor.createSchedule(record).success(function (result) {
+        db.contractor.createSchedule(record).success(function (result) {
             db.contractor.getSchedule().success(function (result) {
                 $scope.schedule = result;
             });
@@ -35,11 +34,11 @@
 
 
     $scope.delete = function (record) {
-    console.log(record)
-    db.contractor.deleteSchedule(record).success(function (result) {
-        console.log('Deleted');
-    });
-}
+        console.log(record)
+        db.contractor.deleteSchedule(record).success(function (result) {
+            console.log('Deleted');
+        });
+    }
 
     db.contractor.getSchedule().success(function (result) {
         $scope.schedule = result;
@@ -53,33 +52,46 @@
         });
     }
 
-    /* For Datepicker */
-
+    //Date picker start
     $scope.today = function () {
         $scope.dt = new Date();
     };
     $scope.today();
 
-        formatYear: 'yy',
-    $scope.dateOptions = {
-        startingDay: 1
+    $scope.clear = function () {
+        $scope.dt = null;
     };
 
-    $scope.open = function () {
-
-        $timeout(function () {
-            $scope.opened = true;
-
-    $scope.ok = function () {
-        $modalInstance.close($scope.dt);
+    // Disable weekend selection
+    $scope.disabled = function (date, mode) {
+        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
     };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-        });
+    $scope.open = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
     };
 
-    };
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
 
-    /* Datepicker Ends here*/
+
+    $scope.getDayClass = function (date, mode) {
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+        //Date picker End
+    };
 }]);
