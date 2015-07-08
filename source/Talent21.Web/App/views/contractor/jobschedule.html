@@ -13,13 +13,25 @@
                             <label>Company</label>
                             <input type="text" class="form-control save" placeholder="e.g. IBM" ng-model="record.company">
                         </div>
-                        <div class="col-md-4" contenteditable="true">
+                        <div class="col-md-4">
                             <label>Start Date</label>
-                            <input type="date" class="form-control save" ng-model="record.start">
+                            <span class="input-group">
+                                <input type="date" class="form-control" datepicker-popup ng-model="dt" is-open="opened" date-disabled="disabled(date, mode)" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </span>
+                            <!--<input type="date" class="form-control save" ng-model="record.start">-->
                         </div>
                         <div class="col-md-4" contenteditable="true">
                             <label>End Date</label>
-                            <input type="date" class="form-control save" ng-model="record.end">
+                            <span class="input-group">
+                                <input type="date" class="form-control" datepicker-popup ng-model="dt" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </span>
+                            <!--<input type="date" class="form-control save" ng-model="record.end">-->
                         </div>
                         <div class="col-md-3">
                             <button type="submit" id="submit" class="btn btn-primary" style="margin-left: 460%; margin-top:-32%">Ok</button>
@@ -30,19 +42,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-11">
-            <div class="listings" ng-repeat="s in schedule">
-                <div class="col-md-2">
-                    <span class="city" ng-show="!editMode">{{s.id}}</span>
-                    <!--<input type="text" ng-model="record.id" ng-show="editMode" />-->
-                    <input type="text" class="form-control save" ng-model="record.id" ng-show="editMode">
-                </div>
-                <div class="col-md-3">
-                    <span class="city" ng-show="!editMode">{{s.start}}</span>
+        <div class="listings" ng-repeat="s in schedule">
+            <div class="col-md-2">
+                <span class="city" ng-show="!editMode">{{s.id}}</span>
+                <!--<input type="text" ng-model="record.id" ng-show="editMode" />-->
+                <input type="text" class="form-control save" ng-model="record.id" ng-show="editMode">
+            </div>
+            <div class="col-md-3">
+                <div class="col-sm-11">
+                    <span class="city" ng-show="!editMode">{{s.start| date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
                     <input type="date" class="form-control save" ng-model="record.start" ng-show="editMode">
                 </div>
                 <div class="col-md-3">
-                    <span class="city" ng-show="!editMode">{{s.end}}</span>
+                    <span class="city" ng-show="!editMode">{{s.end| date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
                     <input type="date" class="form-control save" ng-model="record.end" ng-show="editMode">
                 </div>
                 <div class="col-md-2" ng-click="editMode=false" ng-hide="!editMode">
@@ -63,3 +75,8 @@
 </div>
 </div>
 
+
+
+
+
+       
