@@ -52,6 +52,7 @@
         });
     }
 
+   
     //Date picker start
     $scope.today = function () {
         $scope.dt = new Date();
