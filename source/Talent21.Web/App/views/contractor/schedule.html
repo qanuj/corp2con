@@ -1,7 +1,7 @@
 ﻿<link href="/Content/css/table.css" rel="stylesheet" />
 
 <div class="container margtop">
-    <h2>Job Schedule</h2>
+    <h2>Manage Schedule</h2>
     <div class="row">
         <div class="col-sm-11">
             <div>
@@ -9,11 +9,11 @@
 
                 <div collapse="isCollapsed" style="margin-top:5px">
                     <form ng-submit="save(record)">
-                        <div class="col-md-4" contenteditable="true" style="  margin-left: -3%;">
+                        <div class="col-md-4" style="  margin-left: -3%;">
                             <label>Company</label>
                             <input type="text" class="form-control save" placeholder="e.g. IBM" ng-model="record.company">
                         </div>
-                        <div class="col-md-4" contenteditable="true">
+                        <div class="col-md-4">
                             <label>Start Date</label>
                             <p class="input-group">
                                 <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="record.start" is-open="opened" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
@@ -22,7 +22,7 @@
                                 </span>
                             </p>
                         </div>
-                        <div class="col-md-4" contenteditable="true">
+                        <div class="col-md-4">
                             <label>End Date</label>
                             <p class="input-group">
                                 <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="record.end" is-open="opened" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />

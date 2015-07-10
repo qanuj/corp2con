@@ -272,6 +272,8 @@
     <Content Include="App\views\company\editJob.js" />
     <Content Include="App\views\company\editProfile.html" />
     <Content Include="App\views\company\editProfile.js" />
+    <Content Include="App\views\company\job.html" />
+    <Content Include="App\views\company\job.js" />
     <Content Include="App\views\company\jobs.js" />
     <Content Include="App\views\company\profile.js" />
     <Content Include="App\views\company\search.html" />
@@ -281,8 +283,8 @@
     <Content Include="App\views\contractor\dashboard.html" />
     <Content Include="App\views\contractor\editProfile.html" />
     <Content Include="App\views\contractor\editProfile.js" />
-    <Content Include="App\views\contractor\jobschedule.html" />
-    <Content Include="App\views\contractor\jobschedule.js" />
+    <Content Include="App\views\contractor\schedule.html" />
+    <Content Include="App\views\contractor\schedule.js" />
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
@@ -292,11 +294,11 @@
     <Content Include="App\views\contractor\search.html" />
     <Content Include="App\views\contractor\search.js" />
     <Content Include="App\views\home.html" />
-    <Content Include="App\views\job\profile.html" />
+    <Content Include="App\views\contractor\job.html" />
     <Content Include="App\views\company\jobs.html" />
-    <Content Include="App\views\job\postjob.js" />
-    <Content Include="App\views\job\PostJobs.html" />
-    <Content Include="App\views\job\profile.js" />
+    <Content Include="App\views\company\createJob.js" />
+    <Content Include="App\views\company\createJobs.html" />
+    <Content Include="App\views\contractor\job.js" />
     <Content Include="App\views\searchController.js" />
     <Content Include="App\views\Testimonials.html" />
     <Content Include="App\template\about.html" />
@@ -469,6 +471,7 @@
     <Content Include="Views\Setup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\views\job\" />
     <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>
