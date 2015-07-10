@@ -15,24 +15,28 @@ namespace Talent21.Data.Repository
     public class JobRepository : EfRepository<Job>, IJobRepository
 
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="eventManager"></param>
         public JobRepository(DbContext context, IEventManager eventManager) : base( context, eventManager)
         { 
             
         }
+
+        public override IQueryable<Job> All
+        {
+            get { return base.All.Include(x => x.Skills).Include(x => x.Location).Include(x => x.Company); }
+        }
+
 
         internal static void Register(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Job>().HasKey(x => x.Id);
         }
     }
+
     /// <summary>
     /// 
     /// </summary>
     public interface IJobRepository : IRepository<Job>
-    { }
+    {
+        
+    }
 }

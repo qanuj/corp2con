@@ -4,3 +4,49 @@
 .margtop {
     margin-top: 20px;
 }
+
+.editbtn {
+    position: fixed;
+    right: 20px;
+    z-index:23;
+}
+
+.img-circle {
+    height: 60px !important;
+    width: 60px !important;
+ }
+
+.nopadding{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.srch-btn-pad {
+      padding: 11px 25px;
+}
+
+.margbottom {
+    margin-bottom: 50px;
+}
+
+.nopadding-left {
+    padding-left: 0;
+}
+
+.nopadding-right {
+    padding-right: 0;
+}
+
+.listings {
+      margin: 5px 0;
+  border: 1px solid #e7e7e7;
+  color: #888;
+  display: block;
+  float: left;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+ 

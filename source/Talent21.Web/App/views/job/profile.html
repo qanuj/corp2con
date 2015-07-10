@@ -1,0 +1,93 @@
+﻿<div>
+    <div class=" visible-xs" ng-if="role === 'Company'">
+        <a class=" btn btn-primary margtop" href="/#/editjob">
+            <i class="fa fa-edit"></i> Edit Job
+        </a>
+        <div class=" btn btn-info margtop" ng-click="publish(record)">
+            <i class="fa fa-check"></i> Publish
+        </div>
+        <div class=" btn btn-warning margtop" ng-click="cancel(record)">
+            <i class="fa fa-cross"></i> Cancel
+        </div>
+        <div class=" btn btn-danger margtop" ng-click="delete(record)">
+            <i class="fa fa-thumbs-o-down"></i> Delete
+        </div>
+    </div>
+    <section id="title">
+        <div class=" editbtn hidden-xs" ng-click="editjob(record)">
+            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/editjob/"><i class="fa fa-edit"></i> Edit Job</a>
+            <br />
+            <div class=" btn btn-info margtop" ng-click="publish(record)">
+                <i class="fa fa-check"></i> Publish
+            </div>
+            <br />
+            <div class=" btn btn-warning margtop" ng-click="cancel(record)">
+                <i class="fa fa-thumbs-o-down"></i> Cancel
+            </div>
+            <br />
+            <div class=" btn btn-danger margtop" ng-click="delete(record)">
+                <i class="fa fa-trash"></i> Delete
+            </div>
+            <br />
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <img src="http://placehold.it/332x120.gif" class="img-responsive" alt="Company Logo" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="jobs">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <article>
+                        <h2>{{record.title}}</h2>
+                        <p>{{record.description}}</p>
+                        <hr>
+                        <h2>{{record.location}}</h2>
+                        <hr>
+                        <h2>{{record.rate}}</h2>
+                        <hr>
+                        <h2>Required Skills :</h2>
+                        <p>{{record.skills}}</p>
+                        <hr>
+                        <h2>Company </h2>
+                        <p>{{record.company}}</p>
+                        <hr>
+                        <h2>Location :</h2>
+                        <p>{{record.location}}</p>
+                        <hr>
+                    </article>
+                </div>
+                <div class="col-sm-4" id="sidebar">
+                    <div class="sidebar-widget" id="share">
+                        <h2>Share it</h2>
+                        <ul>
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{page}}"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/home?status={{page}}"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://plus.google.com/share?url={{page}}"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{page}}"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="sidebar-widget" id="widget-contact">
+                        <h2>Contact</h2>
+                        <ul>
+                            <li><i class="fa fa-building"></i>Netvibes</li>
+                            <li><i class="fa fa-map-marker"></i>2 Madison Avenue</li>
+                            <li><i class="fa"></i>New York City, 29478 USA</li>
+                            <li><i class="fa fa-phone"></i>01.22.987.8392</li>
+                            <li><i class="fa fa-envelope"></i><a href="mailto:company@yourdomain.com">Send an email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center" ng-if="role === 'Contractor'">
+                <p>&nbsp;</p>
+                <input type="submit" id="submit" value="Apply" class="btn btn-primary" />
+            </div>
+        </div>
+    </section>
+</div>

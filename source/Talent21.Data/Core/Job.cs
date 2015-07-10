@@ -11,7 +11,7 @@ namespace Talent21.Data.Core
         public Location Location { get; set; }
         public int LocationId { get; set; }
 
-        public IList<JobSkill> Skills { get; set; }
+        public IList<Skill> Skills { get; set; }
         public IList<JobVisit> Visits { get; set; }
         public IList<JobApplication> Applications { get; set; }
 
@@ -24,7 +24,9 @@ namespace Talent21.Data.Core
         public DateTime End { get; set; }
 
         public bool IsCancelled { get; set; }
+        public DateTime? Cancelled { get; set; }
 
-        public DateTime Cancelled { get; set; }
+        public bool IsPublished { get; set; }
+        public DateTime? Published { get; set; }
     }
 }

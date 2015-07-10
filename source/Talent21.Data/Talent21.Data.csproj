@@ -102,6 +102,18 @@
     <Compile Include="Migrations\201506270948375_Edit in Candidate API.Designer.cs">
       <DependentUpon>201506270948375_Edit in Candidate API.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507010640532_Jobs and Contractors have skills.cs" />
+    <Compile Include="Migrations\201507010640532_Jobs and Contractors have skills.Designer.cs">
+      <DependentUpon>201507010640532_Jobs and Contractors have skills.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507010641299_Jobs and Contractors have skills Part 2.cs" />
+    <Compile Include="Migrations\201507010641299_Jobs and Contractors have skills Part 2.Designer.cs">
+      <DependentUpon>201507010641299_Jobs and Contractors have skills Part 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507010910523_Job Application History.cs" />
+    <Compile Include="Migrations\201507010910523_Job Application History.Designer.cs">
+      <DependentUpon>201507010910523_Job Application History.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
@@ -147,6 +159,19 @@
     <EmbeddedResource Include="Migrations\201506270948375_Edit in Candidate API.resx">
       <DependentUpon>201506270948375_Edit in Candidate API.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507010640532_Jobs and Contractors have skills.resx">
+      <DependentUpon>201507010640532_Jobs and Contractors have skills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507010641299_Jobs and Contractors have skills Part 2.resx">
+      <DependentUpon>201507010641299_Jobs and Contractors have skills Part 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507010910523_Job Application History.resx">
+      <DependentUpon>201507010910523_Job Application History.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\json-serialize.js" />
+    <Content Include="Scripts\json-serialize.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

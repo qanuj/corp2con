@@ -13,7 +13,8 @@ namespace e10.Shared.Data.Abstraction
 
     public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
     {
-        protected EfRepository(DbContext context, IEventManager eventManager) {
+        protected EfRepository(DbContext context, IEventManager eventManager)
+        {
             Guard.ArgumentNotNull(context, "EF Data Context");
             Guard.ArgumentNotNull(eventManager, "ef event manager");
             Context = context;
@@ -29,12 +30,15 @@ namespace e10.Shared.Data.Abstraction
 
         public virtual IQueryable<TEntity> All
         {
-            get { return Set; }
+            get
+            {
+                return Set;
+            }
         }
 
         private DbSet<TEntity> Set
         {
-            get { return Context.Set<TEntity>(); } 
+            get { return Context.Set<TEntity>(); }
         }
 
         protected void Attach(TEntity entity, EntityState state)
@@ -58,10 +62,11 @@ namespace e10.Shared.Data.Abstraction
             return Context.SaveChanges();
         }
 
-        public virtual void Create(TEntity entity) {
+        public virtual void Create(TEntity entity)
+        {
             Guard.ArgumentNotNull(entity, "Create Entity");
             Context.Entry(entity).State = EntityState.Added;
-            if (entity is IState)
+            if(entity is IState)
             {
                 UpdateCreateState(entity as IState);
             }
@@ -78,7 +83,8 @@ namespace e10.Shared.Data.Abstraction
             state.LastModified = DateTime.UtcNow;
         }
 
-        public virtual TEntity ById(int id) {
+        public virtual TEntity ById(int id)
+        {
             var entity = Set.Find(id);
             if(entity is ISoftDelete) if((entity as ISoftDelete).IsDeleted) return null;
             return entity;
@@ -91,17 +97,22 @@ namespace e10.Shared.Data.Abstraction
             entity.Deleted = DateTime.UtcNow;
         }
 
-        public virtual void Delete(TEntity entity) {
+        public virtual void Delete(TEntity entity)
+        {
             Guard.ArgumentNotNull(entity, "Delete Entity");
             Attach(entity);
-            if (entity is ISoftDelete){
+            if(entity is ISoftDelete)
+            {
                 SoftDelete(entity as ISoftDelete);
-            }else{
+            }
+            else
+            {
                 Context.Set<TEntity>().Remove(entity);
             }
         }
 
-        public virtual void Update(TEntity entity) {
+        public virtual void Update(TEntity entity)
+        {
             Guard.ArgumentNotNull(entity, "Update Entity");
             Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
@@ -120,7 +131,8 @@ namespace e10.Shared.Data.Abstraction
             }
         }
 
-        public void Attach(TEntity entity) {
+        public void Attach(TEntity entity)
+        {
             Set.Attach(entity);
         }
 
@@ -131,7 +143,7 @@ namespace e10.Shared.Data.Abstraction
 
         internal delegate void EntityEvent(TEntity entity);
 
-        public IEventManager EventManager{get;private set;}
+        public IEventManager EventManager { get; private set; }
 
 
         public virtual void Create(ICollection<TEntity> entities)
@@ -139,7 +151,8 @@ namespace e10.Shared.Data.Abstraction
             Attach(entities);
         }
 
-        public virtual void Delete(ICollection<TEntity> entities) {
+        public virtual void Delete(ICollection<TEntity> entities)
+        {
             foreach(var entity in entities)
             {
                 Delete(entity);

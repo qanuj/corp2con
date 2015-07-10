@@ -1,11 +1,20 @@
 ﻿using System.Runtime.InteropServices;
 using System.Web.Mvc;
+using Talent21.Service.Abstraction;
 using Talent21.Web.Models;
 
 namespace Talent21.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IJobService _service;
+
+        public HomeController(IJobService service)
+        {
+            _service = service;
+        }
+
+
         //[Authorize]
         public ActionResult Index()
         {
@@ -19,6 +28,8 @@ namespace Talent21.Web.Controllers
             }
             return View("Welcome");
         }
+
+
 
         [Route("welcome")]
         public ActionResult Welcome()

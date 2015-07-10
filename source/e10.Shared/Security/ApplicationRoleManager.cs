@@ -21,9 +21,9 @@ namespace e10.Shared.Security
 
         public async Task CreateRolesAsync(string[] systemRoles)
         {
-            foreach (var role in systemRoles)
+            foreach(var role in systemRoles)
             {
-                if (!await RoleExistsAsync(role))
+                if(!await RoleExistsAsync(role))
                 {
                     await CreateAsync(new Role(role));
                 }

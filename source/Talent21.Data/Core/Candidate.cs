@@ -5,7 +5,7 @@ namespace Talent21.Data.Core
 {
     public class Candidate : Person
     {
-        public ICollection<CandidateSkill> Skills { get; set; }
+        public ICollection<Skill> Skills { get; set; }
         public ICollection<CandidateVisit> Visits { get; set; }
         public IList<Schedule> Schedules { get; set; }
 

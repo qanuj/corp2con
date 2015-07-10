@@ -213,6 +213,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IocHelper.cs" />
+    <Compile Include="App_Start\JsonNetFormatter.cs" />
+    <Compile Include="App_Start\JsonNetFormatter_2.cs" />
+    <Compile Include="App_Start\JsonNetFormatter_3.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -264,32 +267,40 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\aboutCandidateController.js" />
-    <Content Include="App\controllers\aboutCompanyController.js" />
-    <Content Include="App\controllers\companyListController.js" />
-    <Content Include="App\controllers\companyProfileController.js" />
-    <Content Include="App\controllers\jobListingController.js" />
-    <Content Include="App\controllers\otherController.js" />
-    <Content Include="App\controllers\postjobsController.js" />
-    <Content Include="App\controllers\testimonialsController.js" />
     <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
     <Content Include="App\services\dataService.js" />
     <Content Include="App\services\headerFactory.js" />
+    <Content Include="App\views\company\editJob.html" />
+    <Content Include="App\views\company\editJob.js" />
+    <Content Include="App\views\company\editProfile.html" />
+    <Content Include="App\views\company\editProfile.js" />
+    <Content Include="App\views\company\jobs.js" />
+    <Content Include="App\views\company\profile.js" />
     <Content Include="App\views\company\search.html" />
     <Content Include="App\views\company\dashboard.html" />
     <Content Include="App\views\company\dashboard.js" />
     <Content Include="App\views\contractor\dashboard.js" />
     <Content Include="App\views\contractor\dashboard.html" />
+    <Content Include="App\views\contractor\editProfile.html" />
+    <Content Include="App\views\contractor\editProfile.js" />
+    <Content Include="App\views\contractor\jobschedule.html" />
+    <Content Include="App\views\contractor\jobschedule.js" />
     <Content Include="App\views\contractor\other.html" />
     <Content Include="App\views\company\CompanyList.html" />
     <Content Include="App\views\company\aboutcompany.html" />
-    <Content Include="App\views\company\CompanyProfile.html" />
+    <Content Include="App\views\company\profile.html" />
     <Content Include="App\views\contractor\profile.html" />
     <Content Include="App\views\contractor\profile.js" />
+    <Content Include="App\views\contractor\search.html" />
+    <Content Include="App\views\contractor\search.js" />
     <Content Include="App\views\home.html" />
+    <Content Include="App\views\job\profile.html" />
+    <Content Include="App\views\company\jobs.html" />
+    <Content Include="App\views\job\postjob.js" />
     <Content Include="App\views\job\PostJobs.html" />
-    <Content Include="App\views\job\JobListing.html" />
+    <Content Include="App\views\job\profile.js" />
+    <Content Include="App\views\searchController.js" />
     <Content Include="App\views\Testimonials.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />
@@ -308,6 +319,7 @@
     <Content Include="Content\css\owl.carousel.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\table.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\background.jpg" />
     <Content Include="Content\images\bullet.png" />
@@ -342,6 +354,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\json-serialize.js" />
+    <Content Include="Scripts\json-serialize.min.js" />
     <Content Include="Scripts\site\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\site\bootstrap.js" />
     <Content Include="Scripts\site\bootstrap.min.js" />
@@ -458,7 +472,6 @@
     <Content Include="Views\Setup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\controllers\contractor\" />
     <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>

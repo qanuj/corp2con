@@ -21,6 +21,8 @@ namespace Talent21.Service.Models
     {
         public string PictureUrl { get; set; }
         public DictionaryViewModel Industry { get; set; }
+
+        public string OwnerId { get; set; }
     }
 
 
@@ -44,47 +46,4 @@ namespace Talent21.Service.Models
         public IEnumerable<DictionaryViewModel> Skills { get; set; }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class UpdateProfileViewModel
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required]
-        public int Id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int LocationId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Email { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ProfileUrl { get; set; }
-       
-    }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CandidatePublicProfileViewModel
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Name { get; set; }
-    }
 }

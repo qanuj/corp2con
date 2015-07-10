@@ -18,7 +18,6 @@ namespace Talent21.Data
 
             builder.RegisterType<BlockRepository>().As<IBlockRepository>();
             builder.RegisterType<CandidateRepository>().As<ICandidateRepository>();
-            builder.RegisterType<CandidateSkillRepository>().As<ICandidateSkillRepository>();
             builder.RegisterType<CandidateVisitRepository>().As<ICandidateVisitRepository>();
             builder.RegisterType<CompanyRepository>().As<ICompanyRepository>();
             builder.RegisterType<CompanyVisitRepository>().As<ICompanyVisitRepository>();
@@ -27,13 +26,11 @@ namespace Talent21.Data
             builder.RegisterType<IndustryRepository>().As<IIndustryRepository>();
             builder.RegisterType<JobApplicationRepository>().As<IJobApplicationRepository>();
             builder.RegisterType<JobRepository>().As<IJobRepository>();
-            builder.RegisterType<JobSkillRepository>().As<IJobSkillRepository>();
             builder.RegisterType<JobVisitRepository>().As<IJobVisitRepository>();
             builder.RegisterType<LocationRepository>().As<ILocationRepository>();
             builder.RegisterType<PaymentRepository>().As<IPaymentRepository>();
             builder.RegisterType<PlanRepository>().As<IPlanRepository>();
             builder.RegisterType<ScheduleRepository>().As<IScheduleRepository>();
-            builder.RegisterType<SkillExtendedRepository>().As<ISkillExtendedRepository>();
             builder.RegisterType<SkillRepository>().As<ISkillRepository>();
             builder.RegisterType<SubscriptionRepository>().As<ISubscriptionRepository>();
             builder.RegisterType<TransactionRepository>().As<ITransactionRepository>();

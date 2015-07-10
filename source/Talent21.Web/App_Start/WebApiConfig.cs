@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Talent21.Web
 {

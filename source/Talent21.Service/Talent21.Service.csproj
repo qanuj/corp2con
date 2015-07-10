@@ -36,6 +36,26 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Common.Logging, Version=2.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.2.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Linq, Version=3.5.3.98, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Linq.3.5.3\lib\net40\Lucene.Net.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=1.13.183.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.1.13.183.0\lib\net35\Remotion.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -46,49 +66,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstraction\ActingRoleEnum.cs" />
     <Compile Include="Abstraction\IDataService.cs" />
     <Compile Include="Abstraction\IDictionaryDataService.cs" />
     <Compile Include="Abstraction\IPersonDataService.cs" />
-    <Compile Include="Models\CreateCandidateAndApplyToJobViewModel.cs" />
-    <Compile Include="Models\ApplyJobApplicationViewModel.cs" />
-    <Compile Include="Models\DictionaryEditViewModel.cs" />
-    <Compile Include="Models\IndustryCreateViewModel.cs" />
-    <Compile Include="Models\IndustryDeleteViewModel.cs" />
-    <Compile Include="Models\IndustryEditViewModel.cs" />
-    <Compile Include="Models\JobApplicationViewModel.cs" />
-    <Compile Include="Models\CreateCandidateViewModel.cs" />
-    <Compile Include="Models\CreateCompanyViewModel.cs" />
+    <Compile Include="Abstraction\ISecuredService.cs" />
+    <Compile Include="Abstraction\ISharedService.cs" />
+    <Compile Include="Core\SharedService.cs" />
+    <Compile Include="Models\JobViewModels.cs" />
+    <Compile Include="Models\JobApplicationViewModels.cs" />
+    <Compile Include="Models\CandidateViewModels.cs" />
+    <Compile Include="Models\CompanyViewModels.cs" />
     <Compile Include="Models\IdModel.cs" />
-    <Compile Include="Models\LocationCreateViewModel.cs" />
-    <Compile Include="Models\LocationDeleteViewModel.cs" />
-    <Compile Include="Models\LocationEditViewModel.cs" />
     <Compile Include="Models\DictionaryViewModel.cs" />
-    <Compile Include="Models\PersonEditViewModel.cs" />
     <Compile Include="Models\PersonViewModel.cs" />
-    <Compile Include="Models\RejectCandidateViewModel.cs" />
-    <Compile Include="Models\RevokeJobApplicationViewModel.cs" />
-    <Compile Include="Models\ApproveCompanyViewModel.cs" />
-    <Compile Include="Models\CancelJobApplicationViewModel.cs" />
-    <Compile Include="Models\CreateJobApplicationViewModel.cs" />
-    <Compile Include="Models\DeleteJobApplicationViewModel.cs" />
-    <Compile Include="Models\PublishJobApplicationViewModel.cs" />
-    <Compile Include="Models\SkillCreateViewModel.cs" />
-    <Compile Include="Models\SkillDeleteViewModel.cs" />
-    <Compile Include="Models\SkillEditViewModel.cs" />
-    <Compile Include="Models\UpdateJobApplicationViewModel.cs" />
-    <Compile Include="Models\AddScheduleViewModel.cs" />
-    <Compile Include="Models\DeleteScheduleViewModel.cs" />
-    <Compile Include="Models\UpdateScheduleViewModel.cs" />
+    <Compile Include="Models\SystemViewModels.cs" />
     <Compile Include="Models\ScheduleViewModel.cs" />
-    <Compile Include="Models\AddJobApplicationViewModel.cs" />
-    <Compile Include="Models\AddProfileViewModel.cs" />
-    <Compile Include="Models\DeleteProfileViewModel.cs" />
     <Compile Include="Abstraction\ICandidateService.cs" />
     <Compile Include="Abstraction\ICompanyService.cs" />
     <Compile Include="Abstraction\IJobService.cs" />
     <Compile Include="Abstraction\IService.cs" />
     <Compile Include="Abstraction\ISystemService.cs" />
-    <Compile Include="Models\CreateScheduleViewModel.cs" />
     <Compile Include="Models\UpdateProfileViewModel.cs" />
     <Compile Include="Core\CandidateService.cs" />
     <Compile Include="Core\CompanyService.cs" />
@@ -110,6 +108,10 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\json-serialize.js" />
+    <Content Include="Scripts\json-serialize.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

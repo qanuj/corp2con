@@ -1,0 +1,77 @@
+﻿<link href="/Content/css/table.css" rel="stylesheet" />
+
+<div class="container margtop">
+    <h2>Job Schedule</h2>
+    <div class="row">
+        <div class="col-sm-11">
+            <div>
+                <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed" style="margin-left: -15px;">New Schedule</button>
+
+                <div collapse="isCollapsed" style="margin-top:5px">
+                    <form ng-submit="save(record)">
+                        <div class="col-md-4" contenteditable="true" style="  margin-left: -3%;">
+                            <label>Company</label>
+                            <input type="text" class="form-control save" placeholder="e.g. IBM" ng-model="record.company">
+                        </div>
+                        <div class="col-md-4" contenteditable="true">
+                            <label>Start Date</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="record.start" is-open="opened" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-4" contenteditable="true">
+                            <label>End Date</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="record.end" is-open="opened" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" id="submit" class="btn btn-primary" style="margin-left: 460%; margin-top:-32%">Ok</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="listings" ng-repeat="s in schedule">
+                <div class="col-md-2">
+                    <span class="city" ng-show="!editMode">{{s.id}}</span>
+                    <!--<input type="text" ng-model="record.id" ng-show="editMode" />-->
+                    <input type="text" class="form-control save" ng-model="record.id" ng-show="editMode">
+                </div>
+                <div class="col-md-3">
+                    <span class="city" ng-show="!editMode">{{s.start}}</span>
+                    <input type="date" class="form-control save" ng-model="record.start" ng-show="editMode">
+                </div>
+                <div class="col-md-3">
+                    <span class="city" ng-show="!editMode">{{s.end}}</span>
+                    <input type="date" class="form-control save" ng-model="record.end" ng-show="editMode">
+                </div>
+                <div class="col-md-2" ng-click="editMode=false" ng-hide="!editMode">
+                    <button type="submit" id="submitschedule" class="btn btn-primary" ng-click="edit(record)">Save</button>
+                </div>
+                <div class="col-md-2" ng-click="editMode=false" ng-hide="!editMode">
+                    <button type="submit" id="submitschedule" class="btn btn-info" ng-click="edit(record)">Cancel</button>
+                </div>
+                <div class="col-md-2" ng-click="editMode=true" ng-hide="editMode">
+                    <button type="submit" id="submitschedule" class="btn btn-primary" ng-click="edit(record)">Edit</button>
+                </div>
+                <div class="col-md-2 table-remove" ng-click="editMode=false" ng-hide="editMode">
+                    <button type="submit" id="submitschedule" class="btn btn-danger" ng-click="edit(record)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

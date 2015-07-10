@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using e10.Shared.Util;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -6,135 +8,57 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class JobService : IJobService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IJobRepository _jobRepository;
-        private readonly ICandidateRepository _candidateRepository;
+        private readonly IJobApplicationRepository _jobApplicationRepository;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jobApplicationRepository"></param>
-        /// <param name="jobRepository"></param>
-        /// <param name="_candidateRepository"></param>
-        public JobService(IJobApplicationRepository jobApplicationRepository,
-            IJobRepository jobRepository, ICandidateRepository _candidateRepository)
+        public JobService(IJobRepository jobRepository, IJobApplicationRepository jobApplicationRepository)
         {
-            _jobApplicationRepository = jobApplicationRepository;
             _jobRepository = jobRepository;
-            _candidateRepository = candidateRepository;
+            _jobApplicationRepository = jobApplicationRepository;
         }
-       
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int SaveChanges()
-        {
-            return _jobApplicationRepository.SaveChanges();
-        }
+        
+        public string CurrentUserId { private get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public JobApplicationViewModel ApplyToJob(JobApplicationViewModel model)
+        protected IQueryable<JobSearchResultViewModel> Jobs
         {
-            var entity = new JobApplication
+            get
             {
-                Act = JobActionEnum.Application,
-                Id = model.Id,
+                var query = from job in _jobRepository.All
+                            where !job.IsCancelled && job.IsPublished
+                            select new JobSearchResultViewModel
+                            {
+                                Code=job.Code,
+                                Title=job.Title,
+                                Description=job.Description,
+                                Location=job.Location.Title,
+                                Company=job.Company.CompanyName,
+                                Rate=job.Rate,
+                                Start=job.Start,
+                                End=job.End,
+                                Id=job.Id,
+                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                            };
+                return query;
+            }
+        }
 
-            };
-            _jobApplicationRepository.Create(entity);
-            _jobApplicationRepository.SaveChanges();
-
-            return new JobApplicationViewModel
+        public IQueryable<JobSearchResultViewModel> Search(SearchJobViewModel model)
+        {
+            var query = Jobs;
+            //Rules of searching.
+            if(!string.IsNullOrWhiteSpace(model.Location))
             {
-                Id = entity.Id,
-                Act = entity.Act
-            };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public bool CancelJob(CancelJobApplicationViewModel model)
-        {
-            var entity = _jobRepository.ById(model.JobId);
-            entity.IsCancelled = true;
-            entity.Cancelled = DateTime.UtcNow;
-            _jobRepository.Update(entity);
-            var rowAffected = _jobRepository.SaveChanges();
-            return rowAffected > 0;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public bool RevokeJobApplication(RevokeJobApplicationViewModel model)
-        {
-            var entity = _jobApplicationRepository.ById(model.JobApplicationId);
-            entity.IsRevoked = true;
-            entity.Revoked = DateTime.UtcNow;
-            _jobApplicationRepository.Update(entity);
-            var rowAffected = _jobRepository.SaveChanges();
-            return rowAffected > 0;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICandidateRepository candidateRepository { get; set; }
-
-        JobApplicationViewModel IJobService.ApplyToJob(JobApplicationViewModel job)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IJobService.CancelJob(CancelJobApplicationViewModel jobApplication)
-        {
-            throw new NotImplementedException();
-        }
-
-        ApplyJobApplicationViewModel IJobService.ApplyToJob(ApplyJobApplicationViewModel job)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IJobService.RevokeJobApplication(RevokeJobApplicationViewModel job)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public object JobApplicationViewModel(JobApplicationViewModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object ApplyJobApplicationViewModel(ApplyJobApplicationViewModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object RevokeJobApplicationViewModel(RevokeJobApplicationViewModel model)
-        {
-            throw new NotImplementedException();
+                query = query.Where(x => x.Location.Contains(model.Location));
+            }
+            if(!string.IsNullOrWhiteSpace(model.Skills))
+            {
+                //TODO: AND OR LOGIC
+                var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
+            }
+            return query;
         }
     }
 }

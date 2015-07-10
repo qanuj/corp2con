@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
@@ -8,24 +10,17 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CandidateService : ICandidateService
+    public class CandidateService : SharedService, ICandidateService
     {
         private readonly ICandidateRepository _candidateRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IScheduleRepository _scheduleRepository;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="candidateRepository"></param>
-        /// <param name="jobApplicationRepository"></param>
-        /// <param name="scheduleRepository"></param>
         public CandidateService(ICandidateRepository candidateRepository,
+            IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository)
+            : base()
         {
             _candidateRepository = candidateRepository;
             _jobApplicationRepository = jobApplicationRepository;
@@ -53,221 +48,67 @@ namespace Talent21.Service.Core
                     Twitter = x.Social.Twitter,
                     WebSite = x.Social.WebSite,
                     Yahoo = x.Social.Yahoo,
-                    PictureUrl =x.PictureUrl,
-                    OwnerId=x.OwnerId,
-                    Rate=x.Rate,
-                    Skills=x.Skills.Select(y=> new DictionaryViewModel(){ Code = y.Code,Title = y.Title})
+                    PictureUrl = x.PictureUrl,
+                    OwnerId = x.OwnerId,
+                    Rate = x.Rate,
+                    Skills = x.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
                 });
             }
-        } 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
-        public CreateCandidateViewModel CreateCandidate(CreateCandidateViewModel profile)
-        {
-            var candidate = new Candidate() { Name = profile.Name, OwnerId = profile.UserId };
-            _candidateRepository.Create(candidate);
-            _candidateRepository.SaveChanges();
-            return new CreateCandidateViewModel
-            {
-                Name = candidate.Name,
-                Id = candidate.Id
-            };
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public JobApplicationViewModel CreateCandidateAndApplyToJob(
-            CreateCandidateAndApplyToJobViewModel model)
+        public IQueryable<JobApplicationContractorViewModel> Applications(int id = 0)
         {
-            var candiate = CreateCandidate(new CreateCandidateViewModel()
+            return _jobApplicationRepository.All.Where(x => x.JobId == id || id == 0).Select(x => new JobApplicationContractorViewModel
             {
-                Name = model.Name
-            });
-            return ApplyToJob(new ApplyJobApplicationViewModel
-            {
-                CandidateId = candiate.Id,
-                JobId = model.JobId
+                Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
+                Id = x.Id,
+                Job = new JobViewModel
+                {
+                    Id = x.Job.Id,
+                    Company = x.Job.Company.CompanyName,
+                    IsCancelled = x.Job.IsCancelled,
+                    Cancelled = x.Job.Cancelled,
+                    Published = x.Job.Published,
+                    Location = x.Job.Location.Title,
+                    Skills = x.Job.Skills.Select(y => new SkillDictionaryViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                    CompanyId = x.Job.CompanyId,
+                    Description = x.Job.Description,
+                    Code = x.Job.Code,
+                    Title = x.Job.Title,
+                    End = x.Job.End,
+                    LocationId = x.Job.LocationId,
+                    Rate = x.Job.Rate,
+                    Start = x.Job.Start
+                }
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="job"></param>
-        /// <returns></returns>
-        public JobApplicationViewModel ApplyToJob(ApplyJobApplicationViewModel job)
+        public IQueryable<ScheduleViewModel> Schedules
         {
-            var jobApplication = new JobApplication
+            get
             {
-                Act = JobActionEnum.Application,
-                CandidateId = job.CandidateId,
-                JobId = job.JobId,
-            };
-            _jobApplicationRepository.Create(jobApplication);
-            _jobApplicationRepository.SaveChanges();
-            return new JobApplicationViewModel
-            {
-                Id = jobApplication.Id,
-                Act = jobApplication.Act
-            };
+                return _scheduleRepository.All.Where(x => x.Candidate.OwnerId == CurrentUserId).Select(x => new ScheduleViewModel
+                {
+                    Id = x.Id, //TODO: Add more fields.
+                });
+            }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
-        public UpdateProfileViewModel UpdateProfile(UpdateProfileViewModel profile)
+        private Candidate FindCandidate(string userId)
         {
-            var candidate = _candidateRepository.ById(profile.Id);
-            candidate.Name = profile.Name;
-            candidate.LocationId = profile.LocationId;
-            candidate.Email = profile.Email;
-            _candidateRepository.Update(candidate);
-            _candidateRepository.SaveChanges();
-            return profile;
+            return _candidateRepository.All.FirstOrDefault(x => x.OwnerId == userId);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public AddScheduleViewModel AddSchedule(AddScheduleViewModel model)
-        {
-
-            var schedule = new Schedule
-            {
-                Start = model.Start,
-                End = model.End
-
-            };
-            _scheduleRepository.Create(schedule);
-            _scheduleRepository.SaveChanges();
-            return new AddScheduleViewModel
-            {
-                CandidateId = schedule.CandidateId,
-                Start = schedule.Start,
-                End = schedule.End
-            };
-
-
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public CreateScheduleViewModel CreateSchedule(CreateScheduleViewModel model)
-        {
-            var entity = new Schedule() { CandidateId = model.CandidateId };
-            _scheduleRepository.Create(entity);
-            _scheduleRepository.SaveChanges();
-            return new CreateScheduleViewModel
-            {
-                Id = entity.Id,
-                CandidateId = entity.CandidateId,
-            };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
-        public bool DeleteProfile(DeleteProfileViewModel profile)
+        public bool Delete(DeleteProfileViewModel profile)
         {
             var candidate = _candidateRepository.ById(profile.Id);
             _candidateRepository.Delete(candidate);
             return _candidateRepository.SaveChanges() > 0;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public UpdateScheduleViewModel UpdateSchedule(UpdateScheduleViewModel model)
-        {
-            var entity = _scheduleRepository.ById(model.CandidateId);
-            entity.Start = model.Start;
-            entity.End = model.End;
-            _scheduleRepository.Update(entity);
-            _scheduleRepository.SaveChanges();
-            return model;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public DeleteScheduleViewModel DeleteSchedule(DeleteScheduleViewModel model)
-        {
-            var entity = _scheduleRepository.ById(model.CandidateId);
-            _scheduleRepository.Delete(entity);
-            return model;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public ScheduleViewModel ViewSchedule(ScheduleViewModel model)
-        {
-            throw new System.NotImplementedException();
-
-        }
-
-
         public ContractorViewModel GetProfile(string userId)
         {
             return Contractors.FirstOrDefault(x => x.OwnerId == userId);
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IQueryable<CandidatePublicProfileViewModel> GetProfileQuery()
-        {
-            var query = from row in _candidateRepository.All
-                        select new CandidatePublicProfileViewModel
-                        {
-                            Id = row.Id,
-                            Name = row.Name
-                        };
-            return query;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ScheduleViewModel GetSchedule(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IQueryable<ScheduleViewModel> GetSchedules()
-        {
-            throw new System.NotImplementedException();
         }
 
         public bool Delete(IdModel model)
@@ -298,12 +139,12 @@ namespace Talent21.Service.Core
         public ContractorEditViewModel Update(ContractorEditViewModel model)
         {
             var entity = _candidateRepository.ById(model.Id);
-            if(entity == null) return null;
+            if (entity == null) return null;
 
             entity.Name = model.Name;
             entity.Email = model.Email;
             entity.About = model.About;
-            entity.Experience=new Duration(){Months = model.ExperienceMonths,Years = model.ExperienceYears};
+            entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
             entity.Social = new Social
@@ -321,6 +162,76 @@ namespace Talent21.Service.Core
             _candidateRepository.SaveChanges();
 
             return model;
+        }
+
+        public ScheduleViewModel Update(EditScheduleViewModel model)
+        {
+            var entity = _scheduleRepository.ById(model.Id);
+            if (entity == null) throw new Exception("Schedule not found");
+
+            entity.Start = model.Start;
+            entity.End = model.End;
+
+            _scheduleRepository.Update(entity);
+            _scheduleRepository.SaveChanges();
+
+            return Schedules.FirstOrDefault(x => x.Id == entity.Id);
+        }
+
+        public bool Delete(DeleteScheduleViewModel model)
+        {
+            var entity = _scheduleRepository.ById(model.Id);
+            _scheduleRepository.Delete(entity);
+            return _scheduleRepository.SaveChanges() > 0;
+        }
+
+        public ScheduleViewModel Create(CreateScheduleViewModel model)
+        {
+            var candidate = FindCandidate(CurrentUserId);
+            var entity = new Schedule
+            {
+                CandidateId = candidate.Id,
+                Start = model.Start,
+                End = model.End
+            };
+            _scheduleRepository.Create(entity);
+            _scheduleRepository.SaveChanges();
+
+            return Schedules.FirstOrDefault(x => x.Id == entity.Id);
+        }
+
+        public bool ActOnApplication(CompanyActJobApplicationViewModel model)
+        {
+            var entity = _jobApplicationRepository.ById(model.Id);
+            if (entity == null) return false;
+
+            entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
+
+            var rowsAffested = _jobApplicationRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        public bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum act)
+        {
+            return ActOnApplication(new CompanyActJobApplicationViewModel(model, act));
+        }
+
+        public JobApplicationViewModel Apply(JobApplicationCreateViewModel model)
+        {
+            var candidate = FindCandidate(CurrentUserId);
+
+            var jobApplication = new JobApplication
+            {
+                CandidateId = candidate.CandidateId,
+                JobId = model.Id,
+            };
+            var history = new JobApplicationHistory() { Act = JobActionEnum.Application };
+            jobApplication.History.Add(history);
+
+            _jobApplicationRepository.Create(jobApplication);
+            _jobApplicationRepository.SaveChanges();
+
+            return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
     }
 }

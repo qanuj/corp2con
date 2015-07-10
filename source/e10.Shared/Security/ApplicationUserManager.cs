@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using e10.Shared.Data;
 using e10.Shared.Data.Abstraction;
 using Microsoft.AspNet.Identity;
@@ -64,7 +65,7 @@ namespace e10.Shared.Security
         public async Task<User> CreateGodAsync(string email, string password)
         {
             var user = await FindByEmailAsync(email);
-            if( user == null)
+            if(user == null)
             {
                 user = new User { UserName = email, Email = email };
                 var result = await CreateAsync(user, password);

@@ -1,24 +1,20 @@
 ﻿
+<a class="btn btn-primary margtop visible-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
 
 <section id="jobs">
+    <a class="btn btn-primary editbtn hidden-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
                 <article>
                     <h2>{{record.name}}</h2>
                     <img src="http://placehold.it/220x273.jpg" alt="" class="pull-left" />
-                    <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
-                    <p>Maecenas mollis dictum lectus quis scelerisque. Nulla at rutrum ipsum. Praesent augue quam, facilisis vitae felis vel, convallis convallis nisi. Donec maximus accumsan purus vel tempus. Aenean pretium luctus velit id fermentum. Aenean non velit non nulla interdum venenatis. Integer in libero sagittis, consequat est quis, commodo odio. Aliquam eu vulputate neque. Nunc et massa leo. Vestibulum a pretium dolor. Proin et fermentum sapien. Cras malesuada neque ac purus fermentum, a placerat quam malesuada. Quisque sollicitudin tellus a ex eleifend mattis. In vitae ipsum in mauris vestibulum imperdiet.</p>
+                    <p>{{record.description}}</p>
                     <h3>Skills</h3>
                     <ul>
-                        <li>Aliquam rhoncus justo eget tellus scelerisque, at mollis mi aliquam.</li>
-                        <li>Quisque pretium convallis pulvinar.</li>
-                        <li>Nulla rutrum nisi mi, iaculis commodo nibh lobortis sed.</li>
-                        <li>Sed pulvinar, nunc vitae molestie dapibus, lacus dolor dignissim sapien.</li>
-                        <li>Pellentesque ipsum ex, imperdiet quis consequat sed, consectetur ut ante.</li>
-                        <li>Aliquam libero felis, mollis vitae elementum vel, bibendum eu tortor.</li>
-                        <li>Morbi rhoncus luctus interdum.</li>
+                        <li ng-repeat="s in record.skills">{{s.title}}</li>
                     </ul>
+                    <br />
                     <h3>Work Experience</h3>
                     <div class="row work-experience">
                         <div class="col-sm-2">
@@ -89,10 +85,10 @@
                 <div class="sidebar-widget" id="share">
                     <h2>Share resume</h2>
                     <ul>
-                        <li><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.coffeecreamthemes.com/themes/jobseek/site/job-details.html"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://twitter.com/home?status=http://www.coffeecreamthemes.com/themes/jobseek/site/job-details.html"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="https://plus.google.com/share?url=http://www.coffeecreamthemes.com/themes/jobseek/site/job-details.html"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.coffeecreamthemes.com/themes/jobseek/site/job-details.html&amp;title=Jobseek%20-%20Job%20Board%20Responsive%20HTML%20Template&amp;summary=&amp;source="><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{currentPage}}"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/home?status={{currentPage}}"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://plus.google.com/share?url={{currentPage}}"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{currentPage}}"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
                 <hr>

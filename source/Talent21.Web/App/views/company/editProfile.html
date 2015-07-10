@@ -1,0 +1,95 @@
+﻿<div class="container margtop">
+    <form ng-submit="save(record)">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>{{record.name}}</h2>
+                <div class="form-group" id="job-email-group">
+                    <label>Company Name</label>
+                    <input type="text" class="form-control" ng-model="record.name">
+                </div>
+                <h2>{{record.email}}</h2>
+                <div class="form-group" id="job-email-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" ng-model="record.email">
+                </div>
+                <div class="form-group">
+                    <label>Contact Number </label>
+                    <input type="text" class="form-control" ng-model="record.mobile" placeholder="Enter Mobile Number">
+                </div>
+                <div class="form-group" id="job-location-group">
+                    <label for="job-location">Location</label>
+                    <input type="text" class="form-control" ng-model="record.locationId" typeahead="city.id as city.title for city in cities | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
+                </div>
+                <div class="form-group">
+                    <label>Industry</label>
+                    <input type="text" class="form-control" ng-model="record.industryId" typeahead="industry.id as industry.title for industry in industries | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="Choose a Industry">
+                </div>
+                 <div class="form-group wysiwyg" id="job-description-group">
+                    <label>Description</label>
+                    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#job-description">
+                        <div class="btn-group">
+                            <a class="btn" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                            <a class="btn" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                            <a class="btn" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="fa fa-list-ol"></i></a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                            <a class="btn" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                            <a class="btn" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Hyperlink"><i class="fa fa-link"></i></a>
+                            <div class="dropdown-menu input-append">
+                                <input class="form-control pull-left" placeholder="http://" type="text" data-edit="createLink">
+                                <button class="btn btn-primary" type="button">Add</button>
+                            </div>
+                            <a class="btn" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="fa fa-unlink"></i></a>
+                        </div>
+                        <input type="text" data-edit="inserttext" id="voiceBtn" style="display: none;">
+                    </div>
+
+                    <div class="editor" id="job-description" contenteditable="true">Job description</div>
+                </div>
+                <div class="form-group">
+                    <label>Website (Optional)</label>
+                    <input type="text" class="form-control" ng-model="record.website" placeholder="http//www.">
+                </div>
+                <div class="form-group" id="company-logo-group">
+                    <label for="company-logo">Logo (Optional)</label>
+                    <input type="file" id="company-logo" ng-model="record.logo" placeholder="Logo">
+                </div>
+                <div class="form-group">
+                    <label>Picture URL</label>
+                    <input type="text" class="form-control" ng-model="record.pictureurl" placeholder="http//www.">
+                </div>
+                <div class="form-group">
+                    <label>Google+ Username (Optional)</label>
+                    <input type="text" class="form-control" ng-model="record.google">
+                </div>
+                <div class="form-group">
+                    <label>Facebook (Optional)</label>
+                    <input type="text" class="form-control" ng-model="record.facebook">
+                </div>
+                <div class="form-group">
+                    <label>LinkedIn (Optional)</label>
+                    <input type="text" class="form-control" ng-model="record.linkedIn">
+                </div>
+                <div class="form-group">
+                    <label>Twitter (Optional)</label>
+                    <input type="text" class="form-control" ng-model="record.twitter">
+                </div>
+                <div class="form-group">
+                    <label>Yahoo (Optional)</label>
+                    <input type="text" class="form-control" ng-model="record.yahoo">
+                </div>
+                </div>
+        </div>
+        <div class="row text-center">
+            <p>&nbsp;</p>
+            <input type="submit" id="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

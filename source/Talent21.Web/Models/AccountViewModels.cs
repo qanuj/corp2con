@@ -3,6 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Talent21.Web.Models
 {
+        public class TitleData
+        {
+            public string Title { get; set; }
+        }
+
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

@@ -92,7 +92,6 @@ namespace Talent21.Web
                 .Include("~/app/router/*.js")
                 .Include("~/app/directives/*.js")
                 .Include("~/app/services/*.js")
-                .Include("~/app/controllers/*.js")
                 .IncludeDirectory("~/app/views/", "*.js", true)
             );
 
