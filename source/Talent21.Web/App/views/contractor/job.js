@@ -1,4 +1,4 @@
-﻿app.controller('contractorJobController', ['$scope', 'dataService','$routeParams', '$window', function ($scope, db, param, $window) {
+﻿app.controller('contractorJobController', ['$scope', 'dataService', '$routeParams', '$window', function ($scope, db, param, $window) {
 
     $scope.title = "Job Profile";
     $scope.role = db.role;
