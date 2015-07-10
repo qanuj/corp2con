@@ -213,9 +213,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IocHelper.cs" />
-    <Compile Include="App_Start\JsonNetFormatter.cs" />
-    <Compile Include="App_Start\JsonNetFormatter_2.cs" />
-    <Compile Include="App_Start\JsonNetFormatter_3.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
