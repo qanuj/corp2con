@@ -34,7 +34,7 @@ namespace Talent21.Web.Controllers
         {
             return Request.CreateResponse(HttpStatusCode.Accepted, val);
         }
-        protected HttpResponseMessage Ok<T>(T val)
+        protected new HttpResponseMessage Ok<T>(T val)
         {
             return Request.CreateResponse(HttpStatusCode.OK, val);
         }

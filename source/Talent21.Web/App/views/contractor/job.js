@@ -4,7 +4,7 @@
     $scope.role = db.role;
 
     $scope.id = param.id;
-    db.job.profile($scope.id).success(function (result) {
+    db.contractor.jobById($scope.id).success(function (result) {
         $scope.record = result;
         console.log($scope.record);
     });
