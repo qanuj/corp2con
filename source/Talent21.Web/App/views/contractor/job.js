@@ -3,6 +3,11 @@
     $scope.title = "Job Profile";
     $scope.role = db.role;
 
+    //$scope.showalertmessage = function () {
+    //    $window.alert('Your application has been successfully sent.')
+    //}
+
+   
     $scope.id = param.id;
     db.contractor.jobById($scope.id).success(function (result) {
         $scope.record = result;

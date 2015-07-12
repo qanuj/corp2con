@@ -1,5 +1,6 @@
 ﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
     $scope.title = "Jobs : Search Result";
+   
     $scope.query= {
         keywords: $routeParams.q || $routeParams.keywords,
         location: $routeParams.location||'',
