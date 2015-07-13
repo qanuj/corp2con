@@ -11,7 +11,7 @@
                 <form ng-submit="save(record)">
                     <div class="col-md-3" style="  margin-left: -3%;">
                         <label>Title</label>
-                        <input type="text" class="form-control save" placeholder="e.g. IBM" ng-model="record.company">
+                        <input type="text" class="form-control save" placeholder="e.g. IBM" ng-model="record.Company">
                     </div>
                     <div class="col-md-3">
                         <label>Start Date</label>
@@ -48,9 +48,13 @@
     <div class="row">
         <div class="col-sm-11">
             <div class="listings" ng-repeat="s in schedule">
-                <div class="col-md-2">
+                <!--<div class="col-md-2">
                     <span class="city" ng-show="!editMode">{{s.id}}</span>
-                    <!--<input type="text" ng-model="record.id" ng-show="editMode" />-->
+                    <input type="text" class="form-control save" ng-model="record.id" ng-show="editMode" />
+                </div>-->
+                <div class="col-md-2">
+                    <span class="city" ng-show="!editMode">{{s.company}}</span>
+                    <input type="text" class="form-control save" ng-model="record.title" ng-show="editMode" />
                 </div>
                 <div class="col-md-3">
                     <span class="city" ng-show="!editMode">{{s.start}}</span>
@@ -60,17 +64,17 @@
                     <span class="city" ng-show="!editMode">{{s.end}}</span>
                     <input type="date" class="form-control save" ng-model="record.end" ng-show="editMode">
                 </div>
-                <div class="col-md-2" ng-click="editMode=false" ng-hide="!editMode">
-                    <button type="submit" id="submitschedule" class="btn btn-primary" ng-click="edit(record)">Save</button>
+                <div class="col-md-1" ng-click="editMode=false" ng-hide="!editMode">
+                    <button type="submit" id="submit" class="btn btn-primary">Save</button>
                 </div>
-                <div class="col-md-2" ng-click="editMode=false" ng-hide="!editMode">
-                    <button type="submit" id="submitschedule" class="btn btn-info" ng-click="edit(record)">Cancel</button>
+                <div class="col-md-1" ng-click="editMode=false" ng-hide="!editMode">
+                    <button id="submit" class="btn btn-info">Cancel</button>
                 </div>
-                <div class="col-md-2" ng-click="editMode=true" ng-hide="editMode">
-                    <button type="submit" id="submitschedule" class="btn btn-primary" ng-click="edit(record)">Edit</button>
+                <div class="col-md-1" ng-click="editMode=true" ng-hide="editMode">
+                    <button type="submit" id="submit" class="btn btn-primary">Edit</button>
                 </div>
-                <div class="col-md-2 table-remove" ng-click="editMode=false" ng-hide="editMode">
-                    <button type="submit" id="submitschedule" class="btn btn-danger" ng-click="delete(record)">Delete</button>
+                <div class="col-md-1 table-remove" ng-click="editMode=false" ng-hide="editMode">
+                    <button id="submit" class="btn btn-danger" ng-click="delete(record)">Delete</button>
                 </div>
             </div>
         </div>

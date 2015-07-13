@@ -38,8 +38,11 @@
     }
 
     factory.contractor.ApplyToJob = function (id) {
-        return $http.post(v + 'candidate/job//apply', + id);
+        return $http.post(v + 'candidate/job/' + id + '/apply');
     }
+
+    factory.userid = "" ;
+
 
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'candidate/schedule', formData);

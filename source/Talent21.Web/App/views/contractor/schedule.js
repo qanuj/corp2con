@@ -52,7 +52,7 @@
         });
     }
 
-   
+
     //Date picker start
     $scope.datePicker = (function () {
         var method = {};
@@ -75,5 +75,5 @@
 
         return method;
     }());
-        //Date picker End
+    //Date picker End
 }]);
