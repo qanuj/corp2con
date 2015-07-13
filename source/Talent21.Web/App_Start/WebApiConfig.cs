@@ -16,24 +16,23 @@ namespace Talent21.Web
         {
             // Web API configuration and services
             var formatters = GlobalConfiguration.Configuration.Formatters;
+
             var jsonFormatter = formatters.JsonFormatter;
+            var xmlFormatter = formatters.XmlFormatter;
+
             var settings = jsonFormatter.SerializerSettings;
             settings.Formatting = Formatting.Indented;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            settings.Converters.Add(new IsoDateTimeConverter());
 
-            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            jsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
-            GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(
-                new QueryStringMapping("type", "json", new MediaTypeHeaderValue("application/json")));
+            jsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("type", "json", new MediaTypeHeaderValue("application/json")));
+            xmlFormatter.MediaTypeMappings.Add(new QueryStringMapping("type", "xml", new MediaTypeHeaderValue("application/xml")));
 
-            GlobalConfiguration.Configuration.Formatters.XmlFormatter.MediaTypeMappings.Add(
-                new QueryStringMapping("type", "xml", new MediaTypeHeaderValue("application/xml")));
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
                 Formatting = Formatting.None,
                 DateTimeZoneHandling = DateTimeZoneHandling.Local,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore

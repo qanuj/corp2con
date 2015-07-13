@@ -89,7 +89,11 @@ namespace Talent21.Service.Core
             {
                 return _scheduleRepository.All.Where(x => x.Candidate.OwnerId == CurrentUserId).Select(x => new ScheduleViewModel
                 {
-                    Id = x.Id, //TODO: Add more fields.
+                    Id = x.Id,
+                    Start = x.Start,
+                    End = x.End,
+                    Company=x.Company,
+                    IsAvailable=x.IsAvailable
                 });
             }
         }
@@ -171,6 +175,8 @@ namespace Talent21.Service.Core
 
             entity.Start = model.Start;
             entity.End = model.End;
+            entity.Company = model.Company;
+            entity.IsAvailable = model.IsAvailable;
 
             _scheduleRepository.Update(entity);
             _scheduleRepository.SaveChanges();
@@ -192,7 +198,9 @@ namespace Talent21.Service.Core
             {
                 CandidateId = candidate.Id,
                 Start = model.Start,
-                End = model.End
+                End = model.End,
+                Company = model.Company,
+                IsAvailable = model.IsAvailable
             };
             _scheduleRepository.Create(entity);
             _scheduleRepository.SaveChanges();
@@ -227,10 +235,8 @@ namespace Talent21.Service.Core
             };
             var history = new JobApplicationHistory() { Act = JobActionEnum.Application };
             jobApplication.History.Add(history);
-
             _jobApplicationRepository.Create(jobApplication);
             _jobApplicationRepository.SaveChanges();
-
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
     }

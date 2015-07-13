@@ -11,35 +11,31 @@
                 templateUrl: '/app/views/contractor/profile.html',
                 controller: 'contractorProfileController'
             })
-              .when('/profile', {
-                  templateUrl: '/app/views/contractor/profile.html',
-                  controller: 'contractorProfileController'
-              })
             .when('/profile/edit', {
                 templateUrl: '/app/views/contractor/editProfile.html',
                 controller: 'contractorEditProfileController'
             })
              .when('/schedule', {
-                 templateUrl: '/app/views/contractor/jobschedule.html',
+                 templateUrl: '/app/views/contractor/schedule.html',
                  controller: 'jobscheduleController'
              })
             .when('/search', {
                 templateUrl: '/app/views/contractor/search.html',
-                controller: 'companySearchController'
+                controller: 'contractorSearchController'
             })
-            .when('/applications', {
+              .when('/job/:id', {
+                  templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
+                  controller: 'contractorJobController'
+              })
+            .when('/job/:id/apply', {
                 templateUrl: '/app/views/contractor/applications.html',
                 controller: 'contractorApplicationController'
             })
-            .when('/jobschedule', {
-                  templateUrl: '/app/views/contractor/jobschedule.html',
-                  controller: 'jobscheduleController'
-              })
             .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider
             .when('/', {
-                templateUrl: '/App/views/company/dashboard.html',
+                templateUrl: '/app/views/company/dashboard.html',
                 controller: 'companyDashboardController'
             })
             .when('/search', {
@@ -54,29 +50,21 @@
                 templateUrl: '/app/views/company/editProfile.html',
                 controller: 'companyEditProfileController'
             })
-            .when('/companylist', {
-                templateUrl: '/app/views/Company/CompanyList.html',
-                controller: 'companyListController'
-            })
-            .when('/joblisting', {
-                templateUrl: '/app/views/job/jobListing.html',
-                controller: 'jobListingController'
-            })
-            .when('/postjob', {
-                templateUrl: '/app/views/job/PostJobs.html',
+            .when('/job/create', {
+                templateUrl: '/app/views/company/createJob.html',
                 controller: 'createJobController'
             })
-            .when('/myjobs', {
+            .when('/jobs', {
                 templateUrl: '/app/views/company/jobs.html',
-                controller: 'myJobsController'
+                controller: 'jobsController'
             })
             .when('/job/:id', {
-                templateUrl: '/app/views/job/profile.html',
-                controller: 'jobProfileController'
+                templateUrl: '/app/views/company/job.html', //only for jobs about page.
+                controller: 'companyJobController'
             })
-            .when('/editjob', {
+            .when('/job/edit/:id', {
                 templateUrl: '/app/views/company/editJob.html',
-                controller: 'editJobController'
+                controller: 'companyJobEditController'
             })
             .otherwise({ redirectTo: '/' });
     }

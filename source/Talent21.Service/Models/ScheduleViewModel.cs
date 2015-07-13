@@ -9,6 +9,7 @@ namespace Talent21.Service.Models
 {
     public class ScheduleViewModel : EditScheduleViewModel
     {
+
     }
 
     public class EditScheduleViewModel : CreateScheduleViewModel
@@ -25,5 +26,7 @@ namespace Talent21.Service.Models
     {
         public DateTime Start { get; set; }
         public DateTime? End { get; set; }
+        public string Company { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

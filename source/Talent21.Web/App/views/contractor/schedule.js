@@ -54,45 +54,26 @@
 
    
     //Date picker start
-    $scope.today = function () {
-        $scope.dt = new Date();
-    };
-    $scope.today();
+    $scope.datePicker = (function () {
+        var method = {};
+        method.instances = [];
 
-    $scope.clear = function () {
-        $scope.dt = null;
-    };
+        method.open = function ($event, instance) {
+            $event.preventDefault();
+            $event.stopPropagation();
 
-    // Disable weekend selection
-    $scope.disabled = function (date, mode) {
-        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-    };
+            method.instances[instance] = true;
+        };
 
-    $scope.open = function ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
+        method.options = {
+            'show-weeks': false,
+            startingDay: 0
+        };
 
-        $scope.opened = true;
-    };
+        var formats = ['MM/dd/yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        method.format = formats[0];
 
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-
-
-    $scope.getDayClass = function (date, mode) {
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return '';
+        return method;
+    }());
         //Date picker End
-    };
 }]);

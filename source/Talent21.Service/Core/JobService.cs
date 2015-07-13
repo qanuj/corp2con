@@ -60,5 +60,9 @@ namespace Talent21.Service.Core
             }
             return query;
         }
+        public JobSearchResultViewModel ById(int id)
+        {
+            return Jobs.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

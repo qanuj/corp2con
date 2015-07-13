@@ -1,10 +1,15 @@
-﻿app.controller('jobProfileController', ['$scope', 'dataService','$routeParams', '$window', function ($scope, db, param, $window) {
+﻿app.controller('contractorJobController', ['$scope', 'dataService', '$routeParams', '$window', function ($scope, db, param, $window) {
 
     $scope.title = "Job Profile";
     $scope.role = db.role;
 
+    //$scope.showalertmessage = function () {
+    //    $window.alert('Your application has been successfully sent.')
+    //}
+
+   
     $scope.id = param.id;
-    db.job.profile($scope.id).success(function (result) {
+    db.contractor.jobById($scope.id).success(function (result) {
         $scope.record = result;
         console.log($scope.record);
     });

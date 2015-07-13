@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201507010910523_Job Application History.Designer.cs">
       <DependentUpon>201507010910523_Job Application History.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507100842530_Company added to Schedule.cs" />
+    <Compile Include="Migrations\201507100842530_Company added to Schedule.Designer.cs">
+      <DependentUpon>201507100842530_Company added to Schedule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
@@ -167,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507010910523_Job Application History.resx">
       <DependentUpon>201507010910523_Job Application History.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507100842530_Company added to Schedule.resx">
+      <DependentUpon>201507100842530_Company added to Schedule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

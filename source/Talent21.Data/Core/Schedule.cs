@@ -15,5 +15,7 @@ namespace Talent21.Data.Core
         public DateTime? End { get; set; }
 
         public bool IsAvailable { get; set; }
+
+        public string Company { get; set; }
     }
 }
