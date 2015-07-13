@@ -31,4 +31,10 @@
             $window.location.href = '/#/myjobs';
         });
     }
+
+    $scope.apply = function (record) {
+        db.contractor.ApplyToJob(record).success(function (result) {
+            console.log(result);
+        });
+    }
 }]);
