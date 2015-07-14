@@ -33,8 +33,8 @@
     }
 
     $scope.apply = function (record) {
-        db.contractor.ApplyToJob(record).success(function (result) {
-            console.log(result);
+        db.contractor.ApplyToJob(record.id).success(function (result) {
+            $window.history.back();
         });
     }
 }]);

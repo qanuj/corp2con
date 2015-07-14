@@ -125,10 +125,10 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("job/{id}/apply")]
-        public HttpResponseMessage ApplyToJob(JobApplicationCreateViewModel model)
+        public HttpResponseMessage ApplyToJob(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Apply(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel {Id=id })) : Bad(ModelState);
         }
 
         [HttpPut]

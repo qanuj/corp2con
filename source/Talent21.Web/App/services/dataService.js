@@ -41,6 +41,7 @@
         return $http.post(v + 'candidate/job/' + id + '/apply');
     }
 
+
     factory.userid = "" ;
 
 

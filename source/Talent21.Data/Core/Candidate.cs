@@ -12,7 +12,6 @@ namespace Talent21.Data.Core
         public Duration Experience { get; set; } //in Years and Months
         public string ProfileUrl { get; set; }
         public int Rate { get; set; } //10k per month.
-        public int CandidateId { get; set; }
         public Candidate()
         {
             Experience = new Duration();
