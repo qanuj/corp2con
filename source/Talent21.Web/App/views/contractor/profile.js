@@ -2,7 +2,9 @@
 
     $scope.currentPage = db.currentPage;
 
+
     db.contractor.profile().success(function (result) {
         $scope.record = result;
+        db.userid = result.id;
     });
 }]);
