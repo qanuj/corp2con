@@ -1,6 +1,6 @@
 ﻿<div>
     <div class=" visible-xs" ng-if="role === 'Company'">
-        <a class=" btn btn-primary margtop" href="/#/editjob">
+        <a class=" btn btn-primary margtop" href="/#/job/edit/{{}}">
             <i class="fa fa-edit"></i> Edit Job
         </a>
         <div class=" btn btn-info margtop" ng-click="publish(record)">
@@ -14,8 +14,8 @@
         </div>
     </div>
     <section id="title">
-        <div class=" editbtn hidden-xs" ng-click="editjob(record)">
-            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/editjob/"><i class="fa fa-edit"></i> Edit Job</a>
+        <div class=" editbtn hidden-xs">
+            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}"><i class="fa fa-edit"></i> Edit Job</a>
             <br />
             <div class=" btn btn-info margtop" ng-click="publish(record)">
                 <i class="fa fa-check"></i> Publish

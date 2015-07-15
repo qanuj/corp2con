@@ -21,10 +21,10 @@
             console.log(result);
         });
     };
-    
+
       $scope.delete = function (s) {
-          db.contractor.deleteSchedule(s.Id).success(function (result) {
-              console.log(result);
+          console.log(s);
+          db.contractor.deleteSchedule(s).success(function (result) {
           });
       };
 
