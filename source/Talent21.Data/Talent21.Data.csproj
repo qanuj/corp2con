@@ -118,6 +118,14 @@
     <Compile Include="Migrations\201507100842530_Company added to Schedule.Designer.cs">
       <DependentUpon>201507100842530_Company added to Schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507141951408_Revoked.cs" />
+    <Compile Include="Migrations\201507141951408_Revoked.Designer.cs">
+      <DependentUpon>201507141951408_Revoked.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507142029175_CandiateId removed from Peoples.cs" />
+    <Compile Include="Migrations\201507142029175_CandiateId removed from Peoples.Designer.cs">
+      <DependentUpon>201507142029175_CandiateId removed from Peoples.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
@@ -174,6 +182,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507100842530_Company added to Schedule.resx">
       <DependentUpon>201507100842530_Company added to Schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507141951408_Revoked.resx">
+      <DependentUpon>201507141951408_Revoked.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507142029175_CandiateId removed from Peoples.resx">
+      <DependentUpon>201507142029175_CandiateId removed from Peoples.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
