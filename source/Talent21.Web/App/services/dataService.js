@@ -57,7 +57,7 @@
     }
 
     factory.contractor.getSchedule = function () {
-        return $http.get(v + 'candidate/schedule/all');
+        return $http.get(v + 'candidate/schedule/all?$orderby=Id desc');
     }
 
 

@@ -1,88 +1,47 @@
-﻿<link href="/Content/css/table.css" rel="stylesheet" />
-
-<div class="container margtop">
+﻿<div class="container margtop">
     <h2>Manage Schedule</h2>
     <div class="col-md-12">
-        <div>
-            <div class="col-md-12">
-                <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed" style="margin-left: 80%;">New Schedule</button>
+        <form ng-submit="save(record)" class="form-inline">
+            <div class="form-group">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="record.isavailable">
+                    Is Available?
+                </label>
             </div>
-            <div collapse="isCollapsed" style="margin-top:5px">
-                <form ng-submit="save(record)">
-                    <div class="col-md-3" style="  margin-left: -3%;">
-                        <label>Title</label>
-                        <input type="text" class="form-control save" placeholder="e.g. IBM" ng-model="record.Company">
-                    </div>
-                    <div class="col-md-3">
-                        <label>Start Date</label>
-                        <p class="input-group">
-                            <input type="text" class="form-control" ng-model="record.start" datepicker-popup="{{datePicker.format}}" datepicker-options="datePicker.options" is-open="datePicker.instances['dateHired']" close-text="Close" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="datePicker.open($event, 'dateHired')"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-md-3">
-                        <label>End Date</label>
-                        <p class="input-group">
-                            <input type="text" class="form-control" ng-model="record.end" datepicker-popup="{{datePicker.format}}" datepicker-options="datePicker.options" is-open="datePicker.instances['dateFired']" close-text="Close" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="datePicker.open($event, 'dateFired')"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-md-2" style="margin-top:27px;width: 152px;">
-                        <label class="checkbox">
-                            <input type="checkbox" ng-model="record.isavailable">
-                            Is Available?
-                        </label>
-                    </div>
-                    <div class="col-md-1" style="margin-top:27px;">
-                        <button type="submit" id="submit" class="btn btn-primary">Ok</button>
-                    </div>
-                </form>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="e.g. IBM" ng-model="record.Company">
+            </div>
+            <div class="form-group">
+                <input type="date" class="form-control" ng-model="record.start" />
+            </div>
+            <div class="form-group">
+                <input type="date" class="form-control" ng-model="record.end" />
+            </div>
+            <div class="form-group">
+                <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <div class="listings" ng-repeat="s in schedule">
+            <div class="row" ng-show="!s.editMode">
+                <div class="col-md-3">{{s.company}}</div>
+                <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
+                <div class="col-md-3">{{s.end | date:'dd-MMM-yyyy'}}</div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" ng-click="toggle(s)">Edit</button>
+                    <button class="btn btn-danger" ng-click="delete(s.Id)">Delete</button>
+                </div>
+            </div>
+            <div class="row" ng-show="s.editMode">
+                <div class="col-md-3"><input type="text" class="form-control" ng-model="s.company" /></div>
+                <div class="col-md-3"><input type="date" class="form-control" ng-model="s.start" /></div>
+                <div class="col-md-3"><input type="date" class="form-control" ng-model="s.end" /></div>
+                <div class="col-md-3">
+                    <button ng-click="update(s)" id="submit1" class="btn btn-primary">Save</button>
+                    <button ng-click="toggle(s)" class="btn btn-info">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-sm-11">
-            <div class="listings" ng-repeat="s in schedule">
-                <div class="col-md-2">
-                    <span class="city" ng-show="!editMode">{{s.company}}</span>
-                    <input type="text" class="form-control save" ng-show="editMode" ng-model="s.company" />
-                </div>
-                <div class="col-md-3">
-                    <span class="city" ng-show="!editMode">{{s.start}}</span>
-                   <p class="input-group">
-                       <input type="text" class="form-control" ng-hide="!editMode" ng-model="s.start" datepicker-popup="{{datePicker.format}}" datepicker-options="datePicker.options" is-open="datePicker.instances[$index]" close-text="Close" />
-                        <span class="input-group-btn">
-                            <button type="button" ng-hide="!editMode" class="btn btn-default" ng-click="datePicker.open($event, $index)"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                    </p>
 </div>
-                <div class="col-md-3">
-                    <span class="city" ng-show="!editMode">{{s.end}}</span>
-                    <p class="input-group">
-                        <input type="text" class="form-control" ng-hide="!editMode" ng-model="s.end" datepicker-popup="{{datePicker.format}}" datepicker-options="datePicker.options" is-open="datePicker.instances[$index]" close-text="Close" />
-                        <span class="input-group-btn">
-                            <button type="button" ng-hide="!editMode" class="btn btn-default" ng-click="datepicker.open($event, $index)"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                        </p>
-                    </div>
-                <div class="col-md-1" ng-click="editMode=false" ng-hide="!editMode">
-                    <button ng-click=update(s) id="submit1" class="btn btn-primary">Save</button>
-                </div>
-                <div class="col-md-1" ng-click="editMode=false" ng-hide="!editMode">
-                    <button class="btn btn-info">Cancel</button>
-                </div>
-                <div class="col-md-1">
-                    <button class="btn btn-primary" style="padding-top:7px;padding-bottom:7px;" ng-hide="editMode" ng-click="editMode = true; edit(record)">Edit</button>
-                </div>
-                <div class="col-md-1 table-remove" ng-click="editMode=false" ng-hide="editMode" style="margin-top:0px;">
-                    <button class="btn btn-danger" style="padding-left:10px;padding-right:10px;" ng-click=delete(record.Id)>Delete</button> 
-                    <!--  ng-confirm-click="Are you sure you want to delete this record?" -->
-                </div>
-            </div>
-        </div>
-    </div>

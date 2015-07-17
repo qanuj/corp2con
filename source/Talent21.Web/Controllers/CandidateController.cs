@@ -40,6 +40,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("all")]
+        [EnableQuery]
         public IQueryable<ContractorViewModel> ViewCandidateQuery()
         {
             return _service.Contractors;
@@ -93,6 +94,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route("schedule/all")]
         public IQueryable<ScheduleViewModel> ViewSchedulesQuery()
         {
@@ -142,6 +144,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/application")]
+        [EnableQuery]
         public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
         {
             _service.CurrentUserId = User.Identity.GetUserId();
