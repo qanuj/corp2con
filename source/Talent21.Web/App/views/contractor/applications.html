@@ -24,20 +24,20 @@
                     </div>
                 </form>
                 <div class="jobs">
-                    <a href="#" ng-repeat="row in records.items" ng-href="/#/job/{{row.id}}">
+                    <a href="#" ng-repeat="row in records.items" >
                         <div class="featured"></div>
                         <div class="{{row.ifFeatured}}"></div>
-                            <div class="title">
-                                <h5>{{row.title}}</h5>
-                                <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
-                            </div>
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
-                                <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                                <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
-                            </div>
-                        </a>
-                    </div>
+                        <div class="title">
+                            <h5>{{row.title}}</h5>
+                            <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
+                        </div>
+                        <div class="data">
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
+                            <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
+                        </div>
+                    </a>
+                </div>
                 <nav>
                     <ul class="pagination">
                         <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>

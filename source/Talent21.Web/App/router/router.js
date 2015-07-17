@@ -21,9 +21,13 @@
              })
             .when('/search', {
                 templateUrl: '/app/views/contractor/search.html',
-                controller: 'companySearchController'
+                controller: 'contractorSearchController'
             })
-            .when('/applications', {
+              .when('/job/:id', {
+                  templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
+                  controller: 'contractorJobController'
+              })
+            .when('/job/apply/:id', {
                 templateUrl: '/app/views/contractor/applications.html',
                 controller: 'contractorApplicationController'
             })
@@ -46,15 +50,15 @@
                 templateUrl: '/app/views/company/editProfile.html',
                 controller: 'companyEditProfileController'
             })
-            .when('/job/create', {
-                templateUrl: '/app/views/company/createJob.html',
+            .when('/company/createJobs', {
+                templateUrl: '/app/views/company/createJobs.html',
                 controller: 'createJobController'
             })
             .when('/jobs', {
                 templateUrl: '/app/views/company/jobs.html',
                 controller: 'jobsController'
             })
-            .when('/job/:id', {
+            .when('/company/job/:id', {
                 templateUrl: '/app/views/company/job.html', //only for jobs about page.
                 controller: 'companyJobController'
             })

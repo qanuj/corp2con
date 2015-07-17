@@ -230,15 +230,13 @@ namespace Talent21.Service.Core
 
             var jobApplication = new JobApplication
             {
-                CandidateId = candidate.CandidateId,
+                CandidateId = candidate.Id,
                 JobId = model.Id,
             };
             var history = new JobApplicationHistory() { Act = JobActionEnum.Application };
             jobApplication.History.Add(history);
-
             _jobApplicationRepository.Create(jobApplication);
             _jobApplicationRepository.SaveChanges();
-
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
     }

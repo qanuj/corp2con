@@ -1,98 +1,72 @@
 ﻿app.controller('jobscheduleController', ['$scope', 'dataService', '$window', function ($scope, db, window) {
 
     $scope.isCollapsed = false;
-
     $scope.save = function (record) {
         console.log(record)
         db.contractor.createSchedule(record).success(function (result) {
-            console.log('Created');
+            console.log(result);
         });
     }
-
     db.contractor.getSchedule().success(function (result) {
+        console.log(result)
+        angular.forEach(result, function(d) {
+            d.start = new Date(d.start);
+            d.end = new Date(d.end);
+        });
         $scope.schedule = result;
     });
 
-    $scope.save = function (record) {
-        db.contractor.createSchedule(record).success(function (result) {
-            db.contractor.getSchedule().success(function (result) {
-                $scope.schedule = result;
-            });
+      $scope.update = function (s) {
+        db.contractor.editSchedule(s).success(function (result) {
+            console.log(result);
         });
-    }
+    };
 
-    $scope.edit = function (record) {
-        console.log(record)
-        db.contractor.editSchedule(record).success(function (result) {
-            console.log('Updated');
-        });
-    }
+      $scope.delete = function (s) {
+          console.log(s);
+          db.contractor.deleteSchedule(s).success(function (result) {
+          });
+      };
 
-    db.contractor.getSchedule().success(function (result) {
-        $scope.schedule = result;
-    });
-
-
-    $scope.delete = function (record) {
-        console.log(record)
-        db.contractor.deleteSchedule(record).success(function (result) {
-            console.log('Deleted');
-        });
-    }
-
-    db.contractor.getSchedule().success(function (result) {
-        $scope.schedule = result;
-    });
-
-    $scope.delete = function (record) {
-        db.contractor.deleteSchedule(record).success(function (result) {
-            db.contractor.getSchedule().success(function (result) {
-                $scope.schedule = result;
-            });
-        });
-    }
-
+    //  Directives.directive('ngConfirmClick', [
+    //function () {
+    //    return {
+    //        priority: -1,
+    //        restrict: 'A',
+    //        link: function (scope, element, attrs) {
+    //            element.bind('click', function (e) {
+    //                var message = attrs.ngConfirmClick;
+    //                if (message && !confirm(message)) {
+    //                    e.stopImmediatePropagation();
+    //                    e.preventDefault();
+    //                }
+    //            });
+    //        }
+    //    }
+    //}
+    //  ]);
    
     //Date picker start
-    $scope.today = function () {
-        $scope.dt = new Date();
-    };
-    $scope.today();
+    $scope.datePicker = (function () {
+        var method = {};
+        method.instances = [];
 
-    $scope.clear = function () {
-        $scope.dt = null;
-    };
+        method.open = function ($event, instance) {
+            $event.preventDefault();
+            $event.stopPropagation();
 
-    // Disable weekend selection
-    $scope.disabled = function (date, mode) {
-        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-    };
+            method.instances[instance] = true;
+        };
 
-    $scope.open = function ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
+        method.options = {
+            'show-weeks': false,
+            startingDay: 0
+        };
 
-        $scope.opened = true;
-    };
+        var formats = ['MM/dd/yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        method.format = formats[0];
 
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-
-
-    $scope.getDayClass = function (date, mode) {
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return '';
-        //Date picker End
-    };
+        return method;
+    }());
+    //Date picker End
 }]);

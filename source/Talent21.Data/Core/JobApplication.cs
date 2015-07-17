@@ -16,7 +16,7 @@ namespace Talent21.Data.Core
         public IList<JobApplicationHistory> History { get; set; }
 
         public bool IsRevoked { get; set; }
-        public DateTime Revoked { get; set; }
+        public DateTime? Revoked { get; set; }
         public string Folder { get; set; }
 
         public JobApplication()

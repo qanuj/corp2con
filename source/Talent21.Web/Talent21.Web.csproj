@@ -279,6 +279,8 @@
     <Content Include="App\views\company\search.html" />
     <Content Include="App\views\company\dashboard.html" />
     <Content Include="App\views\company\dashboard.js" />
+    <Content Include="App\views\contractor\applications.html" />
+    <Content Include="App\views\contractor\applications.js" />
     <Content Include="App\views\contractor\dashboard.js" />
     <Content Include="App\views\contractor\dashboard.html" />
     <Content Include="App\views\contractor\editProfile.html" />

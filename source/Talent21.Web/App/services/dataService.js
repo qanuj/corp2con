@@ -33,6 +33,18 @@
         return $http.post(v + 'job/search', query);
     }
 
+    factory.contractor.jobById = function (id) {
+        return $http.get(v + 'candidate/job/' + id);
+    }
+
+    factory.contractor.ApplyToJob = function (id) {
+        return $http.post(v + 'candidate/job/' + id + '/apply');
+    }
+
+
+    factory.userid = "" ;
+
+
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'candidate/schedule', formData);
     }

@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
+using System.Web.Http.Description;
 
 namespace Talent21.Web.Controllers
 {
@@ -18,13 +19,15 @@ namespace Talent21.Web.Controllers
     public class CandidateController : BasicApiController
     {
         private readonly ICandidateService _service;
+        private readonly IJobService _jobService;
         /// <summary>
         /// Create Instance of Candidate Controller
         /// </summary>
         /// <param name="service"></param>
-        public CandidateController(ICandidateService service)
+        public CandidateController(ICandidateService service, IJobService jobService)
         {
             _service = service;
+            _jobService = jobService;
         }
 
         [HttpGet]
@@ -123,10 +126,10 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("job/{id}/apply")]
-        public HttpResponseMessage ApplyToJob(JobApplicationCreateViewModel model)
+        public HttpResponseMessage ApplyToJob(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Apply(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel {Id=id })) : Bad(ModelState);
         }
 
         [HttpGet]
@@ -161,6 +164,14 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Favorite)) : Bad(ModelState);
         }
 
-
+        [HttpGet]
+        [Route("job/{id}")]
+        [ResponseType(typeof(JobSearchResultViewModel))]
+        public HttpResponseMessage SingleJob(int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            var model = _jobService.ById(id);
+            return model == null ? NotFound() : Ok(model);
+        }
     } 
 }
