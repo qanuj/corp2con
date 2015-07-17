@@ -78,6 +78,7 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+
         //Schedule Related Api
 
         [HttpGet]
@@ -126,6 +127,22 @@ namespace Talent21.Web.Controllers
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Apply(model)) : Bad(ModelState);
+        }
+
+        [HttpGet]
+        [Route("job/application")]
+        public PageResult<JobApplicationViewModel> GetJobApplications(ODataQueryOptions<JobApplicationViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Applications(), options);
+        }
+
+        [HttpGet]
+        [Route("job/application")]
+        public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Applications();
         }
 
         [HttpPut]
