@@ -31,8 +31,13 @@
                 templateUrl: '/app/views/contractor/applications.html',
                 controller: 'contractorApplicationController'
             })
+             .when('/job/favorite/:id', {
+                 templateUrl: '/app/views/contractor/favouritejobs.html',
+                 controller: 'contractorApplicationController'
+             })
+
             .otherwise({ redirectTo: '/' });
-    } else if (role === 'Company') {
+             } else if (role === 'Company') {
         $routeProvider
             .when('/', {
                 templateUrl: '/app/views/company/dashboard.html',
