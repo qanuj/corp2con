@@ -40,6 +40,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("all")]
+        [EnableQuery]
         public IQueryable<ContractorViewModel> ViewCandidateQuery()
         {
             return _service.Contractors;
@@ -81,6 +82,7 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+
         //Schedule Related Api
 
         [HttpGet]
@@ -92,6 +94,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route("schedule/all")]
         public IQueryable<ScheduleViewModel> ViewSchedulesQuery()
         {
@@ -125,10 +128,27 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("job/{id}/apply")]
-        public HttpResponseMessage ApplyToJob(JobApplicationCreateViewModel model)
+        public HttpResponseMessage ApplyToJob(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Apply(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel {Id=id })) : Bad(ModelState);
+        }
+
+        [HttpGet]
+        [Route("job/application")]
+        public PageResult<JobApplicationViewModel> GetJobApplications(ODataQueryOptions<JobApplicationViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Applications(), options);
+        }
+
+        [HttpGet]
+        [Route("job/application")]
+        [EnableQuery]
+        public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Applications();
         }
 
         [HttpPut]

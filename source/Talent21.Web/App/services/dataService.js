@@ -7,6 +7,15 @@
         system: {}
     };
 
+    function calculatePaging(page, pageSize) {
+        pageSize = pageSize || 50;
+        var pg = "&$top=" + pageSize;
+        if (page > 1) {
+            pg+="&$skip=" + ((page-1) * pageSize);
+        }
+        return pg;
+    }
+
     factory.role = document.querySelector('html').dataset.role;
 
     factory.currentPage = window.location.href;
@@ -41,6 +50,10 @@
         return $http.post(v + 'candidate/job/' + id + '/apply');
     }
 
+    factory.contractor.ShortlistJobApplication = function (id) {
+        return $http.put(v + 'candidate/job/' + id + '/favorite');
+    }
+
     factory.userid = "" ;
 
 
@@ -55,8 +68,8 @@
         return $http.delete(v + 'candidate/schedule', formData);
     }
 
-    factory.contractor.getSchedule = function () {
-        return $http.get(v + 'candidate/schedule/all');
+    factory.contractor.getSchedule = function (page) {
+        return $http.get(v + 'candidate/schedule/all?$orderby=Id desc' + calculatePaging(page));
     }
 
 

@@ -1,9 +1,9 @@
 ﻿<div>
-    <div class=" visible-xs">
-        <a class=" btn btn-primary margtop" href="/#/editjob">
+    <div class=" col-md-offset-1 visible-lg-block" >
+        <a class=" btn btn-primary margtop" href="/#/favouritejobs">
             <i class="fa fa-edit"></i> Favorite
         </a>
-        <div class=" btn btn-info margtop" ng-click="publish(record)">
+        <div class=" btn btn-info margtop" ng-click="apply(record)">
             <i class="fa fa-check"></i> Apply To Job
         </div>
         <div class=" btn btn-warning margtop" ng-click="cancel(record)">
@@ -15,11 +15,7 @@
     </div>
     <section id="title">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-12 text-center">
-                    <img src="http://placehold.it/332x120.gif" class="img-responsive" alt="Company Logo" />
-                </div>
-            </div>
+            
         </div>
     </section>
     <section id="jobs">
@@ -58,7 +54,7 @@
                             </ul>
                         </div>
                         <hr>
-                        <div class="sidebar-widget" id="widget-contact">
+                        <!--<div class="sidebar-widget" id="widget-contact">
                             <h2>Contact</h2>
                             <ul>
                                 <li><i class="fa fa-building"></i>Netvibes</li>
@@ -67,13 +63,13 @@
                                 <li><i class="fa fa-phone"></i>01.22.987.8392</li>
                                 <li><i class="fa fa-envelope"></i><a href="mailto:company@yourdomain.com">Send an email</a></li>
                             </ul>
-                        </div>
+                        </div>-->
                     </div>
 </div>
-            <div class="row text-center" ng-if="role === 'Contractor'">
+            <!--<div class="row text-center" ng-if="role === 'Contractor'">
                 <p>&nbsp;</p>
-                <div class="btn btn-primary" ng-click="apply(record)">Apply</div>
-            </div>
+                <div class="btn btn-primary"  >Apply</div>
+            </div>-->
         </div>
     </section>
 </div>

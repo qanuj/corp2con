@@ -31,8 +31,13 @@
                 templateUrl: '/app/views/contractor/applications.html',
                 controller: 'contractorApplicationController'
             })
+             .when('/job/favorite/:id', {
+                 templateUrl: '/app/views/contractor/favouritejobs.html',
+                 controller: 'contractorApplicationController'
+             })
+
             .otherwise({ redirectTo: '/' });
-    } else if (role === 'Company') {
+             } else if (role === 'Company') {
         $routeProvider
             .when('/', {
                 templateUrl: '/app/views/company/dashboard.html',
@@ -50,15 +55,15 @@
                 templateUrl: '/app/views/company/editProfile.html',
                 controller: 'companyEditProfileController'
             })
-            .when('/job/create', {
-                templateUrl: '/app/views/company/createJob.html',
+            .when('/company/createJobs', {
+                templateUrl: '/app/views/company/createJobs.html',
                 controller: 'createJobController'
             })
             .when('/jobs', {
                 templateUrl: '/app/views/company/jobs.html',
                 controller: 'jobsController'
             })
-            .when('/job/:id', {
+            .when('/company/job/:id', {
                 templateUrl: '/app/views/company/job.html', //only for jobs about page.
                 controller: 'companyJobController'
             })

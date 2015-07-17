@@ -230,7 +230,7 @@ namespace Talent21.Service.Core
 
             var jobApplication = new JobApplication
             {
-                CandidateId = candidate.CandidateId,
+                CandidateId = candidate.Id,
                 JobId = model.Id,
             };
             var history = new JobApplicationHistory() { Act = JobActionEnum.Application };
