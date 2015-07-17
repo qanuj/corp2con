@@ -4,8 +4,8 @@
         db.contractor.createSchedule(record).success(refreshRecord);
     }
 
-    function refreshRecord() {
-        return db.contractor.getSchedule().success(function (result) {
+    function refreshRecord(page) {
+        return db.contractor.getSchedule(page).success(function (result) {
             angular.forEach(result, function (d) {
                 d.start = new Date(d.start);
                 d.end = new Date(d.end);
