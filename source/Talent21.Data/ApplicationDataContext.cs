@@ -20,7 +20,7 @@ namespace Talent21.Data
         {
             base.OnModelCreating(modelBuilder);
             BlockRepository.Register(modelBuilder);
-            CandidateRepository.Register(modelBuilder);
+            ContractorRepository.Register(modelBuilder);
             CompanyRepository.Register(modelBuilder);
             JobRepository.Register(modelBuilder);
         }

@@ -10,19 +10,19 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public class CandidateService : SharedService, ICandidateService
+    public class ContractorService : SharedService, IContractorService
     {
-        private readonly ICandidateRepository _candidateRepository;
+        private readonly IContractorRepository _contractorRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IScheduleRepository _scheduleRepository;
 
-        public CandidateService(ICandidateRepository candidateRepository,
+        public ContractorService(IContractorRepository contractorRepository,
             IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository)
             : base()
         {
-            _candidateRepository = candidateRepository;
+            _contractorRepository = contractorRepository;
             _jobApplicationRepository = jobApplicationRepository;
             _scheduleRepository = scheduleRepository;
         }
@@ -31,11 +31,18 @@ namespace Talent21.Service.Core
         {
             get
             {
-                return _candidateRepository.All.Select(x => new ContractorViewModel
+                return _contractorRepository.All.Select(x => new ContractorViewModel
                 {
                     Id = x.Id,
                     About = x.About,
                     Email = x.Email,
+                    Nationality = x.Nationality,
+                    AlternareNumber = x.AlternareNumber,
+                    ConsultantType = x.ConsultantType,
+                    ContractType = x.ContractType,
+                    Gender = x.Gender,
+                    Profile = x.Profile,
+                    FunctionalAreaId = x.FunctionalAreaId,
                     ExperienceMonths = x.Experience.Months,
                     ExperienceYears = x.Experience.Years,
                     Facebook = x.Social.Facebook,
@@ -43,7 +50,8 @@ namespace Talent21.Service.Core
                     LinkedIn = x.Social.LinkedIn,
                     LocationId = x.LocationId,
                     Mobile = x.Mobile,
-                    Name = x.Name,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Rss = x.Social.Rss,
                     Twitter = x.Social.Twitter,
                     WebSite = x.Social.WebSite,
@@ -51,7 +59,14 @@ namespace Talent21.Service.Core
                     PictureUrl = x.PictureUrl,
                     OwnerId = x.OwnerId,
                     Rate = x.Rate,
-                    Skills = x.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                    Skills = x.Skills.Select(y => new ContractorSkillViewModel()
+                    {
+                        Code = y.Skill.Code,
+                        Title = y.Skill.Title,
+                        ExperienceInMonths = y.ExperienceInMonths,
+                        Level = y.Level,
+                        Proficiency = y.Proficiency
+                    })
                 });
             }
         }
@@ -87,27 +102,27 @@ namespace Talent21.Service.Core
         {
             get
             {
-                return _scheduleRepository.All.Where(x => x.Candidate.OwnerId == CurrentUserId).Select(x => new ScheduleViewModel
+                return _scheduleRepository.All.Where(x => x.Contractor.OwnerId == CurrentUserId).Select(x => new ScheduleViewModel
                 {
                     Id = x.Id,
                     Start = x.Start,
                     End = x.End,
-                    Company=x.Company,
-                    IsAvailable=x.IsAvailable
+                    Company = x.Description,
+                    IsAvailable = x.IsAvailable
                 });
             }
         }
 
-        private Candidate FindCandidate(string userId)
+        private Contractor FindContractor(string userId)
         {
-            return _candidateRepository.All.FirstOrDefault(x => x.OwnerId == userId);
+            return _contractorRepository.All.FirstOrDefault(x => x.OwnerId == userId);
         }
 
         public bool Delete(DeleteProfileViewModel profile)
         {
-            var candidate = _candidateRepository.ById(profile.Id);
-            _candidateRepository.Delete(candidate);
-            return _candidateRepository.SaveChanges() > 0;
+            var contractor = _contractorRepository.ById(profile.Id);
+            _contractorRepository.Delete(contractor);
+            return _contractorRepository.SaveChanges() > 0;
         }
 
         public ContractorViewModel GetProfile(string userId)
@@ -117,37 +132,49 @@ namespace Talent21.Service.Core
 
         public bool Delete(IdModel model)
         {
-            _candidateRepository.Delete(model.Id);
-            var rowsAffested = _candidateRepository.SaveChanges();
+            _contractorRepository.Delete(model.Id);
+            var rowsAffested = _contractorRepository.SaveChanges();
             return rowsAffested > 0;
         }
 
         public ContractorEditViewModel Create(ContractorCreateViewModel model)
         {
-            var entity = new Candidate
+            var entity = new Contractor
             {
-                Name = model.Name,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 OwnerId = model.OwnerId,
                 Email = model.Email
             };
-            _candidateRepository.Create(entity);
-            _candidateRepository.SaveChanges();
+            _contractorRepository.Create(entity);
+            _contractorRepository.SaveChanges();
             return new ContractorEditViewModel()
             {
                 Id = entity.Id,
-                Name = entity.Name,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
                 Email = entity.Email
             };
         }
 
         public ContractorEditViewModel Update(ContractorEditViewModel model)
         {
-            var entity = _candidateRepository.ById(model.Id);
-            if (entity == null) return null;
+            var entity = _contractorRepository.ById(model.Id);
+            if(entity == null) return null;
 
-            entity.Name = model.Name;
+            entity.FirstName = model.FirstName;
+            entity.LastName = model.LastName;
             entity.Email = model.Email;
             entity.About = model.About;
+            entity.Rate = model.Rate;
+            entity.RateType = model.RateType;
+            entity.Nationality = model.Nationality;
+            entity.FunctionalAreaId = model.FunctionalAreaId;
+            entity.AlternareNumber = model.AlternareNumber;
+            entity.ConsultantType = model.ConsultantType;
+            entity.ContractType = model.ContractType;
+            entity.Gender = model.Gender;
+            entity.Profile = model.Profile;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
@@ -162,8 +189,8 @@ namespace Talent21.Service.Core
                 WebSite = model.WebSite
             };
 
-            _candidateRepository.Update(entity);
-            _candidateRepository.SaveChanges();
+            _contractorRepository.Update(entity);
+            _contractorRepository.SaveChanges();
 
             return model;
         }
@@ -171,11 +198,11 @@ namespace Talent21.Service.Core
         public ScheduleViewModel Update(EditScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.Id);
-            if (entity == null) throw new Exception("Schedule not found");
+            if(entity == null) throw new Exception("Schedule not found");
 
             entity.Start = model.Start;
             entity.End = model.End;
-            entity.Company = model.Company;
+            entity.Description = model.Company;
             entity.IsAvailable = model.IsAvailable;
 
             _scheduleRepository.Update(entity);
@@ -193,13 +220,13 @@ namespace Talent21.Service.Core
 
         public ScheduleViewModel Create(CreateScheduleViewModel model)
         {
-            var candidate = FindCandidate(CurrentUserId);
+            var contractor = FindContractor(CurrentUserId);
             var entity = new Schedule
             {
-                CandidateId = candidate.Id,
+                ContractorId = contractor.Id,
                 Start = model.Start,
                 End = model.End,
-                Company = model.Company,
+                Description = model.Company,
                 IsAvailable = model.IsAvailable
             };
             _scheduleRepository.Create(entity);
@@ -211,7 +238,7 @@ namespace Talent21.Service.Core
         public bool ActOnApplication(CompanyActJobApplicationViewModel model)
         {
             var entity = _jobApplicationRepository.ById(model.Id);
-            if (entity == null) return false;
+            if(entity == null) return false;
 
             entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
 
@@ -226,11 +253,11 @@ namespace Talent21.Service.Core
 
         public JobApplicationViewModel Apply(JobApplicationCreateViewModel model)
         {
-            var candidate = FindCandidate(CurrentUserId);
+            var contractor = FindContractor(CurrentUserId);
 
             var jobApplication = new JobApplication
             {
-                CandidateId = candidate.Id,
+                ContractorId = contractor.Id,
                 JobId = model.Id,
             };
             var history = new JobApplicationHistory() { Act = JobActionEnum.Application };

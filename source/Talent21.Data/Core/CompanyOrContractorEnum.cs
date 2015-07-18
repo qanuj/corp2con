@@ -1,8 +1,8 @@
 namespace Talent21.Data.Core
 {
-    public enum CompanyOrCandidateEnum
+    public enum CompanyOrContractorEnum
     {
         Company,
-        Candidate
+        Contractor
     }
 }

@@ -4,7 +4,7 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
-    public interface ICandidateService : IService,ISecuredService,ISharedService, IPersonDataService<ContractorEditViewModel, ContractorCreateViewModel,IdModel>
+    public interface IContractorService : IService,ISecuredService,ISharedService, IPersonDataService<ContractorEditViewModel, ContractorCreateViewModel,IdModel>
     {
         ContractorViewModel GetProfile(string userId);
         IQueryable<ContractorViewModel> Contractors { get; }

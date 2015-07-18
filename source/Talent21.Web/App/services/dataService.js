@@ -23,19 +23,19 @@
     //For Contractors
 
     factory.contractor.paged = function () {
-        return $http.get(v + 'candidate/paged');
+        return $http.get(v + 'contractor/paged');
     }
 
     factory.contractor.all = function () {
-        return $http.get(v + 'candidate/all');
+        return $http.get(v + 'contractor/all');
     }
 
     factory.contractor.profile = function () {
-        return $http.get(v + 'candidate/profile');
+        return $http.get(v + 'contractor/profile');
     }
 
     factory.contractor.editProfile = function (formData) {
-        return $http.put(v + 'candidate/profile', formData);
+        return $http.put(v + 'contractor/profile', formData);
     }
 
     factory.contractor.searchJob = function (query) {
@@ -43,33 +43,33 @@
     }
 
     factory.contractor.jobById = function (id) {
-        return $http.get(v + 'candidate/job/' + id);
+        return $http.get(v + 'contractor/job/' + id);
     }
 
     factory.contractor.ApplyToJob = function (id) {
-        return $http.post(v + 'candidate/job/' + id + '/apply');
+        return $http.post(v + 'contractor/job/' + id + '/apply');
     }
 
     factory.contractor.ShortlistJobApplication = function (id) {
-        return $http.put(v + 'candidate/job/' + id + '/favorite');
+        return $http.put(v + 'contractor/job/' + id + '/favorite');
     }
 
     factory.userid = "" ;
 
 
     factory.contractor.createSchedule = function (formData) {
-        return $http.post(v + 'candidate/schedule', formData);
+        return $http.post(v + 'contractor/schedule', formData);
     }
 
     factory.contractor.editSchedule = function (formData) {
-        return $http.put(v + 'candidate/schedule', formData);
+        return $http.put(v + 'contractor/schedule', formData);
     }
     factory.contractor.deleteSchedule = function (formData) {
-        return $http.delete(v + 'candidate/schedule', formData);
+        return $http.delete(v + 'contractor/schedule', formData);
     }
 
     factory.contractor.getSchedule = function (page) {
-        return $http.get(v + 'candidate/schedule/all?$orderby=Id desc' + calculatePaging(page));
+        return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page));
     }
 
 

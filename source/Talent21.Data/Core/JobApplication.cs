@@ -7,8 +7,8 @@ namespace Talent21.Data.Core
 {
     public class JobApplication : Entity
     {
-        public Candidate Candidate { get; set; }
-        public int CandidateId { get; set; }
+        public Contractor Contractor { get; set; }
+        public int ContractorId { get; set; }
 
         public Job Job { get; set; }
         public int JobId { get; set; }

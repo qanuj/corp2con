@@ -8,14 +8,14 @@ namespace Talent21.Data.Core
        /// <summary>
        /// 
        /// </summary>
-        public Candidate Candidate { get; set; }
-        public int CandidateId { get; set; }
+        public Contractor Contractor { get; set; }
+        public int ContractorId { get; set; }
 
         public DateTime Start { get; set; }
         public DateTime? End { get; set; }
 
         public bool IsAvailable { get; set; }
 
-        public string Company { get; set; }
+        public string Description { get; set; }
     }
 }

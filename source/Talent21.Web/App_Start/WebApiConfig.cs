@@ -24,8 +24,8 @@ namespace Talent21.Web
             settings.Formatting = Formatting.Indented;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Converters.Add(new IsoDateTimeConverter());
-
-            jsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            settings.Converters.Add(new StringEnumConverter());
+            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
             jsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("type", "json", new MediaTypeHeaderValue("application/json")));
             xmlFormatter.MediaTypeMappings.Add(new QueryStringMapping("type", "xml", new MediaTypeHeaderValue("application/xml")));

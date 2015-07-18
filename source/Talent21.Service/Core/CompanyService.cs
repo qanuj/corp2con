@@ -20,7 +20,8 @@ namespace Talent21.Service.Core
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
             ISkillRepository skillRepository,
-            IJobApplicationRepository jobApplicationRepository):base()
+            IJobApplicationRepository jobApplicationRepository)
+            : base()
         {
             _companyRepository = companyRepository;
             _jobRepository = jobRepository;
@@ -43,13 +44,18 @@ namespace Talent21.Service.Core
                     LinkedIn = x.Social.LinkedIn,
                     LocationId = x.LocationId,
                     Mobile = x.Mobile,
-                    Name = x.Name,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Rss = x.Social.Rss,
                     Twitter = x.Social.Twitter,
                     WebSite = x.Social.WebSite,
                     Yahoo = x.Social.Yahoo,
                     PictureUrl = x.PictureUrl,
-                    Industry = new DictionaryViewModel() { Code = x.Industry.Code, Title = x.Industry.Title }
+                    CompanyName = x.CompanyName,
+                    AlternareNumber = x.AlternareNumber,
+                    Industry = new DictionaryViewModel() { Code = x.Industry.Code, Title = x.Industry.Title },
+                    OrganizationType = x.OrganizationType,
+                    Profile = x.Profile
                 });
             }
         }
@@ -63,10 +69,7 @@ namespace Talent21.Service.Core
 
         public CompanyEditViewModel Create(CompanyCreateViewModel model)
         {
-            var entity = new Company
-            {
-                Name = model.Name,
-
+            var entity = new Company {
                 OwnerId = model.OwnerId,
                 Email = model.Email
             };
@@ -75,7 +78,7 @@ namespace Talent21.Service.Core
             return new CompanyEditViewModel()
             {
                 Id = entity.Id,
-                Name = entity.Name,
+                FirstName = entity.FirstName,
                 Email = entity.Email
             };
         }
@@ -85,9 +88,14 @@ namespace Talent21.Service.Core
             var entity = _companyRepository.ById(model.Id);
             if(entity == null) return null;
 
-            entity.Name = model.Name;
+            entity.FirstName = model.FirstName;
+            entity.LastName = model.LastName;
             entity.Email = model.Email;
             entity.About = model.About;
+            entity.CompanyName = model.CompanyName;
+            entity.OrganizationType = model.OrganizationType;
+            entity.AlternareNumber = model.AlternareNumber;
+            entity.Profile = model.Profile;
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
             entity.Social = new Social
@@ -114,7 +122,7 @@ namespace Talent21.Service.Core
 
         public JobViewModel Create(CreateJobViewModel model)
         {
-            var company = FindCompany(CurrentUserId);
+            var company = FindCompany();
             var entity = new Job
             {
                 CompanyId = company.Id,
@@ -128,7 +136,7 @@ namespace Talent21.Service.Core
             };
 
             var skills = _skillRepository.ById(model.Skills.Select(x => x.Id)).ToList();
-            for (var i = 0; i < skills.Count; i++)
+            for(var i = 0; i < skills.Count; i++)
             {
                 entity.Skills.Add(skills[i]);
             }
@@ -140,7 +148,7 @@ namespace Talent21.Service.Core
 
         }
 
-        private Company FindCompany(string userId)
+        private Company FindCompany()
         {
             var company = ByOwner(CurrentUserId);
             if(company == null) throw new Exception("Company Not found");
@@ -155,7 +163,7 @@ namespace Talent21.Service.Core
         public JobViewModel Update(EditJobViewModel model)
         {
             var entity = _jobRepository.ById(model.Id);
-            if(entity==null) throw new Exception("Job Not Found");
+            if(entity == null) throw new Exception("Job Not Found");
 
             entity.Description = model.Description;
             entity.Code = model.Code;
@@ -164,13 +172,14 @@ namespace Talent21.Service.Core
             entity.LocationId = model.LocationId;
             entity.Rate = model.Rate;
             entity.Start = model.Start;
-           
-            var skills = _skillRepository.ById(model.Skills.Where(x=> entity.Skills.All(y => y.Id != x.Id)).Select(x => x.Id)).ToList();
-            for(var i = 0; i < skills.Count; i++){
+
+            var skills = _skillRepository.ById(model.Skills.Where(x => entity.Skills.All(y => y.Id != x.Id)).Select(x => x.Id)).ToList();
+            for(var i = 0; i < skills.Count; i++)
+            {
                 entity.Skills.Add(skills[i]);
             }
 
-            var skillDeleted = entity.Skills.Where(x=> model.Skills.All(y => y.Id != x.Id)).ToList();
+            var skillDeleted = entity.Skills.Where(x => model.Skills.All(y => y.Id != x.Id)).ToList();
             for(var i = 0; i < skillDeleted.Count; i++)
             {
                 entity.Skills.Remove(skills[i]);
@@ -218,29 +227,37 @@ namespace Talent21.Service.Core
         {
             return _jobApplicationRepository.All.Where(x => x.JobId == id).Select(x => new JobApplicationCompanyViewModel
             {
-                Actions = x.History.Select(y=> new JobApplicationHistoryViewModel(){ Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy}),
+                Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
                 Id = x.Id,
                 Contractor = new ContractorViewModel
                 {
-                    Id = x.Candidate.Id,
-                    About = x.Candidate.About,
-                    Email = x.Candidate.Email,
-                    ExperienceMonths = x.Candidate.Experience.Months,
-                    ExperienceYears = x.Candidate.Experience.Years,
-                    Facebook = x.Candidate.Social.Facebook,
-                    Google = x.Candidate.Social.Google,
-                    LinkedIn = x.Candidate.Social.LinkedIn,
-                    LocationId = x.Candidate.LocationId,
-                    Mobile = x.Candidate.Mobile,
-                    Name = x.Candidate.Name,
-                    Rss = x.Candidate.Social.Rss,
-                    Twitter = x.Candidate.Social.Twitter,
-                    WebSite = x.Candidate.Social.WebSite,
-                    Yahoo = x.Candidate.Social.Yahoo,
-                    PictureUrl = x.Candidate.PictureUrl,
-                    OwnerId = x.Candidate.OwnerId,
-                    Rate = x.Candidate.Rate,
-                    Skills = x.Candidate.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                    Id = x.Contractor.Id,
+                    About = x.Contractor.About,
+                    Email = x.Contractor.Email,
+                    ExperienceMonths = x.Contractor.Experience.Months,
+                    ExperienceYears = x.Contractor.Experience.Years,
+                    Facebook = x.Contractor.Social.Facebook,
+                    Google = x.Contractor.Social.Google,
+                    LinkedIn = x.Contractor.Social.LinkedIn,
+                    LocationId = x.Contractor.LocationId,
+                    Mobile = x.Contractor.Mobile,
+                    FirstName = x.Contractor.FirstName,
+                    LastName = x.Contractor.LastName,
+                    Rss = x.Contractor.Social.Rss,
+                    Twitter = x.Contractor.Social.Twitter,
+                    WebSite = x.Contractor.Social.WebSite,
+                    Yahoo = x.Contractor.Social.Yahoo,
+                    PictureUrl = x.Contractor.PictureUrl,
+                    OwnerId = x.Contractor.OwnerId,
+                    Rate = x.Contractor.Rate,
+                    Skills = x.Contractor.Skills.Select(y => new ContractorSkillViewModel()
+                    {
+                        Code = y.Skill.Code,
+                        Title = y.Skill.Title,
+                        ExperienceInMonths = y.ExperienceInMonths,
+                        Level = y.Level,
+                        Proficiency = y.Proficiency
+                    })
                 }
             });
         }

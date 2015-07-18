@@ -25,4 +25,10 @@ namespace Talent21.Service.Models
     public class SkillDictionaryViewModel : SkillDictionaryEditViewModel{ }
     public class SkillDictionaryCreateViewModel : SkillDictionaryEditViewModel { }
     public class SkillDeleteViewModel : IdModel { }
+
+    public class FunctionalAreaDictionaryEditViewModel : DictionaryEditViewModel { }
+    public class FunctionalAreaDictionaryViewModel : FunctionalAreaDictionaryEditViewModel { }
+    public class FunctionalAreaDictionaryCreateViewModel : FunctionalAreaDictionaryEditViewModel { }
+    public class FunctionalAreaDeleteViewModel : IdModel { }
+
 }

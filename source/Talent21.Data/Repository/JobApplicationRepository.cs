@@ -17,7 +17,7 @@ namespace Talent21.Data.Repository
 
         public override IQueryable<JobApplication> All
         {
-            get { return base.All.Include(x => x.Candidate).Include(x => x.History); }
+            get { return base.All.Include(x => x.Contractor).Include(x => x.History); }
         }
     }
 

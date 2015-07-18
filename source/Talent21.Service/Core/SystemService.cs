@@ -13,16 +13,17 @@ namespace Talent21.Service.Core
     public class SystemService : ISystemService
     {
         private readonly ILocationRepository _locationRepository;
+        private readonly IFunctionalAreaRepository _functionalAreaRepository;
         private readonly IIndustryRepository _industryRepository;
         private readonly ISkillRepository _skillRepository;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository
-               )
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
             _skillRepository = skillRepository;
+            _functionalAreaRepository = functionalAreaRepository;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -41,6 +42,13 @@ namespace Talent21.Service.Core
         {
             _locationRepository.Delete(model.Id);
             var rowsAffested = _locationRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        public bool Delete(FunctionalAreaDeleteViewModel model)
+        {
+            _functionalAreaRepository.Delete(model.Id);
+            var rowsAffested = _functionalAreaRepository.SaveChanges();
             return rowsAffested > 0;
         }
 
@@ -72,6 +80,22 @@ namespace Talent21.Service.Core
             _skillRepository.Create(entity);
             _skillRepository.SaveChanges();
             return new SkillDictionaryEditViewModel()
+            {
+                Code = entity.Code,
+                Title = entity.Title,
+                Id = entity.Id
+            };
+        }
+        public FunctionalAreaDictionaryEditViewModel Create(FunctionalAreaDictionaryCreateViewModel model)
+        {
+            var entity = new FunctionalArea
+            {
+                Code = model.Code,
+                Title = model.Title
+            };
+            _functionalAreaRepository.Create(entity);
+            _functionalAreaRepository.SaveChanges();
+            return new FunctionalAreaDictionaryEditViewModel
             {
                 Code = entity.Code,
                 Title = entity.Title,
@@ -131,6 +155,20 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        public FunctionalAreaDictionaryEditViewModel Update(FunctionalAreaDictionaryEditViewModel model)
+        {
+            var entity = _functionalAreaRepository.ById(model.Id);
+            if(entity == null) return null;
+
+            entity.Code = model.Code;
+            entity.Title = model.Title;
+
+            _functionalAreaRepository.Update(entity);
+            _functionalAreaRepository.SaveChanges();
+
+            return model;
+        }
+
         public LocationDictionaryEditViewModel Update(LocationDictionaryEditViewModel model)
         {
             var entity = _locationRepository.ById(model.Id);
@@ -150,13 +188,28 @@ namespace Talent21.Service.Core
 
         public IQueryable<IndustryDictionaryViewModel> Industries
         {
-            get {
-                return _industryRepository.All.Select(x=> new IndustryDictionaryViewModel
+            get
+            {
+                return _industryRepository.All.Select(x => new IndustryDictionaryViewModel
                 {
-                    Id=x.Id,
+                    Id = x.Id,
                     Code = x.Code,
                     Title = x.Title
-                }); 
+                });
+            }
+        }
+
+
+        public IQueryable<FunctionalAreaDictionaryViewModel> FunctionalAreas
+        {
+            get
+            {
+                return _functionalAreaRepository.All.Select(x => new FunctionalAreaDictionaryViewModel
+                {
+                    Id = x.Id,
+                    Code = x.Code,
+                    Title = x.Title
+                });
             }
         }
 

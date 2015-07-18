@@ -12,26 +12,26 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public class CandidateRepository : EfRepository<Candidate>, ICandidateRepository 
+    public class ContractorRepository : EfRepository<Contractor>, IContractorRepository 
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
         /// <param name="eventManager"></param>
-        public CandidateRepository (DbContext context , IEventManager eventManager ) : base (context, eventManager)
+        public ContractorRepository (DbContext context , IEventManager eventManager ) : base (context, eventManager)
         { 
         
         }
 
         internal static void Register(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Candidate>().HasKey(x => x.Id);
+            modelBuilder.Entity<Contractor>().HasKey(x => x.Id);
         }
     }
     /// <summary>
     /// 
     /// </summary>
-    public interface ICandidateRepository :IRepository<Candidate>
+    public interface IContractorRepository : IRepository<Contractor>
     { }
 }
