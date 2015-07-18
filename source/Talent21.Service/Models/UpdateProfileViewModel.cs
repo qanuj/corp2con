@@ -4,12 +4,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Talent21.Data.Core;
 
 namespace Talent21.Service.Models
 {
     public class CompanyEditViewModel : PersonViewModel
     {
+        public string CompanyName { get; set; }
 
+        public string Profile { get; set; }
+
+        public string AlternareNumber { get; set; }
+
+        public OrganizationTypeEnum OrganizationType { get; set; }
     }
 
     public class CompanyCreateViewModel : CompanyEditViewModel
@@ -30,6 +37,23 @@ namespace Talent21.Service.Models
     {
         public int ExperienceMonths { get; set; }
         public int ExperienceYears { get; set; }
+
+        public int Rate { get; set; }
+        public RateEnum RateType { get; set; }
+
+        public string Nationality { get; set; }
+
+        public int? FunctionalAreaId { get; set; }
+
+        public string AlternareNumber { get; set; }
+
+        public ConsultantTypeEnum ConsultantType { get; set; }
+
+        public ContractTypeEnum ContractType { get; set; }
+
+        public GenderEnum Gender { get; set; }
+
+        public string Profile { get; set; }
     }
 
     public class ContractorCreateViewModel : ContractorEditViewModel

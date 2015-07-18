@@ -70,8 +70,13 @@
     <Compile Include="Core\Company.cs" />
     <Compile Include="Core\CompanyOrCandidateEnum.cs" />
     <Compile Include="Core\CompanyVisit.cs" />
+    <Compile Include="Core\ConsultantTypeEnum.cs" />
+    <Compile Include="Core\Contact.cs" />
     <Compile Include="Core\Contract.cs" />
     <Compile Include="Core\ContractSchedule.cs" />
+    <Compile Include="Core\ContractTypeEnum.cs" />
+    <Compile Include="Core\FunctionalArea.cs" />
+    <Compile Include="Core\GenderEnum.cs" />
     <Compile Include="Core\Industry.cs" />
     <Compile Include="Core\Job.cs" />
     <Compile Include="Core\JobActionEnum.cs" />
@@ -80,9 +85,12 @@
     <Compile Include="Core\JobVisit.cs" />
     <Compile Include="Core\LevelEnum.cs" />
     <Compile Include="Core\Location.cs" />
+    <Compile Include="Core\Member.cs" />
     <Compile Include="Core\Payment.cs" />
     <Compile Include="Core\Person.cs" />
     <Compile Include="Core\Plan.cs" />
+    <Compile Include="Core\ProficiencyEnum.cs" />
+    <Compile Include="Core\RateEnum.cs" />
     <Compile Include="Core\Schedule.cs" />
     <Compile Include="Core\Skill.cs" />
     <Compile Include="Core\SkillExtended.cs" />

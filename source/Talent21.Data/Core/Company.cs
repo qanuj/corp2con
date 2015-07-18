@@ -2,14 +2,28 @@
 
 namespace Talent21.Data.Core
 {
-    public class Company : Person
+    public class Company : Member
     {
         public Industry Industry { get; set; }
         public int? IndustryId { get; set; }
+
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
+
+        public OrganizationTypeEnum OrganizationType { get; set; }
+
         public IList<ContractSchedule> Schedules { get; set; }
         public IList<CompanyVisit> Visits { get; set; }
+
+        public IList<Contact> Team { get; set; }
+
         public IList<Job> Jobs { get; set; }
+
+    }
+
+    public enum OrganizationTypeEnum
+    {
+        Corporate,
+        Consultancy
     }
 }

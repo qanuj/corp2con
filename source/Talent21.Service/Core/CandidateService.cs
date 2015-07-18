@@ -36,6 +36,13 @@ namespace Talent21.Service.Core
                     Id = x.Id,
                     About = x.About,
                     Email = x.Email,
+                    Nationality = x.Nationality,
+                    AlternareNumber = x.AlternareNumber,
+                    ConsultantType = x.ConsultantType,
+                    ContractType = x.ContractType,
+                    Gender = x.Gender,
+                    Profile = x.Profile,
+                    FunctionalAreaId = x.FunctionalAreaId,
                     ExperienceMonths = x.Experience.Months,
                     ExperienceYears = x.Experience.Years,
                     Facebook = x.Social.Facebook,
@@ -43,7 +50,8 @@ namespace Talent21.Service.Core
                     LinkedIn = x.Social.LinkedIn,
                     LocationId = x.LocationId,
                     Mobile = x.Mobile,
-                    Name = x.Name,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Rss = x.Social.Rss,
                     Twitter = x.Social.Twitter,
                     WebSite = x.Social.WebSite,
@@ -51,7 +59,14 @@ namespace Talent21.Service.Core
                     PictureUrl = x.PictureUrl,
                     OwnerId = x.OwnerId,
                     Rate = x.Rate,
-                    Skills = x.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                    Skills = x.Skills.Select(y => new ContractorSkillViewModel()
+                    {
+                        Code = y.Skill.Code,
+                        Title = y.Skill.Title,
+                        ExperienceInMonths = y.ExperienceInMonths,
+                        Level = y.Level,
+                        Proficiency = y.Proficiency
+                    })
                 });
             }
         }
@@ -92,8 +107,8 @@ namespace Talent21.Service.Core
                     Id = x.Id,
                     Start = x.Start,
                     End = x.End,
-                    Company=x.Company,
-                    IsAvailable=x.IsAvailable
+                    Company = x.Company,
+                    IsAvailable = x.IsAvailable
                 });
             }
         }
@@ -126,7 +141,8 @@ namespace Talent21.Service.Core
         {
             var entity = new Candidate
             {
-                Name = model.Name,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 OwnerId = model.OwnerId,
                 Email = model.Email
             };
@@ -135,7 +151,8 @@ namespace Talent21.Service.Core
             return new ContractorEditViewModel()
             {
                 Id = entity.Id,
-                Name = entity.Name,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
                 Email = entity.Email
             };
         }
@@ -143,11 +160,21 @@ namespace Talent21.Service.Core
         public ContractorEditViewModel Update(ContractorEditViewModel model)
         {
             var entity = _candidateRepository.ById(model.Id);
-            if (entity == null) return null;
+            if(entity == null) return null;
 
-            entity.Name = model.Name;
+            entity.FirstName = model.FirstName;
+            entity.LastName = model.LastName;
             entity.Email = model.Email;
             entity.About = model.About;
+            entity.Rate = model.Rate;
+            entity.RateType = model.RateType;
+            entity.Nationality = model.Nationality;
+            entity.FunctionalAreaId = model.FunctionalAreaId;
+            entity.AlternareNumber = model.AlternareNumber;
+            entity.ConsultantType = model.ConsultantType;
+            entity.ContractType = model.ContractType;
+            entity.Gender = model.Gender;
+            entity.Profile = model.Profile;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
@@ -171,7 +198,7 @@ namespace Talent21.Service.Core
         public ScheduleViewModel Update(EditScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.Id);
-            if (entity == null) throw new Exception("Schedule not found");
+            if(entity == null) throw new Exception("Schedule not found");
 
             entity.Start = model.Start;
             entity.End = model.End;
@@ -211,7 +238,7 @@ namespace Talent21.Service.Core
         public bool ActOnApplication(CompanyActJobApplicationViewModel model)
         {
             var entity = _jobApplicationRepository.ById(model.Id);
-            if (entity == null) return false;
+            if(entity == null) return false;
 
             entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
 

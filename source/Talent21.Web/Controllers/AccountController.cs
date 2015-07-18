@@ -177,7 +177,7 @@ namespace Talent21.Web.Controllers
                     {
                         _candidateService.Create(new ContractorCreateViewModel()
                         {
-                            OwnerId = user.Id, Name = user.Email
+                            OwnerId = user.Id, Email = user.Email
                         });
                         if(!UserManager.IsInRole(user.Id, Contractor))
                         {
@@ -188,7 +188,7 @@ namespace Talent21.Web.Controllers
                     {
                         _companyService.Create(new CompanyCreateViewModel()
                         {
-                            OwnerId = user.Id, Name = user.Email
+                            OwnerId = user.Id, Email = user.Email
                         });
                         if (!UserManager.IsInRole(user.Id, Company))
                         {
