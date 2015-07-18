@@ -11,6 +11,21 @@ namespace e10.Shared.Data.Abstraction
     {
     }
 
+    public abstract class EfDictionaryRepository<TDictionary> : EfRepository<TDictionary>,IDictionaryRepository<TDictionary> where TDictionary : Dictionary
+    {
+        protected EfDictionaryRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
+        {
+        }
+        public IQueryable<TDictionary> ByCode(IEnumerable<string> codes)
+        {
+            return All.Where(x => codes.Contains(x.Code));
+        }
+        public TDictionary ByCode(string code)
+        {
+            return All.FirstOrDefault(x => x.Code==code);
+        }
+    }
+
     public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
     {
         protected EfRepository(DbContext context, IEventManager eventManager)

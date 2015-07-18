@@ -12,10 +12,24 @@ namespace Talent21.Service.Models
         public int Id { get; set; }
     }
 
-    public class ContractorSkillViewModel : DictionaryViewModel
+    public class ContractorSkillViewModel : ContractorSkillEditViewModel
+    {
+
+    }
+
+    public class ContractorSkillEditViewModel : ContractorSkillCreateViewModel
+    {
+        public int Id { get; set; }
+    }
+
+    public class ContractorSkillCreateViewModel : DictionaryViewModel
     {
         public LevelEnum Level { get; set; }
         public ProficiencyEnum Proficiency { get; set; }
         public int ExperienceInMonths { get; set; }
+    }
+
+    public class ContractorSkillDeleteViewModel : IdModel
+    {
     }
 }

@@ -8,7 +8,7 @@ namespace Talent21.Data.Core
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-        public string AlternareNumber { get; set; }
+        public string AlternateNumber { get; set; }
 
         public string PictureUrl { get; set; }
 

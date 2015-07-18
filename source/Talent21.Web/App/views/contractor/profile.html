@@ -1,83 +1,16 @@
-﻿
-<a class="btn btn-primary margtop visible-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
-
-<section id="jobs">
+﻿<section id="jobs">
     <a class="btn btn-primary editbtn hidden-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
                 <article>
-                    <h2>{{record.name}}</h2>
-                    <img src="http://placehold.it/220x273.jpg" alt="" class="pull-left" />
+                    <h2>{{record.firstName}} {{record.lastName}}</h2>
+                    <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left" />
                     <p>{{record.description}}</p>
                     <h3>Skills</h3>
                     <ul>
                         <li ng-repeat="s in record.skills">{{s.title}}</li>
                     </ul>
-                    <br />
-                    <h3>Work Experience</h3>
-                    <div class="row work-experience">
-                        <div class="col-sm-2">
-                            <div class="img-circle">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-10">
-                            <h4>April 2014 - Now</h4>
-                            <h5>Google Inc - Senior Web Designer</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel sapien nibh. Mauris et neque tellus. In tellus felis, ornare in urna commodo, volutpat gravida sem. Integer vitae lorem sit amet nibh ornare varius. Sed sollicitudin leo quis dui dictum.</p>
-                        </div>
-                    </div>
-                    <div class="row work-experience">
-                        <div class="col-sm-2">
-                            <div class="img-circle">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-10">
-                            <h4>April 2014 - Now</h4>
-                            <h5>Google Inc - Senior Web Designer</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel sapien nibh. Mauris et neque tellus. In tellus felis, ornare in urna commodo, volutpat gravida sem. Integer vitae lorem sit amet nibh ornare varius. Sed sollicitudin leo quis dui dictum.</p>
-                        </div>
-                    </div>
-                    <div class="row work-experience">
-                        <div class="col-sm-2">
-                            <div class="img-circle">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-10">
-                            <h4>April 2014 - Now</h4>
-                            <h5>Google Inc - Senior Web Designer</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel sapien nibh. Mauris et neque tellus. In tellus felis, ornare in urna commodo, volutpat gravida sem. Integer vitae lorem sit amet nibh ornare varius. Sed sollicitudin leo quis dui dictum.</p>
-                        </div>
-                    </div>
-                    <h3>Education</h3>
-                    <div class="row work-experience">
-                        <div class="col-sm-2">
-                            <div class="img-circle">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-10">
-                            <h4>April 2014 - Now</h4>
-                            <h5>Google Inc - Senior Web Designer</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel sapien nibh. Mauris et neque tellus. In tellus felis, ornare in urna commodo, volutpat gravida sem. Integer vitae lorem sit amet nibh ornare varius. Sed sollicitudin leo quis dui dictum.</p>
-                        </div>
-                    </div>
-                    <div class="row work-experience">
-                        <div class="col-sm-2">
-                            <div class="img-circle">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-10">
-                            <h4>April 2014 - Now</h4>
-                            <h5>Google Inc - Senior Web Designer</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel sapien nibh. Mauris et neque tellus. In tellus felis, ornare in urna commodo, volutpat gravida sem. Integer vitae lorem sit amet nibh ornare varius. Sed sollicitudin leo quis dui dictum.</p>
-                        </div>
-                    </div>
-                    <p>&nbsp;</p>
                     <p><a href="#" class="btn btn-primary btn-lg"><i class="fa fa-arrow-down"></i> Download Resume</a></p>
                 </article>
             </div>
@@ -85,38 +18,31 @@
                 <div class="sidebar-widget" id="share">
                     <h2>Share resume</h2>
                     <ul>
-                        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{currentPage}}"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://twitter.com/home?status={{currentPage}}"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="https://plus.google.com/share?url={{currentPage}}"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{currentPage}}"><i class="fa fa-linkedin"></i></a></li>
+                        <li ng-if="record.facebook"><a href="{{record.facebook}}"><i class="fa fa-facebook"></i></a></li>
+                        <li ng-if="record.twitter"><a href="{{record.twitter}}"><i class="fa fa-twitter"></i></a></li>
+                        <li ng-if="record.google"><a href="{{record.google}}"><i class="fa fa-google-plus"></i></a></li>
+                        <li ng-if="record.linkedin"><a href="{{record.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                        <li ng-if="record.webSite"><a href="{{record.webSite}}"><i class="fa fa-globe"></i></a></li>
+                        <li ng-if="record.yahoo"><a href="{{record.yahoo}}"><i class="fa fa-yahoo"></i></a></li>
                     </ul>
                 </div>
                 <hr>
                 <div class="sidebar-widget" id="widget-contact">
                     <h2>Contact</h2>
                     <ul>
-                        <li><i class="fa fa-user"></i>Andy Spencer</li>
-                        <li><i class="fa fa-briefcase"></i>Senior Web Designer</li>
-                        <li><i class="fa fa-birthday-cake"></i>28/08/1983</li>
-                        <li><i class="fa fa-map-marker"></i>New York City</li>
-                        <li><i class="fa fa-phone"></i>01.22.987.8392</li>
-                        <li><i class="fa fa-envelope"></i><a href="mailto:andy.spencer@yourdomain.com">Send an email</a></li>
+                        <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
+                        <li ng-if="record.about"><i class="fa fa-briefcase"></i>{{record.about}}</li>
+                        <li ng-if="record.birthday"><i class="fa fa-birthday-cake"></i>{{record.birthday}}</li>
+                        <li ng-if="record.location"><i class="fa fa-map-marker"></i>{{record.location}}</li>
+                        <li ng-if="record.mobile"><i class="fa fa-phone"></i>{{record.mobile}}</li>
+                        <li ng-if="record.alternateNumber"><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
+                        <li ng-if="record.email"><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
                     </ul>
                 </div>
                 <hr>
                 <div class="sidebar-widget" id="skills">
                     <h2>Key skills</h2>
-                    <a class="badge">Photoshop</a>
-                    <a class="badge">HTML5</a>
-                    <a class="badge">CSS3</a>
-                    <a class="badge">Javascript</a>
-                    <a class="badge">jQuery</a>
-                    <a class="badge">User Experience</a>
-                    <a class="badge">User Interface</a>
-                    <a class="badge">UX</a>
-                    <a class="badge">UI</a>
-                    <a class="badge">Front End Development</a>
-                    <a class="badge">Responsive Design</a>
+                    <a ng-repeat="s in record.skills" class="badge">{{s.title}}</a>
                 </div>
             </div>
         </div>

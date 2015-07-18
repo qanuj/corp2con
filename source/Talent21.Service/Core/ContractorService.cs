@@ -13,18 +13,24 @@ namespace Talent21.Service.Core
     public class ContractorService : SharedService, IContractorService
     {
         private readonly IContractorRepository _contractorRepository;
+        private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IScheduleRepository _scheduleRepository;
+        private readonly ISkillRepository _skillRepository;
 
         public ContractorService(IContractorRepository contractorRepository,
             IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
-            IScheduleRepository scheduleRepository)
+            IScheduleRepository scheduleRepository, 
+            ISkillRepository skillRepository, 
+            IContractorSkillRepository contractorSkillRepository)
             : base()
         {
             _contractorRepository = contractorRepository;
             _jobApplicationRepository = jobApplicationRepository;
             _scheduleRepository = scheduleRepository;
+            _skillRepository = skillRepository;
+            _contractorSkillRepository = contractorSkillRepository;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -37,7 +43,7 @@ namespace Talent21.Service.Core
                     About = x.About,
                     Email = x.Email,
                     Nationality = x.Nationality,
-                    AlternareNumber = x.AlternareNumber,
+                    AlternateNumber = x.AlternateNumber,
                     ConsultantType = x.ConsultantType,
                     ContractType = x.ContractType,
                     Gender = x.Gender,
@@ -68,6 +74,22 @@ namespace Talent21.Service.Core
                         Proficiency = y.Proficiency
                     })
                 });
+            }
+        }
+
+        public IQueryable<ContractorSkillViewModel> Skills
+        {
+            get
+            {
+                return _contractorRepository.All.SelectMany(x => x.Skills.Select(y => new ContractorSkillViewModel
+                {
+                    Id=y.Skill.Id,
+                    Code = y.Skill.Code,
+                    Title = y.Skill.Title,
+                    ExperienceInMonths = y.ExperienceInMonths,
+                    Level = y.Level,
+                    Proficiency = y.Proficiency
+                }));
             }
         }
 
@@ -164,13 +186,14 @@ namespace Talent21.Service.Core
 
             entity.FirstName = model.FirstName;
             entity.LastName = model.LastName;
+            entity.PictureUrl = model.PictureUrl;
             entity.Email = model.Email;
             entity.About = model.About;
             entity.Rate = model.Rate;
             entity.RateType = model.RateType;
             entity.Nationality = model.Nationality;
             entity.FunctionalAreaId = model.FunctionalAreaId;
-            entity.AlternareNumber = model.AlternareNumber;
+            entity.AlternateNumber = model.AlternateNumber;
             entity.ConsultantType = model.ConsultantType;
             entity.ContractType = model.ContractType;
             entity.Gender = model.Gender;
@@ -211,12 +234,48 @@ namespace Talent21.Service.Core
             return Schedules.FirstOrDefault(x => x.Id == entity.Id);
         }
 
+        public ContractorSkillEditViewModel Update(ContractorSkillEditViewModel model)
+        {
+             var contractor = FindContractor(CurrentUserId);
+
+            var entity = _contractorSkillRepository.ById(model.Id);
+            if(entity == null || entity.ContractorId!=contractor.Id) throw new Exception("Skill not found");
+
+            entity.ExperienceInMonths = model.ExperienceInMonths;
+            entity.Level = model.Level;
+            entity.Proficiency = model.Proficiency;
+
+            _contractorSkillRepository.Update(entity);
+            _scheduleRepository.SaveChanges();
+
+            return Skills.FirstOrDefault(x => x.Id == entity.Id);
+        }
+
         public bool Delete(DeleteScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.Id);
-            _scheduleRepository.Delete(entity);
-            return _scheduleRepository.SaveChanges() > 0;
+            var contractor = FindContractor(CurrentUserId);
+            if (contractor.Id == entity.ContractorId)
+            {
+                _scheduleRepository.Delete(entity);
+                return _scheduleRepository.SaveChanges() > 0;
+            }
+            return false;
         }
+
+        public bool Delete(ContractorSkillDeleteViewModel model)
+        {
+            var entity = _contractorSkillRepository.ById(model.Id);
+            var contractor = FindContractor(CurrentUserId);
+            if (contractor.Id == entity.ContractorId)
+            {
+                _contractorSkillRepository.Delete(entity);
+                return _contractorSkillRepository.SaveChanges() > 0;
+            }
+            return false;
+        }
+
+
 
         public ScheduleViewModel Create(CreateScheduleViewModel model)
         {
@@ -233,6 +292,25 @@ namespace Talent21.Service.Core
             _scheduleRepository.SaveChanges();
 
             return Schedules.FirstOrDefault(x => x.Id == entity.Id);
+        }
+
+        public ContractorSkillEditViewModel Create(ContractorSkillCreateViewModel model)
+        {
+            var contractor = FindContractor(CurrentUserId);
+            var skill = _skillRepository.ByCode(model.Code);
+
+            var entity = new ContractorSkill
+            {
+                ContractorId = contractor.Id,
+                Skill = skill,
+                ExperienceInMonths = model.ExperienceInMonths,
+                Level = model.Level,
+                Proficiency = model.Proficiency
+            };
+            _contractorSkillRepository.Create(entity);
+            _contractorSkillRepository.SaveChanges();
+
+            return Skills.FirstOrDefault(x => x.Id == entity.Id);
         }
 
         public bool ActOnApplication(CompanyActJobApplicationViewModel model)

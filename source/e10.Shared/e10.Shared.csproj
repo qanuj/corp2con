@@ -82,6 +82,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -96,6 +97,7 @@
     <Compile Include="Data\Abstraction\IDictionary.cs" />
     <Compile Include="Data\Abstraction\IEntity.cs" />
     <Compile Include="Data\Abstraction\IEventManager.cs" />
+    <Compile Include="Data\Abstraction\IFileAccessProvider.cs" />
     <Compile Include="Data\Abstraction\IHierarchicalDictionary.cs" />
     <Compile Include="Data\Abstraction\IHistory.cs" />
     <Compile Include="Data\Abstraction\IPerson.cs" />
@@ -103,7 +105,11 @@
     <Compile Include="Data\Abstraction\ISoftDelete.cs" />
     <Compile Include="Data\Abstraction\IState.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="FileAccessInfo.cs" />
+    <Compile Include="KeySecret.cs" />
+    <Compile Include="OAuthWebConfigProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ApplicationOAuthProvider.cs" />
     <Compile Include="Security\ApplicationRoleManager.cs" />
     <Compile Include="Security\ApplicationRoleStore.cs" />
     <Compile Include="Security\ApplicationSignInManager.cs" />
@@ -118,17 +124,15 @@
     <Compile Include="Util\EnumerableExtensions.cs" />
     <Compile Include="Util\Error.cs" />
     <Compile Include="Util\Guard.cs" />
+    <Compile Include="Util\MimeTypeMap.cs" />
     <Compile Include="Util\MiscExtensions.cs" />
+    <Compile Include="Util\ReflectionHelper.cs" />
     <Compile Include="Util\RegularExpressions.cs" />
     <Compile Include="Util\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\json-serialize.js" />
-    <Content Include="Scripts\json-serialize.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

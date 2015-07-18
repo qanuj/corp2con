@@ -1,6 +1,7 @@
 ﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', function ($scope, db) {
 
-    db.contractor.profile().success(function(result) {
+    db.contractor.profile().success(function (result) {
+        result.picture = { url: result.pictureUrl };
         $scope.record = result;
     });
 
@@ -13,9 +14,15 @@
         $scope.skills = result;
     });
 
-    $scope.save = function(record) {
+    $scope.save = function (record) {
+        if (record.cv) {
+            record.profileUrl = record.cv.url;
+        }
+        if (record.picture) {
+            record.pictureUrl = record.picture.url;
+        }
         db.contractor.editProfile(record).success(function (result) {
-            console.log('Done');
+            window.location = "#/profile";
         });
     }
 }]);

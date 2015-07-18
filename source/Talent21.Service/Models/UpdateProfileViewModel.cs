@@ -11,11 +11,8 @@ namespace Talent21.Service.Models
     public class CompanyEditViewModel : PersonViewModel
     {
         public string CompanyName { get; set; }
-
         public string Profile { get; set; }
-
-        public string AlternareNumber { get; set; }
-
+        public string AlternateNumber { get; set; }
         public OrganizationTypeEnum OrganizationType { get; set; }
     }
 
@@ -42,17 +39,11 @@ namespace Talent21.Service.Models
         public RateEnum RateType { get; set; }
 
         public string Nationality { get; set; }
-
         public int? FunctionalAreaId { get; set; }
-
-        public string AlternareNumber { get; set; }
-
+        public string AlternateNumber { get; set; }
         public ContractorTypeEnum ConsultantType { get; set; }
-
         public ContractTypeEnum ContractType { get; set; }
-
         public GenderEnum Gender { get; set; }
-
         public string Profile { get; set; }
     }
 
@@ -65,7 +56,6 @@ namespace Talent21.Service.Models
     public class ContractorViewModel : ContractorEditViewModel
     {
         internal string OwnerId { get; set; }
-        public string PictureUrl { get; set; }
         public int Rate { get; set; }
         public IEnumerable<DictionaryViewModel> Skills { get; set; }
     }

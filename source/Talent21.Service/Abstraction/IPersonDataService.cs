@@ -8,4 +8,5 @@ namespace Talent21.Service.Abstraction
         where TDeleteModel : IdModel
     {
     }
+
 }

@@ -31,7 +31,7 @@
                 templateUrl: '/app/views/contractor/applications.html',
                 controller: 'contractorApplicationController'
             })
-             .when('/job/favorite/:id', {
+             .when('/job/application/favorite/:id', {
                  templateUrl: '/app/views/contractor/favouritejobs.html',
                  controller: 'contractorApplicationController'
              })

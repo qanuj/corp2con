@@ -1,100 +1,134 @@
 ﻿<div class="container margtop">
-    <form ng-submit="save(record)">
-        <div class="row">
-            <div class="col-sm-8">
-                <h2>{{record.name}}</h2>
-                <div class="form-group" id="job-email-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" ng-model="record.name">
-                </div>
-                <div class="form-group" id="job-email-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" ng-model="record.email">
-                </div>
-                <div class="form-group nopadding-left col-xs-6" id="job-region-group">
-                    <label>Experience (Years)</label>
-                    <input type="number" class="form-control col-xs-6" ng-model="record.experienceYears">
-                </div>
-                <div class="form-group col-xs-6 nopadding-right" id="job-region-group">
-                    <label>Experience (Months)</label>
-                    <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" max="12">
-                </div>
-                <div class="form-group" id="job-location-group">
-                    <label for="job-location">Location</label>
-                    <input type="text" class="form-control" ng-model="record.locationId" typeahead="city.id as city.title for city in cities | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
-                </div>
-                <div class="form-group" id="job-location-group">
-                    <label for="job-location">Skills</label>
-                    <input type="text" class="form-control" ng-model="record.skills" typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
-                </div>
-                <div class="form-group">
-                    <label>Rate (in 1000 per hour)</label>
-                    <input type="number" class="form-control" ng-model="record.rate">
-                </div>
-                <div class="form-group wysiwyg" id="job-description-group">
-                    <label>Description</label>
-
-                    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#job-description">
-                        <div class="btn-group">
-                            <a class="btn" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                            <a class="btn" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="fa fa-list-ul"></i></a>
-                            <a class="btn" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="fa fa-list-ol"></i></a>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-                            <a class="btn" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-                            <a class="btn" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Hyperlink"><i class="fa fa-link"></i></a>
-                            <div class="dropdown-menu input-append">
-                                <input class="form-control pull-left" placeholder="http://" type="text" data-edit="createLink">
-                                <button class="btn btn-primary" type="button">Add</button>
-                            </div>
-                            <a class="btn" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="fa fa-unlink"></i></a>
-                        </div>
-                        <input type="text" data-edit="inserttext" id="voiceBtn" style="display: none;">
-                    </div>
-
-                    <div class="editor" id="job-description" contenteditable="true">Job description</div>
-                </div>
-                <div class="form-group">
-                    <label>Website (Optional)</label>
-                    <input type="text" class="form-control" ng-model="record.website">
-                </div>
-                <div class="form-group">
-                    <label>Google+ Username (Optional)</label>
-                    <input type="text" class="form-control" ng-model="record.google">
-                </div>
-                <div class="form-group">
-                    <label>Facebook (Optional)</label>
-                    <input type="text" class="form-control" ng-model="record.facebook">
-                </div>
-                <div class="form-group">
-                    <label>LinkedIn (Optional)</label>
-                    <input type="text" class="form-control" ng-model="record.linkedIn">
-                </div>
-                <div class="form-group">
-                    <label>Twitter (Optional)</label>
-                    <input type="text" class="form-control" ng-model="record.twitter">
-                </div>
-                <div class="form-group">
-                    <label>Yahoo (Optional)</label>
-                    <input type="text" class="form-control" ng-model="record.yahoo">
-                </div>
-                <div class="form-group">
-                    <label>Mobile </label>
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <a href="#" class="thumbnail">
+                <img ng-src="{{record.picture.url}}" alt="{{record.firstName}} {{record.lastName}}">
+            </a>
+            <ng-upload-form ng-model="record.picture" url="/upload/picture"
+                            auto-upload="true" title="Your Profile Picture..."
+                            accept-file-types="/(\.|\/)(gif|jpe?g|png)$/i"
+                            max-chunk-size="10"
+                            multiple="false" size-limit="5000000">
+            </ng-upload-form>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <h2>{{record.firstName}} {{record.lastName}}</h2>
+            <div class="form-group nopadding-left col-xs-6" id="job-email-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" ng-model="record.firstName">
+            </div>
+            <div class="form-group nopadding-right col-xs-6" id="job-email-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" ng-model="record.lastName">
+            </div>
+            <div class="form-group" id="job-email-group">
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="record.email">
+            </div>
+            <div class="form-group nopadding-left col-xs-6" id="job-region-group">
+                <label>Experience (Years)</label>
+                <input type="number" class="form-control col-xs-6" ng-model="record.experienceYears" min="0" max="80">
+            </div>
+            <div class="form-group col-xs-6 nopadding-right" id="job-region-group">
+                <label>Experience (Months)</label>
+                <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" min="0" max="11">
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label>Location</label>
+                <input type="text" class="form-control" ng-model="record.locationId" 
+                       typeahead="city.id as city.title for city in cities | filter:$viewValue | limitTo:10" 
+                       typeahead-editable="false" placeholder="e.g. New Delhi">
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label>Skills</label>
+                <input type="text" class="form-control" ng-model="record.skills"
+                       typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10"
+                       typeahead-editable="false" placeholder="e.g. Java, System Administrator">
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label>Secondary Skills</label>
+                <input type="text" class="form-control" ng-model="record.skills"
+                       typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10"
+                       typeahead-editable="false" placeholder="e.g. People Management, Leadership">
+            </div>
+            <div class="form-group nopadding-left col-xs-6">
+                <label>Rate</label>
+                <input type="number" class="form-control" ng-model="record.rate">
+            </div>
+            <div class="form-group nopadding-right col-xs-6">
+                <label>Rate Type</label>
+                <select class="form-control" ng-model="record.rateType">
+                    <option>Hourly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Profile</label>
+                <ng-upload-form ng-model="record.cv"
+                                url="/upload"
+                                auto-upload="true"
+                                title="Your Resume..."
+                                accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i"
+                                max-chunk-size="10"
+                                multiple="false"
+                                size-limit="5000000"></ng-upload-form>
+            </div>
+            <div class="form-group wysiwyg" id="job-description-group">
+                <textarea class="form-control" markdownedit markdown-hidden-buttons="cmdQuote" rows="10" id="txtDescription" ng-model="record.about" required placeholder="Job Description"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile </label>
                     <input type="text" class="form-control" ng-model="record.mobile">
                 </div>
             </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Alternate Contact Number </label>
+                    <input type="text" class="form-control" ng-model="record.alternateNumber">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-globe"></i> Website</label>
+                    <input type="text" class="form-control" ng-model="record.webSite">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-google-plus"></i></label>
+                    <input type="text" class="form-control" ng-model="record.google">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-facebook"></i></label>
+                    <input type="text" class="form-control" ng-model="record.facebook">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-linkedin"></i></label>
+                    <input type="text" class="form-control" ng-model="record.linkedIn">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-twitter"></i></label>
+                    <input type="text" class="form-control" ng-model="record.twitter">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-yahoo"></i></label>
+                    <input type="text" class="form-control" ng-model="record.yahoo">
+                </div>
+            </div>
         </div>
-        <div class="row text-center">
-            <p>&nbsp;</p>
-            <input type="submit" id="submit" value="Save" class="btn btn-primary" />
-        </div>
-        <div class="loading-spiner-holder" data-loading><div class="loading-spiner"><img src="/Content/images/fancybox_loading.gif" /></div></div>
-    </form>
+    </div>
+    <div class="row text-center">
+        <input type="button" id="submit" value="Save" ng-click="save(record)" class="btn btn-primary" />
+    </div>
+    <div class="loading-spiner-holder" data-loading><div class="loading-spiner"><img src="/Content/images/fancybox_loading.gif" /></div></div>
 </div>

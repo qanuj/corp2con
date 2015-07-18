@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using System.Linq;
+using e10.Shared;
 
 namespace Talent21.Service.Core
 {
 
-    public class CompanyService : SharedService, ICompanyService
+    public class CompanyService : SharedService, ICompanyService, IFileAccessProvider
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IJobRepository _jobRepository;
@@ -52,7 +54,7 @@ namespace Talent21.Service.Core
                     Yahoo = x.Social.Yahoo,
                     PictureUrl = x.PictureUrl,
                     CompanyName = x.CompanyName,
-                    AlternareNumber = x.AlternareNumber,
+                    AlternateNumber = x.AlternateNumber,
                     Industry = new DictionaryViewModel() { Code = x.Industry.Code, Title = x.Industry.Title },
                     OrganizationType = x.OrganizationType,
                     Profile = x.Profile
@@ -94,7 +96,7 @@ namespace Talent21.Service.Core
             entity.About = model.About;
             entity.CompanyName = model.CompanyName;
             entity.OrganizationType = model.OrganizationType;
-            entity.AlternareNumber = model.AlternareNumber;
+            entity.AlternateNumber = model.AlternateNumber;
             entity.Profile = model.Profile;
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
@@ -320,6 +322,18 @@ namespace Talent21.Service.Core
                     Start = x.Start
                 });
             }
+        }
+
+        public async Task<FileAccessInfo> ByUrlAsync(string userId, string filepath)
+        {
+            var jobApplication = await _jobApplicationRepository.MineAsync(userId, filepath);
+            if (jobApplication == null) return null;
+            return new FileAccessInfo
+            {
+                Id = jobApplication.Job.Code,
+                Location = jobApplication.Contractor.Location.Title,
+                Name = string.Format("{0}_{1}", jobApplication.Contractor.FirstName, jobApplication.Contractor.LastName)
+            };
         }
     }
 }

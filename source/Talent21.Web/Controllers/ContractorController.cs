@@ -124,6 +124,49 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
+        //skill related api.
+
+        [HttpGet]
+        [Route("skill/paged")]
+        public PageResult<ContractorSkillViewModel> GetSkills(ODataQueryOptions<ContractorSkillViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Skills, options);
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [Route("skill/all")]
+        public IQueryable<ContractorSkillViewModel> GetSkillsQuert()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Skills;
+        }
+
+        [HttpPost]
+        [Route("skill")]
+        public HttpResponseMessage AddSkill(ContractorSkillCreateViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("skill")]
+        public HttpResponseMessage EditSkill(ContractorSkillEditViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("skill/{0}")]
+        public HttpResponseMessage DeleteSkill([FromUri]int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.Delete(new ContractorSkillDeleteViewModel{ Id=id})) : Bad(ModelState);
+        }
+
         [HttpPost]
         [Route("job/{id}/apply")]
         public HttpResponseMessage ApplyToJob(int id)
