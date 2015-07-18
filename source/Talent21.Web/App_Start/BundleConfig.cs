@@ -85,6 +85,7 @@ namespace Talent21.Web
                 .Include("~/Scripts/site/magic.js")
                 .Include("~/Scripts/site/settings.js")
                 .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-*")
