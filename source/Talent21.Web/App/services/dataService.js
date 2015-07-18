@@ -50,8 +50,8 @@
         return $http.post(v + 'contractor/job/' + id + '/apply');
     }
 
-    factory.contractor.ShortlistJobApplication = function (id) {
-        return $http.put(v + 'contractor/job/' + id + '/favorite');
+    factory.contractor.favorite = function (id) {
+        return $http.put(v + 'candidate/job/application/' + id + '/favorite');
     }
 
     factory.userid = "" ;
