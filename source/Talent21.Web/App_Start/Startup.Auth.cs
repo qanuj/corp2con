@@ -1,20 +1,27 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using e10.Shared;
 using e10.Shared.Data.Abstraction;
 using e10.Shared.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Owin.Security.Providers.GitHub;
+using Owin.Security.Providers.GooglePlus;
+using System;
+using Owin.Security.Providers.LinkedIn;
+using Owin.Security.Providers.Yahoo;
 using Talent21.Data;
-using Talent21.Web.Models;
 
 namespace Talent21.Web
 {
     public partial class Startup
     {
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static string PublicClientId { get; private set; }
+        public static OAuthWebConfigProvider SocialProvider { get; private set; }
+
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -26,6 +33,7 @@ namespace Talent21.Web
             app.CreatePerOwinContext(() => new ApplicationUserStore(dbContext));
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -42,8 +50,19 @@ namespace Talent21.Web
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            PublicClientId = "self";
+            OAuthOptions = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/Token"),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
+                AuthorizeEndpointPath = new PathString("/Account/Authorize"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AllowInsecureHttp = true
+            };
+            app.UseOAuthBearerTokens(OAuthOptions);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
             app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
@@ -54,23 +73,15 @@ namespace Talent21.Web
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            SocialProvider = new OAuthWebConfigProvider();
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
-
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseMicrosoftAccountAuthentication(SocialProvider.Microsoft.Key, SocialProvider.Microsoft.Secret);
+            app.UseTwitterAuthentication(SocialProvider.Twitter.Key, SocialProvider.Twitter.Secret);
+            app.UseFacebookAuthentication(SocialProvider.Facebook.Key, SocialProvider.Facebook.Secret);
+            app.UseGooglePlusAuthentication(SocialProvider.GooglePlus.Key, SocialProvider.GooglePlus.Secret);
+            app.UseLinkedInAuthentication(SocialProvider.LinkedIn.Key, SocialProvider.LinkedIn.Secret);
+            app.UseGitHubAuthentication(SocialProvider.GitHub.Key, SocialProvider.GitHub.Secret);
+            app.UseYahooAuthentication(SocialProvider.Yahoo.Key, SocialProvider.Yahoo.Secret);
         }
     }
 }
