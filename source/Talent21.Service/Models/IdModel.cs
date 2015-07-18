@@ -13,7 +13,7 @@ namespace Talent21.Service.Models
         public string Label { get; set; }
     }
 
-    public class EnumList : Dictionary<string, IEnumerable<IdLabel<object>>>
+    public class EnumList : Dictionary<string, IEnumerable<string>>
     {
     }
 }
