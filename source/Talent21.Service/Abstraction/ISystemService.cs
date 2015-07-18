@@ -16,5 +16,6 @@ namespace Talent21.Service.Abstraction
         IQueryable<SkillDictionaryViewModel> Skills { get; }
 
         string Upgrade();
+        EnumList Enums();
     }
 }

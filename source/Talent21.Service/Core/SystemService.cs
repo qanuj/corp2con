@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using e10.Shared.Util;
 using Talent21.Data;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
@@ -246,6 +247,18 @@ namespace Talent21.Service.Core
         public string Upgrade()
         {
             return IndustryRepository.Upgrade();
+        }
+
+
+        public EnumList Enums()
+        {
+            var types = ReflectionHelper.GetEnumTypesInNamespace("Talent21.Data.Core", "Talent21");
+            var vals = new EnumList();
+            foreach(var type in types)
+            {
+                vals.Add(type.Name.ToLower(), Enum.GetNames(type).Select(x => new IdLabel<object> { Label = x, Id = Enum.Parse(type, x) }));
+            }
+            return vals;
         }
     }
 }
