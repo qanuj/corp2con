@@ -1,12 +1,29 @@
 ﻿<div class="container margtop">
     <div class="row">
-        <div class="col-sm-8">
-            <h2>{{record.name}}</h2>
-            <div class="form-group" id="job-email-group">
-                <label>Name</label>
-                <input type="text" class="form-control" ng-model="record.name">
+        <div class="col-sm-4 col-md-3">
+            <a href="#" class="thumbnail">
+                <img ng-src="{{record.picture.url}}" alt="{{record.firstName}} {{record.lastName}}">
+            </a>
+            <ng-upload-form ng-model="record.picture" url="/upload/picture"
+                            auto-upload="true" title="Your Profile Picture..."
+                            accept-file-types="/(\.|\/)(gif|jpe?g|png)$/i"
+                            max-chunk-size="10"
+                            multiple="false" size-limit="5000000">
+            </ng-upload-form>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <h2>{{record.firstName}} {{record.lastName}}</h2>
+            <p>{{record.pictureUrl}}</p>
+
+            <div class="form-group nopadding-left col-xs-6" id="job-email-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" ng-model="record.firstName">
             </div>
-            <div class="form-group" id="job-email-group">
+            <div class="form-group nopadding-right col-xs-6" id="job-email-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" ng-model="record.lastName">
+            </div>
+           <div class="form-group" id="job-email-group">
                 <label>Email</label>
                 <input type="email" class="form-control" ng-model="record.email">
             </div>
@@ -26,15 +43,28 @@
                 <label for="job-location">Skills</label>
                 <input type="text" class="form-control" ng-model="record.skills" typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
             </div>
-            <div class="form-group">
-                <label>Rate (in 1000 per hour)</label>
+            <div class="form-group nopadding-left col-xs-6">
+                <label>Rate</label>
                 <input type="number" class="form-control" ng-model="record.rate">
+            </div>
+            <div class="form-group nopadding-right col-xs-6">
+                <label>Rate Type</label>
+                <select class="form-control" ng-model="record.rateType">
+                    <option>Hourly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
             </div>
             <div class="form-group">
                 <label>Profile</label>
-                <ng-upload-form ng-model="record.profileUrl" url="/upload" auto-upload="true" title="Your Resume..."
-                                accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i" max-chunk-size="10"
-                                multiple="false" size-limit="5000000"></ng-upload-form>
+                <ng-upload-form ng-model="record.profileUrl" 
+                                url="/upload" 
+                                auto-upload="true" 
+                                title="Your Resume..."
+                                accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i" 
+                                max-chunk-size="10"
+                                multiple="false" 
+                                size-limit="5000000"></ng-upload-form>
             </div>
             <div class="form-group wysiwyg" id="job-description-group">
                 <label>Description</label>
