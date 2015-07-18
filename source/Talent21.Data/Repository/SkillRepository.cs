@@ -12,7 +12,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public class SkillRepository : EfRepository<Skill>, ISkillRepository
+    public class SkillRepository : EfDictionaryRepository<Skill>, ISkillRepository
     {
         /// <summary>
         /// 
@@ -28,7 +28,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public interface ISkillRepository : IRepository<Skill>
+    public interface ISkillRepository : IDictionaryRepository<Skill>
     {
 
     }

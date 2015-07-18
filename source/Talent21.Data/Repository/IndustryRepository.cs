@@ -13,7 +13,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public class IndustryRepository : EfRepository<Industry>, IIndustryRepository
+    public class IndustryRepository : EfDictionaryRepository<Industry>, IIndustryRepository
     {
         /// <summary>
         /// 
@@ -46,7 +46,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public interface IIndustryRepository: IRepository<Industry>
+    public interface IIndustryRepository: IDictionaryRepository<Industry>
     { 
     }
 }

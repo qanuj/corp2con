@@ -12,7 +12,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public class JobRepository : EfRepository<Job>, IJobRepository
+    public class JobRepository : EfDictionaryRepository<Job>, IJobRepository
 
     {
         public JobRepository(DbContext context, IEventManager eventManager) : base( context, eventManager)
@@ -35,7 +35,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public interface IJobRepository : IRepository<Job>
+    public interface IJobRepository : IDictionaryRepository<Job>
     {
         
     }

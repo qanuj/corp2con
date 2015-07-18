@@ -83,13 +83,13 @@
     <Compile Include="Models\PersonViewModel.cs" />
     <Compile Include="Models\SystemViewModels.cs" />
     <Compile Include="Models\ScheduleViewModel.cs" />
-    <Compile Include="Abstraction\ICandidateService.cs" />
+    <Compile Include="Abstraction\IContractorService.cs" />
     <Compile Include="Abstraction\ICompanyService.cs" />
     <Compile Include="Abstraction\IJobService.cs" />
     <Compile Include="Abstraction\IService.cs" />
     <Compile Include="Abstraction\ISystemService.cs" />
     <Compile Include="Models\UpdateProfileViewModel.cs" />
-    <Compile Include="Core\CandidateService.cs" />
+    <Compile Include="Core\ContractorService.cs" />
     <Compile Include="Core\CompanyService.cs" />
     <Compile Include="Core\JobService.cs" />
     <Compile Include="Core\SystemService.cs" />
