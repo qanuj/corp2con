@@ -22,7 +22,7 @@
             record.pictureUrl = record.picture.url;
         }
         db.contractor.editProfile(record).success(function (result) {
-            console.log('Done');
+            window.location = "#/profile";
         });
     }
 }]);

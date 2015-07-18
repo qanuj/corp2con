@@ -54,7 +54,7 @@ namespace Talent21.Service.Core
                     Yahoo = x.Social.Yahoo,
                     PictureUrl = x.PictureUrl,
                     CompanyName = x.CompanyName,
-                    AlternareNumber = x.AlternareNumber,
+                    AlternateNumber = x.AlternateNumber,
                     Industry = new DictionaryViewModel() { Code = x.Industry.Code, Title = x.Industry.Title },
                     OrganizationType = x.OrganizationType,
                     Profile = x.Profile
@@ -96,7 +96,7 @@ namespace Talent21.Service.Core
             entity.About = model.About;
             entity.CompanyName = model.CompanyName;
             entity.OrganizationType = model.OrganizationType;
-            entity.AlternareNumber = model.AlternareNumber;
+            entity.AlternateNumber = model.AlternateNumber;
             entity.Profile = model.Profile;
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;

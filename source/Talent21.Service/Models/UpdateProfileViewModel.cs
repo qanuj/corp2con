@@ -12,7 +12,7 @@ namespace Talent21.Service.Models
     {
         public string CompanyName { get; set; }
         public string Profile { get; set; }
-        public string AlternareNumber { get; set; }
+        public string AlternateNumber { get; set; }
         public OrganizationTypeEnum OrganizationType { get; set; }
     }
 
@@ -40,7 +40,7 @@ namespace Talent21.Service.Models
 
         public string Nationality { get; set; }
         public int? FunctionalAreaId { get; set; }
-        public string AlternareNumber { get; set; }
+        public string AlternateNumber { get; set; }
         public ContractorTypeEnum ConsultantType { get; set; }
         public ContractTypeEnum ContractType { get; set; }
         public GenderEnum Gender { get; set; }

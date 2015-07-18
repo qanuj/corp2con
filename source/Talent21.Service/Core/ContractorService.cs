@@ -43,7 +43,7 @@ namespace Talent21.Service.Core
                     About = x.About,
                     Email = x.Email,
                     Nationality = x.Nationality,
-                    AlternareNumber = x.AlternareNumber,
+                    AlternateNumber = x.AlternateNumber,
                     ConsultantType = x.ConsultantType,
                     ContractType = x.ContractType,
                     Gender = x.Gender,
@@ -193,7 +193,7 @@ namespace Talent21.Service.Core
             entity.RateType = model.RateType;
             entity.Nationality = model.Nationality;
             entity.FunctionalAreaId = model.FunctionalAreaId;
-            entity.AlternareNumber = model.AlternareNumber;
+            entity.AlternateNumber = model.AlternateNumber;
             entity.ConsultantType = model.ConsultantType;
             entity.ContractType = model.ContractType;
             entity.Gender = model.Gender;
