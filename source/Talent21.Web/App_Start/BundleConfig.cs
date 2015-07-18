@@ -88,6 +88,7 @@ namespace Talent21.Web
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-*")
                 .Include("~/app/app.js")
+                .Include("~/Scripts/modules/*.js")
                 .Include("~/app/app.*")
                 .Include("~/app/router/*.js")
                 .Include("~/app/directives/*.js")
