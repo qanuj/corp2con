@@ -13,8 +13,6 @@
         </div>
         <div class="col-sm-8 col-md-9">
             <h2>{{record.firstName}} {{record.lastName}}</h2>
-            <p>{{record.pictureUrl}}</p>
-
             <div class="form-group nopadding-left col-xs-6" id="job-email-group">
                 <label>First Name</label>
                 <input type="text" class="form-control" ng-model="record.firstName">
@@ -23,25 +21,35 @@
                 <label>Last Name</label>
                 <input type="text" class="form-control" ng-model="record.lastName">
             </div>
-           <div class="form-group" id="job-email-group">
+            <div class="form-group" id="job-email-group">
                 <label>Email</label>
                 <input type="email" class="form-control" ng-model="record.email">
             </div>
             <div class="form-group nopadding-left col-xs-6" id="job-region-group">
                 <label>Experience (Years)</label>
-                <input type="number" class="form-control col-xs-6" ng-model="record.experienceYears">
+                <input type="number" class="form-control col-xs-6" ng-model="record.experienceYears" min="0" max="80">
             </div>
             <div class="form-group col-xs-6 nopadding-right" id="job-region-group">
                 <label>Experience (Months)</label>
-                <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" max="12">
+                <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" min="0" max="11">
             </div>
             <div class="form-group" id="job-location-group">
-                <label for="job-location">Location</label>
-                <input type="text" class="form-control" ng-model="record.locationId" typeahead="city.id as city.title for city in cities | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
+                <label>Location</label>
+                <input type="text" class="form-control" ng-model="record.locationId" 
+                       typeahead="city.id as city.title for city in cities | filter:$viewValue | limitTo:10" 
+                       typeahead-editable="false" placeholder="e.g. New Delhi">
             </div>
             <div class="form-group" id="job-location-group">
-                <label for="job-location">Skills</label>
-                <input type="text" class="form-control" ng-model="record.skills" typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="e.g. New Delhi">
+                <label>Skills</label>
+                <input type="text" class="form-control" ng-model="record.skills"
+                       typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10"
+                       typeahead-editable="false" placeholder="e.g. Java, System Administrator">
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label>Secondary Skills</label>
+                <input type="text" class="form-control" ng-model="record.skills"
+                       typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10"
+                       typeahead-editable="false" placeholder="e.g. People Management, Leadership">
             </div>
             <div class="form-group nopadding-left col-xs-6">
                 <label>Rate</label>
@@ -57,13 +65,13 @@
             </div>
             <div class="form-group">
                 <label>Profile</label>
-                <ng-upload-form ng-model="record.profileUrl" 
-                                url="/upload" 
-                                auto-upload="true" 
+                <ng-upload-form ng-model="record.cv"
+                                url="/upload"
+                                auto-upload="true"
                                 title="Your Resume..."
-                                accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i" 
+                                accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i"
                                 max-chunk-size="10"
-                                multiple="false" 
+                                multiple="false"
                                 size-limit="5000000"></ng-upload-form>
             </div>
             <div class="form-group wysiwyg" id="job-description-group">
@@ -93,41 +101,53 @@
                     </div>
                     <input type="text" data-edit="inserttext" id="voiceBtn" style="display: none;">
                 </div>
-
                 <div class="editor" id="job-description" contenteditable="true">Job description</div>
             </div>
             <div class="form-group">
-                <label>Website (Optional)</label>
-                <input type="text" class="form-control" ng-model="record.website">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile </label>
+                    <input type="text" class="form-control" ng-model="record.mobile">
+                </div>
             </div>
             <div class="form-group">
-                <label>Google+ Username (Optional)</label>
-                <input type="text" class="form-control" ng-model="record.google">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-globe"></i> Website</label>
+                    <input type="text" class="form-control" ng-model="record.website">
+                </div>
             </div>
             <div class="form-group">
-                <label>Facebook (Optional)</label>
-                <input type="text" class="form-control" ng-model="record.facebook">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-google-plus"></i></label>
+                    <input type="text" class="form-control" ng-model="record.google">
+                </div>
             </div>
             <div class="form-group">
-                <label>LinkedIn (Optional)</label>
-                <input type="text" class="form-control" ng-model="record.linkedIn">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-facebook"></i></label>
+                    <input type="text" class="form-control" ng-model="record.facebook">
+                </div>
             </div>
             <div class="form-group">
-                <label>Twitter (Optional)</label>
-                <input type="text" class="form-control" ng-model="record.twitter">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-linkedin"></i></label>
+                    <input type="text" class="form-control" ng-model="record.linkedIn">
+                </div>
             </div>
             <div class="form-group">
-                <label>Yahoo (Optional)</label>
-                <input type="text" class="form-control" ng-model="record.yahoo">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-twitter"></i></label>
+                    <input type="text" class="form-control" ng-model="record.twitter">
+                </div>
             </div>
             <div class="form-group">
-                <label>Mobile </label>
-                <input type="text" class="form-control" ng-model="record.mobile">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-yahoo"></i></label>
+                    <input type="text" class="form-control" ng-model="record.yahoo">
+                </div>
             </div>
         </div>
     </div>
     <div class="row text-center">
-        <p>&nbsp;</p>
         <input type="button" id="submit" value="Save" ng-click="save(record)" class="btn btn-primary" />
     </div>
     <div class="loading-spiner-holder" data-loading><div class="loading-spiner"><img src="/Content/images/fancybox_loading.gif" /></div></div>

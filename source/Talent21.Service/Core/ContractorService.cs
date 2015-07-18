@@ -186,6 +186,7 @@ namespace Talent21.Service.Core
 
             entity.FirstName = model.FirstName;
             entity.LastName = model.LastName;
+            entity.PictureUrl = model.PictureUrl;
             entity.Email = model.Email;
             entity.About = model.About;
             entity.Rate = model.Rate;
