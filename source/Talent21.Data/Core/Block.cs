@@ -4,12 +4,12 @@ namespace Talent21.Data.Core
 {
     public class Block : Entity
     {
-        public CompanyOrCandidateEnum BlockedBy { get; set; }
+        public CompanyOrContractorEnum BlockedBy { get; set; }
 
         public Company Company { get; set; }
         public int CompanyId { get; set; }
 
-        public Candidate Candidate { get; set; }
-        public int CandidateId { get; set; }
+        public Contractor Contractor { get; set; }
+        public int ContractorId { get; set; }
     }
 }

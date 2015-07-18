@@ -1,6 +1,6 @@
 ﻿namespace Talent21.Data.Core
 {
-    public enum ConsultantTypeEnum
+    public enum ContractorTypeEnum
     {
         IndependentCosultant,
         AlignedToConsultingOrganistion,

@@ -64,11 +64,11 @@
   <ItemGroup>
     <Compile Include="ApplicationDataContext.cs" />
     <Compile Include="Core\Block.cs" />
-    <Compile Include="Core\Candidate.cs" />
-    <Compile Include="Core\CandidateSkill.cs" />
-    <Compile Include="Core\CandidateVisit.cs" />
+    <Compile Include="Core\Contractor.cs" />
+    <Compile Include="Core\ContractorSkill.cs" />
+    <Compile Include="Core\ContractorVisit.cs" />
     <Compile Include="Core\Company.cs" />
-    <Compile Include="Core\CompanyOrCandidateEnum.cs" />
+    <Compile Include="Core\CompanyOrContractorEnum.cs" />
     <Compile Include="Core\CompanyVisit.cs" />
     <Compile Include="Core\ConsultantTypeEnum.cs" />
     <Compile Include="Core\Contact.cs" />
@@ -81,11 +81,11 @@
     <Compile Include="Core\Job.cs" />
     <Compile Include="Core\JobActionEnum.cs" />
     <Compile Include="Core\JobApplication.cs" />
-    <Compile Include="Core\JobSkill.cs" />
     <Compile Include="Core\JobVisit.cs" />
     <Compile Include="Core\LevelEnum.cs" />
     <Compile Include="Core\Location.cs" />
     <Compile Include="Core\Member.cs" />
+    <Compile Include="Core\OrganizationTypeEnum.cs" />
     <Compile Include="Core\Payment.cs" />
     <Compile Include="Core\Person.cs" />
     <Compile Include="Core\Plan.cs" />
@@ -93,7 +93,6 @@
     <Compile Include="Core\RateEnum.cs" />
     <Compile Include="Core\Schedule.cs" />
     <Compile Include="Core\Skill.cs" />
-    <Compile Include="Core\SkillExtended.cs" />
     <Compile Include="Core\Subscription.cs" />
     <Compile Include="Core\Transaction.cs" />
     <Compile Include="Core\Visit.cs" />
@@ -134,18 +133,21 @@
     <Compile Include="Migrations\201507142029175_CandiateId removed from Peoples.Designer.cs">
       <DependentUpon>201507142029175_CandiateId removed from Peoples.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507180744146_Contractor and Company Complete Fields Added.cs" />
+    <Compile Include="Migrations\201507180744146_Contractor and Company Complete Fields Added.Designer.cs">
+      <DependentUpon>201507180744146_Contractor and Company Complete Fields Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
     <Compile Include="Repository\CandidateRepository.cs" />
-    <Compile Include="Repository\CandidateSkillRepository.cs" />
     <Compile Include="Repository\CandidateVisitRepository.cs" />
     <Compile Include="Repository\CompanyRepository.cs" />
+    <Compile Include="Repository\FunctionalAreaRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
     <Compile Include="Repository\PlanRepository.cs" />
     <Compile Include="Repository\ScheduleRepository.cs" />
-    <Compile Include="Repository\SkillExtendedRepository.cs" />
     <Compile Include="Repository\SkillRepository.cs" />
     <Compile Include="Repository\SubscriptionRepository.cs" />
     <Compile Include="Repository\TransactionRepository.cs" />
@@ -155,7 +157,6 @@
     <Compile Include="Repository\IndustryRepository.cs" />
     <Compile Include="Repository\JobApplicationRepository.cs" />
     <Compile Include="Repository\JobRepository.cs" />
-    <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\JobVisitRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="EntityDataModels.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -197,10 +197,9 @@
     <EmbeddedResource Include="Migrations\201507142029175_CandiateId removed from Peoples.resx">
       <DependentUpon>201507142029175_CandiateId removed from Peoples.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\json-serialize.js" />
-    <Content Include="Scripts\json-serialize.min.js" />
+    <EmbeddedResource Include="Migrations\201507180744146_Contractor and Company Complete Fields Added.resx">
+      <DependentUpon>201507180744146_Contractor and Company Complete Fields Added.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

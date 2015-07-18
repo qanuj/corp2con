@@ -1,9 +1,11 @@
-﻿namespace Talent21.Data.Core
+﻿using e10.Shared.Data.Abstraction;
+namespace Talent21.Data.Core
 {
-    public class CandidateSkill
+    public class ContractorSkill : Entity
     {
-        public Candidate Candidate { get; set; }
-        public int CandidateId { get; set; }
+
+        public Contractor Contractor { get; set; }
+        public int ContractorId { get; set; }
 
         public Skill Skill { get; set; }
         public int SkillId { get; set; }

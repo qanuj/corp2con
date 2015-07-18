@@ -10,7 +10,6 @@ namespace Talent21.Data.Core
         public string Mobile { get; set; }
         public string AlternareNumber { get; set; }
 
-        public string OwnerId { get; set; }
         public string PictureUrl { get; set; }
 
         public Location Location { get; set; }

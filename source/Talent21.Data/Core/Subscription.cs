@@ -5,7 +5,7 @@ namespace Talent21.Data.Core
 {
     public class Subscription : Entity
     {
-        public Person Subscriber { get; set; }
+        public Member Subscriber { get; set; }
         public int SubscriberId { get; set; }
 
         public DateTime Start { get; set; }

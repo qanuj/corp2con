@@ -4,9 +4,6 @@ namespace Talent21.Data.Core
 {
     public class Company : Member
     {
-        public Industry Industry { get; set; }
-        public int? IndustryId { get; set; }
-
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
 
@@ -19,11 +16,5 @@ namespace Talent21.Data.Core
 
         public IList<Job> Jobs { get; set; }
 
-    }
-
-    public enum OrganizationTypeEnum
-    {
-        Corporate,
-        Consultancy
     }
 }

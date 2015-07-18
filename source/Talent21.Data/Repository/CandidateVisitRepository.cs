@@ -12,14 +12,15 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public  class CandidateVisitRepository : EfRepository<CandidateVisit>, ICandidateVisitRepository
+    public class ContractorVisitRepository : EfRepository<ContractorVisit>, IContractorVisitRepository
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
         /// <param name="eventManager"></param>
-        public CandidateVisitRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
+        public ContractorVisitRepository(DbContext context, IEventManager eventManager)
+            : base(context, eventManager)
         { 
         }
     }
@@ -27,7 +28,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public interface ICandidateVisitRepository : IRepository<CandidateVisit>
+    public interface IContractorVisitRepository : IRepository<ContractorVisit>
     { 
     
     }

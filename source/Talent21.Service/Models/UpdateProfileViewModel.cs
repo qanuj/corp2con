@@ -47,7 +47,7 @@ namespace Talent21.Service.Models
 
         public string AlternareNumber { get; set; }
 
-        public ConsultantTypeEnum ConsultantType { get; set; }
+        public ContractorTypeEnum ConsultantType { get; set; }
 
         public ContractTypeEnum ContractType { get; set; }
 

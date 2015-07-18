@@ -17,8 +17,8 @@ namespace Talent21.Data
             builder.RegisterType<DefaultEventManager>().As<IEventManager>();
 
             builder.RegisterType<BlockRepository>().As<IBlockRepository>();
-            builder.RegisterType<CandidateRepository>().As<ICandidateRepository>();
-            builder.RegisterType<CandidateVisitRepository>().As<ICandidateVisitRepository>();
+            builder.RegisterType<ContractorRepository>().As<IContractorRepository>();
+            builder.RegisterType<ContractorVisitRepository>().As<IContractorVisitRepository>();
             builder.RegisterType<CompanyRepository>().As<ICompanyRepository>();
             builder.RegisterType<CompanyVisitRepository>().As<ICompanyVisitRepository>();
             builder.RegisterType<ContractRepository>().As<IContractRepository>();

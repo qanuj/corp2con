@@ -7,6 +7,6 @@ namespace Talent21.Data.Core
     public class Skill : Dictionary
     {
         public IList<Job> Jobs { get; set; }
-        public IList<CandidateSkill> Skills { get; set; }
+        public IList<ContractorSkill> Skills { get; set; }
     }
 }

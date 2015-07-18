@@ -11,7 +11,11 @@ namespace Talent21.Data.Core
         public string Profile { get; set; }
         public Social Social { get; set; }
 
+        public Industry Industry { get; set; }
+        public int? IndustryId { get; set; }
+
         public string About { get; set; }
+        public string OwnerId { get; set; }
 
         protected Member()
         {

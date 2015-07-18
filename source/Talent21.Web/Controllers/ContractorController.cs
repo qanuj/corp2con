@@ -12,19 +12,17 @@ using System.Web.Http.Description;
 namespace Talent21.Web.Controllers
 {
     /// <summary>
-    /// Candidate Api
+    /// Contractor Api
     /// </summary>
     [Authorize]
-    [RoutePrefix("api/v1/candidate")]
-    public class CandidateController : BasicApiController
+    [RoutePrefix("api/v1/contractor")]
+    public class ContractorController : BasicApiController
     {
-        private readonly ICandidateService _service;
+        private readonly IContractorService _service;
         private readonly IJobService _jobService;
-        /// <summary>
-        /// Create Instance of Candidate Controller
-        /// </summary>
-        /// <param name="service"></param>
-        public CandidateController(ICandidateService service, IJobService jobService)
+        
+
+        public ContractorController(IContractorService service, IJobService jobService)
         {
             _service = service;
             _jobService = jobService;
@@ -32,7 +30,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("paged")]
-        public PageResult<ContractorViewModel> ViewsCandidates(ODataQueryOptions<ContractorViewModel> options)
+        public PageResult<ContractorViewModel> GetContractors(ODataQueryOptions<ContractorViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Contractors, options);
@@ -41,14 +39,14 @@ namespace Talent21.Web.Controllers
         [HttpGet]
         [Route("all")]
         [EnableQuery]
-        public IQueryable<ContractorViewModel> ViewCandidateQuery()
+        public IQueryable<ContractorViewModel> GetContractorsQuery()
         {
             return _service.Contractors;
         }
 
         [HttpGet]
         [Route("profile")]
-        public ContractorViewModel GetCandidateProfile()
+        public ContractorViewModel GetContractorProfile()
         {
             if (User.Identity.IsAuthenticated)
             {
