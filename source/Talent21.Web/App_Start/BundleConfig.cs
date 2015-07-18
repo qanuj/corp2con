@@ -39,7 +39,8 @@ namespace Talent21.Web
                       "~/Content/css/jquery.nouislider.css",
                       "~/Content/css/font-awesome.min.css",
                       "~/Content/css/style.css",
-                      "~/Content/css/spa.css"));
+                      "~/Content/css/spa.css",
+                      "~/Content/css/extra/*.css"));
 
 
             bundles.Add(new ScriptBundle("~/script/site")
