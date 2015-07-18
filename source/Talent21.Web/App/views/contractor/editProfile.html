@@ -31,6 +31,12 @@
                     <label>Rate (in 1000 per hour)</label>
                     <input type="number" class="form-control" ng-model="record.rate">
                 </div>
+                <div class="form-group">
+                    <label>Profile</label>
+                    <ng-upload-form ng-model="record.profileUrl" url="/upload" auto-upload="true" title="Your Resume..."
+                                    accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i" max-chunk-size="10" 
+                                    multiple="false" size-limit="5000000"></ng-upload-form>
+                </div>
                 <div class="form-group wysiwyg" id="job-description-group">
                     <label>Description</label>
 

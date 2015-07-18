@@ -27,7 +27,6 @@ namespace Talent21.Web
         {
 
             // Configure the db context, user manager and signin manager to use a single instance per request
-            //TODO: Fix Security Owin
             var dbContext = ApplicationDataContext.Create();
             app.CreatePerOwinContext(() => dbContext);
             app.CreatePerOwinContext(() => new ApplicationUserStore(dbContext));
