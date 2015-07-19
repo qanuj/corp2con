@@ -1,7 +1,8 @@
 ﻿app.controller('contractorJobController', ['$scope', 'dataService', '$routeParams', '$window', function ($scope, db, param, $window) {
-
+    $scope.isCollapsed = true;
     $scope.title = "Job Profile";
     $scope.role = db.role;
+
 
     //$scope.showalertmessage = function () {
     //    $window.alert('Your application has been successfully sent.')
@@ -34,6 +35,12 @@
 
     $scope.apply = function (record) {
         db.contractor.ApplyToJob(record.id).success(function (result) {
+            $window.history.back();
+        });
+    }
+
+    $scope.favorite = function (id) {
+        db.contractor.favorite(id).success(function (result) {
             $window.history.back();
         });
     }

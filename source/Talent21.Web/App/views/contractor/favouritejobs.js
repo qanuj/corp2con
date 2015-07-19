@@ -5,7 +5,5 @@
         location: '',
         skills:'',
     }
-    db.contractor.paged().success(function (result) {
-        $scope.records = result;
-    });
+ 
 }]);
