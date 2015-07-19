@@ -17,12 +17,24 @@ namespace Talent21.Data.Repository
 
         public override IQueryable<JobApplication> All
         {
-            get { return base.All.Include(x => x.Candidate).Include(x => x.History); }
+            get { return base.All.Include(x => x.Contractor).Include(x => x.History); }
+        }
+
+        public IQueryable<JobApplication> Mine(string userId)
+        {
+            return base.All.Include(x => x.Contractor).Include(x => x.Contractor.Location).Include(x => x.Job).Where(x => x.Job.Company.OwnerId == userId);
+        }
+
+        public Task<JobApplication> MineAsync(string userId, string profilepath)
+        {
+            return base.All.Include(x => x.Contractor).Include(x => x.Contractor.Location).Include(x => x.Job)
+                .FirstOrDefaultAsync(x => x.Job.Company.OwnerId == userId && x.Contractor.ProfileUrl.EndsWith(profilepath));
         }
     }
 
     public interface IJobApplicationRepository : IRepository<JobApplication>
     {
-
+        IQueryable<JobApplication> Mine(string userId);
+        Task<JobApplication> MineAsync(string userId, string profilepath);
     }
 }

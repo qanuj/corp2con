@@ -12,7 +12,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-   public class LocationRepository : EfRepository<Location>, ILocationRepository
+   public class LocationRepository : EfDictionaryRepository<Location>, ILocationRepository
     {
        /// <summary>
        /// 
@@ -27,7 +27,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public interface ILocationRepository : IRepository<Location>
+   public interface ILocationRepository : IDictionaryRepository<Location>
     {
     }
 }

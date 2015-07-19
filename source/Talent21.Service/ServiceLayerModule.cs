@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using e10.Shared.Data.Abstraction;
 using Talent21.Data;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Core;
@@ -10,10 +11,10 @@ namespace Talent21.Service
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule<DataAccessLayerModule>();
-            builder.RegisterType<CandidateService>().As<ICandidateService>();
+            builder.RegisterType<ContractorService>().As<IContractorService>();
             builder.RegisterType<SystemService>().As<ISystemService>();
             builder.RegisterType<JobService>().As<IJobService>();
-            builder.RegisterType<CompanyService>().As<ICompanyService>();
+            builder.RegisterType<CompanyService>().As<ICompanyService>().As<IFileAccessProvider>();
         }
     }
 }

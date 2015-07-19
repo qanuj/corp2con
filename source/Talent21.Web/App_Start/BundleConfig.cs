@@ -39,7 +39,8 @@ namespace Talent21.Web
                       "~/Content/css/jquery.nouislider.css",
                       "~/Content/css/font-awesome.min.css",
                       "~/Content/css/style.css",
-                      "~/Content/css/spa.css"));
+                      "~/Content/css/spa.css",
+                      "~/Content/css/extra/*.css"));
 
 
             bundles.Add(new ScriptBundle("~/script/site")
@@ -84,10 +85,12 @@ namespace Talent21.Web
                 .Include("~/Scripts/site/magic.js")
                 .Include("~/Scripts/site/settings.js")
                 .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-*")
                 .Include("~/app/app.js")
+                .Include("~/Scripts/modules/*.js")
                 .Include("~/app/app.*")
                 .Include("~/app/router/*.js")
                 .Include("~/app/directives/*.js")

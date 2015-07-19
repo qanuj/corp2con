@@ -12,7 +12,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public class JobRepository : EfRepository<Job>, IJobRepository
+    public class JobRepository : EfDictionaryRepository<Job>, IJobRepository
 
     {
         public JobRepository(DbContext context, IEventManager eventManager) : base( context, eventManager)
@@ -25,6 +25,11 @@ namespace Talent21.Data.Repository
             get { return base.All.Include(x => x.Skills).Include(x => x.Location).Include(x => x.Company); }
         }
 
+        public IQueryable<Job> Mine(string userId)
+        {
+            return base.All.Where(x => x.Company.OwnerId == userId).Include(x => x.Skills).Include(x => x.Location).Include(x => x.Company);
+        }
+
 
         internal static void Register(DbModelBuilder modelBuilder)
         {
@@ -35,8 +40,8 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public interface IJobRepository : IRepository<Job>
+    public interface IJobRepository : IDictionaryRepository<Job>
     {
-        
+        IQueryable<Job> Mine(string userId);
     }
 }

@@ -21,20 +21,20 @@ namespace Talent21.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
-        private readonly ICandidateService _candidateService;
+        private readonly ApplicationRoleManager _roleManager;
+        private readonly IContractorService _contractorService;
         private readonly ICompanyService _companyService;
 
         public static string Contractor = "Contractor";
         public static string Company = "Company";
         public static string Admin = "Admin";
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ICompanyService companyService, ICandidateService candidateService, ApplicationRoleManager roleManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ICompanyService companyService, IContractorService contractorService, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _companyService = companyService;
-            _candidateService = candidateService;
+            _contractorService = contractorService;
             _roleManager = roleManager;
         }
 
@@ -175,9 +175,9 @@ namespace Talent21.Web.Controllers
 
                     if(model.What == RegisterAsContractor)
                     {
-                        _candidateService.Create(new ContractorCreateViewModel()
+                        _contractorService.Create(new ContractorCreateViewModel()
                         {
-                            OwnerId = user.Id, Name = user.Email
+                            OwnerId = user.Id, Email = user.Email
                         });
                         if(!UserManager.IsInRole(user.Id, Contractor))
                         {
@@ -188,7 +188,7 @@ namespace Talent21.Web.Controllers
                     {
                         _companyService.Create(new CompanyCreateViewModel()
                         {
-                            OwnerId = user.Id, Name = user.Email
+                            OwnerId = user.Id, Email = user.Email
                         });
                         if (!UserManager.IsInRole(user.Id, Company))
                         {
@@ -452,6 +452,18 @@ namespace Talent21.Web.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        // The Authorize Action is the end point which gets called when you access any
+        // protected Web API. If the user is not logged in then they will be redirected to 
+        // the Login page. After a successful login you can call a Web API.
+        [HttpGet]
+        public ActionResult Authorize()
+        {
+            var claims = new ClaimsPrincipal(User).Claims.ToArray();
+            var identity = new ClaimsIdentity(claims, "Bearer");
+            AuthenticationManager.SignIn(identity);
+            return new EmptyResult();
         }
 
         protected override void Dispose(bool disposing)

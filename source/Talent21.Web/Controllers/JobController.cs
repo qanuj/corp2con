@@ -22,7 +22,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("search")]
-        public PageResult<JobSearchResultViewModel> ViewsCandidates(SearchJobViewModel model, ODataQueryOptions<JobSearchResultViewModel> options)
+        public PageResult<JobSearchResultViewModel> GetContractorsSearch(SearchJobViewModel model, ODataQueryOptions<JobSearchResultViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Search(model), options);

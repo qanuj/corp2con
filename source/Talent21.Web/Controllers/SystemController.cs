@@ -24,6 +24,11 @@ namespace Talent21.Web.Controllers
             _companyService = companyService;
         }
 
+        [HttpGet, Route("enums")]
+        public EnumList GetAllEnums()
+        {
+            return _service.Enums();
+        }
 
         [HttpGet]
         [Route("company/paged")]

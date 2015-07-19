@@ -22,7 +22,6 @@ namespace Talent21.Web.Controllers
         {
             _service = service;
         }
-        
           
         [HttpGet]
         [Route("profile")]

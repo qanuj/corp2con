@@ -1,1 +1,15 @@
-﻿var app = angular.module('app', ['ngRoute', 'ui.bootstrap', 'ngAnimate']);
+﻿var app = angular.module('app', [
+    // Angular modules 
+    'ngAnimate',        // animations
+    'ngRoute',          // routing
+    'ngSanitize',       // sanitizes html bindings (ex: sidebar.js)
+
+    // 3rd Party Modules
+    'ui-rangeSlider',
+    'ngTagsInput',
+    'codemwnci.markdown-edit-preview',
+    'ui.gravatar', //gravtaar for user
+    'ui.select', //ui-select for dropdown and multi values.
+    'ui.bootstrap',      // ui-bootstrap (ex: carousel, pagination, dialog)
+    'blueimp.fileupload' //jQuery File Uploader Component
+]);

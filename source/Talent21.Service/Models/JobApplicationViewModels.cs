@@ -28,9 +28,9 @@ namespace Talent21.Service.Models
         public string CreateBy { get; set; }
     }
 
-    public class CandidateActJobApplicationViewModel
+    public class ContractorActJobApplicationViewModel
     {
-        public int CandidateId { get; set; }
+        public int ContractorId { get; set; }
         public int JobId { get; set; }
         public JobActionEnum Act { get; set; }
     }
