@@ -22,9 +22,10 @@ namespace Talent21.Service.Core
             IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository, 
-            ISkillRepository skillRepository, 
-            IContractorSkillRepository contractorSkillRepository)
-            : base()
+            ISkillRepository skillRepository,
+            IContractorSkillRepository contractorSkillRepository,
+            ILocationRepository locationRepository)
+            : base(locationRepository)
         {
             _contractorRepository = contractorRepository;
             _jobApplicationRepository = jobApplicationRepository;
@@ -54,7 +55,7 @@ namespace Talent21.Service.Core
                     Facebook = x.Social.Facebook,
                     Google = x.Social.Google,
                     LinkedIn = x.Social.LinkedIn,
-                    LocationId = x.LocationId,
+                    Location = x.Location.Title,
                     Mobile = x.Mobile,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
@@ -199,7 +200,7 @@ namespace Talent21.Service.Core
             entity.Gender = model.Gender;
             entity.Profile = model.Profile;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
-            entity.LocationId = model.LocationId;
+            entity.Location = FindLocation(model.Location);
             entity.Mobile = model.Mobile;
             entity.Social = new Social
             {

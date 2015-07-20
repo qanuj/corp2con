@@ -23,9 +23,7 @@ namespace Talent21.Service.Models
 
     public class CompanyViewModel : CompanyEditViewModel
     {
-        public string PictureUrl { get; set; }
         public DictionaryViewModel Industry { get; set; }
-
         public string OwnerId { get; set; }
     }
 

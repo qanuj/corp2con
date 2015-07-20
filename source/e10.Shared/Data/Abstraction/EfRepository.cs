@@ -22,7 +22,17 @@ namespace e10.Shared.Data.Abstraction
         }
         public TDictionary ByCode(string code)
         {
-            return All.FirstOrDefault(x => x.Code==code);
+            return All.FirstOrDefault(x => x.Code == code);
+        }
+
+
+        public IQueryable<TDictionary> ByTitle(IEnumerable<string> titles)
+        {
+            return All.Where(x => titles.Contains(x.Title));
+        }
+        public TDictionary ByTitle(string title)
+        {
+            return All.FirstOrDefault(x => x.Title == title);
         }
     }
 
