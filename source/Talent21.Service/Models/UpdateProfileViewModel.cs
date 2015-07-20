@@ -43,19 +43,18 @@ namespace Talent21.Service.Models
         public ContractTypeEnum ContractType { get; set; }
         public GenderEnum Gender { get; set; }
         public string Profile { get; set; }
+
+        public IEnumerable<ContractorSkillViewModel> Skills { get; set; }
     }
 
     public class ContractorCreateViewModel : ContractorEditViewModel
     {
-
         public string OwnerId { get; set; }
     }
 
     public class ContractorViewModel : ContractorEditViewModel
     {
         internal string OwnerId { get; set; }
-        public int Rate { get; set; }
-        public IEnumerable<DictionaryViewModel> Skills { get; set; }
     }
 
 }

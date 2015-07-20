@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Linq.Expressions;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
@@ -21,7 +22,7 @@ namespace Talent21.Service.Core
         public ContractorService(IContractorRepository contractorRepository,
             IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
-            IScheduleRepository scheduleRepository, 
+            IScheduleRepository scheduleRepository,
             ISkillRepository skillRepository,
             IContractorSkillRepository contractorSkillRepository,
             ILocationRepository locationRepository)
@@ -68,6 +69,7 @@ namespace Talent21.Service.Core
                     Rate = x.Rate,
                     Skills = x.Skills.Select(y => new ContractorSkillViewModel()
                     {
+                        Id = y.Id,
                         Code = y.Skill.Code,
                         Title = y.Skill.Title,
                         ExperienceInMonths = y.ExperienceInMonths,
@@ -84,7 +86,7 @@ namespace Talent21.Service.Core
             {
                 return _contractorRepository.All.SelectMany(x => x.Skills.Select(y => new ContractorSkillViewModel
                 {
-                    Id=y.Skill.Id,
+                    Id = y.Skill.Id,
                     Code = y.Skill.Code,
                     Title = y.Skill.Title,
                     ExperienceInMonths = y.ExperienceInMonths,
@@ -213,6 +215,41 @@ namespace Talent21.Service.Core
                 WebSite = model.WebSite
             };
 
+            var existingSkills = _contractorSkillRepository.ById(model.Skills.Select(x => x.Id)).ToList();
+
+            for (var i = 0; i < existingSkills.Count; i++)
+            {
+                var skill = existingSkills[i];
+                var mskill = model.Skills.FirstOrDefault(x => x.Id == skill.Id);
+                if (mskill == null) continue;
+
+                if (mskill.Deleted)
+                {
+                    _contractorSkillRepository.Delete(skill);
+                }
+                else
+                {
+                    skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code};
+                    skill.Level = mskill.Level;
+                    skill.Proficiency = mskill.Proficiency;
+                    skill.ExperienceInMonths = mskill.ExperienceInMonths;
+                    _contractorSkillRepository.Update(skill);
+                }
+            }
+
+            var newSkills = model.Skills.Where(x => x.Id == 0);
+            foreach (var mskill in newSkills)
+            {
+                _contractorSkillRepository.Create(new ContractorSkill
+                {
+                    Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code},
+                    Level = mskill.Level,
+                    Proficiency = mskill.Proficiency,
+                    ExperienceInMonths = mskill.ExperienceInMonths,
+                    Contractor = entity
+                });
+            }
+
             _contractorRepository.Update(entity);
             _contractorRepository.SaveChanges();
 
@@ -237,10 +274,10 @@ namespace Talent21.Service.Core
 
         public ContractorSkillEditViewModel Update(ContractorSkillEditViewModel model)
         {
-             var contractor = FindContractor(CurrentUserId);
+            var contractor = FindContractor(CurrentUserId);
 
             var entity = _contractorSkillRepository.ById(model.Id);
-            if(entity == null || entity.ContractorId!=contractor.Id) throw new Exception("Skill not found");
+            if(entity == null || entity.ContractorId != contractor.Id) throw new Exception("Skill not found");
 
             entity.ExperienceInMonths = model.ExperienceInMonths;
             entity.Level = model.Level;
@@ -256,7 +293,7 @@ namespace Talent21.Service.Core
         {
             var entity = _scheduleRepository.ById(model.Id);
             var contractor = FindContractor(CurrentUserId);
-            if (contractor.Id == entity.ContractorId)
+            if(contractor.Id == entity.ContractorId)
             {
                 _scheduleRepository.Delete(entity);
                 return _scheduleRepository.SaveChanges() > 0;
@@ -268,7 +305,7 @@ namespace Talent21.Service.Core
         {
             var entity = _contractorSkillRepository.ById(model.Id);
             var contractor = FindContractor(CurrentUserId);
-            if (contractor.Id == entity.ContractorId)
+            if(contractor.Id == entity.ContractorId)
             {
                 _contractorSkillRepository.Delete(entity);
                 return _contractorSkillRepository.SaveChanges() > 0;
