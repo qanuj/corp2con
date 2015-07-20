@@ -36,7 +36,7 @@ namespace e10.Shared.Data.Abstraction
         }
     }
 
-    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
+    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity,ISoftDelete
     {
         protected EfRepository(DbContext context, IEventManager eventManager)
         {
@@ -57,7 +57,7 @@ namespace e10.Shared.Data.Abstraction
         {
             get
             {
-                return Set;
+                return Set.Where(x=>!x.IsDeleted);
             }
         }
 
