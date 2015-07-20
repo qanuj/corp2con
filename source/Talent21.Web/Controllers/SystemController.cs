@@ -144,11 +144,49 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("location/delete")]
-        public HttpResponseMessage DeleteLocation(LocationDeleteViewModel model)
+        [Route("location/delete/{id}")]
+        public HttpResponseMessage DeleteLocation([FromUri]int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new LocationDeleteViewModel{Id=id})) : Bad(ModelState);
         }
+
+
+        //functional aeraa
+        [HttpGet]
+        [Route("functional/paged")]
+        public PageResult<FunctionalAreaDictionaryViewModel> ViewFunctionals(ODataQueryOptions<FunctionalAreaDictionaryViewModel> options)
+        {
+            return Page(_service.FunctionalAreas, options);
+        }
+
+        [HttpGet]
+        [Route("functional/all")]
+        public IQueryable<FunctionalAreaDictionaryViewModel> ViewFunctionalsQuery()
+        {
+            return _service.FunctionalAreas;
+        }
+
+        [HttpPost]
+        [Route("functional/create")]
+        public HttpResponseMessage AddFunctionalArea(FunctionalAreaDictionaryCreateViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("functional/update")]
+        public HttpResponseMessage EditFunctionalArea(FunctionalAreaDictionaryEditViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("functional/delete/{id}")]
+        public HttpResponseMessage DeleteFunctionalArea([FromUri]int id)
+        {
+            return ModelState.IsValid ? Ok(_service.Delete(new FunctionalAreaDeleteViewModel { Id = id })) : Bad(ModelState);
+        }
+
 
     }
 }

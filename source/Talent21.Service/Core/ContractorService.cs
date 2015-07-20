@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Linq.Expressions;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
@@ -21,10 +22,11 @@ namespace Talent21.Service.Core
         public ContractorService(IContractorRepository contractorRepository,
             IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
-            IScheduleRepository scheduleRepository, 
-            ISkillRepository skillRepository, 
-            IContractorSkillRepository contractorSkillRepository)
-            : base()
+            IScheduleRepository scheduleRepository,
+            ISkillRepository skillRepository,
+            IContractorSkillRepository contractorSkillRepository,
+            ILocationRepository locationRepository)
+            : base(locationRepository)
         {
             _contractorRepository = contractorRepository;
             _jobApplicationRepository = jobApplicationRepository;
@@ -37,43 +39,46 @@ namespace Talent21.Service.Core
         {
             get
             {
-                return _contractorRepository.All.Select(x => new ContractorViewModel
-                {
-                    Id = x.Id,
-                    About = x.About,
-                    Email = x.Email,
-                    Nationality = x.Nationality,
-                    AlternateNumber = x.AlternateNumber,
-                    ConsultantType = x.ConsultantType,
-                    ContractType = x.ContractType,
-                    Gender = x.Gender,
-                    Profile = x.Profile,
-                    FunctionalAreaId = x.FunctionalAreaId,
-                    ExperienceMonths = x.Experience.Months,
-                    ExperienceYears = x.Experience.Years,
-                    Facebook = x.Social.Facebook,
-                    Google = x.Social.Google,
-                    LinkedIn = x.Social.LinkedIn,
-                    LocationId = x.LocationId,
-                    Mobile = x.Mobile,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Rss = x.Social.Rss,
-                    Twitter = x.Social.Twitter,
-                    WebSite = x.Social.WebSite,
-                    Yahoo = x.Social.Yahoo,
-                    PictureUrl = x.PictureUrl,
-                    OwnerId = x.OwnerId,
-                    Rate = x.Rate,
-                    Skills = x.Skills.Select(y => new ContractorSkillViewModel()
-                    {
-                        Code = y.Skill.Code,
-                        Title = y.Skill.Title,
-                        ExperienceInMonths = y.ExperienceInMonths,
-                        Level = y.Level,
-                        Proficiency = y.Proficiency
-                    })
-                });
+                var query = from x in _contractorRepository.All
+                            select new ContractorViewModel
+                            {
+                                Id = x.Id,
+                                About = x.About,
+                                Email = x.Email,
+                                Nationality = x.Nationality,
+                                AlternateNumber = x.AlternateNumber,
+                                ConsultantType = x.ConsultantType,
+                                ContractType = x.ContractType,
+                                Gender = x.Gender,
+                                Profile = x.Profile,
+                                FunctionalAreaId = x.FunctionalAreaId,
+                                ExperienceMonths = x.Experience.Months,
+                                ExperienceYears = x.Experience.Years,
+                                Facebook = x.Social.Facebook,
+                                Google = x.Social.Google,
+                                LinkedIn = x.Social.LinkedIn,
+                                Location = x.Location.Title,
+                                Mobile = x.Mobile,
+                                FirstName = x.FirstName,
+                                LastName = x.LastName,
+                                Rss = x.Social.Rss,
+                                Twitter = x.Social.Twitter,
+                                WebSite = x.Social.WebSite,
+                                Yahoo = x.Social.Yahoo,
+                                PictureUrl = x.PictureUrl,
+                                OwnerId = x.OwnerId,
+                                Rate = x.Rate,
+                                Skills = _contractorSkillRepository.All.Where(y=>y.ContractorId==x.Id).Select(y => new ContractorSkillViewModel()
+                                {
+                                    Id = y.Id,
+                                    Code = y.Skill.Code,
+                                    Title = y.Skill.Title,
+                                    ExperienceInMonths = y.ExperienceInMonths,
+                                    Level = y.Level,
+                                    Proficiency = y.Proficiency
+                                })
+                            };
+                return query;
             }
         }
 
@@ -83,7 +88,7 @@ namespace Talent21.Service.Core
             {
                 return _contractorRepository.All.SelectMany(x => x.Skills.Select(y => new ContractorSkillViewModel
                 {
-                    Id=y.Skill.Id,
+                    Id = y.Skill.Id,
                     Code = y.Skill.Code,
                     Title = y.Skill.Title,
                     ExperienceInMonths = y.ExperienceInMonths,
@@ -199,7 +204,7 @@ namespace Talent21.Service.Core
             entity.Gender = model.Gender;
             entity.Profile = model.Profile;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
-            entity.LocationId = model.LocationId;
+            entity.Location = FindLocation(model.Location);
             entity.Mobile = model.Mobile;
             entity.Social = new Social
             {
@@ -211,6 +216,43 @@ namespace Talent21.Service.Core
                 Rss = model.Rss,
                 WebSite = model.WebSite
             };
+
+            var IDs = model.Skills.Select(x => x.Id).ToList();
+            var existingSkills = _contractorSkillRepository.ById(IDs).ToList();
+
+            //Updated Skills
+            for (var i = 0; i < existingSkills.Count; i++)
+            {
+                var skill = existingSkills[i];
+                var mskill = model.Skills.FirstOrDefault(x => x.Id == skill.Id);
+                if (mskill == null) continue;
+                skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code};
+                skill.Level = mskill.Level;
+                skill.Proficiency = mskill.Proficiency;
+                skill.ExperienceInMonths = mskill.ExperienceInMonths;
+                _contractorSkillRepository.Update(skill);
+            }
+
+            //Created Skills
+            var newSkills = model.Skills.Where(x => x.Id == 0);
+            foreach (var mskill in newSkills)
+            {
+                _contractorSkillRepository.Create(new ContractorSkill
+                {
+                    Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code},
+                    Level = mskill.Level,
+                    Proficiency = mskill.Proficiency,
+                    ExperienceInMonths = mskill.ExperienceInMonths,
+                    Contractor = entity
+                });
+            }
+
+            //Deleted Skills
+            var deletedSkills = _contractorSkillRepository.All.Where(x => !IDs.Contains(x.Id) && x.ContractorId==entity.Id).ToList();
+            for(var i = 0; i < deletedSkills.Count; i++)
+            {
+                _contractorSkillRepository.Delete(deletedSkills[i]);
+            }
 
             _contractorRepository.Update(entity);
             _contractorRepository.SaveChanges();
@@ -236,10 +278,10 @@ namespace Talent21.Service.Core
 
         public ContractorSkillEditViewModel Update(ContractorSkillEditViewModel model)
         {
-             var contractor = FindContractor(CurrentUserId);
+            var contractor = FindContractor(CurrentUserId);
 
             var entity = _contractorSkillRepository.ById(model.Id);
-            if(entity == null || entity.ContractorId!=contractor.Id) throw new Exception("Skill not found");
+            if(entity == null || entity.ContractorId != contractor.Id) throw new Exception("Skill not found");
 
             entity.ExperienceInMonths = model.ExperienceInMonths;
             entity.Level = model.Level;
@@ -255,7 +297,7 @@ namespace Talent21.Service.Core
         {
             var entity = _scheduleRepository.ById(model.Id);
             var contractor = FindContractor(CurrentUserId);
-            if (contractor.Id == entity.ContractorId)
+            if(contractor.Id == entity.ContractorId)
             {
                 _scheduleRepository.Delete(entity);
                 return _scheduleRepository.SaveChanges() > 0;
@@ -267,7 +309,7 @@ namespace Talent21.Service.Core
         {
             var entity = _contractorSkillRepository.ById(model.Id);
             var contractor = FindContractor(CurrentUserId);
-            if (contractor.Id == entity.ContractorId)
+            if(contractor.Id == entity.ContractorId)
             {
                 _contractorSkillRepository.Delete(entity);
                 return _contractorSkillRepository.SaveChanges() > 0;

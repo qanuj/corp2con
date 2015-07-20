@@ -33,5 +33,8 @@ namespace e10.Shared.Data.Abstraction
     {
         IQueryable<TEntity> ByCode(IEnumerable<string> codes);
         TEntity ByCode(string code);
+
+        IQueryable<TEntity> ByTitle(IEnumerable<string> titles);
+        TEntity ByTitle(string title);
     }
 }
