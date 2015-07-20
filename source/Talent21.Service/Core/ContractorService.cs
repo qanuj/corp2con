@@ -39,44 +39,46 @@ namespace Talent21.Service.Core
         {
             get
             {
-                return _contractorRepository.All.Select(x => new ContractorViewModel
-                {
-                    Id = x.Id,
-                    About = x.About,
-                    Email = x.Email,
-                    Nationality = x.Nationality,
-                    AlternateNumber = x.AlternateNumber,
-                    ConsultantType = x.ConsultantType,
-                    ContractType = x.ContractType,
-                    Gender = x.Gender,
-                    Profile = x.Profile,
-                    FunctionalAreaId = x.FunctionalAreaId,
-                    ExperienceMonths = x.Experience.Months,
-                    ExperienceYears = x.Experience.Years,
-                    Facebook = x.Social.Facebook,
-                    Google = x.Social.Google,
-                    LinkedIn = x.Social.LinkedIn,
-                    Location = x.Location.Title,
-                    Mobile = x.Mobile,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Rss = x.Social.Rss,
-                    Twitter = x.Social.Twitter,
-                    WebSite = x.Social.WebSite,
-                    Yahoo = x.Social.Yahoo,
-                    PictureUrl = x.PictureUrl,
-                    OwnerId = x.OwnerId,
-                    Rate = x.Rate,
-                    Skills = x.Skills.Where(y=>!y.IsDeleted).Select(y => new ContractorSkillViewModel()
-                    {
-                        Id = y.Id,
-                        Code = y.Skill.Code,
-                        Title = y.Skill.Title,
-                        ExperienceInMonths = y.ExperienceInMonths,
-                        Level = y.Level,
-                        Proficiency = y.Proficiency
-                    })
-                });
+                var query = from x in _contractorRepository.All
+                            select new ContractorViewModel
+                            {
+                                Id = x.Id,
+                                About = x.About,
+                                Email = x.Email,
+                                Nationality = x.Nationality,
+                                AlternateNumber = x.AlternateNumber,
+                                ConsultantType = x.ConsultantType,
+                                ContractType = x.ContractType,
+                                Gender = x.Gender,
+                                Profile = x.Profile,
+                                FunctionalAreaId = x.FunctionalAreaId,
+                                ExperienceMonths = x.Experience.Months,
+                                ExperienceYears = x.Experience.Years,
+                                Facebook = x.Social.Facebook,
+                                Google = x.Social.Google,
+                                LinkedIn = x.Social.LinkedIn,
+                                Location = x.Location.Title,
+                                Mobile = x.Mobile,
+                                FirstName = x.FirstName,
+                                LastName = x.LastName,
+                                Rss = x.Social.Rss,
+                                Twitter = x.Social.Twitter,
+                                WebSite = x.Social.WebSite,
+                                Yahoo = x.Social.Yahoo,
+                                PictureUrl = x.PictureUrl,
+                                OwnerId = x.OwnerId,
+                                Rate = x.Rate,
+                                Skills = _contractorSkillRepository.All.Where(y=>y.ContractorId==x.Id).Select(y => new ContractorSkillViewModel()
+                                {
+                                    Id = y.Id,
+                                    Code = y.Skill.Code,
+                                    Title = y.Skill.Title,
+                                    ExperienceInMonths = y.ExperienceInMonths,
+                                    Level = y.Level,
+                                    Proficiency = y.Proficiency
+                                })
+                            };
+                return query;
             }
         }
 
