@@ -14,7 +14,6 @@ namespace Talent21.Service.Models
 
     public class ContractorSkillViewModel : ContractorSkillEditViewModel
     {
-        public bool Deleted { get; set; }
     }
 
     public class ContractorSkillEditViewModel : ContractorSkillCreateViewModel

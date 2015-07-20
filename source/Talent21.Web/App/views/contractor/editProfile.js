@@ -3,12 +3,21 @@
     db.contractor.profile().success(function (result) {
         result.picture = { url: result.pictureUrl };
         result.loc = { formatted_address: result.location };
+        result.primarySkills = [];
+        result.secondarySkills = [];
+
+        for (var x in result.skills) {
+            if (result.skills[x].level == 'Primary') {
+                result.primarySkills.push(result.skills[x]);
+            } else {
+                result.secondarySkills.push(result.skills[x]);
+            }
+        }
+
         $scope.record = result;
     });
 
-    db.system.getSkills().success(function (result) {
-        $scope.skills = result;
-    });
+    $scope.loadSkills= db.system.getSkills;
 
     $scope.refreshAddresses = function (address) {
         return db.system.searchLocations(address).then(function (response) {
@@ -26,11 +35,7 @@
         if (record.loc) {
             record.location = record.loc.formatted_address;
         }
-        record.skill = '';
-        for (var x in record.skills) {
-            if (record.skill != '') record.skill += ',';
-            record.skill += record.skills[x].text;
-        }
+        record.skills = record.primarySkills.concat(record.secondarySkills);
 
         db.contractor.editProfile(record).success(function (result) {
             window.location = "#/profile";

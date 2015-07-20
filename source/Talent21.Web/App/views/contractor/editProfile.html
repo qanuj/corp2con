@@ -49,13 +49,15 @@
             </div>
             <div class="form-group">
                 <label>Skills</label>
-                <tags-input placeholder="Add Skill" ng-model="record.skills"></tags-input>
+                <tags-input placeholder="Add Skill" display-property="title" ng-model="record.primarySkills">
+                    <auto-complete source="loadSkills($query)"></auto-complete>
+                </tags-input>
             </div>
             <div class="form-group">
                 <label>Secondary Skills</label>
-                <input type="text" class="form-control" ng-model="record.skills"
-                       typeahead="skill.id as skill.title for skill in skills | filter:$viewValue | limitTo:10"
-                       typeahead-editable="false" placeholder="e.g. People Management, Leadership">
+                <tags-input placeholder="Add Skill" display-property="title" ng-model="record.secondarySkills">
+                    <auto-complete source="loadSkills($query)"></auto-complete>
+                </tags-input>
             </div>
             <div class="form-group nopadding-left col-xs-6">
                 <label>Rate</label>

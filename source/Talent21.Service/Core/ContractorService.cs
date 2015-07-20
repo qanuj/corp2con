@@ -67,7 +67,7 @@ namespace Talent21.Service.Core
                     PictureUrl = x.PictureUrl,
                     OwnerId = x.OwnerId,
                     Rate = x.Rate,
-                    Skills = x.Skills.Select(y => new ContractorSkillViewModel()
+                    Skills = x.Skills.Where(y=>!y.IsDeleted).Select(y => new ContractorSkillViewModel()
                     {
                         Id = y.Id,
                         Code = y.Skill.Code,
@@ -215,28 +215,23 @@ namespace Talent21.Service.Core
                 WebSite = model.WebSite
             };
 
-            var existingSkills = _contractorSkillRepository.ById(model.Skills.Select(x => x.Id)).ToList();
+            var IDs = model.Skills.Select(x => x.Id).ToList();
+            var existingSkills = _contractorSkillRepository.ById(IDs).ToList();
 
+            //Updated Skills
             for (var i = 0; i < existingSkills.Count; i++)
             {
                 var skill = existingSkills[i];
                 var mskill = model.Skills.FirstOrDefault(x => x.Id == skill.Id);
                 if (mskill == null) continue;
-
-                if (mskill.Deleted)
-                {
-                    _contractorSkillRepository.Delete(skill);
-                }
-                else
-                {
-                    skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code};
-                    skill.Level = mskill.Level;
-                    skill.Proficiency = mskill.Proficiency;
-                    skill.ExperienceInMonths = mskill.ExperienceInMonths;
-                    _contractorSkillRepository.Update(skill);
-                }
+                skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code};
+                skill.Level = mskill.Level;
+                skill.Proficiency = mskill.Proficiency;
+                skill.ExperienceInMonths = mskill.ExperienceInMonths;
+                _contractorSkillRepository.Update(skill);
             }
 
+            //Created Skills
             var newSkills = model.Skills.Where(x => x.Id == 0);
             foreach (var mskill in newSkills)
             {
@@ -248,6 +243,13 @@ namespace Talent21.Service.Core
                     ExperienceInMonths = mskill.ExperienceInMonths,
                     Contractor = entity
                 });
+            }
+
+            //Deleted Skills
+            var deletedSkills = _contractorSkillRepository.All.Where(x => !IDs.Contains(x.Id) && x.ContractorId==entity.Id).ToList();
+            for(var i = 0; i < deletedSkills.Count; i++)
+            {
+                _contractorSkillRepository.Delete(deletedSkills[i]);
             }
 
             _contractorRepository.Update(entity);
