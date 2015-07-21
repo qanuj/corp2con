@@ -19,10 +19,6 @@
 
     factory.role = document.querySelector('html').dataset.role;
 
-    factory.findPages=function(result) {
-        return Math.floor(((result.count || result.items.length) / factory.pageSize) + 1);
-    }
-
     //For Contractors
 
     factory.contractor.paged = function () {
@@ -34,7 +30,7 @@
     }
 
     factory.contractor.get = function (id) {
-        return $http.get(v + 'contractor/profile'+(!!id?'/'+id:''));
+        return $http.get(v + 'contractor/profile' + (!!id ? '/' + id : ''));
     }
 
     factory.contractor.update = function (formData) {
@@ -88,7 +84,7 @@
     }
 
     factory.company.searchContractor = function (query) {
-        return $http.post(v + 'company/search?$inlinecount=allpages', query);
+        return $http.post(v + 'company/search', query);
     }
 
     factory.company.update = function (formData) {

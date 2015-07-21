@@ -1,6 +1,6 @@
 ﻿app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     var role = document.querySelector('html').dataset.role;
-    
+
     if (role === 'Contractor') {
         $routeProvider
             .when('/', {
