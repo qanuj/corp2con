@@ -2,28 +2,28 @@
 
     $scope.title = "Job Profile";
     $scope.role = db.role;
-
     $scope.id = param.id;
+
     db.job.get($scope.id).success(function (result) {
         $scope.record = result;
         console.log($scope.record);
     });
 
-    $scope.publish = function (record) {
+    $scope.publish = function (id) {
         db.job.publish(id).success(function (result) {
-            console.log('Job Published');
+            $window.location.href = '/#/jobs';
         });
     }
 
-    $scope.cancel = function (record) {
-        db.job.cancel(record).success(function (result) {
-            console.log('Job Cancelled');
+    $scope.cancel = function (id) {
+        db.job.cancel(id).success(function (result) {
+            $window.location.href = '/#/jobs';
         });
     }
 
-    $scope.delete = function (record) {
-        db.job.delete(record).success(function (result) {
-            $window.location.href = '/#/myjobs';
+    $scope.delete = function (id) {
+        db.job.delete(id).success(function (result) {
+            $window.location.href = '/#/jobs';
         });
     }
 }]);
