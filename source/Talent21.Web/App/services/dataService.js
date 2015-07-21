@@ -157,6 +157,15 @@
     factory.system.deleteIndustry = function (record) {
         return $http.delete(v + 'system/industry/delete', record);
     }
-
+    factory.system.addSkill = function (formData) {
+        return $http.post(v + 'system/skill/create', formData);
+    }
+    factory.contractor.editSkill = function (formData) {
+        return $http.put(v + 'system/skill/update', formData);
+    }
+    factory.contractor.deleteSkill = function (formData) {
+        return $http.delete(v + 'system/skill/delete', formData);
+    }
+    return factory;
     return factory;
 }]);
