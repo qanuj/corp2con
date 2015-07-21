@@ -9,8 +9,10 @@
 
     function fetchResults(query, page) {
         db.company.search(query, page).success(function (result) {
-            $scope.records = result;
-            console.log(result);
+            $scope.count = result.count;
+            $scope.records = result.items;
+            $scope.page = page;
+            $scope.pages = db.findPages(result);
         });
     }
 
