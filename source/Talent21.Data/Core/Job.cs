@@ -11,7 +11,7 @@ namespace Talent21.Data.Core
         public Location Location { get; set; }
         public int LocationId { get; set; }
 
-        public IList<Skill> Skills { get; set; }
+        public IList<JobSkill> Skills { get; set; }
         public IList<JobVisit> Visits { get; set; }
         public IList<JobApplication> Applications { get; set; }
 

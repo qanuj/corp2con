@@ -55,21 +55,21 @@
                 templateUrl: '/app/views/company/editProfile.html',
                 controller: 'companyEditProfileController'
             })
-            .when('/company/createJobs', {
-                templateUrl: '/app/views/company/createJobs.html',
-                controller: 'createJobController'
+            .when('/job/new', {
+                templateUrl: '/app/views/company/editOrCreateJob.html',
+                controller: 'editOrCreateJobController'
             })
             .when('/jobs', {
                 templateUrl: '/app/views/company/jobs.html',
                 controller: 'jobsController'
             })
-            .when('/company/job/:id', {
+            .when('/job/:id', {
                 templateUrl: '/app/views/company/job.html', //only for jobs about page.
                 controller: 'companyJobController'
             })
             .when('/job/edit/:id', {
-                templateUrl: '/app/views/company/editJob.html',
-                controller: 'companyJobEditController'
+                templateUrl: '/app/views/company/editOrCreateJob.html',
+                controller: 'editOrCreateJobController'
             })
             .otherwise({ redirectTo: '/' });
     }

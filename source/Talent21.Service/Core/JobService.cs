@@ -38,7 +38,7 @@ namespace Talent21.Service.Core
                                 Start=job.Start,
                                 End=job.End,
                                 Id=job.Id,
-                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title })
                             };
                 return query;
             }

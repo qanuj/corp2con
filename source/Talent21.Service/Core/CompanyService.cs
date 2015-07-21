@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
@@ -16,16 +17,19 @@ namespace Talent21.Service.Core
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IJobRepository _jobRepository;
+        private readonly IJobSkillRepository _jobSkillRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly ISkillRepository _skillRepository;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
             ISkillRepository skillRepository,
+            IJobSkillRepository jobSkillRepository,
             IJobApplicationRepository jobApplicationRepository,
             ILocationRepository locationRepository)
             : base(locationRepository)
         {
+            _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
             _jobRepository = jobRepository;
             _skillRepository = skillRepository;
@@ -93,6 +97,7 @@ namespace Talent21.Service.Core
 
             entity.FirstName = model.FirstName;
             entity.LastName = model.LastName;
+            entity.PictureUrl = model.PictureUrl;
             entity.Email = model.Email;
             entity.About = model.About;
             entity.CompanyName = model.CompanyName;
@@ -101,6 +106,7 @@ namespace Talent21.Service.Core
             entity.Profile = model.Profile;
             entity.Location = FindLocation(model.Location);
             entity.Mobile = model.Mobile;
+            entity.IndustryId = model.IndustryId;
             entity.Social = new Social
             {
                 Twitter = model.Twitter,
@@ -123,6 +129,43 @@ namespace Talent21.Service.Core
             return Companies.FirstOrDefault(x => x.OwnerId == userId);
         }
 
+        private void ApplySkills(CreateJobViewModel model, Job entity)
+        {
+
+            var IDs = model.Skills.Select(x => x.Id).ToList();
+            var existingSkills = _jobSkillRepository.ById(IDs).ToList();
+
+            //Updated Skills
+            for(var i = 0; i < existingSkills.Count; i++)
+            {
+                var skill = existingSkills[i];
+                var mskill = model.Skills.FirstOrDefault(x => x.Id == skill.Id);
+                if(mskill == null) continue;
+                skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code };
+                skill.Level = mskill.Level;
+                _jobSkillRepository.Update(skill);
+            }
+
+            //Created Skills
+            var newSkills = model.Skills.Where(x => x.Id == 0);
+            foreach(var mskill in newSkills)
+            {
+                _jobSkillRepository.Create(new JobSkill
+                {
+                    Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code },
+                    Level = mskill.Level,
+                    Job = entity
+                });
+            }
+
+            //Deleted Skills
+            var deletedSkills = _jobSkillRepository.All.Where(x => !IDs.Contains(x.Id) && x.JobId == entity.Id).ToList();
+            for(var i = 0; i < deletedSkills.Count; i++)
+            {
+                _jobSkillRepository.Delete(deletedSkills[i]);
+            }
+        }
+
         public JobViewModel Create(CreateJobViewModel model)
         {
             var company = FindCompany();
@@ -138,11 +181,7 @@ namespace Talent21.Service.Core
                 Start = model.Start
             };
 
-            var skills = _skillRepository.ById(model.Skills.Select(x => x.Id)).ToList();
-            for(var i = 0; i < skills.Count; i++)
-            {
-                entity.Skills.Add(skills[i]);
-            }
+            ApplySkills(model,entity);
 
             _jobRepository.Create(entity);
             _jobRepository.SaveChanges();
@@ -176,17 +215,7 @@ namespace Talent21.Service.Core
             entity.Rate = model.Rate;
             entity.Start = model.Start;
 
-            var skills = _skillRepository.ById(model.Skills.Where(x => entity.Skills.All(y => y.Id != x.Id)).Select(x => x.Id)).ToList();
-            for(var i = 0; i < skills.Count; i++)
-            {
-                entity.Skills.Add(skills[i]);
-            }
-
-            var skillDeleted = entity.Skills.Where(x => model.Skills.All(y => y.Id != x.Id)).ToList();
-            for(var i = 0; i < skillDeleted.Count; i++)
-            {
-                entity.Skills.Remove(skills[i]);
-            }
+            ApplySkills(model,entity);
 
             _jobRepository.Update(entity);
             _jobRepository.SaveChanges();
@@ -312,7 +341,7 @@ namespace Talent21.Service.Core
                     IsPublished = x.IsPublished,
                     Published = x.Published,
                     Location = x.Location.Title,
-                    Skills = x.Skills.Select(y => new SkillDictionaryViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                    Skills = x.Skills.Select(y => new JobSkillViewModel { Code = y.Skill.Code,Level = y.Level, Id = y.Id, Title = y.Skill.Title }),
                     CompanyId = x.CompanyId,
                     Description = x.Description,
                     Code = x.Code,

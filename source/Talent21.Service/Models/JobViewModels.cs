@@ -17,7 +17,7 @@ namespace Talent21.Service.Models
     {
         public string Description { get; set; }
         public int LocationId { get; set; }
-        public IEnumerable<SkillDictionaryViewModel> Skills { get; set; }
+        public IEnumerable<JobSkillEditViewModel> Skills { get; set; }
 
         public int Rate { get; set; } //in 10's thousand.
 

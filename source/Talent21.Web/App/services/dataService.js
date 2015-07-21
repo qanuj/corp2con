@@ -30,11 +30,11 @@
         return $http.get(v + 'contractor/all');
     }
 
-    factory.contractor.profile = function () {
+    factory.contractor.get = function () {
         return $http.get(v + 'contractor/profile');
     }
 
-    factory.contractor.editProfile = function (formData) {
+    factory.contractor.update = function (formData) {
         return $http.put(v + 'contractor/profile', formData);
     }
 
@@ -83,15 +83,11 @@
         return $http.get(v + 'company/all');
     }
 
-    factory.company.profile = function () {
+    factory.company.get = function () {
         return $http.get(v + 'company/profile');
     }
 
-    factory.company.newjob = function (formData) {
-        return $http.put(v + 'company/job', formData);
-    }
-
-    factory.company.editProfile = function (formData) {
+    factory.company.update = function (formData) {
         return $http.put(v + 'company/profile', formData);
     }
 
@@ -103,8 +99,25 @@
         return $http.get(v + 'company/job/paged');
     }
 
+    factory.company.search = function (query) {
+        return $http.post(v + 'company/search', query);
+    }   
+    //For Jobs
+
+    factory.job.get = function (id) {
+        return $http.get(v + 'company/job/ ' + id);
+    }
+
+    factory.job.create = function (formData) {
+        return $http.post(v + 'company/job', formData);
+    }
+
+    factory.job.update = function (record) {
+        return $http.put(v + 'company/job', record);
+    }
+
     factory.job.publish = function (record) {
-        return $http.put( v + 'company/job/publish', record);
+        return $http.put(v + 'company/job/publish', record);
     }
 
     factory.job.cancel = function (record) {
@@ -113,23 +126,6 @@
 
     factory.job.delete = function (record) {
         return $http.delete(v + 'company/job', record);
-    }
-    
-    factory.company.search = function (query) {
-        return $http.post(v + 'company/search', query);
-    }   
-    //For Jobs
-
-    factory.job.profile = function (id) {
-        return $http.get(v + 'company/job/ ' + id);
-    }
-
-    factory.job.newjob = function (formData) {
-        return $http.post(v + 'company/job', formData);
-    }
-
-    factory.job.editjob = function (record) {
-        return $http.put(v + 'company/job', record);
     }
 
     //System requests

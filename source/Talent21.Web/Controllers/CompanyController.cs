@@ -27,12 +27,8 @@ namespace Talent21.Web.Controllers
         [Route("profile")]
         public CompanyViewModel GetCompanyProfile()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Identity.GetUserId<string>(); 
-                return _service.GetProfile(userId);
-            }
-            return null;
+            var userId = User.Identity.GetUserId<string>(); 
+            return _service.GetProfile(userId);
         }
 
         [HttpPost]
