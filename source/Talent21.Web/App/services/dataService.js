@@ -157,6 +157,9 @@
     factory.system.deleteSkill = function (formData) {
         return $http.delete(v + 'system/skill/delete', formData);
     }
+    factory.system.editIndustry = function (formData) {
+        return $http.put(v + 'system/industry/update', formData);
+    }
     factory.system.getFunctionalArea = function (page) {
         return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page));
     }
