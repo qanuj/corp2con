@@ -20,6 +20,11 @@ namespace Talent21.Service.Models
         public string OwnerId { get; set; }
     }
 
+    public class CompanyDashboardViewModel
+    {
+        
+    }
+
     public class CompanyViewModel : CompanyEditViewModel
     {
         public DictionaryViewModel Industry { get; set; }
@@ -47,6 +52,11 @@ namespace Talent21.Service.Models
     public class ContractorCreateViewModel : ContractorEditViewModel
     {
         public string OwnerId { get; set; }
+    }
+
+    public class ContractorDashboardViewModel
+    {
+        
     }
 
     public class ContractorViewModel : ContractorEditViewModel

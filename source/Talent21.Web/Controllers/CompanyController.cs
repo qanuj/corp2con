@@ -32,6 +32,15 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [Route("dashboard")]
+        public CompanyDashboardViewModel GetDashboard()
+        {
+            var userId = User.Identity.GetUserId<string>();
+            return _service.GetDashboard(userId);
+        }
+
+
+        [HttpGet]
         [Route("profile/{id}")]
         public CompanyViewModel GetCompanyProfileById(int id)
         {

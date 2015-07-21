@@ -29,6 +29,14 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [Route("dashboard")]
+        public ContractorDashboardViewModel GetDashboard()
+        {
+            var userId = User.Identity.GetUserId<string>();
+            return _service.GetDashboard(userId);
+        }
+
+        [HttpGet]
         [Route("paged")]
         public PageResult<ContractorViewModel> GetContractors(ODataQueryOptions<ContractorViewModel> options)
         {
