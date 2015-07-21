@@ -146,5 +146,8 @@
         return $http.get(v + 'system/industry/all');
     }
 
+    factory.system.addIndustry = function (formData) {
+        return $http.post(v + 'system/industry/create', formData);
+    }
     return factory;
 }]);

@@ -279,6 +279,8 @@
     <Content Include="App\router\router.js" />
     <Content Include="App\services\dataService.js" />
     <Content Include="App\services\headerFactory.js" />
+    <Content Include="App\views\system\editindustry.html" />
+    <Content Include="App\views\system\editindustry.js" />
     <Content Include="App\views\company\editJob.html" />
     <Content Include="App\views\company\editJob.js" />
     <Content Include="App\views\company\editProfile.html" />
@@ -512,7 +514,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\views\job\" />
-    <Folder Include="App\views\system\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

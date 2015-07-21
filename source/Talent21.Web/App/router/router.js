@@ -67,10 +67,14 @@
                 templateUrl: '/app/views/company/job.html', //only for jobs about page.
                 controller: 'companyJobController'
             })
-            .when('/job/edit/:id', {
+            .when('/job/edit', {
                 templateUrl: '/app/views/company/editJob.html',
                 controller: 'companyJobEditController'
             })
+             .when('/system/industry/edit', {
+                 templateUrl: '/app/views/system/editindustry.html',
+                 controller: 'industryeditController'
+             })
             .otherwise({ redirectTo: '/' });
     }
 
