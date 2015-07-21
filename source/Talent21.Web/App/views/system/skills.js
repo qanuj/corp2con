@@ -12,13 +12,15 @@
             $scope.skill = result;
         });
     }
-
     $scope.update = function (s) {
-        db.system.editSkill(s).success(function (result) {
-            $scope.skill = result;
-            console.log(result);
-        });
-    }
+        db.system.editSkill(s).success(refreshRecord);
+    };
+    //$scope.update = function (s) {
+    //    db.system.editSkill(s).success(function (result) {
+    //        $scope.skill = result;
+    //        console.log(result);
+    //    });
+    //}
 
     $scope.delete = function (s) {
         db.system.deleteSkill(s).success(result);
