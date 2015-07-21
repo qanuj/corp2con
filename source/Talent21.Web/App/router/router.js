@@ -48,8 +48,23 @@
                  templateUrl: '/app/views/company/profile.html',
                  controller: 'companyProfileController'
              })
-
             .otherwise({ redirectTo: '/' });
+
+    } else if (role === 'Admin') {
+        $routeProvider
+           .when('/', {
+               templateUrl: '/app/views/system/dashboard.html',
+               controller: 'adminDashboardController'
+           })
+            .when('/industry', {
+                templateUrl: '/app/views/system/industry.html',
+                controller: 'industryController'
+            })
+           .when('/functional', {
+               templateUrl: '/app/views/system/functional.html',
+               controller: 'functionalController'
+           })
+           .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider
             .when('/', {
@@ -88,18 +103,6 @@
                  templateUrl: '/app/views/contractor/profile.html',
                  controller: 'contractorProfileController'
              })
-             .when('/system/industry', {
-                 templateUrl: '/app/views/system/industry.html',
-                 controller: 'industryController'
-             })
-            .when('/system/functional', {
-                 templateUrl: '/app/views/system/functional.html',
-                 controller: 'functionalController'
-             })
-            .when('/system/industry/edit', {
-                templateUrl: '/app/views/system/editindustry.html',
-                controller: 'industryeditController'
-            })
             .otherwise({ redirectTo: '/' });
     }
 

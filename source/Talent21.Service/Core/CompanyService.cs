@@ -446,7 +446,7 @@ namespace Talent21.Service.Core
         {
             return new CompanyDashboardViewModel
             {
-
+               
             };
         }
     }

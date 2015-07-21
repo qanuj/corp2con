@@ -364,8 +364,6 @@
     <Content Include="App\views\contractor\schedule.html" />
     <Content Include="App\views\contractor\schedule.js" />
     <Content Include="App\views\contractor\other.html" />
-    <Content Include="App\views\company\CompanyList.html" />
-    <Content Include="App\views\company\aboutcompany.html" />
     <Content Include="App\views\company\profile.html" />
     <Content Include="App\views\contractor\profile.html" />
     <Content Include="App\views\contractor\profile.js" />

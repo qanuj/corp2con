@@ -56,8 +56,6 @@
                     <li><a href="/#/search">Search Contractor</a></li>
                     <li><a href="/#/profile">Company Profile</a></li>
                     <li><a href="/#/bench">Bench Management</a></li>
-                    <li><a href="/#/system/industry/edit">Edit Industry</a></li>
-                    <li><a href="/#/Fuctional">Edit Fuctional Area</a></li>
 
                 }
                 else if(Model.Role == AccountController.Contractor)
@@ -68,6 +66,11 @@
                     <li><a href="/#/profile">Manage Profile</a></li>
                     <li><a href="/#/schedule">Manage Schedule</a></li>
                     <li><a href="/#/skills">Skills</a></li>
+                }
+                else if(Model.Role == AccountController.Admin)
+                {
+                    <li><a href="/#/industry">Industry</a></li>
+                    <li><a href="/#/functional">Fuctional Area</a></li>
                 }
                 <li><a href="@Url.Action("Logout","Account")">Logout</a></li>
             </ul>

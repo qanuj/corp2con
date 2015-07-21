@@ -22,7 +22,10 @@ namespace Talent21.Service.Models
 
     public class CompanyDashboardViewModel
     {
-        
+        public int Views { get; set; }
+        public int Jobs { get; set; }
+        public int Applications { get; set; }
+        public int Contractors { get; set; }
     }
 
     public class CompanyViewModel : CompanyEditViewModel
@@ -56,7 +59,10 @@ namespace Talent21.Service.Models
 
     public class ContractorDashboardViewModel
     {
-        
+        public int Jobs { get; set; }
+        public int Views { get; set; }
+        public int Week { get; set; }
+        public int Month { get; set; }
     }
 
     public class ContractorViewModel : ContractorEditViewModel
