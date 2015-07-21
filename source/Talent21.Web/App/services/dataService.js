@@ -157,6 +157,18 @@
     factory.system.deleteSkill = function (formData) {
         return $http.delete(v + 'system/skill/delete', formData);
     }
+    factory.system.getFunctionalArea = function (page) {
+        return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page));
+    }
+    factory.system.addFunctionalArea = function (formData) {
+        return $http.post(v + 'system/functional/create', formData);
+    }
+    factory.system.editFunctionalArea = function (formData) {
+        return $http.put(v + 'system/functional/update', formData);
+    }
+    factory.system.deleteFunctionalArea = function (formData) {
+        return $http.delete(v + 'system/functional/delete', formData);
+    }
     return factory;
     return factory;
 }]);
