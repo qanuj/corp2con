@@ -1,16 +1,21 @@
 ﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
     $scope.title = "Jobs : Search Result";
-   
+
     $scope.query= {
-        keywords: $routeParams.q || $routeParams.keywords,
+        keywords: $routeParams.q || $routeParams.keywords ||'',
         location: $routeParams.location||'',
         skills: $routeParams.skills || ''
     }
 
+    console.log($routeParams, $scope.query);
+
+
     function fetchResults(query,page) {
-        db.contractor.searchJob(query, page).success(function (result) {
-            $scope.records = result;
-            console.log(result)
+        db.contractor.search(query, page).success(function (result) {
+            $scope.count = result.count;
+            $scope.records = result.items;
+            $scope.page = page;
+            $scope.pages = db.findPages(result);
         });
     }
 

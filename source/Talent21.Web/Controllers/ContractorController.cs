@@ -56,6 +56,14 @@ namespace Talent21.Web.Controllers
             return null;
         }
 
+
+        [HttpGet]
+        [Route("profile/{id}")]
+        public ContractorViewModel GetContractorProfileById(int id)
+        {
+            return _service.GetProfile(id);
+        }
+
         [HttpPost]
         [Route("profile")]
         public HttpResponseMessage AddProfile(ContractorCreateViewModel model)

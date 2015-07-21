@@ -1,22 +1,29 @@
 ﻿app.controller('companyEditProfileController', ['$scope', 'dataService', function ($scope, db) {
 
-    db.company.profile().success(function (result) {
+    db.company.get().success(function (result) {
+        result.picture = { url: result.pictureUrl };
+        result.loc = { formatted_address: result.location };
         $scope.record = result;
     });
 
-    db.system.getLocations().success(function (result) {
-        $scope.cities = result;
-    });
-
-    db.system.getIndustries().success(function (result) {
-        $scope.industries = result;
-        console.log(result);
-    });
+    $scope.refreshAddresses = function (address) {
+        return db.system.searchLocations(address).then(function (response) {
+            $scope.addresses = response.data.results;
+        });
+    };
 
     $scope.save = function (record) {
-        db.company.editProfile(record)
-            .success(function (result) {
-                console.log(result);
-            });
+
+        if (record.picture) {
+            record.pictureUrl = record.picture.url;
+        }
+        if (record.loc) {
+            record.location = record.loc.formatted_address;
+        }
+
+        db.company.update(record).success(function (result) {
+            window.location = "#/profile";
+        });
     }
+
 }]);

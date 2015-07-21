@@ -7,8 +7,8 @@
     function refreshRecord(page) {
         return db.contractor.getSchedule(page).success(function (result) {
             angular.forEach(result, function (d) {
-                d.start = new Date(d.start);
-                d.end = new Date(d.end);
+                d.start = moment(d.start).toDate();
+                d.end = moment(d.end).toDate();
             });
             $scope.schedule = result;
         });

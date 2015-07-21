@@ -1,17 +1,23 @@
-﻿app.controller('companyProfileController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('companyProfileController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+
     $scope.title = "Company Profile";
 
-    $scope.currentPage = db.currentPage;
+    $scope.page = 1;
+    $scope.pages = 1;
 
-    db.company.profile().success(function (result) {
+    db.company.get(param.id).success(function (result) {
         $scope.record = result;
         $scope.page = db.currentPage;
     });
 
-    db.company.limitJobs().success(function (result) {
-        $scope.jobs = result.items;
-        $scope.page = db.currentPage;
-        console.log($scope.jobs);
-    });
+    function refreshJobs()
+    {
+        db.job.paged($scope.page).success(function (result) {
+            $scope.jobs = result.items;
+            console.log(result);
+        });
+    }
+
+    refreshJobs();
 
 }]);

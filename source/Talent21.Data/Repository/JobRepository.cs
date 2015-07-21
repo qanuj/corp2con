@@ -44,4 +44,5 @@ namespace Talent21.Data.Repository
     {
         IQueryable<Job> Mine(string userId);
     }
+
 }

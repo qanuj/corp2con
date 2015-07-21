@@ -145,14 +145,21 @@
     <Compile Include="Migrations\201507181208135_Alternate Number Fix.Designer.cs">
       <DependentUpon>201507181208135_Alternate Number Fix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507210755130_Jobs Have skills.cs" />
+    <Compile Include="Migrations\201507210755130_Jobs Have skills.Designer.cs">
+      <DependentUpon>201507210755130_Jobs Have skills.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
-    <Compile Include="Repository\CandidateRepository.cs" />
+    <Compile Include="Repository\ContractorVisitRepository.cs" />
+    <Compile Include="Repository\IContractorRepository.cs" />
     <Compile Include="Repository\CandidateVisitRepository.cs" />
     <Compile Include="Repository\CompanyRepository.cs" />
+    <Compile Include="Repository\ContractorRepository.cs" />
     <Compile Include="Repository\FunctionalAreaRepository.cs" />
     <Compile Include="Repository\IContractorSkillRepository.cs" />
+    <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
     <Compile Include="Repository\PlanRepository.cs" />
@@ -214,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507181208135_Alternate Number Fix.resx">
       <DependentUpon>201507181208135_Alternate Number Fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507210755130_Jobs Have skills.resx">
+      <DependentUpon>201507210755130_Jobs Have skills.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

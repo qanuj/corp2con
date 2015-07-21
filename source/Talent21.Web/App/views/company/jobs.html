@@ -1,22 +1,25 @@
 ﻿<section id="jobs">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <h2>{{title}}</h2>
-                <div ng-repeat="row in records">
-                    <div class="jobs">
-                        <a ng-href="/#/company/job/{{row.id}}">
-                            <div class="{{row.ifFeatured}}"></div>
-                            <div class="title">
-                                <h5>{{row.title}}</h5>
-                            </div>
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
-                                <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                                <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
-                            </div>
-                        </a>
-                    </div>
+                <div class="jobs">
+                    <a ng-repeat="j in records" ng-href="/#/job/{{j.id}}">
+                        <div ng-if="j.featured" class="featured"></div>
+                        <div class="title">
+                            <h5>{{j.title}}</h5>
+                            <p>{{j.company}}</p>
+                            <p>{{j.description| limitTo: 255}}{{j.description.length > 255 ? '...' : ''}}</p>
+                        </div>
+                        <div class="data">
+                            <span class="type part-time"><i class="fa fa-clock-o"></i>{{j.start | date:'dd-MMM-yyyy'}}</span>
+                            <span class="type part-time"><i class="fa fa-clock-o"></i> {{j.end | amTimeAgo : j.start : true}}</span>
+                            <span class="city"><i class="fa fa-map-marker"></i>{{j.location}}</span>
+                            <span class="sallary"><i class="fa fa-inr"></i>{{j.rate}}k</span>
+                            <span ng-if="row.published" class="sallary"><i class="fa fa-globe"></i>Published</span>
+                            <span ng-if="!row.published" class="sallary"><i class="fa fa-globe"></i>Draft</span>
+                        </div>
+                    </a>
                 </div>
 
                 <nav>
@@ -30,201 +33,6 @@
                         <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
                     </ul>
                 </nav>
-            </div>
-            <div class="col-sm-4" id="sidebar">
-
-                <!-- Find a Job Start -->
-                <div class="sidebar-widget" id="jobsearch">
-                    <h2>Find a Candidate</h2>
-                    <form>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group" id="job-search-group">
-                                    <label for="job-search" class="sr-only">Search</label>
-                                    <input type="text" class="form-control" id="job-search" placeholder="Type and press enter">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5>Career Level</h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Junior
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Middle
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Senior
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Expert
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5>Presence</h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Remote
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Office
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Relocation
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Travel a lot
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5>Job Type</h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Freelance
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Part Time
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Full Time
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Internship
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Volunteer
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5>Location</h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> New York
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Los Angeles
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> San Francisco
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Chicago
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Boston
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5>Experience</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <p>More than <b><span id="years-field"></span></b> years</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-slider" id="years"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5>Salary</h5>
-                                <div class="form-slider" id="salary"></div>
-                                <p>From <b><span id="salary-field-lower"></span></b> to  <b><span id="salary-field-upper"></span></b></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <a class="btn btn-primary">Reset All Filters</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- Find a Job End -->
-
             </div>
         </div>
     </div>

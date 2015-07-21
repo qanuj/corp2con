@@ -1,6 +1,5 @@
 ﻿<a class="btn btn-primary margtop visible-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
     <div>
-        <!-- ============ TITLE START ============ -->
         <section id="title">
             <a class="btn btn-primary editbtn hidden-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
             <div class="container">
@@ -11,40 +10,31 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============ TITLE END ============ -->
-        <!-- ============ CONTENT START ============ -->
-
         <section id="jobs">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8">
                         <article>
-                            <h2>{{record.name}}</h2>
+                            <h2>{{record.companyName}}</h2>
                             <p>{{record.about}}</p>
                             <hr>
-                            <h2>{{record.location}}</h2>
-
-                            <hr>
                             <h2>Jobs</h2>
-
                             <div class="jobs">
-                                <!-- Job offer 1 -->
                                 <a href="#" ng-repeat="j in jobs">
-                                    <div class="featured"></div>
-                                    <img src="images/job1.jpg" alt="" class="img-circle" />
+                                    <div ng-if="j.featured" class="featured"></div>
                                     <div class="title">
                                         <h5>{{j.title}}</h5>
-                                        <p>{{j.company || Google}}</p>
+                                        <p>{{j.company}}</p>
+                                        <p>{{j.description| limitTo: 255}}{{j.description.length > 255 ? '...' : ''}}</p>
                                     </div>
                                     <div class="data">
-                                        <span class="city"><i class="fa fa-map-marker"></i>{{j.location || India}}</span>
-                                        <span class="type part-time"><i class="fa fa-clock-o"></i>Contract</span>
-                                        <span class="sallary"><i class="fa fa-dollar"></i>{{j.rate}}</span>
+                                        <span class="type part-time"><i class="fa fa-clock-o"></i>{{j.start | date:'dd-MMM-yyyy'}}</span>
+                                        <span class="type part-time"><i class="fa fa-clock-o"></i> {{j.end | amTimeAgo : j.start : true}}</span>
+                                        <span class="city"><i class="fa fa-map-marker"></i>{{j.location}}</span>
+                                        <span class="sallary"><i class="fa fa-inr"></i>{{j.rate}}k</span>
                                     </div>
                                 </a>
                             </div>
-
                         </article>
                     </div>
                     <div class="col-sm-4" id="sidebar">
@@ -58,23 +48,21 @@
                             </ul>
                         </div>
                         <hr>
-                        <!--<div class="sidebar-widget" id="widget-contact">
+                        <div class="sidebar-widget" id="widget-contact">
                             <h2>Contact</h2>
                             <ul>
-                                <li><i class="fa fa-building"></i>Netvibes</li>
-                                <li><i class="fa fa-map-marker"></i>2 Madison Avenue</li>
-                                <li><i class="fa"></i>New York City, 29478 USA</li>
-                                <li><i class="fa fa-phone"></i>01.22.987.8392</li>
-                                <li><i class="fa fa-envelope"></i><a href="mailto:company@yourdomain.com">Send an email</a></li>
+                                <li><i class="fa fa-building"></i>{{record.companyName}}</li>
+                                <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
+                                <li><i class="fa fa-map-marker"></i>{{record.location}}</li>
+                                <li><i class="fa fa-phone"></i>{{record.mobile}}</li>
+                                <li><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
+                                <li><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
                             </ul>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- ============ CONTENT END ============ -->
-        <!-- ============ CONTACT START ============ -->
 
         <section id="contact" class="color2">
             <div class="container">

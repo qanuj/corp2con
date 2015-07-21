@@ -112,13 +112,12 @@ namespace Talent21.Service.Core
                     Cancelled = x.Job.Cancelled,
                     Published = x.Job.Published,
                     Location = x.Job.Location.Title,
-                    Skills = x.Job.Skills.Select(y => new SkillDictionaryViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                    Skills = x.Job.Skills.Select(y => new JobSkillEditViewModel { Code = y.Skill.Code, Id = y.Id, Title = y.Skill.Title, Level = y.Level}),
                     CompanyId = x.Job.CompanyId,
                     Description = x.Job.Description,
                     Code = x.Job.Code,
                     Title = x.Job.Title,
                     End = x.Job.End,
-                    LocationId = x.Job.LocationId,
                     Rate = x.Job.Rate,
                     Start = x.Job.Start
                 }
@@ -155,6 +154,10 @@ namespace Talent21.Service.Core
         public ContractorViewModel GetProfile(string userId)
         {
             return Contractors.FirstOrDefault(x => x.OwnerId == userId);
+        }
+        public ContractorViewModel GetProfile(int id)
+        {
+            return Contractors.FirstOrDefault(x => x.Id == id);
         }
 
         public bool Delete(IdModel model)
