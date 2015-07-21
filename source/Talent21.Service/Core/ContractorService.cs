@@ -118,7 +118,6 @@ namespace Talent21.Service.Core
                     Code = x.Job.Code,
                     Title = x.Job.Title,
                     End = x.Job.End,
-                    LocationId = x.Job.LocationId,
                     Rate = x.Job.Rate,
                     Start = x.Job.Start
                 }

@@ -108,6 +108,10 @@
         return $http.get(v + 'company/job/ ' + id);
     }
 
+    factory.job.paged = function (page) {
+        return $http.get(v + 'company/job/paged?$orderby=Id desc' + calculatePaging(page));
+    }
+
     factory.job.create = function (formData) {
         return $http.post(v + 'company/job', formData);
     }

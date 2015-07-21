@@ -16,9 +16,9 @@ namespace Talent21.Service.Models
     public class CreateJobViewModel : DictionaryViewModel
     {
         public string Description { get; set; }
-        public int LocationId { get; set; }
-        public IEnumerable<JobSkillEditViewModel> Skills { get; set; }
+        public string Location { get; set; }
 
+        public IEnumerable<JobSkillEditViewModel> Skills { get; set; }
         public int Rate { get; set; } //in 10's thousand.
 
         public DateTime Start { get; set; }

@@ -3,7 +3,7 @@
     $scope.currentPage = db.currentPage;
 
 
-    db.contractor.profile().success(function (result) {
+    db.contractor.get().success(function (result) {
         $scope.record = result;
         db.userid = result.id;
     });

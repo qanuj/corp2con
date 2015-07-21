@@ -176,7 +176,7 @@ namespace Talent21.Service.Core
                 Code = model.Code,
                 Title = model.Title,
                 End = model.End,
-                LocationId = model.LocationId,
+                Location = FindLocation(model.Location),
                 Rate = model.Rate,
                 Start = model.Start
             };
@@ -211,7 +211,7 @@ namespace Talent21.Service.Core
             entity.Code = model.Code;
             entity.Title = model.Title;
             entity.End = model.End;
-            entity.LocationId = model.LocationId;
+            entity.Location = FindLocation(model.Location);
             entity.Rate = model.Rate;
             entity.Start = model.Start;
 
@@ -347,7 +347,6 @@ namespace Talent21.Service.Core
                     Code = x.Code,
                     Title = x.Title,
                     End = x.End,
-                    LocationId = x.LocationId,
                     Rate = x.Rate,
                     Start = x.Start
                 });
