@@ -19,6 +19,10 @@
 
     factory.role = document.querySelector('html').dataset.role;
 
+    factory.findPages=function(result) {
+        return Math.floor(((result.count || result.items.length) / factory.pageSize) + 1);
+    }
+
     //For Contractors
 
     factory.contractor.paged = function () {
@@ -84,7 +88,7 @@
     }
 
     factory.company.searchContractor = function (query) {
-        return $http.post(v + 'company/search', query);
+        return $http.post(v + 'company/search?$inlinecount=allpages', query);
     }
 
     factory.company.update = function (formData) {

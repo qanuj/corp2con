@@ -2,8 +2,27 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h2>{{title}}</h2>
-                <div class="jobs" ng-repeat="row in records.items">
+                <h2>{{title}} {{count}}</h2>
+                <form ng-submit="search(query)" class="margbottom">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" ng-model="query.location" placeholder="e.g. Mumbai OR Delhi or Chennnai" />
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="jobs" ng-repeat="row in records">
                     <a href="#/contractor/{{row.id}}">
                         <div ng-if="row.featured" class="featured"></div>
                         <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
@@ -18,9 +37,10 @@
                         </div>
                     </a>
                 </div>
+                <p>{{page}} of {{pages}}</p>
                 <nav>
                     <ul class="pagination">
-                        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                        <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                         <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
