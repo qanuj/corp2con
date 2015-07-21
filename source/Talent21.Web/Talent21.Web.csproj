@@ -317,6 +317,8 @@
     <Content Include="App\views\company\jobs.html" />
     <Content Include="App\views\contractor\job.js" />
     <Content Include="App\views\searchController.js" />
+    <Content Include="App\views\system\skills.html" />
+    <Content Include="App\views\system\skills.js" />
     <Content Include="App\views\Testimonials.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />
