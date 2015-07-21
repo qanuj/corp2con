@@ -74,9 +74,9 @@ namespace Talent21.Web.Controllers
 
         [HttpDelete]
         [Route("industry/delete")]
-        public HttpResponseMessage DeleteIndustry(IndustryDeleteViewModel model)
+        public HttpResponseMessage DeleteIndustry([FromUri]int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new IndustryDeleteViewModel { Id = id })) : Bad(ModelState);
         }
 
 
@@ -110,10 +110,11 @@ namespace Talent21.Web.Controllers
 
         [HttpDelete]
         [Route("skill/delete")]
-        public HttpResponseMessage DeleteSkill(SkillDeleteViewModel model)
+        public HttpResponseMessage DeleteSkill([FromUri]int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new SkillDeleteViewModel { Id = id })) : Bad(ModelState);
         }
+
 
         [HttpGet]
         [Route("location/paged")]

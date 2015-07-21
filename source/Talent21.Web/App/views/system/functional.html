@@ -1,14 +1,16 @@
 ﻿<div class="container margtop">
-    <h2>Manage Functional Areas</h2>
+    <h2>Functional Area</h2>
+
     <div class="col-md-12">
         <form ng-submit="save(record)">
+
             <div class="col-md-4">
-                <label>Industry Name</label>
-                <input type="text" class="form-control" placeholder="e.g. IT-Software/Software Services" ng-model="record.title">
+                <label>Code</label>
+                <input type="text" class="form-control" placeholder="e.g. 4212" ng-model="record.code">
             </div>
             <div class="col-md-4">
-                <label>Industry Code</label>
-                <input type="text" class="form-control" placeholder="e.g. 4212" ng-model="record.code">
+                <label>Title</label>
+                <input type="text" class="form-control" placeholder="e.g. IT-Software/Software Services" ng-model="record.title">
             </div>
             <div class="col-md-4">
                 <button type="submit" id="submit" class="btn btn-primary" style=" margin-top: 30px;">
@@ -18,24 +20,23 @@
         </form>
     </div>
     <div class="col-md-12">
-        <div class="listings" ng-repeat="i in industries">
-            <div class="row" ng-show="!i.editMode">
-                <div class="col-md-3">{{i.title}}</div>
-                <div class="col-md-3">{{i.code}}</div>
+        <div class="listings" ng-repeat="s in functionalArea">
+            <div class="row" ng-show="!s.editMode">
+                <div class="col-md-3">{{s.code}}</div>
+                <div class="col-md-3">{{s.title}}</div>
                 <div class="col-md-3">
-                    <button class="btn btn-primary" ng-click="toggle(i)">Edit</button>
-                    <button class="btn btn-danger" ng-click="delete(i.Id)">Delete</button>
+                    <button class="btn btn-primary" ng-click="toggle(s)">Edit</button>
+                    <button class="btn btn-danger" ng-click="delete(s.Id)">Delete</button>
                 </div>
             </div>
-            <div class="row" ng-show="i.editMode">
-                <div class="col-md-3"><input type="text" class="form-control" ng-model="i.title" /></div>
-                <div class="col-md-3"><input type="text" class="form-control" ng-model="i.code" /></div>
+            <div class="row" ng-show="s.editMode">
+                <div class="col-md-3"><input type="text" class="form-control" ng-model="s.code" /></div>
+                <div class="col-md-3"><input type="text" class="form-control" ng-model="s.title" /></div>
                 <div class="col-md-3">
-                    <button ng-click="update(i)" id="submit1" class="btn btn-primary">Save</button>
-                    <button ng-click="toggle(i)" class="btn btn-info">Cancel</button>
+                    <button ng-click="update(s)" id="submit1" class="btn btn-primary">Save</button>
+                    <button ng-click="toggle(s)" class="btn btn-info">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

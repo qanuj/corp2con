@@ -92,10 +92,14 @@
                  templateUrl: '/app/views/system/industry.html',
                  controller: 'industryController'
              })
-             .when('/system/functional', {
+            .when('/system/functional', {
                  templateUrl: '/app/views/system/functional.html',
                  controller: 'functionalController'
              })
+            .when('/system/industry/edit', {
+                templateUrl: '/app/views/system/editindustry.html',
+                controller: 'industryeditController'
+            })
             .otherwise({ redirectTo: '/' });
     }
 
