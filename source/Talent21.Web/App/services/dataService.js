@@ -1,6 +1,7 @@
 ﻿app.factory('dataService', ['$http','$q', function ($http,$q) {
     var v = 'api/v1/';
     var factory = {
+        pageSize:50,
         contractor: {},
         job: {},
         company: {},
@@ -8,7 +9,7 @@
     };
 
     function calculatePaging(page, pageSize) {
-        pageSize = pageSize || 50;
+        pageSize = pageSize || factory.pageSize;
         var pg = "&$top=" + pageSize;
         if (page > 1) {
             pg+="&$skip=" + ((page-1) * pageSize);
@@ -148,8 +149,14 @@
         return $http.get(v + 'system/industry/all');
     }
 
-    factory.system.addIndustry = function (formData) {
-        return $http.post(v + 'system/industry/create', formData);
+    factory.system.addIndustry = function (record) {
+        return $http.post(v + 'system/industry/create', record);
+    }
+    factory.system.updateIndustry = function (record) {
+        return $http.put(v + 'system/industry/update', record);
+    }
+    factory.system.deleteIndustry = function (record) {
+        return $http.delete(v + 'system/industry/delete', record);
     }
     return factory;
 }]);

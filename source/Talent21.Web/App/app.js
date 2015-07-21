@@ -7,6 +7,7 @@
     // 3rd Party Modules
     'ui-rangeSlider',
     'ngTagsInput',
+    'angularMoment',
     'codemwnci.markdown-edit-preview',
     'ui.gravatar', //gravtaar for user
     'ui.select', //ui-select for dropdown and multi values.
