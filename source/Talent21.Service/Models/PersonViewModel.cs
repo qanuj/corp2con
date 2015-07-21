@@ -10,7 +10,7 @@
     public class PersonViewModel : PersonEditViewModel
     {
         public int Id { get; set; }
-        public int? LocationId { get; set; }
+        public string Location { get; set; }
         public string Mobile { get; set; }
         public string Twitter { get; set; }
         public string WebSite { get; set; }

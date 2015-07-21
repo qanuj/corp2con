@@ -1,4 +1,4 @@
-﻿app.factory('dataService', ['$http', function ($http) {
+﻿app.factory('dataService', ['$http','$q', function ($http,$q) {
     var v = 'api/v1/';
     var factory = {
         contractor: {},
@@ -134,12 +134,14 @@
 
     //System requests
 
-    factory.system.getLocations = function () {
-        return $http.get(v + 'system/location/all');
+    factory.system.searchLocations = function (address) {
+        return $http.get('//maps.googleapis.com/maps/api/geocode/json', { params: { address: address, sensor: false } });
     }
 
-    factory.system.getSkills = function () {
-        return $http.get(v + 'system/skill/all');
+    factory.system.getSkills = function (q) {
+        var uri = v + 'system/skill/all';
+        if (q) uri += '?$filter=startswith(Title,\'' + q + '\')';
+        return $http.get(uri);
     }
 
     factory.system.getIndustries = function () {

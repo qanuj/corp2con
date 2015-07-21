@@ -22,11 +22,21 @@ namespace e10.Shared.Data.Abstraction
         }
         public TDictionary ByCode(string code)
         {
-            return All.FirstOrDefault(x => x.Code==code);
+            return All.FirstOrDefault(x => x.Code == code);
+        }
+
+
+        public IQueryable<TDictionary> ByTitle(IEnumerable<string> titles)
+        {
+            return All.Where(x => titles.Contains(x.Title));
+        }
+        public TDictionary ByTitle(string title)
+        {
+            return All.FirstOrDefault(x => x.Title == title);
         }
     }
 
-    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
+    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity,ISoftDelete
     {
         protected EfRepository(DbContext context, IEventManager eventManager)
         {
@@ -47,7 +57,7 @@ namespace e10.Shared.Data.Abstraction
         {
             get
             {
-                return Set;
+                return Set.Where(x=>!x.IsDeleted);
             }
         }
 
