@@ -11,6 +11,7 @@ namespace Talent21.Service.Abstraction
          IPersonDataService<CompanyEditViewModel, CompanyCreateViewModel, IdModel>
      {
         CompanyViewModel GetProfile(string userId);
+        CompanyViewModel GetProfile(int id);
 
         JobViewModel  Create(CreateJobViewModel model);
         JobViewModel Update(EditJobViewModel model);
@@ -27,5 +28,7 @@ namespace Talent21.Service.Abstraction
         bool MoveApplication(MoveJobApplicationViewModel model);
 
         JobViewModel ById(int id);
+
+        IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model);
      }
 }

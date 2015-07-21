@@ -6,7 +6,7 @@ using Talent21.Data.Core;
 
 namespace Talent21.Service.Models
 {
-    public class SearchJobViewModel
+    public class SearchQueryViewModel
     {
         public string Location { get; set; }
         public string Skills { get; set; }
@@ -24,6 +24,15 @@ namespace Talent21.Service.Models
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
 
+    }
+
+    public class ContractorSearchResultViewModel : ContractorViewModel
+    {
+        [Field("text", Store = StoreMode.No)]
+        public string SearchText
+        {
+            get { return string.Join(" ", new[] { FirstName, LastName, Mobile, Location, About }); }
+        }
     }
 
     public class JobSearchResultViewModel

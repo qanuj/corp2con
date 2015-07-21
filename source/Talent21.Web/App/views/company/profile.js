@@ -1,10 +1,11 @@
-﻿app.controller('companyProfileController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('companyProfileController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+
     $scope.title = "Company Profile";
 
     $scope.page = 1;
     $scope.pages = 1;
 
-    db.company.get().success(function (result) {
+    db.company.get(param.id).success(function (result) {
         $scope.record = result;
         $scope.page = db.currentPage;
     });

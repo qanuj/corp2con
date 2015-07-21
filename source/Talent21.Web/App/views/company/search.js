@@ -1,11 +1,27 @@
-﻿app.controller('companySearchController', ['$scope', 'dataService', function ($scope,db) {
+﻿app.controller('companySearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
     $scope.title = "Contractor : Search Result";
-    $scope.query= {
-        keywords: '',
-        location: '',
-        skills:'',
+
+    $scope.query = {
+        keywords: $routeParams.q || $routeParams.keywords,
+        location: $routeParams.location || '',
+        skills: $routeParams.skills || ''
     }
-    db.contractor.paged().success(function (result) {
-        $scope.records = result;
-    });
+
+    function fetchResults(query, page) {
+        db.company.search(query, page).success(function (result) {
+            $scope.records = result;
+            console.log(result);
+        });
+    }
+
+    $scope.search = function (query) {
+        var q = '';
+        for (var x in query) {
+            q += (q === '' ? '?' : '&') + x + '=' + query[x];
+        }
+        window.location = '#/search' + q;
+    }
+
+    fetchResults($scope.query, $routeParams.page || 1);
+
 }]);

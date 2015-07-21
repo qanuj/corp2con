@@ -1,6 +1,6 @@
 ﻿app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     var role = document.querySelector('html').dataset.role;
-    console.log(role);
+    
     if (role === 'Contractor') {
         $routeProvider
             .when('/', {
@@ -23,6 +23,10 @@
                 templateUrl: '/app/views/contractor/search.html',
                 controller: 'contractorSearchController'
             })
+            .when('/favorite', {
+                templateUrl: '/app/views/contractor/favorite.html',
+                controller: 'contractorFavoriteController'
+            })
               .when('/job/:id', {
                   templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
                   controller: 'contractorJobController'
@@ -35,9 +39,13 @@
                  templateUrl: '/app/views/contractor/favouritejobs.html',
                  controller: 'contractorApplicationController'
              })
+             .when('/company/:id', {
+                 templateUrl: '/app/views/company/profile.html',
+                 controller: 'companyProfileController'
+             })
 
             .otherwise({ redirectTo: '/' });
-             } else if (role === 'Company') {
+    } else if (role === 'Company') {
         $routeProvider
             .when('/', {
                 templateUrl: '/app/views/company/dashboard.html',
@@ -71,6 +79,10 @@
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'
             })
+             .when('/contractor/:id', {
+                 templateUrl: '/app/views/contractor/profile.html',
+                 controller: 'contractorProfileController'
+             })
              .when('/system/industry', {
                  templateUrl: '/app/views/system/industry.html',
                  controller: 'industryController'

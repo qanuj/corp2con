@@ -16,17 +16,21 @@ namespace Talent21.Service.Core
     public class CompanyService : SharedService, ICompanyService, IFileAccessProvider
     {
         private readonly ICompanyRepository _companyRepository;
+        private readonly IContractorRepository _contractorRepository;
         private readonly IJobRepository _jobRepository;
         private readonly IJobSkillRepository _jobSkillRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly ISkillRepository _skillRepository;
+        private readonly IContractorSkillRepository _contractorSkillRepository;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
             ISkillRepository skillRepository,
             IJobSkillRepository jobSkillRepository,
             IJobApplicationRepository jobApplicationRepository,
-            ILocationRepository locationRepository)
+            ILocationRepository locationRepository, 
+            IContractorRepository contractorRepository, 
+            IContractorSkillRepository contractorSkillRepository)
             : base(locationRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -34,6 +38,8 @@ namespace Talent21.Service.Core
             _jobRepository = jobRepository;
             _skillRepository = skillRepository;
             _jobApplicationRepository = jobApplicationRepository;
+            _contractorRepository = contractorRepository;
+            _contractorSkillRepository = contractorSkillRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -127,6 +133,11 @@ namespace Talent21.Service.Core
         public CompanyViewModel GetProfile(string userId)
         {
             return Companies.FirstOrDefault(x => x.OwnerId == userId);
+        }
+
+        public CompanyViewModel GetProfile(int id)
+        {
+            return Companies.FirstOrDefault(x => x.Id == id);
         }
 
         private void ApplySkills(CreateJobViewModel model, Job entity)
@@ -353,6 +364,53 @@ namespace Talent21.Service.Core
             }
         }
 
+        public IQueryable<ContractorSearchResultViewModel> Contractors
+        {
+            get
+            {
+                var query = from x in _contractorRepository.All
+                            select new ContractorSearchResultViewModel
+                            {
+                                Id = x.Id,
+                                About = x.About,
+                                Email = x.Email,
+                                Nationality = x.Nationality,
+                                AlternateNumber = x.AlternateNumber,
+                                ConsultantType = x.ConsultantType,
+                                ContractType = x.ContractType,
+                                Gender = x.Gender,
+                                Profile = x.Profile,
+                                FunctionalAreaId = x.FunctionalAreaId,
+                                ExperienceMonths = x.Experience.Months,
+                                ExperienceYears = x.Experience.Years,
+                                Facebook = x.Social.Facebook,
+                                Google = x.Social.Google,
+                                LinkedIn = x.Social.LinkedIn,
+                                Location = x.Location.Title,
+                                Mobile = x.Mobile,
+                                FirstName = x.FirstName,
+                                LastName = x.LastName,
+                                Rss = x.Social.Rss,
+                                Twitter = x.Social.Twitter,
+                                WebSite = x.Social.WebSite,
+                                Yahoo = x.Social.Yahoo,
+                                PictureUrl = x.PictureUrl,
+                                OwnerId = x.OwnerId,
+                                Rate = x.Rate,
+                                Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
+                                {
+                                    Id = y.Id,
+                                    Code = y.Skill.Code,
+                                    Title = y.Skill.Title,
+                                    ExperienceInMonths = y.ExperienceInMonths,
+                                    Level = y.Level,
+                                    Proficiency = y.Proficiency
+                                })
+                            };
+                return query;
+            }
+        }
+
         public async Task<FileAccessInfo> ByUrlAsync(string userId, string filepath)
         {
             var jobApplication = await _jobApplicationRepository.MineAsync(userId, filepath);
@@ -363,6 +421,24 @@ namespace Talent21.Service.Core
                 Location = jobApplication.Contractor.Location.Title,
                 Name = string.Format("{0}_{1}", jobApplication.Contractor.FirstName, jobApplication.Contractor.LastName)
             };
+        }
+
+
+        public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model)
+        {
+            var query = Contractors;
+            //Rules of searching.
+            if(!string.IsNullOrWhiteSpace(model.Location))
+            {
+                query = query.Where(x => x.Location.Contains(model.Location));
+            }
+            if(!string.IsNullOrWhiteSpace(model.Skills))
+            {
+                //TODO: AND OR LOGIC
+                var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
+            }
+            return query;
         }
     }
 }

@@ -155,6 +155,10 @@ namespace Talent21.Service.Core
         {
             return Contractors.FirstOrDefault(x => x.OwnerId == userId);
         }
+        public ContractorViewModel GetProfile(int id)
+        {
+            return Contractors.FirstOrDefault(x => x.Id == id);
+        }
 
         public bool Delete(IdModel model)
         {

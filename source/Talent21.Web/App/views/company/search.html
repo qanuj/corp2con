@@ -3,23 +3,21 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>{{title}}</h2>
-
                 <div class="jobs" ng-repeat="row in records.items">
-                    <a href="#">
-                        <div class="featured"></div>
-                        <img src="/Content/images/job1.jpg" alt="" class="img-circle" />
+                    <a href="#/contractor/{{row.id}}">
+                        <div ng-if="row.featured" class="featured"></div>
+                        <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">
                             <h5>{{row.name}}</h5>
                             <p>{{row.about}}</p>
                         </div>
                         <div class="data">
                             <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
-                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                            <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}}.{{row.experienceMonths}} years</span>
+                            <span class="sallary"><i class="fa fa-inr"></i>{{row.rate}}k</span>
                         </div>
                     </a>
                 </div>
-
                 <nav>
                     <ul class="pagination">
                         <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -31,10 +29,8 @@
                         <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
                     </ul>
                 </nav>
-
             </div>
             <div class="col-sm-4" id="sidebar">
-
                 <!-- Find a Job Start -->
                 <div class="sidebar-widget" id="jobsearch">
                     <h2>Find a Candidate</h2>

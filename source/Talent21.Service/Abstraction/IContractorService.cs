@@ -25,5 +25,7 @@ namespace Talent21.Service.Abstraction
         ContractorSkillEditViewModel Update(ContractorSkillEditViewModel model);
         bool Delete(ContractorSkillDeleteViewModel model);
 
+
+        ContractorViewModel GetProfile(int id);
     }
 }

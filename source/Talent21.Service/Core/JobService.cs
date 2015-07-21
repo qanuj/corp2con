@@ -44,7 +44,7 @@ namespace Talent21.Service.Core
             }
         }
 
-        public IQueryable<JobSearchResultViewModel> Search(SearchJobViewModel model)
+        public IQueryable<JobSearchResultViewModel> Search(SearchQueryViewModel model)
         {
             var query = Jobs;
             //Rules of searching.
@@ -60,6 +60,7 @@ namespace Talent21.Service.Core
             }
             return query;
         }
+
         public JobSearchResultViewModel ById(int id)
         {
             return Jobs.FirstOrDefault(x => x.Id == id);

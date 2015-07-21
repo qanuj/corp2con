@@ -1,7 +1,7 @@
-﻿app.factory('dataService', ['$http','$q', function ($http,$q) {
+﻿app.factory('dataService', ['$http', '$q', function ($http, $q) {
     var v = 'api/v1/';
     var factory = {
-        pageSize:50,
+        pageSize: 50,
         contractor: {},
         job: {},
         company: {},
@@ -12,14 +12,12 @@
         pageSize = pageSize || factory.pageSize;
         var pg = "&$top=" + pageSize;
         if (page > 1) {
-            pg+="&$skip=" + ((page-1) * pageSize);
+            pg += "&$skip=" + ((page - 1) * pageSize);
         }
         return pg;
     }
 
     factory.role = document.querySelector('html').dataset.role;
-
-    factory.currentPage = window.location.href;
 
     //For Contractors
 
@@ -31,8 +29,8 @@
         return $http.get(v + 'contractor/all');
     }
 
-    factory.contractor.get = function () {
-        return $http.get(v + 'contractor/profile');
+    factory.contractor.get = function (id) {
+        return $http.get(v + 'contractor/profile'+(!!id?'/'+id:''));
     }
 
     factory.contractor.update = function (formData) {
@@ -54,9 +52,6 @@
     factory.contractor.favorite = function (id) {
         return $http.put(v + 'candidate/job/application/' + id + '/favorite');
     }
-
-    factory.userid = "" ;
-
 
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'contractor/schedule', formData);
@@ -84,8 +79,12 @@
         return $http.get(v + 'company/all');
     }
 
-    factory.company.get = function () {
-        return $http.get(v + 'company/profile');
+    factory.company.get = function (id) {
+        return $http.get(v + 'company/profile' + (!!id ? '/' + id : ''));
+    }
+
+    factory.company.searchContractor = function (query) {
+        return $http.post(v + 'company/search', query);
     }
 
     factory.company.update = function (formData) {
@@ -102,7 +101,7 @@
 
     factory.company.search = function (query) {
         return $http.post(v + 'company/search', query);
-    }   
+    }
     //For Jobs
 
     factory.job.get = function (id) {
@@ -158,5 +157,6 @@
     factory.system.deleteIndustry = function (record) {
         return $http.delete(v + 'system/industry/delete', record);
     }
+
     return factory;
 }]);

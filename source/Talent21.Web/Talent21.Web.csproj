@@ -300,8 +300,8 @@
     <Content Include="App\views\contractor\dashboard.html" />
     <Content Include="App\views\contractor\editProfile.html" />
     <Content Include="App\views\contractor\editProfile.js" />
-    <Content Include="App\views\contractor\favouritejobs.html" />
-    <Content Include="App\views\contractor\favouritejobs.js" />
+    <Content Include="App\views\contractor\favorite.html" />
+    <Content Include="App\views\contractor\favorite.js" />
     <Content Include="App\views\contractor\schedule.html" />
     <Content Include="App\views\contractor\schedule.js" />
     <Content Include="App\views\contractor\other.html" />

@@ -5,7 +5,7 @@ namespace Talent21.Service.Abstraction
 {
     public interface IJobService : IService, ISecuredService
     {
-        IQueryable<JobSearchResultViewModel> Search(SearchJobViewModel model);
+        IQueryable<JobSearchResultViewModel> Search(SearchQueryViewModel model);
         JobSearchResultViewModel ById(int id);
     }
 }

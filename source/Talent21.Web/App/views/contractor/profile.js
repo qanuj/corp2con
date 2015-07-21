@@ -1,10 +1,5 @@
-﻿app.controller('contractorProfileController', ['$scope', 'dataService', function ($scope, db) {
-
-    $scope.currentPage = db.currentPage;
-
-
-    db.contractor.get().success(function (result) {
+﻿app.controller('contractorProfileController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+    db.contractor.get(param.id).success(function (result) {
         $scope.record = result;
-        db.userid = result.id;
     });
 }]);
