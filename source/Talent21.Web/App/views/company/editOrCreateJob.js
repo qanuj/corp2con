@@ -5,6 +5,8 @@
 
     if (param.id) {
         db.job.get(param.id).success(function (result) {
+            result.start = moment(result.start).toDate();
+            result.end = moment(result.end).toDate();
             result.loc = { formatted_address: result.location };
             result.primarySkills = [];
             result.secondarySkills = [];

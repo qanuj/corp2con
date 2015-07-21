@@ -3,40 +3,21 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>{{title}} {{records.count}}</h2>
-                <form ng-submit="search(query)" class="margbottom">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
-                        </div>
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" ng-model="query.location" placeholder="e.g. Mumbai OR Delhi or Chennnai" />
-                        </div>
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
                 <div class="jobs">
-                    <a href="#" ng-repeat="row in records.items" ng-href="/#/job/{{row.id}}">
+                    <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="featured"></div>
                         <div class="{{row.ifFeatured}}"></div>
-                            <div class="title">
-                                <h5>{{row.title}}</h5>
-                                <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
-                            </div>
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
-                                <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                                <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
-                            </div>
-                        </a>
-                    </div>
+                        <div class="title">
+                            <h5>{{row.title}}</h5>
+                            <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
+                        </div>
+                        <div class="data">
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
+                            <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
+                        </div>
+                    </a>
+                </div>
                 <nav>
                     <ul class="pagination">
                         <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -50,36 +31,20 @@
                 </nav>
             </div>
             <div class="col-sm-4" id="sidebar">
-                <!-- Featured Jobs Start -->
-                <div class="sidebar-widget">
-                    <h2>Featured Jobs</h2>
-                    <a href="#">
-                        <img src="http://placehold.it/400x265.jpg" alt="Featured Job" class="img-responsive" />
-                        <div class="featured-job">
-                            <img src="/Content/images/job1.jpg" alt="" class="img-circle pull-left" />
-                            <div class="title">
-                                <h5>Senior Project Manager</h5>
-                                <p>3 Months</p>
-                            </div>
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
-                                <span class="experience"><i class="fa fa-trophy"></i>12 years</span>
-                                <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
-                            </div>
-                            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique euismod lorem, a consequat orci consequat a. Donec ullamcorper tincidunt nunc, ut aliquam est pellentesque porta. In neque erat, malesuada sit amet orci ac, laoreet laoreet mauris.</div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Featured Jobs End -->
-                <!-- Find a Job Start -->
                 <div class="sidebar-widget" id="jobsearch">
                     <h2>Find a Job</h2>
-                    <form>
+                    <form ng-submit="search(query)">
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="form-group" id="job-search-group">
-                                    <label for="job-search" class="sr-only">Search</label>
-                                    <input type="text" class="form-control" id="job-search" placeholder="Type and press enter">
+                                <input class="form-control" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
+                            </div>
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" ng-model="query.location" placeholder="e.g. Mumbai OR Delhi or Chennnai" />
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                                    <div class="input-group-btn"><button type="submit" class="btn btn-primary srch-btn-pad"><i class="fa fa-search"></i></button></div>
                                 </div>
                             </div>
                         </div>
@@ -93,52 +58,12 @@
                                 <h5>Career Level</h5>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Junior
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Middle
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Senior
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
                                         <input type="checkbox"> Expert
                                     </label>
                                 </div>
                             </div>
                             <div class="col-xs-6">
                                 <h5>Presence</h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Remote
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Office
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Relocation
-                                    </label>
-                                </div>
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox"> Travel a lot
@@ -156,31 +81,6 @@
                                 <h5>Job Type</h5>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Freelance
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Part Time
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Full Time
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Internship
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
                                         <input type="checkbox"> Volunteer
                                     </label>
                                 </div>
@@ -189,32 +89,7 @@
                                 <h5>Location</h5>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> New York
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Los Angeles
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> San Francisco
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Chicago
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Boston
+                                        <input type="checkbox"> Mumbai
                                     </label>
                                 </div>
                             </div>

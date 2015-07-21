@@ -41,7 +41,7 @@
         return $http.put(v + 'contractor/profile', formData);
     }
 
-    factory.contractor.searchJob = function (query) {
+    factory.contractor.search = function (query) {
         return $http.post(v + 'job/search', query);
     }
 
@@ -109,7 +109,7 @@
     //For Jobs
 
     factory.job.get = function (id) {
-        return $http.get(v + 'company/job/ ' + id);
+        return $http.get(v + 'company/job/' + id);
     }
 
     factory.job.paged = function (page) {
@@ -124,19 +124,10 @@
         return $http.put(v + 'company/job', record);
     }
 
-    factory.job.publish = function (record) {
-        return $http.put(v + 'company/job/publish', record);
-    }
+    factory.job.publish = function (id) { return $http.put(v + 'company/job/publish', { id: id }); }
+    factory.job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
+    factory.job.delete = function (id) { return $http.delete(v + 'company/job/delete', { id: id }); }
 
-    factory.job.cancel = function (record) {
-        return $http.put(v + 'company/job/cancel', record);
-    }
-
-    factory.job.delete = function (record) {
-        return $http.delete(v + 'company/job', record);
-    }
-
-    //System requests
 
     factory.system.searchLocations = function (address) {
         return $http.get('//maps.googleapis.com/maps/api/geocode/json', { params: { address: address, sensor: false } });
