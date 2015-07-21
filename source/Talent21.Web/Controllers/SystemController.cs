@@ -73,10 +73,10 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("industry/delete")]
-        public HttpResponseMessage DeleteIndustry(IndustryDeleteViewModel model)
+        [Route("industry/{id}")]
+        public HttpResponseMessage DeleteIndustry([FromUri] int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new IndustryDeleteViewModel{Id=id})) : Bad(ModelState);
         }
 
 
@@ -109,10 +109,10 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("skill/delete")]
-        public HttpResponseMessage DeleteSkill(SkillDeleteViewModel model)
+        [Route("skill/{id}")]
+        public HttpResponseMessage DeleteSkill([FromUri] int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new SkillDeleteViewModel { Id = id })) : Bad(ModelState);
         }
 
 
@@ -145,12 +145,11 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("location/delete")]
-        public HttpResponseMessage DeleteLocation(LocationDeleteViewModel model)
+        [Route("location/{id}")]
+        public HttpResponseMessage DeleteLocation([FromUri] int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new LocationDeleteViewModel { Id = id })) : Bad(ModelState);
         }
-
 
         //functional aeraa
         [HttpGet]
@@ -182,10 +181,10 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("functional/delete")]
-        public HttpResponseMessage DeleteFunctionalArea(FunctionalAreaDeleteViewModel model)
+        [Route("functional/{id}")]
+        public HttpResponseMessage DeleteFunctional([FromUri] int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new FunctionalAreaDeleteViewModel { Id = id })) : Bad(ModelState);
         }
 
 

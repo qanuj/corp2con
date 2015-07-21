@@ -49,23 +49,23 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("profile")]
-        public HttpResponseMessage AddIndustry(CompanyCreateViewModel model)
+        public HttpResponseMessage AddCompany(CompanyCreateViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("profile")]
-        public HttpResponseMessage EditIndustry(CompanyEditViewModel model)
+        public HttpResponseMessage EditCompany(CompanyEditViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
         [HttpDelete]
-        [Route("profile")]
-        public HttpResponseMessage DeleteIndustry(IdModel model)
+        [Route("profile/{id}")]
+        public HttpResponseMessage DeleteCompany([FromUri] int id)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new IdModel { Id = id })) : Bad(ModelState);
         }
 
         //Job Related Api.
@@ -134,12 +134,12 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("job")]
         [ResponseType(typeof(bool))]
-        public HttpResponseMessage DeleteJob(IdModel model)
+        [Route("job/{id}")]
+        public HttpResponseMessage DeleteJob([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new IdModel{Id=id})) : Bad(ModelState);
         }
 
         //Job Application Related Api.
