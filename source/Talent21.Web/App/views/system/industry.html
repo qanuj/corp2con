@@ -1,7 +1,7 @@
 ﻿<div class="container margtop">
     <h2>Manage Industry</h2>
     <div class="col-md-12">
-        <form ng-submit="save(record)">       
+        <form ng-submit="save(record)">
             <div class="col-md-4">
                 <label>Industry Name</label>
                 <input type="text" class="form-control" placeholder="e.g. IT-Software/Software Services" ng-model="record.title">
@@ -27,7 +27,7 @@
                     <button class="btn btn-danger" ng-click="delete(i.Id)">Delete</button>
                 </div>
             </div>
-            <div class="row" ng-show="s.editMode">
+            <div class="row" ng-show="i.editMode">
                 <div class="col-md-3"><input type="text" class="form-control" ng-model="i.title" /></div>
                 <div class="col-md-3"><input type="text" class="form-control" ng-model="i.code" /></div>
                 <div class="col-md-3">
@@ -37,5 +37,5 @@
             </div>
         </div>
     </div>
-        </div>
+</div>
 
