@@ -131,7 +131,7 @@
 
     factory.job.publish = function (id) { return $http.put(v + 'company/job/publish', { id: id }); }
     factory.job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
-    factory.job.delete = function (id) { return $http.delete(v + 'company/job/delete/'+id); }
+    factory.job.delete = function (id) { return $http.delete(v + 'company/job/'+id); }
 
     factory.system.getSkills = function (q) {
         var uri = v + 'system/skill/all';
@@ -150,7 +150,7 @@
         return $http.put(v + 'system/industry/update', record);
     }
     factory.system.deleteIndustry = function (record) {
-        return $http.delete(v + 'system/industry/delete/'+record.id);
+        return $http.delete(v + 'system/industry/'+record.id);
     }
 
 
@@ -165,7 +165,7 @@
         return $http.put(v + 'system/functional/update', record);
     }
     factory.system.deleteFunctional = function (record) {
-        return $http.delete(v + 'system/functional/delete/'+record.id);
+        return $http.delete(v + 'system/functional/'+record.id);
     }
 
     return factory;
