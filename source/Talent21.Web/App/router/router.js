@@ -71,6 +71,10 @@
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'
             })
+             .when('/system/industry/edit', {
+                 templateUrl: '/app/views/system/editindustry.html',
+                 controller: 'industryeditController'
+             })
             .otherwise({ redirectTo: '/' });
     }
 
