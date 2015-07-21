@@ -74,9 +74,9 @@ namespace Talent21.Web.Controllers
 
         [HttpDelete]
         [Route("industry/delete")]
-        public HttpResponseMessage DeleteIndustry([FromUri]int id)
+        public HttpResponseMessage DeleteIndustry(IndustryDeleteViewModel model)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(new IndustryDeleteViewModel { Id = id })) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
 
@@ -110,9 +110,9 @@ namespace Talent21.Web.Controllers
 
         [HttpDelete]
         [Route("skill/delete")]
-        public HttpResponseMessage DeleteSkill([FromUri]int id)
+        public HttpResponseMessage DeleteSkill(SkillDeleteViewModel model)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(new SkillDeleteViewModel { Id = id })) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
 
@@ -145,10 +145,10 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("location/delete/{id}")]
-        public HttpResponseMessage DeleteLocation([FromUri]int id)
+        [Route("location/delete")]
+        public HttpResponseMessage DeleteLocation(LocationDeleteViewModel model)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(new LocationDeleteViewModel{Id=id})) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
 
@@ -182,10 +182,10 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("functional/delete/{id}")]
-        public HttpResponseMessage DeleteFunctionalArea([FromUri]int id)
+        [Route("functional/delete")]
+        public HttpResponseMessage DeleteFunctionalArea(FunctionalAreaDeleteViewModel model)
         {
-            return ModelState.IsValid ? Ok(_service.Delete(new FunctionalAreaDeleteViewModel { Id = id })) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
         }
 
 

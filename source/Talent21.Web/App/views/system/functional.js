@@ -1,28 +1,28 @@
 ﻿app.controller('functionalController', ['$scope', 'dataService', function ($scope, db) {
 
     $scope.save = function (record) {
-        record.functionalArea = [];
-        db.system.addFunctionalArea(record).success(function (refreshRecord) {
-            console.log(refreshRecord);
-        });
+        db.system.addFunctional(record).success(refreshRecord);
     }
+
+    $scope.update = function (record) {
+        db.system.updateFunctional(record).success(refreshRecord);
+    };
+
+    $scope.delete = function (record) {
+        db.system.deleteFunctional(record).success(refreshRecord);
+    };
+
+    $scope.toggle = function (record) {
+        record.editMode = !record.editMode;
+    };
+
+    refreshRecord();
 
     function refreshRecord() {
-        return db.system.getFunctionalArea().success(function (result) {
-            $scope.functionalArea = result;
+        return db.system.getFunctionals().success(function (result) {
+            $scope.records = result;
         });
     }
-    $scope.update = function (s) {
-        db.system.editFunctionalArea(s).success(refreshRecord);
-    };
 
-    $scope.delete = function (s) {
-        db.system.deleteFunctionalArea(s).success(result);
-    };
-
-    $scope.toggle = function (s) {
-        s.editMode = !s.editMode;
-    };
-    refreshRecord();
 }]);
 

@@ -64,8 +64,8 @@
     factory.contractor.editSchedule = function (formData) {
         return $http.put(v + 'contractor/schedule', formData);
     }
-    factory.contractor.deleteSchedule = function (formData) {
-        return $http.delete(v + 'contractor/schedule', formData);
+    factory.contractor.deleteSchedule = function (record) {
+        return $http.delete(v + 'contractor/schedule/' + record.id);
     }
 
     factory.contractor.getSchedule = function (page) {
@@ -131,7 +131,7 @@
 
     factory.job.publish = function (id) { return $http.put(v + 'company/job/publish', { id: id }); }
     factory.job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
-    factory.job.delete = function (id) { return $http.delete(v + 'company/job/delete', { id: id }); }
+    factory.job.delete = function (id) { return $http.delete(v + 'company/job/delete/'+id); }
 
     factory.system.getSkills = function (q) {
         var uri = v + 'system/skill/all';
@@ -139,8 +139,8 @@
         return $http.get(uri);
     }
 
-    factory.system.getIndustries = function () {
-        return $http.get(v + 'system/industry/all');
+    factory.system.getIndustries = function (page) {
+        return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page));
     }
 
     factory.system.addIndustry = function (record) {
@@ -150,12 +150,12 @@
         return $http.put(v + 'system/industry/update', record);
     }
     factory.system.deleteIndustry = function (record) {
-        return $http.delete(v + 'system/industry/delete', record);
+        return $http.delete(v + 'system/industry/delete/'+record.id);
     }
 
 
-    factory.system.getFunctionals = function () {
-        return $http.get(v + 'system/functional/all');
+    factory.system.getFunctionals = function (page) {
+        return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page));
     }
 
     factory.system.addFunctional = function (record) {
@@ -165,33 +165,8 @@
         return $http.put(v + 'system/functional/update', record);
     }
     factory.system.deleteFunctional = function (record) {
-        return $http.delete(v + 'system/functional/delete', record);
+        return $http.delete(v + 'system/functional/delete/'+record.id);
     }
 
-    factory.system.addSkill = function (formData) {
-        return $http.post(v + 'system/skill/create', formData);
-    }
-    factory.system.editSkill = function (formData) {
-        return $http.put(v + 'system/skill/update', formData);
-    }
-    factory.system.deleteSkill = function (formData) {
-        return $http.delete(v + 'system/skill/delete', formData);
-    }
-    factory.system.editIndustry = function (formData) {
-        return $http.put(v + 'system/industry/update', formData);
-    }
-    factory.system.getFunctionalArea = function (page) {
-        return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page));
-    }
-    factory.system.addFunctionalArea = function (formData) {
-        return $http.post(v + 'system/functional/create', formData);
-    }
-    factory.system.editFunctionalArea = function (formData) {
-        return $http.put(v + 'system/functional/update', formData);
-    }
-    factory.system.deleteFunctionalArea = function (formData) {
-        return $http.delete(v + 'system/functional/delete', formData);
-    }
-    return factory;
     return factory;
 }]);

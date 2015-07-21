@@ -376,8 +376,6 @@
     <Content Include="App\views\searchController.js" />
     <Content Include="App\views\system\skills.html" />
     <Content Include="App\views\system\skills.js" />
-    <Content Include="App\views\system\funtionalarea.html" />
-    <Content Include="App\views\system\funtionalarea.js" />
     <Content Include="App\views\Testimonials.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />

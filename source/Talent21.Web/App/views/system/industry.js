@@ -2,29 +2,20 @@
     
     function refreshRecord(page) {
         return db.system.getIndustries(page).success(function (result) {
-            $scope.industries = result;
+            $scope.records = result;
         });
     }
 
     $scope.save = function (record) {
-        record.system = [];
-        db.system.addIndustry(record).success(function (refreshRecord) {
-            console.log(refreshRecord);
-        });
+        db.system.addIndustry(record).success(refreshRecord);
     }
 
     $scope.update = function (record) {
         db.system.updateIndustry(record).success(refreshRecord);
     }
 
-    $scope.update = function (i) {
-        db.system.editIndustry(i).success(refreshRecord);
-    };
-
-
     $scope.delete = function (i) {
-        db.system.deleteIndustry(i).success(function (result) {
-        });
+        db.system.deleteIndustry(i).success(refreshRecord);
     }
 
     $scope.toggle = function (i) {

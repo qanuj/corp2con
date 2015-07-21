@@ -71,6 +71,15 @@
                 templateUrl: '/app/views/company/dashboard.html',
                 controller: 'companyDashboardController'
             })
+
+            .when('/industry', {
+                templateUrl: '/app/views/system/industry.html',
+                controller: 'industryController'
+            })
+           .when('/functional', {
+               templateUrl: '/app/views/system/functional.html',
+               controller: 'functionalController'
+           })
             .when('/search', {
                 templateUrl: '/app/views/company/search.html',
                 controller: 'companySearchController'
