@@ -389,5 +389,14 @@ namespace Talent21.Service.Core
             _jobApplicationRepository.SaveChanges();
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
+
+
+        public ContractorDashboardViewModel GetDashboard(string userId)
+        {
+            return new ContractorDashboardViewModel
+            {
+
+            };
+        }
     }
 }

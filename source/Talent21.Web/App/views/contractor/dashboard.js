@@ -1,7 +1,11 @@
-﻿app.controller('contractorDashboardController', ['$scope', function ($scope, contractorDataService, $http) {
-    $scope.title = "Contractor Dashboard";
-    $scope.returnContractors = function() {
-        /*contractorDataService.getAllContractors();*/
-        console.log(contractorDataService);
-    }
+﻿app.controller('contractorDashboardController', ['$scope', 'dataService', function ($scope, db) {
+
+    db.contractor.dashboard().success(function (result) {
+        $scope.record = result;
+    });
+
+    db.contractor.get().success(function (result) {
+        $scope.profile = result;
+    });
+
 }]);

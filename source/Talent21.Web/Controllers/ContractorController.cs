@@ -29,6 +29,14 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [Route("dashboard")]
+        public ContractorDashboardViewModel GetDashboard()
+        {
+            var userId = User.Identity.GetUserId<string>();
+            return _service.GetDashboard(userId);
+        }
+
+        [HttpGet]
         [Route("paged")]
         public PageResult<ContractorViewModel> GetContractors(ODataQueryOptions<ContractorViewModel> options)
         {
@@ -81,11 +89,11 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("profile")]
-        public HttpResponseMessage DeleteProfile(IdModel model)
+        [Route("profile/{id}")]
+        public HttpResponseMessage DeleteProfile([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new IdModel { Id = id })) : Bad(ModelState);
         }
 
 
@@ -125,11 +133,11 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("schedule")]
-        public HttpResponseMessage DeleteSchedule(DeleteScheduleViewModel model)
+        [Route("schedule/{id}")]
+        public HttpResponseMessage DeleteSchedule([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Delete(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new DeleteScheduleViewModel{ Id=id})) : Bad(ModelState);
         }
 
         //skill related api.
@@ -168,7 +176,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("skill/{0}")]
+        [Route("skill/{id}")]
         public HttpResponseMessage DeleteSkill([FromUri]int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();

@@ -1,138 +1,134 @@
 ﻿<a class="btn btn-primary margtop visible-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
-    <div>
-        <section id="title">
-            <a class="btn btn-primary editbtn hidden-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <img src="{{record.pictureUrl}}" class="img-responsive" alt="" />
-                    </div>
-                </div>
+<section id="title">
+    <a class="btn btn-primary editbtn hidden-xs" href="/#/profile/edit"><i class="fa fa-edit"></i> Edit Profile</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <img src="{{record.pictureUrl}}" class="img-responsive" alt="" />
             </div>
-        </section>
-        <section id="jobs">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <article>
-                            <h2>{{record.companyName}}</h2>
-                            <p>{{record.about}}</p>
-                            <hr>
-                            <h2>Jobs</h2>
-                            <div class="jobs">
-                                <a href="#" ng-repeat="j in jobs">
-                                    <div ng-if="j.featured" class="featured"></div>
-                                    <div class="title">
-                                        <h5>{{j.title}}</h5>
-                                        <p>{{j.company}}</p>
-                                        <p>{{j.description| limitTo: 255}}{{j.description.length > 255 ? '...' : ''}}</p>
-                                    </div>
-                                    <div class="data">
-                                        <span class="type part-time"><i class="fa fa-clock-o"></i>{{j.start | date:'dd-MMM-yyyy'}}</span>
-                                        <span class="type part-time"><i class="fa fa-clock-o"></i> {{j.end | amTimeAgo : j.start : true}}</span>
-                                        <span class="city"><i class="fa fa-map-marker"></i>{{j.location}}</span>
-                                        <span class="sallary"><i class="fa fa-inr"></i>{{j.rate}}k</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-sm-4" id="sidebar">
-                        <div class="sidebar-widget" id="share">
-                            <h2>Share it</h2>
-                            <ul>
-                                <li><a href="https://www.facebook.com/sharer/sharer.php?u={{dataService.currentPage}}"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://twitter.com/home?status={{dataService.currentPage}}"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://plus.google.com/share?url=http:/{{dataService.currentPage}}"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{dataService.currentPage}}"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                        <hr>
-                        <div class="sidebar-widget" id="widget-contact">
-                            <h2>Contact</h2>
-                            <ul>
-                                <li><i class="fa fa-building"></i>{{record.companyName}}</li>
-                                <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
-                                <li><i class="fa fa-map-marker"></i>{{record.location}}</li>
-                                <li><i class="fa fa-phone"></i>{{record.mobile}}</li>
-                                <li><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
-                                <li><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="color2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Drop us a line</h2>
-                        <form role="form" name="contact-form" id="contact-form" action="process.php">
-                            <div class="form-group" id="contact-name-group">
-                                <label for="contact-name" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="contact-name" placeholder="Name">
-                            </div>
-                            <div class="form-group" id="contact-email-group">
-                                <label for="contact-email" class="sr-only">Email</label>
-                                <input type="email" class="form-control" id="contact-email" placeholder="Email">
-                            </div>
-                            <div class="form-group" id="contact-subject-group">
-                                <label for="contact-subject" class="sr-only">Subject</label>
-                                <input type="text" class="form-control" id="contact-subject" placeholder="Subject">
-                            </div>
-                            <div class="form-group" id="contact-message-group">
-                                <label for="contact-message" class="sr-only">Message</label>
-                                <textarea class="form-control" rows="3" id="contact-message"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                    </div>
-                    <div class="col-sm-6">
-                        <h2>Visit our office</h2>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h5>New York</h5>
-                                <p>
-                                    5 Park Avenue<br>
-                                    New York, NY 10016<br>
-                                    USA
-                                </p>
-                                <p>
-                                    <i class="fa fa-phone"></i>+1 718.242.5555<br>
-                                    <i class="fa fa-fax"></i>+1 718.242.5556<br>
-                                    <i class="fa fa-envelope"></i><a href="mailto:ny@jobseek.com">ny@jobseek.com</a>
-                                </p>
-                                <p>
-                                    <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
-                                    <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
-                                    <i class="fa fa-clock-o"></i>Sun Closed
-                                </p>
-                            </div>
-                            <div class="col-sm-6">
-                                <h5>Los Angeles</h5>
-                                <p>
-                                    8605 Santa Monica Blvd<br>
-                                    Los Angeles, CA 90069-4109<br>
-                                    USA
-                                </p>
-                                <p>
-                                    <i class="fa fa-phone"></i>+1 985.562.5555<br>
-                                    <i class="fa fa-fax"></i>+1 985.562.5556<br>
-                                    <i class="fa fa-envelope"></i><a href="mailto:la@jobseek.com">la@jobseek.com</a>
-                                </p>
-                                <p>
-                                    <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
-                                    <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
-                                    <i class="fa fa-clock-o"></i>Sun Closed
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ CONTACT END ============ -->
+        </div>
     </div>
+</section>
+<section id="jobs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <article>
+                    <h2>About {{record.companyName}}</h2>
+                    <p>{{record.about}}</p>
+                    <hr>
+                    <h2>Jobs</h2>
+                    <div class="jobs">
+                        <a href="#" ng-repeat="j in jobs">
+                            <div ng-if="j.featured" class="featured"></div>
+                            <div class="title">
+                                <h5>{{j.title}}</h5>
+                                <p>{{j.company}}</p>
+                                <p>{{j.description| limitTo: 255}}{{j.description.length > 255 ? '...' : ''}}</p>
+                            </div>
+                            <div class="data">
+                                <span class="type part-time"><i class="fa fa-clock-o"></i>{{j.start | date:'dd-MMM-yyyy'}}</span>
+                                <span class="type part-time"><i class="fa fa-clock-o"></i> {{j.end | amTimeAgo : j.start : true}}</span>
+                                <span class="city"><i class="fa fa-map-marker"></i>{{j.location}}</span>
+                                <span class="sallary"><i class="fa fa-inr"></i>{{j.rate}}k</span>
+                            </div>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-sm-4" id="sidebar">
+                <div class="sidebar-widget" id="share">
+                    <h2>Share it</h2>
+                    <ul>
+                        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{dataService.currentPage}}"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/home?status={{dataService.currentPage}}"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://plus.google.com/share?url=http:/{{dataService.currentPage}}"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{dataService.currentPage}}"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="sidebar-widget" id="widget-contact">
+                    <h2>Contact</h2>
+                    <ul>
+                        <li><i class="fa fa-building"></i>{{record.companyName}}</li>
+                        <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
+                        <li><i class="fa fa-map-marker"></i>{{record.location}}</li>
+                        <li><i class="fa fa-phone"></i>{{record.mobile}}</li>
+                        <li><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
+                        <li><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="color2">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Drop us a line</h2>
+                <form role="form" name="contact-form" id="contact-form" action="process.php">
+                    <div class="form-group" id="contact-name-group">
+                        <label for="contact-name" class="sr-only">Name</label>
+                        <input type="text" class="form-control" id="contact-name" placeholder="Name">
+                    </div>
+                    <div class="form-group" id="contact-email-group">
+                        <label for="contact-email" class="sr-only">Email</label>
+                        <input type="email" class="form-control" id="contact-email" placeholder="Email">
+                    </div>
+                    <div class="form-group" id="contact-subject-group">
+                        <label for="contact-subject" class="sr-only">Subject</label>
+                        <input type="text" class="form-control" id="contact-subject" placeholder="Subject">
+                    </div>
+                    <div class="form-group" id="contact-message-group">
+                        <label for="contact-message" class="sr-only">Message</label>
+                        <textarea class="form-control" rows="3" id="contact-message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h2>Visit our office</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>New York</h5>
+                        <p>
+                            5 Park Avenue<br>
+                            New York, NY 10016<br>
+                            USA
+                        </p>
+                        <p>
+                            <i class="fa fa-phone"></i>+1 718.242.5555<br>
+                            <i class="fa fa-fax"></i>+1 718.242.5556<br>
+                            <i class="fa fa-envelope"></i><a href="mailto:ny@jobseek.com">ny@jobseek.com</a>
+                        </p>
+                        <p>
+                            <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
+                            <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
+                            <i class="fa fa-clock-o"></i>Sun Closed
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5>Los Angeles</h5>
+                        <p>
+                            8605 Santa Monica Blvd<br>
+                            Los Angeles, CA 90069-4109<br>
+                            USA
+                        </p>
+                        <p>
+                            <i class="fa fa-phone"></i>+1 985.562.5555<br>
+                            <i class="fa fa-fax"></i>+1 985.562.5556<br>
+                            <i class="fa fa-envelope"></i><a href="mailto:la@jobseek.com">la@jobseek.com</a>
+                        </p>
+                        <p>
+                            <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
+                            <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
+                            <i class="fa fa-clock-o"></i>Sun Closed
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

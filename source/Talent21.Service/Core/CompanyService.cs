@@ -440,5 +440,14 @@ namespace Talent21.Service.Core
             }
             return query;
         }
+
+
+        public CompanyDashboardViewModel GetDashboard(string userId)
+        {
+            return new CompanyDashboardViewModel
+            {
+               
+            };
+        }
     }
 }

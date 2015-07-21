@@ -48,14 +48,38 @@
                  templateUrl: '/app/views/company/profile.html',
                  controller: 'companyProfileController'
              })
-
             .otherwise({ redirectTo: '/' });
+
+    } else if (role === 'Admin') {
+        $routeProvider
+           .when('/', {
+               templateUrl: '/app/views/system/dashboard.html',
+               controller: 'adminDashboardController'
+           })
+            .when('/industry', {
+                templateUrl: '/app/views/system/industry.html',
+                controller: 'industryController'
+            })
+           .when('/functional', {
+               templateUrl: '/app/views/system/functional.html',
+               controller: 'functionalController'
+           })
+           .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider
             .when('/', {
                 templateUrl: '/app/views/company/dashboard.html',
                 controller: 'companyDashboardController'
             })
+
+            .when('/industry', {
+                templateUrl: '/app/views/system/industry.html',
+                controller: 'industryController'
+            })
+           .when('/functional', {
+               templateUrl: '/app/views/system/functional.html',
+               controller: 'functionalController'
+           })
             .when('/search', {
                 templateUrl: '/app/views/company/search.html',
                 controller: 'companySearchController'
@@ -87,14 +111,6 @@
              .when('/contractor/:id', {
                  templateUrl: '/app/views/contractor/profile.html',
                  controller: 'contractorProfileController'
-             })
-             .when('/system/industry', {
-                 templateUrl: '/app/views/system/industry.html',
-                 controller: 'industryController'
-             })
-             .when('/system/functional', {
-                 templateUrl: '/app/views/system/functional.html',
-                 controller: 'functionalController'
              })
             .otherwise({ redirectTo: '/' });
     }

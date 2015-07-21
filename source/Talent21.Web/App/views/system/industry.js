@@ -1,8 +1,8 @@
 ﻿app.controller('industryController', ['$scope', 'dataService', function ($scope, db) {
-
+    
     function refreshRecord(page) {
         return db.system.getIndustries(page).success(function (result) {
-            $scope.industries = result;
+            $scope.records = result;
         });
     }
 
@@ -14,8 +14,8 @@
         db.system.updateIndustry(record).success(refreshRecord);
     }
 
-    $scope.delete = function (record) {
-        db.system.deleteIndustry(record).success(refreshRecord);
+    $scope.delete = function (i) {
+        db.system.deleteIndustry(i).success(refreshRecord);
     }
 
     $scope.toggle = function (i) {
