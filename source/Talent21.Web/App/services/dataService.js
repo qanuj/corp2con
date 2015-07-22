@@ -168,5 +168,13 @@
         return $http.delete(v + 'system/functional/'+record.id);
     }
 
+    factory.system.searchLocations=function(address) {
+        var params = { address: address, sensor: false };
+        return common.$http.get(
+          '//maps.googleapis.com/maps/api/geocode/json',
+          { params: params }
+        );
+    }
+
     return factory;
 }]);
