@@ -151,5 +151,8 @@
     factory.system.addIndustry = function (formData) {
         return $http.post(v + 'system/industry/create', formData);
     }
+    factory.system.editIndustry = function (formData) {
+        return $http.put(v + 'system/industry/update', formData);
+    }
     return factory;
 }]);

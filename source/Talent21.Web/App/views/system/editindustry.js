@@ -1,25 +1,25 @@
 ﻿app.controller('industryeditController', ['$scope', 'dataService', function ($scope, db) {
     
-    
-    function refreshRecord(page) {
-        return db.system.getIndustries(page).success(function (result) {
-            $scope.system = result;
-        });
-    }
     $scope.save = function (record) {
         record.system = [];
-        db.system.addIndustry(record).success(function (result) {
-            console.log(result);
+        db.system.addIndustry(record).success(function (refreshRecord) {
+            console.log(refreshRecord);
         });
     }
+
+    function refreshRecord() {
+        return db.system.getIndustries().success(function (result) {
+            $scope.industries = result;
+        });
+    }   
 
     $scope.update = function (i) {
-        db.system.EditIndustry(i).success(function (result) {
-        });
-    }
+        db.system.editIndustry(i).success(refreshRecord);
+    };
+
 
     $scope.delete = function (i) {
-        db.system.DeleteIndustry(i).success(function (result) {
+        db.system.deleteIndustry(i).success(function (result) {
         });
     }
 
