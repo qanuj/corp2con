@@ -35,6 +35,12 @@ namespace Talent21.Data.Repository
         {
             modelBuilder.Entity<Job>().HasKey(x => x.Id);
         }
+
+
+        public IQueryable<Job> MatchingForConctractor(string userId)
+        {
+            return All;//TODO:search function fix.
+        }
     }
 
     /// <summary>
@@ -43,6 +49,7 @@ namespace Talent21.Data.Repository
     public interface IJobRepository : IDictionaryRepository<Job>
     {
         IQueryable<Job> Mine(string userId);
+        IQueryable<Job> MatchingForConctractor(string userId);
     }
 
 }

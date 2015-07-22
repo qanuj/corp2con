@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
@@ -39,12 +41,23 @@ namespace Talent21.Web.Controllers
             return _service.GetDashboard(userId);
         }
 
+        private static string GetIpAddress()
+        {
+            var ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            ip = !string.IsNullOrEmpty(ip) ? ip.Split(',').FirstOrDefault() : System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            return ip.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[0];
+        }
 
         [HttpGet]
         [Route("profile/{id}")]
         public CompanyViewModel GetCompanyProfileById(int id)
         {
-            return _service.GetProfile(id);
+            var companyProfile= _service.GetProfile(id);
+            if (companyProfile != null)
+            {
+                _service.AddView(companyProfile.Id, System.Web.HttpContext.Current.Request.UserAgent, GetIpAddress());
+            }
+            return companyProfile;
         }
 
         [HttpPost]
