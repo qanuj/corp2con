@@ -1,5 +1,11 @@
-﻿app.controller('industryeditController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('industryController', ['$scope', 'dataService', function ($scope, db) {
     
+    function refreshRecord(page) {
+        return db.system.getIndustries(page).success(function (result) {
+            $scope.industries = result;
+        });
+    }
+
     $scope.save = function (record) {
         record.system = [];
         db.system.addIndustry(record).success(function (refreshRecord) {
@@ -7,11 +13,9 @@
         });
     }
 
-    function refreshRecord() {
-        return db.system.getIndustries().success(function (result) {
-            $scope.industries = result;
-        });
-    }   
+    $scope.update = function (record) {
+        db.system.updateIndustry(record).success(refreshRecord);
+    }
 
     $scope.update = function (i) {
         db.system.editIndustry(i).success(refreshRecord);
@@ -26,5 +30,7 @@
     $scope.toggle = function (i) {
         i.editMode = !i.editMode;
     };
+
     refreshRecord();
+
 }]);

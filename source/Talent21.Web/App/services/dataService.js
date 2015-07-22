@@ -1,6 +1,7 @@
-﻿app.factory('dataService', ['$http','$q', function ($http,$q) {
+﻿app.factory('dataService', ['$http', '$q', function ($http, $q) {
     var v = 'api/v1/';
     var factory = {
+        pageSize: 50,
         contractor: {},
         job: {},
         company: {},
@@ -8,17 +9,15 @@
     };
 
     function calculatePaging(page, pageSize) {
-        pageSize = pageSize || 50;
+        pageSize = pageSize || factory.pageSize;
         var pg = "&$top=" + pageSize;
         if (page > 1) {
-            pg+="&$skip=" + ((page-1) * pageSize);
+            pg += "&$skip=" + ((page - 1) * pageSize);
         }
         return pg;
     }
 
     factory.role = document.querySelector('html').dataset.role;
-
-    factory.currentPage = window.location.href;
 
     //For Contractors
 
@@ -30,15 +29,15 @@
         return $http.get(v + 'contractor/all');
     }
 
-    factory.contractor.profile = function () {
-        return $http.get(v + 'contractor/profile');
+    factory.contractor.get = function (id) {
+        return $http.get(v + 'contractor/profile' + (!!id ? '/' + id : ''));
     }
 
-    factory.contractor.editProfile = function (formData) {
+    factory.contractor.update = function (formData) {
         return $http.put(v + 'contractor/profile', formData);
     }
 
-    factory.contractor.searchJob = function (query) {
+    factory.contractor.search = function (query) {
         return $http.post(v + 'job/search', query);
     }
 
@@ -53,9 +52,6 @@
     factory.contractor.favorite = function (id) {
         return $http.put(v + 'candidate/job/application/' + id + '/favorite');
     }
-
-    factory.userid = "" ;
-
 
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'contractor/schedule', formData);
@@ -83,15 +79,15 @@
         return $http.get(v + 'company/all');
     }
 
-    factory.company.profile = function () {
-        return $http.get(v + 'company/profile');
+    factory.company.get = function (id) {
+        return $http.get(v + 'company/profile' + (!!id ? '/' + id : ''));
     }
 
-    factory.company.newjob = function (formData) {
-        return $http.put(v + 'company/job', formData);
+    factory.company.searchContractor = function (query) {
+        return $http.post(v + 'company/search', query);
     }
 
-    factory.company.editProfile = function (formData) {
+    factory.company.update = function (formData) {
         return $http.put(v + 'company/profile', formData);
     }
 
@@ -103,36 +99,31 @@
         return $http.get(v + 'company/job/paged');
     }
 
-    factory.job.publish = function (record) {
-        return $http.put( v + 'company/job/publish', record);
-    }
-
-    factory.job.cancel = function (record) {
-        return $http.put(v + 'company/job/cancel', record);
-    }
-
-    factory.job.delete = function (record) {
-        return $http.delete(v + 'company/job', record);
-    }
-    
     factory.company.search = function (query) {
         return $http.post(v + 'company/search', query);
     }   
     //For Jobs
 
-    factory.job.profile = function (id) {
-        return $http.get(v + 'company/job/ ' + id);
+    factory.job.get = function (id) {
+        return $http.get(v + 'company/job/' + id);
     }
 
-    factory.job.newjob = function (formData) {
+    factory.job.paged = function (page) {
+        return $http.get(v + 'company/job/paged?$orderby=Id desc' + calculatePaging(page));
+    }
+
+    factory.job.create = function (formData) {
         return $http.post(v + 'company/job', formData);
     }
 
-    factory.job.editjob = function (record) {
+    factory.job.update = function (record) {
         return $http.put(v + 'company/job', record);
     }
 
-    //System requests
+    factory.job.publish = function (id) { return $http.put(v + 'company/job/publish', { id: id }); }
+    factory.job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
+    factory.job.delete = function (id) { return $http.delete(v + 'company/job/delete', { id: id }); }
+
 
     factory.system.searchLocations = function (address) {
         return $http.get('//maps.googleapis.com/maps/api/geocode/json', { params: { address: address, sensor: false } });
@@ -148,11 +139,27 @@
         return $http.get(v + 'system/industry/all');
     }
 
-    factory.system.addIndustry = function (formData) {
-        return $http.post(v + 'system/industry/create', formData);
+    factory.system.addIndustry = function (record) {
+        return $http.post(v + 'system/industry/create', record);
+    }
+    factory.system.updateIndustry = function (record) {
+        return $http.put(v + 'system/industry/update', record);
+    }
+    factory.system.deleteIndustry = function (record) {
+        return $http.delete(v + 'system/industry/delete', record);
+    }
+    factory.system.addSkill = function (formData) {
+        return $http.post(v + 'system/skill/create', formData);
+    }
+    factory.system.editSkill = function (formData) {
+        return $http.put(v + 'system/skill/update', formData);
+    }
+    factory.system.deleteSkill = function (formData) {
+        return $http.delete(v + 'system/skill/delete', formData);
     }
     factory.system.editIndustry = function (formData) {
         return $http.put(v + 'system/industry/update', formData);
     }
+    return factory;
     return factory;
 }]);

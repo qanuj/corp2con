@@ -20,5 +20,7 @@
         public string Yahoo { get; set; }
         public string Facebook { get; set; }
         public string About { get; set; }
+        public string AlternateNumber { get; set; }
+        public string Profile { get; set; }
     }
 }

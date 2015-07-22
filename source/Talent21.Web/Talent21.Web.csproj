@@ -279,10 +279,12 @@
     <Content Include="App\router\router.js" />
     <Content Include="App\services\dataService.js" />
     <Content Include="App\services\headerFactory.js" />
-    <Content Include="App\views\system\editindustry.html" />
-    <Content Include="App\views\system\editindustry.js" />
-    <Content Include="App\views\company\editJob.html" />
-    <Content Include="App\views\company\editJob.js" />
+    <Content Include="App\views\company\editOrCreateJob.html" />
+    <Content Include="App\views\company\editOrCreateJob.js" />
+    <Content Include="App\views\system\functional.html" />
+    <Content Include="App\views\system\functional.js" />
+    <Content Include="App\views\system\industry.html" />
+    <Content Include="App\views\system\industry.js" />
     <Content Include="App\views\company\editProfile.html" />
     <Content Include="App\views\company\editProfile.js" />
     <Content Include="App\views\company\job.html" />
@@ -298,8 +300,8 @@
     <Content Include="App\views\contractor\dashboard.html" />
     <Content Include="App\views\contractor\editProfile.html" />
     <Content Include="App\views\contractor\editProfile.js" />
-    <Content Include="App\views\contractor\favouritejobs.html" />
-    <Content Include="App\views\contractor\favouritejobs.js" />
+    <Content Include="App\views\contractor\favorite.html" />
+    <Content Include="App\views\contractor\favorite.js" />
     <Content Include="App\views\contractor\schedule.html" />
     <Content Include="App\views\contractor\schedule.js" />
     <Content Include="App\views\contractor\other.html" />
@@ -313,10 +315,10 @@
     <Content Include="App\views\home.html" />
     <Content Include="App\views\contractor\job.html" />
     <Content Include="App\views\company\jobs.html" />
-    <Content Include="App\views\company\createJob.js" />
-    <Content Include="App\views\company\createJobs.html" />
     <Content Include="App\views\contractor\job.js" />
     <Content Include="App\views\searchController.js" />
+    <Content Include="App\views\system\skills.html" />
+    <Content Include="App\views\system\skills.js" />
     <Content Include="App\views\system\funtionalarea.html" />
     <Content Include="App\views\system\funtionalarea.js" />
     <Content Include="App\views\Testimonials.html" />
@@ -382,6 +384,7 @@
     <Content Include="Scripts\json-serialize.js" />
     <Content Include="Scripts\json-serialize.min.js" />
     <Content Include="Scripts\modules\angular-gravatar.js" />
+    <Content Include="Scripts\modules\angular-moment.js" />
     <Content Include="Scripts\modules\angular-typeahead.js" />
     <Content Include="Scripts\modules\bootstrap-markdown.js" />
     <Content Include="Scripts\modules\markdown-editpreview-ng.js" />
@@ -475,6 +478,7 @@
     <Content Include="Scripts\vendors\load-image-exif.js" />
     <Content Include="Scripts\vendors\load-image-ios.js" />
     <Content Include="Scripts\vendors\load-image-orientation.js" />
+    <Content Include="Scripts\vendors\moment.js" />
     <Content Include="Scripts\vendors\typeahead.bundle.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />

@@ -27,12 +27,15 @@ namespace Talent21.Web.Controllers
         [Route("profile")]
         public CompanyViewModel GetCompanyProfile()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Identity.GetUserId<string>(); 
-                return _service.GetProfile(userId);
-            }
-            return null;
+            var userId = User.Identity.GetUserId<string>(); 
+            return _service.GetProfile(userId);
+        }
+
+        [HttpGet]
+        [Route("profile/{id}")]
+        public CompanyViewModel GetCompanyProfileById(int id)
+        {
+            return _service.GetProfile(id);
         }
 
         [HttpPost]
@@ -170,6 +173,16 @@ namespace Talent21.Web.Controllers
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.MoveApplication(model)) : Bad(ModelState);
+        }
+
+        //contractor related api
+
+        [HttpPost]
+        [Route("search")]
+        public PageResult<ContractorSearchResultViewModel> GetContractorsSearch(SearchQueryViewModel model, ODataQueryOptions<ContractorSearchResultViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Search(model), options);
         }
     }
 }

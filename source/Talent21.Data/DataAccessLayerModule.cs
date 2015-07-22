@@ -19,6 +19,7 @@ namespace Talent21.Data
             builder.RegisterType<BlockRepository>().As<IBlockRepository>();
             builder.RegisterType<ContractorRepository>().As<IContractorRepository>();
             builder.RegisterType<ContractorSkillRepository>().As<IContractorSkillRepository>();
+            builder.RegisterType<JobSkillRepository>().As<IJobSkillRepository>();
             builder.RegisterType<ContractorVisitRepository>().As<IContractorVisitRepository>();
             builder.RegisterType<CompanyRepository>().As<ICompanyRepository>();
             builder.RegisterType<CompanyVisitRepository>().As<ICompanyVisitRepository>();

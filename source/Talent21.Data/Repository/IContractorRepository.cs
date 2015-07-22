@@ -11,8 +11,6 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public interface IContractorVisitRepository : IRepository<ContractorVisit>
-    { 
-    
-    }
+    public interface IContractorRepository : IRepository<Contractor>
+    { }
 }

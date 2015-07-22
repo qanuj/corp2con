@@ -16,9 +16,24 @@ namespace Talent21.Service.Models
     {
     }
 
+    public class JobSkillViewModel : JobSkillEditViewModel
+    {
+    }
+
     public class ContractorSkillEditViewModel : ContractorSkillCreateViewModel
     {
         public int Id { get; set; }
+    }
+
+
+    public class JobSkillEditViewModel : JobSkillCreateViewModel
+    {
+        public int Id { get; set; }
+    }
+
+    public class JobSkillCreateViewModel : DictionaryViewModel
+    {
+        public LevelEnum Level { get; set; }
     }
 
     public class ContractorSkillCreateViewModel : DictionaryViewModel

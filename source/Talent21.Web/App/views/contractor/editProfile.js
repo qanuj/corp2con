@@ -1,6 +1,6 @@
 ﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', function ($scope, db) {
 
-    db.contractor.profile().success(function (result) {
+    db.contractor.get().success(function (result) {
         result.picture = { url: result.pictureUrl };
         result.loc = { formatted_address: result.location };
         result.primarySkills = [];
@@ -37,7 +37,7 @@
         }
         record.skills = record.primarySkills.concat(record.secondarySkills);
 
-        db.contractor.editProfile(record).success(function (result) {
+        db.contractor.update(record).success(function (result) {
             window.location = "#/profile";
         });
     }

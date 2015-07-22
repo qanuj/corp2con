@@ -38,13 +38,13 @@ namespace Talent21.Service.Core
                                 Start=job.Start,
                                 End=job.End,
                                 Id=job.Id,
-                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title })
                             };
                 return query;
             }
         }
 
-        public IQueryable<JobSearchResultViewModel> Search(SearchJobViewModel model)
+        public IQueryable<JobSearchResultViewModel> Search(SearchQueryViewModel model)
         {
             var query = Jobs;
             //Rules of searching.
@@ -60,6 +60,7 @@ namespace Talent21.Service.Core
             }
             return query;
         }
+
         public JobSearchResultViewModel ById(int id)
         {
             return Jobs.FirstOrDefault(x => x.Id == id);
