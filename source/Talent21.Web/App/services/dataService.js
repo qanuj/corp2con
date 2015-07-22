@@ -53,6 +53,10 @@
         return $http.post(v + 'contractor/job/' + id + '/apply');
     }
 
+    factory.contractor.applications = function (id) {
+        return $http.put(v + '/job/applications/' + id + '/applications');
+    }
+
     factory.contractor.favorite = function (id) {
         return $http.put(v + 'candidate/job/application/' + id + '/favorite');
     }
