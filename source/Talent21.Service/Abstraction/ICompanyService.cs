@@ -32,5 +32,7 @@ namespace Talent21.Service.Abstraction
         IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model);
 
         CompanyDashboardViewModel GetDashboard(string userId);
+
+        
      }
 }

@@ -16,6 +16,7 @@ namespace Talent21.Service.Core
     public class CompanyService : SharedService, ICompanyService, IFileAccessProvider
     {
         private readonly ICompanyRepository _companyRepository;
+        private readonly ICompanyVisitRepository _companyVisitRepository;
         private readonly IContractorRepository _contractorRepository;
         private readonly IJobRepository _jobRepository;
         private readonly IJobSkillRepository _jobSkillRepository;
@@ -30,7 +31,8 @@ namespace Talent21.Service.Core
             IJobApplicationRepository jobApplicationRepository,
             ILocationRepository locationRepository, 
             IContractorRepository contractorRepository, 
-            IContractorSkillRepository contractorSkillRepository)
+            IContractorSkillRepository contractorSkillRepository, 
+            ICompanyVisitRepository companyVisitRepository)
             : base(locationRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -40,6 +42,7 @@ namespace Talent21.Service.Core
             _jobApplicationRepository = jobApplicationRepository;
             _contractorRepository = contractorRepository;
             _contractorSkillRepository = contractorSkillRepository;
+            _companyVisitRepository = companyVisitRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -446,8 +449,20 @@ namespace Talent21.Service.Core
         {
             return new CompanyDashboardViewModel
             {
-               
+               Views = _companyVisitRepository.Mine(userId).Count(),
+               Applications = _jobApplicationRepository.Mine(userId).Count(x => x.History.Any(y => y.Act == JobActionEnum.Application) && x.History.All(y => y.Act != JobActionEnum.Rejected) && x.History.All(y => y.Act != JobActionEnum.Revoke)),
+               Contractors = _contractorRepository.MatchingCompanyJobs(userId).Count(),
+               Jobs = _jobRepository.Mine(userId).Count(x=>x.IsPublished)
             };
+        }
+        public void AddView(int id,string userAgent, string ipAddress)
+        {
+            _companyVisitRepository.Create(new CompanyVisit()
+            {
+                CompanyId = id,
+                IpAddress = ipAddress,
+                Browser = userAgent
+            });
         }
     }
 }

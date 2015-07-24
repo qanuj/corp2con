@@ -14,18 +14,21 @@ namespace Talent21.Service.Core
     public class ContractorService : SharedService, IContractorService
     {
         private readonly IContractorRepository _contractorRepository;
+        private readonly IContractorVisitRepository _contractorVisitRepository;
         private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
+        private readonly IJobRepository _jobRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ISkillRepository _skillRepository;
 
         public ContractorService(IContractorRepository contractorRepository,
-            IJobRepository jobRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository,
             ISkillRepository skillRepository,
             IContractorSkillRepository contractorSkillRepository,
-            ILocationRepository locationRepository)
+            ILocationRepository locationRepository,
+            IContractorVisitRepository contractorVisitRepository,
+            IJobRepository jobRepository)
             : base(locationRepository)
         {
             _contractorRepository = contractorRepository;
@@ -33,6 +36,8 @@ namespace Talent21.Service.Core
             _scheduleRepository = scheduleRepository;
             _skillRepository = skillRepository;
             _contractorSkillRepository = contractorSkillRepository;
+            _contractorVisitRepository = contractorVisitRepository;
+            _jobRepository = jobRepository;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -393,10 +398,24 @@ namespace Talent21.Service.Core
 
         public ContractorDashboardViewModel GetDashboard(string userId)
         {
+            var nextWeek = DateTime.UtcNow.AddDays(7);
+            var nextMonth = DateTime.UtcNow.AddMonths(1);
             return new ContractorDashboardViewModel
             {
-
+                Views = _contractorVisitRepository.Mine(userId).Count(),
+                Jobs = _jobRepository.MatchingForConctractor(userId).Count(),
+                Week = _jobRepository.MatchingForConctractor(userId).Count(x => x.Start < nextWeek),
+                Month = _jobRepository.MatchingForConctractor(userId).Count(x => x.Start < nextMonth)
             };
+        }
+        public void AddView(int id, string userAgent, string ipAddress)
+        {
+            _contractorVisitRepository.Create(new ContractorVisit
+            {
+                ContractorId = id,
+                IpAddress = ipAddress,
+                Browser = userAgent
+            });
         }
     }
 }

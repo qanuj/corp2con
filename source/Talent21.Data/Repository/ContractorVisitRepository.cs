@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
+using System.Linq;
 
 namespace Talent21.Data.Repository
 {
@@ -18,5 +19,15 @@ namespace Talent21.Data.Repository
             : base(context, eventManager)
         { 
         }
+
+        public IQueryable<ContractorVisit> Mine(string userId)
+        {
+            return base.All.Where(x => x.Contractor.OwnerId == userId);
+        }
+    }
+
+    public interface IContractorVisitRepository : IRepository<ContractorVisit>
+    {
+        IQueryable<ContractorVisit> Mine(string userId);
     }
 }

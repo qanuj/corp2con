@@ -7,7 +7,7 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public abstract class SharedService : ISharedService, ISecuredService
+    public abstract class SharedService : ISecuredService
     {
         public string CurrentUserId { set; protected get; }
 

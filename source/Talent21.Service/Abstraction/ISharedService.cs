@@ -5,5 +5,6 @@ namespace Talent21.Service.Abstraction
 {
     public interface ISharedService
     {
+        void AddView(int id, string userAgent, string ipAddress);
     }
 }

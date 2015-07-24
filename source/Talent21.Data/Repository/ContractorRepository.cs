@@ -1,6 +1,7 @@
 using System.Data.Entity;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
+using System.Linq;
 
 namespace Talent21.Data.Repository
 {
@@ -23,5 +24,14 @@ namespace Talent21.Data.Repository
         {
             modelBuilder.Entity<Contractor>().HasKey(x => x.Id);
         }
+
+        public IQueryable<Contractor> MatchingCompanyJobs(string userId)
+        {
+            return All;//TODO:search function fix.
+        }
+    }
+    public interface IContractorRepository : IRepository<Contractor>
+    {
+        IQueryable<Contractor> MatchingCompanyJobs(string userId);
     }
 }

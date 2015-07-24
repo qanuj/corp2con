@@ -22,6 +22,11 @@ namespace Talent21.Data.Repository
         public CompanyVisitRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
         { 
         }
+
+        public IQueryable<CompanyVisit> Mine(string userId)
+        {
+            return base.All.Where(x => x.Company.OwnerId == userId);
+        }
     }
 
     /// <summary>
@@ -29,6 +34,6 @@ namespace Talent21.Data.Repository
     /// </summary>
     public interface ICompanyVisitRepository : IRepository<CompanyVisit>
     {
-
+        IQueryable<CompanyVisit> Mine(string userId);
     }
 }

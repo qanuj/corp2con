@@ -53,6 +53,10 @@
         return $http.post(v + 'contractor/job/' + id + '/apply');
     }
 
+    factory.contractor.applications = function (id) {
+        return $http.put(v + '/job/applications/' + id + '/applications');
+    }
+
     factory.contractor.favorite = function (id) {
         return $http.put(v + 'candidate/job/application/' + id + '/favorite');
     }
@@ -139,6 +143,13 @@
         return $http.get(uri);
     }
 
+    factory.system.addSkill = function (record) {
+        return $http.post(v + 'system/skill/create', record);
+    }
+
+    factory.system.editSkill = function (formData) {
+        return $http.put(v + 'system/skill/update', formData);
+    }
     factory.system.getIndustries = function (page) {
         return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page));
     }
@@ -166,6 +177,14 @@
     }
     factory.system.deleteFunctional = function (record) {
         return $http.delete(v + 'system/functional/'+record.id);
+    }
+
+    factory.system.searchLocations=function(address) {
+        var params = { address: address, sensor: false };
+        return common.$http.get(
+          '//maps.googleapis.com/maps/api/geocode/json',
+          { params: params }
+        );
     }
 
     return factory;
