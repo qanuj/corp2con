@@ -23,6 +23,10 @@
                 templateUrl: '/app/views/contractor/search.html',
                 controller: 'contractorSearchController'
             })
+             .when('/applications', {
+                 templateUrl: '/app/views/contractor/applications.html',
+                 controller: 'contractorApplicationsController'
+             })
             .when('/favorite', {
                 templateUrl: '/app/views/contractor/favorite.html',
                 controller: 'contractorFavoriteController'
