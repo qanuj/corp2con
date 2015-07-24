@@ -119,35 +119,89 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="#/job/new" class="btn btn-primary"><i class="fa fa-suitcase"></i> Add New Job</a>
-                    <a href="#/profile/edit" class="btn btn-success"><i class="fa fa-building"></i> Edit Profile</a>
-                    <a href="#/profile/edit" class="btn btn-info"><i class="fa fa-graduation-cap"></i> Manage Bench</a>
+                    <a class="btn btn-xs btn-success" href="#/job/new"><i class="fa fa-suitcase"></i> Add New Job</a>
+                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-building"></i> Edit Jobs</a>
+                    <a class="btn btn-xs btn-primary" href="#/applications"><i class="fa fa-building"></i> View Applications</a>
+                    <a class="btn btn-xs btn-primary" href="#/bench"><i class="fa fa-users"></i> Manage Bench</a>
+                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-graduation-cap"></i> Promote Job</a>
+                    <a class="btn btn-xs btn-primary" href="#/shortlist"><i class="fa fa-graduation-cap"></i> Shortlist</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">
+                        Latest Profiles
+                    </h4>
+                </div>
+                <div class="col-md-12">
+                    <div ng-repeat="row in matching" class="search-line">
+                        <div class="col-md-9">
+                            <div class="title">
+                                <h5>{{row.firstName}} {{row.lastName}}</h5>
+                            </div>
+                            <div class="data">
+                                <span class="city"><i class="fa fa-map-marker"></i> {{row.location}}</span>
+                                <span class="experience"><i class="fa fa-trophy"></i> {{row.experienceYears}}.{{row.experienceMonths}} years</span>
+                                <span class="sallary"><i class="fa fa-inr"></i> {{row.rate}}k</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group">
+                                <a class="btn btn-info btn-xs" href="#/contractor/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+                                <a class="btn btn-info btn-xs" href="#/contractor/save/{{row.id}}"><i class="fa fa-heart-o"></i> Save</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">
+                        Top Rated Developers, Available
+                    </h4>
+                </div>
+                <div class="col-md-12">
+                    <div ng-repeat="row in matching" class="search-line bg-success">
+                        <div class="col-md-9">
+                            <div class="title">
+                                <h5>{{row.firstName}} {{row.lastName}}</h5>
+                            </div>
+                            <div class="data">
+                                <span class="city"><i class="fa fa-map-marker"></i> {{row.location}}</span>
+                                <span class="experience"><i class="fa fa-trophy"></i> {{row.experienceYears}}.{{row.experienceMonths}} years</span>
+                                <span class="sallary"><i class="fa fa-inr"></i> {{row.rate}}k</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group">
+                                <a class="btn btn-info btn-xs" href="#/contractor/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+                                <a class="btn btn-info btn-xs" href="#/contractor/save/{{row.id}}"><i class="fa fa-heart-o"></i> Save</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4" id="sidebar">
-            <a href="#/profile">
-                <div ng-if="profile.featured" class="featured"></div>
-                <img src="{{profile.pictureUrl}}" alt="" class="img-circle" />
-                <div class="title">
-                    <h5>{{profile.companyName}}</h5>
-                    <p>{{profile.firstName}} {{profile.lastName}}</p>
-                    <p class="about">{{profile.about}}</p>
-                </div>
-                <hr>
-                <div class="sidebar-widget" id="widget-contact">
-                    <h2>Contact</h2>
-                    <ul>
-                        <li><i class="fa fa-building"></i>{{profile.companyName}}</li>
-                        <li><i class="fa fa-user"></i>{{profile.firstName}} {{profile.lastName}}</li>
-                        <li><i class="fa fa-map-marker"></i>{{profile.location}}</li>
-                        <li><i class="fa fa-phone"></i>{{profile.mobile}}</li>
-                        <li><i class="fa fa-phone"></i>{{profile.alternateNumber}}</li>
-                        <li><i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></li>
-                        <li><i class="fa fa-globe"></i><a href="{{profile.webSite}}">{{profile.webSite}}</a></li>
-                    </ul>
-                </div>
-            </a>
+    <div class="col-md-4" id="sidebar">
+            <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive" />
+            <div class="title">
+                <h5>{{profile.companyName}} <small>{{profile.firstName}} {{profile.lastName}}</small></h5>
+                <p class="about">{{profile.about}}</p>
+                <a href="#/profile/edit" class="pull-right"><i class="fa fa-pencil"></i> Edit Profile</a>
+            </div>
+            <div class="sidebar-widget" id="widget-contact">
+                <h2>Contact</h2>
+                <ul>
+                    <li><i class="fa fa-building"></i>{{profile.companyName}}</li>
+                    <li><i class="fa fa-user"></i>{{profile.firstName}} {{profile.lastName}}</li>
+                    <li><i class="fa fa-map-marker"></i>{{profile.location}}</li>
+                    <li><i class="fa fa-phone"></i>{{profile.mobile}}</li>
+                    <li><i class="fa fa-phone"></i>{{profile.alternateNumber}}</li>
+                    <li><i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></li>
+                    <li><i class="fa fa-globe"></i><a href="{{profile.webSite}}">{{profile.webSite}}</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
