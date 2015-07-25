@@ -84,6 +84,14 @@
         return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page));
     }
 
+    factory.contractor.getLatestJobs = function (skill, location, page, pageSize) {
+        return $http.get(v + 'contractor/latest/jobs/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
+    }
+
+    factory.contractor.topEmployers = function (skill, location, page, pageSize) {
+        return $http.get(v + 'contractor/top/employers/' + skill + '/' + location + '?' + calculatePaging(page, pageSize));
+    }
+
 
     //For companies
 
@@ -123,6 +131,16 @@
     factory.company.search = function (query) {
         return $http.post(v + 'company/search', query);
     }
+
+    factory.company.getLatestProfiles = function(skill, location, page) {
+        return $http.get(v + 'company/latest/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page));
+    }
+
+    factory.company.getTopProfiles = function (skill, location, page) {
+        return $http.get(v + 'company/top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page));
+    }
+
+
     //For Jobs
 
     factory.job.get = function (id) {

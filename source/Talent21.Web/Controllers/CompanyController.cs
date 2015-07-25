@@ -206,5 +206,22 @@ namespace Talent21.Web.Controllers
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Search(model), options);
         }
+
+        [HttpGet]
+        [Route("latest/profiles/{skill}/{location}")]
+        public IQueryable<ContractorSearchResultViewModel> GetLatestProfiles(string skill, string location)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.LatestProfiles(skill, location);
+        }
+
+
+        [HttpGet]
+        [Route("top/profiles/{skill}/{location}")]
+        public IQueryable<AvailableRatedCandidateProfileViewModel> GetTopRatedAvailableProfiles(string skill, string location)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.TopRatedAvailableProfiles(skill, location);
+        }
     }
 }

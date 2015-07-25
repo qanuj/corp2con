@@ -7,5 +7,7 @@ namespace Talent21.Service.Abstraction
     {
         IQueryable<JobSearchResultViewModel> Search(SearchQueryViewModel model);
         JobSearchResultViewModel ById(int id);
+        IQueryable<PictureViewModel> TopEmployers(string skill, string location);
+        IQueryable<JobSearchResultViewModel> TopJobs(string skill, string location);
     }
 }

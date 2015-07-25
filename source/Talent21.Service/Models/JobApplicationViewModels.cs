@@ -16,6 +16,27 @@ namespace Talent21.Service.Models
         public IEnumerable<JobApplicationHistoryViewModel> Actions { get; set; }
     }
 
+    public class AvailableRatedCandidateProfileViewModel : CandidateProfileViewModel
+    {
+        public int Rating { get; set; }
+        public DateTime Availability { get; set; }
+    }
+
+    public class CandidateProfileViewModel : PictureViewModel
+    {
+        public string Skill { get; set; }
+        public int Rate { get; set; }
+        public int ExperienceInMonths { get; set; }
+        public int ExperienceInYears { get; set; }
+    }
+
+    public class PictureViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Picture { get; set; }
+    }
+
     public class JobApplicationContractorViewModel : JobApplicationViewModel
     {
         public JobViewModel Job { get; set; }

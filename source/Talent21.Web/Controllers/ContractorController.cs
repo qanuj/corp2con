@@ -233,5 +233,22 @@ namespace Talent21.Web.Controllers
             var model = _jobService.ById(id);
             return model == null ? NotFound() : Ok(model);
         }
+
+        [HttpGet]
+        [Route("top/employers/{skill}/{location}")]
+        public IQueryable<PictureViewModel> TopEmployers(string skill,string location)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _jobService.TopEmployers(skill, location);
+        }
+
+
+        [HttpGet]
+        [Route("latest/jobs/{skill}/{location}")]
+        public IQueryable<JobSearchResultViewModel> GetLatestJobs(string skill, string location)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _jobService.TopJobs(skill, location);
+        }
     } 
 }
