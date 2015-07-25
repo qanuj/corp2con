@@ -54,7 +54,15 @@
     }
 
     factory.contractor.applications = function (id) {
-        return $http.put(v + '/job/applications/' + id + '/applications');
+        return $http.put(v + '/job/application/' + id + '/apply');
+    }
+
+    //factory.contractor.getJobApplications = function (id) {
+    //    return $http.get(v + '/contractor/job/application/' + (!!id ? '/' + id : ''));
+    //}
+
+    factory.contractor.getJobApplications = function () {
+        return $http.get(v + 'contractor/job/application/');
     }
 
     factory.contractor.favorite = function (id) {

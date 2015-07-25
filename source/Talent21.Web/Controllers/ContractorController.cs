@@ -199,14 +199,14 @@ namespace Talent21.Web.Controllers
             return Page(_service.Applications(), options);
         }
 
-        [HttpGet]
-        [Route("job/application")]
-        [EnableQuery]
-        public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
-        {
-            _service.CurrentUserId = User.Identity.GetUserId();
-            return _service.Applications();
-        }
+        //[HttpGet]
+        //[Route("job/application")]
+        //[EnableQuery]
+        //public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
+        //{
+        //    _service.CurrentUserId = User.Identity.GetUserId();
+        //    return _service.Applications();
+        //}
 
         [HttpPut]
         [Route("job/application/{id}/revoke")]
