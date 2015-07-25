@@ -143,6 +143,13 @@
         return $http.get(uri);
     }
 
+    factory.system.addSkill = function (record) {
+        return $http.post(v + 'system/skill/create', record);
+    }
+
+    factory.system.editSkill = function (formData) {
+        return $http.put(v + 'system/skill/update', formData);
+    }
     factory.system.getIndustries = function (page) {
         return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page));
     }

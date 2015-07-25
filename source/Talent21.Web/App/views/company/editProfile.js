@@ -6,11 +6,11 @@
         $scope.record = result;
     });
 
-    //$scope.refreshAddresses = function (address) {
-    //  return db.system.searchLocations(address).then(function (response) {
-    //        $scope.addresses = response.data.results;
-    //    });
-    //};
+    $scope.refreshAddresses = function (address) {
+      return db.system.searchLocations(address).then(function (response) {
+            $scope.addresses = response.data.results;
+        });
+    };
 
     $scope.save = function (record) {
         
