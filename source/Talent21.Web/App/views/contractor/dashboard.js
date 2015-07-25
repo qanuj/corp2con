@@ -8,4 +8,12 @@
         $scope.profile = result;
     });
 
+    db.contractor.topEmployers('aspnet', 'mumbai', 1,5).success(function (result) {
+        $scope.employers = result;
+    });
+
+    db.contractor.getLatestJobs('ruby', 'mumbai', 1, 5).success(function (result) {
+        $scope.jobs = result;
+    });
+
 }]);

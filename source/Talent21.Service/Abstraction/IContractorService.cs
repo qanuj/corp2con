@@ -27,7 +27,6 @@ namespace Talent21.Service.Abstraction
 
 
         ContractorViewModel GetProfile(int id);
-
         ContractorDashboardViewModel GetDashboard(string userId);
     }
 }

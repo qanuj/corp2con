@@ -7,8 +7,12 @@
         $scope.profile = result;
     });
 
-    db.company.search({}, 1).success(function (result) {
-        $scope.matching = result.items;
+    db.company.getTopProfiles('aspnet', 'mumbai', 1, 5).success(function (result) {
+        $scope.topRecords = result;
+    });
+
+    db.company.getLatestProfiles('aspnet', 'mumbai', 1, 5).success(function (result) {
+        $scope.latestRecords = result;
     });
 
 }]);

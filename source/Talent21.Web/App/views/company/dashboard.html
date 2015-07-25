@@ -33,7 +33,7 @@
             </h3>
         </div>
         <div class="col-md-8">
-            <div class="row">
+            <div class="row panel-row">
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -146,7 +146,7 @@
                     </h4>
                 </div>
                 <div class="col-md-12">
-                    <div ng-repeat="row in matching" class="search-line">
+                    <div ng-repeat="row in latestRecords" class="search-line">
                         <div class="col-md-9">
                             <div class="title">
                                 <h5>{{row.firstName}} {{row.lastName}}</h5>
@@ -174,10 +174,10 @@
                     </h4>
                 </div>
                 <div class="col-md-12">
-                    <div ng-repeat="row in matching" class="search-line bg-success">
+                    <div ng-repeat="row in topRecords" class="search-line bg-success">
                         <div class="col-md-9">
                             <div class="title">
-                                <h5>{{row.firstName}} {{row.lastName}}</h5>
+                                <h5>{{row.name}}</h5>
                             </div>
                             <div class="data">
                                 <span class="city"><i class="fa fa-map-marker"></i> {{row.location}}</span>

@@ -30,9 +30,8 @@ namespace Talent21.Service.Abstraction
         JobViewModel ById(int id);
 
         IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model);
-
         CompanyDashboardViewModel GetDashboard(string userId);
-
-        
+        IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location);
+        IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location);
      }
 }

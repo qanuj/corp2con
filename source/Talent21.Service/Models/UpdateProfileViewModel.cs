@@ -68,6 +68,7 @@ namespace Talent21.Service.Models
     public class ContractorViewModel : ContractorEditViewModel
     {
         internal string OwnerId { get; set; }
+        public string LocationCode { get; set; }
     }
 
 }

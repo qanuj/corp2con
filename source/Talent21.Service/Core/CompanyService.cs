@@ -390,6 +390,7 @@ namespace Talent21.Service.Core
                                 Google = x.Social.Google,
                                 LinkedIn = x.Social.LinkedIn,
                                 Location = x.Location.Title,
+                                LocationCode = x.Location.Code,
                                 Mobile = x.Mobile,
                                 FirstName = x.FirstName,
                                 LastName = x.LastName,
@@ -400,6 +401,7 @@ namespace Talent21.Service.Core
                                 PictureUrl = x.PictureUrl,
                                 OwnerId = x.OwnerId,
                                 Rate = x.Rate,
+                                Availability = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y=>y.Start).FirstOrDefault(),
                                 Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
                                 {
                                     Id = y.Id,
@@ -462,6 +464,26 @@ namespace Talent21.Service.Core
                 CompanyId = id,
                 IpAddress = ipAddress,
                 Browser = userAgent
+            });
+        }
+
+        public IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location)
+        {
+            return Contractors.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
+        }
+
+        public IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location)
+        {
+            return Contractors.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location).Select(x=>new AvailableRatedCandidateProfileViewModel
+            {
+                Id = x.Id,
+                ExperienceInMonths = x.ExperienceMonths ,
+                ExperienceInYears = x.ExperienceYears,
+                Name = x.FirstName+" "+x.LastName,
+                Picture = x.PictureUrl,
+                Rate = x.Rate,
+                Availability = x.Availability,
+                Rating = 1
             });
         }
     }

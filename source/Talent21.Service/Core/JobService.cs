@@ -11,12 +11,14 @@ namespace Talent21.Service.Core
     public class JobService : IJobService
     {
         private readonly IJobRepository _jobRepository;
+        private readonly ICompanyRepository _companyRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
 
-        public JobService(IJobRepository jobRepository, IJobApplicationRepository jobApplicationRepository)
+        public JobService(IJobRepository jobRepository, IJobApplicationRepository jobApplicationRepository, ICompanyRepository companyRepository)
         {
             _jobRepository = jobRepository;
             _jobApplicationRepository = jobApplicationRepository;
+            _companyRepository = companyRepository;
         }
         
         public string CurrentUserId { private get; set; }
@@ -29,6 +31,7 @@ namespace Talent21.Service.Core
                             where !job.IsCancelled && job.IsPublished
                             select new JobSearchResultViewModel
                             {
+                                LocationCode=job.Location.Code,
                                 Code=job.Code,
                                 Title=job.Title,
                                 Description=job.Description,
@@ -64,6 +67,24 @@ namespace Talent21.Service.Core
         public JobSearchResultViewModel ById(int id)
         {
             return Jobs.FirstOrDefault(x => x.Id == id);
+        }
+
+        public IQueryable<PictureViewModel> TopEmployers(string skill, string location)
+        {
+            var query = from company in _companyRepository.All
+                join job in _jobRepository.All on company.Id equals job.CompanyId
+                select new PictureViewModel
+                {
+                    Id = company.Id,
+                    Name = company.CompanyName,
+                    Picture = company.PictureUrl
+                };
+            return query;
+        }
+
+        public IQueryable<JobSearchResultViewModel> TopJobs(string skill, string location)
+        {
+            return Jobs.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
         }
     }
 }

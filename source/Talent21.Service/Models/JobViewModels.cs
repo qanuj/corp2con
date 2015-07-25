@@ -33,6 +33,7 @@ namespace Talent21.Service.Models
         {
             get { return string.Join(" ", new[] { FirstName, LastName, Mobile, Location, About }); }
         }
+        public DateTime Availability { get; set; }
     }
 
     public class JobSearchResultViewModel
@@ -46,6 +47,7 @@ namespace Talent21.Service.Models
         [NumericField]
         public int Id { get; set; }
 
+        public string LocationCode { get; set; }
         public string Code { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
