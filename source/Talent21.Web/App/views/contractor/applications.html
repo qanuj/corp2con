@@ -6,15 +6,15 @@
                 <div class="jobs">
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="featured"></div>
-                        <div class="{{row.ifFeatured}}"></div>
+                        <div class="{{row.jobs.ifFeatured}}"></div>
                         <div class="title">
-                            <h5>{{row.title}}</h5>
-                            <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
+                            <h5>{{row.job.title}}</h5>
+                            <p>{{row.job.description | limitTo: 200}}{{row.job.description.length > 200 ? '...' : ''}}</p>
                         </div>
                         <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
-                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                            <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.job.location}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{row.job.experienceYears}} years {{row.job.experienceMonths}} months</span>
+                            <span class="sallary"><i class="fa fa-dollar"></i>{{row.job.rate}}</span>
                         </div>
                     </a>
                 </div>
