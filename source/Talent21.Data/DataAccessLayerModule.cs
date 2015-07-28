@@ -27,6 +27,7 @@ namespace Talent21.Data
             builder.RegisterType<ContractScheduleRepository>().As<IContractScheduleRepository>();
             builder.RegisterType<IndustryRepository>().As<IIndustryRepository>();
             builder.RegisterType<JobApplicationRepository>().As<IJobApplicationRepository>();
+            builder.RegisterType<JobApplicationHistoryRespository>().As<IJobApplicationHistoryRespository>();
             builder.RegisterType<JobRepository>().As<IJobRepository>();
             builder.RegisterType<JobVisitRepository>().As<IJobVisitRepository>();
             builder.RegisterType<FunctionalAreaRepository>().As<IFunctionalAreaRepository>();

@@ -1,13 +1,16 @@
 ﻿<div>
     <div class=" col-md-offset-1 visible-lg-block">
-        <a class=" btn btn-primary margtop" ng-click="isCollapsed = !isCollapsed ">
+        <a ng-if="!record.isFavorite" class="btn btn-primary margtop" ng-click="favorite(record)">
             <i class="fa fa-edit"></i> Favorite
         </a>
-        <div ng-if="jobApplied" class=" btn btn-info margtop" ng-click="apply(record)">
+        <a ng-if="record.isFavorite" class="btn btn-primary margtop" ng-click="unfavorite(record)">
+            <i class="fa fa-edit"></i> Remove Favorite
+        </a>
+       <div ng-if="!record.isApplied" class=" btn btn-info margtop" ng-click="apply(record)">
             <i class=" fa fa-check">
             </i> Apply To Job
         </div>
-        <div ng-if="!jobApplied" class=" btn btn-warning margtop" ng-click="cancel(record)">
+        <div ng-if="record.isApplied" class=" btn btn-warning margtop" ng-click="revoke(record)">
             <i class="fa fa-cross"></i> Revoke <!--(If Already Applied)-->
         </div>
         <div class=" btn btn-danger margtop" ng-click="delete(record)"  style="margin-left: 0px;">

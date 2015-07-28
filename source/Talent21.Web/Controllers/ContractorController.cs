@@ -193,7 +193,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/application")]
-        public PageResult<JobApplicationViewModel> GetJobApplications(ODataQueryOptions<JobApplicationViewModel> options)
+        public PageResult<JobApplicationContractorViewModel> GetJobApplications(ODataQueryOptions<JobApplicationContractorViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Applications(), options);
@@ -210,18 +210,26 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("job/application/{id}/revoke")]
-        public HttpResponseMessage RejectJobApplication(CreateJobApplicationHistoryViewModel model)
+        public HttpResponseMessage RejectJobApplication([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Revoke)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel{Id=id}, JobActionEnum.Revoke)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("job/application/{id}/favorite")]
-        public HttpResponseMessage ShortlistJobApplication(CreateJobApplicationHistoryViewModel model)
+        public HttpResponseMessage FavoriteJob([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Favorite)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Favorite)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("job/application/{id}/favorite")]
+        public HttpResponseMessage DeleteFavoriteJob([FromUri] int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new DeleteJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Favorite)) : Bad(ModelState);
         }
 
         [HttpGet]
