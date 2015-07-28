@@ -49,7 +49,7 @@
                 <a class="fm-button"><i class="fa fa-close fa-2x"></i></a>
             </div>
             <ul class="nav">
-                @if(Model.Role == AccountController.Company)
+                @if (Model.Role == AccountController.Company)
                 {
                     <li><a href="/#/job/new">Post a job</a></li>
                     <li><a href="/#/jobs">Jobs</a></li>
@@ -58,7 +58,7 @@
                     <li><a href="/#/bench">Bench Management</a></li>
 
                 }
-                else if(Model.Role == AccountController.Contractor)
+                else if (Model.Role == AccountController.Contractor)
                 {
                     <li><a href="/#/search">Search Jobs</a></li>
                     <li><a href="/#/applications">Applications</a></li>
@@ -66,8 +66,9 @@
                     <li><a href="/#/profile">Manage Profile</a></li>
                     <li><a href="/#/schedule">Manage Schedule</a></li>
                     <li><a href="/#/skills">Skills</a></li>
+
                 }
-                else if(Model.Role == AccountController.Admin)
+                else if (Model.Role == AccountController.Admin)
                 {
                     <li><a href="/#/industry">Industry</a></li>
                     <li><a href="/#/functional">Fuctional Area</a></li>

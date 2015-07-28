@@ -1,6 +1,9 @@
 ﻿app.controller('functionalController', ['$scope', 'dataService', function ($scope, db) {
 
     $scope.save = function (record) {
+        $('input[type=text]').each(function () {
+            $(this).val('');
+        });
         db.system.addFunctional(record).success(refreshRecord);
     }
 
