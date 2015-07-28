@@ -3,11 +3,11 @@
         <a class=" btn btn-primary margtop" ng-click="isCollapsed = !isCollapsed ">
             <i class="fa fa-edit"></i> Favorite
         </a>
-        <div class=" btn btn-info margtop" ng-click="apply(record)">
+        <div ng-if="jobApplied" class=" btn btn-info margtop" ng-click="apply(record)">
             <i class=" fa fa-check">
             </i> Apply To Job
         </div>
-        <div class=" btn btn-warning margtop" ng-click="cancel(record)" ng-hide="true">
+        <div ng-if="!jobApplied" class=" btn btn-warning margtop" ng-click="cancel(record)">
             <i class="fa fa-cross"></i> Revoke <!--(If Already Applied)-->
         </div>
         <div class=" btn btn-danger margtop" ng-click="delete(record)"  style="margin-left: 0px;">

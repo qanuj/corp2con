@@ -2,14 +2,31 @@
     $scope.isCollapsed = true;
     $scope.title = "Job Profile";
     $scope.role = db.role;
-
-
-    //$scope.showalertmessage = function () {
-    //    $window.alert('Your application has been successfully sent.')
-    //}
-
-   
     $scope.id = param.id;
+
+    $scope.checkIfApplied = function () {
+        var getJobStatus = function (jobId, appliedJobs) {
+            $scope.jobApplied = appliedJobs.indexOf(jobId) > -1;
+            return $scope.jobApplied;
+        };
+        if (db.applied.length < 1) {
+            $scope.getApplications = function () {
+                db.contractor.getJobApplications().success(function (result) {
+                    angular.forEach(result.items, function (item) {
+                        db.applied.push(item.job.id);
+                    });
+                    getJobStatus(param.id,db.applied);
+                });
+            }
+            $scope.getApplications();
+        }
+        else {
+            getJobStatus(param.id,db.applied);
+        }
+    };
+
+    $scope.checkIfApplied();
+
     db.contractor.jobById($scope.id).success(function (result) {
         $scope.record = result;
         console.log($scope.record);

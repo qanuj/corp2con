@@ -15,7 +15,7 @@
             $scope.count = result.count;
             $scope.records = result.items;
             $scope.page = page;
-            $scope.pages = db.findPages(result);
+            //$scope.pages = db.findPages(result);
         });
     }
 

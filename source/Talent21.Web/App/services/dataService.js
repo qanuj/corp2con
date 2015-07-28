@@ -213,5 +213,7 @@
         );
     }
 
+    factory.applied = [];
+
     return factory;
 }]);
