@@ -57,10 +57,6 @@
         return $http.put(v + '/job/application/' + id + '/apply');
     }
 
-    //factory.contractor.getJobApplications = function (id) {
-    //    return $http.get(v + '/contractor/job/application/' + (!!id ? '/' + id : ''));
-    //}
-
     factory.contractor.getJobApplications = function () {
         return $http.get(v + 'contractor/job/application/');
     }
@@ -73,6 +69,16 @@
     factory.contractor.favorite = function (id) {
         return $http.put(v + 'contractor/job/application/' + id + '/favorite');
     }
+
+    //Sonal
+    factory.contractor.getFavoriteApplications = function () {
+        return $http.get(v + 'contractor/job/application/favorite/all');
+    }
+
+    factory.contractor.getContractorFavoriteById = function (Id) {
+        return $http.get(v + 'job/application/{id}/favorite?$filter=Id eq ' + Id);
+    }
+    //End code of Sonal
 
     factory.contractor.unfavorite = function (id) {
         return $http.delete(v + 'contractor/job/application/' + id + '/favorite');

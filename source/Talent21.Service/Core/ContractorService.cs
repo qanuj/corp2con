@@ -396,7 +396,10 @@ namespace Talent21.Service.Core
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
 
-
+        public ContractorViewModel GetFavorite(int id)
+        {
+            return Contractors.FirstOrDefault(n => n.Id == id);
+        }
         public ContractorDashboardViewModel GetDashboard(string userId)
         {
             var nextWeek = DateTime.UtcNow.AddDays(7);
