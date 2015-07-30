@@ -26,4 +26,9 @@
             $window.location.href = '/#/jobs';
         });
     }
+    $scope.view = function (id) {
+        db.job.view(id).success(function (result) {
+            $window.location.href = '/#/applications';
+        });
+    }
 }]);

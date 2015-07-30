@@ -1,0 +1,36 @@
+﻿<section id="jobs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>{{title}} {{records.count}}</h2>
+                <div class="jobs">
+                    <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
+                        <div class="featured"></div>
+                        <div class="{{row.jobs.ifFeatured}}"></div>
+                        <div class="title">
+                            <h5>{{row.job.title}}</h5>
+                            <p>{{row.job.description | limitTo: 200}}{{row.job.description.length > 200 ? '...' : ''}}</p>
+                        </div>
+                        <div class="data">
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.job.location}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{row.job.experienceYears}} years {{row.job.experienceMonths}} months</span>
+                            <span class="sallary"><i class="fa fa-dollar"></i>{{row.job.rate}}</span>
+                        </div>
+                    </a>
+                </div>
+
+                <nav>
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+                    </div>
+    </div>
+  </section>

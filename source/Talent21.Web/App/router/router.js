@@ -116,6 +116,10 @@
                  templateUrl: '/app/views/contractor/profile.html',
                  controller: 'contractorProfileController'
              })
+            .when('/applications', {
+                templateUrl: '/app/views/company/applications.html',
+                controller: 'companyApplicationsController'
+            })
             .otherwise({ redirectTo: '/' });
     }
 
