@@ -15,6 +15,11 @@
         });
     }
 
+    $scope.unpublish = function (record) {
+        db.contractor.unpublish(id).success(function (result) {
+            $scope.record.ispublish = false;
+        });
+    }
     $scope.cancel = function (id) {
         db.job.cancel(id).success(function (result) {
             $window.location.href = '/#/jobs';
@@ -28,7 +33,22 @@
     }
     $scope.view = function (id) {
         db.job.view(id).success(function (result) {
-            $window.location.href = '/#/applications';
+            $window.location.href = '/#/SingleJobApplications';
+        });
+    }
+
+    function getApplications() {
+        db.contractor.getJobApplicationsByJobId(param.id).success(function (result) {
+            var job = result.items[0];
+            if (!job) return;
+            console.log(result);
+            for (var act in job.actions) {
+                $scope.record.id = job.actions[act].id;//job application id;
+                if (job.actions[act].act == 'Publish') {
+                    $scope.record.isPublish = false;
+                    $scope.record.publish = job.actions[act].created;
+                }
+            }
         });
     }
 }]);
