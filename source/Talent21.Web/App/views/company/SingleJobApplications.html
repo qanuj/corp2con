@@ -1,0 +1,134 @@
+﻿<section id="jobs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>{{title}} {{count}}</h2>
+                <div class="jobs" ng-repeat="row in records">
+                    <a href="#/contractor/{{row.id}}">
+                        <div ng-if="row.featured" class="featured"></div>
+                        <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
+                        <div class="title">
+                            <h5>{{row.firstName}} {{row.lastName}}</h5>
+                            <p>{{row.about}}</p>
+                        </div>
+                        <div class="data">
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}}.{{row.experienceMonths}} years</span>
+                            <span class="sallary"><i class="fa fa-inr"></i>{{row.rate}}k</span>
+                        </div>
+                    </a>
+                </div>
+                <nav>
+                    <ul class="pagination">
+                        <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                        <li class="active"><a href="#">{{page}} <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">{{pages}}</a></li>
+                        <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4" id="sidebar">
+                <!-- Find a Job Start -->
+                <div class="sidebar-widget" id="jobsearch">
+                    <h2>Find a Candidate</h2>
+                    <form ng-submit="search(query)">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
+                            </div>
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" ng-model="query.location" placeholder="e.g. Mumbai OR Delhi or Chennnai" />
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                                    <div class="input-group-btn"><button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h5>Industry</h5>
+                                <div class="checkbox" ng-repeat>
+                                    <label>
+                                        <input type="checkbox"> All Types
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5>Functional Area</h5>
+                                <div class="checkbox" ng-repeat>
+                                    <label>
+                                        <input type="checkbox"> All Types
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h5>Location</h5>
+                                <div class="checkbox" ng-repeat>
+                                    <label>
+                                        <input type="checkbox"> All Types
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Experience</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p>More than <b><span id="years-field"></span></b> years</p>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-slider" id="years"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Salary</h5>
+                                <div class="form-slider" id="salary"></div>
+                                <p>From <b><span id="salary-field-lower"></span></b> to  <b><span id="salary-field-upper"></span></b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a class="btn btn-primary">Reset All Filters</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Find a Job End -->
+
+            </div>
+        </div>
+    </div>
+</section>
