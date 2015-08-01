@@ -175,6 +175,7 @@
     }
 
     factory.job.publish = function (id) { return $http.put(v + 'company/job/publish', { id: id }); }
+    factory.job.unpublish = function (id) { return $http.put(v + 'company/job/unpublish', { id: id }); }
     factory.job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
     factory.job.revoke = function (id) { return $http.put(v + 'contractor/job/application/'+id+'/revoke'); }
     factory.job.delete = function (id) { return $http.delete(v + 'company/job/'+id); }

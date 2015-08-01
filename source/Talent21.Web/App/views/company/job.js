@@ -36,19 +36,4 @@
             $window.location.href = '/#/SingleJobApplications';
         });
     }
-
-    function getApplications() {
-        db.contractor.getJobApplicationsByJobId(param.id).success(function (result) {
-            var job = result.items[0];
-            if (!job) return;
-            console.log(result);
-            for (var act in job.actions) {
-                $scope.record.id = job.actions[act].id;//job application id;
-                if (job.actions[act].act == 'Publish') {
-                    $scope.record.isPublish = false;
-                    $scope.record.publish = job.actions[act].created;
-                }
-            }
-        });
-    }
 }]);

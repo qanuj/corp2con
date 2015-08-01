@@ -4,13 +4,10 @@
             <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}" style=" margin-left:13px;">
                 <i class="fa fa-edit"></i> Edit Job
             </a>
-            <div class=" btn btn-primary" ng-click="publish(record.id)" ng-if="!record.ispublish">
+            <div class=" btn btn-primary" ng-click="publish(record.id)" ng-if="!record.isPublished">
                 <i class="fa fa-check"></i> Publish
             </div>
-            <div class=" btn btn-primary" ng-click="publish(record.id)" ng-if="record.ispublish">
-                <i class="fa fa-check"></i> Publish
-            </div>
-            <div class=" btn btn-primary" ng-click="cancel(record.id)">
+            <div class=" btn btn-primary" ng-click="cancel(record.id)" ng-if="record.isPublished">
                 <i class="fa fa-thumbs-o-down"></i> Cancel
             </div>
             <div class=" btn btn-primary" ng-click="delete(record.id)">
