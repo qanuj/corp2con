@@ -186,6 +186,11 @@
     factory.system.editSkill = function (formData) {
         return $http.put(v + 'system/skill/update', formData);
     }
+
+    factory.system.deleteSkill = function (record) {
+        return $http.delete(v + 'system/skill/' + record.id);
+    }
+
     factory.system.getIndustries = function (page) {
         return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page));
     }
