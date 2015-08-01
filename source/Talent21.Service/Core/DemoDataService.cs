@@ -484,7 +484,7 @@ namespace Talent21.Service.Core
                     .Setup(c => c.IsAvailable).Use<BooleanSource>();
             });
 
-            var users = userFactory.CreateSession().List<ContractorCreateViewModel>(200).Get();
+            var users = userFactory.CreateSession().List<ContractorCreateViewModel>(100).Get();
             var skillSession = skillFactory.CreateSession();
             var scheduleSession = scheduleFactory.CreateSession();
 
@@ -525,8 +525,7 @@ namespace Talent21.Service.Core
                     .Setup(c => c.WebSite).Use<UrlSource>();
             });
 
-            var companies = companyFactory.CreateSession().List<CompanyCreateViewModel>(200).Get();
-
+            var companies = companyFactory.CreateSession().List<CompanyCreateViewModel>(25).Get();
 
             var jobFactory = AutoPocoContainer.Configure(x =>
             {
