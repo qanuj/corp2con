@@ -27,7 +27,11 @@ namespace Talent21.Service.Abstraction
         bool Delete(ContractorSkillDeleteViewModel model);
 
 
-        ContractorViewModel GetProfile(int id);
+        ContractorViewModel GetFavorite(int id);
         ContractorDashboardViewModel GetDashboard(string userId);
+
+        bool ActOnApplication(DeleteJobApplicationHistoryViewModel model, JobActionEnum jobActionEnum);
+
+       
     }
 }

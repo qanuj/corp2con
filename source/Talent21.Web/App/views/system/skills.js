@@ -8,6 +8,9 @@
     //}
 
     $scope.save = function (record) {
+        $('input[type=text]').each(function () {
+            $(this).val('');
+        });
         db.system.addSkill(record).success(refreshRecord);
         console.log(refreshRecord);
     }
@@ -15,6 +18,7 @@
     function refreshRecord() {
         return db.system.getSkills().success(function (result) {
             $scope.skill = result;
+
         });
     }
    

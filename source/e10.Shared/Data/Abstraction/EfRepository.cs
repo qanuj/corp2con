@@ -122,6 +122,13 @@ namespace e10.Shared.Data.Abstraction
             entity.Deleted = DateTime.UtcNow;
         }
 
+        public virtual void Purge(TEntity entity)
+        {
+            Guard.ArgumentNotNull(entity, "Purge Entity");
+            Attach(entity);
+            Context.Set<TEntity>().Remove(entity);
+        }
+
         public virtual void Delete(TEntity entity)
         {
             Guard.ArgumentNotNull(entity, "Delete Entity");
