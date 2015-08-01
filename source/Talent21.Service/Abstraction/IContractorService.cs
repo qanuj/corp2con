@@ -22,6 +22,7 @@ namespace Talent21.Service.Abstraction
         bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum jobActionEnum);
 
         ContractorSkillEditViewModel Create(ContractorSkillCreateViewModel model);
+        ScheduleViewModel Create(CreateScheduleViewModel model, int contractorId);
         ContractorSkillEditViewModel Update(ContractorSkillEditViewModel model);
         bool Delete(ContractorSkillDeleteViewModel model);
 

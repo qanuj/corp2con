@@ -17,5 +17,6 @@ namespace Talent21.Service.Abstraction
 
         string Upgrade();
         EnumList Enums();
+       
     }
 }

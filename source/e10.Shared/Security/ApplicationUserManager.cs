@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace e10.Shared.Security
 {
-    public class ApplicationUserManager : UserManager<User>
+    public class ApplicationUserManager : UserManager<User>, IUserService
     {
         public ApplicationUserManager(ApplicationUserStore store, IIdentitySmsMessageService smsService, IIdentityEmailMessageService emailService)
             : base(store)
@@ -75,6 +75,17 @@ namespace e10.Shared.Security
                 }
             }
             return user;
+        }
+
+        public async Task<string> CreateAsync(string email,string password,string role)
+        {
+            var user = await FindByEmailAsync(email);
+            if (user == null){
+                user = new User { UserName = email, Email = email };
+                await CreateAsync(user, password);
+            }
+            await AddToRolesAsync(user.Id, new[] {role});
+            return user.Id;
         }
     }
 }

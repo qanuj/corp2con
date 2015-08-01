@@ -36,6 +36,14 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoPoco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoPocoBeta.1.2.0\lib\AutoPoco.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoPoco.DataSources, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoPoco.DataSources.1.0.42\lib\AutoPoco.DataSources.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Common.Logging, Version=2.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.2.3.1\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
@@ -67,7 +75,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstraction\ActingRoleEnum.cs" />
+    <Compile Include="Abstraction\IUserService.cs" />
+    <Compile Include="Core\DemoDataService.cs" />
     <Compile Include="Abstraction\IDataService.cs" />
+    <Compile Include="Abstraction\IDemoDataService.cs" />
     <Compile Include="Abstraction\IDictionaryDataService.cs" />
     <Compile Include="Abstraction\IPersonDataService.cs" />
     <Compile Include="Abstraction\ISecuredService.cs" />

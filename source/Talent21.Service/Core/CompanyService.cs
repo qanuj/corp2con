@@ -85,10 +85,33 @@ namespace Talent21.Service.Core
 
         public CompanyEditViewModel Create(CompanyCreateViewModel model)
         {
-            var entity = new Company {
+            var entity = new Company
+            {
                 OwnerId = model.OwnerId,
-                Email = model.Email
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PictureUrl = model.PictureUrl,
+                About = model.About,
+                CompanyName = model.CompanyName,
+                OrganizationType = model.OrganizationType,
+                AlternateNumber = model.AlternateNumber,
+                Profile = model.Profile,
+                Location = FindLocation(model.Location),
+                Mobile = model.Mobile,
+                IndustryId = model.IndustryId,
+                Social = new Social
+                {
+                    Twitter = model.Twitter,
+                    Facebook = model.Facebook,
+                    Yahoo = model.Yahoo,
+                    Google = model.Google,
+                    LinkedIn = model.LinkedIn,
+                    Rss = model.Rss,
+                    WebSite = model.WebSite
+                }
             };
+            
             _companyRepository.Create(entity);
             _companyRepository.SaveChanges();
             return new CompanyEditViewModel()
@@ -183,9 +206,14 @@ namespace Talent21.Service.Core
         public JobViewModel Create(CreateJobViewModel model)
         {
             var company = FindCompany();
+            return Create(model, company.Id);
+
+        }
+        public JobViewModel Create(CreateJobViewModel model,int companyId)
+        {
             var entity = new Job
             {
-                CompanyId = company.Id,
+                CompanyId = companyId,
                 Description = model.Description,
                 Code = model.Code,
                 Title = model.Title,
@@ -195,7 +223,7 @@ namespace Talent21.Service.Core
                 Start = model.Start
             };
 
-            ApplySkills(model,entity);
+            ApplySkills(model, entity);
 
             _jobRepository.Create(entity);
             _jobRepository.SaveChanges();
@@ -203,6 +231,7 @@ namespace Talent21.Service.Core
             return Jobs.FirstOrDefault(x => x.Id == entity.Id);
 
         }
+
 
         private Company FindCompany()
         {

@@ -17,7 +17,7 @@ namespace e10.Shared
         {
             builder.RegisterType<ApplicationUserStore>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationRoleStore>().AsSelf().InstancePerRequest();
-            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().As<IUserService>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<EmailService>().As<IIdentityEmailMessageService>().InstancePerRequest();
