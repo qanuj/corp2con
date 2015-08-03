@@ -422,6 +422,13 @@
     <Content Include="App\template\job-details.html" />
     <Content Include="App\template\jobs.html" />
     <Content Include="Content\css\spa.css" />
+    <Content Include="Content\images\slider\blog1.jpg" />
+    <Content Include="Content\images\slider\blog2.jpg" />
+    <Content Include="Content\images\slider\blog3.jpg" />
+    <Content Include="Content\images\slider\slider1.jpg" />
+    <Content Include="Content\images\slider\slider2.jpg" />
+    <Content Include="Content\images\slider\slider3.jpg" />
+    <Content Include="Content\images\slider\slider4.jpg" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />

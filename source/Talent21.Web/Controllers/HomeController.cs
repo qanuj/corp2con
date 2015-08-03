@@ -21,15 +21,13 @@ namespace Talent21.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var model = new FrontEndViewModel();
-                if(User.IsInRole("Admin")) model.Role = "Admin";
-                else if(User.IsInRole("Contractor")) model.Role = "Contractor";
-                else if(User.IsInRole("Company")) model.Role = "Company";
+                if (User.IsInRole("Admin")) model.Role = "Admin";
+                else if (User.IsInRole("Contractor")) model.Role = "Contractor";
+                else if (User.IsInRole("Company")) model.Role = "Company";
                 return View(model);
             }
-            return View("Welcome");
+            return View("Welcome", new WelcomePageViewModel{});
         }
-
-
 
         [Route("welcome")]
         public ActionResult Welcome()

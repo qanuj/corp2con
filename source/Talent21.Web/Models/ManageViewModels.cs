@@ -2,9 +2,38 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Talent21.Service.Models;
 
 namespace Talent21.Web.Models
 {
+    public class FeaturedCompanyViewModel
+    {
+        public int Id { get; set; }
+        public string CompanyName { get; set; }
+        public string PictureUrl { get; set; }
+        public int Jobs { get; set; }
+    }
+
+    public class StatsViewModel
+    {
+        public int Members { get; set; }
+        public int Jobs { get; set; }
+
+        public int Companies { get; set; }
+        public int Contractors { get; set; }
+    }
+
+    public class WelcomePageViewModel
+    {
+       public StatsViewModel Numbers { get; set; }
+        public IList<JobViewModel> Jobs { get; set; }
+        public IList<FeaturedCompanyViewModel> Companies { get; set; }
+        public JobViewModel FeaturedJob { get; set; }
+        public WelcomePageViewModel()
+        {
+            Jobs = new List<JobViewModel>();
+        }
+    }
     public class FrontEndViewModel
     {
         public string Role { get; set; }

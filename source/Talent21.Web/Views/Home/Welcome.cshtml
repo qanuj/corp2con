@@ -1,6 +1,9 @@
-﻿@{
+﻿@model Talent21.Web.Models.WelcomePageViewModel
+@{
     ViewBag.PageId = "home";
     ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_Unsecured.cshtml";
+}
 }
 <div id="slider" class="sl-slider-wrapper">
 
@@ -13,7 +16,8 @@
                 <div class="slide-content">
                     <h2>Looking for a job?</h2>
                     <h3>There’s no better place to start</h3>
-                    <p><a href="jobs.html" class="btn btn-lg btn-default">Find a job</a>
+                    <p>
+                        <a href="/#/search" class="btn btn-lg btn-default">Find a job</a>
                     </p>
                 </div>
             </div>
@@ -26,7 +30,8 @@
                 <div class="slide-content">
                     <h2>Need an employee?</h2>
                     <h3>We've got perfect candidates</h3>
-                    <p><a href="candidates.html" class="btn btn-lg btn-default">Post a job</a>
+                    <p>
+                        <a href="/#/job/create" class="btn btn-lg btn-default">Post a job</a>
                     </p>
                 </div>
             </div>
@@ -39,7 +44,8 @@
                 <div class="slide-content">
                     <h2>Evolving your career?</h2>
                     <h3>Find new opportunities here</h3>
-                    <p><a href="jobs.html" class="btn btn-lg btn-default">Find a job</a>
+                    <p>
+                        <a href="/#/search" class="btn btn-lg btn-default">Find a job</a>
                     </p>
                 </div>
             </div>
@@ -52,7 +58,8 @@
                 <div class="slide-content">
                     <h2>Extending your team?</h2>
                     <h3>Find a perfect match</h3>
-                    <p><a href="candidates.html" class="btn btn-lg btn-default">Find a cadidate</a>
+                    <p>
+                        <a href="/#/search" class="btn btn-lg btn-default">Find a cadidate</a>
                     </p>
                 </div>
             </div>
@@ -73,115 +80,131 @@
     </nav>
 
 </div>
-
 <section id="jobs">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8">
-                <h2>Recent Jobs</h2>
-                <div class="jobs">
-                    <!-- Job offer 1 -->
-                    <a href="#">
-                        <div class="featured"></div>
-                        <img src="images/job1.jpg" alt="" class="img-circle"/>
-                        <div class="title">
-                            <h5>Web Designer</h5>
-                            <p>Amazon Inc.</p>
-                        </div>
-                        <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
-                            <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
-                            <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
+            @if (Model.Jobs!=null && Model.Jobs.Count > 0)
+            {
+                <div class="col-sm-8">
+                    <h2>Recent Jobs</h2>
+                    <div class="jobs">
+                        <!-- Job offer 1 -->
+                        @foreach (var job in Model.Jobs)
+                        {
+                            <a href="/#/job/@job.">
+                                <div class="featured"></div>
+                                <img src="/images/job1.jpg" alt="" class="img-circle"/>
+                                <div class="title">
+                                    <h5>Web Designer</h5>
+                                    <p>Amazon Inc.</p>
+                                </div>
+                                <div class="data">
+                                    <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
+                                    <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
+                                    <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                    <a class="btn btn-primary" id="more-jobs">
+                        <span class="more">Show More Jobs <i class="fa fa-arrow-down"></i></span>
+                        <span class="less">Show Less Jobs <i class="fa fa-arrow-up"></i></span>
+                    </a>
+                </div>
+            }
+            @if (Model.FeaturedJob != null)
+            {
+                <div class="col-sm-4">
+                    <h2>Featured Jobs</h2>
+                    <a href="/#/job/@Model.FeaturedJob.Id">
+                        <img src="http://placehold.it/400x265.jpg" alt="Featured Job" class="img-responsive"/>
+                        <div class="featured-job">
+                            <img src="images/job1.jpg" alt="" class="img-circle"/>
+                            <div class="title">
+                                <h5>@Model.FeaturedJob.Title</h5>
+                                <p>@Model.FeaturedJob.Company</p>
+                            </div>
+                            @foreach (var loc in Model.FeaturedJob.Locations)
+                            {
+                                <div class="data">
+                                    <span class="city"><i class="fa fa-map-marker"></i> @loc.Title</span>
+                                    <span class="type full-time"><i class="fa fa-clock-o"></i></span>
+                                    <span class="sallary"><i class="fa fa-inr"></i>@(Model.FeaturedJob.Rate)k</span>
+                                </div>
+                            }
+                            <div class="description">@Model.FeaturedJob.Description</div>
                         </div>
                     </a>
                 </div>
-                <a class="btn btn-primary" id="more-jobs">
-                    <span class="more">Show More Jobs <i class="fa fa-arrow-down"></i></span>
-                    <span class="less">Show Less Jobs <i class="fa fa-arrow-up"></i></span>
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <h2>Featured Jobs</h2>
-                <a href="#">
-                    <img src="http://placehold.it/400x265.jpg" alt="Featured Job" class="img-responsive"/>
-                    <div class="featured-job">
-                        <img src="images/job1.jpg" alt="" class="img-circle"/>
-                        <div class="title">
-                            <h5>Web Designer</h5>
-                            <p>Amazon</p>
-                        </div>
-                        <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
-                            <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
-                            <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
-                        </div>
-                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique euismod lorem, a consequat orci consequat a. Donec ullamcorper tincidunt nunc, ut aliquam est pellentesque porta. In neque erat, malesuada sit amet orci ac, laoreet laoreet mauris.</div>
-                    </div>
-                </a>
-            </div>
+            }
         </div>
     </div>
 </section>
-
+@if (Model.Companies!=null && Model.Companies.Count > 0) { 
 <section id="companies" class="color1">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <h2>Featured Companies</h2>
                 <ul id="featured-companies" class="row">
-                    <li class="col-sm-4 col-md-3">
-                        <a href="company.html">
-                            <img src="http://placehold.it/220x100.jpg" alt="" />
-                            <span class="badge">12</span>
-                        </a>
-                    </li>
+                    @foreach (var company in Model.Companies) {
+                        <li class="col-sm-4 col-md-3">
+                            <a href="/#/company/@company.Id">
+                                <img src="@company.PictureUrl" alt="@company.CompanyName"/>
+                                <span class="badge">@company.Jobs</span>
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
     </div>
 </section>
+}
+@if (Model.Numbers != null)
+{
+    <section id="stats" class="parallax text-center">
+        <div class="tint"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>Jobseek Stats</h1>
+                    <h4>How many people we’ve helped</h4>
+                </div>
+            </div>
+            <div class="row" id="counter">
 
-<section id="stats" class="parallax text-center">
-    <div class="tint"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Jobseek Stats</h1>
-                <h4>How many people we’ve helped</h4>
+                <div class="counter">
+                    <div class="number">@Model.Numbers.Members</div>
+                    <div class="description">Members</div>
+                </div>
+
+                <div class="counter">
+                    <div class="number">@Model.Numbers.Jobs</div>
+                    <div class="description">Jobs</div>
+                </div>
+
+                <div class="counter">
+                    <div class="number">@Model.Numbers.Contractors</div>
+                    <div class="description">Contractors</div>
+                </div>
+
+                <div class="counter">
+                    <div class="number">@Model.Numbers.Companies</div>
+                    <div class="description">Employers</div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p>
+                        <a href="@Url.Action("Register","Account")" class="link-register btn btn-primary">Join Us</a>
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="row" id="counter">
-
-            <div class="counter">
-                <div class="number">4,329</div>
-                <div class="description">Members</div>
-            </div>
-
-            <div class="counter">
-                <div class="number">894</div>
-                <div class="description">Jobs</div>
-            </div>
-
-            <div class="counter">
-                <div class="number">1,482</div>
-                <div class="description">Resumes</div>
-            </div>
-
-            <div class="counter">
-                <div class="number">83</div>
-                <div class="description">Companies</div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <p><a class="link-register btn btn-primary">Join Us</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
+    </section>
+}
 <section id="how">
     <div class="container">
         <div class="row">
@@ -193,7 +216,8 @@
             <div class="col-sm-6">
                 <p>Curabitur et lorem a massa tempus aliquam. Aenean aliquam volutpat gravida. Pellentesque in neque nec tortor sagittis tempor quis in lectus. Vestibulum vehicula aliquet elit ut porta. Sed ipsum felis, interdum blandit purus sed, volutpat ultricies sem. Maecenas feugiat, lectus vitae luctus feugiat, nulla nisl dignissim velit, nec malesuada ligula orci et metus. In vulputate laoreet luctus.</p>
                 <p>Sed hendrerit ligula tortor, eget iaculis velit vestibulum a. Phasellus convallis nisl pretium nisi porttitor, eu scelerisque mauris consectetur. Fusce pretium, dui placerat laoreet consectetur, nibh diam accumsan enim, sed fringilla turpis quam quis ex. Mauris a rhoncus tortor, a cursus urna. Sed et condimentum quam. Nunc dictum erat ut ante aliquam porttitor. Donec diam eros, bibendum et scelerisque egestas, aliquet ut nulla.</p>
-                <p><a href="about.html" class="btn btn-primary">Learn More</a>
+                <p>
+                    <a href="about.html" class="btn btn-primary">Learn More</a>
                 </p>
             </div>
             <div class="col-sm-6">
@@ -204,127 +228,6 @@
         </div>
     </div>
 </section>
-
-<section id="pricing" class="text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Plans &amp; Pricing</h1>
-                <h4>Choose a package that fits your needs</h4>
-            </div>
-        </div>
-        <div class="row pricing">
-            <div class="col-sm-3">
-                <ul>
-                    <li class="title">Free</li>
-                    <li class="price">$0</li>
-                    <li>1 job posting</li>
-                    <li>No featured jobs</li>
-                    <li>Displayed for 5 days</li>
-                    <li><a href="post-a-job.html" class="btn btn-primary">Choose</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <ul class="popular">
-                    <li class="title">Startup</li>
-                    <li class="price">$19</li>
-                    <li>1 job posting</li>
-                    <li>No featured jobs</li>
-                    <li>Displayed for 30 days</li>
-                    <li><a href="post-a-job.html" class="btn btn-primary">Choose</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <ul>
-                    <li class="title">Company</li>
-                    <li class="price">$29</li>
-                    <li>3 job postings</li>
-                    <li>No featured jobs</li>
-                    <li>Displayed for 60 days</li>
-                    <li><a href="post-a-job.html" class="btn btn-primary">Choose</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <ul>
-                    <li class="title">Enterprise</li>
-                    <li class="price">$39</li>
-                    <li>5 job postings</li>
-                    <li>3 featured jobs</li>
-                    <li>Displayed for 90 days</li>
-                    <li><a href="post-a-job.html" class="btn btn-primary">Choose</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="testimonials" class="parallax text-center">
-    <div class="tint"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Testimonials</h1>
-                <h4>Kind words from happy members</h4>
-                <div class="owl-carousel">
-
-                    <!-- Testimonial 1 -->
-                    <div>
-                        <div class="col-sm-3 col-md-2">
-                            <img src="http://placehold.it/140x140.jpg" class="img-circle img-responsive" alt="testimonial"/>
-                        </div>
-                        <div class="col-sm-9 col-md-10">
-                            <blockquote>
-                                <p>
-                                    Thanks for the great service. Jobseek has completely surpassed our expectations.
-                                    Jobseek is the most valuable business resource we have ever purchased.
-                                </p>
-                                <footer>
-                                    Anthony Walsh
-                                    <cite title="Brand Manager in Ebay Inc.">Brand Manager in Ebay Inc.</cite>
-                                </footer>
-                            </blockquote>
-                        </div>
-                    </div>
-
-                </div>
-                <p><a href="testimonials.html" class="btn btn-primary">Read All</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="blog">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-sm-12">
-                <h1>Latest News</h1>
-                <h4>Specially crafted job posts everyday</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="owl-carousel">
-
-                    <!-- Blog post 1 -->
-                    <div>
-                        <img src="http://placehold.it/800x530.jpg" class="img-responsive" alt="Blog Post"/>
-                        <h4>Lorem ipsum dolor sit amet</h4>
-                        <h5>
-                            <span><i class="fa fa-calendar"></i>28.08.2015</span>
-                            <span><i class="fa fa-comment"></i>8 Comments</span>
-                        </h5>
-                        <p>Consectetur adipiscing elit. Duis lobortis tincidunt pretium. Suspendisse ullamcorper quis neque quis viverra. Cras ut leo in lectus gravida fringilla. In hac habitasse platea dictumst. Fusce facilisis sapien dolor, non fermentum magna tempus ac. Fusce quis eros sit amet magna aliquam euismod ac eget libero. Fusce accumsan in eros vitae posuere.</p>
-                        <p><a href="post.html" class="btn btn-primary">Read more</a>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <section id="contact" class="color2">
     <div class="container">
@@ -436,37 +339,6 @@
     </div>
 </footer>
 
-<!-- ============ FOOTER END ============ -->
-<!-- ============ LOGIN START ============ -->
-
-<div class="popup" id="login">
-    <div class="popup-form">
-        <div class="popup-header">
-            <a class="close"><i class="fa fa-remove fa-lg"></i></a>
-            <h2>Login</h2>
-        </div>
-        <form>
-            <ul class="social-login">
-                <li><a class="btn btn-facebook"><i class="fa fa-facebook"></i>Sign In with Facebook</a></li>
-                <li><a class="btn btn-google"><i class="fa fa-google-plus"></i>Sign In with Google</a></li>
-                <li><a class="btn btn-linkedin"><i class="fa fa-linkedin"></i>Sign In with LinkedIn</a></li>
-            </ul>
-            <hr>
-            <div class="form-group">
-                <label for="login-username">Username</label>
-                <input type="text" class="form-control" id="login-username">
-            </div>
-            <div class="form-group">
-                <label for="login-password">Password</label>
-                <input type="password" class="form-control" id="login-password">
-            </div>
-            <button type="submit" class="btn btn-primary">Sign In</button>
-        </form>
-    </div>
-</div>
-
-<!-- ============ LOGIN END ============ -->
-<!-- ============ REGISTER START ============ -->
 
 <div class="popup" id="register">
     <div class="popup-form">
