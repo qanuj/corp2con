@@ -10,14 +10,17 @@ namespace Talent21.Web.Controllers
     public class SetupController : Controller
     {
         private readonly ISystemService _service;
-        private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
-        private readonly string[] _systemRoles = new string[] { AccountController.Admin, AccountController.Company, AccountController.Contractor };
-        public SetupController(ISystemService service,
+        private readonly IDemoDataService _demoDataService;
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationRoleManager _roleManager;
+        private readonly string[] _systemRoles = { AccountController.Admin, AccountController.Company, AccountController.Contractor };
+        public SetupController(ISystemService service, 
+            IDemoDataService demoDataService,
             ApplicationUserManager userManager,
             ApplicationRoleManager roleManager)
         {
             _service = service;
+            _demoDataService = demoDataService;
             _userManager = userManager;
             _roleManager = roleManager;
         }
@@ -27,19 +30,28 @@ namespace Talent21.Web.Controllers
             return Json(_service.Upgrade(), JsonRequestBehavior.AllowGet);
         }
 
-        //public ActionResult Demo()
-        //{
-        //    var locationString =
-       //    var locations = JsonConvert.DeserializeObject<TitleData[]>(locationString);
-        //    foreach (var loc in locations)
-        //    {
-        //        _service.Create(new LocationDictionaryCreateViewModel()
-        //        {
-        //            Code = loc.Title.ToLower(),
-        //            Title = loc.Title
-        //        });
-        //    }
-        //}
+        public async Task<ActionResult> Demo()
+        {
+            return Json(await _demoDataService.BuildAsync(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Master()
+        {
+            _demoDataService.BuildMaster();
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> Roles()
+        {
+            _demoDataService.BuildMaster();
+            await _roleManager.CreateRolesAsync(new []
+            {
+                AccountController.Company,
+                AccountController.Admin,
+                AccountController.Contractor
+            });
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
 
         public async Task<ActionResult> Index()
         {

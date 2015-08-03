@@ -1,4 +1,4 @@
-﻿app.controller('contractorFavoriteController', ['$scope', 'dataService', function ($scope, db) {
+app.controller('contractorFavoriteController', ['$scope', 'dataService', function ($scope, db) {
 
 
     function refreshRecord() {
@@ -10,4 +10,3 @@
 
     refreshRecord();
 }]);
-

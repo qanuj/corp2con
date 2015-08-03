@@ -118,6 +118,7 @@
     <Compile Include="Security\EmailService.cs" />
     <Compile Include="Security\IIdentityEmailMessageService.cs" />
     <Compile Include="Security\IIdentitySmsMessageService.cs" />
+    <Compile Include="Security\IUserService.cs" />
     <Compile Include="Security\SmsService.cs" />
     <Compile Include="SharedLayerModule.cs" />
     <Compile Include="Util\ConversionExtensions.cs" />

@@ -45,6 +45,7 @@ namespace Talent21.Service.Models
 
         public string Nationality { get; set; }
         public int? FunctionalAreaId { get; set; }
+        public int? IndustryId { get; set; }
         public ContractorTypeEnum ConsultantType { get; set; }
         public ContractTypeEnum ContractType { get; set; }
         public GenderEnum Gender { get; set; }
