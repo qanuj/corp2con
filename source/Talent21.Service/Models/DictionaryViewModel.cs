@@ -25,7 +25,10 @@ namespace Talent21.Service.Models
         public int Id { get; set; }
     }
 
-
+    public class JobLocationEditViewModel : DictionaryViewModel
+    {
+        public int Id { get; set; }
+    }
     public class JobSkillEditViewModel : JobSkillCreateViewModel
     {
         public int Id { get; set; }

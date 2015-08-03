@@ -15,6 +15,7 @@
             $scope.count = result.count;
             $scope.records = result.items;
             $scope.page = page;
+            $scope.records[0].ifFeatured = "featured";
             //$scope.pages = db.findPages(result);
         });
     }

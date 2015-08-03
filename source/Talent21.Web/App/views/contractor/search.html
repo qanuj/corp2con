@@ -5,7 +5,6 @@
                 <h2>{{title}} {{records.count}}</h2>
                 <div class="jobs">
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
-                        <div class="featured"></div>
                         <div class="{{row.ifFeatured}}"></div>
                         <div class="title">
                             <h5>{{row.title}}</h5>

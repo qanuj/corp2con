@@ -157,6 +157,7 @@
     <Compile Include="Repository\ContractorRepository.cs" />
     <Compile Include="Repository\FunctionalAreaRepository.cs" />
     <Compile Include="Repository\ContractorSkillRepository.cs" />
+    <Compile Include="Repository\IBlockRepository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />

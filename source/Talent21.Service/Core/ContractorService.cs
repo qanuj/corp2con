@@ -30,8 +30,9 @@ namespace Talent21.Service.Core
             ILocationRepository locationRepository,
             IContractorVisitRepository contractorVisitRepository,
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
-            IJobRepository jobRepository)
-            : base(locationRepository)
+            IJobRepository jobRepository,
+            ITransactionRepository transactionRepository)
+            : base(locationRepository,transactionRepository)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -118,8 +119,8 @@ namespace Talent21.Service.Core
                 IsCancelled = x.IsCancelled,
                 Cancelled = x.Cancelled,
                 Published = x.Published,
-                Location = x.Location.Title,
-                Skills = x.Skills.Select(y => new JobSkillEditViewModel { Code = y.Skill.Code, Id = y.Id, Title = y.Skill.Title, Level = y.Level}),
+                Skills = x.Skills.Select(y => new JobSkillEditViewModel { Code = y.Skill.Code, Id = y.Id, Title = y.Skill.Title, Level = y.Level }),
+                Locations = x.Locations.Select(y => new JobLocationEditViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
                 CompanyId = x.CompanyId,
                 Description = x.Description,
                 Code = x.Code,

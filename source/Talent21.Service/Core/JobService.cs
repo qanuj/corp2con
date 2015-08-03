@@ -27,21 +27,28 @@ namespace Talent21.Service.Core
         {
             get
             {
+                //TODO:color coded jobs based on dates.
+                
                 var query = from job in _jobRepository.All
                             where !job.IsCancelled && job.IsPublished
                             select new JobSearchResultViewModel
                             {
-                                LocationCode=job.Location.Code,
+                                FirstName = job.Company.FirstName,
+                                LastName = job.Company.LastName,
+                                Mobile = job.Company.Mobile,
+                                WebSite = job.Company.Social.WebSite,
+                                About = job.Company.About,
+                                Email = job.Company.Email,
                                 Code=job.Code,
                                 Title=job.Title,
                                 Description=job.Description,
-                                Location=job.Location.Title,
                                 Company=job.Company.CompanyName,
                                 Rate=job.Rate,
                                 Start=job.Start,
                                 End=job.End,
                                 Id=job.Id,
-                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title })
+                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title }),
+                                Locations = job.Locations.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
                             };
                 return query;
             }
@@ -53,7 +60,7 @@ namespace Talent21.Service.Core
             //Rules of searching.
             if(!string.IsNullOrWhiteSpace(model.Location))
             {
-                query = query.Where(x => x.Location.Contains(model.Location));
+                query = query.Where(x => x.Locations.Any(y=>y.Title==model.Location));
             }
             if(!string.IsNullOrWhiteSpace(model.Skills))
             {
@@ -84,7 +91,7 @@ namespace Talent21.Service.Core
 
         public IQueryable<JobSearchResultViewModel> TopJobs(string skill, string location)
         {
-            return Jobs.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
+            return Jobs.Where(x => x.Skills.Any(y => y.Code == skill) && x.Locations.Any(y=>y.Code==location));
         }
     }
 }

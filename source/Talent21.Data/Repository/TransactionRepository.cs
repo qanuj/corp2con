@@ -12,7 +12,7 @@ namespace Talent21.Data.Repository
     /// <summary>
     /// 
     /// </summary>
-    public class TransactionRepository : EfRepository<Transaction>, ITransactionRepository
+    public class TransactionRepository : EfMyRepository<Transaction>, ITransactionRepository
     {
         /// <summary>
         /// 
@@ -23,13 +23,28 @@ namespace Talent21.Data.Repository
             : base(context, eventManager)
         {
         }
+        public Task<Transaction> ByCodeAsync(string code)
+        {
+            return All.FirstOrDefaultAsync(x => x.Code == code);
+        }
+
+        public Task<int> BalanceAsync(string id)
+        {
+            return Mine(id).Any() ? Mine(id).SumAsync(x => x.Credit) : Task.FromResult(0);
+        }
+
+        public override IQueryable<Transaction> Mine(string id)
+        {
+            return All.Where(x => x.IsSuccess).Where(x => x.UserId == id);
+        }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    public interface ITransactionRepository : IRepository<Transaction>
+    public interface ITransactionRepository : IMyRepository<Transaction>
     {
-
+        Task<Transaction> ByCodeAsync(string code);
+        Task<int> BalanceAsync(string id);
     }
 }

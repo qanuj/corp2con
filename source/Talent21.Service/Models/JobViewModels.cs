@@ -16,9 +16,8 @@ namespace Talent21.Service.Models
     public class CreateJobViewModel : DictionaryViewModel
     {
         public string Description { get; set; }
-        public string Location { get; set; }
-
         public IEnumerable<JobSkillEditViewModel> Skills { get; set; }
+        public IEnumerable<JobLocationEditViewModel> Locations { get; set; }
         public int Rate { get; set; } //in 10's thousand.
 
         public DateTime Start { get; set; }
@@ -39,20 +38,21 @@ namespace Talent21.Service.Models
     public class JobSearchResultViewModel
     {
         [Field("text", Store = StoreMode.No)]
-        public string SearchText
-        {
-            get { return string.Join(" ", new[] { Code, Title, Description, Location, Company }); }
-        }
+        public string SearchText => string.Join(" ", new[] { Code, Title, Description, Company });
 
         [NumericField]
         public int Id { get; set; }
-
-        public string LocationCode { get; set; }
+        
         public string Code { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Location { get; set; }
+
         public string Company { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Mobile { get; set; }
+        public string WebSite { get; set; }
 
         [NumericField]
         public int Rate { get; set; }
@@ -63,6 +63,9 @@ namespace Talent21.Service.Models
         [Field(Converter = typeof(SkillConverter))]
         public IEnumerable<DictionaryViewModel> Skills { get; set; }
 
+        public string About { get; set; }
+        public string Email { get; set; }
+        public IEnumerable<DictionaryViewModel> Locations { get; set; }
     }
 
     public class SkillConverter : TypeConverter
@@ -91,7 +94,6 @@ namespace Talent21.Service.Models
     public class JobViewModel : EditJobViewModel
     {
         public int CompanyId { get; set; }
-        public string Location { get; set; }
         public int Applied { get; set; }
         public string Company { get; set; }
     }
