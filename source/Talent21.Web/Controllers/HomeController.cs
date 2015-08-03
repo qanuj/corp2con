@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Web.Mvc;
+using System.Web.UI;
 using Talent21.Service.Abstraction;
 using Talent21.Web.Models;
 
@@ -14,8 +15,7 @@ namespace Talent21.Web.Controllers
             _service = service;
         }
 
-
-        //[Authorize]
+        //[OutputCache(Location = OutputCacheLocation.ServerAndClient, Duration = 3600)] //Cache for 1 Hour.
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -26,8 +26,15 @@ namespace Talent21.Web.Controllers
                 else if (User.IsInRole("Company")) model.Role = "Company";
                 return View(model);
             }
-            return View("Welcome", new WelcomePageViewModel{});
+            return View("Welcome", new WelcomePageViewModel
+            {
+                Jobs = _service.LatestJobs(10),
+                FeaturedJob = _service.GetFeaturedJob(),
+                Companies = _service.GetFeaturedCompanies(20),
+                Numbers = _service.GetStats()
+            });
         }
+        
 
         [Route("welcome")]
         public ActionResult Welcome()

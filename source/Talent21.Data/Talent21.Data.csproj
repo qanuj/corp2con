@@ -63,8 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDataContext.cs" />
+    <Compile Include="Core\Advertisement.cs" />
     <Compile Include="Core\Block.cs" />
+    <Compile Include="Core\CompanyAdvertisement.cs" />
     <Compile Include="Core\Contractor.cs" />
+    <Compile Include="Core\ContractorAdvertisement.cs" />
     <Compile Include="Core\ContractorSkill.cs" />
     <Compile Include="Core\ContractorVisit.cs" />
     <Compile Include="Core\Company.cs" />
@@ -80,6 +83,7 @@
     <Compile Include="Core\Industry.cs" />
     <Compile Include="Core\Job.cs" />
     <Compile Include="Core\JobActionEnum.cs" />
+    <Compile Include="Core\JobAdvertisement.cs" />
     <Compile Include="Core\JobApplication.cs" />
     <Compile Include="Core\JobVisit.cs" />
     <Compile Include="Core\LevelEnum.cs" />
@@ -90,6 +94,7 @@
     <Compile Include="Core\Person.cs" />
     <Compile Include="Core\Plan.cs" />
     <Compile Include="Core\ProficiencyEnum.cs" />
+    <Compile Include="Core\PromotionEnum.cs" />
     <Compile Include="Core\RateEnum.cs" />
     <Compile Include="Core\Schedule.cs" />
     <Compile Include="Core\Skill.cs" />
@@ -152,6 +157,10 @@
     <Compile Include="Migrations\201508031259214_Job have Multiple Locations.cs" />
     <Compile Include="Migrations\201508031259214_Job have Multiple Locations.Designer.cs">
       <DependentUpon>201508031259214_Job have Multiple Locations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508031513521_Company%27s can promote themself.cs" />
+    <Compile Include="Migrations\201508031513521_Company%27s can promote themself.Designer.cs">
+      <DependentUpon>201508031513521_Company%27s can promote themself.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508031259214_Job have Multiple Locations.resx">
       <DependentUpon>201508031259214_Job have Multiple Locations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508031513521_Company%27s can promote themself.resx">
+      <DependentUpon>201508031513521_Company%27s can promote themself.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

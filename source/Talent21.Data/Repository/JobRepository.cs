@@ -34,6 +34,12 @@ namespace Talent21.Data.Repository
         internal static void Register(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Job>().HasKey(x => x.Id);
+            modelBuilder.Entity<Job>().HasMany(x => x.Locations).WithMany(x => x.Jobs).Map(x =>
+            {
+                x.MapLeftKey("JobId");
+                x.MapRightKey("LocationId");
+                x.ToTable("JobsLocationMapping");
+            });
         }
 
 

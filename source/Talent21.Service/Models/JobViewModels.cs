@@ -66,6 +66,7 @@ namespace Talent21.Service.Models
         public string About { get; set; }
         public string Email { get; set; }
         public IEnumerable<DictionaryViewModel> Locations { get; set; }
+        public PromotionEnum Promotion { get; set; }
     }
 
     public class SkillConverter : TypeConverter
@@ -101,4 +102,24 @@ namespace Talent21.Service.Models
     public class DeleteJobViewModel : IdModel { }
     public class CancelJobViewModel : IdModel { }
     public class PublishJobViewModel : IdModel { }
+
+    public class FeaturedCompanyViewModel
+    {
+        public int Id { get; set; }
+        public string CompanyName { get; set; }
+        public string PictureUrl { get; set; }
+        public int Jobs { get; set; }
+        public string WebSite { get; set; }
+        public PromotionEnum Promotion { get; set; }
+    }
+
+    public class StatsViewModel
+    {
+        public int Members => Companies + Contractors;
+
+        public int Jobs { get; set; }
+
+        public int Companies { get; set; }
+        public int Contractors { get; set; }
+    }
 }
