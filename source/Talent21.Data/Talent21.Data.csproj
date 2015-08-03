@@ -149,6 +149,10 @@
     <Compile Include="Migrations\201507210755130_Jobs Have skills.Designer.cs">
       <DependentUpon>201507210755130_Jobs Have skills.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508031259214_Job have Multiple Locations.cs" />
+    <Compile Include="Migrations\201508031259214_Job have Multiple Locations.Designer.cs">
+      <DependentUpon>201508031259214_Job have Multiple Locations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
@@ -223,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507210755130_Jobs Have skills.resx">
       <DependentUpon>201507210755130_Jobs Have skills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508031259214_Job have Multiple Locations.resx">
+      <DependentUpon>201508031259214_Job have Multiple Locations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
