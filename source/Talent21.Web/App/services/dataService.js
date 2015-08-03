@@ -54,13 +54,39 @@
     }
 
     factory.contractor.applications = function (id) {
-        return $http.put(v + '/job/applications/' + id + '/applications');
+        return $http.put(v + '/job/application/' + id + '/apply');
     }
+
+    factory.contractor.getJobApplications = function () {
+        return $http.get(v + 'contractor/job/application/');
+    }
+
+    factory.contractor.getJobApplicationsByJobId = function (jobId) {
+        return $http.get(v + 'contractor/job/application?$filter=Id eq '+jobId);
+    }
+
 
     factory.contractor.favorite = function (id) {
-        return $http.put(v + 'candidate/job/application/' + id + '/favorite');
+        return $http.put(v + 'contractor/job/application/' + id + '/favorite');
     }
 
+    //Sonal
+    factory.contractor.getFavoriteApplications = function () {
+        return $http.get(v + 'contractor/job/application/favorite/all');
+    }
+
+    factory.contractor.getContractorFavoriteById = function (Id) {
+        return $http.get(v + 'job/application/{id}/favorite?$filter=Id eq ' + Id);
+    }
+    //End code of Sonal
+
+    factory.contractor.unfavorite = function (id) {
+        return $http.delete(v + 'contractor/job/application/' + id + '/favorite');
+    }
+
+    factory.contractor.getfavorite = function (id) {
+        return $http.get(v + 'contractor/job/application/' + id + '/favorite');
+    }
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'contractor/schedule', formData);
     }
@@ -74,6 +100,14 @@
 
     factory.contractor.getSchedule = function (page) {
         return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page));
+    }
+
+    factory.contractor.getLatestJobs = function (skill, location, page, pageSize) {
+        return $http.get(v + 'contractor/latest/jobs/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
+    }
+
+    factory.contractor.topEmployers = function (skill, location, page, pageSize) {
+        return $http.get(v + 'contractor/top/employers/' + skill + '/' + location + '?' + calculatePaging(page, pageSize));
     }
 
 
@@ -115,6 +149,19 @@
     factory.company.search = function (query) {
         return $http.post(v + 'company/search', query);
     }
+
+    factory.company.getLatestProfiles = function(skill, location, page) {
+        return $http.get(v + 'company/latest/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page));
+    }
+
+    factory.company.getTopProfiles = function (skill, location, page) {
+        return $http.get(v + 'company/top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page));
+    }
+
+    factory.company.getJobApplications = function (id) {
+        return $http.get(v + 'company/job/' + id + '/applications/all');
+    }
+
     //For Jobs
 
     factory.job.get = function (id) {
@@ -134,7 +181,9 @@
     }
 
     factory.job.publish = function (id) { return $http.put(v + 'company/job/publish', { id: id }); }
+    factory.job.unpublish = function (id) { return $http.put(v + 'company/job/unpublish', { id: id }); }
     factory.job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
+    factory.job.revoke = function (id) { return $http.put(v + 'contractor/job/application/'+id+'/revoke'); }
     factory.job.delete = function (id) { return $http.delete(v + 'company/job/'+id); }
 
     factory.system.getSkills = function (q) {
@@ -150,6 +199,11 @@
     factory.system.editSkill = function (formData) {
         return $http.put(v + 'system/skill/update', formData);
     }
+
+    factory.system.deleteSkill = function (record) {
+        return $http.delete(v + 'system/skill/' + record.id);
+    }
+
     factory.system.getIndustries = function (page) {
         return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page));
     }
@@ -186,6 +240,8 @@
           { params: params }
         );
     }
+
+    factory.applied = [];
 
     return factory;
 }]);

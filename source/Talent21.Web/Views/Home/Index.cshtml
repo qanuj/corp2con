@@ -1,7 +1,6 @@
 ﻿@using Talent21.Web.Controllers
 @model Talent21.Web.Models.FrontEndViewModel
 @{
-    Layout = "";
     ViewBag.Title = "Home Page";
     var Product = "Corp2Con";
     var searchController = Model.Role == AccountController.Company ? "companySearchController" : "contractorSearchController";
@@ -37,6 +36,7 @@
             <div id="search" class="pull-right">
                 <a><i class="fa fa-search fa-lg"></i></a>
             </div>
+
         </div>
     </header>
     <div id="loader">
@@ -49,16 +49,16 @@
                 <a class="fm-button"><i class="fa fa-close fa-2x"></i></a>
             </div>
             <ul class="nav">
-                @if(Model.Role == AccountController.Company)
+                @if (Model.Role == AccountController.Company)
                 {
                     <li><a href="/#/job/new">Post a job</a></li>
                     <li><a href="/#/jobs">Jobs</a></li>
                     <li><a href="/#/search">Search Contractor</a></li>
                     <li><a href="/#/profile">Company Profile</a></li>
                     <li><a href="/#/bench">Bench Management</a></li>
-
+                     <li><a href="/#/functional">Fuctional Area</a></li>
                 }
-                else if(Model.Role == AccountController.Contractor)
+                else if (Model.Role == AccountController.Contractor)
                 {
                     <li><a href="/#/search">Search Jobs</a></li>
                     <li><a href="/#/applications">Applications</a></li>
@@ -66,16 +66,87 @@
                     <li><a href="/#/profile">Manage Profile</a></li>
                     <li><a href="/#/schedule">Manage Schedule</a></li>
                     <li><a href="/#/skills">Skills</a></li>
+
                 }
-                else if(Model.Role == AccountController.Admin)
+                else if (Model.Role == AccountController.Admin)
                 {
                     <li><a href="/#/industry">Industry</a></li>
                     <li><a href="/#/functional">Fuctional Area</a></li>
+                    <li><a href="/#/skills">Skills</a></li>
                 }
                 <li><a href="@Url.Action("Logout","Account")">Logout</a></li>
             </ul>
         </div>
         <div ng-view></div>
+        <section id="contact" class="color2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Drop us a line</h2>
+                        <form role="form" name="contact-form" id="contact-form" action="process.php">
+                            <div class="form-group" id="contact-name-group">
+                                <label for="contact-name" class="sr-only">Name</label>
+                                <input type="text" class="form-control" id="contact-name" placeholder="Name">
+                            </div>
+                            <div class="form-group" id="contact-email-group">
+                                <label for="contact-email" class="sr-only">Email</label>
+                                <input type="email" class="form-control" id="contact-email" placeholder="Email">
+                            </div>
+                            <div class="form-group" id="contact-subject-group">
+                                <label for="contact-subject" class="sr-only">Subject</label>
+                                <input type="text" class="form-control" id="contact-subject" placeholder="Subject">
+                            </div>
+                            <div class="form-group" id="contact-message-group">
+                                <label for="contact-message" class="sr-only">Message</label>
+                                <textarea class="form-control" rows="3" id="contact-message"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>Visit our office</h2>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5>New York</h5>
+                                <p>
+                                    5 Park Avenue<br>
+                                    New York, NY 10016<br>
+                                    USA
+                                </p>
+                                <p>
+                                    <i class="fa fa-phone"></i>+1 718.242.5555<br>
+                                    <i class="fa fa-fax"></i>+1 718.242.5556<br>
+                                    <i class="fa fa-envelope"></i><a href="mailto:ny@jobseek.com">ny@jobseek.com</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
+                                    <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
+                                    <i class="fa fa-clock-o"></i>Sun Closed
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Los Angeles</h5>
+                                <p>
+                                    8605 Santa Monica Blvd<br>
+                                    Los Angeles, CA 90069-4109<br>
+                                    USA
+                                </p>
+                                <p>
+                                    <i class="fa fa-phone"></i>+1 985.562.5555<br>
+                                    <i class="fa fa-fax"></i>+1 985.562.5556<br>
+                                    <i class="fa fa-envelope"></i><a href="mailto:la@jobseek.com">la@jobseek.com</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
+                                    <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
+                                    <i class="fa fa-clock-o"></i>Sun Closed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
     @Scripts.Render("~/script/spa")

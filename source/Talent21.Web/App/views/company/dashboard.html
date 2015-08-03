@@ -124,22 +124,6 @@
                 </div>
             </div>
             <div class="row">
-
-                <div class="col-lg-12">
-                    <h5 class="page-header">
-                        Quick Actions
-                    </h5>
-                </div>
-                <div class="col-md-12">
-                    <a class="btn btn-xs btn-success" href="#/job/new"><i class="fa fa-suitcase"></i> Add New Job</a>
-                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-building"></i> Edit Jobs</a>
-                    <a class="btn btn-xs btn-primary" href="#/applications"><i class="fa fa-building"></i> View Applications</a>
-                    <a class="btn btn-xs btn-primary" href="#/bench"><i class="fa fa-users"></i> Manage Bench</a>
-                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-graduation-cap"></i> Promote Job</a>
-                    <a class="btn btn-xs btn-primary" href="#/shortlist"><i class="fa fa-graduation-cap"></i> Shortlist</a>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header">
                         Latest Profiles
@@ -196,7 +180,24 @@
             </div>
         </div>
         <div class="col-md-4" id="sidebar">
-            <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive" />
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <h5 class="page-header">
+                        Quick Actions
+                    </h5>
+                </div>
+                <div class="col-md-12">
+                    <a class="btn btn-xs btn-success" href="#/job/new"><i class="fa fa-suitcase"></i> Add New Job</a>
+                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-building"></i> Edit Jobs</a>
+                    <a class="btn btn-xs btn-primary" href="#/applications"><i class="fa fa-building"></i> View Applications</a>
+                    <a class="btn btn-xs btn-primary" href="#/bench"><i class="fa fa-users"></i> Manage Bench</a>
+                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-graduation-cap"></i> Promote Job</a>
+                    <a class="btn btn-xs btn-primary" href="#/shortlist"><i class="fa fa-graduation-cap"></i> Shortlist</a>
+                </div>
+            </div>
+            <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive"/>
             <div class="title">
                 <h5>{{profile.companyName}} <small>{{profile.firstName}} {{profile.lastName}}</small></h5>
                 <p class="about">{{profile.about}}</p>

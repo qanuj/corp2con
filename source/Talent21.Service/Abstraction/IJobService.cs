@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
@@ -7,5 +8,11 @@ namespace Talent21.Service.Abstraction
     {
         IQueryable<JobSearchResultViewModel> Search(SearchQueryViewModel model);
         JobSearchResultViewModel ById(int id);
+        IQueryable<PictureViewModel> TopEmployers(string skill, string location);
+        IQueryable<JobSearchResultViewModel> TopJobs(string skill, string location);
+        IList<JobSearchResultViewModel> LatestJobs(int count);
+        JobSearchResultViewModel GetFeaturedJob();
+        IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count);
+        StatsViewModel GetStats();
     }
 }

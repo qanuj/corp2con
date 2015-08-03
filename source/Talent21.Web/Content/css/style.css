@@ -532,19 +532,19 @@ header {
 }
 
 .bg-img-1 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider1.jpg');
 }
 
 .bg-img-2 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider2.jpg');
 }
 
 .bg-img-3 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider3.jpg');
 }
 
 .bg-img-4 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider4.jpg');
 }
 
 .sl-slider-wrapper .tint {
@@ -1899,4 +1899,13 @@ label {
         float: none !important;
         margin: 5px 0 15px 0;
     }
+
+}
+
+.special .btn {
+    color: #fff;
+    margin: 5px 0;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
 }

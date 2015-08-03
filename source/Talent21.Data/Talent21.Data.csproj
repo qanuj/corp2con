@@ -52,6 +52,12 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -63,8 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDataContext.cs" />
+    <Compile Include="Core\Advertisement.cs" />
+    <Compile Include="Core\AdvertisementTransaction.cs" />
     <Compile Include="Core\Block.cs" />
+    <Compile Include="Core\CompanyAdvertisement.cs" />
     <Compile Include="Core\Contractor.cs" />
+    <Compile Include="Core\ContractorAdvertisement.cs" />
     <Compile Include="Core\ContractorSkill.cs" />
     <Compile Include="Core\ContractorVisit.cs" />
     <Compile Include="Core\Company.cs" />
@@ -80,6 +90,7 @@
     <Compile Include="Core\Industry.cs" />
     <Compile Include="Core\Job.cs" />
     <Compile Include="Core\JobActionEnum.cs" />
+    <Compile Include="Core\JobAdvertisement.cs" />
     <Compile Include="Core\JobApplication.cs" />
     <Compile Include="Core\JobVisit.cs" />
     <Compile Include="Core\LevelEnum.cs" />
@@ -90,6 +101,7 @@
     <Compile Include="Core\Person.cs" />
     <Compile Include="Core\Plan.cs" />
     <Compile Include="Core\ProficiencyEnum.cs" />
+    <Compile Include="Core\PromotionEnum.cs" />
     <Compile Include="Core\RateEnum.cs" />
     <Compile Include="Core\Schedule.cs" />
     <Compile Include="Core\Skill.cs" />
@@ -149,14 +161,24 @@
     <Compile Include="Migrations\201507210755130_Jobs Have skills.Designer.cs">
       <DependentUpon>201507210755130_Jobs Have skills.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508031259214_Job have Multiple Locations.cs" />
+    <Compile Include="Migrations\201508031259214_Job have Multiple Locations.Designer.cs">
+      <DependentUpon>201508031259214_Job have Multiple Locations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508031513521_Company%27s can promote themself.cs" />
+    <Compile Include="Migrations\201508031513521_Company%27s can promote themself.Designer.cs">
+      <DependentUpon>201508031513521_Company%27s can promote themself.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AdvertisementRepository.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
     <Compile Include="Repository\ContractorVisitRepository.cs" />
     <Compile Include="Repository\CompanyRepository.cs" />
     <Compile Include="Repository\ContractorRepository.cs" />
     <Compile Include="Repository\FunctionalAreaRepository.cs" />
     <Compile Include="Repository\ContractorSkillRepository.cs" />
+    <Compile Include="Repository\IBlockRepository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
@@ -223,6 +245,15 @@
     <EmbeddedResource Include="Migrations\201507210755130_Jobs Have skills.resx">
       <DependentUpon>201507210755130_Jobs Have skills.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508031259214_Job have Multiple Locations.resx">
+      <DependentUpon>201508031259214_Job have Multiple Locations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508031513521_Company%27s can promote themself.resx">
+      <DependentUpon>201508031513521_Company%27s can promote themself.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

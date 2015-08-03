@@ -69,7 +69,7 @@ namespace Talent21.Web.Controllers
         [Route("profile/{id}")]
         public ContractorViewModel GetContractorProfileById(int id)
         {
-            return _service.GetProfile(id);
+            return _service.GetFavorite(id);
         }
 
         [HttpPost]
@@ -193,35 +193,60 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/application")]
-        public PageResult<JobApplicationViewModel> GetJobApplications(ODataQueryOptions<JobApplicationViewModel> options)
+        public PageResult<JobApplicationContractorViewModel> GetJobApplications(ODataQueryOptions<JobApplicationContractorViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Applications(), options);
         }
 
-        [HttpGet]
-        [Route("job/application")]
-        [EnableQuery]
-        public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
-        {
-            _service.CurrentUserId = User.Identity.GetUserId();
-            return _service.Applications();
-        }
+        //[HttpGet]
+        //[Route("job/application")]
+        //[EnableQuery]
+        //public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
+        //{
+        //    _service.CurrentUserId = User.Identity.GetUserId();
+        //    return _service.Applications();
+        //}
 
         [HttpPut]
         [Route("job/application/{id}/revoke")]
-        public HttpResponseMessage RejectJobApplication(CreateJobApplicationHistoryViewModel model)
+        public HttpResponseMessage RejectJobApplication([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Revoke)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel{Id=id}, JobActionEnum.Revoke)) : Bad(ModelState);
+        }
+
+        //Favorite related api
+        [HttpGet]
+        [Route("job/application/{id}/favorite")]
+        public ContractorViewModel GetContractorFavoriteById(int id)
+        {
+            return _service.GetFavorite(id);
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [Route("job/application/favorite/all")]
+        public IQueryable<ContractorViewModel> ViewContractorsQuery()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Contractors;
         }
 
         [HttpPut]
         [Route("job/application/{id}/favorite")]
-        public HttpResponseMessage ShortlistJobApplication(CreateJobApplicationHistoryViewModel model)
+        public HttpResponseMessage FavoriteJob([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Favorite)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Favorite)) : Bad(ModelState);
+        }
+
+        [HttpDelete]
+        [Route("job/application/{id}/favorite")]
+        public HttpResponseMessage DeleteFavoriteJob([FromUri] int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new DeleteJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Favorite)) : Bad(ModelState);
         }
 
         [HttpGet]
@@ -232,6 +257,23 @@ namespace Talent21.Web.Controllers
             _service.CurrentUserId = User.Identity.GetUserId();
             var model = _jobService.ById(id);
             return model == null ? NotFound() : Ok(model);
+        }
+
+        [HttpGet]
+        [Route("top/employers/{skill}/{location}")]
+        public IQueryable<PictureViewModel> TopEmployers(string skill,string location)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _jobService.TopEmployers(skill, location);
+        }
+
+
+        [HttpGet]
+        [Route("latest/jobs/{skill}/{location}")]
+        public IQueryable<JobSearchResultViewModel> GetLatestJobs(string skill, string location)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _jobService.TopJobs(skill, location);
         }
     } 
 }

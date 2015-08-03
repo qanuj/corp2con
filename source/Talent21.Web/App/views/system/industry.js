@@ -7,6 +7,9 @@
     }
 
     $scope.save = function (record) {
+        $('input[type=text]').each(function () {
+            $(this).val('');
+        });
         db.system.addIndustry(record).success(refreshRecord);
     }
 

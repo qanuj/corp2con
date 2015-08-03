@@ -74,13 +74,9 @@ namespace Talent21.Web
             // Uncomment the following lines to enable logging in with third party login providers
             SocialProvider = new OAuthWebConfigProvider();
 
-            app.UseMicrosoftAccountAuthentication(SocialProvider.Microsoft.Key, SocialProvider.Microsoft.Secret);
-            app.UseTwitterAuthentication(SocialProvider.Twitter.Key, SocialProvider.Twitter.Secret);
             app.UseFacebookAuthentication(SocialProvider.Facebook.Key, SocialProvider.Facebook.Secret);
             app.UseGooglePlusAuthentication(SocialProvider.GooglePlus.Key, SocialProvider.GooglePlus.Secret);
             app.UseLinkedInAuthentication(SocialProvider.LinkedIn.Key, SocialProvider.LinkedIn.Secret);
-            app.UseGitHubAuthentication(SocialProvider.GitHub.Key, SocialProvider.GitHub.Secret);
-            app.UseYahooAuthentication(SocialProvider.Yahoo.Key, SocialProvider.Yahoo.Secret);
         }
     }
 }

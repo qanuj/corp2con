@@ -16,9 +16,43 @@ namespace Talent21.Service.Models
         public IEnumerable<JobApplicationHistoryViewModel> Actions { get; set; }
     }
 
+    public class AvailableRatedCandidateProfileViewModel : CandidateProfileViewModel
+    {
+        public int Rating { get; set; }
+        public DateTime Availability { get; set; }
+    }
+
+    public class CandidateProfileViewModel : PictureViewModel
+    {
+        public string Skill { get; set; }
+        public int Rate { get; set; }
+        public int ExperienceInMonths { get; set; }
+        public int ExperienceInYears { get; set; }
+    }
+
+    public class PictureViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Picture { get; set; }
+    }
+
     public class JobApplicationContractorViewModel : JobApplicationViewModel
     {
-        public JobViewModel Job { get; set; }
+        public string Company { get; set; }
+        public bool IsCancelled { get; set; }
+        public DateTime? Cancelled { get; set; }
+        public DateTime? Published { get; set; }
+
+        public IEnumerable<JobSkillEditViewModel> Skills { get; set; }
+        public int CompanyId { get; set; }
+        public string Description { get; set; }
+        public string Code { get; set; }
+        public string Title { get; set; }
+        public DateTime End { get; set; }
+        public int Rate { get; set; }
+        public DateTime Start { get; set; }
+        public IEnumerable<JobLocationEditViewModel> Locations { get; set; }
     }
 
     public class JobApplicationHistoryViewModel
@@ -26,6 +60,8 @@ namespace Talent21.Service.Models
         public JobActionEnum Act { get; set; }
         public DateTime Created { get; set; }
         public string CreateBy { get; set; }
+
+        public int ApplicationId { get; set; }
     }
 
     public class ContractorActJobApplicationViewModel
@@ -62,6 +98,12 @@ namespace Talent21.Service.Models
     }
 
     public class CreateJobApplicationHistoryViewModel
+    {
+        public int Id { get; set; }
+        public string Notes { get; set; }
+    }
+
+    public class DeleteJobApplicationHistoryViewModel
     {
         public int Id { get; set; }
         public string Notes { get; set; }

@@ -22,18 +22,24 @@ namespace Talent21.Data.Repository
 
         public override IQueryable<Job> All
         {
-            get { return base.All.Include(x => x.Skills).Include(x => x.Location).Include(x => x.Company); }
+            get { return base.All.Include(x => x.Skills).Include(x => x.Locations).Include(x => x.Company); }
         }
 
         public IQueryable<Job> Mine(string userId)
         {
-            return base.All.Where(x => x.Company.OwnerId == userId).Include(x => x.Skills).Include(x => x.Location).Include(x => x.Company);
+            return base.All.Where(x => x.Company.OwnerId == userId).Include(x => x.Skills).Include(x => x.Locations).Include(x => x.Company);
         }
 
 
         internal static void Register(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Job>().HasKey(x => x.Id);
+            modelBuilder.Entity<Job>().HasMany(x => x.Locations).WithMany(x => x.Jobs).Map(x =>
+            {
+                x.MapLeftKey("JobId");
+                x.MapRightKey("LocationId");
+                x.ToTable("JobsLocationMapping");
+            });
         }
 
 

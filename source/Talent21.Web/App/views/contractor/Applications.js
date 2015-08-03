@@ -1,31 +1,62 @@
 ﻿app.controller('contractorApplicationsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
-    $scope.title = "Applied Jobs";
-
-    $scope.query = {
-        keywords: $routeParams.q || $routeParams.keywords || '',
-        location: $routeParams.location || '',
-        skills: $routeParams.skills || ''
-    }
-
-    console.log($routeParams, $scope.query);
-
-
-    function fetchResults(query, page) {
-        db.contractor.search(query, page).success(function (result) {
-            $scope.count = result.count;
+    $scope.title = "Job Applications";
+    $scope.getApplications = function () {
+        db.contractor.getJobApplications().success(function (result) {
             $scope.records = result.items;
-            $scope.page = page;
-            $scope.pages = db.findPages(result);
+            console.log('My applied jobs' + $scope.records);
         });
     }
+    $scope.getApplications();
 
-    $scope.search = function (query) {
-        var q = '';
-        for (var x in query) {
-            q += (q === '' ? '?' : '&') + x + '=' + query[x];
-        }
-        window.location = '#/applications' + q;
+    $scope.itemsPerPage = 5;
+    $scope.currentPage = 0;
+    $scope.items = [];
+
+    for (var i = 0; i < 50; i++) {
+        $scope.items.push({ id: i, name: "name " + i, description: "description " + i });
     }
 
-    fetchResults($scope.query, $routeParams.page || 1);
+    $scope.range = function () {
+        var rangeSize = 5;
+        var ret = [];
+        var start;
+
+        start = $scope.currentPage;
+        if (start > $scope.pageCount() - rangeSize) {
+            start = $scope.pageCount() - rangeSize + 1;
+        }
+
+        for (var i = start; i < start + rangeSize; i++) {
+            ret.push(i);
+        }
+        return ret;
+    };
+
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+
+    $scope.prevPageDisabled = function () {
+        return $scope.currentPage === 0 ? "disabled" : "";
+    };
+
+    $scope.pageCount = function () {
+        return Math.ceil($scope.items.length / $scope.itemsPerPage) - 1;
+    };
+
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pageCount()) {
+            $scope.currentPage++;
+        }
+    };
+
+    $scope.nextPageDisabled = function () {
+        return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+    };
+
+    $scope.setPage = function (n) {
+        $scope.currentPage = n;
+    };
 }]);

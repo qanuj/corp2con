@@ -9,7 +9,7 @@
                         <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">
                             <h5>{{row.firstName}} {{row.lastName}}</h5>
-                            <p>{{row.about}}</p>
+                            <p>{{row.about | limitTo: 200}} <b style="color:#14b1bb;">... View More</b></p>
                         </div>
                         <div class="data">
                             <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
@@ -57,6 +57,14 @@
                                 <div class="checkbox" ng-repeat>
                                     <label>
                                         <input type="checkbox"> All Types
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5>Availability</h5>
+                                <div class="checkbox" ng-repeat>
+                                    <label>
+                                        <input type="checkbox"> Date Range Selector.
                                     </label>
                                 </div>
                             </div>

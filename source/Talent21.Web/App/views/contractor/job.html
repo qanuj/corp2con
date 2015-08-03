@@ -1,15 +1,19 @@
 ﻿<div>
     <div class=" col-md-offset-1 visible-lg-block">
-        <a class=" btn btn-primary margtop" ng-click="isCollapsed = !isCollapsed ">
+        <a ng-if="!record.isFavorite" class="btn btn-primary margtop" ng-click="favorite(record.items.id)">
             <i class="fa fa-edit"></i> Favorite
         </a>
-        <div class=" btn btn-info margtop" ng-click="apply(record)">
-            <i class="fa fa-check"></i> Apply To Job
+        <a ng-if="record.isFavorite" class="btn btn-primary margtop" ng-click="unfavorite(record)">
+            <i class="fa fa-edit"></i> Remove Favorite
+        </a>
+       <div ng-if="!record.isApplied" class=" btn btn-info margtop" ng-click="apply(record)">
+            <i class=" fa fa-check">
+            </i> Apply To Job
         </div>
-        <div class=" btn btn-warning margtop" ng-click="cancel(record)" style="visibility:hidden">
+        <div ng-if="record.isApplied" class=" btn btn-warning margtop" ng-click="revoke(record)">
             <i class="fa fa-cross"></i> Revoke <!--(If Already Applied)-->
         </div>
-        <div class=" btn btn-danger margtop" ng-click="delete(record)">
+        <div class=" btn btn-danger margtop" ng-click="delete(record)"  style="margin-left: 0px;">
             <i class="fa fa-thumbs-o-down"></i> Report
         </div>
     </div>
@@ -34,27 +38,70 @@
             <div class="row">
                 <div class="col-sm-8">
                     <article>
-
-                        <h2>{{record.title}}</h2>
+                    <h2>{{record.title}}  @ {{record.rate}}k</h2>
                         <p>{{record.description}}</p>
-                        <hr>
-                        <h2>{{record.location}}</h2>
-                        <hr>
-                        <h2>{{record.rate}}</h2>
-                        <hr>
-                        <h2>Required Skills :</h2>
-                        <p>{{record.skills}}</p>
-                        <hr>
-                        <h2>Company </h2>
-                        <p>{{record.company}}</p>
-                        <hr>
-                        <h2>Location :</h2>
-                        <p>{{record.location}}</p>
-                        <hr>
                     </article>
                 </div>
                     
                 <div class="col-sm-4" id="sidebar">
+                <div class="sidebar-widget">
+                    <a ng-if="!record.isFavorite" class="btn btn-primary btn-block" ng-click="favorite(record)">
+                        <i class="fa fa-heart"></i> Favorite
+                    </a>
+                    <a ng-if="record.isFavorite" class="btn btn-primary btn-block" ng-click="unfavorite(record)">
+                        <i class="fa fa-heart-o"></i> Remove Favorite
+                    </a>
+                    <a ng-if="!record.isApplied" class="btn btn-info btn-block" ng-click="apply(record)">
+                        <i class=" fa fa-check">
+                        </i> Apply
+                    </a>
+                    <a ng-if="record.isApplied" class=" btn btn-warning btn-block" ng-click="revoke(record)">
+                        <i class="fa fa-cross"></i> Revoke
+                    </a>
+                    <a class=" btn btn-danger btn-block" ng-click="delete(record)" style="margin-left: 0px;">
+                        <i class="fa fa-thumbs-o-down"></i> Report
+                    </a>
+                </div>
+                <div class="sidebar-widget">
+                    <a ng-repeat="s in record.skills" class="badge">{{s.title}}</a>
+                    <div class="featured-job">
+                        <div class="data">
+                            <span class="city"><i class="fa fa-map-marker"></i>{{record.location}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{record.location}}</span>
+                            <span class="sallary"><i class="fa fa-inr"></i>{{record.rate}}k</span>
+                        </div>
+                        <div class="data">
+                            <span class="city"><i class="fa fa-calendar"></i>{{record.start | date:'dd-MMM-yy'}}</span>
+                            <span class="experience"> to </span>
+                            <span class="sallary"><i class="fa fa-calendar"></i>{{record.end | date:'dd-MMM-yy'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-widget" id="company">
+                    <h2>About this company</h2>
+                    <p>
+                        <img src="{{record.logo}}" alt="" class="img-responsive">
+                    </p>
+                    <p>{{record.about}}</p>
+                    <p>
+                        <a href="#/company/{{record.companyId}}" class="btn btn-primary">Read more</a>
+                    </p>
+                    <h2>Contact</h2>
+                    <ul>
+                        <li><i class="fa fa-building"></i> {{record.company}}</li>
+                        <li><i class="fa"></i> {{record.firstName}} {{record.lastName}}</li>
+                        <li><i class="fa fa-map-marker"></i> {{record.location}}</li>
+                        <li><i class="fa fa-phone"></i> {{record.mobile}}</li>
+                        <li><i class="fa fa-envelope"></i> <a href="mailto:{{record.email}}">{{record.email}}</a></li>
+                    </ul>
+                </div>
+                <hr ng-if="jobs">
+                <div ng-if="jobs" class="sidebar-widget" id="company-jobs">
+                    <h2>More jobs from this company</h2>
+                    <ul>
+                        <li ng-repeat="s in jobs"><a href="#/job/{{s.id}}}">{{s.title}}</a></li>
+                    </ul>
+                </div>
                     <div class="sidebar-widget" id="share">
                         <h2>Share it</h2>
                         <ul>
@@ -64,24 +111,7 @@
                             <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{page}}"><i class="fa fa-linkedin"></i></a></li>
                         </ul>
                     </div>
-                    <hr>
-                    <!--<div class="sidebar-widget" id="widget-contact">
-                        <h2>Contact</h2>
-                        <ul>
-                            <li><i class="fa fa-building"></i>Netvibes</li>
-                            <li><i class="fa fa-map-marker"></i>2 Madison Avenue</li>
-                            <li><i class="fa"></i>New York City, 29478 USA</li>
-                            <li><i class="fa fa-phone"></i>01.22.987.8392</li>
-                            <li><i class="fa fa-envelope"></i><a href="mailto:company@yourdomain.com">Send an email</a></li>
-                        </ul>
-                    </div>-->
                 </div>
             </div>
-            <!--<div class="row text-center" ng-if="role === 'Contractor'">
-                <p>&nbsp;</p>
-                <div class="btn btn-primary"  >Apply</div>
-            </div>-->
         </div>
     </section>
-</div>
-

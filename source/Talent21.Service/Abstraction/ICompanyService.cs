@@ -14,11 +14,12 @@ namespace Talent21.Service.Abstraction
         CompanyViewModel GetProfile(int id);
 
         JobViewModel  Create(CreateJobViewModel model);
+        JobViewModel Create(CreateJobViewModel model, int companyId);
+
         JobViewModel Update(EditJobViewModel model);
         bool Delete(DeleteJobViewModel model);
         bool Publish(PublishJobViewModel model);
         bool Cancel(CancelJobViewModel model);
-
         IQueryable<CompanyViewModel> Companies { get; }
         IQueryable<JobViewModel> Jobs { get; }
 
@@ -30,9 +31,9 @@ namespace Talent21.Service.Abstraction
         JobViewModel ById(int id);
 
         IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model);
-
         CompanyDashboardViewModel GetDashboard(string userId);
-
-        
+        IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location);
+        IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location);
+        bool  Promote(PromoteJobViewModel model);
      }
 }

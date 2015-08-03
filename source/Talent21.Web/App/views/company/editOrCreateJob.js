@@ -30,7 +30,9 @@
     };
 
     $scope.save = function (record) {
-
+        $('input[type=text]').each(function () {
+            $(this).val('');
+        });
         if (record.loc) {
             record.location = record.loc.formatted_address;
         }
