@@ -6,7 +6,7 @@
                 <div class="jobs">
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="featured"></div>
-                        <div class="{{row.jobs.ifFeatured}}"></div>
+                        <div class="{{row.ifFeatured}}"></div>
                         <div class="title">
                             <h5>{{row.title}}</h5>
                             <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
@@ -21,13 +21,14 @@
 
                 <nav>
                     <ul class="pagination">
-                        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li ng-class="prevPageDisabled()"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                        <li class="active"><a ng-click="prevPage()">1 <span class="sr-only">(current)</span></a></li>
+                        <li ng-repeat="n in JobApplications()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
                         <li><a href="#">5</a></li>
-                        <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                        <li ng-class="nextPageDisabled()"><a ng-click="nextPage()" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
                     </ul>
                 </nav>
             </div>

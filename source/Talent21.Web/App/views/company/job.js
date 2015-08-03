@@ -15,6 +15,11 @@
         });
     }
 
+    $scope.unpublish = function (record) {
+        db.contractor.unpublish(id).success(function (result) {
+            $scope.record.ispublish = false;
+        });
+    }
     $scope.cancel = function (id) {
         db.job.cancel(id).success(function (result) {
             $window.location.href = '/#/jobs';
@@ -24,6 +29,11 @@
     $scope.delete = function (id) {
         db.job.delete(id).success(function (result) {
             $window.location.href = '/#/jobs';
+        });
+    }
+    $scope.view = function (id) {
+        db.job.view(id).success(function (result) {
+            $window.location.href = '/#/SingleJobApplications';
         });
     }
 }]);

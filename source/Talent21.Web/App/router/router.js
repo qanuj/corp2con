@@ -35,19 +35,16 @@
                   templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
                   controller: 'contractorJobController'
               })
-            .when('/job/apply/:id', {
-                templateUrl: '/app/views/contractor/applications.html',
-                controller: 'contractorApplicationController'
-            })
+           
              .when('/job/application/favorite/:id', {
                  templateUrl: '/app/views/contractor/favouritejobs.html',
                  controller: 'contractorApplicationController'
              })
-
             .when('/skills', {
                 templateUrl: '/app/views/system/skills.html',
                 controller: 'jobskillsController'
             })
+           
              .when('/company/:id', {
                  templateUrl: '/app/views/company/profile.html',
                  controller: 'companyProfileController'
@@ -68,6 +65,7 @@
                templateUrl: '/app/views/system/functional.html',
                controller: 'functionalController'
            })
+             
            .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider
@@ -116,6 +114,10 @@
                  templateUrl: '/app/views/contractor/profile.html',
                  controller: 'contractorProfileController'
              })
+            .when('/jobapplications', {
+                templateUrl: '/app/views/company/SingleJobApplications.html',
+                controller: 'companyApplicationsController'
+            })
             .otherwise({ redirectTo: '/' });
     }
 

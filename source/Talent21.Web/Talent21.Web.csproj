@@ -339,6 +339,8 @@
     <Content Include="App\template\js\scrollReveal.min.js" />
     <Content Include="App\template\js\settings.js" />
     <Content Include="App\template\js\waypoints.min.js" />
+    <Content Include="App\views\company\SingleJobApplications.html" />
+    <Content Include="App\views\company\SingleJobApplications.js" />
     <Content Include="App\views\company\editOrCreateJob.html" />
     <Content Include="App\views\company\editOrCreateJob.js" />
     <Content Include="App\views\system\functional.html" />
