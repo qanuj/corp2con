@@ -32,6 +32,6 @@ namespace Talent21.Data.Core
         { get; set; }
         public DateTime? Published { get; set; }
 
-        public IList<JobAdvertisement> Advertisements { get; set; } 
+        public IList<JobAdvertisement> Advertisements { get; set; }
     }
 }

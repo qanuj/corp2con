@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Lucene.Net.Linq.Mapping;
 using Talent21.Data.Core;
 
@@ -49,6 +50,8 @@ namespace Talent21.Service.Models
 
         public string Company { get; set; }
 
+        public string PictureUrl { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mobile { get; set; }
@@ -66,6 +69,8 @@ namespace Talent21.Service.Models
         public string About { get; set; }
         public string Email { get; set; }
         public IEnumerable<DictionaryViewModel> Locations { get; set; }
+
+        public DictionaryViewModel Location => Locations.FirstOrDefault();
         public PromotionEnum Promotion { get; set; }
     }
 
@@ -102,6 +107,12 @@ namespace Talent21.Service.Models
     public class DeleteJobViewModel : IdModel { }
     public class CancelJobViewModel : IdModel { }
     public class PublishJobViewModel : IdModel { }
+
+
+    public class PromoteJobViewModel : IdModel
+    {
+        public PromotionEnum Promotion { get; set; }
+    }
 
     public class FeaturedCompanyViewModel
     {

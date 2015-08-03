@@ -34,5 +34,6 @@ namespace Talent21.Service.Abstraction
         CompanyDashboardViewModel GetDashboard(string userId);
         IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location);
         IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location);
+        bool  Promote(PromoteJobViewModel model);
      }
 }

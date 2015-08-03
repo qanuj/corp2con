@@ -34,6 +34,7 @@ namespace Talent21.Service.Core
                             where !job.IsCancelled && job.IsPublished
                             select new JobSearchResultViewModel
                             {
+                                PictureUrl=job.Company.PictureUrl,
                                 FirstName = job.Company.FirstName,
                                 LastName = job.Company.LastName,
                                 Mobile = job.Company.Mobile,

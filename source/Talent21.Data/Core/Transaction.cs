@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
@@ -8,11 +7,6 @@ using e10.Shared.Data.Abstraction;
 
 namespace Talent21.Data.Core
 {
-    public class AdvertisementTransaction : Transaction
-    {
-        public IList<Advertisement> Advertisements { get; set; }
-    }
-
     public class Transaction : Entity
     {
         public string Reason { get; set; }

@@ -1,4 +1,5 @@
-﻿@model Talent21.Web.Models.WelcomePageViewModel
+﻿@using Talent21.Data.Core
+@model Talent21.Web.Models.WelcomePageViewModel
 @{
     ViewBag.PageId = "home";
     ViewBag.Title = "Welcome";
@@ -90,17 +91,19 @@
                         <!-- Job offer 1 -->
                         @foreach (var job in Model.Jobs)
                         {
-                            <a href="/#/job/@job.">
-                                <div class="featured"></div>
-                                <img src="/images/job1.jpg" alt="" class="img-circle"/>
+                            <a href="/#/job/@job.Id" class="promote-@PromotionEnum.Highlight.ToString().ToLower()">
+                                @if (job.Promotion == PromotionEnum.Highlight)
+                                {
+                                    <div class="featured"></div>
+                                }
                                 <div class="title">
-                                    <h5>Web Designer</h5>
-                                    <p>Amazon Inc.</p>
+                                    <h5>@job.Title</h5>
+                                    <p>@job.Company</p>
                                 </div>
                                 <div class="data">
-                                    <span class="city"><i class="fa fa-map-marker"></i>New York City</span>
+                                    <span class="city"><i class="fa fa-map-marker"></i>@job.Location.Title</span>
                                     <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
-                                    <span class="sallary"><i class="fa fa-dollar"></i>45,000</span>
+                                    <span class="sallary"><i class="fa fa-int"></i>@(job.Rate)k</span>
                                 </div>
                             </a>
                         }
@@ -116,12 +119,11 @@
                 <div class="col-sm-4">
                     <h2>Featured Jobs</h2>
                     <a href="/#/job/@Model.FeaturedJob.Id">
-                        <img src="http://placehold.it/400x265.jpg" alt="Featured Job" class="img-responsive"/>
+                        <img src="@Model.FeaturedJob.PictureUrl" alt="@Model.FeaturedJob.Company" class="img-responsive"/>
                         <div class="featured-job">
-                            <img src="images/job1.jpg" alt="" class="img-circle"/>
                             <div class="title">
                                 <h5>@Model.FeaturedJob.Title</h5>
-                                <p>@Model.FeaturedJob.Company</p>
+                                <p class="fewlines">@Model.FeaturedJob.Company</p>
                             </div>
                             @foreach (var loc in Model.FeaturedJob.Locations)
                             {
@@ -221,7 +223,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="video-wrapper">
-                    <iframe src="https://player.vimeo.com/video/121698707" allowfullscreen></iframe>
+                    
                 </div>
             </div>
         </div>
