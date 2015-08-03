@@ -593,6 +593,7 @@
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Setup\Index.cshtml" />
     <Content Include="Views\Shared\_Unsecured.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\views\job\" />
