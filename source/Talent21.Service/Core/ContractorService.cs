@@ -180,8 +180,48 @@ namespace Talent21.Service.Core
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 OwnerId = model.OwnerId,
-                Email = model.Email
+                Email = model.Email,
+                PictureUrl = model.PictureUrl,
+                About = model.About,
+                Rate = model.Rate,
+                RateType = model.RateType,
+                Nationality = model.Nationality,
+                FunctionalAreaId = model.FunctionalAreaId,
+                AlternateNumber = model.AlternateNumber,
+                ConsultantType = model.ConsultantType,
+                ContractType = model.ContractType,
+                Gender = model.Gender,
+                Profile = model.Profile,
+                Experience = new Duration() {Months = model.ExperienceMonths, Years = model.ExperienceYears},
+                Location = FindLocation(model.Location),
+                Mobile = model.Mobile,
+                Social = new Social
+                {
+                    Twitter = model.Twitter,
+                    Facebook = model.Facebook,
+                    Yahoo = model.Yahoo,
+                    Google = model.Google,
+                    LinkedIn = model.LinkedIn,
+                    Rss = model.Rss,
+                    WebSite = model.WebSite
+                }
             };
+
+            if (model.Skills != null)
+            {
+                foreach (var mskill in model.Skills)
+                {
+                    _contractorSkillRepository.Create(new ContractorSkill
+                    {
+                        Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code },
+                        Level = mskill.Level,
+                        Proficiency = mskill.Proficiency,
+                        ExperienceInMonths = mskill.ExperienceInMonths,
+                        Contractor = entity
+                    });
+                }
+            }
+
             _contractorRepository.Create(entity);
             _contractorRepository.SaveChanges();
             return new ContractorEditViewModel()
@@ -325,15 +365,19 @@ namespace Talent21.Service.Core
             }
             return false;
         }
-
-
+        
 
         public ScheduleViewModel Create(CreateScheduleViewModel model)
         {
             var contractor = FindContractor(CurrentUserId);
+            return Create(model, contractor.Id);
+        }
+
+        public ScheduleViewModel Create(CreateScheduleViewModel model,int contractorId)
+        {
             var entity = new Schedule
             {
-                ContractorId = contractor.Id,
+                ContractorId = contractorId,
                 Start = model.Start,
                 End = model.End,
                 Description = model.Company,
@@ -396,7 +440,10 @@ namespace Talent21.Service.Core
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
 
-
+        public ContractorViewModel GetFavorite(int id)
+        {
+            return Contractors.FirstOrDefault(n => n.Id == id);
+        }
         public ContractorDashboardViewModel GetDashboard(string userId)
         {
             var nextWeek = DateTime.UtcNow.AddDays(7);

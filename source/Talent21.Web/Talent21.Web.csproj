@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -338,6 +339,8 @@
     <Content Include="App\template\js\scrollReveal.min.js" />
     <Content Include="App\template\js\settings.js" />
     <Content Include="App\template\js\waypoints.min.js" />
+    <Content Include="App\views\company\SingleJobApplications.html" />
+    <Content Include="App\views\company\SingleJobApplications.js" />
     <Content Include="App\views\company\editOrCreateJob.html" />
     <Content Include="App\views\company\editOrCreateJob.js" />
     <Content Include="App\views\system\functional.html" />
@@ -382,6 +385,7 @@
     <Content Include="App\template\candidates.html" />
     <Content Include="App\template\company.html" />
     <Content Include="App\views\upload\file.html" />
+    <Content Include="App_Data\Database.sql" />
     <Content Include="Content\css\animate.css" />
     <Content Include="Content\css\bannerscollection_zoominout.css" />
     <Content Include="Content\css\bootstrap-theme.css" />

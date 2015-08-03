@@ -3,6 +3,7 @@
     $scope.getApplications = function () {
         db.contractor.getJobApplications().success(function (result) {
             $scope.records = result.items;
+            console.log($scope.records);
         });
     }
     $scope.getApplications();

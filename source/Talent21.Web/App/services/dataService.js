@@ -57,10 +57,6 @@
         return $http.put(v + '/job/application/' + id + '/apply');
     }
 
-    //factory.contractor.getJobApplications = function (id) {
-    //    return $http.get(v + '/contractor/job/application/' + (!!id ? '/' + id : ''));
-    //}
-
     factory.contractor.getJobApplications = function () {
         return $http.get(v + 'contractor/job/application/');
     }
@@ -74,10 +70,23 @@
         return $http.put(v + 'contractor/job/application/' + id + '/favorite');
     }
 
+    //Sonal
+    factory.contractor.getFavoriteApplications = function () {
+        return $http.get(v + 'contractor/job/application/favorite/all');
+    }
+
+    factory.contractor.getContractorFavoriteById = function (Id) {
+        return $http.get(v + 'job/application/{id}/favorite?$filter=Id eq ' + Id);
+    }
+    //End code of Sonal
+
     factory.contractor.unfavorite = function (id) {
         return $http.delete(v + 'contractor/job/application/' + id + '/favorite');
     }
 
+    factory.contractor.getfavorite = function (id) {
+        return $http.get(v + 'contractor/job/application/' + id + '/favorite');
+    }
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'contractor/schedule', formData);
     }
@@ -149,6 +158,9 @@
         return $http.get(v + 'company/top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page));
     }
 
+    factory.company.getJobApplications = function (id) {
+        return $http.get(v + 'company/job/' + id + '/applications/all');
+    }
 
     //For Jobs
 
@@ -169,6 +181,7 @@
     }
 
     factory.job.publish = function (id) { return $http.put(v + 'company/job/publish', { id: id }); }
+    factory.job.unpublish = function (id) { return $http.put(v + 'company/job/unpublish', { id: id }); }
     factory.job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
     factory.job.revoke = function (id) { return $http.put(v + 'contractor/job/application/'+id+'/revoke'); }
     factory.job.delete = function (id) { return $http.delete(v + 'company/job/'+id); }

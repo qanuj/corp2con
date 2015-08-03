@@ -1,35 +1,25 @@
 ﻿<div>
-    <div class="visible-xs" ng-if="role === 'Company'">
-        <a class=" btn btn-primary margtop" href="/#/job/edit/{{}}">
-            <i class="fa fa-edit"></i> Edit Job
-        </a>
-        <div class=" btn btn-info margtop" ng-click="publish(record.id)">
-            <i class="fa fa-check"></i> Publish
-        </div>
-        <div class=" btn btn-warning margtop" ng-click="cancel(record.id)">
-            <i class="fa fa-cross"></i> Cancel
-        </div>
-        <div class=" btn btn-danger margtop" ng-click="delete(record.id)">
-            <i class="fa fa-thumbs-o-down"></i> Delete
+    <div ng-if="role === 'Company'" style="background:#14b1bb;">
+        <div class="container" style="text-align:center;">
+            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}" style=" margin-left:13px;">
+                <i class="fa fa-edit"></i> Edit Job
+            </a>
+            <div class=" btn btn-primary" ng-click="publish(record.id)" ng-if="!record.isPublished">
+                <i class="fa fa-check"></i> Publish
+            </div>
+            <div class=" btn btn-primary" ng-click="cancel(record.id)" ng-if="record.isPublished">
+                <i class="fa fa-thumbs-o-down"></i> Cancel
+            </div>
+            <div class=" btn btn-primary" ng-click="delete(record.id)">
+                <i class="fa fa-trash"></i> Delete
+            </div>
+            <div class=" btn btn-primary" ng-click="view(record.id)">
+                <i class="fa fa-file-code-o"></i> View Application
+            </div>
         </div>
     </div>
     <section id="title">
-        <div class=" editbtn hidden-xs">
-            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}"><i class="fa fa-edit"></i> Edit Job</a>
-            <br />
-            <div class=" btn btn-info margtop" ng-click="publish(record.id)">
-                <i class="fa fa-check"></i> Publish
-            </div>
-            <br />
-            <div class=" btn btn-warning margtop" ng-click="cancel(record.id)">
-                <i class="fa fa-thumbs-o-down"></i> Cancel
-            </div>
-            <br />
-            <div class=" btn btn-danger margtop" ng-click="delete(record.id)">
-                <i class="fa fa-trash"></i> Delete
-            </div>
-            <br />
-        </div>
+      
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center">

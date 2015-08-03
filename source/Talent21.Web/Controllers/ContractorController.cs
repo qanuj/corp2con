@@ -69,7 +69,7 @@ namespace Talent21.Web.Controllers
         [Route("profile/{id}")]
         public ContractorViewModel GetContractorProfileById(int id)
         {
-            return _service.GetProfile(id);
+            return _service.GetFavorite(id);
         }
 
         [HttpPost]
@@ -214,6 +214,23 @@ namespace Talent21.Web.Controllers
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel{Id=id}, JobActionEnum.Revoke)) : Bad(ModelState);
+        }
+
+        //Favorite related api
+        [HttpGet]
+        [Route("job/application/{id}/favorite")]
+        public ContractorViewModel GetContractorFavoriteById(int id)
+        {
+            return _service.GetFavorite(id);
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [Route("job/application/favorite/all")]
+        public IQueryable<ContractorViewModel> ViewContractorsQuery()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Contractors;
         }
 
         [HttpPut]

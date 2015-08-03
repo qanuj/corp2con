@@ -14,11 +14,12 @@ namespace Talent21.Service.Abstraction
         CompanyViewModel GetProfile(int id);
 
         JobViewModel  Create(CreateJobViewModel model);
+        JobViewModel Create(CreateJobViewModel model, int companyId);
+
         JobViewModel Update(EditJobViewModel model);
         bool Delete(DeleteJobViewModel model);
         bool Publish(PublishJobViewModel model);
         bool Cancel(CancelJobViewModel model);
-
         IQueryable<CompanyViewModel> Companies { get; }
         IQueryable<JobViewModel> Jobs { get; }
 
