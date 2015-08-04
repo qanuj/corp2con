@@ -46,7 +46,7 @@ namespace Talent21.Service.Models
 
         [NumericField]
         public int Id { get; set; }
-        
+
         public string Code { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -79,7 +79,7 @@ namespace Talent21.Service.Models
 
     public class SkillConverter : TypeConverter
     {
-        
+
     }
 
     public class EditJobViewModel : CreateJobViewModel
@@ -129,7 +129,10 @@ namespace Talent21.Service.Models
 
     public class StatsViewModel
     {
-        public int Members => Companies + Contractors;
+        public int Members
+        {
+            get { return Companies + Contractors; } 
+        }
 
         public int Jobs { get; set; }
 
