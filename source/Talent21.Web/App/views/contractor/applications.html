@@ -6,7 +6,7 @@
                 <div class="jobs">
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="featured"></div>
-                        <div class="{{row.jobs.ifFeatured}}"></div>
+                        <div class="{{row.ifFeatured}}"></div>
                         <div class="title">
                             <h5>{{row.title}}</h5>
                             <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
@@ -32,6 +32,6 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+                    </div>
     </div>
-</section>
+  </section>

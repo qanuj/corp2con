@@ -40,11 +40,11 @@
                  templateUrl: '/app/views/contractor/favouritejobs.html',
                  controller: 'contractorApplicationController'
              })
-
             .when('/skills', {
                 templateUrl: '/app/views/system/skills.html',
                 controller: 'jobskillsController'
             })
+           
              .when('/company/:id', {
                  templateUrl: '/app/views/company/profile.html',
                  controller: 'companyProfileController'
@@ -65,6 +65,7 @@
                templateUrl: '/app/views/system/functional.html',
                controller: 'functionalController'
            })
+             
            .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider
