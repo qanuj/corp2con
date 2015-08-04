@@ -13,8 +13,8 @@
             <div class=" btn btn-primary" ng-click="delete(record.id)">
                 <i class="fa fa-trash"></i> Delete
             </div>
-            <div class=" btn btn-primary" ng-click="view(record.id)">
-                <i class="fa fa-file-code-o"></i> View Application
+            <div class=" btn btn-primary">
+                <i class="fa fa-file-code-o"></i> <a href="/#/job/{{record.id}}/applications">View applications</a> 
             </div>
         </div>
     </div>
@@ -82,3 +82,10 @@
         </div>
     </section>
 </div>
+
+
+<style>
+    a, a:hover {
+        color: #ffffff;
+    }
+</style>
