@@ -39,7 +39,10 @@ namespace Talent21.Service.Models
     public class JobSearchResultViewModel
     {
         [Field("text", Store = StoreMode.No)]
-        public string SearchText => string.Join(" ", new[] { Code, Title, Description, Company });
+        public string SearchText
+        {
+            get { return string.Join(" ", new[] { Code, Title, Description, Company }); }
+        }
 
         [NumericField]
         public int Id { get; set; }

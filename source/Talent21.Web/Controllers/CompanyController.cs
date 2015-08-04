@@ -206,6 +206,14 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.MoveApplication(model)) : Bad(ModelState);
         }
 
+        [HttpGet]
+        [Route("transaction")]
+        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Transactions(), options);
+        }
+
         //contractor related api
 
         [HttpPost]
