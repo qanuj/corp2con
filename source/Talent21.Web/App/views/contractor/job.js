@@ -10,7 +10,7 @@
             var job = result.items[0];
             if (!job) return;
             
-            console.log(result);
+            console.log('My job',result);
 
             for (var act in job.actions) {
                 $scope.record.applicationId = job.actions[act].applicationId;//job application id;
@@ -37,12 +37,13 @@
 
     $scope.revoke = function (record) {
         db.job.revoke(record.applicationId).success(function (result) {
+            $scope.record.isApplied = false;
             console.log('Job Cancelled');
         });
     }
 
     $scope.apply = function (record) {
-        db.contractor.ApplyToJob(record.applicationId).success(function (result) {
+        db.contractor.ApplyToJob(record.id).success(function (result) {
             $scope.record.isApplied = true;
             $scope.record.applied = new Date();
         });

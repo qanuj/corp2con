@@ -1,6 +1,6 @@
 ﻿<div>
     <div class=" col-md-offset-1 visible-lg-block">
-        <a ng-if="!record.isFavorite" class="btn btn-primary margtop" ng-click="favorite(record)">
+        <a ng-if="!record.isFavorite" class="btn btn-primary margtop" ng-click="favorite(record.items.id)">
             <i class="fa fa-edit"></i> Favorite
         </a>
         <a ng-if="record.isFavorite" class="btn btn-primary margtop" ng-click="unfavorite(record)">
@@ -39,20 +39,20 @@
                 <div class="col-sm-8">
                     <article>
                         <h2>{{record.title}}</h2>
+                        <h2>Description :</h2>
                         <p>{{record.description}}</p>
                         <hr>
-                        <h2>{{record.location}}</h2>
+                        <h2>Location :</h2>
+                        <h3>{{record.location}}</h3>
                         <hr>
-                        <h2>{{record.rate}}</h2>
+                        <h2>Rate :</h2>
+                        <h3>{{record.rate}}</h3>
                         <hr>
                         <h2>Required Skills :</h2>
-                        <p>{{record.skills}}</p>
+                        <p><span class="badge" ng-repeat="record in record.skills">{{record.code}}</span></p>
                         <hr>
                         <h2>Company </h2>
-                        <p>{{record.company}}</p>
-                        <hr>
-                        <h2>Location :</h2>
-                        <p>{{record.location}}</p>
+                        <h3>{{record.company}}</h3>
                         <hr>
                     </article>
                 </div>

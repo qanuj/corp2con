@@ -35,10 +35,7 @@
                   templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
                   controller: 'contractorJobController'
               })
-            .when('/job/apply/:id', {
-                templateUrl: '/app/views/contractor/applications.html',
-                controller: 'contractorApplicationController'
-            })
+           
              .when('/job/application/favorite/:id', {
                  templateUrl: '/app/views/contractor/favouritejobs.html',
                  controller: 'contractorApplicationController'
