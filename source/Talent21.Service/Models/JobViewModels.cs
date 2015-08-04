@@ -73,7 +73,10 @@ namespace Talent21.Service.Models
         public string Email { get; set; }
         public IEnumerable<DictionaryViewModel> Locations { get; set; }
 
-        public DictionaryViewModel Location => Locations.FirstOrDefault();
+        public DictionaryViewModel Location
+        {
+            get { return Locations.FirstOrDefault(); }
+        }
         public PromotionEnum Promotion { get; set; }
     }
 
