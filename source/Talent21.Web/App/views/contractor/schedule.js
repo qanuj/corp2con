@@ -1,10 +1,10 @@
 ﻿app.controller('jobscheduleController', ['$scope', 'dataService', function ($scope, db) {
 
     $scope.save = function (record) {
-    $('input[type=text]').each(function () {
-            $(this).val('');
+        db.contractor.createSchedule(record).success(refreshRecord).finally(function() {
+            $scope.start = '';
+            $scope.end = '';
         });
-        db.contractor.createSchedule(record).success(refreshRecord);
     }
 
     function refreshRecord(page) {
@@ -14,9 +14,6 @@
                 d.end = moment(d.end).toDate();
             });
             $scope.schedule = result;
-            angular.element('#startdate').val("");
-            angular.element('#enddate').val("");
-
         });
     }
 

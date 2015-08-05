@@ -241,7 +241,21 @@
         );
     }
 
-    factory.applied = [];
+    factory.system.enums = function (name) {
+        var deferred = $q.defer();
+        var that = this;
+        if (!that.enumsRows) {
+            $http.get(v + 'system/enums').success(function(enums) {
+                that.enumsRows = enums;
+                deferred.resolve(that.enumsRows[name]);
+            });
+        } else {
+            setTimeout(function () {
+                deferred.resolve(that.enumsRows[name]);
+            }, 10);
+        }
+        return deferred.promise;
+    }
 
     return factory;
 }]);
