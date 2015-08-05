@@ -267,6 +267,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route("top/employers/{skill}/{location}")]
         public IQueryable<PictureViewModel> TopEmployers(string skill,string location)
         {
@@ -277,6 +278,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("latest/jobs/{skill}/{location}")]
+        [EnableQuery]
         public IQueryable<JobSearchResultViewModel> GetLatestJobs(string skill, string location)
         {
             _service.CurrentUserId = User.Identity.GetUserId();

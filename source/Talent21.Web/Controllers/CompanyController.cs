@@ -92,6 +92,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route("job/all")]
         public IQueryable<JobViewModel> ViewJobsQuery()
         {
@@ -186,6 +187,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/{id}/applications/all")]
+        [EnableQuery]
         public IQueryable<JobApplicationViewModel> ViewJobsQuery(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -247,6 +249,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("latest/profiles/{skill}/{location}")]
+        [EnableQuery]
         public IQueryable<ContractorSearchResultViewModel> GetLatestProfiles(string skill, string location)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -256,6 +259,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("top/profiles/{skill}/{location}")]
+        [EnableQuery]
         public IQueryable<AvailableRatedCandidateProfileViewModel> GetTopRatedAvailableProfiles(string skill, string location)
         {
             _service.CurrentUserId = User.Identity.GetUserId();

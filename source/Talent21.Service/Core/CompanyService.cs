@@ -241,6 +241,8 @@ namespace Talent21.Service.Core
 
         private void ApplyLocations(CreateJobViewModel model, Job entity)
         {
+            if (entity.Locations == null) entity.Locations = new List<Location>();
+
             var IDs = model.Locations.Select(x => x.Id).ToList();
             var xIDs = entity.Locations.Select(x => x.Id).ToList();
 

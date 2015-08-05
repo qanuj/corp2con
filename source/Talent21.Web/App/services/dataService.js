@@ -200,6 +200,12 @@
         return $http.get(uri);
     }
 
+   factory.system.getLocations = function (q) {
+        var uri = v + 'system/location/all';
+        if (q) uri += '?$filter=startswith(Title,\'' + q + '\')';
+        return $http.get(uri);
+    }
+
     factory.system.addSkill = function (record) {
         return $http.post(v + 'system/skill/create', record);
     }
