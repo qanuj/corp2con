@@ -510,8 +510,36 @@ namespace Talent21.Service.Core
 
         public CompanyDashboardViewModel GetDashboard(string userId)
         {
+            var skill = "Java";
+            var location = "Hydrabad";
+
+            var skillRow = _jobSkillRepository.All.Where(x => x.Job.Company.OwnerId == userId).GroupBy(x => x.Skill.Title).Select(x => new { Skill = x.Key, Count = x.Count() }).OrderByDescending(x => x.Count).FirstOrDefault();
+            if (skillRow != null) skill = skillRow.Skill;
+
+            var locationRow = _jobRepository.All.Where(x => x.Company.OwnerId == userId && x.Skills.Any(y=>y.Skill.Title==skill))
+                .SelectMany(x => x.Locations.Select(y =>new {Location=y.Title}))
+                .GroupBy(x=>x.Location).Select(x => new { Location = x.Key, count = x.Count() })
+                .OrderByDescending(x => x.count).FirstOrDefault();
+            if (locationRow != null) location = locationRow.Location;
+
+            var aggregateReport = _contractorRepository.All
+                .SelectMany(x => x.Skills.Where(y=>y.Level==LevelEnum.Primary).Select(y => new { Skill = y.Skill.Title,Location=x.Location.Title,x.Rate, Available=x.Schedules.Where(z=>z.IsAvailable).OrderBy(z=>z.Start).Select(z=>z.Start).FirstOrDefault()}))
+                .GroupBy(x => new {x.Skill,x.Location}).Select(x => new
+                {
+                    Salary=new MinMax { Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate)},
+                    Duration= new MinMax<DateTime> { Min = x.Min(y => y.Available), Max = x.Max(y => y.Available) },
+                })
+                .FirstOrDefault();
+
             return new CompanyDashboardViewModel
             {
+                Aggregate = new CompanyAggregateReport
+                {
+                    Skill=skill,
+                    Location = location,
+                    Salary = aggregateReport.Salary,
+                    Duration = aggregateReport.Duration,
+                },
                 Views = _companyVisitRepository.Mine(userId).Count(),
                 Applications = _jobApplicationRepository.Mine(userId).Count(x => x.History.Any(y => y.Act == JobActionEnum.Application) && x.History.All(y => y.Act != JobActionEnum.Rejected) && x.History.All(y => y.Act != JobActionEnum.Revoke)),
                 Contractors = _contractorRepository.MatchingCompanyJobs(userId).Count(),

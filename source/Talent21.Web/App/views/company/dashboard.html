@@ -180,21 +180,32 @@
             </div>
         </div>
         <div class="col-md-4" id="sidebar">
-
             <div class="row">
-
-                <div class="col-lg-12">
-                    <h5 class="page-header">
-                        Quick Actions
-                    </h5>
-                </div>
                 <div class="col-md-12">
-                    <a class="btn btn-xs btn-success" href="#/job/new"><i class="fa fa-suitcase"></i> Add New Job</a>
-                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-building"></i> Edit Jobs</a>
-                    <a class="btn btn-xs btn-primary" href="#/applications"><i class="fa fa-building"></i> View Applications</a>
-                    <a class="btn btn-xs btn-primary" href="#/bench"><i class="fa fa-users"></i> Manage Bench</a>
-                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-graduation-cap"></i> Promote Job</a>
-                    <a class="btn btn-xs btn-primary" href="#/shortlist"><i class="fa fa-graduation-cap"></i> Shortlist</a>
+                    <table class="table">
+                        <tr>
+                            <th>For {{record.aggregate.skill}}, {{record.aggregate.location}}</th>
+                            <th>Salary (Monthly)</th>
+                            <th>Duration (Days)</th>
+                        </tr>
+                        <tr>
+                            <th>Minimum</th>
+                            <td>{{record.aggregate.salary.min}}</td>
+                            <td>{{record.aggregate.duration.min | amDifference : null : 'days' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum</th>
+                            <td>{{record.aggregate.salary.max}}</td>
+                            <td>{{record.aggregate.duration.max| amDifference : null : 'days' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-block btn-success" href="#/job/new"><i class="fa fa-suitcase"></i> Add New Job</a>
+                    <a class="btn btn-block btn-primary" href="#/jobs"><i class="fa fa-building"></i> Manage Jobs</a>
+                    <a class="btn btn-block btn-primary" href="#/bench"><i class="fa fa-users"></i> Manage Bench</a>
                 </div>
             </div>
             <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive"/>

@@ -21,8 +21,8 @@
 
     //For Contractors
 
-    factory.contractor.paged = function () {
-        return $http.get(v + 'contractor/paged?$inlinecount=allpages');
+    factory.contractor.paged = function (page,pageSize) {
+        return $http.get(v + 'contractor/paged?$inlinecount=allpages' + calculatePaging(page,pageSize));
     }
 
     factory.contractor.dashboard = function () {
@@ -41,8 +41,8 @@
         return $http.put(v + 'contractor/profile', formData);
     }
 
-    factory.contractor.search = function (query) {
-        return $http.post(v + 'job/search', query);
+    factory.contractor.search = function (query,page,pageSize) {
+        return $http.post(v + 'job/search?$inlinecount=allpages'+ calculatePaging(page,pageSize), query);
     }
 
     factory.contractor.jobById = function (id) {
@@ -57,8 +57,8 @@
         return $http.put(v + '/job/application/' + id + '/apply');
     }
 
-    factory.contractor.getJobApplications = function (jobId) {
-        return $http.get(v + 'company/job/' + jobId + '/applications/paged?$inlinecount=allpages');
+    factory.contractor.getJobApplications = function (jobId,page,pageSize) {
+        return $http.get(v + 'company/job/' + jobId + '/applications/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
 
@@ -94,8 +94,8 @@
         return $http.delete(v + 'contractor/schedule/' + record.id);
     }
 
-    factory.contractor.getSchedule = function (page) {
-        return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page));
+    factory.contractor.getSchedule = function (page,pageSize) {
+        return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
     factory.contractor.getLatestJobs = function (skill, location, page, pageSize) {
@@ -109,8 +109,8 @@
 
     //For companies
 
-    factory.company.paged = function () {
-        return $http.get(v + 'company/paged?$inlinecount=allpages');
+    factory.company.paged = function (page,pageSize) {
+        return $http.get(v + 'company/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
     factory.company.dashboard = function () {
@@ -126,32 +126,28 @@
         return $http.get(v + 'company/profile' + (!!id ? '/' + id : ''));
     }
 
-    factory.company.searchContractor = function (query) {
-        return $http.post(v + 'company/search', query);
-    }
-
     factory.company.update = function (formData) {
         return $http.put(v + 'company/profile', formData);
     }
 
-    factory.company.myJobs = function (page) {
-        return $http.get(v + 'company/job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page));
+    factory.company.myJobs = function (page,pageSize) {
+        return $http.get(v + 'company/job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
-    factory.company.limitJobs = function () {
-        return $http.get(v + 'company/job/paged?$inlinecount=allpages');
+    factory.company.limitJobs = function (page,pageSize) {
+        return $http.get(v + 'company/job/paged?$inlinecount=allpages'+calculatePaging(page,pageSize));
     }
 
-    factory.company.search = function (query) {
-        return $http.post(v + 'company/search', query);
+    factory.company.search = function (query,page,pageSize) {
+        return $http.post(v + 'company/search?$inlinecount=allpages' + calculatePaging(page, pageSize), query);
     }
 
-    factory.company.getLatestProfiles = function(skill, location, page) {
-        return $http.get(v + 'company/latest/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page));
+    factory.company.getLatestProfiles = function(skill, location, page,pageSize) {
+        return $http.get(v + 'company/latest/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
-    factory.company.getTopProfiles = function (skill, location, page) {
-        return $http.get(v + 'company/top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page));
+    factory.company.getTopProfiles = function (skill, location, page,pageSize) {
+        return $http.get(v + 'company/top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
     factory.company.getJobApplications = function (id) {
@@ -176,8 +172,8 @@
         return $http.get(v + 'company/job/' + id);
     }
 
-    factory.job.paged = function (page) {
-        return $http.get(v + 'company/job/paged?$inlinecount=allpages$orderby=Id desc' + calculatePaging(page));
+    factory.job.paged = function (page,pageSize) {
+        return $http.get(v + 'company/job/paged?$inlinecount=allpages$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
     factory.job.create = function (formData) {
@@ -218,8 +214,8 @@
         return $http.delete(v + 'system/skill/' + record.id);
     }
 
-    factory.system.getIndustries = function (page) {
-        return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page));
+    factory.system.getIndustries = function (page,pageSize) {
+        return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
     factory.system.addIndustry = function (record) {
@@ -233,8 +229,8 @@
     }
 
 
-    factory.system.getFunctionals = function (page) {
-        return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page));
+    factory.system.getFunctionals = function (page,pageSize) {
+        return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
     factory.system.addFunctional = function (record) {
