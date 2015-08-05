@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
@@ -328,11 +327,11 @@ namespace Talent21.Service.Core
         }
 
 
-        public IQueryable<JobApplicationCompanyViewModel> Applications(int id=0)
+        public IQueryable<JobApplicationCompanyViewModel> Applications(int id = 0)
         {
-            return _jobApplicationRepository.All.Where(x => x.JobId == id || (id==0 && x.Job.Company.OwnerId==CurrentUserId)).Select(x => new JobApplicationCompanyViewModel
+            return _jobApplicationRepository.All.Where(x => x.JobId == id || (id == 0 && x.Job.Company.OwnerId == CurrentUserId)).Select(x => new JobApplicationCompanyViewModel
             {
-                Job=new DictionaryEditViewModel { Id=x.JobId,Code  = x.Job.Code,Title=x.Job.Title},
+                Job = new DictionaryEditViewModel { Id = x.JobId, Code = x.Job.Code, Title = x.Job.Title },
                 Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
                 Id = x.Id,
                 Contractor = new ContractorViewModel
@@ -431,8 +430,9 @@ namespace Talent21.Service.Core
         {
             get
             {
-                //Todo:color coded profiles based on dates.
                 var query = from x in _contractorRepository.All
+                            let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
+                            let days = DataFunctions.DiffDays2(DateTime.UtcNow,availableDay)
                             select new ContractorSearchResultViewModel
                             {
                                 Id = x.Id,
@@ -462,7 +462,9 @@ namespace Talent21.Service.Core
                                 PictureUrl = x.PictureUrl,
                                 OwnerId = x.OwnerId,
                                 Rate = x.Rate,
-                                Availability = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault(),
+                                Availability = availableDay,
+                                Days = days,
+                                Available= days<=6 ? AvailableEnum.Now : days <= 14 ? AvailableEnum.NextWeek : days <= 30 ? AvailableEnum.NextMonth: AvailableEnum.Later,
                                 Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
                                 {
                                     Id = y.Id,
@@ -500,7 +502,6 @@ namespace Talent21.Service.Core
             }
             if (!string.IsNullOrWhiteSpace(model.Skills))
             {
-                //TODO: AND OR LOGIC
                 var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
             }
@@ -516,18 +517,18 @@ namespace Talent21.Service.Core
             var skillRow = _jobSkillRepository.All.Where(x => x.Job.Company.OwnerId == userId).GroupBy(x => x.Skill.Title).Select(x => new { Skill = x.Key, Count = x.Count() }).OrderByDescending(x => x.Count).FirstOrDefault();
             if (skillRow != null) skill = skillRow.Skill;
 
-            var locationRow = _jobRepository.All.Where(x => x.Company.OwnerId == userId && x.Skills.Any(y=>y.Skill.Title==skill))
-                .SelectMany(x => x.Locations.Select(y =>new {Location=y.Title}))
-                .GroupBy(x=>x.Location).Select(x => new { Location = x.Key, count = x.Count() })
+            var locationRow = _jobRepository.All.Where(x => x.Company.OwnerId == userId && x.Skills.Any(y => y.Skill.Title == skill))
+                .SelectMany(x => x.Locations.Select(y => new { Location = y.Title }))
+                .GroupBy(x => x.Location).Select(x => new { Location = x.Key, count = x.Count() })
                 .OrderByDescending(x => x.count).FirstOrDefault();
             if (locationRow != null) location = locationRow.Location;
 
             var aggregateReport = _contractorRepository.All
-                .SelectMany(x => x.Skills.Where(y=>y.Level==LevelEnum.Primary).Select(y => new { Skill = y.Skill.Title,Location=x.Location.Title,x.Rate, Available=x.Schedules.Where(z=>z.IsAvailable).OrderBy(z=>z.Start).Select(z=>z.Start).FirstOrDefault()}))
-                .GroupBy(x => new {x.Skill,x.Location}).Select(x => new
+                .SelectMany(x => x.Skills.Where(y => y.Level == LevelEnum.Primary).Select(y => new { Skill = y.Skill.Title, Location = x.Location.Title, x.Rate, Available = x.Schedules.Where(z => z.IsAvailable).OrderBy(z => z.Start).Select(z => z.Start).FirstOrDefault() }))
+                .GroupBy(x => new { x.Skill, x.Location }).Select(x => new
                 {
-                    Salary=new MinMax { Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate)},
-                    Duration= new MinMax<DateTime> { Min = x.Min(y => y.Available), Max = x.Max(y => y.Available) },
+                    Salary = new MinMax { Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate) },
+                    Duration = new MinMax<DateTime> { Min = x.Min(y => y.Available), Max = x.Max(y => y.Available) },
                 })
                 .FirstOrDefault();
 
@@ -535,7 +536,7 @@ namespace Talent21.Service.Core
             {
                 Aggregate = new CompanyAggregateReport
                 {
-                    Skill=skill,
+                    Skill = skill,
                     Location = location,
                     Salary = aggregateReport.Salary,
                     Duration = aggregateReport.Duration,

@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
@@ -33,5 +34,7 @@ namespace Talent21.Data.Repository
     public interface IContractorRepository : IRepository<Contractor>
     {
         IQueryable<Contractor> MatchingCompanyJobs(string userId);
+
+        
     }
 }

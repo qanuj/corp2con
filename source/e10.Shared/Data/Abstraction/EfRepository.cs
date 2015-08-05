@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 using e10.Shared.Util;
 
@@ -11,7 +14,16 @@ namespace e10.Shared.Data.Abstraction
     {
     }
 
-    public abstract class EfDictionaryRepository<TDictionary> : EfRepository<TDictionary>,IDictionaryRepository<TDictionary> where TDictionary : Dictionary
+    public class DataFunctions
+    {
+        [DbFunction("Edm", "DiffDays")]
+        public static int? DiffDays2(DateTime? date1, DateTime? date2)
+        {
+            throw new NotSupportedException("Default date diff not working");
+        }
+    }
+
+    public abstract class EfDictionaryRepository<TDictionary> : EfRepository<TDictionary>, IDictionaryRepository<TDictionary> where TDictionary : Dictionary
     {
         protected EfDictionaryRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
         {
@@ -25,7 +37,6 @@ namespace e10.Shared.Data.Abstraction
             return All.FirstOrDefault(x => x.Code == code);
         }
 
-
         public IQueryable<TDictionary> ByTitle(IEnumerable<string> titles)
         {
             return All.Where(x => titles.Contains(x.Title));
@@ -38,6 +49,8 @@ namespace e10.Shared.Data.Abstraction
 
     public abstract class EfMyRepository<TEntity> : EfRepository<TEntity>, IMyRepository<TEntity> where TEntity : Entity
     {
+       
+
         protected EfMyRepository(DbContext db, IEventManager eventManager) : base(db, eventManager) { }
         public TEntity MyOne(string userId, int id)
         {
@@ -59,8 +72,10 @@ namespace e10.Shared.Data.Abstraction
         }
 
     }
-    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity,ISoftDelete
+    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, ISoftDelete
     {
+        public IEntityFunctions Funcs { get; set; }
+
         protected EfRepository(DbContext context, IEventManager eventManager)
         {
             Guard.ArgumentNotNull(context, "EF Data Context");
@@ -80,7 +95,7 @@ namespace e10.Shared.Data.Abstraction
         {
             get
             {
-                return Set.Where(x=>!x.IsDeleted);
+                return Set.Where(x => !x.IsDeleted);
             }
         }
 
@@ -114,7 +129,7 @@ namespace e10.Shared.Data.Abstraction
         {
             Guard.ArgumentNotNull(entity, "Create Entity");
             Context.Entry(entity).State = EntityState.Added;
-            if(entity is IState)
+            if (entity is IState)
             {
                 UpdateCreateState(entity as IState);
             }
@@ -134,7 +149,7 @@ namespace e10.Shared.Data.Abstraction
         public virtual TEntity ById(int id)
         {
             var entity = Set.Find(id);
-            if(entity is ISoftDelete) if((entity as ISoftDelete).IsDeleted) return null;
+            if (entity is ISoftDelete) if ((entity as ISoftDelete).IsDeleted) return null;
             return entity;
         }
 
@@ -156,7 +171,7 @@ namespace e10.Shared.Data.Abstraction
         {
             Guard.ArgumentNotNull(entity, "Delete Entity");
             Attach(entity);
-            if(entity is ISoftDelete)
+            if (entity is ISoftDelete)
             {
                 SoftDelete(entity as ISoftDelete);
             }
@@ -171,7 +186,7 @@ namespace e10.Shared.Data.Abstraction
             Guard.ArgumentNotNull(entity, "Update Entity");
             Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            if(entity is IState)
+            if (entity is IState)
             {
                 UpdateState(entity as IState);
             }
@@ -179,7 +194,7 @@ namespace e10.Shared.Data.Abstraction
 
         protected void AttachDetachedCollection(ICollection<TEntity> entities)
         {
-            foreach(var entity in entities)
+            foreach (var entity in entities)
             {
                 Attach(entity);
                 Context.Entry(entity).State = EntityState.Unchanged;
@@ -208,7 +223,7 @@ namespace e10.Shared.Data.Abstraction
 
         public virtual void Delete(ICollection<TEntity> entities)
         {
-            foreach(var entity in entities)
+            foreach (var entity in entities)
             {
                 Delete(entity);
             }

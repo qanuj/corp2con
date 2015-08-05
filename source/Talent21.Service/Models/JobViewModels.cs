@@ -26,6 +26,13 @@ namespace Talent21.Service.Models
 
     }
 
+    public enum AvailableEnum
+    {
+        Now,
+        NextWeek,
+        NextMonth,
+        Later
+    }
     public class ContractorSearchResultViewModel : ContractorViewModel
     {
         [Field("text", Store = StoreMode.No)]
@@ -34,6 +41,8 @@ namespace Talent21.Service.Models
             get { return string.Join(" ", new[] { FirstName, LastName, Mobile, Location, About }); }
         }
         public DateTime Availability { get; set; }
+        public int? Days { get; set; }
+        public AvailableEnum Available { get; set; }
     }
 
     public class JobSearchResultViewModel

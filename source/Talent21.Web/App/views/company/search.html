@@ -3,8 +3,22 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>{{title}} {{count}}</h2>
-                <div class="jobs" ng-repeat="row in records">
-                    <a href="#/contractor/{{row.id}}">
+                <div class="jobs">
+                    <div ng-if="!records.count">
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Ooops! You got us..</strong>
+                            <p>
+                                We could not find anything.
+                            </p>
+                            <p>
+                                <a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a>
+                            </p>
+                        </div>
+                    </div>
+                    <a href="#/contractor/{{row.id}}" ng-repeat="row in records">
                         <div ng-if="row.featured" class="featured"></div>
                         <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">

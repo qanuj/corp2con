@@ -16,6 +16,9 @@
         }
         return pg;
     }
+    function orderBy(order) {
+        return '&$orderby=' + order;
+    }
 
     factory.role = document.querySelector('html').dataset.role;
 
@@ -138,8 +141,8 @@
         return $http.get(v + 'company/job/paged?$inlinecount=allpages'+calculatePaging(page,pageSize));
     }
 
-    factory.company.search = function (query,page,pageSize) {
-        return $http.post(v + 'company/search?$inlinecount=allpages' + calculatePaging(page, pageSize), query);
+    factory.company.search = function (query,page,pageSize,order) {
+        return $http.post(v + 'company/search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy(order), query);
     }
 
     factory.company.getLatestProfiles = function(skill, location, page,pageSize) {
