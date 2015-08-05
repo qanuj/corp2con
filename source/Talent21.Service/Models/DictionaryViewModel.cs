@@ -1,7 +1,21 @@
-﻿using Talent21.Data.Core;
+﻿using System;
+using Talent21.Data.Core;
 
 namespace Talent21.Service.Models
 {
+    public class TransactionViewModel
+    {
+        public int Id { get; set; }
+        public string Reason { get; set; }
+        public bool IsSuccess { get; set; }
+        public int Credit { get; set; }
+        public string Code { get; set; }
+        public string PaymentCapture { get; set; }
+        
+        public float Amount { get; set; }
+        public DateTime Created { get; set; }
+        public string UserName { get; set; }
+    }
     public class DictionaryViewModel  
     {
         public string Code { get; set; }
@@ -25,7 +39,10 @@ namespace Talent21.Service.Models
         public int Id { get; set; }
     }
 
-
+    public class JobLocationEditViewModel : DictionaryViewModel
+    {
+        public int Id { get; set; }
+    }
     public class JobSkillEditViewModel : JobSkillCreateViewModel
     {
         public int Id { get; set; }

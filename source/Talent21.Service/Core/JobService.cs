@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using e10.Shared.Util;
 using Talent21.Data.Core;
@@ -12,13 +13,13 @@ namespace Talent21.Service.Core
     {
         private readonly IJobRepository _jobRepository;
         private readonly ICompanyRepository _companyRepository;
-        private readonly IJobApplicationRepository _jobApplicationRepository;
+        private readonly IContractorRepository _contractorRepository;
 
-        public JobService(IJobRepository jobRepository, IJobApplicationRepository jobApplicationRepository, ICompanyRepository companyRepository)
+        public JobService(IJobRepository jobRepository,ICompanyRepository companyRepository, IContractorRepository contractorRepository)
         {
             _jobRepository = jobRepository;
-            _jobApplicationRepository = jobApplicationRepository;
             _companyRepository = companyRepository;
+            _contractorRepository = contractorRepository;
         }
         
         public string CurrentUserId { private get; set; }
@@ -27,21 +28,50 @@ namespace Talent21.Service.Core
         {
             get
             {
+                //TODO:color coded jobs based on dates.
+                
                 var query = from job in _jobRepository.All
                             where !job.IsCancelled && job.IsPublished
                             select new JobSearchResultViewModel
                             {
-                                LocationCode=job.Location.Code,
+                                PictureUrl=job.Company.PictureUrl,
+                                FirstName = job.Company.FirstName,
+                                LastName = job.Company.LastName,
+                                Mobile = job.Company.Mobile,
+                                WebSite = job.Company.Social.WebSite,
+                                About = job.Company.About,
+                                Email = job.Company.Email,
                                 Code=job.Code,
                                 Title=job.Title,
                                 Description=job.Description,
-                                Location=job.Location.Title,
                                 Company=job.Company.CompanyName,
                                 Rate=job.Rate,
                                 Start=job.Start,
                                 End=job.End,
                                 Id=job.Id,
-                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title })
+                                Promotion = job.Advertisements.Where(x => x.Start <= DateTime.UtcNow && x.End > DateTime.UtcNow).Select(x=>x.Promotion).FirstOrDefault(),
+                                Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title }),
+                                Locations = job.Locations.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
+                            };
+                return query;
+            }
+        }
+
+        protected IQueryable<FeaturedCompanyViewModel> Companies
+        {
+            get
+            {
+                //TODO:color coded jobs based on dates.
+
+                var query = from company in _companyRepository.All
+                            select new FeaturedCompanyViewModel
+                            {
+                                WebSite = company.Social.WebSite,
+                                CompanyName = company.CompanyName,
+                                PictureUrl = company.PictureUrl,
+                                Id = company.Id,
+                                Jobs=company.Jobs.Count(x=>!x.IsCancelled && x.IsPublished),
+                                Promotion = company.Advertisements.Where(x => x.Start <= DateTime.UtcNow && x.End > DateTime.UtcNow).Select(x => x.Promotion).FirstOrDefault(),
                             };
                 return query;
             }
@@ -53,7 +83,7 @@ namespace Talent21.Service.Core
             //Rules of searching.
             if(!string.IsNullOrWhiteSpace(model.Location))
             {
-                query = query.Where(x => x.Location.Contains(model.Location));
+                query = query.Where(x => x.Locations.Any(y=>y.Title==model.Location));
             }
             if(!string.IsNullOrWhiteSpace(model.Skills))
             {
@@ -84,7 +114,32 @@ namespace Talent21.Service.Core
 
         public IQueryable<JobSearchResultViewModel> TopJobs(string skill, string location)
         {
-            return Jobs.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
+            return Jobs.Where(x => x.Skills.Any(y => y.Code == skill) && x.Locations.Any(y=>y.Code==location));
+        }
+
+        public IList<JobSearchResultViewModel> LatestJobs(int count)
+        {
+            return Jobs.OrderByDescending(x => x.Id).Take(count).ToList();
+        }
+
+        public JobSearchResultViewModel GetFeaturedJob()
+        {
+            return Jobs.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.Promotion==PromotionEnum.Global);
+        }
+
+        public IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count)
+        {
+            return Companies.Where(x => x.Promotion == PromotionEnum.Global).OrderByDescending(x => x.Id).Take(count).ToList();
+        }
+
+        public StatsViewModel GetStats()
+        {
+            return new StatsViewModel
+            {
+                Jobs = _jobRepository.All.Count(x=>!x.IsCancelled && x.IsPublished),
+                Companies = _companyRepository.All.Count(),
+                Contractors = _contractorRepository.All.Count()
+            };
         }
     }
 }

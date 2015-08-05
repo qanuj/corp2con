@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="@Url.Content("~/")">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Corp2Con</title>
+    <link rel="shortcut icon" href="~/content/images/favicon.png">
+    @Styles.Render("~/Content/site")
+</head>
+<body id="home">
+    <div class="fm-outer">
+        <div class="fm-inner">
+            @Html.Partial("_Header")
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/script/site")
+    @RenderSection("Scripts", false)
+</body>
+</html>

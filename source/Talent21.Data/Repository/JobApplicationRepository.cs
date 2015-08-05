@@ -9,6 +9,7 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
+    
 
     public class JobApplicationRepository : EfRepository<JobApplication>, IJobApplicationRepository
     {

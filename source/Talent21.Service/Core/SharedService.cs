@@ -11,12 +11,29 @@ namespace Talent21.Service.Core
     {
         public string CurrentUserId { set; protected get; }
 
-        private readonly ILocationRepository _locationRepository;
+        protected readonly ILocationRepository _locationRepository;
+        protected readonly ITransactionRepository _transactionRepository;
 
-        protected SharedService(ILocationRepository locationRepository)
+        protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository)
         {
             _locationRepository = locationRepository;
+            _transactionRepository = transactionRepository;
         }
+
+        public IQueryable<TransactionViewModel> Transactions()
+        {
+            return _transactionRepository.All.Where(x=>x.UserId==CurrentUserId).Select(x=> new TransactionViewModel
+            {
+                Id=x.Id,
+                Amount = x.Amount,
+                Credit = x.Credit,
+                Code = x.Code,
+                IsSuccess = x.IsSuccess,
+                PaymentCapture = x.PaymentCapture,
+                Reason = x.Reason,
+                Created = x.Created
+            });
+        } 
 
         protected Location FindLocation(string address)
         {

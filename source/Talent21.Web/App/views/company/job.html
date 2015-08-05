@@ -7,8 +7,14 @@
             <div class=" btn btn-primary" ng-click="publish(record.id)" ng-if="!record.isPublished">
                 <i class="fa fa-check"></i> Publish
             </div>
-            <div class=" btn btn-primary" ng-click="cancel(record.id)" ng-if="record.isPublished">
-                <i class="fa fa-thumbs-o-down"></i> Cancel
+        <div class=" btn btn-warning margtop" ng-click="promote(record.id)">
+            <i class="fa fa-check"></i> Promote
+        </div>
+        <div class=" btn btn-info margtop" ng-click="publish(record.id)">
+            <i class="fa fa-check"></i> Publish
+        </div>
+        <div class=" btn btn-warning margtop" ng-click="cancel(record.id)">
+            <i class="fa fa-cross"></i> Cancel
             </div>
             <div class=" btn btn-primary" ng-click="delete(record.id)">
                 <i class="fa fa-trash"></i> Delete
@@ -16,7 +22,16 @@
             <div class=" btn btn-primary">
                 <i class="fa fa-file-code-o"></i> <a href="/#/job/{{record.id}}/applications">View applications</a> 
             </div>
+    <section id="title">
+        <div class="editbtn hidden-xs">
+            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}"><i class="fa fa-edit"></i> Edit Job</a>
+            <br />
+            <div class=" btn btn-info margtop" ng-click="publish(record.id)">
+                <i class="fa fa-check"></i> Publish
         </div>
+            <br />
+            <div class=" btn btn-warning margtop" ng-click="promote(record.id)">
+                <i class="fa fa-check"></i> Promote
     </div>
     <section id="title">
       

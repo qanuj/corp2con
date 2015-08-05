@@ -534,7 +534,7 @@ namespace Talent21.Service.Core
                 x.Include<CreateJobViewModel>()
                     .Setup(c => c.Description).Use<LoremIpsumSource>(20)
                     .Setup(c => c.Title).Use<JobTitleSource>()
-                    .Setup(c => c.Location).Use<IndianCitySource>()
+                    //.Setup(c => c.Location).Use<IndianCitySource>()
                     .Setup(c => c.Rate).Use<IntegerSource>(100, 10000)
                     .Setup(c => c.Start).Use<DateTimeSource>(DateTime.UtcNow.AddMonths(-1), DateTime.UtcNow.AddMonths(10))
                     .Setup(c => c.End).Use<DateTimeSource>(DateTime.UtcNow.AddMonths(3), DateTime.UtcNow.AddMonths(36));
@@ -546,7 +546,7 @@ namespace Talent21.Service.Core
                 x.AddFromAssemblyContainingType<JobSkillEditViewModel>();
                 x.Include<JobSkillEditViewModel>()
                     .Setup(u => u.Level).Use<EnumSource<LevelEnum>>()
-                    .Setup(u => u.Code).Use<DictionaryCodeSource>(new[] { skills });
+                    .Setup(u => u.Title).Use<DictionaryCodeSource>(new[] { skills });
             });
 
             var jobSession = jobFactory.CreateSession();

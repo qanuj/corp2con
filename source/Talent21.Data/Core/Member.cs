@@ -15,6 +15,8 @@ namespace Talent21.Data.Core
         public int? IndustryId { get; set; }
 
         public string About { get; set; }
+
+        public User Owner { get; set; }
         public string OwnerId { get; set; }
 
         protected Member()

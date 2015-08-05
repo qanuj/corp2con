@@ -21,6 +21,8 @@ namespace Talent21.Service.Core
         private readonly IJobRepository _jobRepository;
         private readonly IJobSkillRepository _jobSkillRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
+
+        private readonly IAdvertisementRepository _advertisementRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly IContractorSkillRepository _contractorSkillRepository;
 
@@ -32,8 +34,10 @@ namespace Talent21.Service.Core
             ILocationRepository locationRepository, 
             IContractorRepository contractorRepository, 
             IContractorSkillRepository contractorSkillRepository, 
-            ICompanyVisitRepository companyVisitRepository)
-            : base(locationRepository)
+            ICompanyVisitRepository companyVisitRepository, 
+            ITransactionRepository transactionRepository, 
+            IAdvertisementRepository advertisementRepository)
+            : base(locationRepository, transactionRepository)
         {
             _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
@@ -43,6 +47,7 @@ namespace Talent21.Service.Core
             _contractorRepository = contractorRepository;
             _contractorSkillRepository = contractorSkillRepository;
             _companyVisitRepository = companyVisitRepository;
+            _advertisementRepository = advertisementRepository;            
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -218,18 +223,39 @@ namespace Talent21.Service.Core
                 Code = model.Code,
                 Title = model.Title,
                 End = model.End,
-                Location = FindLocation(model.Location),
                 Rate = model.Rate,
                 Start = model.Start
             };
 
             ApplySkills(model, entity);
+            ApplyLocations(model, entity);
 
             _jobRepository.Create(entity);
             _jobRepository.SaveChanges();
 
             return Jobs.FirstOrDefault(x => x.Id == entity.Id);
 
+        }
+
+        private void ApplyLocations(CreateJobViewModel model, Job entity)
+        {
+            var IDs = model.Locations.Select(x => x.Id).ToList();
+            var xIDs = entity.Locations.Select(x => x.Id).ToList();
+
+            //Created Skills
+            var newLocs = model.Locations.Where(x => x.Id == 0);
+            foreach (var mloc in newLocs)
+            {
+                var loc = _locationRepository.ByTitle(mloc.Title) ?? new Location() {Title = mloc.Title, Code = mloc.Code};
+                entity.Locations.Add(loc);
+            }
+
+            //Deleted Skills
+            var deletedLocations = _locationRepository.All.Where(x => !IDs.Contains(x.Id) && xIDs.Contains(x.Id)).ToList();
+            for (var i = 0; i < deletedLocations.Count; i++)
+            {
+                entity.Locations.Remove(deletedLocations[i]);
+            }
         }
 
 
@@ -254,11 +280,11 @@ namespace Talent21.Service.Core
             entity.Code = model.Code;
             entity.Title = model.Title;
             entity.End = model.End;
-            entity.Location = FindLocation(model.Location);
             entity.Rate = model.Rate;
             entity.Start = model.Start;
 
             ApplySkills(model,entity);
+            ApplyLocations(model,entity);
 
             _jobRepository.Update(entity);
             _jobRepository.SaveChanges();
@@ -383,8 +409,8 @@ namespace Talent21.Service.Core
                     Cancelled = x.Cancelled,
                     IsPublished = x.IsPublished,
                     Published = x.Published,
-                    Location = x.Location.Title,
-                    Skills = x.Skills.Select(y => new JobSkillViewModel { Code = y.Skill.Code,Level = y.Level, Id = y.Id, Title = y.Skill.Title }),
+                    Skills = x.Skills.Select(y => new JobSkillViewModel { Code = y.Skill.Code, Level = y.Level, Id = y.Id, Title = y.Skill.Title }),
+                    Locations = x.Locations.Select(y => new JobLocationEditViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
                     CompanyId = x.CompanyId,
                     Description = x.Description,
                     Code = x.Code,
@@ -400,6 +426,7 @@ namespace Talent21.Service.Core
         {
             get
             {
+                //Todo:color coded profiles based on dates.
                 var query = from x in _contractorRepository.All
                             select new ContractorSearchResultViewModel
                             {
@@ -515,5 +542,33 @@ namespace Talent21.Service.Core
                 Rating = 1
             });
         }
+
+        public bool Promote(PromoteJobViewModel model)
+        {
+            var entity = _jobRepository.ById(model.Id);
+            if (entity == null) return false;
+
+            _advertisementRepository.Create(new JobAdvertisement()
+            {
+                JobId = entity.Id,
+                Start = DateTime.UtcNow,
+                End = DateTime.UtcNow.AddDays(30),
+                Promotion = model.Promotion,
+                Transaction = new AdvertisementTransaction
+                {
+                   Amount  = ((int)model.Promotion) *10,
+                   Credit = ((int)model.Promotion) * 100,
+                   IsSuccess = true, //should come from PayU Money,
+                   PaymentCapture = "Some Data of Payment Capture",
+                   UserId = CurrentUserId
+                },
+                Title = string.Format("Promoted Job ({1}) as {0}",model.Promotion,entity.Id)
+            });
+
+            var rowsAffested = _advertisementRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        
     }
 }

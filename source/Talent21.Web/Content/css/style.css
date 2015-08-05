@@ -387,6 +387,81 @@ header {
         color: #fff;
     }
 
+/* 
+   2.3 Navbar
+-------------------------------------------------------------------*/
+.navbar-brand {
+		padding: 0 15px;
+	}
+
+	.nav > li > a {
+		font-weight: bold;
+		padding-left: 10px;
+		padding-right: 10px;
+		text-transform: uppercase;
+	
+		padding-top: 8px;
+		padding-bottom: 9px;
+}
+
+	#home .navbar-default {
+	    background: -moz-linear-gradient(top,  rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,0)));
+		background: -webkit-linear-gradient(top,  rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%);
+		background: -o-linear-gradient(top,  rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%);
+		background: -ms-linear-gradient(top,  rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%);
+		background: linear-gradient(to bottom,  rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%);
+	    -webkit-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#00000000',GradientType=0 );
+	    -moz-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#00000000',GradientType=0 );
+	    -o-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#00000000',GradientType=0 );
+	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#00000000',GradientType=0 );
+		border: 0;
+		display: block;
+		min-height: 200px;
+	}
+
+#home .fixed .navbar-default {
+		background: #373a3e;
+		min-height: 85px;
+	}
+
+	.navbar-nav .dropdown-menu {
+		background: #2c2f33;
+		border: 0;
+		top: 75%;
+	}
+
+		.navbar-nav .dropdown-menu:before {
+			background: #2c2f33;
+			content: "";
+			display: block;
+			height: 10px;
+			position: absolute;
+			right: 30px;
+			top: -5px;
+			width: 10px;
+			-ms-transform: rotate(45deg); /* IE 9 */
+			-webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+			transform: rotate(45deg);
+		}
+
+		.navbar-nav .dropdown-menu a {
+			color: #89909a;
+		}
+
+			.navbar-nav .dropdown-menu a:hover,
+			.navbar-nav .dropdown-menu > .active > a,
+			.navbar-nav .dropdown-menu > .active > a:hover,
+			.navbar-nav .dropdown-menu > .active > a:focus {
+				background: none;
+				color: #fff;
+			}
+
+		.navbar-nav .dropdown-menu .divider {
+			background-color: #4b4e52;
+		}
+
+
 /* 3. SLIDER
 -------------------------------------------------------------------*/
 
@@ -532,19 +607,19 @@ header {
 }
 
 .bg-img-1 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider1.jpg');
 }
 
 .bg-img-2 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider2.jpg');
 }
 
 .bg-img-3 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider3.jpg');
 }
 
 .bg-img-4 {
-    background-image: url(http://placehold.it/1400x900.jpg);
+    background-image: url('../images/slider/slider4.jpg');
 }
 
 .sl-slider-wrapper .tint {
@@ -1900,4 +1975,12 @@ label {
         margin: 5px 0 15px 0;
     }
 
+}
+
+.special .btn {
+    color: #fff;
+    margin: 5px 0;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
 }

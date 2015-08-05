@@ -43,7 +43,7 @@ namespace Talent21.Service.Models
         public bool IsCancelled { get; set; }
         public DateTime? Cancelled { get; set; }
         public DateTime? Published { get; set; }
-        public string Location { get; set; }
+
         public IEnumerable<JobSkillEditViewModel> Skills { get; set; }
         public int CompanyId { get; set; }
         public string Description { get; set; }
@@ -52,6 +52,7 @@ namespace Talent21.Service.Models
         public DateTime End { get; set; }
         public int Rate { get; set; }
         public DateTime Start { get; set; }
+        public IEnumerable<JobLocationEditViewModel> Locations { get; set; }
     }
 
     public class JobApplicationHistoryViewModel

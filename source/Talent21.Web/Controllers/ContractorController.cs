@@ -20,7 +20,6 @@ namespace Talent21.Web.Controllers
     {
         private readonly IContractorService _service;
         private readonly IJobService _jobService;
-        
 
         public ContractorController(IContractorService service, IJobService jobService)
         {
@@ -197,6 +196,14 @@ namespace Talent21.Web.Controllers
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Applications(), options);
+        }
+
+        [HttpGet]
+        [Route("transaction")]
+        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Transactions(), options);
         }
 
         //[HttpGet]

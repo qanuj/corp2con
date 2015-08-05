@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Log in";
 }
-
 <h2>@ViewBag.Title.</h2>
 <div class="row">
     <div class="col-md-8">
@@ -41,13 +40,12 @@
                         <input type="submit" value="Log in" class="btn btn-primary btn-lg" />
                     </div>
                 </div>
-                <p>
+                <div class="col-md-6">
                     @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
+                </div>
+                <div class="col-md-6 text-right">
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </div>
             }
         </section>
     </div>
