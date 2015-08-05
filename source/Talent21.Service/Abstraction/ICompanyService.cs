@@ -35,5 +35,7 @@ namespace Talent21.Service.Abstraction
         IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location);
         IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location);
         bool  Promote(PromoteJobViewModel model);
+        IQueryable<ScheduleViewModel> Schedules(int id);
+        JobApplicationCompanyViewModel Application(int id);
      }
 }

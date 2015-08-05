@@ -110,7 +110,7 @@
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'
             })
-             .when('/job/:jobID/contractor/:id', {
+             .when('/job/application/:id', {
                  templateUrl: '/app/views/company/contractorApplication.html',
                  controller: 'contractorApplicationController'
              })

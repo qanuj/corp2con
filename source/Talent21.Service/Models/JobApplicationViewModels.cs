@@ -7,6 +7,7 @@ namespace Talent21.Service.Models
 {
     public class JobApplicationCompanyViewModel : JobApplicationViewModel
     {
+        public DictionaryViewModel Job { get; set; }
         public ContractorViewModel Contractor { get; set; }
     }
 

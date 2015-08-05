@@ -4,7 +4,7 @@
             <div class="col-sm-8">
                 <h2>{{title}}</h2>
                 <div class="jobs" ng-repeat="row in records.items">
-                    <a href="#/job/{{jobId}}/contractor/{{row.id}}">
+                    <a href="#/job/application/{{row.id}}">
                         <div ng-if="row.featured" class="featured"></div>
                         <img src="{{row.contractor.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">

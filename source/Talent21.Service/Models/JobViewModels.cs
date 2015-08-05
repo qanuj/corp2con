@@ -108,6 +108,11 @@ namespace Talent21.Service.Models
         public int CompanyId { get; set; }
         public int Applied { get; set; }
         public string Company { get; set; }
+
+        public DictionaryViewModel Location
+        {
+            get { return Locations.FirstOrDefault(); }
+        }
     }
 
     public class DeleteJobViewModel : IdModel { }

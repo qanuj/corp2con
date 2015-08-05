@@ -100,6 +100,16 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
+        [Route("schedule/{id}")]
+        public IQueryable<ScheduleViewModel> ViewSchedulesQuery([FromUri]int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Schedules(id);
+        }
+
+
+        [HttpGet]
         [Route("job/{id}")]
         [ResponseType(typeof(JobViewModel))]
         public HttpResponseMessage SingleJob(int id)
@@ -181,6 +191,17 @@ namespace Talent21.Web.Controllers
             _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Applications(id);
         }
+       
+        [HttpGet]
+        [Route("job/application/{id}")]
+        [ResponseType(typeof(JobApplicationViewModel))]
+        public HttpResponseMessage GetJobApplication([FromUri]int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            var model = _service.Application(id);
+            return model == null ? NotFound() : Ok(model);
+        }
+
 
         [HttpPut]
         [Route("job/application/{id}/reject")]

@@ -1,75 +1,68 @@
-﻿<div ng-if="role == 'Company'" style="background:#14b1bb;">
-    <div class="container" style="text-align:center;">
-        <div class=" btn btn-primary" ng-click="accept(record.id)">
-            <i class="fa fa-check"></i> Accept
-        </div>
-        <div class=" btn btn-primary" ng-click="reject(record.id)">
-            <i class="fa fa-thumbs-o-down"></i> Reject
-        </div>
-        <div ng-if="role == 'Contractor'" class=" btn btn-primary">
-            <i class="fa fa-edit"></i> <a href="/#/profile/edit"> Edit Profile</a>
-        </div>
-    </div>
-</div>
-
-
-<section id="jobs">
+﻿<section id="jobs">
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
                 <article>
-                    <h2>{{job.title}}</h2>
-                    <p><i class="fa fa-map-marker"></i> {{job.location}}</p>
-                    <p>{{job.description | limitTo : 400}}</p>
+                    <h2>{{job.title}} <small>{{job.company}} - <i class="fa fa-map-marker"></i> {{job.location.title}}</small></h2>
+                    <p>{{job.description | limitTo : 400}}...</p>
+                </article>
+                <article>
+                    <h2><i class="fa fa-user"></i> {{record.firstName}} {{record.lastName}}</h2>
+                    <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left" />
+                    <p>{{record.about}}</p>
+                    <h3>Schedule</h3>
+                    <div class="listings strong">
+                        <div class="col-md-3">Note</div>
+                        <div class="col-md-3">Start</div>
+                        <div class="col-md-3">End</div>
+                        <div class="col-md-3">Duration</div>
+                    </div>
+                    <div class="listings" ng-repeat="s in schedule | orderBy:['-isAvailable','start']" ng-class="{'bg-success':s.isAvailable}">
+                        <div class="row">
+                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}}</div>
+                            <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
+                            <div class="col-md-3">{{s.end | date:'dd-MMM-yyyy'}}</div>
+                            <div class="col-md-3">{{s.end | amDifference : s.start : 'days'}}</div>
+                        </div>
+                    </div>
+                    <div ng-repeat="l in levels">
+                        <h3>{{l}} Skills</h3>
+                        <div class="listings" ng-repeat="s in record.skills | filter:{ level: l }">
+                            <div class="row">
+                                <div class="col-md-4">{{s.title}}</div>
+                                <div class="col-md-4">{{s.experienceInMonths}} Months </div>
+                                <div class="col-md-4">{{s.proficiency}}</div>
+                            </div>
+                        </div>
+                    </div>
                 </article>
             </div>
-        </div>
-
-        <hr />
-
-            <div class="row">
-                <div class="col-sm-8">
-                    <article>
-                        <h2><i class="fa fa-user"></i> {{record.firstName}} {{record.lastName}}</h2>
-                        <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left" />
-                        <p>{{record.about}}</p>
-                        <h3>Skills</h3>
-                        <ul>
-                            <li ng-repeat="s in record.skills">{{s.title}}</li>
-                        </ul>
-                        <p><a href="#" class="btn btn-primary btn-lg"><i class="fa fa-arrow-down"></i> Download Resume</a></p>
-                    </article>
+            <div class="col-sm-4" id="sidebar">
+                <div class="sidebar-widget">
+                    <button class="btn btn-block btn-primary" ng-click="accept(record.id)">
+                        <i class="fa fa-check"></i> Accept
+                    </button>
+                    <button class="btn btn-block btn-primary" ng-click="reject(record.id)">
+                        <i class="fa fa-thumbs-o-down"></i> Reject
+                    </button>
                 </div>
-                <div class="col-sm-4" id="sidebar">
-                    <div class="sidebar-widget" id="share">
-                        <h2>Share resume</h2>
-                        <ul>
-                            <li ng-if="record.facebook"><a href="{{record.facebook}}"><i class="fa fa-facebook"></i></a></li>
-                            <li ng-if="record.twitter"><a href="{{record.twitter}}"><i class="fa fa-twitter"></i></a></li>
-                            <li ng-if="record.google"><a href="{{record.google}}"><i class="fa fa-google-plus"></i></a></li>
-                            <li ng-if="record.linkedin"><a href="{{record.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
-                            <li ng-if="record.webSite"><a href="{{record.webSite}}"><i class="fa fa-globe"></i></a></li>
-                            <li ng-if="record.yahoo"><a href="{{record.yahoo}}"><i class="fa fa-yahoo"></i></a></li>
-                        </ul>
-                    </div>
-                    <hr>
-                    <div class="sidebar-widget" id="widget-contact">
-                        <h2>Contact</h2>
-                        <ul>
-                            <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
-                            <li ng-if="record.birthday"><i class="fa fa-birthday-cake"></i>{{record.birthday}}</li>
-                            <li ng-if="record.location"><i class="fa fa-map-marker"></i>{{record.location}}</li>
-                            <li ng-if="record.mobile"><i class="fa fa-phone"></i>{{record.mobile}}</li>
-                            <li ng-if="record.alternateNumber"><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
-                            <li ng-if="record.email"><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
-                        </ul>
-                    </div>
-                    <hr>
-                    <div class="sidebar-widget" id="skills">
-                        <h2>Key skills</h2>
-                        <a ng-repeat="s in record.skills" class="badge">{{s.title}}</a>
-                    </div>
+                <div class="sidebar-widget" id="widget-contact">
+                    <h2>Contact</h2>
+                    <ul>
+                        <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
+                        <li ng-if="record.birthday"><i class="fa fa-birthday-cake"></i>{{record.birthday}}</li>
+                        <li ng-if="record.location"><i class="fa fa-map-marker"></i>{{record.location}}</li>
+                        <li ng-if="record.mobile"><i class="fa fa-phone"></i>{{record.mobile}}</li>
+                        <li ng-if="record.alternateNumber"><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
+                        <li ng-if="record.email"><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="sidebar-widget" id="skills">
+                    <h2>Key skills</h2>
+                    <a ng-repeat="s in record.skills" class="badge">{{s.title}}</a>
                 </div>
             </div>
         </div>
+    </div>
 </section>

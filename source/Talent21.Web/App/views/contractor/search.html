@@ -11,7 +11,7 @@
                             <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
                         </div>
                         <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location.title}}</span>
                             <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
                             <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
                         </div>

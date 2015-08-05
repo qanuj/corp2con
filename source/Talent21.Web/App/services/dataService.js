@@ -158,8 +158,16 @@
         return $http.get(v + 'company/job/' + id + '/applications/all');
     }
 
+    factory.company.getJobApplication = function (id) {
+        return $http.get(v + 'company/job/application/'+id);
+    }
+
     factory.company.acceptContractor = function (id) {
         return $http.get(v + 'company/job/' + id + '/applications/all');
+    }
+
+    factory.company.getSchedule = function (id) {
+        return $http.get(v + 'company/schedule/' + id);
     }
 
     //For Jobs
