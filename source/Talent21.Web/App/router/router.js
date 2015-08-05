@@ -98,7 +98,7 @@
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'
             })
-            .when('/jobs', {
+            .when('/jobs/:page?', {
                 templateUrl: '/app/views/company/jobs.html',
                 controller: 'jobsController'
             })

@@ -1,7 +1,7 @@
 ﻿app.factory('dataService', ['$http', '$q', function ($http, $q) {
     var v = 'api/v1/';
     var factory = {
-        pageSize: 50,
+        pageSize: 10,
         contractor: {},
         job: {},
         company: {},
@@ -22,7 +22,7 @@
     //For Contractors
 
     factory.contractor.paged = function () {
-        return $http.get(v + 'contractor/paged');
+        return $http.get(v + 'contractor/paged?$inlinecount=allpages');
     }
 
     factory.contractor.dashboard = function () {
@@ -58,7 +58,7 @@
     }
 
     factory.contractor.getJobApplications = function (jobId) {
-        return $http.get(v + 'company/job/' + jobId + '/applications/paged');
+        return $http.get(v + 'company/job/' + jobId + '/applications/paged?$inlinecount=allpages');
     }
 
 
@@ -134,12 +134,12 @@
         return $http.put(v + 'company/profile', formData);
     }
 
-    factory.company.myJobs = function () {
-        return $http.get(v + 'company/job/all');
+    factory.company.myJobs = function (page) {
+        return $http.get(v + 'company/job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page));
     }
 
     factory.company.limitJobs = function () {
-        return $http.get(v + 'company/job/paged');
+        return $http.get(v + 'company/job/paged?$inlinecount=allpages');
     }
 
     factory.company.search = function (query) {
@@ -177,7 +177,7 @@
     }
 
     factory.job.paged = function (page) {
-        return $http.get(v + 'company/job/paged?$orderby=Id desc' + calculatePaging(page));
+        return $http.get(v + 'company/job/paged?$inlinecount=allpages$orderby=Id desc' + calculatePaging(page));
     }
 
     factory.job.create = function (formData) {
@@ -196,13 +196,13 @@
 
     factory.system.getSkills = function (q) {
         var uri = v + 'system/skill/all';
-        if (q) uri += '?$filter=startswith(Title,\'' + q + '\')';
+        if (q) uri += '?$filter=substringof(\'' + q + '\',Title)';
         return $http.get(uri);
     }
 
    factory.system.getLocations = function (q) {
         var uri = v + 'system/location/all';
-        if (q) uri += '?$filter=startswith(Title,\'' + q + '\')';
+        if (q) uri += '?$filter=substringof(\'' + q + '\',Title)';
         return $http.get(uri);
     }
 
@@ -264,9 +264,7 @@
                 deferred.resolve(that.enumsRows[name]);
             });
         } else {
-            setTimeout(function () {
-                deferred.resolve(that.enumsRows[name]);
-            }, 10);
+            return deferred.resolve(that.enumsRows[name]);
         }
         return deferred.promise;
     }
