@@ -20,7 +20,6 @@ namespace Talent21.Web.Controllers
     {
         private readonly IContractorService _service;
         private readonly IJobService _jobService;
-        
 
         public ContractorController(IContractorService service, IJobService jobService)
         {
@@ -199,6 +198,14 @@ namespace Talent21.Web.Controllers
             return Page(_service.Applications(), options);
         }
 
+        [HttpGet]
+        [Route("transaction")]
+        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Transactions(), options);
+        }
+
         //[HttpGet]
         //[Route("job/application")]
         //[EnableQuery]
@@ -260,6 +267,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route("top/employers/{skill}/{location}")]
         public IQueryable<PictureViewModel> TopEmployers(string skill,string location)
         {
@@ -270,6 +278,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("latest/jobs/{skill}/{location}")]
+        [EnableQuery]
         public IQueryable<JobSearchResultViewModel> GetLatestJobs(string skill, string location)
         {
             _service.CurrentUserId = User.Identity.GetUserId();

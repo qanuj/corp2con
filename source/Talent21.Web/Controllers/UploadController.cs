@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using e10.Shared.Data.Abstraction;
 using Microsoft.AspNet.Identity;
@@ -15,21 +14,22 @@ namespace Talent21.Web.Controllers
 {
     public class UploadController : CoreController
     {
-        private readonly string _storageRoot;
         private readonly IFileAccessProvider _fileAccessProvider;
+        private readonly string _storageRoot;
+
         public UploadController(IFileAccessProvider fileAccessProvider)
         {
             _fileAccessProvider = fileAccessProvider;
             var folder = "~/App_Data/Uploads";
-            if(ConfigurationManager.AppSettings.AllKeys.Any(x => x == "StorageRoot"))
+            if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "StorageRoot"))
             {
                 var tmp = ConfigurationManager.AppSettings["StorageRoot"];
-                if(!string.IsNullOrWhiteSpace(tmp)) folder = tmp;
+                if (!string.IsNullOrWhiteSpace(tmp)) folder = tmp;
             }
-            _storageRoot = System.Web.Hosting.HostingEnvironment.MapPath(folder);
-            if(!string.IsNullOrWhiteSpace(_storageRoot) && !Directory.Exists(_storageRoot)) Directory.CreateDirectory(_storageRoot);
+            _storageRoot = HostingEnvironment.MapPath(folder);
+            if (!string.IsNullOrWhiteSpace(_storageRoot) && !Directory.Exists(_storageRoot))
+                Directory.CreateDirectory(_storageRoot);
         }
-
 
         [HttpPost]
         [Route("~/upload")]
@@ -52,9 +52,10 @@ namespace Talent21.Web.Controllers
         public async Task<ActionResult> Download(string filename)
         {
             var applicant = await _fileAccessProvider.ByUrlAsync(User.Identity.GetUserId(), "/files/" + filename);
-            if(applicant == null) return HttpNotFound();
+            if (applicant == null) return HttpNotFound();
             var f = new FileInfo(GetFullFileName(filename));
-            return File(f.FullName, MediaTypeNames.Application.Octet, string.Format("{0}{1}{2}{3}", applicant.Name, applicant.Location, applicant.Id, f.Extension));
+            return File(f.FullName, MediaTypeNames.Application.Octet,
+                string.Format("{0}{1}{2}{3}", applicant.Name, applicant.Location, applicant.Id, f.Extension));
         }
 
         [Authorize]
@@ -67,32 +68,36 @@ namespace Talent21.Web.Controllers
 
         private static bool IsAllowed(string ext, bool picture = false)
         {
-            if(picture) return new[] { ".jpg", ".jpeg", ".png", ".gif" }.Any(x => x == ext.ToLower());
-            return new[] { ".doc", ".docx", ".pdf", ".txt", ".rtf" }.Any(x => x == ext.ToLower());
+            if (picture) return new[] {".jpg", ".jpeg", ".png", ".gif"}.Any(x => x == ext.ToLower());
+            return new[] {".doc", ".docx", ".pdf", ".txt", ".rtf"}.Any(x => x == ext.ToLower());
         }
 
         private static ICollection<FilesStatus> MakeFileStatusError(string name, bool isPicture, string error)
         {
-            return new List<FilesStatus>() { new FilesStatus(name, "", isPicture) { Error = error } };
+            return new List<FilesStatus> {new FilesStatus(name, "", isPicture) {Error = error}};
         }
 
         private ICollection<FilesStatus> UploadPartialFile(string fileName, bool isPicture = false)
         {
-            if(string.IsNullOrWhiteSpace(fileName)) return MakeFileStatusError(fileName, isPicture, "No File Name Received");
-            if(Request.Files == null || Request.Files.Count != 1) return MakeFileStatusError(fileName, isPicture, "Attempt to upload chunked file containing more than one fragment per request");
-            if(Request.Files[0] == null) return MakeFileStatusError(fileName, isPicture, "No Files Received");
+            if (string.IsNullOrWhiteSpace(fileName))
+                return MakeFileStatusError(fileName, isPicture, "No File Name Received");
+            if (Request.Files == null || Request.Files.Count != 1)
+                return MakeFileStatusError(fileName, isPicture,
+                    "Attempt to upload chunked file containing more than one fragment per request");
+            if (Request.Files[0] == null) return MakeFileStatusError(fileName, isPicture, "No Files Received");
 
             var inputStream = Request.Files[0].InputStream;
             var status = new FilesStatus(new FileInfo(fileName));
             var ext = Path.GetExtension(fileName);
-            if(!IsAllowed(ext, isPicture)) return MakeFileStatusError(fileName, isPicture, string.Format("{0} not allowed", ext));
+            if (!IsAllowed(ext, isPicture))
+                return MakeFileStatusError(fileName, isPicture, string.Format("{0} not allowed", ext));
             var fullName = GetFullFileName(status.Name);
-            using(var fs = new FileStream(fullName, FileMode.Append, FileAccess.Write))
+            using (var fs = new FileStream(fullName, FileMode.Append, FileAccess.Write))
             {
                 var buffer = new byte[1024];
 
                 var l = inputStream.Read(buffer, 0, 1024);
-                while(l > 0)
+                while (l > 0)
                 {
                     fs.Write(buffer, 0, l);
                     l = inputStream.Read(buffer, 0, 1024);
@@ -100,8 +105,8 @@ namespace Talent21.Web.Controllers
                 fs.Flush();
                 fs.Close();
             }
-            status.Size = (int)new FileInfo(fullName).Length;
-            return new List<FilesStatus> { status };
+            status.Size = (int) new FileInfo(fullName).Length;
+            return new List<FilesStatus> {status};
         }
 
         private string GetFullFileName(string fileName)
@@ -109,25 +114,23 @@ namespace Talent21.Web.Controllers
             return Path.Combine(_storageRoot, Path.GetFileName(fileName));
         }
 
-
         // Upload entire file
         private ICollection<FilesStatus> UploadWholeFile(bool isPicture = false)
         {
             var statuses = new List<FilesStatus>();
-            for(var i = 0; i < Request.Files.Count; i++)
+            for (var i = 0; i < Request.Files.Count; i++)
             {
                 var file = Request.Files[i];
-                if(file == null) continue;
-                if(file.FileName == null) continue;
+                if (file == null) continue;
+                if (file.FileName == null) continue;
                 var status = new FilesStatus(new FileInfo(file.FileName), isPicture);
                 var ext = Path.GetExtension(file.FileName);
-                if(!IsAllowed(ext, isPicture)) return MakeFileStatusError(file.FileName, isPicture, string.Format("{0} not allowed", ext));
+                if (!IsAllowed(ext, isPicture))
+                    return MakeFileStatusError(file.FileName, isPicture, string.Format("{0} not allowed", ext));
                 file.SaveAs(GetFullFileName(status.Name));
                 statuses.Add(status);
             }
             return statuses;
         }
-
-
     }
 }

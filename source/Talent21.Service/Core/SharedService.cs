@@ -20,9 +20,19 @@ namespace Talent21.Service.Core
             _transactionRepository = transactionRepository;
         }
 
-        public IQueryable<Transaction> Transactions()
+        public IQueryable<TransactionViewModel> Transactions()
         {
-            return _transactionRepository.All;
+            return _transactionRepository.All.Where(x=>x.UserId==CurrentUserId).Select(x=> new TransactionViewModel
+            {
+                Id=x.Id,
+                Amount = x.Amount,
+                Credit = x.Credit,
+                Code = x.Code,
+                IsSuccess = x.IsSuccess,
+                PaymentCapture = x.PaymentCapture,
+                Reason = x.Reason,
+                Created = x.Created
+            });
         } 
 
         protected Location FindLocation(string address)

@@ -85,7 +85,11 @@ namespace Talent21.Service.Core
             {
                 query = query.Where(x => x.Locations.Any(y=>y.Title==model.Location));
             }
-            if(!string.IsNullOrWhiteSpace(model.Skills))
+            if (!string.IsNullOrWhiteSpace(model.Keywords))
+            {
+                query = query.Where(x => x.Title.Contains(model.Keywords));
+            }
+            if (!string.IsNullOrWhiteSpace(model.Skills))
             {
                 //TODO: AND OR LOGIC
                 var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);

@@ -339,10 +339,14 @@
     <Content Include="App\template\js\scrollReveal.min.js" />
     <Content Include="App\template\js\settings.js" />
     <Content Include="App\template\js\waypoints.min.js" />
-    <Content Include="App\views\company\SingleJobApplications.html" />
-    <Content Include="App\views\company\SingleJobApplications.js" />
+    <Content Include="App\views\company\applications.html" />
+    <Content Include="App\views\company\applications.js" />
+    <Content Include="App\views\company\contractorApplication.html" />
+    <Content Include="App\views\company\contractorApplication.js" />
     <Content Include="App\views\company\editOrCreateJob.html" />
     <Content Include="App\views\company\editOrCreateJob.js" />
+    <Content Include="App\views\pager.html" />
+    <Content Include="App\views\pager.js" />
     <Content Include="App\views\system\functional.html" />
     <Content Include="App\views\system\functional.js" />
     <Content Include="App\views\system\industry.html" />
@@ -593,10 +597,9 @@
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Setup\Index.cshtml" />
     <Content Include="Views\Shared\_Unsecured.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App\views\job\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />

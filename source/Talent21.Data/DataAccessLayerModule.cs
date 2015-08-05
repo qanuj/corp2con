@@ -12,8 +12,7 @@ namespace Talent21.Data
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule<SharedLayerModule>();
-
-            //TODO add all repositories.
+            
             builder.RegisterType<DefaultEventManager>().As<IEventManager>();
 
             builder.RegisterType<BlockRepository>().As<IBlockRepository>();

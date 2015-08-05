@@ -98,7 +98,7 @@
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'
             })
-            .when('/jobs', {
+            .when('/jobs/:page?', {
                 templateUrl: '/app/views/company/jobs.html',
                 controller: 'jobsController'
             })
@@ -110,12 +110,12 @@
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'
             })
-             .when('/contractor/:id', {
-                 templateUrl: '/app/views/contractor/profile.html',
-                 controller: 'contractorProfileController'
+             .when('/job/application/:id', {
+                 templateUrl: '/app/views/company/contractorApplication.html',
+                 controller: 'contractorApplicationController'
              })
-            .when('/jobapplications', {
-                templateUrl: '/app/views/company/SingleJobApplications.html',
+            .when('/job/:id/applications', {
+                templateUrl: '/app/views/company/applications.html',
                 controller: 'companyApplicationsController'
             })
             .otherwise({ redirectTo: '/' });

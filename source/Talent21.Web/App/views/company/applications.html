@@ -2,19 +2,19 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h2>{{title}} {{count}}</h2>
-                <div class="jobs" ng-repeat="row in records">
-                    <a href="#/contractor/{{row.id}}">
+                <h2>{{title}}</h2>
+                <div class="jobs" ng-repeat="row in records.items">
+                    <a href="#/job/application/{{row.id}}">
                         <div ng-if="row.featured" class="featured"></div>
-                        <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
+                        <img src="{{row.contractor.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">
-                            <h5>{{row.firstName}} {{row.lastName}}</h5>
-                            <p>{{row.about}}</p>
+                            <h5>{{row.contractor.firstName}} {{row.contractor.lastName}}</h5>
+                            <p>{{row.contractor.about | limitTo: 200}}</p>
                         </div>
                         <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
-                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}}.{{row.experienceMonths}} years</span>
-                            <span class="sallary"><i class="fa fa-inr"></i>{{row.rate}}k</span>
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.contractor.location}}</span>
+                            <span class="experience"><i class="fa fa-trophy"></i>{{row.contractor.experienceYears}}.{{row.contractor.experienceMonths}} years</span>
+                            <span class="sallary"><i class="fa fa-inr"></i>{{row.contractor.rate}}k</span>
                         </div>
                     </a>
                 </div>

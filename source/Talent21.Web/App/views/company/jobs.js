@@ -1,8 +1,15 @@
-﻿app.controller('jobsController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('jobsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
     $scope.title = "Jobs";
-    db.company.myJobs().success(function (result) {
-        $scope.records = result;
-        $scope.page = db.currentPage;
-        console.log($scope.records);
-    });
+    $scope.navigate=function(page) {
+        db.company.myJobs(page).success(function (result) {
+            $scope.currentPage = page||1;
+            $scope.pages = Math.ceil(result.count / db.pageSize);
+            angular.forEach(result.items, function (d) {
+                d.start = moment(d.start).toDate();
+                d.end = moment(d.end).toDate();
+            });
+            $scope.records = result.items;
+        });
+    }
+    $scope.navigate(params.page);
 }]);

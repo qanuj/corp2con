@@ -29,7 +29,7 @@ namespace Talent21.Data.Core
             var message = Encoding.UTF8.GetBytes(text);
             var hashString = new SHA512Managed();
             var hashValue = hashString.ComputeHash(message);
-            return hashValue.Aggregate("", (current, x) => current + $"{x:x2}");
+            return hashValue.Aggregate("", (current, x) => current + string.Format("{0:x2}",x));
         }
 
         public static string GenerateTransactionId()

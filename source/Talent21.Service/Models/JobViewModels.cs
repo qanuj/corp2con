@@ -26,6 +26,13 @@ namespace Talent21.Service.Models
 
     }
 
+    public enum AvailableEnum
+    {
+        Now,
+        NextWeek,
+        NextMonth,
+        Later
+    }
     public class ContractorSearchResultViewModel : ContractorViewModel
     {
         [Field("text", Store = StoreMode.No)]
@@ -34,16 +41,21 @@ namespace Talent21.Service.Models
             get { return string.Join(" ", new[] { FirstName, LastName, Mobile, Location, About }); }
         }
         public DateTime Availability { get; set; }
+        public int? Days { get; set; }
+        public AvailableEnum Available { get; set; }
     }
 
     public class JobSearchResultViewModel
     {
         [Field("text", Store = StoreMode.No)]
-        public string SearchText => string.Join(" ", new[] { Code, Title, Description, Company });
+        public string SearchText
+        {
+            get { return string.Join(" ", new[] { Code, Title, Description, Company }); }
+        }
 
         [NumericField]
         public int Id { get; set; }
-        
+
         public string Code { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -70,13 +82,16 @@ namespace Talent21.Service.Models
         public string Email { get; set; }
         public IEnumerable<DictionaryViewModel> Locations { get; set; }
 
-        public DictionaryViewModel Location => Locations.FirstOrDefault();
+        public DictionaryViewModel Location
+        {
+            get { return Locations.FirstOrDefault(); }
+        }
         public PromotionEnum Promotion { get; set; }
     }
 
     public class SkillConverter : TypeConverter
     {
-        
+
     }
 
     public class EditJobViewModel : CreateJobViewModel
@@ -102,6 +117,11 @@ namespace Talent21.Service.Models
         public int CompanyId { get; set; }
         public int Applied { get; set; }
         public string Company { get; set; }
+
+        public DictionaryViewModel Location
+        {
+            get { return Locations.FirstOrDefault(); }
+        }
     }
 
     public class DeleteJobViewModel : IdModel { }
@@ -126,7 +146,10 @@ namespace Talent21.Service.Models
 
     public class StatsViewModel
     {
-        public int Members => Companies + Contractors;
+        public int Members
+        {
+            get { return Companies + Contractors; } 
+        }
 
         public int Jobs { get; set; }
 

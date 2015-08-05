@@ -20,12 +20,30 @@ namespace Talent21.Service.Models
         public string OwnerId { get; set; }
     }
 
+    public class CompanyAggregateReport
+    {
+        public string Skill { get; set; }
+        public string Location { get; set; }
+        public MinMax<DateTime> Duration { get; set; }
+        public MinMax Salary { get; set; }
+    }
+
+    public class MinMax : MinMax<int>
+    {
+    }
+    public class MinMax<T>
+    {
+        public T Min { get; set; }
+        public T Max { get; set; }
+    }
+
     public class CompanyDashboardViewModel
     {
         public int Views { get; set; }
         public int Jobs { get; set; }
         public int Applications { get; set; }
         public int Contractors { get; set; }
+        public CompanyAggregateReport Aggregate { get; set; }
     }
 
     public class CompanyViewModel : CompanyEditViewModel

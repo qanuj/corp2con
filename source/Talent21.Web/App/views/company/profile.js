@@ -2,6 +2,7 @@
 
     $scope.title = "Company Profile";
 
+    $scope.role = db.role;
     $scope.page = 1;
     $scope.pages = 1;
 

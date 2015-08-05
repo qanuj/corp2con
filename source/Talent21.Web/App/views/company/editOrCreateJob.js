@@ -7,7 +7,6 @@
         db.job.get(param.id).success(function (result) {
             result.start = moment(result.start).toDate();
             result.end = moment(result.end).toDate();
-            result.loc = { formatted_address: result.location };
             result.primarySkills = [];
             result.secondarySkills = [];
             for (var x in result.skills) {
@@ -22,22 +21,13 @@
     }
 
     $scope.loadSkills = db.system.getSkills;
-
-    $scope.refreshAddresses = function (address) {
-        return db.system.searchLocations(address).then(function (response) {
-            $scope.addresses = response.data.results;
-        });
-    };
+    $scope.loadLocations = db.system.getLocations;
 
     $scope.save = function (record) {
         $('input[type=text]').each(function () {
             $(this).val('');
         });
-        if (record.loc) {
-            record.location = record.loc.formatted_address;
-        }
         record.skills = record.primarySkills.concat(record.secondarySkills);
-
 
         if (param.id) {
             db.job.update(record)

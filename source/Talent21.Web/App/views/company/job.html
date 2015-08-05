@@ -1,55 +1,10 @@
-﻿<div>
-    <div ng-if="role === 'Company'" style="background:#14b1bb;">
-        <div class="container" style="text-align:center;">
-            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}" style=" margin-left:13px;">
-            <i class="fa fa-edit"></i> Edit Job
-        </a>
-            <div class=" btn btn-primary" ng-click="publish(record.id)" ng-if="!record.isPublished">
-            <i class="fa fa-check"></i> Publish
-        </div>
-        <div class=" btn btn-warning margtop" ng-click="promote(record.id)">
-            <i class="fa fa-check"></i> Promote
-        </div>
-        <div class=" btn btn-info margtop" ng-click="publish(record.id)">
-            <i class="fa fa-check"></i> Publish
-        </div>
-        <div class=" btn btn-warning margtop" ng-click="cancel(record.id)">
-            <i class="fa fa-cross"></i> Cancel
-        </div>
-            <div class=" btn btn-primary" ng-click="delete(record.id)">
-                <i class="fa fa-trash"></i> Delete
-        </div>
-            <div class=" btn btn-primary" ng-click="view(record.id)">
-                <i class="fa fa-file-code-o"></i> View Application
-    </div>
-    <section id="title">
-        <div class="editbtn hidden-xs">
-            <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}"><i class="fa fa-edit"></i> Edit Job</a>
-            <br />
-            <div class=" btn btn-info margtop" ng-click="publish(record.id)">
-                <i class="fa fa-check"></i> Publish
-            </div>
-            <br />
-            <div class=" btn btn-warning margtop" ng-click="promote(record.id)">
-                <i class="fa fa-check"></i> Promote
-            </div>
-    <section id="title">
-      
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 text-center">
-                    <img src="http://placehold.it/332x120.gif" class="img-responsive" alt="Company Logo" />
-                </div>
-            </div>
-        </div>
-    </section>
+﻿<div class="container">
     <section id="jobs">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
                     <article>
                         <h2>{{record.title}}</h2>
-                        <h2>Description :</h2>
                         <p>{{record.description}}</p>
                         <hr>
                         <h2>Location :</h2>
@@ -64,10 +19,29 @@
                         <h2>Company </h2>
                         <h3>{{record.company}}</h3>
                         <hr>
-
                     </article>
                 </div>
                 <div class="col-sm-4" id="sidebar">
+                    <div class="sidebar-widget">
+                        <a class="btn btn-block btn-primary" ng-if="!record.isPublished" href="/#/job/edit/{{record.id}}">
+                            <i class="fa fa-edit"></i> Edit Job
+                        </a>
+                        <a class="btn btn-block btn-primary" ng-if="record.isPublished" href="/#/job/{{record.id}}/applications">
+                            <i class="fa fa-file-code-o"></i> View applications <span class="badge">{{record.applied}}</span>
+                        </a>
+                        <button class="btn btn-block btn-success" ng-click="publish(record.id)" ng-if="!record.isPublished">
+                            <i class="fa fa-check"></i> Publish
+                        </button>
+                        <button class="btn btn-block btn-warning" ng-click="promote(record.id)" ng-if="record.isPublished">
+                            <i class="fa fa-check"></i> Promote
+                        </button>
+                        <button class="btn btn-block btn-warning" ng-click="cancel(record.id)" ng-if="record.isPublished">
+                            <i class="fa fa-close"></i> Cancel
+                        </button>
+                        <button class="btn btn-block btn-danger" ng-click="delete(record.id)">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                    </div>
                     <div class="sidebar-widget" id="share">
                         <h2>Share it</h2>
                         <ul>
@@ -78,22 +52,9 @@
                         </ul>
                     </div>
                     <hr>
-                    <!--<div class="sidebar-widget" id="widget-contact">
-                        <h2>Contact</h2>
-                        <ul>
-                            <li><i class="fa fa-building"></i>Netvibes</li>
-                            <li><i class="fa fa-map-marker"></i>2 Madison Avenue</li>
-                            <li><i class="fa"></i>New York City, 29478 USA</li>
-                            <li><i class="fa fa-phone"></i>01.22.987.8392</li>
-                            <li><i class="fa fa-envelope"></i><a href="mailto:company@yourdomain.com">Send an email</a></li>
-                        </ul>
-                    </div>-->
                 </div>
-            </div>
-            <div class="row text-center" ng-if="role === 'Contractor'">
-                <p>&nbsp;</p>
-                <input type="submit" id="submit" value="Apply" class="btn btn-primary" />
             </div>
         </div>
     </section>
 </div>
+

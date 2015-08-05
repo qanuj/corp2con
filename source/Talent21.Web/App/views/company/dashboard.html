@@ -126,10 +126,20 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header">
-                        Latest Profiles
+                        Latest {{record.aggregate.skill}} Profiles in {{record.aggregate.location}}
                     </h4>
                 </div>
                 <div class="col-md-12">
+                    <div ng-if="!matching.legth">
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Ooops! You got us..</strong>
+                            <p>We could not find anything, are you sure you are looking for <strong>{{record.aggregate.skill}}</strong> in <strong>{{record.aggregate.location}}</strong>.</p>
+                            <p><a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a></p>
+                        </div>
+                    </div>
                     <div ng-repeat="row in matching" class="search-line">
                         <div class="col-md-9">
                             <div class="title">
@@ -154,11 +164,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header">
-                        Top Rated Developers, Available
+                        Top {{record.aggregate.skill}} Developers, in {{record.aggregate.location}}
                     </h4>
                 </div>
                 <div class="col-md-12">
+                    <div ng-if="!matching.legth">
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Ooops! You got us..</strong>
+                            <p>We could not find anything, are you sure you are looking for <strong>{{record.aggregate.skill}}</strong> in <strong>{{record.aggregate.location}}</strong>.</p>
+                            <p><a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a></p>
+                        </div>
+                    </div>
                     <div ng-repeat="row in matching" class="search-line bg-success">
+                        <div class="col-md-12">{{row.available}}</div>
                         <div class="col-md-9">
                             <div class="title">
                                 <h5>{{row.firstName}} {{row.lastName}}</h5>
@@ -180,21 +201,32 @@
             </div>
         </div>
         <div class="col-md-4" id="sidebar">
-
             <div class="row">
-
-                <div class="col-lg-12">
-                    <h5 class="page-header">
-                        Quick Actions
-                    </h5>
-                </div>
                 <div class="col-md-12">
-                    <a class="btn btn-xs btn-success" href="#/job/new"><i class="fa fa-suitcase"></i> Add New Job</a>
-                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-building"></i> Edit Jobs</a>
-                    <a class="btn btn-xs btn-primary" href="#/applications"><i class="fa fa-building"></i> View Applications</a>
-                    <a class="btn btn-xs btn-primary" href="#/bench"><i class="fa fa-users"></i> Manage Bench</a>
-                    <a class="btn btn-xs btn-primary" href="#/jobs"><i class="fa fa-graduation-cap"></i> Promote Job</a>
-                    <a class="btn btn-xs btn-primary" href="#/shortlist"><i class="fa fa-graduation-cap"></i> Shortlist</a>
+                    <table class="table">
+                        <tr>
+                            <th>For {{record.aggregate.skill}}, {{record.aggregate.location}}</th>
+                            <th>Salary (Monthly)</th>
+                            <th>Duration (Days)</th>
+                        </tr>
+                        <tr>
+                            <th>Minimum</th>
+                            <td>{{record.aggregate.salary.min}}</td>
+                            <td>{{record.aggregate.duration.min | amDifference : null : 'days' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum</th>
+                            <td>{{record.aggregate.salary.max}}</td>
+                            <td>{{record.aggregate.duration.max| amDifference : null : 'days' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-block btn-success" href="#/job/new"><i class="fa fa-suitcase"></i> Add New Job</a>
+                    <a class="btn btn-block btn-primary" href="#/jobs"><i class="fa fa-building"></i> Manage Jobs</a>
+                    <a class="btn btn-block btn-primary" href="#/bench"><i class="fa fa-users"></i> Manage Bench</a>
                 </div>
             </div>
             <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive"/>

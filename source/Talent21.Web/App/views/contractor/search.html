@@ -4,6 +4,20 @@
             <div class="col-sm-8">
                 <h2>{{title}} {{records.count}}</h2>
                 <div class="jobs">
+                    <div ng-if="!records.count">
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Ooops! You got us..</strong>
+                            <p>
+                                We could not find anything.
+                            </p>
+                            <p>
+                                <a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a>
+                            </p>
+                        </div>
+                    </div>
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="{{row.ifFeatured}}"></div>
                         <div class="title">
@@ -11,7 +25,7 @@
                             <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
                         </div>
                         <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
+                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location.title}}</span>
                             <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
                             <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
                         </div>

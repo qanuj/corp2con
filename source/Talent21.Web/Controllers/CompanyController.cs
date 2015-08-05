@@ -92,12 +92,23 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route("job/all")]
         public IQueryable<JobViewModel> ViewJobsQuery()
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Jobs;
         }
+
+        [HttpGet]
+        [EnableQuery]
+        [Route("schedule/{id}")]
+        public IQueryable<ScheduleViewModel> ViewSchedulesQuery([FromUri]int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.Schedules(id);
+        }
+
 
         [HttpGet]
         [Route("job/{id}")]
@@ -176,11 +187,23 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/{id}/applications/all")]
+        [EnableQuery]
         public IQueryable<JobApplicationViewModel> ViewJobsQuery(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Applications(id);
         }
+       
+        [HttpGet]
+        [Route("job/application/{id}")]
+        [ResponseType(typeof(JobApplicationViewModel))]
+        public HttpResponseMessage GetJobApplication([FromUri]int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            var model = _service.Application(id);
+            return model == null ? NotFound() : Ok(model);
+        }
+
 
         [HttpPut]
         [Route("job/application/{id}/reject")]
@@ -206,6 +229,14 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.MoveApplication(model)) : Bad(ModelState);
         }
 
+        [HttpGet]
+        [Route("transaction")]
+        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Transactions(), options);
+        }
+
         //contractor related api
 
         [HttpPost]
@@ -218,6 +249,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("latest/profiles/{skill}/{location}")]
+        [EnableQuery]
         public IQueryable<ContractorSearchResultViewModel> GetLatestProfiles(string skill, string location)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -227,6 +259,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("top/profiles/{skill}/{location}")]
+        [EnableQuery]
         public IQueryable<AvailableRatedCandidateProfileViewModel> GetTopRatedAvailableProfiles(string skill, string location)
         {
             _service.CurrentUserId = User.Identity.GetUserId();

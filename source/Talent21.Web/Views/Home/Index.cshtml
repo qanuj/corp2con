@@ -1,6 +1,7 @@
 ﻿@using Talent21.Web.Controllers
 @model Talent21.Web.Models.FrontEndViewModel
 @{
+    Layout = "";
     ViewBag.Title = "Home Page";
     var Product = "Corp2Con";
     var searchController = Model.Role == AccountController.Company ? "companySearchController" : "contractorSearchController";
