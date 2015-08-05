@@ -2,11 +2,11 @@
     <div ng-if="role === 'Company'" style="background:#14b1bb;">
         <div class="container" style="text-align:center;">
             <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}" style=" margin-left:13px;">
-            <i class="fa fa-edit"></i> Edit Job
-        </a>
+                <i class="fa fa-edit"></i> Edit Job
+            </a>
             <div class=" btn btn-primary" ng-click="publish(record.id)" ng-if="!record.isPublished">
-            <i class="fa fa-check"></i> Publish
-        </div>
+                <i class="fa fa-check"></i> Publish
+            </div>
         <div class=" btn btn-warning margtop" ng-click="promote(record.id)">
             <i class="fa fa-check"></i> Promote
         </div>
@@ -15,24 +15,24 @@
         </div>
         <div class=" btn btn-warning margtop" ng-click="cancel(record.id)">
             <i class="fa fa-cross"></i> Cancel
-        </div>
+            </div>
             <div class=" btn btn-primary" ng-click="delete(record.id)">
                 <i class="fa fa-trash"></i> Delete
-        </div>
-            <div class=" btn btn-primary" ng-click="view(record.id)">
-                <i class="fa fa-file-code-o"></i> View Application
-    </div>
+            </div>
+            <div class=" btn btn-primary">
+                <i class="fa fa-file-code-o"></i> <a href="/#/job/{{record.id}}/applications">View applications</a> 
+            </div>
     <section id="title">
         <div class="editbtn hidden-xs">
             <a class="btn btn-primary" ng-if="role === 'Company'" href="/#/job/edit/{{record.id}}"><i class="fa fa-edit"></i> Edit Job</a>
             <br />
             <div class=" btn btn-info margtop" ng-click="publish(record.id)">
                 <i class="fa fa-check"></i> Publish
-            </div>
+        </div>
             <br />
             <div class=" btn btn-warning margtop" ng-click="promote(record.id)">
                 <i class="fa fa-check"></i> Promote
-            </div>
+    </div>
     <section id="title">
       
         <div class="container">
@@ -97,3 +97,10 @@
         </div>
     </section>
 </div>
+
+
+<style>
+    a, a:hover {
+        color: #ffffff;
+    }
+</style>

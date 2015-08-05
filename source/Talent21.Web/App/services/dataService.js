@@ -57,12 +57,8 @@
         return $http.put(v + '/job/application/' + id + '/apply');
     }
 
-    factory.contractor.getJobApplications = function () {
-        return $http.get(v + 'contractor/job/application/');
-    }
-
-    factory.contractor.getJobApplicationsByJobId = function (jobId) {
-        return $http.get(v + 'contractor/job/application?$filter=Id eq '+jobId);
+    factory.contractor.getJobApplications = function (jobId) {
+        return $http.get(v + 'company/job/' + jobId + '/applications/paged');
     }
 
 
@@ -159,6 +155,10 @@
     }
 
     factory.company.getJobApplications = function (id) {
+        return $http.get(v + 'company/job/' + id + '/applications/all');
+    }
+
+    factory.company.acceptContractor = function (id) {
         return $http.get(v + 'company/job/' + id + '/applications/all');
     }
 
