@@ -19,7 +19,7 @@ namespace Talent21.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/site").Include(
+            bundles.Add(new StyleBundle("~/Content/site/css").Include(
                       "~/Content/css/bootstrap.css",
                       "~/Content/css/jquery.flexmenu.css",
                       "~/Content/css/owl.carousel.css",
@@ -30,7 +30,7 @@ namespace Talent21.Web
                       "~/Content/css/style.css",
                       "~/Content/css/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/spa").Include(
+            bundles.Add(new StyleBundle("~/Content/spa/css").Include(
                       "~/Content/css/bootstrap.css",
                       "~/Content/css/jquery.flexmenu.css",
                       "~/Content/css/owl.carousel.css",
