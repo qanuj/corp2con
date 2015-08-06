@@ -3,8 +3,11 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>{{title}} {{count}}</h2>
+                <cc-pager total-pages="pages" current-page="currentPage"
+                          page-action="navigate(pageNumber)">
+                </cc-pager>
                 <div class="jobs">
-                    <div ng-if="!records.count">
+                    <div ng-if="records.count<1">
                         <div class="alert alert-warning">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -18,7 +21,7 @@
                             </p>
                         </div>
                     </div>
-                    <a href="#/contractor/{{row.id}}" ng-repeat="row in records">
+                    <a href="#/contractor/{{row.id}}" ng-repeat="row in records.items">
                         <div ng-if="row.featured" class="featured"></div>
                         <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">
@@ -32,14 +35,9 @@
                         </div>
                     </a>
                 </div>
-                <nav>
-                    <ul class="pagination">
-                        <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                        <li class="active"><a href="#">{{page}} <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">{{pages}}</a></li>
-                        <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-                    </ul>
-                </nav>
+                <cc-pager total-pages="pages" current-page="currentPage"
+                          page-action="navigate(pageNumber)">
+                </cc-pager>
             </div>
             <div class="col-sm-4" id="sidebar">
                 <!-- Find a Job Start -->
