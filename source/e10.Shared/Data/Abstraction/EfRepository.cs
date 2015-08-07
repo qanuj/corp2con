@@ -10,68 +10,6 @@ using e10.Shared.Util;
 
 namespace e10.Shared.Data.Abstraction
 {
-    public class DefaultEventManager : IEventManager
-    {
-    }
-
-    public class DataFunctions
-    {
-        [DbFunction("Edm", "DiffDays")]
-        public static int? DiffDays2(DateTime? date1, DateTime? date2)
-        {
-            throw new NotSupportedException("Default date diff not working");
-        }
-    }
-
-    public abstract class EfDictionaryRepository<TDictionary> : EfRepository<TDictionary>, IDictionaryRepository<TDictionary> where TDictionary : Dictionary
-    {
-        protected EfDictionaryRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
-        {
-        }
-        public IQueryable<TDictionary> ByCode(IEnumerable<string> codes)
-        {
-            return All.Where(x => codes.Contains(x.Code));
-        }
-        public TDictionary ByCode(string code)
-        {
-            return All.FirstOrDefault(x => x.Code == code);
-        }
-
-        public IQueryable<TDictionary> ByTitle(IEnumerable<string> titles)
-        {
-            return All.Where(x => titles.Contains(x.Title));
-        }
-        public TDictionary ByTitle(string title)
-        {
-            return All.FirstOrDefault(x => x.Title == title);
-        }
-    }
-
-    public abstract class EfMyRepository<TEntity> : EfRepository<TEntity>, IMyRepository<TEntity> where TEntity : Entity
-    {
-       
-
-        protected EfMyRepository(DbContext db, IEventManager eventManager) : base(db, eventManager) { }
-        public TEntity MyOne(string userId, int id)
-        {
-            return Mine(userId).FirstOrDefault(x => x.Id == id);
-        }
-        public Task<TEntity> MyOneAsync(string userId, int id)
-        {
-            return Mine(userId).FirstOrDefaultAsync(x => x.Id == id);
-        }
-        public abstract IQueryable<TEntity> Mine(string id);
-        public virtual int Count(string userId, Func<TEntity, bool> func)
-        {
-            return Mine(userId).Count(func);
-        }
-
-        public virtual int Count(string userId)
-        {
-            return Mine(userId).Count();
-        }
-
-    }
     public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, ISoftDelete
     {
         public IEntityFunctions Funcs { get; set; }

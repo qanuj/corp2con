@@ -8,6 +8,10 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
+    public interface IBlockRepository : IRepository<Block>
+    {
+
+    }
     /// <summary>
     /// 
     /// </summary>

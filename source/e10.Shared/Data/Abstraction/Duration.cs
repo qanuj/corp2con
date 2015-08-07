@@ -8,16 +8,4 @@ namespace e10.Shared.Data.Abstraction
         public int Years { get; set; }
         public int Months { get; set; }
     }
-
-    [ComplexType]
-    public class Social
-    {
-        public string Twitter { get; set; }
-        public string Facebook { get; set; }
-        public string Yahoo { get; set; }
-        public string Google { get; set; }
-        public string LinkedIn { get; set; }
-        public string Rss { get; set; }
-        public string WebSite { get; set; }
-    }
 }

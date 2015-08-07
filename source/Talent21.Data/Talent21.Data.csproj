@@ -169,16 +169,21 @@
     <Compile Include="Migrations\201508031513521_Company%27s can promote themself.Designer.cs">
       <DependentUpon>201508031513521_Company%27s can promote themself.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508070721143_FeedbackAdded.cs" />
+    <Compile Include="Migrations\201508070721143_FeedbackAdded.Designer.cs">
+      <DependentUpon>201508070721143_FeedbackAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdvertisementRepository.cs" />
+    <Compile Include="Repository\ConversationRepository.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
     <Compile Include="Repository\ContractorVisitRepository.cs" />
     <Compile Include="Repository\CompanyRepository.cs" />
     <Compile Include="Repository\ContractorRepository.cs" />
+    <Compile Include="Repository\FeedbackRepository.cs" />
     <Compile Include="Repository\FunctionalAreaRepository.cs" />
     <Compile Include="Repository\ContractorSkillRepository.cs" />
-    <Compile Include="Repository\IBlockRepository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
@@ -250,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508031513521_Company%27s can promote themself.resx">
       <DependentUpon>201508031513521_Company%27s can promote themself.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508070721143_FeedbackAdded.resx">
+      <DependentUpon>201508070721143_FeedbackAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

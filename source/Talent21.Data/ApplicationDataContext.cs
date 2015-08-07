@@ -23,6 +23,7 @@ namespace Talent21.Data
             ContractorRepository.Register(modelBuilder);
             CompanyRepository.Register(modelBuilder);
             JobRepository.Register(modelBuilder);
+            ConversationRepository.Register(modelBuilder);
         }
     }
 }
