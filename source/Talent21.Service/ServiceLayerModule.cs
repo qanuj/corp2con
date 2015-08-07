@@ -11,6 +11,7 @@ namespace Talent21.Service
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule<DataAccessLayerModule>();
+            builder.RegisterType<SiteService>().As<ISiteService>();
             builder.RegisterType<ContractorService>().As<IContractorService>();
             builder.RegisterType<SystemService>().As<ISystemService>();
             builder.RegisterType<DemoDataService>().As<IDemoDataService>();
