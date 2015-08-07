@@ -44,7 +44,7 @@
         return $http.put(v + 'contractor/profile', formData);
     }
 
-    factory.contractor.search = function (query,page,pageSize) {
+    factory.contractor.search = function (query, page, pageSize) {
         return $http.post(v + 'job/search?$inlinecount=allpages'+ calculatePaging(page,pageSize), query);
     }
 
@@ -141,8 +141,8 @@
         return $http.get(v + 'company/job/paged?$inlinecount=allpages'+calculatePaging(page,pageSize));
     }
 
-    factory.company.search = function (query,page,pageSize,order) {
-        return $http.post(v + 'company/search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy(order), query);
+    factory.company.search = function (query, page, pageSize, order) {
+        return $http.post(v + 'company/search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query);
     }
 
     factory.company.getLatestProfiles = function(skill, location, page,pageSize) {
