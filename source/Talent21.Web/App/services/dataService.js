@@ -45,9 +45,9 @@
     }
 
     factory.contractor.search = function (query, page, pageSize) {
-        return $http.post(v + 'job/search?$inlinecount=allpages'+ calculatePaging(page,pageSize), query);
+        return $http.post(v + 'job/search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query);
     }
-
+    
     factory.contractor.jobById = function (id) {
         return $http.get(v + 'contractor/job/' + id);
     }
@@ -59,11 +59,14 @@
     factory.contractor.applications = function (id) {
         return $http.put(v + '/job/application/' + id + '/apply');
     }
+    
+    //factory.contractor.getJobApplications = function () {
+    //    return $http.get(v + 'contractor/job/application/');
+    //}
 
     factory.contractor.getJobApplications = function (jobId,page,pageSize) {
-        return $http.get(v + 'company/job/' + jobId + '/applications/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+        return $http.get(v + 'contractor/job/application?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
-
 
     factory.contractor.favorite = function (id) {
         return $http.put(v + 'contractor/job/application/' + id + '/favorite');
@@ -108,7 +111,6 @@
     factory.contractor.topEmployers = function (skill, location, page, pageSize) {
         return $http.get(v + 'contractor/top/employers/' + skill + '/' + location + '?' + calculatePaging(page, pageSize));
     }
-
 
     //For companies
 

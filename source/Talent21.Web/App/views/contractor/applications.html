@@ -3,6 +3,9 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>{{title}} {{records.count}}</h2>
+                <cc-pager total-pages="pages" current-page="currentPage"
+                          page-action="navigate(pageNumber)">
+                </cc-pager>
                 <div class="jobs">
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="featured"></div>
@@ -18,19 +21,9 @@
                         </div>
                     </a>
                 </div>
-
-                <nav>
-                    <ul class="pagination">
-                        <li ng-class="prevPageDisabled()"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                        <li class="active"><a ng-click="prevPage()">1 <span class="sr-only">(current)</span></a></li>
-                        <li ng-repeat="n in JobApplications()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li ng-class="nextPageDisabled()"><a ng-click="nextPage()" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-                    </ul>
-                </nav>
+                <cc-pager total-pages="pages" current-page="currentPage"
+                          page-action="navigate(pageNumber)">
+                </cc-pager>
             </div>
                     </div>
     </div>

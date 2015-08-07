@@ -19,11 +19,11 @@
                  templateUrl: '/app/views/contractor/schedule.html',
                  controller: 'jobscheduleController'
              })
-            .when('/search', {
+            .when('/search/:page?', {
                 templateUrl: '/app/views/contractor/search.html',
                 controller: 'contractorSearchController'
             })
-             .when('/applications', {
+             .when('/applications/:page?', {
                  templateUrl: '/app/views/contractor/applications.html',
                  controller: 'contractorApplicationsController'
              })
