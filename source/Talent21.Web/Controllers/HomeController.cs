@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.UI;
 using Talent21.Service.Abstraction;
+using Talent21.Service.Models;
 using Talent21.Web.Models;
 
 namespace Talent21.Web.Controllers
@@ -9,10 +10,12 @@ namespace Talent21.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IJobService _service;
+        private readonly ISiteService _siteService;
 
-        public HomeController(IJobService service)
+        public HomeController(IJobService service, ISiteService siteService)
         {
             _service = service;
+            _siteService = siteService;
         }
 
         //[OutputCache(Location = OutputCacheLocation.ServerAndClient, Duration = 3600)] //Cache for 1 Hour.
@@ -39,15 +42,19 @@ namespace Talent21.Web.Controllers
         [Route("welcome")]
         public ActionResult Welcome()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
+        }
+
+        [Route("contact")]
+        [HttpPost]
+        public ActionResult Contact(FeedbackViewModel model)
+        {
+            if(ModelState.IsValid) _siteService.AddFeedback(model);
+            return RedirectToAction("welcome");
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
