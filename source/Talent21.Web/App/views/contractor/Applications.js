@@ -1,62 +1,14 @@
 ﻿app.controller('contractorApplicationsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
     $scope.title = "Job Applications";
-    $scope.getApplications = function () {
-        db.contractor.getJobApplications().success(function (result) {
-            $scope.records = result.items;
-            console.log('My applied jobs' + $scope.records);
-        });
+    
+    $scope.navigate = function (page) {
+        var id = $routeParams.id;
+        db.contractor.getJobApplications(id,page).success(function (result) {
+                $scope.currentPage = page || 1;
+                $scope.pages = Math.ceil(result.count / db.pageSize);
+                $scope.records = result.items;
+               });              
     }
-    $scope.getApplications();
-
-    $scope.itemsPerPage = 5;
-    $scope.currentPage = 0;
-    $scope.items = [];
-
-    for (var i = 0; i < 50; i++) {
-        $scope.items.push({ id: i, name: "name " + i, description: "description " + i });
-    }
-
-    $scope.range = function () {
-        var rangeSize = 5;
-        var ret = [];
-        var start;
-
-        start = $scope.currentPage;
-        if (start > $scope.pageCount() - rangeSize) {
-            start = $scope.pageCount() - rangeSize + 1;
-        }
-
-        for (var i = start; i < start + rangeSize; i++) {
-            ret.push(i);
-        }
-        return ret;
-    };
-
-    $scope.prevPage = function () {
-        if ($scope.currentPage > 0) {
-            $scope.currentPage--;
-        }
-    };
-
-    $scope.prevPageDisabled = function () {
-        return $scope.currentPage === 0 ? "disabled" : "";
-    };
-
-    $scope.pageCount = function () {
-        return Math.ceil($scope.items.length / $scope.itemsPerPage) - 1;
-    };
-
-    $scope.nextPage = function () {
-        if ($scope.currentPage < $scope.pageCount()) {
-            $scope.currentPage++;
-        }
-    };
-
-    $scope.nextPageDisabled = function () {
-        return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
-    };
-
-    $scope.setPage = function (n) {
-        $scope.currentPage = n;
-    };
+    $scope.navigate($routeParams.page);
 }]);
+
