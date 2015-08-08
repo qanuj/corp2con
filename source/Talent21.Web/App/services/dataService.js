@@ -72,7 +72,7 @@
         return $http.put(v + 'contractor/job/application/' + id + '/favorite');
     }
 
-    //Sonal
+   
     factory.contractor.getFavoriteApplications = function () {
         return $http.get(v + 'contractor/job/application/favorite/all');
     }
@@ -80,7 +80,7 @@
     factory.contractor.getContractorFavoriteById = function (Id) {
         return $http.get(v + 'job/application/{id}/favorite?$filter=Id eq ' + Id);
     }
-    //End code of Sonal
+   
 
     factory.contractor.unfavorite = function (id) {
         return $http.delete(v + 'contractor/job/application/' + id + '/favorite');
@@ -233,6 +233,11 @@
         return $http.delete(v + 'system/industry/'+record.id);
     }
 
+    factory.system.pagedFunctional = function (page, pageSize) {
+        console.log( 'Page - ',page, ' Pagesize',pageSize);
+        return $http.get(v + 'system/functional/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+
+    }
 
     factory.system.getFunctionals = function (page,pageSize) {
         return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page,pageSize));
