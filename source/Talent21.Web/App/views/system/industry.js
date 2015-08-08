@@ -1,4 +1,4 @@
-﻿app.controller('industryController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('industryController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
 
     $scope.navigate = function (page) {
         refreshRecord();

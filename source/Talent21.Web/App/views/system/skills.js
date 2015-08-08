@@ -1,4 +1,4 @@
-﻿app.controller('jobskillsController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('jobskillsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
 
     $scope.navigate = function (page) {
         refreshRecord();
