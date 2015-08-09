@@ -207,6 +207,11 @@
         return $http.get(uri);
     }
 
+   factory.system.pagedSkill = function (page, pageSize) {
+       console.log('Page - ', page, ' Pagesize', pageSize);
+       return $http.get(v + 'system/skill/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+   }
+
     factory.system.addSkill = function (record) {
         return $http.post(v + 'system/skill/create', record);
     }
@@ -217,6 +222,11 @@
 
     factory.system.deleteSkill = function (record) {
         return $http.delete(v + 'system/skill/' + record.id);
+    }
+
+    factory.system.pagedIndustries = function (page, pageSize) {
+        console.log('Page - ', page, ' Pagesize', pageSize);
+        return $http.get(v + 'system/industry/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
     factory.system.getIndustries = function (page,pageSize) {
@@ -236,7 +246,6 @@
     factory.system.pagedFunctional = function (page, pageSize) {
         console.log( 'Page - ',page, ' Pagesize',pageSize);
         return $http.get(v + 'system/functional/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
-
     }
 
     factory.system.getFunctionals = function (page,pageSize) {
