@@ -23,7 +23,6 @@
     factory.role = document.querySelector('html').dataset.role;
 
     //For Contractors
-
     factory.contractor.paged = function (page,pageSize) {
         return $http.get(v + 'contractor/paged?$inlinecount=allpages' + calculatePaging(page,pageSize));
     }
