@@ -13,8 +13,13 @@
             $('input[type=text]').each(function () {
                 $(this).val('');
             });
-
             db.system.addFunctional(record).success($scope.navigate());
+        }
+
+        function refreshRecord() {
+            return db.system.getFunctionals().success(function (result) {
+                $scope.records = result.items;
+            });
         }
 
         $scope.update = function (record) {
@@ -28,15 +33,6 @@
         $scope.toggle = function (record) {
             record.editMode = !record.editMode;
         };
-       
-
-        function refreshRecord() {
-            return db.system.getFunctionals().success(function (result) {
-                $scope.records = result.items;
-               
-            });
-          
-        }
     }
    
     $scope.navigate(params.page);
