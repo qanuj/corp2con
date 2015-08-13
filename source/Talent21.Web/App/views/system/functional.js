@@ -1,7 +1,6 @@
 ﻿app.controller('functionalController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
    
     $scope.navigate = function (page) {
-        
         db.system.pagedFunctional(page).success(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
@@ -34,13 +33,10 @@
         $scope.toggle = function (record) {
             record.editMode = !record.editMode;
         };
-       
-
-        
     }
    
     $scope.navigate(params.page);
-    
+   
    
 }]);
 
