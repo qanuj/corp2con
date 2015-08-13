@@ -71,11 +71,6 @@
         return $http.put(v + 'contractor/job/application/' + id + '/favorite');
     }
 
-   
-    //factory.contractor.getFavoriteApplications = function () {
-    //    return $http.get(v + 'contractor/job/application/favorite/all');
-    //}
-
     factory.contractor.getFavoriteById = function (Id) {
         return $http.get(v + 'contractorjob/application/{id}/favorite?$filter=Id eq ' + Id);
     }
@@ -85,14 +80,9 @@
         return $http.delete(v + 'contractor/job/application/' + id + '/favorite');
     }
 
-    factory.contractor.getFavorite = function (page, pageSize) {
-        return $http.get(v + 'contractor/job/application/favorite/all?$orderby=Id desc' + calculatePaging(page, pageSize));
+    factory.contractor.getFavorite = function () {
+        return $http.get(v + 'contractor/job/application/favorite/all?type=json');
     }
-
-    //factory.contractor.pagedFavorite = function (page, pageSize) {
-    //    console.log('Page - ', page, ' Pagesize', pageSize);
-    //    return $http.get(v + 'job/application/favorite/all/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
-    //}
 
     factory.contractor.favoriteJob = function (formData) {
         return $http.put(v + 'contractor/job/application/{id}/favorite', formData);
