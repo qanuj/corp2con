@@ -1,7 +1,15 @@
-﻿app.controller('jobscheduleController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('jobscheduleController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
+
+    $scope.navigate = function (page) {
+        db.contractor.pagedSchedule(page).success(function (result) {
+            $scope.currentPage = page || 1;
+            $scope.pages = Math.ceil(result.count / db.pageSize);
+            $scope.records = result.items;
+            console.log($scope.records)
+            });
 
     $scope.save = function (record) {
-        db.contractor.createSchedule(record).success(refreshRecord).finally(function() {
+        db.contractor.createSchedule(record).success($scope.navigate()).finally(function () {
             $scope.start = '';
             $scope.end = '';
         });
@@ -18,16 +26,17 @@
     }
 
     $scope.update = function (s) {
-        db.contractor.editSchedule(s).success(refreshRecord);
+        db.contractor.editSchedule(s).success($scope.navigate(params.page));
     };
 
     $scope.delete = function (s) {
-        db.contractor.deleteSchedule(s).success(refreshRecord);
+        db.contractor.deleteSchedule(s).success($scope.navigate(params.page));
     };
 
     $scope.toggle = function (s) {
         s.editMode = !s.editMode;
     };
-
-    refreshRecord();
+    }
+    $scope.navigate(params.page);
+    //refreshRecord();
 }]);

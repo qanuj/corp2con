@@ -91,6 +91,11 @@
     factory.contractor.deleteFavoriteJob = function (record) {
         return $http.delete(v + 'contractor/job/application/{id}/favorite' + record.id);
     }
+    
+     factory.contractor.pagedSchedule = function (page, pageSize) {
+       console.log('Page - ', page, ' Pagesize', pageSize);
+       return $http.get(v + 'contractor/schedule/paged?$orderby=Id desc' + calculatePaging(page, pageSize));
+   }
 
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'contractor/schedule', formData);
