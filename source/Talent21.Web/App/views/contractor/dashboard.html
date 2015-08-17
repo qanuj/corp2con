@@ -1,112 +1,260 @@
 ﻿<div id="page-wrapper" class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-header">Welcome! {{profile.firstName}}</h2>
+            <h2 class="page-header">
+                Search Jobs
+            </h2>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-eye fa-5x"></i>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <form ng-submit="search(query)" class="form-horizontal">
+                        <div class="row search-row">
+                            <div class="col-md-5">
+                                <input class="form-control input-lg" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control input-lg" type="text" ng-model="query.location" placeholder="e.g. Mumbai OR Delhi" />
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-primary btn-lg srch-btn-pad pull-right" ng-click="search(query)"><i class="fa fa-search"></i></button>
+                            </div>
                         </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">{{record.views}}</div>
-                            <div>Profile Views!</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <h3 class="page-header">
+                At a glance
+            </h3>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-eye fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{record.views}}</div>
+                                    <div>Profile<br/>Views!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#/stats">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-briefcase fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{record.jobs}}</div>
+                                    <div>New<br />Jobs!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#/search/match">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-building fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{record.week}}</div>
+                                    <div>Next<br />Week!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#/search/week">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-calendar fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{record.month}}</div>
+                                    <div>Next<br />Month!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#/search/month">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">
+                        Latest {{record.aggregate.skill}} Jobs in {{record.aggregate.location}}
+                    </h4>
+                </div>
+                <div class="col-md-12">
+                    <div ng-if="matching.length==0">
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Ooops! You got us..</strong>
+                            <p>We could not find anything, are you sure you are looking for <strong>{{record.aggregate.skill}}</strong> in <strong>{{record.aggregate.location}}</strong>.</p>
+                            <p><a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a></p>
+                        </div>
+                    </div>
+                    <div ng-repeat="row in matching" class="search-line">
+                        <div class="col-md-9">
+                            <div class="title">
+                                <h5>{{row.firstName}} {{row.lastName}}</h5>
+                            </div>
+                            <div class="data">
+                                <span class="city"><i class="fa fa-map-marker"></i> {{row.location}}</span>
+                                <span class="experience"><i class="fa fa-trophy"></i> {{row.experienceYears}}.{{row.experienceMonths}} years</span>
+                                <span class="sallary"><i class="fa fa-inr"></i> {{row.rate}}k</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group">
+                                <a class="btn btn-info btn-xs" href="#/contractor/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+                                <a class="btn btn-info btn-xs" href="#/contractor/save/{{row.id}}"><i class="fa fa-heart-o"></i> Save</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <a href="#/stats">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-briefcase fa-5x"></i>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">
+                        Top {{record.aggregate.skill}} Jobs, in {{record.aggregate.location}}
+                    </h4>
+                </div>
+                <div class="col-md-12">
+                    <div ng-if="matching.length==0">
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Ooops! You got us..</strong>
+                            <p>We could not find anything, are you sure you are looking for <strong>{{record.aggregate.skill}}</strong> in <strong>{{record.aggregate.location}}</strong>.</p>
+                            <p><a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a></p>
                         </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">{{record.jobs}}</div>
-                            <div>New Jobs!</div>
+                    </div>
+                    <div ng-repeat="row in matching" class="search-line bg-success">
+                        <div class="col-md-12">{{row.available}}</div>
+                        <div class="col-md-9">
+                            <div class="title">
+                                <h5>{{row.firstName}} {{row.lastName}}</h5>
+                            </div>
+                            <div class="data">
+                                <span class="city"><i class="fa fa-map-marker"></i> {{row.location}}</span>
+                                <span class="experience"><i class="fa fa-trophy"></i> {{row.experienceYears}}.{{row.experienceMonths}} years</span>
+                                <span class="sallary"><i class="fa fa-inr"></i> {{row.rate}}k</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group">
+                                <a class="btn btn-info btn-xs" href="#/contractor/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+                                <a class="btn btn-info btn-xs" href="#/contractor/save/{{row.id}}"><i class="fa fa-heart-o"></i> Save</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <a href="#/search/match">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-building fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">{{record.week}}</div>
-                            <div>Next Week!</div>
-                        </div>
-                    </div>
+
+        <div class="col-md-4" id="sidebar">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <th>For {{record.aggregate.skill}}, {{record.aggregate.location}}</th>
+                            <th>Salary (Monthly)</th>
+                            <th>Duration (Days)</th>
+                        </tr>
+                        <tr>
+                            <th>Minimum</th>
+                            <td>{{record.aggregate.salary.min}}</td>
+                            <td>{{record.aggregate.duration.min | amDifference : null : 'days' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum</th>
+                            <td>{{record.aggregate.salary.max}}</td>
+                            <td>{{record.aggregate.duration.max| amDifference : null : 'days' }}</td>
+                        </tr>
+                    </table>
                 </div>
-                <a href="#/search/week">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-calendar fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">{{record.month}}</div>
-                            <div>Next Month!</div>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-block btn-primary" href="#/schedule"><i class="fa fa-calendar"></i> Manage Schedule</a>
                 </div>
-                <a href="#/search/month">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
-        </div>
-    </div>
-    <div class="jobs">
-        <a href="#/profile">
-            <div ng-if="profile.featured" class="featured"></div>
-            <img src="{{profile.pictureUrl}}" alt="" class="img-circle" />
+            <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive" />
             <div class="title">
                 <h5>{{profile.firstName}} {{profile.lastName}}</h5>
-                <p>{{profile.about}}</p>
+                <p class="about">{{profile.about}}</p>
+                <a href="#/profile/edit" class="pull-right"><i class="fa fa-pencil"></i> Edit Profile</a>
             </div>
-            <div class="data">
-                <span class="city"><i class="fa fa-map-marker"></i>{{profile.location}}</span>
-                <span class="experience"><i class="fa fa-trophy"></i>{{profile.experienceYears}}.{{profile.experienceMonths}} years</span>
-                <span class="sallary"><i class="fa fa-inr"></i>{{profile.rate}}k</span>
+            <div class="sidebar-widget" id="widget-contact">
+                <h2>Contact</h2>
+                <ul>
+                    <li><i class="fa fa-user"></i><a href="#/profile">{{profile.firstName}} {{profile.lastName}}</a></li>
+                    <li><i class="fa fa-map-marker"></i>{{profile.location}}</li>
+                    <li><i class="fa fa-phone"></i>{{profile.mobile}}</li>
+                    <li><i class="fa fa-phone"></i>{{profile.alternateNumber}}</li>
+                    <li><i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></li>
+                </ul>
             </div>
-        </a>
+            <div class="sidebar-widget" id="share">
+                <h2>Social</h2>
+                <ul>
+                    <li ng-if="profile.facebook"><a href="{{profile.facebook}}"><i class="fa fa-facebook"></i></a></li>
+                    <li ng-if="profile.twitter"><a href="{{profile.twitter}}"><i class="fa fa-twitter"></i></a></li>
+                    <li ng-if="profile.google"><a href="{{profile.google}}"><i class="fa fa-google-plus"></i></a></li>
+                    <li ng-if="profile.linkedin"><a href="{{profile.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                    <li ng-if="profile.webSite"><a href="{{profile.webSite}}"><i class="fa fa-globe"></i></a></li>
+                    <li ng-if="profile.yahoo"><a href="{{profile.yahoo}}"><i class="fa fa-yahoo"></i></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
