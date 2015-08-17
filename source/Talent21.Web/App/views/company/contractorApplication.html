@@ -25,8 +25,7 @@
                     </div>
                     <div class="listings" ng-repeat="s in schedule | orderBy:['-isAvailable','start']" ng-class="{'bg-success':s.isAvailable}">
                         <div class="row">
-                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}}
-                            </div>
+                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}} </div>
                             <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
                             <div class="col-md-3">{{s.end | date:'dd-MMM-yyyy'}}</div>
                             <div class="col-md-3">{{s.end | amDifference : s.start : 'days'}} Days</div>
