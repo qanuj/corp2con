@@ -24,17 +24,14 @@
         }
         if (record.loc) {
             record.location = record.loc.formatted_address;
-            $scope.industries = data;
         }
 
-       
         db.company.update(record).success(function (result) {
-            window.location = "#/profile";
+            window.location = "#/dashboard";
         });
     }
 
-    //db.industry.getIndustries().success(function (result) {
-    //    $scope.industries = result.data;
-    //});
-
+    db.industry.getIndustries().success(function(result) {
+        $scope.industries = result;
+    });
 }]);

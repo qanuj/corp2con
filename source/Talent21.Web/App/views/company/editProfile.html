@@ -55,10 +55,9 @@
             </div>
             <div class="form-group">
                 <label>Industry</label>
-                <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="industry.id as industry.title for industry in industries" data-ng-change="">
+                <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="industry.id as industry.title for industry in industries">
                     <option value="">-- Select industry --</option>
                 </select>
-                <!--<input type="text" class="form-control" ng-model="record.industryId" typeahead="industry.id as industry.title for industry in industries | filter:$viewValue | limitTo:10" typeahead-editable="false" placeholder="Choose a Industry">-->
             </div>
             <div class="form-group wysiwyg" id="job-description-group">
                 <textarea class="form-control" markdownedit markdown-hidden-buttons="cmdQuote" rows="10" id="txtDescription" ng-model="record.about" required placeholder="About {{record.companyName}}"></textarea>
