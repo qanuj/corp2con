@@ -331,6 +331,8 @@
     <Content Include="App\template\js\scrollReveal.min.js" />
     <Content Include="App\template\js\settings.js" />
     <Content Include="App\template\js\waypoints.min.js" />
+    <Content Include="App\views\admin\dashboard.html" />
+    <Content Include="App\views\admin\dashboard.js" />
     <Content Include="App\views\company\applications.html" />
     <Content Include="App\views\company\applications.js" />
     <Content Include="App\views\company\contractorApplication.html" />
@@ -339,10 +341,10 @@
     <Content Include="App\views\company\editOrCreateJob.js" />
     <Content Include="App\views\pager.html" />
     <Content Include="App\views\pager.js" />
-    <Content Include="App\views\system\functional.html" />
-    <Content Include="App\views\system\functional.js" />
-    <Content Include="App\views\system\industry.html" />
-    <Content Include="App\views\system\industry.js" />
+    <Content Include="App\views\admin\functional.html" />
+    <Content Include="App\views\admin\functional.js" />
+    <Content Include="App\views\admin\industry.html" />
+    <Content Include="App\views\admin\industry.js" />
     <Content Include="App\views\company\editProfile.html" />
     <Content Include="App\views\company\editProfile.js" />
     <Content Include="App\views\company\job.html" />
@@ -373,8 +375,8 @@
     <Content Include="App\views\company\jobs.html" />
     <Content Include="App\views\contractor\job.js" />
     <Content Include="App\views\searchController.js" />
-    <Content Include="App\views\system\skills.html" />
-    <Content Include="App\views\system\skills.js" />
+    <Content Include="App\views\admin\skills.html" />
+    <Content Include="App\views\admin\skills.js" />
     <Content Include="App\views\Testimonials.html" />
     <Content Include="App\template\about.html" />
     <Content Include="App\template\blog.html" />

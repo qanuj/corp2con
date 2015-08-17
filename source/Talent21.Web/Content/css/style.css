@@ -304,7 +304,8 @@ header {
     color: #fff;
     line-height: 40px;
     left: 0;
-    padding: 10px 0;
+    padding:0px;
+    padding-top: 5px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -1084,7 +1085,11 @@ label {
 
     .featured-job .description {
         padding: 0 15px;
-    }
+    
+        height: 211px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
 
 /* 5.2. RESUME
 	---------------------------------------------------------------*/
