@@ -22,8 +22,8 @@
             </div>
         </form>
     </div>
-    <div class="col-md-12">
-        <div class="listings" ng-repeat="s in schedule">
+    <div class="col-md-12" style="padding-top:15px; padding-bottom: 15px;" >
+        <div class="listings" ng-repeat="s in records">
             <div class="row" ng-show="!s.editMode">
                 <div class="col-md-3">{{s.company}}</div>
                 <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
@@ -44,4 +44,7 @@
             </div>
         </div>
     </div>
+    <cc-pager total-pages="pages" current-page="currentPage"
+              page-action="navigate(pageNumber)">
+    </cc-pager>
 </div>
