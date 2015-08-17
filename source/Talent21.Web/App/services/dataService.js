@@ -288,7 +288,7 @@
                 deferred.resolve(that.enumsRows[name]);
             });
         } else {
-            return deferred.resolve(that.enumsRows[name]);
+            deferred.resolve(that.enumsRows[name]);
         }
         return deferred.promise;
     }
