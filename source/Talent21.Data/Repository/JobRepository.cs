@@ -27,9 +27,9 @@ namespace Talent21.Data.Repository
 
         public IQueryable<Job> Mine(string userId)
         {
-            return base.All.Where(x => x.Company.OwnerId == userId).Include(x => x.Skills).Include(x => x.Locations).Include(x => x.Company);
+            return base.All.Where(x => x.Company.OwnerId == userId).Include(x => x.Skills.Select(y=>y.Skill)).Include(x => x.Locations).Include(x => x.Company);
         }
-
+            
 
         internal static void Register(DbModelBuilder modelBuilder)
         {

@@ -1,5 +1,9 @@
 ﻿app.controller('companyEditProfileController', ['$scope', 'dataService', function ($scope, db) {
 
+    db.system.getIndustries().success(function(result) {
+        $scope.industries = result;
+    });
+
     db.company.get().success(function (result) {
 
         result.picture = { url: result.pictureUrl };
@@ -31,7 +35,4 @@
         });
     }
 
-    db.industry.getIndustries().success(function(result) {
-        $scope.industries = result;
-    });
 }]);

@@ -1,0 +1,18 @@
+<div id="divVZ"></div>
+<script type="text/javascript">
+var _vzplayer = {
+    where:"divVZ",
+    config : {
+        epkey: 165, // could be epkey (Episode Id), mkey (Video Id) 
+        width: 640, //Width of the Video Container
+        height: 360 // Height of the Video Container
+    }
+};
+
+(function () {
+    //no changed below is needed.
+    var vzp = document.createElement('script'); vzp.type = 'text/javascript'; vzp.async = true;
+    vzp.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'vzconsole.com/scripts/player/embed/vidzapper.embed.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(vzp, s);
+})(); 
+</script>

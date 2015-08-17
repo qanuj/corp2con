@@ -1,0 +1,36 @@
+<html>
+<body>
+<div id="divVZUploader">
+	<form enctype="multipart/form-data" method="post">
+		<input type="file" multiple />
+	</form>
+</div>
+<script type="text/javascript">
+var _vzplayer = {
+    where:"divVZUploader",
+    events:{
+    	onProgress:function(p){
+    		console.log('Progress',p);
+    	},
+    	onComplete:function(file){
+    		console.log('Completed',file);
+    	}
+    },
+    config : {
+    	storage:1,
+    	user:1,
+    	client:1,
+    	maxFiles:5,
+    	maxSize:1024*1024
+    }
+};
+
+(function () {
+    //no changed below is needed.
+    var vzp = document.createElement('script'); vzp.type = 'text/javascript'; vzp.async = true;
+    vzp.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'vzconsole.com/scripts/player/embed/vidzapper.embed.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(vzp, s);
+})(); 
+</script>
+</body>
+</html>

@@ -24,20 +24,18 @@
     $scope.loadLocations = db.system.getLocations;
 
     $scope.save = function (record) {
-        $('input[type=text]').each(function () {
-            $(this).val('');
-        });
         record.skills = record.primarySkills.concat(record.secondarySkills);
+        
 
         if (param.id) {
             db.job.update(record)
             .success(function (result) {
-                window.location = "#/profile";
+                window.location = "#/jobs";
             });
         } else {
             db.job.create(record)
             .success(function (result) {
-                window.location = "#/profile";
+                window.location = "#/jobs";
             });
         }
     }

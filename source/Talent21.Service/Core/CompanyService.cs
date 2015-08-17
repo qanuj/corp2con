@@ -177,6 +177,7 @@ namespace Talent21.Service.Core
 
             var IDs = model.Skills.Select(x => x.Id).ToList();
             var existingSkills = _jobSkillRepository.ById(IDs).ToList();
+            var xIDs = existingSkills.Select(x => x.Id).ToList();
 
             //Updated Skills
             for (var i = 0; i < existingSkills.Count; i++)
@@ -190,7 +191,7 @@ namespace Talent21.Service.Core
             }
 
             //Created Skills
-            var newSkills = model.Skills.Where(x => x.Id == 0);
+            var newSkills = model.Skills.Where(x => xIDs.All(y => y != x.Id));
             foreach (var mskill in newSkills)
             {
                 _jobSkillRepository.Create(new JobSkill
@@ -246,7 +247,7 @@ namespace Talent21.Service.Core
             var xIDs = entity.Locations.Select(x => x.Id).ToList();
 
             //Created Skills
-            var newLocs = model.Locations.Where(x => x.Id == 0);
+            var newLocs = model.Locations.Where(x => xIDs.All(y => y != x.Id));
             foreach (var mloc in newLocs)
             {
                 var loc = _locationRepository.ByTitle(mloc.Title) ?? new Location() { Title = mloc.Title, Code = mloc.Code };
@@ -276,7 +277,7 @@ namespace Talent21.Service.Core
 
         public JobViewModel Update(EditJobViewModel model)
         {
-            var entity = _jobRepository.ById(model.Id);
+            var entity = _jobRepository.Mine(CurrentUserId).FirstOrDefault(x=>x.Id==model.Id);
             if (entity == null) throw new Exception("Job Not Found");
 
             entity.Description = model.Description;
