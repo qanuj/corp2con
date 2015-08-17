@@ -4,8 +4,8 @@
         
     }
 
-    function loadSchedule(page) {
-        return db.contractor.getSchedule(page).success(function (result) {
+    function loadSchedule(id) {
+        return db.company.getSchedule(id).success(function (result) {
             angular.forEach(result, function (d) {
                 d.start = moment(d.start).toDate();
                 d.end = moment(d.end).toDate();
@@ -20,6 +20,8 @@
             $scope.levels = levels;
         });
         loadSchedule();
+        loadSchedule(param.id);
+
         db.contractor.get(param.id).success(function (result) {
             $scope.record = result;
         });
