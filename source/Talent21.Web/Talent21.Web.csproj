@@ -251,6 +251,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -278,8 +279,12 @@
     <Content Include="App\directives\uploader.js" />
     <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
+    <Content Include="App\services\company.db.js" />
+    <Content Include="App\services\contractor.db.js" />
     <Content Include="App\services\dataService.js" />
-    <Content Include="App\services\headerFactory.js" />
+    <Content Include="App\services\db.util.js" />
+    <Content Include="App\services\job.db.js" />
+    <Content Include="App\services\system.db.js" />
     <Content Include="App\template\css\animate.css" />
     <Content Include="App\template\css\bannerscollection_zoominout.css" />
     <Content Include="App\template\css\bootstrap-theme.css" />
@@ -333,6 +338,9 @@
     <Content Include="App\template\js\waypoints.min.js" />
     <Content Include="App\views\admin\dashboard.html" />
     <Content Include="App\views\admin\dashboard.js" />
+    <Content Include="App\views\company\contractor.html" />
+    <Content Include="App\views\company\contractor.js" />
+    <Content Include="App\views\admin\transaction.js" />
     <Content Include="App\views\company\applications.html" />
     <Content Include="App\views\company\applications.js" />
     <Content Include="App\views\company\contractorApplication.html" />

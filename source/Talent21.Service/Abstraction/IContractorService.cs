@@ -11,7 +11,9 @@ namespace Talent21.Service.Abstraction
         IQueryable<ContractorViewModel> Contractors { get; }
         IQueryable<ScheduleViewModel> Schedules { get; }
         IQueryable<ContractorSkillViewModel> Skills { get; }
+
         IQueryable<JobApplicationContractorViewModel> Applications(int id = 0);
+        IQueryable<JobApplicationContractorViewModel> MyApplications();
         IQueryable<JobApplicationContractorViewModel> FavoriteJobs();
 
         ScheduleViewModel Create(CreateScheduleViewModel model);
@@ -33,6 +35,6 @@ namespace Talent21.Service.Abstraction
 
         bool ActOnApplication(DeleteJobApplicationHistoryViewModel model, JobActionEnum jobActionEnum);
 
-       
+        JobApplicationContractorViewModel JobById(int id);
     }
 }

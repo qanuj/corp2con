@@ -23,19 +23,19 @@
                 </div>
                 <div class="col-sm-4" id="sidebar">
                     <div class="sidebar-widget">
-                        <a class="btn btn-block btn-primary" ng-if="!record.isPublished" href="/#/job/edit/{{record.id}}">
+                        <a class="btn btn-block btn-primary" ng-if="record.isPublished===false" href="/#/job/edit/{{record.id}}">
                             <i class="fa fa-edit"></i> Edit Job
                         </a>
-                        <a class="btn btn-block btn-primary" ng-if="record.isPublished" href="/#/job/{{record.id}}/applications">
+                        <a class="btn btn-block btn-primary" ng-if="record.isPublished===true" href="/#/job/{{record.id}}/applications">
                             <i class="fa fa-file-code-o"></i> View applications <span class="badge">{{record.applied}}</span>
                         </a>
-                        <button class="btn btn-block btn-success" ng-click="publish(record.id)" ng-if="!record.isPublished">
+                        <button class="btn btn-block btn-success" ng-click="publish(record.id)" ng-if="record.isPublished===false">
                             <i class="fa fa-check"></i> Publish
                         </button>
-                        <button class="btn btn-block btn-warning" ng-click="promote(record.id)" ng-if="record.isPublished">
+                        <button class="btn btn-block btn-warning" ng-click="promote(record.id)" ng-if="record.isPublished===true">
                             <i class="fa fa-check"></i> Promote
                         </button>
-                        <button class="btn btn-block btn-warning" ng-click="cancel(record.id)" ng-if="record.isPublished">
+                        <button class="btn btn-block btn-warning" ng-click="cancel(record.id)" ng-if="record.isPublished===true">
                             <i class="fa fa-close"></i> Cancel
                         </button>
                         <button class="btn btn-block btn-danger" ng-click="delete(record.id)">

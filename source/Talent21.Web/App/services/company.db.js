@@ -1,0 +1,69 @@
+﻿app.factory('companyService', [
+    '$http', '$q', 'db.util', function ($http, $q, util) {
+        var v = 'api/v1/';
+
+        var calculatePaging = util.calculatePaging;
+        var orderBy = util.orderBy;
+
+        var company = {};
+
+        company.paged = function (page, pageSize) {
+            return $http.get(v + 'company/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+        }
+
+        company.dashboard = function () {
+            return $http.get(v + 'company/dashboard');
+        }
+
+
+        company.all = function () {
+            return $http.get(v + 'company/all');
+        }
+
+        company.get = function (id) {
+            return $http.get(v + 'company/profile' + (!!id ? '/' + id : ''));
+        }
+
+        company.update = function (formData) {
+            return $http.put(v + 'company/profile', formData);
+        }
+
+        company.myJobs = function (page, pageSize) {
+            return $http.get(v + 'company/job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+        }
+
+        company.limitJobs = function (page, pageSize) {
+            return $http.get(v + 'company/job/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+        }
+
+        company.search = function (query, page, pageSize, order) {
+            return $http.post(v + 'company/search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query);
+        }
+
+        company.getLatestProfiles = function (skill, location, page, pageSize) {
+            return $http.get(v + 'company/latest/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
+        }
+
+        company.getTopProfiles = function (skill, location, page, pageSize) {
+            return $http.get(v + 'company/top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
+        }
+
+        company.getJobApplications = function (id) {
+            return $http.get(v + 'company/job/' + id + '/applications/all');
+        }
+
+        company.getJobApplication = function (id) {
+            return $http.get(v + 'company/job/application/' + id);
+        }
+
+        company.acceptContractor = function (id) {
+            return $http.get(v + 'company/job/' + id + '/applications/all');
+        }
+
+        company.getSchedule = function (id) {
+            return $http.get(v + 'company/schedule/' + id);
+        }
+
+        return company;
+
+    }]);

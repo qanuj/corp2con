@@ -17,14 +17,16 @@ namespace Talent21.Service.Core
         private readonly IFunctionalAreaRepository _functionalAreaRepository;
         private readonly IIndustryRepository _industryRepository;
         private readonly ISkillRepository _skillRepository;
+        private readonly ITransactionRepository _transactionRepository;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
             _skillRepository = skillRepository;
             _functionalAreaRepository = functionalAreaRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -259,6 +261,21 @@ namespace Talent21.Service.Core
                 vals.Add(type.Name, Enum.GetNames(type).Select(x => x));
             }
             return vals;
+        }
+
+        public IQueryable<TransactionViewModel> Transactions()
+        {
+            return _transactionRepository.All.Select(x=> new TransactionViewModel
+            {
+                Id = x.Id,
+                Amount = x.Amount,
+                Credit = x.Credit,
+                Code = x.Code,
+                IsSuccess = x.IsSuccess,
+                PaymentCapture = x.PaymentCapture,
+                Reason = x.Reason,
+                Created = x.Created
+            });
         }
     }
 }

@@ -4,34 +4,23 @@
     $scope.role = db.role;
     $scope.id = param.id;
 
-    function getApplications() {
-        db.contractor.getJobApplicationsByJobId(param.id).success(function (result) {
-            var job = result.items[0];
-            if (!job) return;
-            
-            console.log('My job',result);
-
-            for (var act in job.actions) {
-                $scope.record.applicationId = job.actions[act].applicationId;//job application id;
-                if (job.actions[act].act == 'Application') {
-                    $scope.record.isApplied = true;
-                    $scope.record.applied = job.actions[act].created;
-                }
-                if (job.actions[act].act == 'Revoke') {
-                    $scope.record.isApplied = false;
-                    $scope.record.revoked = job.actions[act].created;
-                }
-                if (job.actions[act].act == 'Favorite') {
-                    $scope.record.isFavorite = true;
-                    $scope.record.favorite = job.actions[act].created;
-                }
+    db.contractor.jobById($scope.id).success(function (job) {
+        $scope.record = job;
+        for (var act in job.actions) {
+            $scope.record.applicationId = job.actions[act].applicationId;//job application id;
+            if (job.actions[act].act == 'Application') {
+                $scope.record.isApplied = true;
+                $scope.record.applied = job.actions[act].created;
             }
-        });
-    }
-
-    db.contractor.jobById($scope.id).success(function (result) {
-        $scope.record = result;
-        getApplications();
+            if (job.actions[act].act == 'Revoke') {
+                $scope.record.isApplied = false;
+                $scope.record.revoked = job.actions[act].created;
+            }
+            if (job.actions[act].act == 'Favorite') {
+                $scope.record.isFavorite = true;
+                $scope.record.favorite = job.actions[act].created;
+            }
+        }
     });
 
     $scope.revoke = function (record) {

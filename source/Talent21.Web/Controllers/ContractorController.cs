@@ -195,9 +195,9 @@ namespace Talent21.Web.Controllers
         public PageResult<JobApplicationContractorViewModel> GetJobApplications(ODataQueryOptions<JobApplicationContractorViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return Page(_service.Applications(), options);
+            return Page(_service.MyApplications(), options);
         }
-
+       
         [HttpGet]
         [Route("transaction")]
         public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
@@ -249,11 +249,11 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/{id}")]
-        [ResponseType(typeof(JobSearchResultViewModel))]
+        [ResponseType(typeof(JobApplicationContractorViewModel))]
         public HttpResponseMessage SingleJob(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            var model = _jobService.ById(id);
+            var model = _service.JobById(id);
             return model == null ? NotFound() : Ok(model);
         }
 
