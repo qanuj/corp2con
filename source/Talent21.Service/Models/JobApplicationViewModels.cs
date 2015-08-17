@@ -9,6 +9,7 @@ namespace Talent21.Service.Models
     {
         public DictionaryViewModel Job { get; set; }
         public ContractorViewModel Contractor { get; set; }
+        public string Folder { get; set; }
     }
 
     public class JobApplicationViewModel

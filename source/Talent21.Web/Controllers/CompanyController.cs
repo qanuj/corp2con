@@ -179,7 +179,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/{id}/applications/paged")]
-        public PageResult<JobApplicationViewModel> ViewJobs(int id,ODataQueryOptions<JobApplicationViewModel> options)
+        public PageResult<JobApplicationCompanyViewModel> ViewJobs(int id,ODataQueryOptions<JobApplicationCompanyViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Applications(id), options);
@@ -207,26 +207,26 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("job/application/{id}/reject")]
-        public HttpResponseMessage RejectJobApplication(CreateJobApplicationHistoryViewModel model)
+        public HttpResponseMessage RejectJobApplication([FromUri]int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Rejected)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = id}, JobActionEnum.Rejected)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("job/application/{id}/shortlist")]
-        public HttpResponseMessage ShortlistJobApplication(CreateJobApplicationHistoryViewModel model)
+        public HttpResponseMessage ShortlistJobApplication([FromUri]int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.ActOnApplication(model, JobActionEnum.Shortlist)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Shortlist)) : Bad(ModelState);
         }
 
         [HttpPut]
         [Route("job/application/{id}/move/{folder}")]
-        public HttpResponseMessage MoveJobApplication(MoveJobApplicationViewModel model)
+        public HttpResponseMessage MoveJobApplication([FromUri]int id,[FromUri]string folder)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.MoveApplication(model)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.MoveApplication(new MoveJobApplicationViewModel { Folder = folder,Id = id})) : Bad(ModelState);
         }
 
         [HttpGet]

@@ -9,7 +9,7 @@
                             <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded" />
                         </div>
                         <div class="col-sm-8 col-md-9 col-lg-10">
-                            <p>{{record.about}}</p>
+                            <markdown bind-from="record.about"></markdown>
                         </div>
                     </div>
                     <h3>Schedule</h3>
@@ -41,9 +41,12 @@
             </div>
             <div class="col-sm-4" id="sidebar">
                 <div class="sidebar-widget">
-                    <button class="btn btn-block btn-primary" ng-click="shortlist(record.id)">
-                        <i class="fa fa-list-ul"></i> Shortlist
-                    </button>
+                    <div class="input-group">
+                        <input type="text" class="form-control input-xs" ng-model="record.folder" />
+                        <span class="input-group-btn">
+                            <button ng-click="move(record.id,record.folder)" class="btn btn-primary srch-btn-pad">Save</button>
+                        </span>
+                    </div>
                 </div>
                 <div class="sidebar-widget" id="widget-contact">
                     <h2>Contact</h2>

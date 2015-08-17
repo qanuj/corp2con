@@ -101,7 +101,7 @@
                                     <p>@job.Company</p>
                                 </div>
                                 <div class="data">
-                                    <span class="city"><i class="fa fa-map-marker"></i>@job.Location.Title</span>
+                                    <span class="city"><i class="fa fa-map-marker"></i>@(job.Location!=null ? job.Location.Title : "")</span>
                                     <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
                                     <span class="sallary"><i class="fa fa-int"></i>@(job.Rate)k</span>
                                 </div>

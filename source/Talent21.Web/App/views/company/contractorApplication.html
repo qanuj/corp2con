@@ -5,11 +5,20 @@
                 <article>
                     <h2>{{job.title}} <small>{{job.company}} - <i class="fa fa-map-marker"></i> {{job.location.title}}</small></h2>
                     <p>{{job.description | limitTo : 400}}...</p>
+                    <ul>
+                        <li ng-repeat="x in application.actions">{{x.act}} on {{x.created | date:'dd-MMM-yyyy'}}</li>
+                    </ul>
                 </article>
                 <article>
                     <h2><i class="fa fa-user"></i> {{record.firstName}} {{record.lastName}}</h2>
-                    <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left" />
-                    <p>{{record.about}}</p>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded" />
+                        </div>
+                        <div class="col-sm-8 col-md-9 col-lg-10">
+                            <markdown bind-from="record.about"></markdown>
+                        </div>
+                    </div>
                     <h3>Schedule</h3>
                     <div class="listings strong">
                         <div class="col-md-3">Note</div>
@@ -19,10 +28,10 @@
                     </div>
                     <div class="listings" ng-repeat="s in schedule | orderBy:['-isAvailable','start']" ng-class="{'bg-success':s.isAvailable}">
                         <div class="row">
-                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}}</div>
+                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}} </div>
                             <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
                             <div class="col-md-3">{{s.end | date:'dd-MMM-yyyy'}}</div>
-                            <div class="col-md-3">{{s.end | amDifference : s.start : 'days'}}</div>
+                            <div class="col-md-3">{{s.end | amDifference : s.start : 'days'}} Days</div>
                         </div>
                     </div>
                     <div ng-repeat="l in levels">
@@ -39,12 +48,15 @@
             </div>
             <div class="col-sm-4" id="sidebar">
                 <div class="sidebar-widget">
-                    <button class="btn btn-block btn-primary" ng-click="accept(record.id)">
-                        <i class="fa fa-check"></i> Accept
-                    </button>
-                    <button class="btn btn-block btn-primary" ng-click="reject(record.id)">
-                        <i class="fa fa-thumbs-o-down"></i> Reject
-                    </button>
+                    <button class="btn btn-block btn-danger" ng-click="reject(application.id)" ng-disabled="hasApproved"><i class="fa fa-ban"></i> Reject</button>
+                    <button class="btn btn-block btn-success" ng-click="shortlist(application.id)" ng-disabled="hasRejected"><i class="fa fa-check"></i> Shortlist</button>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control input-xs" ng-model="application.folder" />
+                        <span class="input-group-btn">
+                            <button ng-click="move(application.id,application.folder)" class="btn btn-primary srch-btn-pad">Move</button>
+                        </span>
+                    </div>
                 </div>
                 <div class="sidebar-widget" id="widget-contact">
                     <h2>Contact</h2>

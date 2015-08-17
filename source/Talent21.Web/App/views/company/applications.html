@@ -6,7 +6,7 @@
                 <cc-pager total-pages="pages" current-page="currentPage"
                           page-action="navigate(pageNumber)">
                 </cc-pager>
-                <div class="jobs" ng-repeat="row in records.items">
+                <div class="jobs" ng-repeat="row in records">
                     <a href="#/job/application/{{row.id}}">
                         <div ng-if="row.featured" class="featured"></div>
                         <img src="{{row.contractor.pictureUrl}}" alt="" class="img-circle" />
