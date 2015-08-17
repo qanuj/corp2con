@@ -15,9 +15,21 @@
             return $http.get(v + 'company/dashboard');
         }
 
-
+        
         company.all = function () {
             return $http.get(v + 'company/all');
+        }
+
+        company.saveApplication = function (id, folder) {
+            return $http.put(v + 'company/job/application/' + id + '/move/' + folder);
+        }
+
+        company.shortlistApplication = function (id) {
+            return $http.put(v + 'company/job/application/' + id + '/shortlist');
+        }
+
+        company.rejectApplication = function (id) {
+            return $http.put(v + 'company/job/application/' + id + '/reject');
         }
 
         company.get = function (id) {
@@ -54,10 +66,6 @@
 
         company.getJobApplication = function (id) {
             return $http.get(v + 'company/job/application/' + id);
-        }
-
-        company.acceptContractor = function (id) {
-            return $http.get(v + 'company/job/' + id + '/applications/all');
         }
 
         company.getSchedule = function (id) {

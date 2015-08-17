@@ -336,6 +336,7 @@ namespace Talent21.Service.Core
                 Job = new DictionaryEditViewModel { Id = x.JobId, Code = x.Job.Code, Title = x.Job.Title },
                 Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
                 Id = x.Id,
+                Folder=x.Folder,
                 Contractor = new ContractorViewModel
                 {
                     Id = x.Contractor.Id,
