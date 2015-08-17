@@ -175,9 +175,8 @@ namespace Talent21.Service.Core
         private void ApplySkills(CreateJobViewModel model, Job entity)
         {
 
-            var IDs = model.Skills.Select(x => x.Id).ToList();
+            var IDs = entity.Skills.Select(x => x.Id).ToList();
             var existingSkills = _jobSkillRepository.ById(IDs).ToList();
-            var xIDs = existingSkills.Select(x => x.Id).ToList();
 
             //Updated Skills
             for (var i = 0; i < existingSkills.Count; i++)
@@ -191,7 +190,7 @@ namespace Talent21.Service.Core
             }
 
             //Created Skills
-            var newSkills = model.Skills.Where(x => xIDs.All(y => y != x.Id));
+            var newSkills = model.Skills.Where(x => IDs.All(y => y != x.Id));
             foreach (var mskill in newSkills)
             {
                 _jobSkillRepository.Create(new JobSkill
@@ -277,7 +276,7 @@ namespace Talent21.Service.Core
 
         public JobViewModel Update(EditJobViewModel model)
         {
-            var entity = _jobRepository.Mine(CurrentUserId).FirstOrDefault(x=>x.Id==model.Id);
+            var entity = _jobRepository.MineFirst(CurrentUserId,model.Id);
             if (entity == null) throw new Exception("Job Not Found");
 
             entity.Description = model.Description;
@@ -401,30 +400,32 @@ namespace Talent21.Service.Core
             return Jobs.FirstOrDefault(x => x.Id == id);
         }
 
+        private static IQueryable<JobViewModel> ToJobViewModel(IQueryable<Job> jobs)
+        {
+            return jobs.Select(x => new JobViewModel
+            {
+                Id = x.Id,
+                Applied = x.Applications.Count,
+                Company = x.Company.CompanyName,
+                IsCancelled = x.IsCancelled,
+                Cancelled = x.Cancelled,
+                IsPublished = x.IsPublished,
+                Published = x.Published,
+                Skills = x.Skills.Select(y => new JobSkillEditViewModel { Code = y.Skill.Code, Level = y.Level, Id = y.Id, Title = y.Skill.Title }),
+                Locations = x.Locations.Select(y => new JobLocationEditViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                CompanyId = x.CompanyId,
+                Description = x.Description,
+                Code = x.Code,
+                Title = x.Title,
+                End = x.End,
+                Rate = x.Rate,
+                Start = x.Start
+            });
+        }
+
         public virtual IQueryable<JobViewModel> Jobs
         {
-            get
-            {
-                return _jobRepository.All.Where(x => x.Company.OwnerId == CurrentUserId).Select(x => new JobViewModel
-                {
-                    Id = x.Id,
-                    Applied = x.Applications.Count,
-                    Company = x.Company.CompanyName,
-                    IsCancelled = x.IsCancelled,
-                    Cancelled = x.Cancelled,
-                    IsPublished = x.IsPublished,
-                    Published = x.Published,
-                    Skills = x.Skills.Select(y => new JobSkillViewModel { Code = y.Skill.Code, Level = y.Level, Id = y.Id, Title = y.Skill.Title }),
-                    Locations = x.Locations.Select(y => new JobLocationEditViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
-                    CompanyId = x.CompanyId,
-                    Description = x.Description,
-                    Code = x.Code,
-                    Title = x.Title,
-                    End = x.End,
-                    Rate = x.Rate,
-                    Start = x.Start
-                });
-            }
+            get { return ToJobViewModel(_jobRepository.Mine(CurrentUserId)); }
         }
 
         public IQueryable<ContractorSearchResultViewModel> Contractors
