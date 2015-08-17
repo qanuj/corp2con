@@ -510,6 +510,14 @@ namespace Talent21.Service.Core
                 var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
             }
+            if (model.xFrom > 0)
+            {
+                query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) > model.xFrom);
+            }
+            if (model.xTo > 0)
+            {
+                query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) < model.xTo);
+            }
             return query;
         }
 
