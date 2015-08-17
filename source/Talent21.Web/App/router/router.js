@@ -49,6 +49,11 @@
                  templateUrl: '/app/views/company/profile.html',
                  controller: 'companyProfileController'
              })
+
+             .when('/industry', {
+                 templateUrl: '/app/views/system/industry.html',
+                 controller: 'industryController'
+             })
             .otherwise({ redirectTo: '/' });
 
     } else if (role === 'Admin') {
@@ -57,10 +62,10 @@
                templateUrl: '/app/views/system/dashboard.html',
                controller: 'adminDashboardController'
            })
-            .when('/industry', {
-                templateUrl: '/app/views/system/industry.html',
-                controller: 'industryController'
-            })
+            //.when('/industry', {
+            //    templateUrl: '/app/views/system/industry.html',
+            //    controller: 'industryController'
+            //})
            .when('/functional', {
                templateUrl: '/app/views/system/functional.html',
                controller: 'functionalController'

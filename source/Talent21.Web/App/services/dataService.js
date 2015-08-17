@@ -23,7 +23,6 @@
     factory.role = document.querySelector('html').dataset.role;
 
     //For Contractors
-
     factory.contractor.paged = function (page,pageSize) {
         return $http.get(v + 'contractor/paged?$inlinecount=allpages' + calculatePaging(page,pageSize));
     }
@@ -72,23 +71,32 @@
         return $http.put(v + 'contractor/job/application/' + id + '/favorite');
     }
 
-    //Sonal
-    factory.contractor.getFavoriteApplications = function () {
-        return $http.get(v + 'contractor/job/application/favorite/all');
+    factory.contractor.getFavoriteById = function (Id) {
+        return $http.get(v + 'contractorjob/application/{id}/favorite?$filter=Id eq ' + Id);
     }
-
-    factory.contractor.getContractorFavoriteById = function (Id) {
-        return $http.get(v + 'job/application/{id}/favorite?$filter=Id eq ' + Id);
-    }
-    //End code of Sonal
+   
 
     factory.contractor.unfavorite = function (id) {
         return $http.delete(v + 'contractor/job/application/' + id + '/favorite');
     }
 
-    factory.contractor.getfavorite = function (id) {
-        return $http.get(v + 'contractor/job/application/' + id + '/favorite');
+    factory.contractor.getFavorite = function () {
+        return $http.get(v + 'contractor/job/application/favorite/all?type=json');
     }
+
+    factory.contractor.favoriteJob = function (formData) {
+        return $http.put(v + 'contractor/job/application/{id}/favorite', formData);
+    }
+
+    factory.contractor.deleteFavoriteJob = function (record) {
+        return $http.delete(v + 'contractor/job/application/{id}/favorite' + record.id);
+    }
+    
+     factory.contractor.pagedSchedule = function (page, pageSize) {
+       console.log('Page - ', page, ' Pagesize', pageSize);
+       return $http.get(v + 'contractor/schedule/paged?$orderby=Id desc' + calculatePaging(page, pageSize));
+   }
+
     factory.contractor.createSchedule = function (formData) {
         return $http.post(v + 'contractor/schedule', formData);
     }
@@ -207,6 +215,11 @@
         return $http.get(uri);
     }
 
+   factory.system.pagedSkill = function (page, pageSize) {
+       console.log('Page - ', page, ' Pagesize', pageSize);
+       return $http.get(v + 'system/skill/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+   }
+
     factory.system.addSkill = function (record) {
         return $http.post(v + 'system/skill/create', record);
     }
@@ -217,6 +230,11 @@
 
     factory.system.deleteSkill = function (record) {
         return $http.delete(v + 'system/skill/' + record.id);
+    }
+
+    factory.system.pagedIndustries = function (page, pageSize) {
+        console.log('Page - ', page, ' Pagesize', pageSize);
+        return $http.get(v + 'system/industry/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
     factory.system.getIndustries = function (page,pageSize) {
@@ -233,6 +251,10 @@
         return $http.delete(v + 'system/industry/'+record.id);
     }
 
+    factory.system.pagedFunctional = function (page, pageSize) {
+        console.log( 'Page - ',page, ' Pagesize',pageSize);
+        return $http.get(v + 'system/functional/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+    }
 
     factory.system.getFunctionals = function (page,pageSize) {
         return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page,pageSize));

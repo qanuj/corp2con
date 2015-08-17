@@ -1,12 +1,28 @@
-app.controller('contractorFavoriteController', ['$scope', 'dataService', function ($scope, db) {
+app.controller('contractorFavoriteController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
 
-
-    function refreshRecord() {
-        return db.system.FavoriteJob().success(function (result) {
+        db.contractor.getFavorite().success(function (result) {
+            console.log('hello', result);
             $scope.records = result;
+            
+        }).error(function (err) { console.log(err) });
 
-        });
-    }
 
-    refreshRecord();
+        $scope.update = function (record) {
+            db.contractor.favoriteJob(record).success($scope.navigate(params.page));
+        };
+
+        $scope.delete = function (record) {
+            db.contractor.deleteFavoriteJob(record).success($scope.navigate(params.page));
+        };
+
+        $scope.toggle = function (record) {
+            record.editMode = !record.editMode;
+        };
+
+        function refreshRecord() {
+            return db.contractor.getFavorite().success(function (result) {
+                $scope.records = result;
+            });
+        }
 }]);
+

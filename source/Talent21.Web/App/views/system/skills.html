@@ -19,7 +19,7 @@
         </form>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-12" style="padding-top: 15px; padding-bottom: 10px;">
         <div class="listings" ng-repeat="s in records">
             <div class="row" ng-show="!s.editMode">
                 <div class="col-md-3">{{s.code}}</div>
@@ -39,4 +39,7 @@
             </div>
         </div>
     </div>
+    <cc-pager total-pages="pages" current-page="currentPage"
+              page-action="navigate(pageNumber)">
+    </cc-pager>
 </div>
