@@ -26,6 +26,11 @@
     };
 
     $scope.save = function (record) {
+        
+        for (var x in record.secondarySkills) {
+            record.secondarySkills[x].level = 'Secondary';
+        }
+
         if (record.cv) {
             record.profileUrl = record.cv.url;
         }
