@@ -75,6 +75,7 @@ namespace Talent21.Service.Core
                     PictureUrl = x.PictureUrl,
                     CompanyName = x.CompanyName,
                     AlternateNumber = x.AlternateNumber,
+                    Complete = x.Complete,
                     Industry = new DictionaryViewModel() { Code = x.Industry.Code, Title = x.Industry.Title },
                     OrganizationType = x.OrganizationType,
                     Profile = x.Profile

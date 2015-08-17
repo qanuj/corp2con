@@ -50,6 +50,8 @@ namespace Talent21.Service.Models
     {
         public DictionaryViewModel Industry { get; set; }
         public string OwnerId { get; set; }
+
+        public int Complete { get; set; }
     }
 
 
@@ -88,6 +90,8 @@ namespace Talent21.Service.Models
     {
         internal string OwnerId { get; set; }
         public string LocationCode { get; set; }
+
+        public int Complete { get; set; }
     }
 
 }

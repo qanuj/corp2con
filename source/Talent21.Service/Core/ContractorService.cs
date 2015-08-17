@@ -76,6 +76,7 @@ namespace Talent21.Service.Core
                                 Yahoo = x.Social.Yahoo,
                                 PictureUrl = x.PictureUrl,
                                 OwnerId = x.OwnerId,
+                                Complete = x.Complete,
                                 Rate = x.Rate,
                                 Skills = _contractorSkillRepository.All.Where(y=>y.ContractorId==x.Id).Select(y => new ContractorSkillViewModel()
                                 {
