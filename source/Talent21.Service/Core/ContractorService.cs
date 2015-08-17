@@ -111,7 +111,12 @@ namespace Talent21.Service.Core
 
         public IQueryable<JobApplicationContractorViewModel> FavoriteJobs()
         {
-            return Applications().Where(x=>x.Actions.Any(y=>y.Act==JobActionEnum.Favorite));
+            return MyApplications().Where(x => x.Actions.Any(y => y.Act == JobActionEnum.Favorite));
+        }
+
+        public IQueryable<JobApplicationContractorViewModel> MyApplications()
+        {
+            return Applications().Where(x => x.Actions.Any());
         }
 
         public IQueryable<JobApplicationContractorViewModel> Applications(int id = 0)
@@ -200,7 +205,7 @@ namespace Talent21.Service.Core
                 Gender = model.Gender,
                 Profile = model.Profile,
                 Experience = new Duration() {Months = model.ExperienceMonths, Years = model.ExperienceYears},
-                Location = FindLocation(model.Location, model.LocationId??0),
+                LocationId = model.LocationId,
                 Mobile = model.Mobile,
                 Social = new Social
                 {
@@ -303,7 +308,7 @@ namespace Talent21.Service.Core
             entity.Gender = model.Gender;
             entity.Profile = model.Profile;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
-            entity.Location = FindLocation(model.Location, model.LocationId??0);
+            entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
             entity.Social = new Social
             {

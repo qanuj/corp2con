@@ -195,7 +195,7 @@ namespace Talent21.Web.Controllers
         public PageResult<JobApplicationContractorViewModel> GetJobApplications(ODataQueryOptions<JobApplicationContractorViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return Page(_service.Applications(), options);
+            return Page(_service.MyApplications(), options);
         }
 
         [HttpGet]

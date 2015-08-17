@@ -105,7 +105,7 @@ namespace Talent21.Service.Core
                 OrganizationType = model.OrganizationType,
                 AlternateNumber = model.AlternateNumber,
                 Profile = model.Profile,
-                Location = FindLocation(model.Location,model.LocationId??0),
+                LocationId = model.LocationId,
                 Mobile = model.Mobile,
                 IndustryId = model.IndustryId,
                 Social = new Social
@@ -144,7 +144,7 @@ namespace Talent21.Service.Core
             entity.OrganizationType = model.OrganizationType;
             entity.AlternateNumber = model.AlternateNumber;
             entity.Profile = model.Profile;
-            entity.Location = FindLocation(model.Location, model.LocationId??0);
+            entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
             entity.IndustryId = model.IndustryId;
             entity.Social = new Social
