@@ -1,5 +1,13 @@
 ﻿app.controller('companyEditProfileController', ['$scope', 'dataService', function ($scope, db) {
 
+    db.system.getIndustries().success(function(result) {
+        $scope.industries = result;
+    });
+
+    db.system.getLocations().success(function (result) {
+        $scope.locations = result;
+    });
+
     db.company.get().success(function (result) {
 
         result.picture = { url: result.pictureUrl };
@@ -24,17 +32,11 @@
         }
         if (record.loc) {
             record.location = record.loc.formatted_address;
-            $scope.industries = data;
         }
 
-       
         db.company.update(record).success(function (result) {
-            window.location = "#/profile";
+            window.location = "#/dashboard";
         });
     }
-
-    //db.industry.getIndustries().success(function (result) {
-    //    $scope.industries = result.data;
-    //});
 
 }]);

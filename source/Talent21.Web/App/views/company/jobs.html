@@ -3,34 +3,52 @@
         <div class="row">
             <div class="col-sm-12">
                 <h2>{{title}}</h2>
+                <div class="row">
 
-                <cc-pager total-pages="pages" current-page="currentPage"
-                          page-action="navigate(pageNumber)">
-                </cc-pager>
+                    <div class="col-md-8">
+                        <cc-pager total-pages="pages" current-page="currentPage"
+                                  page-action="navigate(pageNumber)">
+                        </cc-pager>
+                    </div>
 
-                <div class="jobs">
-                    <a ng-repeat="j in records" ng-href="/#/job/{{j.id}}">
-                        <div ng-if="j.featured" class="featured"></div>
-                        <div class="title">
-                            <h5>{{j.title}}</h5>
-                            <p>{{j.company}}</p>
-                            <p>{{j.description| limitTo: 255}}{{j.description.length > 255 ? '...' : ''}}</p>
-                        </div>
-                        <div class="col-md-12 data">
-                            <span class="type part-time"><i class="fa fa-clock-o"></i>{{j.start | date:'dd-MMM-yyyy'}}</span>
-                            <span class="type part-time"><i class="fa fa-clock-o"></i> {{j.end | amTimeAgo : j.start : true}}</span>
-                            <span class="city"><i class="fa fa-map-marker"></i>{{j.location.title}}</span>
-                            <span class="sallary"><i class="fa fa-inr"></i>{{j.rate}}k</span>
-                            <span ng-if="j.published" class="type"><i class="fa fa-globe"></i> Published</span>
-                            <span ng-if="j.applied>0" class="type"><i class="fa fa-user"></i> {{j.applied}}</span>
-                            <span ng-if="!j.published" class="type"><i class="fa fa-globe"></i>Draft</span>
-                        </div>
-                    </a>
+                    <div class="col-md-4">
+                        <a class="btn btn-primary" href="#/job/new"><i class="fa fa-plus"></i> Post a new Job!</a>
+                    </div>
+
                 </div>
 
-                <cc-pager total-pages="pages" current-page="currentPage"
-                          page-action="navigate(pageNumber)">
-                </cc-pager>
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="jobs">
+                            <a ng-repeat="j in records" ng-href="/#/job/{{j.id}}">
+                                <div ng-if="j.featured" class="featured"></div>
+                                <div class="title">
+                                    <h5>{{j.title}}</h5>
+                                    <p>{{j.company}}</p>
+                                    <p>{{j.description| limitTo: 255}}{{j.description.length > 255 ? '...' : ''}}</p>
+                                </div>
+                                <div class="col-md-12 data">
+                                    <span class="type part-time"><i class="fa fa-clock-o"></i>{{j.start | date:'dd-MMM-yyyy'}}</span>
+                                    <span class="type part-time"><i class="fa fa-clock-o"></i> {{j.end | amTimeAgo : j.start : true}}</span>
+                                    <span class="city"><i class="fa fa-map-marker"></i>{{j.location.title}}</span>
+                                    <span class="sallary"><i class="fa fa-inr"></i>{{j.rate}}k</span>
+                                    <span ng-if="j.published" class="type"><i class="fa fa-globe"></i> Published</span>
+                                    <span ng-if="j.applied>0" class="type"><i class="fa fa-user"></i> {{j.applied}}</span>
+                                    <span ng-if="!j.published" class="type"><i class="fa fa-globe"></i>Draft</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <cc-pager total-pages="pages" current-page="currentPage"
+                                  page-action="navigate(pageNumber)">
+                        </cc-pager>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

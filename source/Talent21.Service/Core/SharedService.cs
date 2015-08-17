@@ -35,9 +35,9 @@ namespace Talent21.Service.Core
             });
         } 
 
-        protected Location FindLocation(string address)
+        protected Location FindLocation(string address,int locationId)
         {
-            var location = _locationRepository.ByTitle(address);
+            var location = string.IsNullOrWhiteSpace(address) ? _locationRepository.ById(locationId) : _locationRepository.ByTitle(address);
             if (location != null) return location;
 
             return new Location

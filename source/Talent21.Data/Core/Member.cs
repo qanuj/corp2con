@@ -19,6 +19,8 @@ namespace Talent21.Data.Core
         public User Owner { get; set; }
         public string OwnerId { get; set; }
 
+        public int Complete { get; set; }
+
         protected Member()
         {
             this.Social = new Social();

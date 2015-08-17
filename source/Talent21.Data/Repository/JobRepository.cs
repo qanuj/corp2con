@@ -27,7 +27,12 @@ namespace Talent21.Data.Repository
 
         public IQueryable<Job> Mine(string userId)
         {
-            return base.All.Where(x => x.Company.OwnerId == userId).Include(x => x.Skills).Include(x => x.Locations).Include(x => x.Company);
+            return base.All.Where(x => x.Company.OwnerId == userId).Include(x => x.Skills.Select(y => y.Skill)).Include(x => x.Locations).Include(x => x.Company);
+        }
+
+        public Job MineFirst(string userId,int id)
+        {
+            return base.All.Include(x => x.Skills.Select(y => y.Skill)).Include(x => x.Locations).Include(x => x.Company).FirstOrDefault(x=> x.Company.OwnerId == userId && x.Id==id);
         }
 
 
@@ -55,6 +60,7 @@ namespace Talent21.Data.Repository
     public interface IJobRepository : IDictionaryRepository<Job>
     {
         IQueryable<Job> Mine(string userId);
+        Job MineFirst(string userId,int id);
         IQueryable<Job> MatchingForConctractor(string userId);
     }
 

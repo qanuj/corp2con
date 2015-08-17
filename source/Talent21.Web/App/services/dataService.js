@@ -210,8 +210,8 @@
     }
 
    factory.system.getLocations = function (q) {
-        var uri = v + 'system/location/all';
-        if (q) uri += '?$filter=substringof(\'' + q + '\',Title)';
+       var uri = v + 'system/location/all?$orderby=Title';
+        if (q) uri += '&$filter=substringof(\'' + q + '\',Title)';
         return $http.get(uri);
     }
 
@@ -237,8 +237,8 @@
         return $http.get(v + 'system/industry/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
-    factory.system.getIndustries = function (page,pageSize) {
-        return $http.get(v + 'system/industry/all?$orderby=Id desc' + calculatePaging(page,pageSize));
+    factory.system.getIndustries = function () {
+        return $http.get(v + 'system/industry/all?$orderby=Title');
     }
 
     factory.system.addIndustry = function (record) {
@@ -247,6 +247,7 @@
     factory.system.updateIndustry = function (record) {
         return $http.put(v + 'system/industry/update', record);
     }
+
     factory.system.deleteIndustry = function (record) {
         return $http.delete(v + 'system/industry/'+record.id);
     }
@@ -256,8 +257,8 @@
         return $http.get(v + 'system/functional/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
-    factory.system.getFunctionals = function (page,pageSize) {
-        return $http.get(v + 'system/functional/all?$orderby=Id desc' + calculatePaging(page,pageSize));
+    factory.system.getFunctionals = function () {
+        return $http.get(v + 'system/functional/all?$orderby=Title');
     }
 
     factory.system.addFunctional = function (record) {
@@ -272,7 +273,7 @@
 
     factory.system.searchLocations=function(address) {
         var params = { address: address, sensor: false };
-        return common.$http.get(
+        return $http.get(
           '//maps.googleapis.com/maps/api/geocode/json',
           { params: params }
         );
@@ -287,7 +288,7 @@
                 deferred.resolve(that.enumsRows[name]);
             });
         } else {
-            return deferred.resolve(that.enumsRows[name]);
+            deferred.resolve(that.enumsRows[name]);
         }
         return deferred.promise;
     }
