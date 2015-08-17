@@ -103,6 +103,10 @@
                 templateUrl: '/app/views/company/job.html', //only for jobs about page.
                 controller: 'companyJobController'
             })
+            .when('/contractor/:id', {
+                templateUrl: '/app/views/company/contractor.html', //only for jobs about page.
+                controller: 'companyContractorController'
+            })
             .when('/job/edit/:id', {
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'
