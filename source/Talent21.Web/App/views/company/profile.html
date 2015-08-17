@@ -42,12 +42,12 @@
                 <div class="sidebar-widget" id="widget-contact">
                     <h2>Contact</h2>
                     <ul>
-                        <li><i class="fa fa-building"></i>{{record.companyName}}</li>
-                        <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
-                        <li><i class="fa fa-map-marker"></i>{{record.location}}</li>
-                        <li><i class="fa fa-phone"></i>{{record.mobile}}</li>
-                        <li><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
-                        <li><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
+                        <li ng-if="record.companyName"><i class="fa fa-building"></i>{{record.companyName}}</li>
+                        <li ng-if="record.firstName||record.lastName"><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
+                        <li ng-if="record.location"><i class="fa fa-map-marker"></i>{{record.location}}</li>
+                        <li ng-if="record.mobile"><i class="fa fa-phone"></i>{{record.mobile}}</li>
+                        <li ng-if="record.alternateNumber"><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
+                        <li ng-if="record.email"><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
                     </ul>
                 </div>
             </div>

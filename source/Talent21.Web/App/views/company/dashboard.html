@@ -238,13 +238,13 @@
             <div class="sidebar-widget" id="widget-contact">
                 <h2>Contact</h2>
                 <ul>
-                    <li><i class="fa fa-building"></i>{{profile.companyName}}</li>
-                    <li><i class="fa fa-user"></i>{{profile.firstName}} {{profile.lastName}}</li>
-                    <li><i class="fa fa-map-marker"></i>{{profile.location}}</li>
-                    <li><i class="fa fa-phone"></i>{{profile.mobile}}</li>
-                    <li><i class="fa fa-phone"></i>{{profile.alternateNumber}}</li>
-                    <li><i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></li>
-                    <li><i class="fa fa-globe"></i><a href="{{profile.webSite}}">{{profile.webSite}}</a></li>
+                    <li ng-if="profile.companyName"><i class="fa fa-building"></i><a href="#/profile">{{profile.companyName}}</a></li>
+                    <li ng-if="profile.firstName||profile.lastName"><i class="fa fa-user"></i>{{profile.firstName}} {{profile.lastName}}</li>
+                    <li ng-if="profile.location"><i class="fa fa-map-marker"></i>{{profile.location}}</li>
+                    <li ng-if="profile.mobile"><i class="fa fa-phone"></i>{{profile.mobile}}</li>
+                    <li ng-if="profile.alternateNumber"><i class="fa fa-phone"></i>{{profile.alternateNumber}}</li>
+                    <li ng-if="profile.email"><i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></li>
+                    <li ng-if="profile.webSite"><i class="fa fa-globe"></i><a href="{{profile.webSite}}">{{profile.webSite}}</a></li>
                 </ul>
             </div>
         </div>

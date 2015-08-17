@@ -283,7 +283,6 @@
     <Content Include="App\services\contractor.db.js" />
     <Content Include="App\services\dataService.js" />
     <Content Include="App\services\db.util.js" />
-    <Content Include="App\services\headerFactory.js" />
     <Content Include="App\services\job.db.js" />
     <Content Include="App\services\system.db.js" />
     <Content Include="App\template\css\animate.css" />
