@@ -1,7 +1,7 @@
-﻿<nav>
+﻿<nav ng-if="totalPages > 1">
     ﻿<ul class="pagination">
-        <li><a href="" ng-click="gotoPage(1)">&laquo;</a></li>
+        <li ng-if="currentPage > 1"><a href="" ng-click="gotoPage(1)">&laquo;</a></ling-if="p>
         <li ng-repeat="p in pages" ng-class="{active: p === currentPage}"><a href="" ng-click="gotoPage(p)">{{p}}<span ng-if="p === currentPage" class="sr-only">(current)</span></a></li>
-        <li><a href="" ng-click="gotoPage(totalPages)">&raquo;</a></li>
+        <li ng-if="totalPages > 1"><a href="" ng-click="gotoPage(totalPages)">&raquo;</a></li>
     </ul>
 </nav>

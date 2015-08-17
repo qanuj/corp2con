@@ -109,13 +109,17 @@ namespace Talent21.Service.Core
             }
         }
 
+        public IQueryable<JobApplicationContractorViewModel> FavoriteJobs()
+        {
+            return Applications().Where(x=>x.Actions.Any(y=>y.Act==JobActionEnum.Favorite));
+        }
+
         public IQueryable<JobApplicationContractorViewModel> Applications(int id = 0)
         {
             return _jobRepository.All.Select(x => new JobApplicationContractorViewModel
             {
                 Actions = x.Applications.Where(z => z.Contractor.OwnerId==CurrentUserId && (z.Id == id || id == 0)).SelectMany(z => z.History).Select(y => 
-                    new JobApplicationHistoryViewModel() { Act = y.Act, ApplicationId=y.ApplicationId, 
-                        Created = y.Created, CreateBy = y.CreatedBy }),
+                    new JobApplicationHistoryViewModel() { Act = y.Act, ApplicationId=y.ApplicationId, Created = y.Created, CreateBy = y.CreatedBy }),
                 Id = x.Id,
                 Company = x.Company.CompanyName,
                 IsCancelled = x.IsCancelled,
