@@ -505,6 +505,18 @@ namespace Talent21.Service.Core
             {
                 query = query.Where(x => x.Location.Contains(model.Location));
             }
+            if (model.IndustryId > 0)
+            {
+                query = query.Where(x => x.IndustryId == model.IndustryId);
+            }
+            if (model.RateStart > 0)
+            {
+                query = query.Where(x => x.RateType == model.RateType && x.Rate > model.RateStart);
+            }
+            if (model.RateEnd > 0)
+            {
+                query = query.Where(x => x.RateType == model.RateType && x.Rate < model.RateEnd);
+            }
             if (!string.IsNullOrWhiteSpace(model.Skills))
             {
                 var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
