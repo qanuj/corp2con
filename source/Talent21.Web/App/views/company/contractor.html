@@ -9,7 +9,7 @@
                             <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded" />
                         </div>
                         <div class="col-sm-8 col-md-9 col-lg-10">
-                            <p>{{record.about}}</p>
+                            <markdown bind-from="record.about"></markdown>
                         </div>
                     </div>
                     <h3>Schedule</h3>

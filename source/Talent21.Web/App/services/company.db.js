@@ -48,8 +48,8 @@
             return $http.get(v + 'company/top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
         }
 
-        company.getJobApplications = function (id) {
-            return $http.get(v + 'company/job/' + id + '/applications/all');
+        company.getJobApplications = function (id, page, pageSize) {
+            return $http.get(v + 'company/job/' + id + '/applications/paged?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id desc'));
         }
 
         company.getJobApplication = function (id) {

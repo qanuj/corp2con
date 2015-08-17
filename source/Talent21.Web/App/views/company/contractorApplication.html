@@ -8,8 +8,14 @@
                 </article>
                 <article>
                     <h2><i class="fa fa-user"></i> {{record.firstName}} {{record.lastName}}</h2>
-                    <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left" />
-                    <p>{{record.about}}</p>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded" />
+                        </div>
+                        <div class="col-sm-8 col-md-9 col-lg-10">
+                            <markdown bind-from="record.about"></markdown>
+                        </div>
+                    </div>
                     <h3>Schedule</h3>
                     <div class="listings strong">
                         <div class="col-md-3">Note</div>
@@ -19,10 +25,11 @@
                     </div>
                     <div class="listings" ng-repeat="s in schedule | orderBy:['-isAvailable','start']" ng-class="{'bg-success':s.isAvailable}">
                         <div class="row">
-                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}}</div>
+                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}}
+                            </div>
                             <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
                             <div class="col-md-3">{{s.end | date:'dd-MMM-yyyy'}}</div>
-                            <div class="col-md-3">{{s.end | amDifference : s.start : 'days'}}</div>
+                            <div class="col-md-3">{{s.end | amDifference : s.start : 'days'}} Days</div>
                         </div>
                     </div>
                     <div ng-repeat="l in levels">
