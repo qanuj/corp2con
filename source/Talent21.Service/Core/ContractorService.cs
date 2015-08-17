@@ -499,5 +499,10 @@ namespace Talent21.Service.Core
             var rowsAffested = _jobApplicationHistoryRespository.SaveChanges();
             return rowsAffested > 0;
         }
+
+        public JobApplicationContractorViewModel JobById(int id)
+        {
+            return Applications().FirstOrDefault(x => x.Id == id);
+        }
     }
 }
