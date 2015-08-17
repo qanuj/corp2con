@@ -35,7 +35,7 @@
                   templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
                   controller: 'contractorJobController'
               })
-           
+
              .when('/job/application/favorite/:id', {
                  templateUrl: '/app/views/contractor/favouritejobs.html',
                  controller: 'contractorApplicationController'
@@ -44,7 +44,7 @@
                 templateUrl: '/app/views/system/skills.html',
                 controller: 'jobskillsController'
             })
-           
+
              .when('/company/:id', {
                  templateUrl: '/app/views/company/profile.html',
                  controller: 'companyProfileController'
@@ -54,18 +54,18 @@
     } else if (role === 'Admin') {
         $routeProvider
            .when('/', {
-               templateUrl: '/app/views/system/dashboard.html',
+               templateUrl: '/app/views/admin/dashboard.html',
                controller: 'adminDashboardController'
            })
             .when('/industry', {
-                templateUrl: '/app/views/system/industry.html',
+                templateUrl: '/app/views/admin/industry.html',
                 controller: 'industryController'
             })
            .when('/functional', {
-               templateUrl: '/app/views/system/functional.html',
+               templateUrl: '/app/views/admin/functional.html',
                controller: 'functionalController'
            })
-             
+
            .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider

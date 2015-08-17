@@ -10,10 +10,10 @@ namespace e10.Shared.Security
     {
         public async Task SendAsync(IdentityMessage msg)
         {
-            var fromAddress = new MailAddress("donotreply@e10.in", "Do Not Reply Fb Hire");
+            var fromAddress = new MailAddress("donotreply@e10.in", "Do Not Reply");
             var toAddress = new MailAddress(msg.Destination);
             const string fromPassword = "bj%YkV5I5}HlW?Yj";
-            const string subject = "Reset Password : Faster Better Hire";
+            const string subject = "Reset Password : Corp2Con";
 
             var smtp = new SmtpClient
             {

@@ -141,6 +141,7 @@
     <Compile Include="Util\Guard.cs" />
     <Compile Include="Util\MimeTypeMap.cs" />
     <Compile Include="Util\MiscExtensions.cs" />
+    <Compile Include="Util\Randomizer.cs" />
     <Compile Include="Util\ReflectionHelper.cs" />
     <Compile Include="Util\RegularExpressions.cs" />
     <Compile Include="Util\StringExtensions.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security;
 using e10.Shared.Data;
 using e10.Shared.Data.Abstraction;
@@ -86,6 +87,11 @@ namespace e10.Shared.Security
             }
             await AddToRolesAsync(user.Id, new[] {role});
             return user.Id;
+        }
+
+        public IQueryable<User> FindByRole(string role)
+        {
+            return this.Users.Where(x => x.Roles.Any(y => y.RoleId== role));
         }
     }
 }
