@@ -65,6 +65,7 @@ namespace Talent21.Service.Core
                     Google = x.Social.Google,
                     LinkedIn = x.Social.LinkedIn,
                     Location = x.Location.Title,
+                    LocationId = x.LocationId,
                     Mobile = x.Mobile,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
@@ -104,7 +105,7 @@ namespace Talent21.Service.Core
                 OrganizationType = model.OrganizationType,
                 AlternateNumber = model.AlternateNumber,
                 Profile = model.Profile,
-                Location = FindLocation(model.Location),
+                Location = FindLocation(model.Location,model.LocationId??0),
                 Mobile = model.Mobile,
                 IndustryId = model.IndustryId,
                 Social = new Social
@@ -143,7 +144,7 @@ namespace Talent21.Service.Core
             entity.OrganizationType = model.OrganizationType;
             entity.AlternateNumber = model.AlternateNumber;
             entity.Profile = model.Profile;
-            entity.Location = FindLocation(model.Location);
+            entity.Location = FindLocation(model.Location, model.LocationId??0);
             entity.Mobile = model.Mobile;
             entity.IndustryId = model.IndustryId;
             entity.Social = new Social

@@ -210,8 +210,8 @@
     }
 
    factory.system.getLocations = function (q) {
-        var uri = v + 'system/location/all';
-        if (q) uri += '?$filter=substringof(\'' + q + '\',Title)';
+       var uri = v + 'system/location/all?$orderby=Title';
+        if (q) uri += '&$filter=substringof(\'' + q + '\',Title)';
         return $http.get(uri);
     }
 

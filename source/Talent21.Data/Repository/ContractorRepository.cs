@@ -21,6 +21,11 @@ namespace Talent21.Data.Repository
         
         }
 
+        public override IQueryable<Contractor> All
+        {
+            get { return base.All.Include(x => x.Location).Include(x => x.Skills.Select(y=>y.Skill)); }
+        }
+
         internal static void Register(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Contractor>().HasKey(x => x.Id);
@@ -30,11 +35,14 @@ namespace Talent21.Data.Repository
         {
             return All;//TODO:search function fix.
         }
+
+        public override Contractor ById(int id)
+        {
+            return All.FirstOrDefault(x => x.Id == id);
+        }
     }
     public interface IContractorRepository : IRepository<Contractor>
     {
         IQueryable<Contractor> MatchingCompanyJobs(string userId);
-
-        
     }
 }

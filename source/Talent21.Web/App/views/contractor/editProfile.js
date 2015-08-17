@@ -1,5 +1,9 @@
 ﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', function ($scope, db) {
 
+    db.system.getLocations().success(function (result) {
+        $scope.locations = result;
+    });
+
     db.contractor.get().success(function (result) {
         result.picture = { url: result.pictureUrl };
         result.loc = { formatted_address: result.location };

@@ -4,6 +4,10 @@
         $scope.industries = result;
     });
 
+    db.system.getLocations().success(function (result) {
+        $scope.locations = result;
+    });
+
     db.company.get().success(function (result) {
 
         result.picture = { url: result.pictureUrl };

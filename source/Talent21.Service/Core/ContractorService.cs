@@ -67,6 +67,7 @@ namespace Talent21.Service.Core
                                 Google = x.Social.Google,
                                 LinkedIn = x.Social.LinkedIn,
                                 Location = x.Location.Title,
+                                LocationId = x.LocationId,
                                 Mobile = x.Mobile,
                                 FirstName = x.FirstName,
                                 LastName = x.LastName,
@@ -195,7 +196,7 @@ namespace Talent21.Service.Core
                 Gender = model.Gender,
                 Profile = model.Profile,
                 Experience = new Duration() {Months = model.ExperienceMonths, Years = model.ExperienceYears},
-                Location = FindLocation(model.Location),
+                Location = FindLocation(model.Location, model.LocationId??0),
                 Mobile = model.Mobile,
                 Social = new Social
                 {
@@ -235,6 +236,49 @@ namespace Talent21.Service.Core
             };
         }
 
+        private void ApplySkills(ContractorEditViewModel model, Contractor entity)
+        {
+            if (entity.Skills==null) entity.Skills=new List<ContractorSkill>();
+
+            var IDs = entity.Skills.Select(x => x.Id).ToList();
+            var existingSkills = _contractorSkillRepository.ById(IDs).ToList();
+
+            //Updated Skills
+            for (var i = 0; i < existingSkills.Count; i++)
+            {
+                var skill = existingSkills[i];
+                var mskill = model.Skills.FirstOrDefault(x => x.Id == skill.Id);
+                if (mskill == null) continue;
+                skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code};
+                skill.Level = mskill.Level;
+                skill.Proficiency = mskill.Proficiency;
+                skill.ExperienceInMonths = mskill.ExperienceInMonths;
+                _contractorSkillRepository.Update(skill);
+            }
+
+            //Created Skills
+            var newSkills = model.Skills.Where(x => IDs.All(y => y != x.Id));
+            foreach (var mskill in newSkills)
+            {
+                _contractorSkillRepository.Create(new ContractorSkill
+                {
+                    Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code},
+                    Level = mskill.Level,
+                    Proficiency = mskill.Proficiency,
+                    ExperienceInMonths = mskill.ExperienceInMonths,
+                    Contractor = entity
+                });
+            }
+
+            //Deleted Skills
+            var deletedSkills = _contractorSkillRepository.All.Where(x => !IDs.Contains(x.Id) && x.ContractorId==entity.Id).ToList();
+            for(var i = 0; i < deletedSkills.Count; i++)
+            {
+                _contractorSkillRepository.Delete(deletedSkills[i]);
+            }
+
+        }
+
         public ContractorEditViewModel Update(ContractorEditViewModel model)
         {
             var entity = _contractorRepository.ById(model.Id);
@@ -255,7 +299,7 @@ namespace Talent21.Service.Core
             entity.Gender = model.Gender;
             entity.Profile = model.Profile;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
-            entity.Location = FindLocation(model.Location);
+            entity.Location = FindLocation(model.Location, model.LocationId??0);
             entity.Mobile = model.Mobile;
             entity.Social = new Social
             {
@@ -268,42 +312,7 @@ namespace Talent21.Service.Core
                 WebSite = model.WebSite
             };
 
-            var IDs = model.Skills.Select(x => x.Id).ToList();
-            var existingSkills = _contractorSkillRepository.ById(IDs).ToList();
-
-            //Updated Skills
-            for (var i = 0; i < existingSkills.Count; i++)
-            {
-                var skill = existingSkills[i];
-                var mskill = model.Skills.FirstOrDefault(x => x.Id == skill.Id);
-                if (mskill == null) continue;
-                skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code};
-                skill.Level = mskill.Level;
-                skill.Proficiency = mskill.Proficiency;
-                skill.ExperienceInMonths = mskill.ExperienceInMonths;
-                _contractorSkillRepository.Update(skill);
-            }
-
-            //Created Skills
-            var newSkills = model.Skills.Where(x => x.Id == 0);
-            foreach (var mskill in newSkills)
-            {
-                _contractorSkillRepository.Create(new ContractorSkill
-                {
-                    Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code},
-                    Level = mskill.Level,
-                    Proficiency = mskill.Proficiency,
-                    ExperienceInMonths = mskill.ExperienceInMonths,
-                    Contractor = entity
-                });
-            }
-
-            //Deleted Skills
-            var deletedSkills = _contractorSkillRepository.All.Where(x => !IDs.Contains(x.Id) && x.ContractorId==entity.Id).ToList();
-            for(var i = 0; i < deletedSkills.Count; i++)
-            {
-                _contractorSkillRepository.Delete(deletedSkills[i]);
-            }
+            ApplySkills(model,entity);
 
             _contractorRepository.Update(entity);
             _contractorRepository.SaveChanges();
