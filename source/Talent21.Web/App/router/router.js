@@ -19,7 +19,7 @@
                  templateUrl: '/app/views/contractor/schedule.html',
                  controller: 'jobscheduleController'
              })
-            .when('/search/:page?', {
+            .when('/search/:idea?/:page?', {
                 templateUrl: '/app/views/contractor/search.html',
                 controller: 'contractorSearchController'
             })

@@ -12,6 +12,7 @@ namespace Talent21.Service.Abstraction
         IQueryable<ScheduleViewModel> Schedules { get; }
         IQueryable<ContractorSkillViewModel> Skills { get; }
         IQueryable<JobApplicationContractorViewModel> Applications(int id = 0);
+        IQueryable<JobApplicationContractorViewModel> FavoriteJobs();
 
         ScheduleViewModel Create(CreateScheduleViewModel model);
         ScheduleViewModel Update(EditScheduleViewModel model);

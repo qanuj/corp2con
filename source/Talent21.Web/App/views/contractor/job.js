@@ -4,7 +4,6 @@
     $scope.role = db.role;
     $scope.id = param.id;
 
-
     function getApplications() {
         db.contractor.getJobApplicationsByJobId(param.id).success(function (result) {
             var job = result.items[0];

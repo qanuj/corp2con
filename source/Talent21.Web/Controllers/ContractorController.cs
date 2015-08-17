@@ -205,16 +205,7 @@ namespace Talent21.Web.Controllers
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Transactions(), options);
         }
-
-        //[HttpGet]
-        //[Route("job/application")]
-        //[EnableQuery]
-        //public IQueryable<JobApplicationViewModel> GetJobApplicationsQuery()
-        //{
-        //    _service.CurrentUserId = User.Identity.GetUserId();
-        //    return _service.Applications();
-        //}
-
+        
         [HttpPut]
         [Route("job/application/{id}/revoke")]
         public HttpResponseMessage RejectJobApplication([FromUri] int id)
@@ -234,10 +225,10 @@ namespace Talent21.Web.Controllers
         [HttpGet]
         [EnableQuery]
         [Route("job/application/favorite/all")]
-        public IQueryable<ContractorViewModel> ViewContractorsQuery()
+        public IQueryable<JobApplicationContractorViewModel> ViewContractorsQuery()
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return _service.Contractors;
+            return _service.FavoriteJobs();
         }
 
         [HttpPut]

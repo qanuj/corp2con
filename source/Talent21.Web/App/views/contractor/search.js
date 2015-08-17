@@ -1,12 +1,22 @@
-﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
     $scope.title = "Jobs : Search Result";
 
-    
+    if(!isNaN(param.idea)){
+        param.page = page.idea;
+    } else if (param.idea == "match") {
+        $scope.searching = "Matching Jobs for you.";
+    } else if (param.idea == "month") {
+        $scope.searching = "Matching Jobs for you, next month";
+    } else if (param.idea == "week") {
+        $scope.searching = "Matching Jobs for you, next week";
+    }
+
+
     $scope.navigate = function (page) {
         $scope.query = {
-            keywords: $routeParams.q || $routeParams.keywords || '',
-            location: $routeParams.location || '',
-            skills: $routeParams.skills || ''
+            keywords: param.q || param.keywords || '',
+            location: param.location || '',
+            skills:param.skills || ''
         }
 
         function fetchResults(query, page) {
@@ -29,5 +39,5 @@
 
         fetchResults($scope.query, page || 1);
     }
-    $scope.navigate($routeParams.page);
+    $scope.navigate(param.page);
 }]);
