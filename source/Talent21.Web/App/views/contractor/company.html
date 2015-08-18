@@ -1,0 +1,53 @@
+﻿<section id="jobs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <article>
+                    <h2>About {{record.companyName}}</h2>
+                    <div class="full-text" ng-bind-html="record.about"></div>
+                    <hr>
+                    <h2>Jobs</h2>
+                    <div class="jobs">
+                        <a href="#/job/{{j.id}}" ng-repeat="j in jobs">
+                            <div ng-if="j.featured" class="featured"></div>
+                            <div class="title">
+                                <h5>{{j.title}}</h5>
+                                <p>{{j.company}}</p>
+                                <p>{{j.description| limitTo: 255}}{{j.description.length > 255 ? '...' : ''}}</p>
+                            </div>
+                            <div class="data">
+                                <span class="type part-time"><i class="fa fa-clock-o"></i>{{j.start | date:'dd-MMM-yyyy'}}</span>
+                                <span class="type part-time"><i class="fa fa-clock-o"></i> {{j.end | amTimeAgo : j.start : true}}</span>
+                                <span class="city"><i class="fa fa-map-marker"></i>{{j.location.title}}<span ng-if="j.locations.length-1>0">+{{j.locations.length-1}}</span></span>
+                                <span class="sallary"><i class="fa fa-inr"></i>{{j.rate}}k</span>
+                            </div>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-sm-4" id="sidebar">
+                <div class="sidebar-widget" id="share">
+                    <h2>Share it</h2>
+                    <ul>
+                        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{dataService.currentPage}}"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/home?status={{dataService.currentPage}}"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://plus.google.com/share?url=http:/{{dataService.currentPage}}"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{dataService.currentPage}}"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="sidebar-widget" id="widget-contact">
+                    <h2>Contact</h2>
+                    <ul>
+                        <li ng-if="record.companyName"><i class="fa fa-building"></i>{{record.companyName}}</li>
+                        <li ng-if="record.firstName||record.lastName"><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
+                        <li ng-if="record.location"><i class="fa fa-map-marker"></i>{{record.location}}</li>
+                        <li ng-if="record.mobile"><i class="fa fa-phone"></i>{{record.mobile}}</li>
+                        <li ng-if="record.alternateNumber"><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
+                        <li ng-if="record.email"><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

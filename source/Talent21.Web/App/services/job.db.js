@@ -26,7 +26,6 @@
         job.publish = function(id) { return $http.put(v + 'company/job/publish', { id: id }); }
         job.unpublish = function(id) { return $http.put(v + 'company/job/unpublish', { id: id }); }
         job.cancel = function(id) { return $http.put(v + 'company/job/cancel', { id: id }); }
-        job.revoke = function(id) { return $http.put(v + 'contractor/job/application/' + id + '/revoke'); }
         job.delete = function(id) { return $http.delete(v + 'company/job/' + id); }
 
         return job;

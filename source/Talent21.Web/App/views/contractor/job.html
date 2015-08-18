@@ -13,21 +13,29 @@
                     <a ng-if="!record.isFavorite" class="btn btn-primary btn-block" ng-click="favorite(record)">
                         <i class="fa fa-heart"></i> Favorite
                     </a>
-                    <a ng-if="record.isFavorite" class="btn btn-primary btn-block" ng-click="unfavorite(record)">
+                    <a ng-if="record.isFavorite===true" class="btn btn-primary btn-block" ng-click="unfavorite(record)">
                         <i class="fa fa-heart-o"></i> Remove Favorite
                     </a>
-                    <a ng-if="!record.isApplied" class="btn btn-info btn-block" ng-click="apply(record)">
+                    <a ng-if="record.isApplied===false" class="btn btn-info btn-block" ng-click="apply(record)">
                         <i class=" fa fa-check">
                         </i> Apply
                     </a>
-                    <a ng-if="record.isApplied" class=" btn btn-warning btn-block" ng-click="revoke(record)">
+                    <a ng-if="record.isApplied===true" class=" btn btn-warning btn-block" ng-click="revoke(record)">
                         <i class="fa fa-cross"></i> Revoke
                     </a>
-                    <a class=" btn btn-danger btn-block" ng-click="delete(record)" style="margin-left: 0px;">
+                    <h5 ng-if="record.isApplied===true">
+                        Applied {{record.applied | amCalendar}}
+                    </h5>
+                    <!--<a class="btn btn-danger btn-block" ng-click="report(record)">
                         <i class="fa fa-thumbs-o-down"></i> Report
-                    </a>
+                    </a>-->
                 </div>
                 <div class="sidebar-widget">
+                    <h2>Key Requirements</h2>
+                    <ul>
+                        <li ng-if="record.isWorkingFromHome" class="text-success"><i class="fa fa-check"></i> Work From Home</li>
+                        <li><i class="fa fa-users"></i> {{record.positions||1}} Position{{record.positions>1?'s':''}} </li>
+                    </ul>
                     <a ng-repeat="s in record.skills" class="badge">{{s.title}}</a>
                     <div class="featured-job">
                         <div class="data" ng-repeat="loc in record.locations">

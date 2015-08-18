@@ -48,6 +48,8 @@ namespace Talent21.Service.Core
                                 Company=job.Company.CompanyName,
                                 Rate=job.Rate,
                                 Start=job.Start,
+                                IsWorkingFromHome=job.IsWorkingFromHome,
+                                Positions=job.Positions,
                                 End=job.End,
                                 Id=job.Id,
                                 Promotion = job.Advertisements.Where(x => x.Start <= DateTime.UtcNow && x.End > DateTime.UtcNow).Select(x=>x.Promotion).FirstOrDefault(),

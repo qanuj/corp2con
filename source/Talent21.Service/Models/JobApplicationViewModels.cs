@@ -55,6 +55,8 @@ namespace Talent21.Service.Models
         public int Rate { get; set; }
         public DateTime Start { get; set; }
         public IEnumerable<JobLocationEditViewModel> Locations { get; set; }
+        public bool IsWorkingFromHome { get; set; }
+        public int Positions { get; set; }
     }
 
     public class JobApplicationHistoryViewModel

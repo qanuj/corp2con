@@ -141,7 +141,9 @@ namespace Talent21.Service.Core
                 Title = x.Title,
                 End = x.End,
                 Rate = x.Rate,
-                Start = x.Start
+                Start = x.Start,
+                IsWorkingFromHome=x.IsWorkingFromHome,
+                Positions=x.Positions
             });
         }
 
@@ -434,8 +436,14 @@ namespace Talent21.Service.Core
 
         public bool ActOnApplication(CompanyActJobApplicationViewModel model)
         {
-            var entity = _jobApplicationRepository.ById(model.Id);
-            if(entity == null) return false;
+            var entity = _jobApplicationRepository.ByJobId(model.Id,CurrentUserId);
+            var contractor = FindContractor(CurrentUserId);
+
+            if (entity == null)
+            {
+                entity=new JobApplication { History = new List<JobApplicationHistory>(),JobId = model.Id, ContractorId = contractor.Id};
+                _jobApplicationRepository.Create(entity);
+            }
 
             entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
 

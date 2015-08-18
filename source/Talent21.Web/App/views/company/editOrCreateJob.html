@@ -12,6 +12,14 @@
                         <label>Job Code</label>
                         <input type="text" class="form-control" ng-model="record.code" placeholder="eg. IBM-123">
                     </div>
+                    <div class="form-group" id="job-title-group">
+                        <label>Number of Positions</label>
+                        <input type="number" class="form-control" ng-model="record.positions" placeholder="eg. 5">
+                    </div>
+                    <div class="form-group" id="job-title-group">
+                        <label>Allow Work from Home</label>
+                        <input type="checkbox" class="form-control" ng-model="record.isWorkingFromHome">
+                    </div>
                     <div class="form-group nopadding-left col-xs-6">
                         <label>Start Date</label>
                         <input type="date" class="form-control" ng-model="record.start" placeholder="Enter Start Date">

@@ -207,7 +207,7 @@ namespace Talent21.Web.Controllers
         }
         
         [HttpPut]
-        [Route("job/application/{id}/revoke")]
+        [Route("job/{id}/revoke")]
         public HttpResponseMessage RejectJobApplication([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -216,15 +216,16 @@ namespace Talent21.Web.Controllers
 
         //Favorite related api
         [HttpGet]
-        [Route("job/application/{id}/favorite")]
+        [Route("job/{id}/favorite")]
         public ContractorViewModel GetContractorFavoriteById(int id)
         {
+            _service.CurrentUserId = User.Identity.GetUserId();
             return _service.GetFavorite(id);
         }
 
         [HttpGet]
         [EnableQuery]
-        [Route("job/application/favorite/all")]
+        [Route("job/favorite/all")]
         public IQueryable<JobApplicationContractorViewModel> ViewContractorsQuery()
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -232,7 +233,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpPut]
-        [Route("job/application/{id}/favorite")]
+        [Route("job/{id}/favorite")]
         public HttpResponseMessage FavoriteJob([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
@@ -240,7 +241,7 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("job/application/{id}/favorite")]
+        [Route("job/{id}/favorite")]
         public HttpResponseMessage DeleteFavoriteJob([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
