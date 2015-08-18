@@ -18,10 +18,10 @@ namespace Talent21.Service.Core
         private readonly IIndustryRepository _industryRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly ITransactionRepository _transactionRepository;
-        private readonly CountryRepository _countryRepository;
+        private readonly ICountryRepository _countryRepository;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, CountryRepository countryRepository)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;

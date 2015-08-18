@@ -454,7 +454,7 @@ namespace Talent21.Service.Core
             {
                 foreach (var x in _countries)
                 {
-                    _systemService.Create(new SkillDictionaryCreateViewModel
+                    _systemService.Create(new CountryDictionaryCreateViewModel
                     {
                         Code = x.Code,
                         Title = x.Title
@@ -463,6 +463,7 @@ namespace Talent21.Service.Core
             }
 
         }
+        
 
         public async Task<string> BuildAsync()
         {
