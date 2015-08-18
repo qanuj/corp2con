@@ -8,8 +8,8 @@
         var sys = {};
 
         sys.getSkills = function (q) {
-            var uri = v + 'system/skill/all';
-            if (q) uri += '?$filter=substringof(\'' + q + '\',Title)';
+            var uri = v + 'system/skill/all?$orderby=Title';
+            if (q) uri += '&$filter=substringof(\'' + q + '\',Title)';
             return $http.get(uri);
         }
 

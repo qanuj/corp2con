@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h2>{{title}} {{records.count}}</h2>
+                <h2>{{title}} {{count}}</h2>
                 <p>{{searching}}</p>
                 <cc-pager total-pages="pages" current-page="currentPage"
                           page-action="navigate(pageNumber)">
                 </cc-pager>
                 <div class="jobs">
-                    <div ng-if="records.count<1">
+                    <div ng-if="count<1">
                         <div class="alert alert-warning">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
