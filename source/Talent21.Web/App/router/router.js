@@ -63,7 +63,6 @@
                templateUrl: '/app/views/admin/functional.html',
                controller: 'functionalController'
            })
-
            .otherwise({ redirectTo: '/' });
     } else if (role === 'Company') {
         $routeProvider

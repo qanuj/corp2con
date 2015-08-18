@@ -3,13 +3,12 @@
         <div class="row">
             <div class="col-sm-8">
                 <article>
-                    <h2>{{record.firstName}} {{record.lastName}}</h2>
                     <div class="row">
                         <div class="col-sm-4 col-md-3 col-lg-2">
-                            <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded" />
+                            <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded"/>
                         </div>
                         <div class="col-sm-8 col-md-9 col-lg-10">
-                            <p>{{record.about}}</p>
+                            <h2>{{record.firstName}} {{record.lastName}}</h2>
                         </div>
                     </div>
                     <h3>Schedule</h3>
@@ -38,7 +37,7 @@
                             <div class="row">
                                 <div class="col-md-4">{{s.title}}</div>
                                 <div class="col-md-4">
-                                    <input class="form-control" type="number" ng-model="s.experienceInMonths" />
+                                    <input class="form-control" type="number" ng-model="s.experienceInMonths"/>
                                 </div>
                                 <div class="col-md-4">
                                     <select class="form-control" ng-model="s.proficiency" ng-options="o as o for o in proficiencies"></select>
@@ -46,6 +45,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="full-text" ng-bind-html="record.about"></div>
                 </article>
             </div>
             <div class="col-sm-4" id="sidebar">
