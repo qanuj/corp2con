@@ -90,6 +90,8 @@ namespace Talent21.Service.Models
     {
         internal string OwnerId { get; set; }
         public string LocationCode { get; set; }
+        public string Industry { get; set; }
+        public string FunctionalArea { get; set; }
 
         public int Complete { get; set; }
     }

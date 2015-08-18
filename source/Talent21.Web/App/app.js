@@ -10,6 +10,7 @@
     'angularMoment',
     'ngCkeditor',
     'codemwnci.markdown-edit-preview',
+    'humenize',
     'ui.gravatar', //gravtaar for user
     'ui.select', //ui-select for dropdown and multi values.
     'ui.bootstrap',      // ui-bootstrap (ex: carousel, pagination, dialog)
