@@ -40,9 +40,9 @@
                 </div>
             </div>
             <div class="form-group" id="job-location-group">
-                <label for="job-location">Location</label>
-                <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
-                    <option value="">-- Select Location --</option>
+                <label for="location">Organisation Type</label>
+                <select class="dropdown form-control" data-ng-model="record.organizationType" data-ng-options="o for o in orgType">
+                    <option value="">-- Select Type --</option>
                 </select>
             </div>
             <div class="form-group">
@@ -51,17 +51,27 @@
                     <option value="">-- Select industry --</option>
                 </select>
             </div>
+            <div class="form-group" id="job-email-group">
+                <label>Address</label>
+                <input type="text" class="form-control" ng-model="record.address">
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="job-location">Location</label>
+                <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
+                    <option value="">-- Select Location --</option>
+                </select>
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="location">Country</label>
+                <select class="dropdown form-control" data-ng-model="record.country" data-ng-options="nation.title as nation.title for nation in nations">
+                    <option value="">-- Select Country --</option>
+                </select>
+            </div>
             <div ng-if="isMarkdown" class="form-group wysiwyg">
                 <textarea class="form-control" markdownedit markdown-hidden-buttons="cmdQuote" rows="10" ng-model="record.about" required placeholder="About {{record.companyName}}"></textarea>
             </div>
             <div ng-if="!isMarkdown" class="form-group">
                 <textarea class="form-control" ckeditor="editorOptions" rows="10" ng-model="record.about" required placeholder="About {{record.companyName}}"></textarea>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Alternate Contact Number </label>
-                    <input type="text" class="form-control" ng-model="record.alternateNumber">
-                </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
@@ -99,7 +109,9 @@
                     <input type="text" class="form-control" ng-model="record.yahoo">
                 </div>
             </div>
-            <input type="submit" id="submit" value="Save" ng-click="save(record)" class=" btn btn-primary" />
+            <div class="form-group text-center">
+                <input type="submit" id="submit" value="Save" ng-click="save(record)" class=" btn btn-primary " />
+            </div>
         </div>
     </div>
 </div>

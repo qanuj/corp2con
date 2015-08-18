@@ -14,7 +14,7 @@
                         <h3>{{record.rate}}</h3>
                         <hr>
                         <h2>Required Skills :</h2>
-                        <p><span class="badge" ng-repeat="record in record.skills">{{record.code}}</span></p>
+                        <p><span class="badge" ng-repeat="record in record.skills track by record.id">{{record.code}}</span></p>
                         <hr>
                         <h2>Company </h2>
                         <h3>{{record.company}}</h3>
