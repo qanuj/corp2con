@@ -11,4 +11,9 @@ namespace Talent21.Data.Core
 
         public IList<Job> Jobs { get; set; } 
     }
+
+    public class Country : Dictionary
+    {
+        
+    }
 }

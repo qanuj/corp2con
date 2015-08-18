@@ -8,6 +8,7 @@ using AutoPoco.DataSources;
 using AutoPoco.Engine;
 using e10.Shared.Security;
 using Lucene.Net.Linq;
+using Newtonsoft.Json;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -15,6 +16,15 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
+    public class CountryData
+    {
+        [JsonProperty(PropertyName = "c")]
+        public string Code { get; set; }
+        [JsonProperty(PropertyName = "t")]
+        public string Title { get; set; }
+    }
+
+
     public class DateTimeNullableSource : DatasourceBase<DateTime?>
     {
         private readonly DateTime _min;
@@ -234,14 +244,18 @@ namespace Talent21.Service.Core
                 "Strategy /Management Consulting Firms", "Sugar", "Telcom/ISP", "Textiles/Garments/Accessories", "Tyres",
                 "Water Treatment / Waste Management", "Wellness/Fitness/Sports", "Other"
             };
-            var pattern = new Regex("[^a-z0-9#\\+]",RegexOptions.Multiline & RegexOptions.IgnoreCase);
-            foreach (var industry in industriesText)
+
+            var pattern = new Regex("[^a-z0-9#\\+]", RegexOptions.Multiline & RegexOptions.IgnoreCase);
+            if (!_systemService.Industries.Any())
             {
-                _systemService.Create(new IndustryDictionaryCreateViewModel
+                foreach (var industry in industriesText)
                 {
-                    Code = pattern.Replace(industry.ToLower(), ""),
-                    Title = industry
-                });
+                    _systemService.Create(new IndustryDictionaryCreateViewModel
+                    {
+                        Code = pattern.Replace(industry.ToLower(), ""),
+                        Title = industry
+                    });
+                }
             }
 
             var areasText = new[]
@@ -265,16 +279,18 @@ namespace Talent21.Service.Core
                 "Teaching / Education", "Ticketing / Travel / Airlines", "Top Management", "TV / Films / Production",
                 "Web / Graphic Design / Visualiser", "Other"
             };
-
-            foreach (var x in areasText)
+            if (!_systemService.FunctionalAreas.Any())
             {
-                _systemService.Create(new FunctionalAreaDictionaryCreateViewModel
+                foreach (var x in areasText)
                 {
-                    Code = pattern.Replace(x.ToLower(), ""),
-                    Title = x
-                });
+                    _systemService.Create(new FunctionalAreaDictionaryCreateViewModel
+                    {
+                        Code = pattern.Replace(x.ToLower(), ""),
+                        Title = x
+                    });
+                }
             }
-            
+
 
             var skillText = new[]
             {
@@ -420,15 +436,32 @@ namespace Talent21.Service.Core
                 "Stress Testing", "Code Testing", "Failure/Bug Testing", "Game Testing", "Hardware Testing",
                 "Verification Testing", "Validation Testing"
             };
-
-            foreach (var x in skillText)
+            if (!_systemService.Skills.Any())
             {
-                _systemService.Create(new SkillDictionaryCreateViewModel
+                foreach (var x in skillText)
                 {
-                    Code = pattern.Replace(x.ToLower(), ""),
-                    Title = x
-                });
+                    _systemService.Create(new SkillDictionaryCreateViewModel
+                    {
+                        Code = pattern.Replace(x.ToLower(), ""),
+                        Title = x
+                    });
+                }
             }
+
+            var _countries = new[] { new CountryData { Code = "AD", Title = "Andorra" }, new CountryData { Code = "AE", Title = "United Arab Emirates" }, new CountryData { Code = "AF", Title = "Afghanistan" }, new CountryData { Code = "AG", Title = "Antigua and Barbuda" }, new CountryData { Code = "AI", Title = "Anguilla" }, new CountryData { Code = "AL", Title = "Albania" }, new CountryData { Code = "AM", Title = "Armenia" }, new CountryData { Code = "AO", Title = "Angola" }, new CountryData { Code = "AQ", Title = "Antarctica" }, new CountryData { Code = "AR", Title = "Argentina" }, new CountryData { Code = "AS", Title = "American Samoa" }, new CountryData { Code = "AT", Title = "Austria" }, new CountryData { Code = "AU", Title = "Australia" }, new CountryData { Code = "AW", Title = "Aruba" }, new CountryData { Code = "AX", Title = "Åland" }, new CountryData { Code = "AZ", Title = "Azerbaijan" }, new CountryData { Code = "BA", Title = "Bosnia and Herzegovina" }, new CountryData { Code = "BB", Title = "Barbados" }, new CountryData { Code = "BD", Title = "Bangladesh" }, new CountryData { Code = "BE", Title = "Belgium" }, new CountryData { Code = "BF", Title = "Burkina Faso" }, new CountryData { Code = "BG", Title = "Bulgaria" }, new CountryData { Code = "BH", Title = "Bahrain" }, new CountryData { Code = "BI", Title = "Burundi" }, new CountryData { Code = "BJ", Title = "Benin" }, new CountryData { Code = "BL", Title = "Saint Barthélemy" }, new CountryData { Code = "BM", Title = "Bermuda" }, new CountryData { Code = "BN", Title = "Brunei" }, new CountryData { Code = "BO", Title = "Bolivia" }, new CountryData { Code = "BQ", Title = "Bonaire" }, new CountryData { Code = "BR", Title = "Brazil" }, new CountryData { Code = "BS", Title = "Bahamas" }, new CountryData { Code = "BT", Title = "Bhutan" }, new CountryData { Code = "BV", Title = "Bouvet Island" }, new CountryData { Code = "BW", Title = "Botswana" }, new CountryData { Code = "BY", Title = "Belarus" }, new CountryData { Code = "BZ", Title = "Belize" }, new CountryData { Code = "CA", Title = "Canada" }, new CountryData { Code = "CC", Title = "Cocos [Keeling] Islands" }, new CountryData { Code = "CD", Title = "Democratic Republic of the Congo" }, new CountryData { Code = "CF", Title = "Central African Republic" }, new CountryData { Code = "CG", Title = "Republic of the Congo" }, new CountryData { Code = "CH", Title = "Switzerland" }, new CountryData { Code = "CI", Title = "Ivory Coast" }, new CountryData { Code = "CK", Title = "Cook Islands" }, new CountryData { Code = "CL", Title = "Chile" }, new CountryData { Code = "CM", Title = "Cameroon" }, new CountryData { Code = "CN", Title = "China" }, new CountryData { Code = "CO", Title = "Colombia" }, new CountryData { Code = "CR", Title = "Costa Rica" }, new CountryData { Code = "CU", Title = "Cuba" }, new CountryData { Code = "CV", Title = "Cape Verde" }, new CountryData { Code = "CW", Title = "Curacao" }, new CountryData { Code = "CX", Title = "Christmas Island" }, new CountryData { Code = "CY", Title = "Cyprus" }, new CountryData { Code = "CZ", Title = "Czech Republic" }, new CountryData { Code = "DE", Title = "Germany" }, new CountryData { Code = "DJ", Title = "Djibouti" }, new CountryData { Code = "DK", Title = "Denmark" }, new CountryData { Code = "DM", Title = "Dominica" }, new CountryData { Code = "DO", Title = "Dominican Republic" }, new CountryData { Code = "DZ", Title = "Algeria" }, new CountryData { Code = "EC", Title = "Ecuador" }, new CountryData { Code = "EE", Title = "Estonia" }, new CountryData { Code = "EG", Title = "Egypt" }, new CountryData { Code = "EH", Title = "Western Sahara" }, new CountryData { Code = "ER", Title = "Eritrea" }, new CountryData { Code = "ES", Title = "Spain" }, new CountryData { Code = "ET", Title = "Ethiopia" }, new CountryData { Code = "FI", Title = "Finland" }, new CountryData { Code = "FJ", Title = "Fiji" }, new CountryData { Code = "FK", Title = "Falkland Islands" }, new CountryData { Code = "FM", Title = "Micronesia" }, new CountryData { Code = "FO", Title = "Faroe Islands" }, new CountryData { Code = "FR", Title = "France" }, new CountryData { Code = "GA", Title = "Gabon" }, new CountryData { Code = "GB", Title = "United Kingdom" }, new CountryData { Code = "GD", Title = "Grenada" }, new CountryData { Code = "GE", Title = "Georgia" }, new CountryData { Code = "GF", Title = "French Guiana" }, new CountryData { Code = "GG", Title = "Guernsey" }, new CountryData { Code = "GH", Title = "Ghana" }, new CountryData { Code = "GI", Title = "Gibraltar" }, new CountryData { Code = "GL", Title = "Greenland" }, new CountryData { Code = "GM", Title = "Gambia" }, new CountryData { Code = "GN", Title = "Guinea" }, new CountryData { Code = "GP", Title = "Guadeloupe" }, new CountryData { Code = "GQ", Title = "Equatorial Guinea" }, new CountryData { Code = "GR", Title = "Greece" }, new CountryData { Code = "GS", Title = "South Georgia and the South Sandwich Islands" }, new CountryData { Code = "GT", Title = "Guatemala" }, new CountryData { Code = "GU", Title = "Guam" }, new CountryData { Code = "GW", Title = "Guinea-Bissau" }, new CountryData { Code = "GY", Title = "Guyana" }, new CountryData { Code = "HK", Title = "Hong Kong" }, new CountryData { Code = "HM", Title = "Heard Island and McDonald Islands" }, new CountryData { Code = "HN", Title = "Honduras" }, new CountryData { Code = "HR", Title = "Croatia" }, new CountryData { Code = "HT", Title = "Haiti" }, new CountryData { Code = "HU", Title = "Hungary" }, new CountryData { Code = "ID", Title = "Indonesia" }, new CountryData { Code = "IE", Title = "Ireland" }, new CountryData { Code = "IL", Title = "Israel" }, new CountryData { Code = "IM", Title = "Isle of Man" }, new CountryData { Code = "IN", Title = "India" }, new CountryData { Code = "IO", Title = "British Indian Ocean Territory" }, new CountryData { Code = "IQ", Title = "Iraq" }, new CountryData { Code = "IR", Title = "Iran" }, new CountryData { Code = "IS", Title = "Iceland" }, new CountryData { Code = "IT", Title = "Italy" }, new CountryData { Code = "JE", Title = "Jersey" }, new CountryData { Code = "JM", Title = "Jamaica" }, new CountryData { Code = "JO", Title = "Jordan" }, new CountryData { Code = "JP", Title = "Japan" }, new CountryData { Code = "KE", Title = "Kenya" }, new CountryData { Code = "KG", Title = "Kyrgyzstan" }, new CountryData { Code = "KH", Title = "Cambodia" }, new CountryData { Code = "KI", Title = "Kiribati" }, new CountryData { Code = "KM", Title = "Comoros" }, new CountryData { Code = "KN", Title = "Saint Kitts and Nevis" }, new CountryData { Code = "KP", Title = "North Korea" }, new CountryData { Code = "KR", Title = "South Korea" }, new CountryData { Code = "KW", Title = "Kuwait" }, new CountryData { Code = "KY", Title = "Cayman Islands" }, new CountryData { Code = "KZ", Title = "Kazakhstan" }, new CountryData { Code = "LA", Title = "Laos" }, new CountryData { Code = "LB", Title = "Lebanon" }, new CountryData { Code = "LC", Title = "Saint Lucia" }, new CountryData { Code = "LI", Title = "Liechtenstein" }, new CountryData { Code = "LK", Title = "Sri Lanka" }, new CountryData { Code = "LR", Title = "Liberia" }, new CountryData { Code = "LS", Title = "Lesotho" }, new CountryData { Code = "LT", Title = "Lithuania" }, new CountryData { Code = "LU", Title = "Luxembourg" }, new CountryData { Code = "LV", Title = "Latvia" }, new CountryData { Code = "LY", Title = "Libya" }, new CountryData { Code = "MA", Title = "Morocco" }, new CountryData { Code = "MC", Title = "Monaco" }, new CountryData { Code = "MD", Title = "Moldova" }, new CountryData { Code = "ME", Title = "Montenegro" }, new CountryData { Code = "MF", Title = "Saint Martin" }, new CountryData { Code = "MG", Title = "Madagascar" }, new CountryData { Code = "MH", Title = "Marshall Islands" }, new CountryData { Code = "MK", Title = "Macedonia" }, new CountryData { Code = "ML", Title = "Mali" }, new CountryData { Code = "MM", Title = "Myanmar [Burma]" }, new CountryData { Code = "MN", Title = "Mongolia" }, new CountryData { Code = "MO", Title = "Macao" }, new CountryData { Code = "MP", Title = "Northern Mariana Islands" }, new CountryData { Code = "MQ", Title = "Martinique" }, new CountryData { Code = "MR", Title = "Mauritania" }, new CountryData { Code = "MS", Title = "Montserrat" }, new CountryData { Code = "MT", Title = "Malta" }, new CountryData { Code = "MU", Title = "Mauritius" }, new CountryData { Code = "MV", Title = "Maldives" }, new CountryData { Code = "MW", Title = "Malawi" }, new CountryData { Code = "MX", Title = "Mexico" }, new CountryData { Code = "MY", Title = "Malaysia" }, new CountryData { Code = "MZ", Title = "Mozambique" }, new CountryData { Code = "NA", Title = "Namibia" }, new CountryData { Code = "NC", Title = "New Caledonia" }, new CountryData { Code = "NE", Title = "Niger" }, new CountryData { Code = "NF", Title = "Norfolk Island" }, new CountryData { Code = "NG", Title = "Nigeria" }, new CountryData { Code = "NI", Title = "Nicaragua" }, new CountryData { Code = "NL", Title = "Netherlands" }, new CountryData { Code = "NO", Title = "Norway" }, new CountryData { Code = "NP", Title = "Nepal" }, new CountryData { Code = "NR", Title = "Nauru" }, new CountryData { Code = "NU", Title = "Niue" }, new CountryData { Code = "NZ", Title = "New Zealand" }, new CountryData { Code = "OM", Title = "Oman" }, new CountryData { Code = "PA", Title = "Panama" }, new CountryData { Code = "PE", Title = "Peru" }, new CountryData { Code = "PF", Title = "French Polynesia" }, new CountryData { Code = "PG", Title = "Papua New Guinea" }, new CountryData { Code = "PH", Title = "Philippines" }, new CountryData { Code = "PK", Title = "Pakistan" }, new CountryData { Code = "PL", Title = "Poland" }, new CountryData { Code = "PM", Title = "Saint Pierre and Miquelon" }, new CountryData { Code = "PN", Title = "Pitcairn Islands" }, new CountryData { Code = "PR", Title = "Puerto Rico" }, new CountryData { Code = "PS", Title = "Palestine" }, new CountryData { Code = "PT", Title = "Portugal" }, new CountryData { Code = "PW", Title = "Palau" }, new CountryData { Code = "PY", Title = "Paraguay" }, new CountryData { Code = "QA", Title = "Qatar" }, new CountryData { Code = "RE", Title = "Réunion" }, new CountryData { Code = "RO", Title = "Romania" }, new CountryData { Code = "RS", Title = "Serbia" }, new CountryData { Code = "RU", Title = "Russia" }, new CountryData { Code = "RW", Title = "Rwanda" }, new CountryData { Code = "SA", Title = "Saudi Arabia" }, new CountryData { Code = "SB", Title = "Solomon Islands" }, new CountryData { Code = "SC", Title = "Seychelles" }, new CountryData { Code = "SD", Title = "Sudan" }, new CountryData { Code = "SE", Title = "Sweden" }, new CountryData { Code = "SG", Title = "Singapore" }, new CountryData { Code = "SH", Title = "Saint Helena" }, new CountryData { Code = "SI", Title = "Slovenia" }, new CountryData { Code = "SJ", Title = "Svalbard and Jan Mayen" }, new CountryData { Code = "SK", Title = "Slovakia" }, new CountryData { Code = "SL", Title = "Sierra Leone" }, new CountryData { Code = "SM", Title = "San Marino" }, new CountryData { Code = "SN", Title = "Senegal" }, new CountryData { Code = "SO", Title = "Somalia" }, new CountryData { Code = "SR", Title = "Suriname" }, new CountryData { Code = "SS", Title = "South Sudan" }, new CountryData { Code = "ST", Title = "São Tomé and Príncipe" }, new CountryData { Code = "SV", Title = "El Salvador" }, new CountryData { Code = "SX", Title = "Sint Maarten" }, new CountryData { Code = "SY", Title = "Syria" }, new CountryData { Code = "SZ", Title = "Swaziland" }, new CountryData { Code = "TC", Title = "Turks and Caicos Islands" }, new CountryData { Code = "TD", Title = "Chad" }, new CountryData { Code = "TF", Title = "French Southern Territories" }, new CountryData { Code = "TG", Title = "Togo" }, new CountryData { Code = "TH", Title = "Thailand" }, new CountryData { Code = "TJ", Title = "Tajikistan" }, new CountryData { Code = "TK", Title = "Tokelau" }, new CountryData { Code = "TL", Title = "East Timor" }, new CountryData { Code = "TM", Title = "Turkmenistan" }, new CountryData { Code = "TN", Title = "Tunisia" }, new CountryData { Code = "TO", Title = "Tonga" }, new CountryData { Code = "TR", Title = "Turkey" }, new CountryData { Code = "TT", Title = "Trinidad and Tobago" }, new CountryData { Code = "TV", Title = "Tuvalu" }, new CountryData { Code = "TW", Title = "Taiwan" }, new CountryData { Code = "TZ", Title = "Tanzania" }, new CountryData { Code = "UA", Title = "Ukraine" }, new CountryData { Code = "UG", Title = "Uganda" }, new CountryData { Code = "UM", Title = "U.S. Minor Outlying Islands" }, new CountryData { Code = "US", Title = "United States" }, new CountryData { Code = "UY", Title = "Uruguay" }, new CountryData { Code = "UZ", Title = "Uzbekistan" }, new CountryData { Code = "VA", Title = "Vatican City" }, new CountryData { Code = "VC", Title = "Saint Vincent and the Grenadines" }, new CountryData { Code = "VE", Title = "Venezuela" }, new CountryData { Code = "VG", Title = "British Virgin Islands" }, new CountryData { Code = "VI", Title = "U.S. Virgin Islands" }, new CountryData { Code = "VN", Title = "Vietnam" }, new CountryData { Code = "VU", Title = "Vanuatu" }, new CountryData { Code = "WF", Title = "Wallis and Futuna" }, new CountryData { Code = "WS", Title = "Samoa" }, new CountryData { Code = "XK", Title = "Kosovo" }, new CountryData { Code = "YE", Title = "Yemen" }, new CountryData { Code = "YT", Title = "Mayotte" }, new CountryData { Code = "ZA", Title = "South Africa" }, new CountryData { Code = "ZM", Title = "Zambia" }, new CountryData { Code = "ZW", Title = "Zimbabwe" } };
+
+            if (!_systemService.Countries.Any())
+            {
+                foreach (var x in _countries)
+                {
+                    _systemService.Create(new SkillDictionaryCreateViewModel
+                    {
+                        Code = x.Code,
+                        Title = x.Title
+                    });
+                }
+            }
+
         }
 
         public async Task<string> BuildAsync()
@@ -490,9 +523,9 @@ namespace Talent21.Service.Core
 
             foreach (var u in users)
             {
-                u.Skills = skillSession.List<ContractorSkillViewModel>(_random.Next(6,20)).Get();
+                u.Skills = skillSession.List<ContractorSkillViewModel>(_random.Next(6, 20)).Get();
                 u.OwnerId = await _userService.CreateAsync(u.Email, "Abcd123*", _contractor);
-                var ct=_contractorService.Create(u);
+                var ct = _contractorService.Create(u);
 
                 var schedules = scheduleSession.List<CreateScheduleViewModel>(_random.Next(3, 10)).Get();
                 foreach (var schedule in schedules)
@@ -503,8 +536,8 @@ namespace Talent21.Service.Core
                         schedule.End = schedule.Start;
                         schedule.Start = tmp;
                     }
-                    _contractorService.Create(schedule,ct.Id);
-                }  
+                    _contractorService.Create(schedule, ct.Id);
+                }
             }
 
             var companyFactory = AutoPocoContainer.Configure(x =>
@@ -568,9 +601,9 @@ namespace Talent21.Service.Core
                         job.Start = tmp;
                     }
                     job.Skills = jobSkillSession.List<JobSkillEditViewModel>(_random.Next(5, 20)).Get(); ;
-                    var jb=_companyService.Create(job, company.Id);
+                    var jb = _companyService.Create(job, company.Id);
 
-                    if (_random.Next(1, 3)==2)
+                    if (_random.Next(1, 3) == 2)
                     {
                         _companyService.Publish(new PublishJobViewModel()
                         {

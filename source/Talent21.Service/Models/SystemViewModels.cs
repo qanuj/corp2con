@@ -11,6 +11,11 @@ namespace Talent21.Service.Models
     public class IndustryDictionaryCreateViewModel : IndustryDictionaryEditViewModel { }
     public class IndustryDeleteViewModel : IdModel { }
 
+    public class CountryDictionaryEditViewModel : DictionaryEditViewModel { }
+    public class CountryDictionaryViewModel : CountryDictionaryEditViewModel { }
+    public class CountryDictionaryCreateViewModel : CountryDictionaryEditViewModel { }
+    public class CountryDeleteViewModel : IdModel { }
+
     public class LocationDictionaryEditViewModel : DictionaryEditViewModel
     {
         public string PinCode { get; set; }
