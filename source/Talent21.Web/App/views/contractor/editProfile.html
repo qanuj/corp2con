@@ -1,4 +1,8 @@
-﻿<div class="container margtop">
+﻿editprofile.html
+
+
+
+<div class="container margtop">
     <div class="row">
         <div class="col-sm-4 col-md-3">
             <a href="#" class="thumbnail">
@@ -25,6 +29,28 @@
                 <label>Email</label>
                 <input type="email" class="form-control" ng-model="record.email">
             </div>
+            <div class="form-group" id="job-email-group">
+                <label>Username</label>
+                <input type="text" class="form-control" ng-model="record.username">
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="location">Nationality</label>
+                <select class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.id as nation.title for nation in nations">
+                    <option value="">-- Select Nationality --</option>
+                </select>
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="location">Gender</label>
+                <select class="dropdown form-control" data-ng-model="record.gender" data-ng-options="gender as gender for gender in genders">
+                    <option value="">-- Select Gender --</option>
+                </select>
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="location">Location</label>
+                <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
+                    <option value="">-- Select Location --</option>
+                </select>
+            </div>
             <div class="form-group nopadding-left col-xs-6" id="job-region-group">
                 <label>Experience (Years)</label>
                 <input type="number" class="form-control col-xs-6" ng-model="record.experienceYears" min="0" max="80">
@@ -34,9 +60,27 @@
                 <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" min="0" max="11">
             </div>
             <div class="form-group" id="job-location-group">
-                <label for="location">Location</label>
-                <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
-                    <option value="">-- Select Location --</option>
+                <label for="location">Consultant Type</label>
+                <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c for c in consultantType">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="location">Contract Type</label>
+                <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c for c in contractType">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="location">Industry</label>
+                <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="i.id as i.title for i in industries">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group" id="job-location-group">
+                <label for="location">Functional Area</label>
+                <select class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
+                    <option value="">-- Select type --</option>
                 </select>
             </div>
             <div ng-repeat="l in levels">
