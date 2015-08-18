@@ -23,7 +23,9 @@
                     </div>
                     <a href="#/contractor/{{row.id}}" ng-repeat="row in records">
                         <div ng-if="row.featured" class="featured"></div>
-                        <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
+                        <div ng-if="row.pictureUrl">
+                            <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
+                        </div>
                         <div class="title">
                             <h5>{{row.firstName}} {{row.lastName}}</h5>
                             <p>{{row.about | limitTo: 200}} <b style="color:#14b1bb;">... View More</b></p>
@@ -32,6 +34,7 @@
                             <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
                             <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}}.{{row.experienceMonths}} years</span>
                             <span class="sallary"><i class="fa fa-inr"></i>{{row.rate}}k</span>
+                            <span class=""><i class="fa fa-desktop"></i><span ng-repeat="s in row.skills">{{s.code}} &nbsp;|&nbsp; </span></span>
                         </div>
                     </a>
                 </div>

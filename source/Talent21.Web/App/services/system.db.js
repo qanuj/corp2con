@@ -97,6 +97,8 @@
 
         sys.genders = ['Male', 'Female', 'Other'];
 
+        sys.orgType = ['Corporate','Consultancy'];
+
         sys.enums = function (name) {
             var deferred = $q.defer();
             var that = this;
