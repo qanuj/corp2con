@@ -1,4 +1,4 @@
-﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$http',function ($scope, db, $http) {
 
     $scope.loadSkills = db.system.getSkills;
 
@@ -42,6 +42,15 @@
             db.system.enums('levelEnum').then(function (levels) {
                 $scope.levels = levels;
             });
+            db.system.enums('contractorTypeEnum').then(function (contractorTypes) {
+                $scope.contractorType = contractorTypes;
+            });
+            db.system.enums('contractTypeEnum').then(function (contractTypes) {
+                $scope.contractType = contractTypes;
+            });
+            db.system.enums('genderEnum').then(function (genders) {
+                $scope.genders = genders;
+            });
         });
     }
 
@@ -56,6 +65,18 @@
             $scope.record = result;
         });
     }
+
+    $scope.genders = db.system.genders;
+
+    db.system.getFunctionals().success(function (data) {
+        $scope.functionalAreas = data;
+    });
+    db.system.getIndustries().success(function (data) {
+        $scope.industries = data;
+    });
+    db.system.getCountries().success(function (data) {
+        $scope.nations = data;
+    });
 
     getMasters();
     navigate();

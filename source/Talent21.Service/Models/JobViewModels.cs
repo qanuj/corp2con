@@ -30,7 +30,8 @@ namespace Talent21.Service.Models
 
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-
+        public bool IsWorkingFromHome { get; set; }
+        public int Positions { get; set; }
     }
 
     public enum AvailableEnum
@@ -95,6 +96,8 @@ namespace Talent21.Service.Models
         }
         public PromotionEnum Promotion { get; set; }
         public int CompanyId { get; set; }
+        public bool IsWorkingFromHome { get; set; }
+        public int Positions { get; set; }
     }
 
     public class SkillConverter : TypeConverter

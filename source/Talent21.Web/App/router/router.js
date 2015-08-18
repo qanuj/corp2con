@@ -44,8 +44,8 @@
                 controller: 'jobskillsController'
             })
              .when('/company/:id', {
-                 templateUrl: '/app/views/company/profile.html',
-                 controller: 'companyProfileController'
+                 templateUrl: '/app/views/contractor/company.html',
+                 controller: 'contractorCompanyProfileController'
              })
             .otherwise({ redirectTo: '/' });
 

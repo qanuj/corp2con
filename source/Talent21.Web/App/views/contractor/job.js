@@ -24,31 +24,28 @@
     });
 
     $scope.revoke = function (record) {
-        db.job.revoke(record.applicationId).success(function (result) {
+        db.contractor.revoke(record.id).success(function (result) {
             $scope.record.isApplied = false;
-            console.log('Job Cancelled');
         });
     }
 
     $scope.apply = function (record) {
-        db.contractor.ApplyToJob(record.id).success(function (result) {
+        db.contractor.applyToJob(record.id).success(function (result) {
             $scope.record.isApplied = true;
             $scope.record.applied = new Date();
         });
     }
 
     $scope.favorite = function (record) {
-        db.contractor.favorite(record.applicationId).success(function (result) {
+        db.contractor.favorite(record.id).success(function (result) {
             $scope.record.isFavorite = true;
             $scope.record.favorite = new Date();
-            //$window.history.back();
         });
     }
 
     $scope.unfavorite = function (record) {
-        db.contractor.unfavorite(record.applicationId).success(function (result) {
+        db.contractor.unfavorite(record.id).success(function (result) {
             $scope.record.isFavorite = false;
-            //$window.history.back();
         });
     }
 }]);

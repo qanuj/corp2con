@@ -40,6 +40,7 @@ namespace Talent21.Data
             builder.RegisterType<SkillRepository>().As<ISkillRepository>();
             builder.RegisterType<SubscriptionRepository>().As<ISubscriptionRepository>();
             builder.RegisterType<TransactionRepository>().As<ITransactionRepository>();
+            builder.RegisterType<CountryRepository>().As<ICountryRepository>();
 
             builder.RegisterType<ApplicationDataContext>().As<ApplicationDbContext>().As<DbContext>().InstancePerRequest();
         }

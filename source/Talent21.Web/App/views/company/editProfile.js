@@ -39,4 +39,6 @@
         });
     }
 
+    $scope.orgType = db.system.orgType;
+
 }]);

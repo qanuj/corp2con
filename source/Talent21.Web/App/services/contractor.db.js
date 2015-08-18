@@ -34,46 +34,36 @@
         return $http.get(v + 'contractor/job/' + id);
     }
 
-    contractor.ApplyToJob = function (id) {
+    contractor.applyToJob = function (id) {
         return $http.post(v + 'contractor/job/' + id + '/apply');
     }
 
-    contractor.applications = function (id) {
-        return $http.put(v + '/job/application/' + id + '/apply');
+    contractor.revoke = function (id) {
+        return $http.post(v + 'contractor/job/' + id + '/revoke');
     }
-    
+
     contractor.getJobApplications = function (jobId,page,pageSize) {
         return $http.get(v + 'contractor/job/application?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
     contractor.favorite = function (id) {
-        return $http.put(v + 'contractor/job/application/' + id + '/favorite');
+        return $http.put(v + 'contractor/job/' + id + '/favorite');
     }
-
-    contractor.getFavoriteById = function (Id) {
-        return $http.get(v + 'contractorjob/application/{id}/favorite?$filter=Id eq ' + Id);
-    }
-   
 
     contractor.unfavorite = function (id) {
-        return $http.delete(v + 'contractor/job/application/' + id + '/favorite');
+        return $http.delete(v + 'contractor/job/' + id + '/favorite');
     }
 
-    contractor.getFavorite = function () {
-        return $http.get(v + 'contractor/job/application/favorite/all?type=json');
+    contractor.report = function (id) {
+        return $http.put(v + 'contractor/job/' + id + '/report');
     }
 
-    contractor.favoriteJob = function (formData) {
-        return $http.put(v + 'contractor/job/application/{id}/favorite', formData);
+    contractor.getFavorite = function (page,pageSize) {
+        return $http.get(v + 'contractor/job/favorite/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
     }
 
-    contractor.deleteFavoriteJob = function (record) {
-        return $http.delete(v + 'contractor/job/application/{id}/favorite' + record.id);
-    }
-    
      contractor.pagedSchedule = function (page, pageSize) {
-       console.log('Page - ', page, ' Pagesize', pageSize);
-       return $http.get(v + 'contractor/schedule/paged?$orderby=Id desc' + calculatePaging(page, pageSize));
+         return $http.get(v + 'contractor/schedule/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
    }
 
     contractor.createSchedule = function (formData) {

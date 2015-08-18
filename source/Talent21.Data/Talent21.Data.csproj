@@ -177,6 +177,10 @@
     <Compile Include="Migrations\201508171137125_Profile Complete Percentage.Designer.cs">
       <DependentUpon>201508171137125_Profile Complete Percentage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508181154318_Countries Added.cs" />
+    <Compile Include="Migrations\201508181154318_Countries Added.Designer.cs">
+      <DependentUpon>201508181154318_Countries Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdvertisementRepository.cs" />
@@ -188,6 +192,7 @@
     <Compile Include="Repository\FeedbackRepository.cs" />
     <Compile Include="Repository\FunctionalAreaRepository.cs" />
     <Compile Include="Repository\ContractorSkillRepository.cs" />
+    <Compile Include="Repository\CountryRepository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
@@ -265,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508171137125_Profile Complete Percentage.resx">
       <DependentUpon>201508171137125_Profile Complete Percentage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508181154318_Countries Added.resx">
+      <DependentUpon>201508181154318_Countries Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

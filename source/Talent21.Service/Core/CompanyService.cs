@@ -227,7 +227,9 @@ namespace Talent21.Service.Core
                 Title = model.Title,
                 End = model.End,
                 Rate = model.Rate,
-                Start = model.Start
+                Start = model.Start,
+                IsWorkingFromHome = model.IsWorkingFromHome,
+                Positions = model.Positions
             };
 
             ApplySkills(model, entity);
@@ -287,6 +289,8 @@ namespace Talent21.Service.Core
             entity.End = model.End;
             entity.Rate = model.Rate;
             entity.Start = model.Start;
+            entity.IsWorkingFromHome = model.IsWorkingFromHome;
+            entity.Positions = model.Positions;
 
             ApplySkills(model, entity);
             ApplyLocations(model, entity);
@@ -342,6 +346,9 @@ namespace Talent21.Service.Core
                     Id = x.Contractor.Id,
                     About = x.Contractor.About,
                     Email = x.Contractor.Email,
+                    Complete = x.Contractor.Complete,
+                    FunctionalArea = x.Contractor.FunctionalArea.Title,
+                    Industry = x.Contractor.Industry.Title,
                     ExperienceMonths = x.Contractor.Experience.Months,
                     ExperienceYears = x.Contractor.Experience.Years,
                     Facebook = x.Contractor.Social.Facebook,
@@ -422,7 +429,9 @@ namespace Talent21.Service.Core
                 Title = x.Title,
                 End = x.End,
                 Rate = x.Rate,
-                Start = x.Start
+                Start = x.Start,
+                IsWorkingFromHome = x.IsWorkingFromHome,
+                Positions = x.Positions
             });
         }
 

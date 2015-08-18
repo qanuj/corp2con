@@ -276,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\directives\humenize.js" />
     <Content Include="App\directives\ng-ckeditor.js" />
     <Content Include="App\directives\uploader.js" />
     <Content Include="App\directives\directive.js" />
@@ -339,6 +340,8 @@
     <Content Include="App\template\js\waypoints.min.js" />
     <Content Include="App\views\admin\dashboard.html" />
     <Content Include="App\views\admin\dashboard.js" />
+    <Content Include="App\views\contractor\company.html" />
+    <Content Include="App\views\contractor\company.js" />
     <Content Include="App\views\company\contractor.html" />
     <Content Include="App\views\company\contractor.js" />
     <Content Include="App\views\admin\transaction.js" />
@@ -409,6 +412,7 @@
     <Content Include="Content\css\jquery.flexmenu.css" />
     <Content Include="Content\css\jquery.nouislider.css" />
     <Content Include="Content\css\owl.carousel.css" />
+    <Content Include="Content\css\rzslider.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\table.css" />
@@ -865,6 +869,7 @@
     <Content Include="Scripts\modules\select.js" />
     <Content Include="Scripts\modules\slider.js" />
     <Content Include="Scripts\modules\uploader.js" />
+    <Content Include="Scripts\rzslider.js" />
     <Content Include="Scripts\site\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\site\bootstrap.js" />
     <Content Include="Scripts\site\bootstrap.min.js" />
@@ -1027,11 +1032,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62106</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62106/</IISUrl>
+          <IISUrl>http://localhost:62123/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

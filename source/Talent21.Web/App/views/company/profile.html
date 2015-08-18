@@ -8,7 +8,7 @@
                     <hr>
                     <h2>Jobs</h2>
                     <div class="jobs">
-                        <a href="#" ng-repeat="j in jobs">
+                        <a href="#/job/{{j.id}}" ng-repeat="j in jobs">
                             <div ng-if="j.featured" class="featured"></div>
                             <div class="title">
                                 <h5>{{j.title}}</h5>

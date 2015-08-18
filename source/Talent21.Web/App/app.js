@@ -10,8 +10,10 @@
     'angularMoment',
     'ngCkeditor',
     'codemwnci.markdown-edit-preview',
+    'humenize',
     'ui.gravatar', //gravtaar for user
     'ui.select', //ui-select for dropdown and multi values.
     'ui.bootstrap',      // ui-bootstrap (ex: carousel, pagination, dialog)
-    'blueimp.fileupload' //jQuery File Uploader Component
+    'blueimp.fileupload', //jQuery File Uploader Component
+    'rzModule' //slider module
 ]).constant('angularMomentConfig', { preprocess: 'utc' });

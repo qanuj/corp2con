@@ -8,11 +8,13 @@ namespace Talent21.Service.Abstraction
         IDictionaryDataService<IndustryDictionaryEditViewModel, IndustryDictionaryCreateViewModel, IndustryDeleteViewModel>,
         IDictionaryDataService<FunctionalAreaDictionaryEditViewModel, FunctionalAreaDictionaryCreateViewModel, FunctionalAreaDeleteViewModel>,
         IDictionaryDataService<SkillDictionaryEditViewModel, SkillDictionaryCreateViewModel, SkillDeleteViewModel>,
+        IDictionaryDataService<CountryDictionaryEditViewModel, CountryDictionaryCreateViewModel, CountryDeleteViewModel>,
         IDictionaryDataService<LocationDictionaryEditViewModel, LocationDictionaryCreateViewModel, LocationDeleteViewModel>
     {
         IQueryable<IndustryDictionaryViewModel> Industries { get; }
         IQueryable<FunctionalAreaDictionaryViewModel> FunctionalAreas { get; }
         IQueryable<LocationDictionaryViewModel> Locations { get; }
+        IQueryable<CountryDictionaryViewModel> Countries { get; }
         IQueryable<SkillDictionaryViewModel> Skills { get; }
 
         string Upgrade();

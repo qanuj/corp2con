@@ -18,15 +18,17 @@ namespace Talent21.Service.Core
         private readonly IIndustryRepository _industryRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly ITransactionRepository _transactionRepository;
+        private readonly ICountryRepository _countryRepository;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
             _skillRepository = skillRepository;
             _functionalAreaRepository = functionalAreaRepository;
             _transactionRepository = transactionRepository;
+            _countryRepository = countryRepository;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -48,6 +50,13 @@ namespace Talent21.Service.Core
             return rowsAffested > 0;
         }
 
+        public bool Delete(CountryDeleteViewModel model)
+        {
+            _countryRepository.Delete(model.Id);
+            var rowsAffested = _countryRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
         public bool Delete(FunctionalAreaDeleteViewModel model)
         {
             _functionalAreaRepository.Delete(model.Id);
@@ -66,6 +75,23 @@ namespace Talent21.Service.Core
             _industryRepository.Create(entity);
             _industryRepository.SaveChanges();
             return new IndustryDictionaryEditViewModel()
+            {
+                Code = entity.Code,
+                Title = entity.Title,
+                Id = entity.Id
+            };
+        }
+
+        public CountryDictionaryEditViewModel Create(CountryDictionaryCreateViewModel model)
+        {
+            var entity = new Country
+            {
+                Code = model.Code,
+                Title = model.Title
+            };
+            _countryRepository.Create(entity);
+            _countryRepository.SaveChanges();
+            return new CountryDictionaryEditViewModel()
             {
                 Code = entity.Code,
                 Title = entity.Title,
@@ -144,6 +170,20 @@ namespace Talent21.Service.Core
             return model;
         }
 
+        public CountryDictionaryEditViewModel Update(CountryDictionaryEditViewModel model)
+        {
+            var entity = _countryRepository.ById(model.Id);
+            if (entity == null) return null;
+
+            entity.Code = model.Code;
+            entity.Title = model.Title;
+
+            _countryRepository.Update(entity);
+            _countryRepository.SaveChanges();
+
+            return model;
+        }
+
         public SkillDictionaryEditViewModel Update(SkillDictionaryEditViewModel model)
         {
             var entity = _skillRepository.ById(model.Id);
@@ -216,6 +256,19 @@ namespace Talent21.Service.Core
             }
         }
 
+        public IQueryable<CountryDictionaryViewModel> Countries
+        {
+            get
+            {
+                return _countryRepository.All.Select(x => new CountryDictionaryViewModel
+                {
+                    Id = x.Id,
+                    Code = x.Code,
+                    Title = x.Title
+                });
+            }
+        }
+
         public IQueryable<LocationDictionaryViewModel> Locations
         {
             get
@@ -258,7 +311,7 @@ namespace Talent21.Service.Core
             var vals = new EnumList();
             foreach(var type in types)
             {
-                vals.Add(type.Name, Enum.GetNames(type).Select(x => x));
+                vals.Add(type.Name, Enum.GetNames(type).Select(x => new IdLabel<string> { Id = x, Label = x.ToUnCamel()}));
             }
             return vals;
         }

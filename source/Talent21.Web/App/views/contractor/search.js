@@ -1,22 +1,27 @@
-﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
     $scope.title = "Jobs : Search Result";
 
-    if(!isNaN(param.idea)){
+    if (!isNaN($routeParams.idea)) {
         param.page = page.idea;
-    } else if (param.idea == "match") {
+    } else if ($routeParams.idea == "match") {
         $scope.searching = "Matching Jobs for you.";
-    } else if (param.idea == "month") {
+    } else if ($routeParams.idea == "month") {
         $scope.searching = "Matching Jobs for you, next month";
-    } else if (param.idea == "week") {
+    } else if ($routeParams.idea == "week") {
         $scope.searching = "Matching Jobs for you, next week";
     }
 
 
     $scope.navigate = function (page) {
         $scope.query = {
-            keywords: param.q || param.keywords || '',
-            location: param.location || '',
-            skills:param.skills || ''
+            keywords: $routeParams.q || $routeParams.keywords || '',
+            location: $routeParams.location || '',
+            skills: $routeParams.skills || '',
+            startrate: $routeParams.startrate || '',
+            endrate: $routeParams.endrate || '',
+            xfrom: $routeParams.xfrom || '',
+            xto: $routeParams.xto || '',
+            industry: $routeParams.industry || ''
         }
 
         function fetchResults(query, page) {
@@ -39,5 +44,57 @@
 
         fetchResults($scope.query, page || 1);
     }
-    $scope.navigate(param.page);
+    $scope.navigate($routeParams.page);
+
+    db.system.getSkills().success(function (result) {
+        $scope.skills = result;
+    });
+    db.system.getLocations().success(function (result) {
+        $scope.locations = result;
+    });
+    db.system.getIndustries().success(function (result) {
+        $scope.industries = result;
+    });
+
+    $scope.resetFilters = function () {
+        $scope.query.keywords = '';
+        $scope.query.skills = '';
+        $scope.query.location = '';
+        $scope.query.startrate = '';
+        $scope.query.endrate = '';
+        $scope.query.xfrom = '';
+        $scope.query.xto = '';
+        $scope.query.industry = '';
+        $scope.search(query);
+    }
+
+    //Slider configs
+    $scope.experienceSlider = {
+        min: $scope.query.xfrom || 0,
+        max: $scope.query.xto || 500,
+        ceil: 500,
+        floor: 0
+    };
+
+    $scope.rateSlider = {
+        min: $scope.query.startrate || 0,
+        max: $scope.query.endrate || 500,
+        ceil: 500,
+        floor: 0
+    };
+
+    $scope.translate = function (value) {
+        return '$' + value;
+    }
+
+    $scope.$on("slideEnded", function () {
+        // user finished sliding a handle 
+        console.log('slide ended')
+        $scope.query.startrate = $scope.rateSlider.min;
+        $scope.query.endrate = $scope.rateSlider.max;
+        $scope.query.xfrom = $scope.experienceSlider.min;
+        $scope.query.xto = $scope.experienceSlider.max;
+        $scope.search($scope.query);
+
+    });
 }]);

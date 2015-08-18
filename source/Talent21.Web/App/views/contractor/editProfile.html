@@ -13,17 +13,35 @@
         </div>
         <div class="col-sm-8 col-md-9">
             <h2>{{record.firstName}} {{record.lastName}}</h2>
-            <div class="form-group nopadding-left col-xs-6" id="job-email-group">
+            <div class="form-group nopadding-left col-xs-5" id="job-email-group">
                 <label>First Name</label>
                 <input type="text" class="form-control" ng-model="record.firstName">
             </div>
-            <div class="form-group nopadding-right col-xs-6" id="job-email-group">
+            <div class="form-group col-xs-5" id="job-email-group">
                 <label>Last Name</label>
                 <input type="text" class="form-control" ng-model="record.lastName">
+            </div>
+            <div class="form-group nopadding-right col-xs-2" id="job-location-group">
+                <label for="location">Gender</label>
+                <select class="dropdown form-control" data-ng-model="record.gender" data-ng-options="c.id as c.label for c in genders">
+                    <option value="">-- Select Gender --</option>
+                </select>
             </div>
             <div class="form-group" id="job-email-group">
                 <label>Email</label>
                 <input type="email" class="form-control" ng-model="record.email">
+            </div>
+            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
+                <label for="location">Nationality</label>
+                <select class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.title as nation.title for nation in nations">
+                    <option value="">-- Select Nationality --</option>
+                </select>
+            </div>
+            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
+                <label for="location">Location</label>
+                <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
+                    <option value="">-- Select Location --</option>
+                </select>
             </div>
             <div class="form-group nopadding-left col-xs-6" id="job-region-group">
                 <label>Experience (Years)</label>
@@ -33,27 +51,57 @@
                 <label>Experience (Months)</label>
                 <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" min="0" max="11">
             </div>
-            <div class="form-group" id="job-location-group">
-                <label for="location">Location</label>
-                <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
-                    <option value="">-- Select Location --</option>
+            <div class="form-group nopadding-left col-xs-6">
+                <label>Rate</label>
+                <input type="number" class="form-control" ng-model="record.rate">
+            </div>
+            <div class="form-group nopadding-right col-xs-6">
+                <label>Rate Type</label>
+                <select class="form-control" ng-model="record.rateType">
+                    <option>Hourly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
+            </div>
+            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
+                <label for="location">Consultant Type</label>
+                <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c.id as c.label for c in contractorType">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
+                <label for="location">Contract Type</label>
+                <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c.id as c.label for c in contractType">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
+                <label for="location">Industry</label>
+                <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="i.id as i.title for i in industries">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
+                <label for="location">Functional Area</label>
+                <select class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
+                    <option value="">-- Select type --</option>
                 </select>
             </div>
             <div ng-repeat="l in levels">
-                <h3>{{l}} Skills</h3>
+                <h3>{{l.label}} Skills</h3>
                 <div class="listings strong">
                     <div class="col-md-4">Skill</div>
                     <div class="col-md-4">Experience (Months)</div>
                     <div class="col-md-4">Profficieny</div>
                 </div>
-                <div class="listings" ng-repeat="s in record.skills | filter:{ level: l }">
+                <div class="listings" ng-repeat="s in record.skills | filter:{ level: l.label }">
                     <div class="row">
                         <div class="col-md-4">{{s.title}}</div>
                         <div class="col-md-4">
                             <input class="form-control" type="number" ng-model="s.experienceInMonths" />
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control" ng-model="s.proficiency" ng-options="o as o for o in proficiencies"></select>
+                            <select class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-danger btn-xs" ng-click="remove(s)"><i class="fa fa-close"></i></button>
@@ -69,18 +117,6 @@
                     </div>
                     <div class="col-md-2"><button ng-click="addSkill(newSkill,l)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button></div>
                 </div>
-            </div>
-            <div class="form-group nopadding-left col-xs-6">
-                <label>Rate</label>
-                <input type="number" class="form-control" ng-model="record.rate">
-            </div>
-            <div class="form-group nopadding-right col-xs-6">
-                <label>Rate Type</label>
-                <select class="form-control" ng-model="record.rateType">
-                    <option>Hourly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                </select>
             </div>
             <div class="form-group">
                 <label>Profile</label>
@@ -149,7 +185,7 @@
             </div>
         </div>
     </div>
-    <div class="row text-center">
+    <div class="text-center form-group">
         <input type="button" id="submit" value="Save" ng-click="save(record)" class="btn btn-primary" />
     </div>
     <div class="loading-spiner-holder" data-loading><div class="loading-spiner"><img src="/Content/images/fancybox_loading.gif" /></div></div>

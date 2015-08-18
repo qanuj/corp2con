@@ -231,7 +231,14 @@
             <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive" />
             <div class="title">
                 <h5>{{profile.firstName}} {{profile.lastName}}</h5>
-                <div class="about full-text" ng-bind-html="profile.about"></div>
+                <progressbar animate="false" value="profile.complete" type="warning"><b>{{profile.complete}}%</b></progressbar>
+                <ul>
+                    <li>{{profile.consultantType | uncamel}}</li>
+                    <li>{{profile.contractType | uncamel}}</li>
+                    <li>{{profile.experienceYears}}.{{profile.experienceMonths}}yrs</li>
+                    <li>{{profile.functionalArea}}</li>
+                    <li>{{profile.industry}}</li>
+                </ul>
                 <a href="#/profile/edit" class="pull-right"><i class="fa fa-pencil"></i> Edit Profile</a>
             </div>
             <div class="sidebar-widget" id="widget-contact">

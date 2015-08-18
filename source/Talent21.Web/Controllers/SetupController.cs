@@ -40,6 +40,7 @@ namespace Talent21.Web.Controllers
         {
             return Json(await _demoDataService.BuildAsync(), JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult Master()
         {
             _demoDataService.BuildMaster();
