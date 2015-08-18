@@ -21,7 +21,7 @@
                             </p>
                         </div>
                     </div>
-                    <a href="#/contractor/{{row.id}}" ng-repeat="row in records.items">
+                    <a href="#/contractor/{{row.id}}" ng-repeat="row in records">
                         <div ng-if="row.featured" class="featured"></div>
                         <img src="{{row.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">
@@ -46,12 +46,19 @@
                     <form ng-submit="search(query)">
                         <div class="row">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
+                                <h5>Skill</h5> {{query.skill}}
+                                <select class="form-control" ng-selected="query.skills" ng-options="s.title as s.title for s in skills track by s.id" ng-model="query.skills" ng-change="search(query)" value="query.skills"></select>
                             </div>
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" ng-model="query.location" placeholder="e.g. Mumbai OR Delhi or Chennnai" />
+                                <h5>Location</h5> {{query.location}}
+                                <select class="form-control" ng-selected="query.location" ng-options="s.title as s.title for s in locations track by s.id" ng-model="query.location" ng-change="search(query)"></select>
                             </div>
+                            <!--<div class="col-xs-12">
+                                <h5>Industry</h5>
+                                <select class="form-control" ng-options="s.id as s.title for s in industries track by s.id" ng-model="query.industry" ng-change="search(query)"></select>
+                            </div>-->
                             <div class="col-xs-12">
+                                <h5>Keyword</h5>
                                 <div class="input-group">
                                     <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
                                     <div class="input-group-btn"><button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button></div>
@@ -64,84 +71,32 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6">
-                                <h5>Industry</h5>
-                                <div class="checkbox" ng-repeat>
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
+                            <div class="col-xs-12">
+                                <h5>Experience (months)</h5>
+                                <rzslider rz-slider-floor="experienceSlider.floor"
+                                          rz-slider-ceil="experienceSlider.ceil"
+                                          rz-slider-model="experienceSlider.min"
+                                          rz-slider-high="experienceSlider.max">
+                                </rzslider>
                             </div>
-                            <div class="col-xs-6">
-                                <h5>Availability</h5>
-                                <div class="checkbox" ng-repeat>
-                                    <label>
-                                        <input type="checkbox"> Date Range Selector.
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5>Functional Area</h5>
-                                <div class="checkbox" ng-repeat>
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
+                            <div class="col-xs-12">
+                                <h5>Rate (per hour)</h5>
+                                <rzslider rz-slider-floor="rateSlider.floor"
+                                          rz-slider-ceil="rateSlider.ceil"
+                                          rz-slider-model="rateSlider.min"
+                                          rz-slider-high="rateSlider.max"
+                                          rz-slider-on-change="rateChange()">
+                                </rzslider>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5>Location</h5>
-                                <div class="checkbox" ng-repeat>
-                                    <label>
-                                        <input type="checkbox"> All Types
-                                    </label>
-                                </div>
+                                <br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5>Experience</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <p>More than <b><span id="years-field"></span></b> years</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-slider" id="years"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5>Salary</h5>
-                                <div class="form-slider" id="salary"></div>
-                                <p>From <b><span id="salary-field-lower"></span></b> to  <b><span id="salary-field-upper"></span></b></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <a class="btn btn-primary">Reset All Filters</a>
+                                <button class="btn btn-primary" ng-click="resetFilters()">Reset All Filters</button>
                             </div>
                         </div>
                     </form>

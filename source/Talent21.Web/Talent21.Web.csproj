@@ -409,6 +409,7 @@
     <Content Include="Content\css\jquery.flexmenu.css" />
     <Content Include="Content\css\jquery.nouislider.css" />
     <Content Include="Content\css\owl.carousel.css" />
+    <Content Include="Content\css\rzslider.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\table.css" />
@@ -865,6 +866,7 @@
     <Content Include="Scripts\modules\select.js" />
     <Content Include="Scripts\modules\slider.js" />
     <Content Include="Scripts\modules\uploader.js" />
+    <Content Include="Scripts\rzslider.js" />
     <Content Include="Scripts\site\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\site\bootstrap.js" />
     <Content Include="Scripts\site\bootstrap.min.js" />

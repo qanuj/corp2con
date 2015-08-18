@@ -39,7 +39,8 @@ namespace Talent21.Web
                       "~/Content/css/jquery.nouislider.css",
                       "~/Content/css/font-awesome.min.css",
                       "~/Content/css/style.css",
-                      "~/Content/css/spa.css",
+                      "~/Content/css/spa.css", 
+                      "~/Content/css/rzslider.css",
                       "~/Content/css/extra/*.css"));
 
 
@@ -89,6 +90,7 @@ namespace Talent21.Web
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-*")
+                .Include("~/Scripts/rzslider.js")
                 .Include("~/app/app.js")
                 .Include("~/Scripts/modules/*.js")
                 .Include("~/app/app.*")
