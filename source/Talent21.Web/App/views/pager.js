@@ -20,7 +20,7 @@ function pager() {
         scope.pages = [];
         scope.$watch('totalPages', function () {
             createPageArray(scope.pages, scope.totalPages);
-        });
+        }); 
         scope.gotoPage = function (p) {
             scope.pageAction({ pageNumber: p });
         };

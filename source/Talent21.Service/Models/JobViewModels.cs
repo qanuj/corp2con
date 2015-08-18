@@ -18,6 +18,7 @@ namespace Talent21.Service.Models
         public int RateStart { get; set; }
         public int RateEnd { get; set; }
         public RateEnum RateType { get; set; }
+        public int CompanyId { get; set; }
     }
 
     public class CreateJobViewModel : DictionaryViewModel
@@ -93,6 +94,7 @@ namespace Talent21.Service.Models
             get { return Locations.FirstOrDefault(); }
         }
         public PromotionEnum Promotion { get; set; }
+        public int CompanyId { get; set; }
     }
 
     public class SkillConverter : TypeConverter
