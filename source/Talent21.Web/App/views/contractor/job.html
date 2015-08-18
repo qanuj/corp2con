@@ -57,7 +57,7 @@
                     <p>
                         <img src="{{record.logo}}" alt="" class="img-responsive">
                     </p>
-                    <p>{{record.about}}</p>
+                    <div class="full-text" ng-bind-html="record.about"></div>
                     <p>
                         <a href="#/company/{{record.companyId}}" class="btn btn-primary">Read more</a>
                     </p>
