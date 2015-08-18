@@ -9,8 +9,7 @@
     };
 
     $scope.save = function (record) {
-
-        if (record.cv) {
+            if (record.cv) {
             record.profileUrl = record.cv.url;
         }
         if (record.picture) {

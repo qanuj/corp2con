@@ -231,7 +231,7 @@
             <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive" />
             <div class="title">
                 <h5>{{profile.firstName}} {{profile.lastName}}</h5>
-                <p class="about">{{profile.about}}</p>
+                <div class="about full-text" ng-bind-html="profile.about"></div>
                 <a href="#/profile/edit" class="pull-right"><i class="fa fa-pencil"></i> Edit Profile</a>
             </div>
             <div class="sidebar-widget" id="widget-contact">

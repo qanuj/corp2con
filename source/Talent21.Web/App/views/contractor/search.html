@@ -25,7 +25,7 @@
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="{{row.ifFeatured}}"></div>
                         <div class="title">
-                            <h5>{{row.title}}</h5>
+                            <h5>{{row.title}} <small>{{row.company}}</small></h5>
                             <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
                         </div>
                         <div class="data">

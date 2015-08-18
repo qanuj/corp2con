@@ -14,4 +14,4 @@
     'ui.select', //ui-select for dropdown and multi values.
     'ui.bootstrap',      // ui-bootstrap (ex: carousel, pagination, dialog)
     'blueimp.fileupload' //jQuery File Uploader Component
-]);
+]).constant('angularMomentConfig', { preprocess: 'utc' });

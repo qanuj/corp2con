@@ -8,6 +8,7 @@ function pager() {
         replace: true,
         templateUrl: "app/views/pager.html",
         scope: {
+            maxSize: "=",
             totalPages: "=",
             currentPage: "=",
             pageAction: "&"
@@ -18,18 +19,22 @@ function pager() {
 
     function link(scope) {
         scope.pages = [];
-        scope.$watch('totalPages', function () {
-            createPageArray(scope.pages, scope.totalPages);
+
+        scope.$watch('totalPages + currentPage', function () {
+            createPageArray(scope.pages, scope.totalPages,scope.currentPage, scope.maxSize||5);
         });
+
         scope.gotoPage = function (p) {
             scope.pageAction({ pageNumber: p });
         };
     }
 
-    function createPageArray(pages, totalPages) {
+    function createPageArray(pages, totalPages,currentPage, maxPages) {
         var i;
         pages.length = 0;
-        for (i = 1; i <= totalPages; i++) {
+        var start = currentPage - ((maxPages - 1) / 2);
+        if (start <= 1) start = 1;
+        for (i = start ; i <= start + maxPages && i <= totalPages; i++) {
             pages.push(i);
         }
     }

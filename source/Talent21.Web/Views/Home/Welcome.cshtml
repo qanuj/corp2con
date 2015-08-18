@@ -14,8 +14,8 @@
                 <div class="bg-img bg-img-1"></div>
                 <div class="tint"></div>
                 <div class="slide-content">
-                    <h2>Looking for a job?</h2>
-                    <h3>There’s no better place to start</h3>
+                    <h2>Future proof your career</h2>
+                    @*<h3>There’s no better place to start</h3>*@
                     <p>
                         <a href="/#/search" class="btn btn-lg btn-default">Find a job</a>
                     </p>
@@ -28,8 +28,8 @@
                 <div class="bg-img bg-img-2"></div>
                 <div class="tint"></div>
                 <div class="slide-content">
-                    <h2>Need an employee?</h2>
-                    <h3>We've got perfect candidates</h3>
+                    <h2>Employers Save More</h2>
+                    @*<h3>We've got perfect candidates</h3>*@
                     <p>
                         <a href="/#/job/create" class="btn btn-lg btn-default">Post a job</a>
                     </p>
@@ -42,8 +42,8 @@
                 <div class="bg-img bg-img-3"></div>
                 <div class="tint"></div>
                 <div class="slide-content">
-                    <h2>Evolving your career?</h2>
-                    <h3>Find new opportunities here</h3>
+                    <h2>Contractors Earn More</h2>
+                    @*<h3>Find new opportunities here</h3>*@
                     <p>
                         <a href="/#/search" class="btn btn-lg btn-default">Find a job</a>
                     </p>
@@ -56,8 +56,8 @@
                 <div class="bg-img bg-img-4"></div>
                 <div class="tint"></div>
                 <div class="slide-content">
-                    <h2>Extending your team?</h2>
-                    <h3>Find a perfect match</h3>
+                    <h2>Instant Access to available Contractors</h2>
+                    @*<h3>Find a perfect match</h3>*@
                     <p>
                         <a href="/#/search" class="btn btn-lg btn-default">Find a cadidate</a>
                     </p>
@@ -83,7 +83,7 @@
 <section id="jobs">
     <div class="container">
         <div class="row">
-            @if (Model.Jobs!=null && Model.Jobs.Count > 0)
+            @if (Model.Jobs != null && Model.Jobs.Count > 0)
             {
                 <div class="col-sm-8">
                     <h2>Recent Jobs</h2>
@@ -101,7 +101,7 @@
                                     <p>@job.Company</p>
                                 </div>
                                 <div class="data">
-                                    <span class="city"><i class="fa fa-map-marker"></i>@(job.Location!=null ? job.Location.Title : "")</span>
+                                    <span class="city"><i class="fa fa-map-marker"></i>@(job.Location != null ? job.Location.Title : "")</span>
                                     <span class="type full-time"><i class="fa fa-clock-o"></i>Full Time</span>
                                     <span class="sallary"><i class="fa fa-int"></i>@(job.Rate)k</span>
                                 </div>
@@ -119,7 +119,7 @@
                 <div class="col-sm-4">
                     <h2>Featured Jobs</h2>
                     <a href="/#/job/@Model.FeaturedJob.Id">
-                        <img src="@Model.FeaturedJob.PictureUrl" alt="@Model.FeaturedJob.Company" class="img-responsive"/>
+                        <img src="@Model.FeaturedJob.PictureUrl" alt="@Model.FeaturedJob.Company" class="img-responsive" />
                         <div class="featured-job">
                             <div class="title">
                                 <h5>@Model.FeaturedJob.Title</h5>
@@ -141,26 +141,28 @@
         </div>
     </div>
 </section>
-@if (Model.Companies!=null && Model.Companies.Count > 0) { 
-<section id="companies" class="color1">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Featured Companies</h2>
-                <ul id="featured-companies" class="row">
-                    @foreach (var company in Model.Companies) {
-                        <li class="col-sm-4 col-md-3">
-                            <a href="/#/company/@company.Id">
-                                <img src="@company.PictureUrl" alt="@company.CompanyName"/>
-                                <span class="badge">@company.Jobs</span>
-                            </a>
-                        </li>
-                    }
-                </ul>
+@if (Model.Companies != null && Model.Companies.Count > 0)
+{
+    <section id="companies" class="color1">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Featured Companies</h2>
+                    <ul id="featured-companies" class="row">
+                        @foreach (var company in Model.Companies)
+                        {
+                            <li class="col-sm-4 col-md-3">
+                                <a href="/#/company/@company.Id">
+                                    <img src="@company.PictureUrl" alt="@company.CompanyName" />
+                                    <span class="badge">@company.Jobs</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 }
 @if (Model.Numbers != null)
 {
@@ -215,15 +217,18 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <p>Curabitur et lorem a massa tempus aliquam. Aenean aliquam volutpat gravida. Pellentesque in neque nec tortor sagittis tempor quis in lectus. Vestibulum vehicula aliquet elit ut porta. Sed ipsum felis, interdum blandit purus sed, volutpat ultricies sem. Maecenas feugiat, lectus vitae luctus feugiat, nulla nisl dignissim velit, nec malesuada ligula orci et metus. In vulputate laoreet luctus.</p>
-                <p>Sed hendrerit ligula tortor, eget iaculis velit vestibulum a. Phasellus convallis nisl pretium nisi porttitor, eu scelerisque mauris consectetur. Fusce pretium, dui placerat laoreet consectetur, nibh diam accumsan enim, sed fringilla turpis quam quis ex. Mauris a rhoncus tortor, a cursus urna. Sed et condimentum quam. Nunc dictum erat ut ante aliquam porttitor. Donec diam eros, bibendum et scelerisque egestas, aliquet ut nulla.</p>
-                <p>
-                    <a href="about.html" class="btn btn-primary">Learn More</a>
-                </p>
+                <p>Corp2con allows employers to access a growing community of the best contractors instantly.
+                    Employers can search for the skills they need, and view and assess profiles of contractors with the required skill set. They can
+                    create a shortlist of contractors they’re interested in hiring by paying for quarterly, half yearly and yearly subscription. This results
+                    in dramatic savings when compared with typical recruitment costs.</p>
+                <p>Corp2con allows contractors to create an in-depth profile to promote themselves and their experience and be found easily by
+                    potential employers. To-date contractors using Corp2con have increased their earnings significantly by connecting and
+                    negotiating directly with smart employers who want to hire someone with their skillset.
+                    Join today to be part of this innovative process where both employers and contractors win!</p>
             </div>
             <div class="col-sm-6">
                 <div class="video-wrapper">
-                    
+
                 </div>
             </div>
         </div>
@@ -256,46 +261,46 @@
                 </form>
             </div>
             @*<div class="col-sm-6">
-                <h2>Visit our office</h2>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h5>New York</h5>
-                        <p>
-                            5 Park Avenue<br>
-                            New York, NY 10016<br>
-                            USA
-                        </p>
-                        <p>
-                            <i class="fa fa-phone"></i>+1 718.242.5555<br>
-                            <i class="fa fa-fax"></i>+1 718.242.5556<br>
-                            <i class="fa fa-envelope"></i><a href="mailto:info@corp2con.com">info@corp2con.com</a>
-                        </p>
-                        <p>
-                            <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
-                            <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
-                            <i class="fa fa-clock-o"></i>Sun Closed
-                        </p>
+                    <h2>Visit our office</h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>New York</h5>
+                            <p>
+                                5 Park Avenue<br>
+                                New York, NY 10016<br>
+                                USA
+                            </p>
+                            <p>
+                                <i class="fa fa-phone"></i>+1 718.242.5555<br>
+                                <i class="fa fa-fax"></i>+1 718.242.5556<br>
+                                <i class="fa fa-envelope"></i><a href="mailto:info@corp2con.com">info@corp2con.com</a>
+                            </p>
+                            <p>
+                                <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
+                                <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
+                                <i class="fa fa-clock-o"></i>Sun Closed
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5>Los Angeles</h5>
+                            <p>
+                                8605 Santa Monica Blvd<br>
+                                Los Angeles, CA 90069-4109<br>
+                                USA
+                            </p>
+                            <p>
+                                <i class="fa fa-phone"></i>+1 985.562.5555<br>
+                                <i class="fa fa-fax"></i>+1 985.562.5556<br>
+                                <i class="fa fa-envelope"></i><a href="mailto:la@jobseek.com">la@jobseek.com</a>
+                            </p>
+                            <p>
+                                <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
+                                <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
+                                <i class="fa fa-clock-o"></i>Sun Closed
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <h5>Los Angeles</h5>
-                        <p>
-                            8605 Santa Monica Blvd<br>
-                            Los Angeles, CA 90069-4109<br>
-                            USA
-                        </p>
-                        <p>
-                            <i class="fa fa-phone"></i>+1 985.562.5555<br>
-                            <i class="fa fa-fax"></i>+1 985.562.5556<br>
-                            <i class="fa fa-envelope"></i><a href="mailto:la@jobseek.com">la@jobseek.com</a>
-                        </p>
-                        <p>
-                            <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
-                            <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
-                            <i class="fa fa-clock-o"></i>Sun Closed
-                        </p>
-                    </div>
-                </div>
-            </div>*@
+                </div>*@
         </div>
     </div>
 </section>

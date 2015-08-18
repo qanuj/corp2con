@@ -11,8 +11,8 @@
             return $http.get(v + 'company/job/' + id);
         }
 
-        job.paged = function(page, pageSize) {
-            return $http.get(v + 'company/job/paged?$inlinecount=allpages$orderby=Id desc' + calculatePaging(page, pageSize));
+        job.paged = function(company,page, pageSize) {
+            return $http.get(v + 'job/company/'+company+'?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }
 
         job.create = function(formData) {
