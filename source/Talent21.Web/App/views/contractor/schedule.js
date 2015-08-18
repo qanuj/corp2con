@@ -5,7 +5,6 @@
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
             $scope.records = result.items;
-            console.log($scope.records);
         });
     }
 

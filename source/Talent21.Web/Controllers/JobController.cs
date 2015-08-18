@@ -24,8 +24,15 @@ namespace Talent21.Web.Controllers
         [Route("search")]
         public PageResult<JobSearchResultViewModel> GetContractorsSearch(SearchQueryViewModel model, ODataQueryOptions<JobSearchResultViewModel> options)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Search(model), options);
         }
+
+        [HttpGet]
+        [Route("company/{id}")]
+        public PageResult<JobSearchResultViewModel> GetJobsByCompany([FromUri]int id,ODataQueryOptions<JobSearchResultViewModel> options)
+        {
+            return Page(_service.Search(new SearchQueryViewModel{ CompanyId=id }), options);
+        }
+
     }
 }

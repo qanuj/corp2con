@@ -34,6 +34,7 @@ namespace Talent21.Service.Core
                             where !job.IsCancelled && job.IsPublished
                             select new JobSearchResultViewModel
                             {
+                                CompanyId=job.CompanyId,
                                 PictureUrl=job.Company.PictureUrl,
                                 FirstName = job.Company.FirstName,
                                 LastName = job.Company.LastName,
@@ -95,6 +96,11 @@ namespace Talent21.Service.Core
                 var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
             }
+            if (model.CompanyId > 0)
+            {
+                query=query.Where(x => x.CompanyId == model.CompanyId);
+            }
+
             return query;
         }
 
