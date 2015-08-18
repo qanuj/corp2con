@@ -58,12 +58,12 @@
         return $http.put(v + 'contractor/job/' + id + '/report');
     }
 
-    contractor.getFavorite = function () {
-        return $http.get(v + 'contractor/job/favorite/all');
+    contractor.getFavorite = function (page,pageSize) {
+        return $http.get(v + 'contractor/job/favorite/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
     }
 
      contractor.pagedSchedule = function (page, pageSize) {
-       return $http.get(v + 'contractor/schedule/paged?$orderby=Id desc' + calculatePaging(page, pageSize));
+         return $http.get(v + 'contractor/schedule/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
    }
 
     contractor.createSchedule = function (formData) {

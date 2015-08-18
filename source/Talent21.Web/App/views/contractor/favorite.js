@@ -1,10 +1,14 @@
 app.controller('contractorFavoriteController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
+    $scope.title = "Favorite Jobs";
+    $scope.count= 'None';
+
     $scope.navigate = function (page) {
         db.contractor.getFavorite(page).success(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
             $scope.records = result.items;
-            console.log($scope.records);
+            $scope.count = result.count;
+            console.log(result);
         }).error(function (err) { console.log(err) });
     }
 

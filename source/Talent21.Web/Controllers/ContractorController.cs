@@ -224,12 +224,11 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
-        [EnableQuery]
-        [Route("job/favorite/all")]
-        public IQueryable<JobApplicationContractorViewModel> ViewContractorsQuery()
+        [Route("job/favorite/paged")]
+        public PageResult<JobApplicationContractorViewModel> GetFavoriteJobs(ODataQueryOptions<JobApplicationContractorViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return _service.FavoriteJobs();
+            return Page(_service.FavoriteJobs(), options);
         }
 
         [HttpPut]
