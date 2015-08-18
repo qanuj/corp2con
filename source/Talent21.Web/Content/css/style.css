@@ -513,7 +513,7 @@ header {
 
     .slide-content h2 {
         color: #fff;
-        font-size: 60px;
+        font-size: 50px;
         margin: 0;
     }
 
@@ -1781,7 +1781,7 @@ label {
 @media (min-width: 1200px) {
 
     .slide-content h2 {
-        font-size: 80px;
+        font-size: 50px;
     }
 
     .jobs .city {
