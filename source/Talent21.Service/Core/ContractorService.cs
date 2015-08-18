@@ -56,6 +56,7 @@ namespace Talent21.Service.Core
                                 Email = x.Email,
                                 FunctionalArea = x.FunctionalArea.Title,
                                 Industry = x.Industry.Title,
+                                IndustryId = x.IndustryId,
                                 Nationality = x.Nationality,
                                 AlternateNumber = x.AlternateNumber,
                                 ConsultantType = x.ConsultantType,
@@ -311,6 +312,7 @@ namespace Talent21.Service.Core
             entity.Profile = model.Profile;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
             entity.LocationId = model.LocationId;
+            entity.IndustryId = model.IndustryId;
             entity.Mobile = model.Mobile;
             entity.Social = new Social
             {

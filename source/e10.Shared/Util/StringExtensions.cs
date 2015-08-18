@@ -42,6 +42,16 @@ namespace e10.Shared.Util
         }
 
         [DebuggerStepThrough]
+        public static string ToUnCamel(this string str)
+        {
+            str = Regex.Replace(str, @"([A-Z])([A-Z][a-z])", "$1 $2");  // Capital followed by capital AND a lowercase.
+            str = Regex.Replace(str, @"([a-z])([A-Z])", "$1 $2"); // Lowercase followed by a capital.
+            str = Regex.Replace(str, @"(\D)(\d)", "$1 $2"); //Letter followed by a number.
+            str = Regex.Replace(str, @"(\d)(\D)", "$1 $2"); // Number followed by letter.
+            return str;
+        }
+
+        [DebuggerStepThrough]
         public static string ToUnicode(this char c)
         {
             using(StringWriter w = new StringWriter(CultureInfo.InvariantCulture))

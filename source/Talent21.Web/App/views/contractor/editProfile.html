@@ -23,7 +23,7 @@
             </div>
             <div class="form-group nopadding-right col-xs-2" id="job-location-group">
                 <label for="location">Gender</label>
-                <select class="dropdown form-control" data-ng-model="record.gender" data-ng-options="gender as gender for gender in genders">
+                <select class="dropdown form-control" data-ng-model="record.gender" data-ng-options="c.id as c.label for c in genders">
                     <option value="">-- Select Gender --</option>
                 </select>
             </div>
@@ -65,13 +65,13 @@
             </div>
             <div class="form-group nopadding-left col-xs-6" id="job-location-group">
                 <label for="location">Consultant Type</label>
-                <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c for c in consultantType">
+                <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c.id as c.label for c in contractorType">
                     <option value="">-- Select type --</option>
                 </select>
             </div>
             <div class="form-group nopadding-right col-xs-6" id="job-location-group">
                 <label for="location">Contract Type</label>
-                <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c for c in contractType">
+                <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c.id as c.label for c in contractType">
                     <option value="">-- Select type --</option>
                 </select>
             </div>
@@ -88,20 +88,20 @@
                 </select>
             </div>
             <div ng-repeat="l in levels">
-                <h3>{{l}} Skills</h3>
+                <h3>{{l.label}} Skills</h3>
                 <div class="listings strong">
                     <div class="col-md-4">Skill</div>
                     <div class="col-md-4">Experience (Months)</div>
                     <div class="col-md-4">Profficieny</div>
                 </div>
-                <div class="listings" ng-repeat="s in record.skills | filter:{ level: l }">
+                <div class="listings" ng-repeat="s in record.skills | filter:{ level: l.label }">
                     <div class="row">
                         <div class="col-md-4">{{s.title}}</div>
                         <div class="col-md-4">
                             <input class="form-control" type="number" ng-model="s.experienceInMonths" />
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control" ng-model="s.proficiency" ng-options="o as o for o in proficiencies"></select>
+                            <select class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-danger btn-xs" ng-click="remove(s)"><i class="fa fa-close"></i></button>

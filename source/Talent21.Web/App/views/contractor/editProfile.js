@@ -42,6 +42,15 @@
             db.system.enums('levelEnum').then(function (levels) {
                 $scope.levels = levels;
             });
+            db.system.enums('contractorTypeEnum').then(function (contractorTypes) {
+                $scope.contractorType = contractorTypes;
+            });
+            db.system.enums('contractTypeEnum').then(function (contractTypes) {
+                $scope.contractType = contractTypes;
+            });
+            db.system.enums('genderEnum').then(function (genders) {
+                $scope.genders = genders;
+            });
         });
     }
 
@@ -67,11 +76,6 @@
     });
     db.system.getCountries().success(function (data) {
         $scope.nations = data;
-    });
-
-    $http.get('api/v1/system/enums').success(function (enums) {
-        $scope.consultantType = enums.contractorTypeEnum;
-        $scope.contractType = enums.contractTypeEnum;
     });
 
     getMasters();

@@ -311,7 +311,7 @@ namespace Talent21.Service.Core
             var vals = new EnumList();
             foreach(var type in types)
             {
-                vals.Add(type.Name, Enum.GetNames(type).Select(x => x));
+                vals.Add(type.Name, Enum.GetNames(type).Select(x => new IdLabel<string> { Id = x, Label = x.ToUnCamel()}));
             }
             return vals;
         }
