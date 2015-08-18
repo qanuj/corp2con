@@ -12,6 +12,12 @@ namespace Talent21.Service.Models
         public string Location { get; set; }
         public string Skills { get; set; }
         public string Keywords { get; set; }
+        public int xFrom { get; set; }
+        public int xTo { get; set; }
+        public int IndustryId { get; set; }
+        public int RateStart { get; set; }
+        public int RateEnd { get; set; }
+        public RateEnum RateType { get; set; }
     }
 
     public class CreateJobViewModel : DictionaryViewModel
