@@ -28,20 +28,11 @@
                     </div>
                     <div ng-repeat="l in levels">
                         <h3>{{l}} Skills</h3>
-                        <div class="listings strong">
-                            <div class="col-md-4">Skill</div>
-                            <div class="col-md-4">Experience (Months)</div>
-                            <div class="col-md-4">Profficieny</div>
-                        </div>
                         <div class="listings" ng-repeat="s in record.skills | filter:{ level: l }">
                             <div class="row">
                                 <div class="col-md-4">{{s.title}}</div>
-                                <div class="col-md-4">
-                                    <input class="form-control" type="number" ng-model="s.experienceInMonths"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <select class="form-control" ng-model="s.proficiency" ng-options="o as o for o in proficiencies"></select>
-                                </div>
+                                <div class="col-md-4">{{s.experienceInMonths}} Months </div>
+                                <div class="col-md-4">{{s.proficiency}}</div>
                             </div>
                         </div>
                     </div>
