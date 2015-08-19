@@ -29,6 +29,10 @@ namespace Talent21.Data.Repository
         internal static void Register(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Contractor>().HasKey(x => x.Id);
+            modelBuilder.Entity<Contractor>()
+                .HasOptional(x => x.Company)
+                .WithMany(x => x.Contractors)
+                .HasForeignKey(x => x.CompanyId);
         }
 
         public IQueryable<Contractor> MatchingCompanyJobs(string userId)

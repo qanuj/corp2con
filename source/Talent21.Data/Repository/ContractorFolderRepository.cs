@@ -19,5 +19,12 @@ namespace Talent21.Data.Repository
         {
             return All.Where(x => x.Company.OwnerId == userId);
         }
+
+        internal static void Register(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContractorFolder>().HasKey(x => x.Id);
+            modelBuilder.Entity<ContractorFolder>().HasRequired(x => x.Company).WithMany(x => x.Folders).HasForeignKey(x => x.CompanyId);
+            modelBuilder.Entity<ContractorFolder>().HasRequired(x => x.Contractor).WithMany(x => x.Folders).HasForeignKey(x => x.ContractorId);
+        }
     }
 }
