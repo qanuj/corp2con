@@ -24,6 +24,10 @@
             return $http.put(v + 'company/job/application/' + id + '/move/' + folder);
         }
 
+        company.moveContractor = function (id, folder) {
+            return $http.put(v + 'company/contractor/' + id + '/move/' + folder);
+        }
+
         company.shortlistApplication = function (id) {
             return $http.put(v + 'company/job/application/' + id + '/shortlist');
         }
@@ -70,6 +74,14 @@
 
         company.getSchedule = function (id) {
             return $http.get(v + 'company/schedule/' + id);
+        }
+
+        company.getFolders = function (jobId) {
+            return $http.get(v + 'company/job/' + jobId + '/folders');
+        }
+
+        company.getSearchFolders = function () {
+            return $http.get(v + 'company/contractor/folders');
         }
 
         return company;

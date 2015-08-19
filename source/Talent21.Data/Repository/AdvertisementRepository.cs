@@ -15,4 +15,5 @@ namespace Talent21.Data.Repository
         {
         }
     }
+
 }

@@ -7,26 +7,31 @@
                 <cc-pager total-pages="pages" current-page="currentPage"
                           page-action="navigate(pageNumber)">
                 </cc-pager>
-                <div class="jobs">
-                    <div ng-if="count<1">
-                        <div class="alert alert-warning">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <strong>Ooops! You got us..</strong>
-                            <p>
-                                We could not find anything.
-                            </p>
-                            <p>
-                                <a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a>
-                            </p>
-                        </div>
+                <span ng-if="query.skills" class="badge">{{query.skills}}</span>
+                <span ng-if="query.location" class="badge">{{query.location}}</span>
+                <span ng-if="query.keywords" class="badge">{{query.keywords}}</span>
+                <div ng-if="count<1">
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Ooops! You got us..</strong>
+                        <p>
+                            We could not find anything.
+                        </p>
+                        <p><a class="btn btn-warning" href="#/search"><i class="fa fa-search"></i> Reset Filters and Try Again</a></p>
                     </div>
+                </div>
+                <div class="jobs">
                     <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
                         <div class="{{row.ifFeatured}}"></div>
                         <div class="title">
                             <h5>{{row.title}} <small>{{row.company}}</small></h5>
                             <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
+                            <p>&nbsp;</p>
+                            <p><span  ng-repeat="s in row.skills" class="badge">{{s.title}}</span> </p>
+                            <p>&nbsp;</p>
+                            <p><i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}</p>
                         </div>
                         <div class="data">
                             <span class="city"><i class="fa fa-map-marker"></i>{{row.location.title}}</span>
@@ -42,21 +47,17 @@
             <div class="col-sm-4" id="sidebar">
                 <!-- Find a Job Start -->
                 <div class="sidebar-widget" id="jobsearch">
-                    <h2>Find a Candidate</h2>
+                    <h2>Filter Jobs</h2>
                     <form ng-submit="search(query)">
                         <div class="row">
                             <div class="col-xs-12">
-                                <h5>Skill</h5> {{query.skill}}
-                                <select class="form-control" ng-selected="query.skills" ng-options="s.title as s.title for s in skills track by s.id" ng-model="query.skills" ng-change="search(query)" value="query.skills"></select>
+                                <h5>Skill</h5>
+                                <select class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
                             </div>
                             <div class="col-xs-12">
-                                <h5>Location</h5> {{query.location}}
-                                <select class="form-control" ng-selected="query.location" ng-options="s.title as s.title for s in locations track by s.id" ng-model="query.location" ng-change="search(query)"></select>
+                                <h5>Location</h5>
+                                <select class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
                             </div>
-                            <!--<div class="col-xs-12">
-                        <h5>Industry</h5>
-                        <select class="form-control" ng-options="s.id as s.title for s in industries track by s.id" ng-model="query.industry" ng-change="search(query)"></select>
-                    </div>-->
                             <div class="col-xs-12">
                                 <h5>Keyword</h5>
                                 <div class="input-group">

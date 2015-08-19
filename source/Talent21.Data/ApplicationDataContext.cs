@@ -22,6 +22,7 @@ namespace Talent21.Data
             BlockRepository.Register(modelBuilder);
             CountryRepository.Register(modelBuilder);
             ContractorRepository.Register(modelBuilder);
+            ContractorFolderRepository.Register(modelBuilder);
             CompanyRepository.Register(modelBuilder);
             JobRepository.Register(modelBuilder);
             ConversationRepository.Register(modelBuilder);

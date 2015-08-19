@@ -25,6 +25,7 @@ namespace Talent21.Service.Core
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly IContractorSkillRepository _contractorSkillRepository;
+        private readonly IContractorFolderRepository _contractorFolderRepository;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
@@ -36,7 +37,9 @@ namespace Talent21.Service.Core
             IContractorSkillRepository contractorSkillRepository,
             ICompanyVisitRepository companyVisitRepository,
             ITransactionRepository transactionRepository,
-            IAdvertisementRepository advertisementRepository, IScheduleRepository scheduleRepository)
+            IAdvertisementRepository advertisementRepository, 
+            IScheduleRepository scheduleRepository,
+            IContractorFolderRepository contractorFolderRepository)
             : base(locationRepository, transactionRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -49,6 +52,7 @@ namespace Talent21.Service.Core
             _companyVisitRepository = companyVisitRepository;
             _advertisementRepository = advertisementRepository;
             _scheduleRepository = scheduleRepository;
+            _contractorFolderRepository = contractorFolderRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -393,7 +397,7 @@ namespace Talent21.Service.Core
             return ActOnApplication(new CompanyActJobApplicationViewModel(model, act));
         }
 
-        public bool MoveApplication(MoveJobApplicationViewModel model)
+        public bool MoveApplication(FolderMoveViewModel model)
         {
             var entity = _jobApplicationRepository.ById(model.Id);
             if (entity == null) return false;
@@ -404,6 +408,19 @@ namespace Talent21.Service.Core
             return rowsAffested > 0;
         }
 
+        public bool AddContractorToFolder(FolderMoveViewModel model)
+        {
+            var company = FindCompany();
+            if (company == null) return false;
+            _contractorFolderRepository.Create(new ContractorFolder
+            {
+                Folder = model.Folder,
+                CompanyId = company.Id,
+                ContractorId = model.Id
+            });
+            var rowsAffested = _contractorFolderRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
 
         public JobViewModel ById(int id)
         {
@@ -449,6 +466,7 @@ namespace Talent21.Service.Core
                             let days = DataFunctions.DiffDays2(DateTime.UtcNow,availableDay)
                             select new ContractorSearchResultViewModel
                             {
+                                Folders=x.Folders.Select(z=>new CompanyFolderViewModel{Folder=z.Folder,CompanyId=z.CompanyId}),
                                 Id = x.Id,
                                 About = x.About,
                                 Email = x.Email,
@@ -508,6 +526,7 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model)
         {
+            var company = FindCompany();
             var query = Contractors;
             //Rules of searching.
             if (!string.IsNullOrWhiteSpace(model.Location))
@@ -538,6 +557,14 @@ namespace Talent21.Service.Core
             if (model.xTo > 0)
             {
                 query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) < model.xTo);
+            }
+            if (!string.IsNullOrWhiteSpace(model.Folder))
+            {
+                if (company != null)
+                {
+                    query = query.Where(x => x.Folders.Any(y => y.Folder == model.Folder && y.CompanyId== company.Id));
+                }
+                
             }
             return query;
         }
@@ -652,6 +679,19 @@ namespace Talent21.Service.Core
         public JobApplicationCompanyViewModel Application(int id)
         {
             return Applications().FirstOrDefault(x => x.Id == id);
+        }
+
+        public IQueryable<CountLabel<int>> JobFolders(int id)
+        {
+            return Applications().Where(x => x.Job.Id == id).GroupBy(x=>x.Folder).Select(x => new CountLabel<int>() { Label = x.Key,Count = x.Count()});
+        }
+
+        public IQueryable<CountLabel<int>> ContractorFolders()
+        {
+            return
+                _contractorFolderRepository.Mine(CurrentUserId)
+                    .GroupBy(x => x.Folder)
+                    .Select(x => new CountLabel<int>() {Label = x.Key, Count = x.Count()});
         }
     }
 }

@@ -7,7 +7,11 @@ namespace Talent21.Data.Core
     {
         public ICollection<ContractorSkill> Skills { get; set; }
         public ICollection<ContractorVisit> Visits { get; set; }
+        public ICollection<ContractorFolder> Folders { get; set; }
         public IList<Schedule> Schedules { get; set; }
+
+        public Company Company { get; set; }
+        public int? CompanyId { get; set; }
 
         public Duration Experience { get; set; } //in Years and Months
         

@@ -93,13 +93,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12">
-                                <br>
+                            <div class="col-sm-4">
+                                <!-- Find a Job Start -->
+                                <div class="sidebar-widget">
+                                    <h2>Folders</h2>
+                                    <ul>
+                                        <li ng-repeat="f in folders"><a href="#/search/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Find a Job End -->
+
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button class="btn btn-primary" ng-click="resetFilters()">Reset All Filters</button>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-primary" ng-click="resetFilters()">Reset All Filters</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -107,6 +115,6 @@
                 <!-- Find a Job End -->
 
             </div>
-        </div>       
+        </div>
     </div>
 </section>

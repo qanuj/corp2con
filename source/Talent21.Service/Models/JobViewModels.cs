@@ -12,6 +12,7 @@ namespace Talent21.Service.Models
         public string Location { get; set; }
         public string Skills { get; set; }
         public string Keywords { get; set; }
+        public string Folder { get; set; }
         public int xFrom { get; set; }
         public int xTo { get; set; }
         public int IndustryId { get; set; }
@@ -41,6 +42,13 @@ namespace Talent21.Service.Models
         NextMonth,
         Later
     }
+
+    public class CompanyFolderViewModel
+    {
+        internal int CompanyId { get; set; }
+        public string Folder { get; set; }
+    }
+
     public class ContractorSearchResultViewModel : ContractorViewModel
     {
         [Field("text", Store = StoreMode.No)]

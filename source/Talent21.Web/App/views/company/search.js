@@ -5,6 +5,7 @@
         $scope.query = {
             keywords: $routeParams.q || $routeParams.keywords || '',
             location: $routeParams.location || '',
+            folder: $routeParams.folder || '',
             skills: $routeParams.skills || '',
             startrate: $routeParams.startrate || '',
             endrate: $routeParams.endrate || '',
@@ -24,7 +25,6 @@
         }
 
         $scope.search = function (query) {
-            console.log('query',query.skills)
             var q = '';
             for (var x in query) {
                 q += (q === '' ? '?' : '&') + x + '=' + query[x];
@@ -39,6 +39,11 @@
     db.system.getSkills().success(function (result) {
         $scope.skills = result;
     });
+
+    db.company.getSearchFolders().success(function (result) {
+        $scope.folders = result;
+    });
+
     db.system.getLocations().success(function (result) {
         $scope.locations = result;
     });
