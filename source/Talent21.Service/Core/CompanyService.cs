@@ -526,6 +526,7 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model)
         {
+            var company = FindCompany();
             var query = Contractors;
             //Rules of searching.
             if (!string.IsNullOrWhiteSpace(model.Location))
@@ -557,9 +558,8 @@ namespace Talent21.Service.Core
             {
                 query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) < model.xTo);
             }
-            if (string.IsNullOrWhiteSpace(model.Folder))
+            if (!string.IsNullOrWhiteSpace(model.Folder))
             {
-                var company = FindCompany();
                 if (company != null)
                 {
                     query = query.Where(x => x.Folders.Any(y => y.Folder == model.Folder && y.CompanyId== company.Id));

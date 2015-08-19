@@ -98,7 +98,7 @@
                                 <div class="sidebar-widget">
                                     <h2>Folders</h2>
                                     <ul>
-                                        <li ng-repeat="f in folders"><a href="#/search/{{f.label}}">{{f.label}} ({{f.count}})</a></li>
+                                        <li ng-repeat="f in folders"><a href="#/search/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
                                     </ul>
                                 </div>
                                 <!-- Find a Job End -->

@@ -39,6 +39,11 @@
     db.system.getSkills().success(function (result) {
         $scope.skills = result;
     });
+
+    db.company.getSearchFolders().success(function (result) {
+        $scope.folders = result;
+    });
+
     db.system.getLocations().success(function (result) {
         $scope.locations = result;
     });

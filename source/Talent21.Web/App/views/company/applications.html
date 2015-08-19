@@ -31,7 +31,7 @@
                 <div class="sidebar-widget" id="jobsearch">
                     <h2>Folders</h2>
                     <ul>
-                        <li ng-repeat="f in folders"><a href="#/job/{{id}}/applications/{{f.label}}">{{f.label}} ({{f.count}})</a></li>
+                        <li ng-repeat="f in folders"><a href="#/job/{{id}}/applications/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
                     </ul>
                 </div>
                 <!-- Find a Job End -->

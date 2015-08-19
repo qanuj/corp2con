@@ -77,7 +77,11 @@
         }
 
         company.getFolders = function (jobId) {
-            return $http.get(v + 'company/job/' + jobId + '/folders')
+            return $http.get(v + 'company/job/' + jobId + '/folders');
+        }
+
+        company.getSearchFolders = function () {
+            return $http.get(v + 'company/contractor/folders');
         }
 
         return company;
