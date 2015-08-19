@@ -73,8 +73,8 @@
             return $http.get(v + 'system/consultantype/all?$orderby=Title');
         }
 
-        sys.getNationality = function () {
-            return $http.get(v + 'system/nations/all?$orderby=Title');
+        sys.getCountries = function () {
+            return $http.get(v + 'system/country/all?$orderby=Title');
         }
 
         sys.addFunctional = function (record) {

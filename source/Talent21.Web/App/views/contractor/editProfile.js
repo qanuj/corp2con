@@ -65,15 +65,13 @@
     db.system.getIndustries().success(function (data) {
         $scope.industries = data;
     });
-    db.system.getContractType().success(function (data) {
-        $scope.contractType = data;
-    });
-    db.system.getConsultantType().success(function (data) {
-        $scope.consultantType = data;
-    });
-    db.system.getNationality().success(function (data) {
+    db.system.getCountries().success(function (data) {
         $scope.nations = data;
     });
+
+    db.system.enums().then(function (data) {
+        console.log('Enums',data)
+    })
 
     getMasters();
     navigate();

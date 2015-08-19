@@ -1,8 +1,4 @@
-﻿editprofile.html
-
-
-
-<div class="container margtop">
+﻿<div class="container margtop">
     <div class="row">
         <div class="col-sm-4 col-md-3">
             <a href="#" class="thumbnail">
@@ -17,35 +13,31 @@
         </div>
         <div class="col-sm-8 col-md-9">
             <h2>{{record.firstName}} {{record.lastName}}</h2>
-            <div class="form-group nopadding-left col-xs-6" id="job-email-group">
+            <div class="form-group nopadding-left col-xs-5" id="job-email-group">
                 <label>First Name</label>
                 <input type="text" class="form-control" ng-model="record.firstName">
             </div>
-            <div class="form-group nopadding-right col-xs-6" id="job-email-group">
+            <div class="form-group col-xs-5" id="job-email-group">
                 <label>Last Name</label>
                 <input type="text" class="form-control" ng-model="record.lastName">
             </div>
-            <div class="form-group" id="job-email-group">
-                <label>Email</label>
-                <input type="email" class="form-control" ng-model="record.email">
-            </div>
-            <div class="form-group" id="job-email-group">
-                <label>Username</label>
-                <input type="text" class="form-control" ng-model="record.username">
-            </div>
-            <div class="form-group" id="job-location-group">
-                <label for="location">Nationality</label>
-                <select class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.id as nation.title for nation in nations">
-                    <option value="">-- Select Nationality --</option>
-                </select>
-            </div>
-            <div class="form-group" id="job-location-group">
+            <div class="form-group nopadding-right col-xs-2" id="job-location-group">
                 <label for="location">Gender</label>
                 <select class="dropdown form-control" data-ng-model="record.gender" data-ng-options="gender as gender for gender in genders">
                     <option value="">-- Select Gender --</option>
                 </select>
             </div>
-            <div class="form-group" id="job-location-group">
+            <div class="form-group" id="job-email-group">
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="record.email">
+            </div>
+            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
+                <label for="location">Nationality</label>
+                <select class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.title as nation.title for nation in nations">
+                    <option value="">-- Select Nationality --</option>
+                </select>
+            </div>
+            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
                 <label for="location">Location</label>
                 <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
                     <option value="">-- Select Location --</option>
@@ -59,25 +51,37 @@
                 <label>Experience (Months)</label>
                 <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" min="0" max="11">
             </div>
-            <div class="form-group" id="job-location-group">
+            <div class="form-group nopadding-left col-xs-6">
+                <label>Rate</label>
+                <input type="number" class="form-control" ng-model="record.rate">
+            </div>
+            <div class="form-group nopadding-right col-xs-6">
+                <label>Rate Type</label>
+                <select class="form-control" ng-model="record.rateType">
+                    <option>Hourly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
+            </div>
+            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
                 <label for="location">Consultant Type</label>
                 <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c for c in consultantType">
                     <option value="">-- Select type --</option>
                 </select>
             </div>
-            <div class="form-group" id="job-location-group">
+            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
                 <label for="location">Contract Type</label>
                 <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c for c in contractType">
                     <option value="">-- Select type --</option>
                 </select>
             </div>
-            <div class="form-group" id="job-location-group">
+            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
                 <label for="location">Industry</label>
                 <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="i.id as i.title for i in industries">
                     <option value="">-- Select type --</option>
                 </select>
             </div>
-            <div class="form-group" id="job-location-group">
+            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
                 <label for="location">Functional Area</label>
                 <select class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
                     <option value="">-- Select type --</option>
@@ -113,18 +117,6 @@
                     </div>
                     <div class="col-md-2"><button ng-click="addSkill(newSkill,l)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button></div>
                 </div>
-            </div>
-            <div class="form-group nopadding-left col-xs-6">
-                <label>Rate</label>
-                <input type="number" class="form-control" ng-model="record.rate">
-            </div>
-            <div class="form-group nopadding-right col-xs-6">
-                <label>Rate Type</label>
-                <select class="form-control" ng-model="record.rateType">
-                    <option>Hourly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                </select>
             </div>
             <div class="form-group">
                 <label>Profile</label>
