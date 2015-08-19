@@ -75,6 +75,7 @@
     <Compile Include="Core\CompanyAdvertisement.cs" />
     <Compile Include="Core\Contractor.cs" />
     <Compile Include="Core\ContractorAdvertisement.cs" />
+    <Compile Include="Core\ContractorFolder.cs" />
     <Compile Include="Core\ContractorSkill.cs" />
     <Compile Include="Core\ContractorVisit.cs" />
     <Compile Include="Core\Company.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdvertisementRepository.cs" />
+    <Compile Include="Repository\ContractorFolderRepository.cs" />
     <Compile Include="Repository\ConversationRepository.cs" />
     <Compile Include="Repository\BlockRepository.cs" />
     <Compile Include="Repository\ContractorVisitRepository.cs" />

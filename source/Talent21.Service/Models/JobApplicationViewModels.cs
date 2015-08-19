@@ -7,7 +7,7 @@ namespace Talent21.Service.Models
 {
     public class JobApplicationCompanyViewModel : JobApplicationViewModel
     {
-        public DictionaryViewModel Job { get; set; }
+        public DictionaryEditViewModel Job { get; set; }
         public ContractorViewModel Contractor { get; set; }
         public string Folder { get; set; }
     }
@@ -95,7 +95,7 @@ namespace Talent21.Service.Models
         }
     }
 
-    public class MoveJobApplicationViewModel
+    public class FolderMoveViewModel
     {
         public int Id { get; set; }
         public string Folder { get; set; }

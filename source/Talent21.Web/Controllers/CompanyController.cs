@@ -179,10 +179,26 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("job/{id}/applications/paged")]
-        public PageResult<JobApplicationCompanyViewModel> ViewJobs(int id,ODataQueryOptions<JobApplicationCompanyViewModel> options)
+        public PageResult<JobApplicationCompanyViewModel> ViewJobs(int id, ODataQueryOptions<JobApplicationCompanyViewModel> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Applications(id), options);
+        }
+
+        [HttpGet]
+        [Route("job/{id}/folders")]
+        public IQueryable<CountLabel<int>> GetFoldersForJob(int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.JobFolders(id);
+        }
+
+        [HttpGet]
+        [Route("contractor/folders")]
+        public IQueryable<CountLabel<int>> GetFoldersForContractors()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.ContractorFolders();
         }
 
         [HttpGet]
@@ -223,10 +239,18 @@ namespace Talent21.Web.Controllers
 
         [HttpPut]
         [Route("job/application/{id}/move/{folder}")]
-        public HttpResponseMessage MoveJobApplication([FromUri]int id,[FromUri]string folder)
+        public HttpResponseMessage MoveJobApplication([FromUri]int id, [FromUri]string folder)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.MoveApplication(new MoveJobApplicationViewModel { Folder = folder,Id = id})) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.MoveApplication(new FolderMoveViewModel { Folder = folder, Id = id })) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("contractor/{id}/move/{folder}")]
+        public HttpResponseMessage AddContractorToFolder([FromUri]int id, [FromUri]string folder)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.AddContractorToFolder(new FolderMoveViewModel { Folder = folder, Id = id })) : Bad(ModelState);
         }
 
         [HttpGet]

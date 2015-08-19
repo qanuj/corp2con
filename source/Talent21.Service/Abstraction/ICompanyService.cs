@@ -26,7 +26,8 @@ namespace Talent21.Service.Abstraction
         IQueryable<JobApplicationCompanyViewModel> Applications(int id);
         bool ActOnApplication(CompanyActJobApplicationViewModel act);
         bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum act);
-        bool MoveApplication(MoveJobApplicationViewModel model);
+        bool MoveApplication(FolderMoveViewModel model);
+        bool AddContractorToFolder(FolderMoveViewModel model);
 
         JobViewModel ById(int id);
 
@@ -37,5 +38,7 @@ namespace Talent21.Service.Abstraction
         bool  Promote(PromoteJobViewModel model);
         IQueryable<ScheduleViewModel> Schedules(int id);
         JobApplicationCompanyViewModel Application(int id);
+        IQueryable<CountLabel<int>> JobFolders(int id);
+        IQueryable<CountLabel<int>> ContractorFolders();
      }
 }
