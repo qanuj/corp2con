@@ -1,4 +1,4 @@
-﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$http',function ($scope, db, $http) {
 
     $scope.loadSkills = db.system.getSkills;
 
@@ -69,9 +69,10 @@
         $scope.nations = data;
     });
 
-    db.system.enums().then(function (data) {
-        console.log('Enums',data)
-    })
+    $http.get('api/v1/system/enums').success(function (enums) {
+        $scope.consultantType = enums.contractorTypeEnum;
+        $scope.contractType = enums.contractTypeEnum;
+    });
 
     getMasters();
     navigate();
