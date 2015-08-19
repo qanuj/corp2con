@@ -110,6 +110,8 @@
     </style>
 </head>
 <body>
+<div class="container">
+<div class="row">
 <div id="divVZUploader" class="tab-page row" data-bind="with:model">
     <div class="col-lg-10 col-xl-offset-2 col-lg-offset-1 col-xl-8 col-md-12 col-sm-12">
         <form class="form single-col" enctype="multipart/form-data" id="fileupload" method="post">
@@ -226,17 +228,25 @@
         </div>
     </div>
 </div>
+</div>
+</div>
 <script type="text/javascript">
 var _vzplayer = {
     where:"divVZUploader",
     dropzone:"dropzone",
     local:'vzta.',
     events:{
+        onEdit:function(meta){
+            console.log(meta);
+        },
+        onMetaRequest:function(metaEditor){
+            //metaEditor.
+        },
         onProgress:function(e,data){
-            console.log('Progress',p);
+            console.log('Progress',e,data);
         },
         onProgressAll:function(e,data){
-            console.log('Progress-All',p);
+            console.log('Progress-All',e,data);
         }
     },
     config : {
