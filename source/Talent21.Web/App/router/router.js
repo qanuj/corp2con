@@ -78,7 +78,7 @@
                templateUrl: '/app/views/system/functional.html',
                controller: 'functionalController'
            })
-            .when('/search', {
+            .when('/search/:folder?', {
                 templateUrl: '/app/views/company/search.html',
                 controller: 'companySearchController'
             })
@@ -114,7 +114,7 @@
                  templateUrl: '/app/views/company/contractorApplication.html',
                  controller: 'contractorApplicationController'
              })
-            .when('/job/:id/applications', {
+            .when('/job/:id/applications/:folder?', {
                 templateUrl: '/app/views/company/applications.html',
                 controller: 'companyApplicationsController'
             })

@@ -186,6 +186,10 @@
     <Compile Include="Migrations\201508191345512_Contractor Folders.Designer.cs">
       <DependentUpon>201508191345512_Contractor Folders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508191532201_Company Id from Company Removed.cs" />
+    <Compile Include="Migrations\201508191532201_Company Id from Company Removed.Designer.cs">
+      <DependentUpon>201508191532201_Company Id from Company Removed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdvertisementRepository.cs" />
@@ -282,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508191345512_Contractor Folders.resx">
       <DependentUpon>201508191345512_Contractor Folders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508191532201_Company Id from Company Removed.resx">
+      <DependentUpon>201508191532201_Company Id from Company Removed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

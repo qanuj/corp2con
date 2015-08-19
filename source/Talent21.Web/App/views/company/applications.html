@@ -12,7 +12,8 @@
                         <img src="{{row.contractor.pictureUrl}}" alt="" class="img-circle" />
                         <div class="title">
                             <h5>{{row.contractor.firstName}} {{row.contractor.lastName}}</h5>
-                            <p>{{row.contractor.about | limitTo: 200}}</p>
+                            <p ng-bind-html="row.contractor.about | limitTo: 200"></p>
+                            <p><span class="badge">{{row.folder}}</span></p>
                         </div>
                         <div class="data">
                             <span class="city"><i class="fa fa-map-marker"></i>{{row.contractor.location}}</span>
@@ -30,7 +31,7 @@
                 <div class="sidebar-widget" id="jobsearch">
                     <h2>Folders</h2>
                     <ul>
-                        <li ng-click="search(query)" ng-model="query.folder" ng-repeat="f in folders"><a href>{{f.label}}</a></li>
+                        <li ng-repeat="f in folders"><a href="#/job/{{id}}/applications/{{f.label}}">{{f.label}} ({{f.count}})</a></li>
                     </ul>
                 </div>
                 <!-- Find a Job End -->

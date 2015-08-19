@@ -71,6 +71,7 @@ namespace Talent21.Service.Models
         public GenderEnum Gender { get; set; }
 
         public IEnumerable<ContractorSkillViewModel> Skills { get; set; }
+        public IEnumerable<CompanyFolderViewModel> Folders { get; set; }
     }
 
     public class ContractorCreateViewModel : ContractorEditViewModel

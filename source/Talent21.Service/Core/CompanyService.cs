@@ -466,6 +466,7 @@ namespace Talent21.Service.Core
                             let days = DataFunctions.DiffDays2(DateTime.UtcNow,availableDay)
                             select new ContractorSearchResultViewModel
                             {
+                                Folders=x.Folders.Select(z=>new CompanyFolderViewModel{Folder=z.Folder,CompanyId=z.CompanyId}),
                                 Id = x.Id,
                                 About = x.About,
                                 Email = x.Email,
@@ -555,6 +556,15 @@ namespace Talent21.Service.Core
             if (model.xTo > 0)
             {
                 query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) < model.xTo);
+            }
+            if (string.IsNullOrWhiteSpace(model.Folder))
+            {
+                var company = FindCompany();
+                if (company != null)
+                {
+                    query = query.Where(x => x.Folders.Any(y => y.Folder == model.Folder && y.CompanyId== company.Id));
+                }
+                
             }
             return query;
         }

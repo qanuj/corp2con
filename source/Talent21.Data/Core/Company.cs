@@ -4,7 +4,6 @@ namespace Talent21.Data.Core
 {
     public class Company : Member
     {
-        public int CompanyId { get; set; }
         public string CompanyName { get; set; }
 
         public OrganizationTypeEnum OrganizationType { get; set; }
