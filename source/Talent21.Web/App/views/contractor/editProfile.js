@@ -57,6 +57,24 @@
         });
     }
 
+    $scope.genders = db.system.genders;
+
+    db.system.getFunctionals().success(function (data) {
+        $scope.functionalAreas = data;
+    });
+    db.system.getIndustries().success(function (data) {
+        $scope.industries = data;
+    });
+    db.system.getContractType().success(function (data) {
+        $scope.contractType = data;
+    });
+    db.system.getConsultantType().success(function (data) {
+        $scope.consultantType = data;
+    });
+    db.system.getNationality().success(function (data) {
+        $scope.nations = data;
+    });
+
     getMasters();
     navigate();
 

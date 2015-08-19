@@ -65,6 +65,18 @@
             return $http.get(v + 'system/functional/all?$orderby=Title');
         }
 
+        sys.getContractType = function () {
+            return $http.get(v + 'system/contractype/all?$orderby=Title');
+        }
+
+        sys.getConsultantType = function () {
+            return $http.get(v + 'system/consultantype/all?$orderby=Title');
+        }
+
+        sys.getNationality = function () {
+            return $http.get(v + 'system/nations/all?$orderby=Title');
+        }
+
         sys.addFunctional = function (record) {
             return $http.post(v + 'system/functional/create', record);
         }
@@ -82,6 +94,10 @@
                 { params: params }
             );
         }
+
+        sys.genders = ['Male', 'Female', 'Other'];
+
+        sys.orgType = ['Corporate','Consultancy'];
 
         sys.enums = function (name) {
             var deferred = $q.defer();
