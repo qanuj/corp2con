@@ -388,7 +388,6 @@
 					if (angular.isUndefined(preprocess)) {
 						preprocess = angularMomentConfig.preprocess;
 					}
-					console.log(angularMomentConfig.preprocess,this.preprocessors, this.preprocessors[preprocess]);
 					if (this.preprocessors[preprocess]) {
 						return this.preprocessors[preprocess](value, format);
 					}

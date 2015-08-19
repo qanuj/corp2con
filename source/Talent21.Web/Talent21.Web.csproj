@@ -276,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\directives\humenize.js" />
     <Content Include="App\directives\ng-ckeditor.js" />
     <Content Include="App\directives\uploader.js" />
     <Content Include="App\directives\directive.js" />

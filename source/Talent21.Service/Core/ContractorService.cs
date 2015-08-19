@@ -54,6 +54,8 @@ namespace Talent21.Service.Core
                                 Id = x.Id,
                                 About = x.About,
                                 Email = x.Email,
+                                FunctionalArea = x.FunctionalArea.Title,
+                                Industry = x.Industry.Title,
                                 Nationality = x.Nationality,
                                 AlternateNumber = x.AlternateNumber,
                                 ConsultantType = x.ConsultantType,
