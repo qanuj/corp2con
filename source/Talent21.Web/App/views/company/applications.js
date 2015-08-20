@@ -20,6 +20,7 @@
         });
 
         $scope.search = function (query) {
+            console.log('folder', query.folder)
             var q = '';
             for (var x in query) {
                 q += (q === '' ? '?' : '&') + x + '=' + query[x];

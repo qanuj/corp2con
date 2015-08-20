@@ -24,6 +24,10 @@
             return $http.put(v + 'company/job/application/' + id + '/move/' + folder);
         }
 
+        company.moveContractor = function (id, folder) {
+            return $http.put(v + 'company/contractor/' + id + '/move/' + folder);
+        }
+
         company.shortlistApplication = function (id) {
             return $http.put(v + 'company/job/application/' + id + '/shortlist');
         }

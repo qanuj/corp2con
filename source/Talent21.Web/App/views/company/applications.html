@@ -30,7 +30,7 @@
                 <div class="sidebar-widget" id="jobsearch">
                     <h2>Folders</h2>
                     <ul>
-                        <li ng-click="search(f.label)" ng-repeat="f in folders"><a href>{{f.label}}</a></li>
+                        <li ng-click="search(query)" ng-model="query.folder" ng-repeat="f in folders"><a href>{{f.label}}</a></li>
                     </ul>
                 </div>
                 <!-- Find a Job End -->

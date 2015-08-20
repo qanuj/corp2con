@@ -27,4 +27,10 @@
         });
     });
 
+    $scope.move = function (id, folder) {
+        db.company.moveContractor(id, folder).success(function () {
+            console.log('moved');
+        });
+    }
+
 }]);
