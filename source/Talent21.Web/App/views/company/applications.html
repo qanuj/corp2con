@@ -28,8 +28,8 @@
             <div class="col-sm-4" id="sidebar">
                 <!-- Find a Job Start -->
                 <div class="sidebar-widget" id="jobsearch">
-                    <h2>Find a Candidate</h2>
-                    <form ng-submit="search(query)">
+                    <h2>Folder</h2>
+                    <!--<form ng-submit="search(query)">
                         <div class="row">
                             <div class="col-xs-12">
                                 <input class="form-control" type="text" ng-model="query.skills" placeholder="e.g ASP.net, C#, Java" />
@@ -122,7 +122,14 @@
                                 <a class="btn btn-primary">Reset All Filters</a>
                             </div>
                         </div>
-                    </form>
+                    </form>-->
+                    <div class="input-group">
+                        <input type="text" class="form-control input-xs" ng-model="folder" />
+                        <span class="input-group-btn">
+                            <button ng-click="search(folder)" class="btn btn-primary srch-btn-pad">Search</button>
+                        </span>
+                    </div><br />
+                    <button class="btn form-control btn-primary btn-block" ng-show="folder.length>0" ng-click="search('')">Reset</button>
                 </div>
                 <!-- Find a Job End -->
 
