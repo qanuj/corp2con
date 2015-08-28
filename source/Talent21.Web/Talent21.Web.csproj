@@ -403,6 +403,7 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\extra\bootstrap-markdown.css" />
+    <Content Include="Content\css\extra\ng-switcher.css" />
     <Content Include="Content\css\extra\ng-tags-input.a.css" />
     <Content Include="Content\css\extra\ng-tags-input.bootstrap.css" />
     <Content Include="Content\css\extra\select.css" />
@@ -865,6 +866,7 @@
     <Content Include="Scripts\modules\markdown-editpreview-ng.js" />
     <Content Include="Scripts\modules\Markdown.Converter.js" />
     <Content Include="Scripts\modules\Markdown.Sanitizer.js" />
+    <Content Include="Scripts\modules\ng-switcher.js" />
     <Content Include="Scripts\modules\ng-tags-input.js" />
     <Content Include="Scripts\modules\select.js" />
     <Content Include="Scripts\modules\slider.js" />

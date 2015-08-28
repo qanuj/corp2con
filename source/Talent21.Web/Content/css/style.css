@@ -918,7 +918,7 @@ label {
     margin-bottom: 25px;
 }
 
-    .jobs a {
+    .jobs a,.jobs .item {
         margin: 5px 0;
         border: 1px solid #e7e7e7;
         color: #888;
@@ -930,15 +930,15 @@ label {
         width: 100%;
     }
 
-        .jobs a:nth-child(2n) {
+        .jobs a:nth-child(2n),.jobs .item:nth-child(2n) {
             background: #f8f8f8;
         }
 
-        .jobs a:hover {
+        .jobs a:hover,.jobs .item:hover {
             background: #f2f2f2;
         }
 
-        .jobs a .featured {
+        .jobs a .featured,.jobs .item .featured {
             background: #14b1bb;
             display: block;
             height: 30px;

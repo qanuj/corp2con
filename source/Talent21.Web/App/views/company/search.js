@@ -1,5 +1,6 @@
 ﻿app.controller('companySearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
     $scope.title = "Contractor : Search Result";
+    $scope.save = "Save";
 
     $scope.navigate = function (page) {
         $scope.query = {
@@ -35,6 +36,12 @@
         fetchResults($scope.query, page || 1);
     }
     $scope.navigate($routeParams.page);
+
+    $scope.toggle=function(allSelected) {
+        for (var x in $scope.records) {
+            $scope.records[x].selected = allSelected;
+        }
+    }
 
     db.system.getSkills().success(function (result) {
         $scope.skills = result;
@@ -80,6 +87,25 @@
 
     $scope.translate = function (value) {
         return '$' + value;
+    }
+
+
+    $scope.move = function (folder) {
+        var i = 0;
+        function moveFolder(x, folder, next) {
+            if (!$scope.records[x]) {
+                $scope.save = "Save";
+                return;
+            }
+            $scope.save = (x + 1);
+            if ($scope.records[x].selected == true) {
+                db.company.moveContractor($scope.records[x].id, folder).success(next);
+            }else next();
+        }
+        function onNext() {
+            moveFolder(++i, folder, onNext);
+        }
+        moveFolder(i, folder, onNext);
     }
 
     $scope.$on("slideEnded", function () {

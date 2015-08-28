@@ -24,7 +24,7 @@
                         <i class="fa fa-cross"></i> Revoke
                     </a>
                     <h5 ng-if="record.isApplied===true">
-                        Applied {{record.applied | amCalendar}}
+                        Applied {{record.applied | date:'dd-MMM-yy'}}
                     </h5>
                     <!--<a class="btn btn-danger btn-block" ng-click="report(record)">
                         <i class="fa fa-thumbs-o-down"></i> Report

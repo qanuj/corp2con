@@ -3,14 +3,12 @@
         <div class="row">
             <div class="col-sm-8">
                 <article>
-
                     <div class="row">
                         <div class="col-sm-4 col-md-3 col-lg-2">
                             <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded" />
                         </div>
                         <div class="col-sm-8 col-md-9 col-lg-10">
                             <h2><i class="fa fa-user"></i> {{record.firstName}} {{record.lastName}}</h2>
-
                         </div>
                     </div>
                     <h3>Schedule</h3>
@@ -46,7 +44,8 @@
                     <div class="input-group">
                         <input type="text" class="form-control input-xs" ng-model="record.folder" />
                         <span class="input-group-btn">
-                            <button ng-click="move(record.id,record.folder)" class="btn btn-primary srch-btn-pad">Save</button>
+                            <button ng-click="move(record.id,record.folder)" class="btn btn-primary srch-btn-pad"><i class="fa fa-save"></i> Save</button>
+                            <button ng-click="download(record.id,record.folder)" class="btn btn-success srch-btn-pad"><i class="fa fa-cloud-download"></i></button>
                         </span>
                     </div>
                 </div>
