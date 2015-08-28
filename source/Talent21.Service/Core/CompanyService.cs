@@ -470,12 +470,15 @@ namespace Talent21.Service.Core
                                 Id = x.Id,
                                 About = x.About,
                                 Email = x.Email,
+                                RateType=x.RateType,
                                 Nationality = x.Nationality,
                                 AlternateNumber = x.AlternateNumber,
                                 ConsultantType = x.ConsultantType,
                                 ContractType = x.ContractType,
                                 Gender = x.Gender,
                                 Profile = x.Profile,
+                                FunctionalArea = x.FunctionalArea.Title,
+                                Industry=x.Industry.Title,
                                 FunctionalAreaId = x.FunctionalAreaId,
                                 ExperienceMonths = x.Experience.Months,
                                 ExperienceYears = x.Experience.Years,
@@ -537,13 +540,18 @@ namespace Talent21.Service.Core
             {
                 query = query.Where(x => x.IndustryId == model.IndustryId);
             }
+            if (model.RateType.HasValue)
+            {
+                query = query.Where(x => x.RateType == model.RateType.Value);
+            }
+
             if (model.RateStart > 0)
             {
-                query = query.Where(x => x.RateType == model.RateType && x.Rate > model.RateStart);
+                query = query.Where(x => x.Rate > model.RateStart);
             }
             if (model.RateEnd > 0)
             {
-                query = query.Where(x => x.RateType == model.RateType && x.Rate < model.RateEnd);
+                query = query.Where(x => x.Rate < model.RateEnd);
             }
             if (!string.IsNullOrWhiteSpace(model.Skills))
             {
