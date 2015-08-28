@@ -19,8 +19,9 @@
             </div>
             <div class="form-group">
                 <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
-            </div>
+            </div>         
         </form>
+        <br />
     </div>
     <div class="col-md-12">
         <div class="listings" ng-repeat="s in records">
@@ -44,7 +45,9 @@
             </div>
         </div>
     </div>
+  
     <cc-pager total-pages="pages" current-page="currentPage"
               page-action="navigate(pageNumber)">
     </cc-pager>
 </div>
+<br />
