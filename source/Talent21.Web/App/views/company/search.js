@@ -18,12 +18,14 @@
             keywords: $routeParams.q || $routeParams.keywords || '',
             location: $routeParams.location || '',
             folder: $routeParams.folder || '',
+            industry: $routeParams.industry || '',
+            functional: $routeParams.functional || '',
             skills: $routeParams.skills || '',
-            startrate: $routeParams.startrate || '',
-            endrate: $routeParams.endrate || '',
+            ratestart: $routeParams.ratestart || '',
+            rateend: $routeParams.rateend || '',
             xfrom: $routeParams.xfrom || '',
             xto: $routeParams.xto || '',
-            industry: $routeParams.industry || ''
+            ratetype: $routeParams.ratetype || ''
         }
 
         function fetchResults(query, page) {
@@ -58,6 +60,10 @@
         $scope.skills = result;
     });
 
+    db.system.enums('rateEnum').then(function (result) {
+        $scope.rateTypes = result;
+    });
+
     db.company.getSearchFolders().success(function (result) {
         $scope.folders = result;
     });
@@ -69,31 +75,34 @@
         $scope.industries = result;
     });
 
-    $scope.resetFilters = function () {
-        $scope.query.keywords = '';
-        $scope.query.skills = '';
-        $scope.query.location = '';
-        $scope.query.startrate = '';
-        $scope.query.endrate = '';
-        $scope.query.xfrom = '';
-        $scope.query.xto = '';
-        $scope.query.industry = '';
-        $scope.search(query);
+    db.system.getFunctionals().success(function (result) {
+        $scope.functionals = result;
+    });
+
+    $scope.experienceTranslate = function (value) {
+        if (value == 0) return 'Fresher';
+        var years = Math.floor(value / 12);
+        var months = value % 12;
+        return years + (months > 0 ? "." + months : "") + 'y';
+    }
+
+    $scope.rateTranslate = function (value) {
+        return value+'k';
     }
 
     //Slider configs
     $scope.experienceSlider = {
         min: $scope.query.xfrom || 0,
         max: $scope.query.xto || 500,
-        ceil: 500,
+        ceil: 240,
         floor: 0
     };
 
     $scope.rateSlider = {
-        min: $scope.query.startrate || 0,
-        max: $scope.query.endrate || 500,
+        min: $scope.query.ratestart || 0,
+        max: $scope.query.rateend || 500,
         ceil: 500,
-        floor: 0
+        floor: 1
     };
 
     $scope.translate = function (value) {
@@ -121,13 +130,12 @@
 
     $scope.$on("slideEnded", function () {
         // user finished sliding a handle 
-        console.log('slide ended')
-        $scope.query.startrate = $scope.rateSlider.min;
-        $scope.query.endrate = $scope.rateSlider.max;
+        console.log('slide ended');
+        $scope.query.ratestart = $scope.rateSlider.min;
+        $scope.query.rateend = $scope.rateSlider.max;
         $scope.query.xfrom = $scope.experienceSlider.min;
         $scope.query.xto = $scope.experienceSlider.max;
         $scope.search($scope.query);
-
     });
 
 

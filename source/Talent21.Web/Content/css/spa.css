@@ -72,3 +72,11 @@
     -ms-text-shadow: 4px 3px 0px #1d9d74, 9px 8px 0px rgba(0, 0, 0, 0.15);
     text-shadow: 4px 3px 0px #1d9d74, 9px 8px 0px rgba(0, 0, 0, 0.15);
 }
+.point {
+    border: 1px solid #eee;
+    padding: 5px;
+    margin: 2px;
+}
+.point i {
+    color: red;
+}
