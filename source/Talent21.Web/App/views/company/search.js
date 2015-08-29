@@ -2,6 +2,17 @@
     $scope.title = "Contractor : Search Result";
     $scope.save = "Save";
 
+
+    if (!isNaN($routeParams.idea)) {
+        param.page = page.idea;
+    } else if ($routeParams.idea == "match") {
+        $scope.searching = "Matching Jobs for you.";
+    } else if ($routeParams.idea == "month") {
+        $scope.searching = "Matching Jobs for you, next month";
+    } else if ($routeParams.idea == "week") {
+        $scope.searching = "Matching Jobs for you, next week";
+    }
+
     $scope.navigate = function (page) {
         $scope.query = {
             keywords: $routeParams.q || $routeParams.keywords || '',
