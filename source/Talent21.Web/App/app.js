@@ -9,6 +9,7 @@
     'ngTagsInput',
     'angularMoment',
     'ngCkeditor',
+    'theaquaNg',
     'codemwnci.markdown-edit-preview',
     'humenize',
     'ui.gravatar', //gravtaar for user

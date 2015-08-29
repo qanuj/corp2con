@@ -94,6 +94,25 @@
             return '$' + value;
         }
 
+        $scope.move = function (folder) {
+            var i = 0;
+            function moveFolder(x, folder, next) {
+                if (!$scope.records[x]) {
+                    $scope.save = "Save";
+                    return;
+                }
+                $scope.save = (x + 1);
+                if ($scope.records[x].selected == true) {
+                    db.company.moveContractor($scope.records[x].id, folder).success(next);
+                } else next();
+            }
+            function onNext() {
+                moveFolder(++i, folder, onNext);
+            }
+            moveFolder(i, folder, onNext);
+        }
+
+
         $scope.$on("slideEnded", function () {
             // user finished sliding a handle 
             $scope.query.startrate = $scope.rateSlider.min;

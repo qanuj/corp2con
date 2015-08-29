@@ -13,12 +13,14 @@ namespace Talent21.Service.Models
         public string Skills { get; set; }
         public string Keywords { get; set; }
         public string Folder { get; set; }
+        public string Industry { get; set; }
+        public string Functional { get; set; }
         public int xFrom { get; set; }
         public int xTo { get; set; }
         public int IndustryId { get; set; }
         public int RateStart { get; set; }
         public int RateEnd { get; set; }
-        public RateEnum RateType { get; set; }
+        public RateEnum? RateType { get; set; }
         public int CompanyId { get; set; }
     }
 
