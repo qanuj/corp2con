@@ -7,6 +7,13 @@
         });
     });
     
+    $scope.favorite=function(row){
+        if (row.favorite) return;
+        db.contractor.favorite(row.id).success(function () {
+            row.favorite = new Date();
+        });
+    }
+
     $scope.search = function (q) {
         window.location = '#/search?q=' + (q.keywords || '') + '&location=' + (q.location || '') + '&skills=' + (q.skills || '');
         return false;

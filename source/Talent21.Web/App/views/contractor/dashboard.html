@@ -162,7 +162,7 @@
                             <div class="col-md-3">
                                 <div class="btn-group">
                                     <a class="btn btn-info btn-xs" href="#/job/{{row.id}}"><i class="fa fa-eye"></i> View</a>
-                                    <a class="btn btn-info btn-xs" href="" ng-click="favorite(row.id)"><i class="fa fa-heart-o"></i> Save</a>
+                                    <button class="btn btn-info btn-xs" ng-disabled="row.favorite" ng-click="favorite(row)"><i class="fa fa-heart-o"></i> Save</button>
                                 </div>
                             </div>
                         </div>
@@ -171,8 +171,8 @@
                         </span>
                         <span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
                         <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
-                        <span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
-                        <span class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
+                        <br /><span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
+                        <br /><span class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
                     </div>
                 </div>
             </div>
@@ -207,8 +207,8 @@
                                     </a>
                                 </h5>
                                 <span class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</span>
-                                    <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
-                                    <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
+                                <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
+                                <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
                                 <p>
                                     {{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
                                 </p>
@@ -216,7 +216,7 @@
                             <div class="col-md-3">
                                 <div class="btn-group">
                                     <a class="btn btn-info btn-xs" href="#/job/{{row.id}}"><i class="fa fa-eye"></i> View</a>
-                                    <a class="btn btn-info btn-xs" href="" ng-click="favorite(row.id)"><i class="fa fa-heart-o"></i> Save</a>
+                                    <button class="btn btn-info btn-xs" ng-disabled="row.favorite" ng-click="favorite(row)"><i class="fa fa-heart-o"></i> Save</button>
                                 </div>
                             </div>
                         </div>
@@ -225,8 +225,8 @@
                         </span>
                         <span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
                         <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
-                        <span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
-                        <span class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
+                        <br /><span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
+                        <br/><span class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
                     </div>
                 </div>
             </div>
