@@ -122,12 +122,17 @@ namespace Talent21.Service.Core
 
         public IQueryable<JobBasedJobApplicationHistoryViewModel> ApplicationHistoryByJobIDs(IList<int> IDs)
         {
-            return _jobRepository.All.Where(x=>IDs.Contains(x.Id)).Select(x => new JobBasedJobApplicationHistoryViewModel
+            return _jobRepository.All.Where(x => IDs.Contains(x.Id)).Select(x => new JobBasedJobApplicationHistoryViewModel
             {
                 History = x.Applications.Where(z => z.Contractor.OwnerId == CurrentUserId && IDs.Contains(z.JobId))
-                    .SelectMany(z => z.History).Select(y =>
-                      new JobApplicationHistoryViewModel() { Act = y.Act, ApplicationId = y.ApplicationId,
-                          Created = y.Created, CreateBy = y.CreatedBy }),
+                      .SelectMany(z => z.History).Select(y =>
+                        new JobApplicationHistoryViewModel()
+                        {
+                            Act = y.Act,
+                            ApplicationId = y.ApplicationId,
+                            Created = y.Created,
+                            CreateBy = y.CreatedBy
+                        }),
                 Id = x.Id
             });
         }
@@ -513,8 +518,33 @@ namespace Talent21.Service.Core
         {
             var nextWeek = DateTime.UtcNow.AddDays(7);
             var nextMonth = DateTime.UtcNow.AddMonths(1);
+
+            var contractor = FindContractor(userId);
+
+            var skill = "Java";
+            var location = contractor.Location.Title;
+
+            var skillRow = _contractorSkillRepository.All.Where(x => x.Contractor.OwnerId == userId && x.Level == LevelEnum.Primary)
+                .OrderByDescending(x => x.ExperienceInMonths).FirstOrDefault();
+            if (skillRow != null) skill = skillRow.Skill.Title;
+            
+            var aggregateReport = _jobRepository.Durations(location)
+                .GroupBy(x => new { x.Skill, x.Location }).Select(x => new
+                {
+                    Salary = new MinMax { Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate) },
+                    Duration = new MinMax { Min = x.Min(y => y.Duration), Max = x.Max(y => y.Duration) },
+                })
+                .FirstOrDefault();
+
             return new ContractorDashboardViewModel
             {
+                Aggregate = new ContractorAggregateReport
+                {
+                    Skill = skill,
+                    Location = location,
+                    Salary = aggregateReport.Salary,
+                    Duration = aggregateReport.Duration,
+                },
                 Views = _contractorVisitRepository.Mine(userId).Count(),
                 Jobs = _jobRepository.MatchingForConctractor(userId).Count(),
                 Week = _jobRepository.MatchingForConctractor(userId).Count(x => x.Start < nextWeek),
@@ -573,7 +603,7 @@ namespace Talent21.Service.Core
             }
             return true;
         }
-        
+
         public bool VisitJob(int id, VisitViewModel model)
         {
             var entity = FindContractor(CurrentUserId);

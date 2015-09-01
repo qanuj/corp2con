@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
+using Talent21.Data.ViewModels;
 
 namespace Talent21.Data.Repository
 {
@@ -52,6 +53,18 @@ namespace Talent21.Data.Repository
         {
             return All;//TODO:search function fix.
         }
+
+        public IQueryable<JobDuration> Durations(string location)
+        {
+            return All.SelectMany(x => x.Skills.Where(y => y.Level == LevelEnum.Primary && x.Locations.Any(z=>z.Title==location)).Select(y =>
+                new JobDuration
+                {
+                    Skill = y.Skill.Title,
+                    Location =location,
+                    Rate=x.Rate,
+                    Duration = DbFunctions.DiffDays(x.Start, x.End) ?? 0
+                }));
+        }
     }
 
     /// <summary>
@@ -62,6 +75,7 @@ namespace Talent21.Data.Repository
         IQueryable<Job> Mine(string userId);
         Job MineFirst(string userId,int id);
         IQueryable<Job> MatchingForConctractor(string userId);
+        IQueryable<JobDuration> Durations(string loc);
     }
 
 }

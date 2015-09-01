@@ -28,6 +28,14 @@ namespace Talent21.Service.Models
         public MinMax Salary { get; set; }
     }
 
+    public class ContractorAggregateReport
+    {
+        public string Skill { get; set; }
+        public string Location { get; set; }
+        public MinMax Duration { get; set; }
+        public MinMax Salary { get; set; }
+    }
+
     public class MinMax : MinMax<int>
     {
     }
@@ -85,6 +93,7 @@ namespace Talent21.Service.Models
         public int Views { get; set; }
         public int Week { get; set; }
         public int Month { get; set; }
+        public ContractorAggregateReport Aggregate { get; set; }
     }
 
     public class ContractorViewModel : ContractorEditViewModel

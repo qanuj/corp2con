@@ -227,6 +227,7 @@
     <Compile Include="Repository\JobApplicationRepository.cs" />
     <Compile Include="Repository\JobRepository.cs" />
     <Compile Include="Repository\JobVisitRepository.cs" />
+    <Compile Include="ViewModels\JobDuration.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e10.Shared\e10.Shared.csproj">
@@ -303,9 +304,7 @@
       <DependentUpon>201509011125360_Visits has Visitor Name.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\PagedList.css" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

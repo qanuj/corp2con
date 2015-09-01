@@ -2,6 +2,9 @@
 
     db.contractor.dashboard().success(function (result) {
         $scope.record = result;
+        db.contractor.search({ location: result.aggregate.location, skills: result.aggregate.skill }, 1, 5, 'Days').then(function (result) {
+            $scope.matching = result.items;
+        });
     });
     
     $scope.search = function (q) {
