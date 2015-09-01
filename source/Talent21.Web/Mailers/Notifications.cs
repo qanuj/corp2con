@@ -58,12 +58,23 @@ namespace Talent21.Web.Mailers
             Send(mvcMailMessage,toEmail);
         }
 
-        public void ActOnApplication(JobActionEnum act, string email)
+        public void ActOnApplication(JobApplication jobApplication, JobActionEnum act)
         {
-            var mvcMailMessage = new MvcMailMessage { Subject = string.Format("Your Application Status : {0} - {1}",act,Product.Name) };
-            mvcMailMessage.To.Add(email);
-            PopulateBody(mvcMailMessage, "Application."+ act);
-            Send(mvcMailMessage, email);
+            if (act == JobActionEnum.Favorite) return;
+            if (act == JobActionEnum.Reported) return;
+
+            //send to contractor;
+            var msg1 = new MvcMailMessage { Subject = string.Format("Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title) };
+            msg1.To.Add(jobApplication.Contractor.Email);
+            PopulateBody(msg1, "Contractor." + act);
+            Send(msg1, jobApplication.Contractor.Email);
+
+            //send to company;
+            var msg2 = new MvcMailMessage { Subject = string.Format("{3} {4} - Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title, jobApplication.Contractor.FirstName, jobApplication.Contractor.LastName) };
+            msg2.To.Add(jobApplication.Job.Company.Email);
+            PopulateBody(msg2, "Company." + act);
+            Send(msg2, jobApplication.Job.Company.Email);
+
         }
     }
 }

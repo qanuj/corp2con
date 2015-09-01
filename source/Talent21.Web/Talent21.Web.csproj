@@ -1041,6 +1041,8 @@
     <Content Include="Views\Notifications\Welcome.text.cshtml" />
     <Content Include="Views\Notifications\_Layout.cshtml" />
     <Content Include="Views\Notifications\_Layout.text.cshtml" />
+    <Content Include="Views\Notifications\Contractor.Application.cshtml" />
+    <Content Include="Views\Notifications\Company.Application.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

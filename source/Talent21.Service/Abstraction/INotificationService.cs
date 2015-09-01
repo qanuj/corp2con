@@ -9,6 +9,6 @@ namespace Talent21.Service.Abstraction
         void Welcome(string toEmail, string url);
         void GoodBye(string toEmail);
         void PasswordRecovery(string toEmail, string key);
-        void ActOnApplication(JobActionEnum act, string email);
+        void ActOnApplication(JobApplication application, JobActionEnum act);
     }
 }

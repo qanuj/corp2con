@@ -392,7 +392,7 @@ namespace Talent21.Service.Core
 
             var rowsAffested = _jobApplicationRepository.SaveChanges();
 
-            _notificationService.ActOnApplication(model.Act, entity.Contractor.Email);
+            _notificationService.ActOnApplication(entity,model.Act);
 
             return rowsAffested > 0;
         }

@@ -207,6 +207,7 @@
     <Compile Include="Repository\FunctionalAreaRepository.cs" />
     <Compile Include="Repository\ContractorSkillRepository.cs" />
     <Compile Include="Repository\CountryRepository.cs" />
+    <Compile Include="Repository\JobApplicationHistoryRespository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
