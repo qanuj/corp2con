@@ -103,7 +103,11 @@
 
 
     contractor.visitCompany = function (id) {
-        return $http.post(v + 'contractor/company/' + id + '/visit');
+        return $http.get(v + 'contractor/company/' + id + '/visit');
+    }
+
+    contractor.visitJob = function (id) {
+        return $http.get(v + 'contractor/job/' + id + '/visit');
     }
 
     contractor.getLatestJobs = function (skill, location, page, pageSize) {

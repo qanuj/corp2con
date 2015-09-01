@@ -569,6 +569,7 @@ namespace Talent21.Service.Core
                     Referer = model.Referer,
                     State = model.State,
                 });
+                _companyVisitRepository.SaveChanges();
             }
             return true;
         }
@@ -592,6 +593,7 @@ namespace Talent21.Service.Core
                     Referer = model.Referer,
                     State = model.State,
                 });
+                _jobVisitRepository.SaveChanges();
             }
             return true;
         }

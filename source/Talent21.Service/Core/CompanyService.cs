@@ -727,6 +727,7 @@ namespace Talent21.Service.Core
                     Referer = model.Referer,
                     State = model.State,
                 });
+                _contractorVisitRepository.SaveChanges();
             }
             return true;
         }
