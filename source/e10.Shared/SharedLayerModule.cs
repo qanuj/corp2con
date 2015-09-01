@@ -15,10 +15,10 @@ namespace e10.Shared
             builder.RegisterType<ApplicationUserManager>().As<IUserService>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
-            builder.RegisterType<EmailService>().As<IIdentityEmailMessageService>().InstancePerRequest();
+            builder.RegisterType<SendGridEmailService>().As<IIdentityEmailMessageService>().InstancePerRequest();
             builder.RegisterType<SmsService>().As<IIdentitySmsMessageService>().InstancePerRequest();
             builder.RegisterType<DoNotReplyAte10EmailConfigProvider>().As<IEmailConfigProvider>().InstancePerRequest();
-            builder.RegisterType<NullLogger>().As<ILogger>().InstancePerRequest();
+            builder.RegisterType<ElmahLogger>().As<ILogger>().InstancePerRequest();
         }
     }
 }

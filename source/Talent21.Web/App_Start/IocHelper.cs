@@ -19,6 +19,7 @@ namespace Talent21.Web
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterModule<ServiceLayerModule>();
+            builder.RegisterModule<WebLayerModule>();
             builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
 

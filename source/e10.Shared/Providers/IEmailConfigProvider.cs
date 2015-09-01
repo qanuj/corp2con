@@ -13,5 +13,6 @@ namespace e10.Shared.Providers
         int Port { get; }
         bool IsGmail { get; }
         string Password { get;}
+        string SendGridApiKey { get;}
     }
 }

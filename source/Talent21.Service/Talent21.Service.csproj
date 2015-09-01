@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstraction\ActingRoleEnum.cs" />
+    <Compile Include="Abstraction\INotificationService.cs" />
     <Compile Include="Abstraction\ISiteService.cs" />
     <Compile Include="Abstraction\IUserService.cs" />
     <Compile Include="Core\DemoDataService.cs" />
