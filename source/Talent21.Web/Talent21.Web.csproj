@@ -1034,15 +1034,18 @@
     <Content Include="Views\Setup\Index.cshtml" />
     <Content Include="Views\Shared\_Unsecured.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\Notifications\GoodBye.cshtml" />
     <Content Include="Views\Notifications\PasswordRecovery.cshtml" />
-    <Content Include="Views\Notifications\Welcome.cshtml" />
+    <Content Include="Views\Notifications\Company.Welcome.cshtml" />
     <Content Include="Views\Notifications\_Layout.cshtml" />
     <Content Include="Views\Notifications\Contractor.Application.cshtml" />
     <Content Include="Views\Notifications\Company.Application.cshtml" />
     <Content Include="Views\Notifications\Contractor.Invited.cshtml" />
     <Content Include="Views\Notifications\Company.Invited.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
+    <Content Include="Views\Notifications\Contractor.Welcome.cshtml" />
+    <Content Include="Views\Notifications\Other.Welcome.cshtml" />
+    <Content Include="Views\Notifications\Company._Layout.cshtml" />
+    <Content Include="Views\Notifications\Contractor._Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

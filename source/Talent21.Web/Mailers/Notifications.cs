@@ -31,23 +31,14 @@ namespace Talent21.Web.Mailers
             });
         }
 
-        public void Welcome(string toEmail, string url)
+        public void Welcome(string toEmail, string url,string role)
         {
             var mvcMailMessage = new MvcMailMessage { Subject = "Welcome  to " + Product.Name };
             mvcMailMessage.To.Add(toEmail);
             ViewBag.Url = url;
             ViewBag.UserName = toEmail;
             ViewBag.Email = toEmail;
-            PopulateBody(mvcMailMessage, "Welcome");
-            Send(mvcMailMessage, toEmail);
-        }
-
-        public void GoodBye(string toEmail)
-        {
-            var mvcMailMessage = new MvcMailMessage { Subject = "GoodBye" };
-            PopulateBody(mvcMailMessage, "GoodBye");
-
-            ViewBag.Email = toEmail;
+            PopulateBody(mvcMailMessage,string.Format("{0}.Welcome", role));
             Send(mvcMailMessage, toEmail);
         }
 

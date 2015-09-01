@@ -174,6 +174,7 @@ namespace Talent21.Web.Controllers
                     if(!_roleManager.RoleExists(Contractor)) _roleManager.Create(new Role(Contractor));
                     if(!_roleManager.RoleExists(Company)) _roleManager.Create(new Role(Company));
                     if(!_roleManager.RoleExists(Admin)) _roleManager.Create(new Role(Admin));
+                    var role = "Others";
 
                     if(model.What == RegisterAsContractor)
                     {
@@ -185,6 +186,7 @@ namespace Talent21.Web.Controllers
                         {
                             UserManager.AddToRole(user.Id, Contractor);
                         }
+                        role = Contractor;
                     }
                     else if(model.What == RegisterAsCompany)
                     {
@@ -196,6 +198,7 @@ namespace Talent21.Web.Controllers
                         {
                             UserManager.AddToRole(user.Id, Company);
                         }
+                        role = Company;
                     }
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -204,7 +207,7 @@ namespace Talent21.Web.Controllers
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
-                    _notificationService.Welcome(user.Email, callbackUrl);
+                    _notificationService.Welcome(user.Email, callbackUrl, role);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -265,7 +268,7 @@ namespace Talent21.Web.Controllers
                 // Send an email with this link
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                _notificationService.Welcome(user.Email, callbackUrl);
+                _notificationService.PasswordRecovery(user.Email, callbackUrl);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
