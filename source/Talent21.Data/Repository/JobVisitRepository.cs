@@ -26,6 +26,7 @@ namespace Talent21.Data.Repository
         public bool VisitedEarlier(int id, string visitor)
         {
             var earlier = DateTime.UtcNow.AddMinutes(-30);
+            if (string.IsNullOrWhiteSpace(visitor)) return false;
             return All.Any(x => x.Visitor == visitor && x.Created > earlier);
         }
     }
