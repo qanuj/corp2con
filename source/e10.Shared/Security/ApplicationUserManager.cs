@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Mime;
 using System.Security;
 using e10.Shared.Data;
 using e10.Shared.Data.Abstraction;
@@ -8,6 +9,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using System.Threading.Tasks;
+using e10.Shared.Providers;
+using Microsoft.Owin.Logging;
 
 namespace e10.Shared.Security
 {
@@ -56,7 +59,7 @@ namespace e10.Shared.Security
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            return new ApplicationUserManager(context.GetUserManager<ApplicationUserStore>(), new SmsService(), new EmailService());
+            return new ApplicationUserManager(context.GetUserManager<ApplicationUserStore>(), new SmsService(), new EmailService(context.Get<IEmailConfigProvider>(),context.Get<ILogger>()));
         }
         public static IUserTokenProvider<User, string> DefaultTokenProvider()
         {

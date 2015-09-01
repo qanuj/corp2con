@@ -1,13 +1,7 @@
-﻿using System;
-using Autofac;
-using e10.Shared.Data;
-using e10.Shared.Data.Abstraction;
+﻿using Autofac;
 using e10.Shared.Providers;
 using e10.Shared.Security;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Owin;
+using Microsoft.Owin.Logging;
 
 namespace e10.Shared
 {
@@ -24,6 +18,7 @@ namespace e10.Shared
             builder.RegisterType<EmailService>().As<IIdentityEmailMessageService>().InstancePerRequest();
             builder.RegisterType<SmsService>().As<IIdentitySmsMessageService>().InstancePerRequest();
             builder.RegisterType<DoNotReplyAte10EmailConfigProvider>().As<IEmailConfigProvider>().InstancePerRequest();
+            builder.RegisterType<NullLogger>().As<ILogger>().InstancePerRequest();
         }
     }
 }
