@@ -10,117 +10,124 @@
                         <div ng-switcher ng-click="toggle(selectAll)" ng-model="selectAll"></div>
                     </div>
                 </div>
-                        <p>{{searching}}</p>
-                        <cc-pager total-pages="pages" current-page="currentPage"
-                                  page-action="navigate(pageNumber)">
-                        </cc-pager>
-                        <span ng-if="query.skills" class="badge">{{query.skills}}</span>
-                        <span ng-if="query.location" class="badge">{{query.location}}</span>
-                        <span ng-if="query.keywords" class="badge">{{query.keywords}}</span>
-                        <div ng-if="count<1">
-                            <div class="alert alert-warning">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Ooops! You got us..</strong>
-                                <p>
-                                    We could not find anything.
-                                </p>
-                                <p><a class="btn btn-warning" href="#/search"><i class="fa fa-search"></i> Reset Filters and Try Again</a></p>
-                            </div>
-                        </div>
+                <p>{{searching}}</p>
+                <cc-pager total-pages="pages" current-page="currentPage"
+                          page-action="navigate(pageNumber)">
+                </cc-pager>
+                <span ng-if="query.skills" class="badge">{{query.skills}}</span>
+                <span ng-if="query.location" class="badge">{{query.location}}</span>
+                <span ng-if="query.keywords" class="badge">{{query.keywords}}</span>
+                <div ng-if="count<1">
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Ooops! You got us..</strong>
+                        <p>
+                            We could not find anything.
+                        </p>
+                        <p><a class="btn btn-warning" href="#/search"><i class="fa fa-search"></i> Reset Filters and Try Again</a></p>
+                    </div>
+                </div>
                 <div class="jobs" ng-repeat="row in records">
                     <div class="pull-right" ng-switcher ng-click="toggle(selectAll)" ng-model="selectAll"></div>
                     <div ng-if="row.featured" class="featured"></div>
                     <div class="row">
-                        <h5><a href="/#/job/{{row.id}}">{{row.title}} <small>{{row.company}}</small></a></h5>
-                                <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
-                                <p>&nbsp;</p>
-                                <p><span ng-repeat="s in row.skills" class="badge">{{s.title}}</span> </p>
-                                <p>&nbsp;</p>
-                                <p><i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}</p>
-                               </div>
-                   
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i>{{row.location.title}}</span>
-                                <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                                <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
-                            </div>
-                     </div>
-                </div>
-                    <div class="col-sm-4" id="sidebar">
-                        <!-- Find a Job Start -->
-                        <div class="sidebar-widget" id="jobsearch">
-                            <div class="sidebar-widget">
-                                <div class="input-group">
-                                 <span class="input-group-btn">
-                                     <button class="btn btn-primary" ng-click="apply()">Apply</button>
-                                    </span>
-                                </div>
-                            </div>
-                           
-                            <h2>Filter Jobs</h2>
-                            <form ng-submit="search(query)">
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <h5>Skill</h5>
-                                        <select class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <h5>Location</h5>
-                                        <select class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <h5>Keyword</h5>
-                                        <div class="input-group">
-                                            <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
-                                            <div class="input-group-btn"><button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <hr>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <h5>Experience (months)</h5>
-                                        <rzslider rz-slider-floor="experienceSlider.floor"
-                                                  rz-slider-ceil="experienceSlider.ceil"
-                                                  rz-slider-model="experienceSlider.min"
-                                                  rz-slider-high="experienceSlider.max">
-                                        </rzslider>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <h5>Rate (per hour)</h5>
-                                        <rzslider rz-slider-floor="rateSlider.floor"
-                                                  rz-slider-ceil="rateSlider.ceil"
-                                                  rz-slider-model="rateSlider.min"
-                                                  rz-slider-high="rateSlider.max"
-                                                  rz-slider-on-change="rateChange()">
-                                        </rzslider>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <button class="btn btn-primary" ng-click="resetFilters()">Reset All Filters</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- Find a Job End -->
-
+                        <h5>
+                            <a href="/#/job/{{row.id}}">
+                                <i ng-if="row.favorite" class="fa fa-star shine"></i> {{row.title}} <small>{{row.company}}</small>
+                            </a>
+                        </h5>
+                        <p class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</p>
+                        <p class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</p>
+                        <p class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</p>
+                        <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
+                        <p>&nbsp;</p>
+                        <p><span ng-repeat="s in row.skills" class="badge">{{s.title}}</span> </p>
+                        <p>&nbsp;</p>
+                        <p>
+                            <i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
+                        </p>
                     </div>
-          
+                    <div class="data">
+                        <span class="city"><i class="fa fa-map-marker"></i>{{row.location.title}}</span>
+                        <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
+                        <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
+                    </div>
                 </div>
+            </div>
+            <div class="col-sm-4" id="sidebar">
+                <!-- Find a Job Start -->
+                <div class="sidebar-widget" id="jobsearch">
+                    <div class="sidebar-widget">
+                        <span class="btn-group">
+                            <button class="btn btn-primary" ng-click="applyAll()">Apply</button>
+                            <button class="btn btn-warning" ng-click="favoriteAll()">Favorite</button>
+                        </span>
+                    </div>
+
+                    <h2>Filter Jobs</h2>
+                    <form ng-submit="search(query)">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Skill</h5>
+                                <select class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
+                            </div>
+                            <div class="col-xs-12">
+                                <h5>Location</h5>
+                                <select class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
+                            </div>
+                            <div class="col-xs-12">
+                                <h5>Keyword</h5>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                                    <div class="input-group-btn"><button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Experience (months)</h5>
+                                <rzslider rz-slider-floor="experienceSlider.floor"
+                                          rz-slider-ceil="experienceSlider.ceil"
+                                          rz-slider-model="experienceSlider.min"
+                                          rz-slider-high="experienceSlider.max">
+                                </rzslider>
+                            </div>
+                            <div class="col-xs-12">
+                                <h5>Rate (per hour)</h5>
+                                <rzslider rz-slider-floor="rateSlider.floor"
+                                          rz-slider-ceil="rateSlider.ceil"
+                                          rz-slider-model="rateSlider.min"
+                                          rz-slider-high="rateSlider.max"
+                                          rz-slider-on-change="rateChange()">
+                                </rzslider>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary" ng-click="resetFilters()">Reset All Filters</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Find a Job End -->
+
+            </div>
+
+        </div>
         <cc-pager total-pages="pages" current-page="currentPage"
                   page-action="navigate(pageNumber)">
         </cc-pager>
-            </div>
+    </div>
 </section>

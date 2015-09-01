@@ -11,6 +11,43 @@
         $scope.searching = "Matching Jobs for you, next week";
     }
 
+
+    $scope.favoriteAll = function (record) {
+        var i = 0;
+        function favoriteJob(x, next) {
+            if (!$scope.records[x]) {
+                $scope.save = "Save";
+                return;
+            }
+            $scope.save = (x + 1);
+            if ($scope.records[x].selected == true) {
+                db.contractor.favorite($scope.records[x].id).success(next);
+            } else next();
+        }
+        function onNext() {
+            favoriteJob(++i, onNext);
+        }
+        favoriteJob(i, onNext);
+    }
+
+    $scope.applyAll = function () {
+        var i = 0;
+        function applToJobFolder(x,next) {
+            if (!$scope.records[x]) {
+                $scope.save = "Save";
+                return;
+            }
+            $scope.save = (x + 1);
+            if ($scope.records[x].selected == true) {
+                db.contractor.applyToJob($scope.records[x].id).success(next);
+            } else next();
+        }
+        function onNext() {
+            applToJobFolder(++i,onNext);
+        }
+        applToJobFolder(i,onNext);
+    }
+
     $scope.navigate = function (page) {
         $scope.query = {
             keywords: $routeParams.q || $routeParams.keywords || '',
@@ -24,7 +61,7 @@
         }
 
         function fetchResults(query, page) {
-            db.contractor.search(query, page).success(function (result) {
+            db.contractor.search(query, page).then(function (result) {
                 $scope.currentPage = page || 1;
                 $scope.pages = Math.ceil(result.count / db.pageSize);
                 $scope.count = result.count;
@@ -61,8 +98,6 @@
         });
     }).then(function () {
         $scope.navigate($routeParams.page);
-
-
         $scope.resetFilters = function () {
             $scope.query.keywords = '';
             $scope.query.skills = '';

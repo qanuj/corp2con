@@ -59,12 +59,17 @@ namespace Talent21.Service.Models
         public int Positions { get; set; }
     }
 
+    public class JobBasedJobApplicationHistoryViewModel
+    {
+        public int Id { get; set; }
+        public IEnumerable<JobApplicationHistoryViewModel> History { get; set; }
+    }
+
     public class JobApplicationHistoryViewModel
     {
         public JobActionEnum Act { get; set; }
         public DateTime Created { get; set; }
         public string CreateBy { get; set; }
-
         public int ApplicationId { get; set; }
     }
 

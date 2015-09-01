@@ -80,3 +80,16 @@
 .point i {
     color: red;
 }
+.highlight {
+    font-weight: bold;
+    color: #1d9d74;
+}
+.highlight-danger {
+    font-weight: bold;
+    color: #ff0000;
+}
+.shine {
+    color: #ffb300;
+    font-weight: bold;
+    font-size: 1.2em;
+}
