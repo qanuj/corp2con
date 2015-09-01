@@ -2,6 +2,7 @@
 using Autofac;
 using e10.Shared.Data;
 using e10.Shared.Data.Abstraction;
+using e10.Shared.Providers;
 using e10.Shared.Security;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -22,6 +23,7 @@ namespace e10.Shared
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<EmailService>().As<IIdentityEmailMessageService>().InstancePerRequest();
             builder.RegisterType<SmsService>().As<IIdentitySmsMessageService>().InstancePerRequest();
+            builder.RegisterType<DoNotReplyAte10EmailConfigProvider>().As<IEmailConfigProvider>().InstancePerRequest();
         }
     }
 }
