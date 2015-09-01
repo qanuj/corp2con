@@ -33,7 +33,7 @@ namespace Talent21.Service.Core
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
             ITransactionRepository transactionRepository, INotificationService notificationService)
-            : base(locationRepository,transactionRepository)
+            : base(locationRepository, transactionRepository)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -84,7 +84,7 @@ namespace Talent21.Service.Core
                                 OwnerId = x.OwnerId,
                                 Complete = x.Complete,
                                 Rate = x.Rate,
-                                Skills = _contractorSkillRepository.All.Where(y=>y.ContractorId==x.Id).Select(y => new ContractorSkillViewModel()
+                                Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
                                 {
                                     Id = y.Id,
                                     Code = y.Skill.Code,
@@ -114,6 +114,18 @@ namespace Talent21.Service.Core
             }
         }
 
+        public IQueryable<JobBasedJobApplicationHistoryViewModel> ApplicationHistoryByJobIDs(IList<int> IDs)
+        {
+            return _jobRepository.All.Where(x=>IDs.Contains(x.Id)).Select(x => new JobBasedJobApplicationHistoryViewModel
+            {
+                History = x.Applications.Where(z => z.Contractor.OwnerId == CurrentUserId && IDs.Contains(z.JobId))
+                    .SelectMany(z => z.History).Select(y =>
+                      new JobApplicationHistoryViewModel() { Act = y.Act, ApplicationId = y.ApplicationId,
+                          Created = y.Created, CreateBy = y.CreatedBy }),
+                Id = x.Id
+            });
+        }
+
         public IQueryable<JobApplicationContractorViewModel> FavoriteJobs()
         {
             return MyApplications().Where(x => x.Actions.Any(y => y.Act == JobActionEnum.Favorite));
@@ -128,8 +140,8 @@ namespace Talent21.Service.Core
         {
             return _jobRepository.All.Select(x => new JobApplicationContractorViewModel
             {
-                Actions = x.Applications.Where(z => z.Contractor.OwnerId==CurrentUserId && (z.Id == id || id == 0)).SelectMany(z => z.History).Select(y => 
-                    new JobApplicationHistoryViewModel() { Act = y.Act, ApplicationId=y.ApplicationId, Created = y.Created, CreateBy = y.CreatedBy }),
+                Actions = x.Applications.Where(z => z.Contractor.OwnerId == CurrentUserId && (z.Id == id || id == 0)).SelectMany(z => z.History).Select(y =>
+                      new JobApplicationHistoryViewModel() { Act = y.Act, ApplicationId = y.ApplicationId, Created = y.Created, CreateBy = y.CreatedBy }),
                 Id = x.Id,
                 Company = x.Company.CompanyName,
                 IsCancelled = x.IsCancelled,
@@ -144,8 +156,8 @@ namespace Talent21.Service.Core
                 End = x.End,
                 Rate = x.Rate,
                 Start = x.Start,
-                IsWorkingFromHome=x.IsWorkingFromHome,
-                Positions=x.Positions
+                IsWorkingFromHome = x.IsWorkingFromHome,
+                Positions = x.Positions
             });
         }
 
@@ -211,7 +223,7 @@ namespace Talent21.Service.Core
                 ContractType = model.ContractType,
                 Gender = model.Gender,
                 Profile = model.Profile,
-                Experience = new Duration() {Months = model.ExperienceMonths, Years = model.ExperienceYears},
+                Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears },
                 LocationId = model.LocationId,
                 Mobile = model.Mobile,
                 Social = new Social
@@ -254,7 +266,7 @@ namespace Talent21.Service.Core
 
         private void ApplySkills(ContractorEditViewModel model, Contractor entity)
         {
-            if (entity.Skills==null) entity.Skills=new List<ContractorSkill>();
+            if (entity.Skills == null) entity.Skills = new List<ContractorSkill>();
 
             var IDs = entity.Skills.Select(x => x.Id).ToList();
             var existingSkills = _contractorSkillRepository.ById(IDs).ToList();
@@ -265,7 +277,7 @@ namespace Talent21.Service.Core
                 var skill = existingSkills[i];
                 var mskill = model.Skills.FirstOrDefault(x => x.Id == skill.Id);
                 if (mskill == null) continue;
-                skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code};
+                skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code };
                 skill.Level = mskill.Level;
                 skill.Proficiency = mskill.Proficiency;
                 skill.ExperienceInMonths = mskill.ExperienceInMonths;
@@ -278,7 +290,7 @@ namespace Talent21.Service.Core
             {
                 _contractorSkillRepository.Create(new ContractorSkill
                 {
-                    Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() {Title = mskill.Title, Code = mskill.Code},
+                    Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code },
                     Level = mskill.Level,
                     Proficiency = mskill.Proficiency,
                     ExperienceInMonths = mskill.ExperienceInMonths,
@@ -287,8 +299,8 @@ namespace Talent21.Service.Core
             }
 
             //Deleted Skills
-            var deletedSkills = _contractorSkillRepository.All.Where(x => !IDs.Contains(x.Id) && x.ContractorId==entity.Id).ToList();
-            for(var i = 0; i < deletedSkills.Count; i++)
+            var deletedSkills = _contractorSkillRepository.All.Where(x => !IDs.Contains(x.Id) && x.ContractorId == entity.Id).ToList();
+            for (var i = 0; i < deletedSkills.Count; i++)
             {
                 _contractorSkillRepository.Delete(deletedSkills[i]);
             }
@@ -298,7 +310,7 @@ namespace Talent21.Service.Core
         public ContractorEditViewModel Update(ContractorEditViewModel model)
         {
             var entity = _contractorRepository.ById(model.Id);
-            if(entity == null) return null;
+            if (entity == null) return null;
 
             entity.FirstName = model.FirstName;
             entity.LastName = model.LastName;
@@ -329,7 +341,7 @@ namespace Talent21.Service.Core
                 WebSite = model.WebSite
             };
 
-            ApplySkills(model,entity);
+            ApplySkills(model, entity);
 
             _contractorRepository.Update(entity);
             _contractorRepository.SaveChanges();
@@ -340,7 +352,7 @@ namespace Talent21.Service.Core
         public ScheduleViewModel Update(EditScheduleViewModel model)
         {
             var entity = _scheduleRepository.ById(model.Id);
-            if(entity == null) throw new Exception("Schedule not found");
+            if (entity == null) throw new Exception("Schedule not found");
 
             entity.Start = model.Start;
             entity.End = model.End;
@@ -358,7 +370,7 @@ namespace Talent21.Service.Core
             var contractor = FindContractor(CurrentUserId);
 
             var entity = _contractorSkillRepository.ById(model.Id);
-            if(entity == null || entity.ContractorId != contractor.Id) throw new Exception("Skill not found");
+            if (entity == null || entity.ContractorId != contractor.Id) throw new Exception("Skill not found");
 
             entity.ExperienceInMonths = model.ExperienceInMonths;
             entity.Level = model.Level;
@@ -374,7 +386,7 @@ namespace Talent21.Service.Core
         {
             var entity = _scheduleRepository.ById(model.Id);
             var contractor = FindContractor(CurrentUserId);
-            if(contractor.Id == entity.ContractorId)
+            if (contractor.Id == entity.ContractorId)
             {
                 _scheduleRepository.Delete(entity);
                 return _scheduleRepository.SaveChanges() > 0;
@@ -386,14 +398,14 @@ namespace Talent21.Service.Core
         {
             var entity = _contractorSkillRepository.ById(model.Id);
             var contractor = FindContractor(CurrentUserId);
-            if(contractor.Id == entity.ContractorId)
+            if (contractor.Id == entity.ContractorId)
             {
                 _contractorSkillRepository.Delete(entity);
                 return _contractorSkillRepository.SaveChanges() > 0;
             }
             return false;
         }
-        
+
 
         public ScheduleViewModel Create(CreateScheduleViewModel model)
         {
@@ -401,7 +413,7 @@ namespace Talent21.Service.Core
             return Create(model, contractor.Id);
         }
 
-        public ScheduleViewModel Create(CreateScheduleViewModel model,int contractorId)
+        public ScheduleViewModel Create(CreateScheduleViewModel model, int contractorId)
         {
             var entity = new Schedule
             {
@@ -438,23 +450,28 @@ namespace Talent21.Service.Core
 
         public bool ActOnApplication(CompanyActJobApplicationViewModel model)
         {
-            var entity = _jobApplicationRepository.ByJobId(model.Id,CurrentUserId);
+            var entity = _jobApplicationRepository.ByJobId(model.Id, CurrentUserId);
             var contractor = FindContractor(CurrentUserId);
 
             if (entity == null)
             {
-                entity=new JobApplication { History = new List<JobApplicationHistory>(),JobId = model.Id, ContractorId = contractor.Id};
+                entity = new JobApplication { History = new List<JobApplicationHistory>(), JobId = model.Id, ContractorId = contractor.Id };
                 _jobApplicationRepository.Create(entity);
             }
 
-            entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
+            if (entity.History.All(x => x.Act != model.Act))
+            {
+                entity.History.Add(new JobApplicationHistory { Act = model.Act, CreatedBy = CurrentUserId });
 
-            var rowsAffested = _jobApplicationRepository.SaveChanges();
+                var rowsAffested = _jobApplicationRepository.SaveChanges();
 
-            entity = _jobApplicationRepository.ById(entity.Id);
-            _notificationService.ActOnApplication(entity, model.Act);
+                entity = _jobApplicationRepository.ById(entity.Id);
+                _notificationService.ActOnApplication(entity, model.Act);
 
-            return rowsAffested > 0;
+                return rowsAffested > 0;
+            }
+
+            return false;
         }
 
         public bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum act)
@@ -510,7 +527,7 @@ namespace Talent21.Service.Core
 
         public bool ActOnApplication(DeleteJobApplicationHistoryViewModel model, JobActionEnum jobActionEnum)
         {
-            var entity = _jobApplicationRepository.Contractor(CurrentUserId).FirstOrDefault(x=>x.Id==model.Id);
+            var entity = _jobApplicationRepository.Contractor(CurrentUserId).FirstOrDefault(x => x.Id == model.Id);
             if (entity == null) return false;
 
             var favorite = entity.History.FirstOrDefault(x => x.Act == jobActionEnum);

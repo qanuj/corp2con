@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Talent21.Data.Core;
 using Talent21.Service.Models;
 
@@ -14,6 +15,7 @@ namespace Talent21.Service.Abstraction
 
         IQueryable<JobApplicationContractorViewModel> Applications(int id = 0);
         IQueryable<JobApplicationContractorViewModel> MyApplications();
+        IQueryable<JobBasedJobApplicationHistoryViewModel> ApplicationHistoryByJobIDs(IList<int> jobIds);
         IQueryable<JobApplicationContractorViewModel> FavoriteJobs();
 
         ScheduleViewModel Create(CreateScheduleViewModel model);

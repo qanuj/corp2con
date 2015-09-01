@@ -34,7 +34,6 @@ namespace Talent21.Web.Mailers
         public void Welcome(string toEmail, string url,string role)
         {
             var mvcMailMessage = new MvcMailMessage { Subject = "Welcome  to " + Product.Name };
-            mvcMailMessage.To.Add(toEmail);
             ViewBag.Url = url;
             ViewBag.UserName = toEmail;
             ViewBag.Email = toEmail;
@@ -45,7 +44,6 @@ namespace Talent21.Web.Mailers
         public void PasswordRecovery(string toEmail, string key)
         {
             var mvcMailMessage = new MvcMailMessage { Subject = "Reset Your password : " + Product.Name };
-            mvcMailMessage.To.Add(toEmail);
             ViewBag.key = key;
             ViewBag.UserName = toEmail;
 
@@ -61,14 +59,12 @@ namespace Talent21.Web.Mailers
 
             //send to contractor;
             var msg1 = new MvcMailMessage { Subject = string.Format("Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title) };
-            msg1.To.Add(jobApplication.Contractor.Email);
             ViewBag.Email = jobApplication.Contractor.Email;
             PopulateBody(msg1, "Contractor." + act);
             Send(msg1, jobApplication.Contractor.Email);
 
             //send to company;
             var msg2 = new MvcMailMessage { Subject = string.Format("{3} {4} - Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title, jobApplication.Contractor.FirstName, jobApplication.Contractor.LastName) };
-            msg2.To.Add(jobApplication.Job.Company.Email);
             ViewBag.Email = jobApplication.Job.Company.Email;
             PopulateBody(msg2, "Company." + act);
             Send(msg2, jobApplication.Job.Company.Email);

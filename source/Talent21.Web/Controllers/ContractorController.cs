@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
@@ -197,7 +198,15 @@ namespace Talent21.Web.Controllers
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.MyApplications(), options);
         }
-       
+
+        [HttpPost]
+        [Route("job/application/history")]
+        public IQueryable<JobBasedJobApplicationHistoryViewModel> HasAppliedToJobs(IList<int> model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.ApplicationHistoryByJobIDs(model);
+        }
+
         [HttpGet]
         [Route("transaction")]
         public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)

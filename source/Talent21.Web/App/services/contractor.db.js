@@ -27,7 +27,27 @@
     }
 
     contractor.search = function (query, page, pageSize) {
-        return $http.post(v + 'job/search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query);
+        return $q(function (resolve, reject) {
+            $http.post(v + 'job/search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query).success(function (result) {
+                var jobIds = [];
+                var mapping = {};
+                for (var x in result.items) {
+                    mapping[result.items[x].id] = result.items[x];
+                    jobIds.push(result.items[x].id);
+                }
+                $http.post(v + 'contractor/job/application/history', jobIds).success(function (applications) {
+                    for (var x in applications) {
+                        var j = mapping[applications[x].id];
+                        for (var y in applications[x].history) {
+                            var k = applications[x].history[y];
+                            j.applicationId = k.applicationId;
+                            j[k.act.toLowerCase()] = k.created;
+                        }
+                    }
+                    resolve(result);
+                });
+            });
+        });
     }
     
     contractor.jobById = function (id) {
@@ -41,7 +61,7 @@
     contractor.revoke = function (id) {
         return $http.post(v + 'contractor/job/' + id + '/revoke');
     }
-
+    
     contractor.getJobApplications = function (jobId,page,pageSize) {
         return $http.get(v + 'contractor/job/application?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }

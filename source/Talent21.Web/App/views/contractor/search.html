@@ -4,53 +4,75 @@
             <div class="col-sm-8">
                 <div class="row">
                     <div class="col-md-11">
-                        <h2>{{title}} {{count}}</h2>
+                        <h2>{{title}} <span class="highlight">{{count}}</span></h2>
                     </div>
                     <div class="col-md-1 text-right">
                         <div ng-switcher ng-click="toggle(selectAll)" ng-model="selectAll"></div>
                     </div>
                 </div>
-                <p>{{searching}}</p>
                 <cc-pager total-pages="pages" current-page="currentPage"
                           page-action="navigate(pageNumber)">
                 </cc-pager>
-                <span ng-if="query.skills" class="badge">{{query.skills}}</span>
-                <span ng-if="query.location" class="badge">{{query.location}}</span>
-                <span ng-if="query.keywords" class="badge">{{query.keywords}}</span>
-                <div ng-if="count<1">
-                    <div class="alert alert-warning">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Ooops! You got us..</strong>
-                        <p>
-                            We could not find anything.
-                        </p>
-                        <p><a class="btn btn-warning" href="#/search"><i class="fa fa-search"></i> Reset Filters and Try Again</a></p>
-                    </div>
-                </div>
-                <div class="jobs" ng-repeat="row in records">
-                    <div class="pull-right" ng-switcher ng-click="toggle(selectAll)" ng-model="selectAll"></div>
-                    <div ng-if="row.featured" class="featured"></div>
-                    <div class="row">
-                        <h5><a href="/#/job/{{row.id}}">{{row.title}} <small>{{row.company}}</small></a></h5>
-                        <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
-                        <p>&nbsp;</p>
-                        <p><span ng-repeat="s in row.skills" class="badge">{{s.title}}</span> </p>
-                        <p>&nbsp;</p>
-                        <p><i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}</p>
-                    </div>
-
-                    <div class="data">
-                        <span class="city"><i class="fa fa-map-marker"></i>{{row.location.title}}</span>
-                        <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                        <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
+                <div class="row">
+                    <div class="jobs">
+                        <div ng-if="count<1">
+                            <div class="alert alert-warning">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>Ooops! You got us..</strong>
+                                <p>
+                                    We could not find anything.
+                                </p>
+                                <p>
+                                    <a class="btn btn-warning" href="#/search"><i class="fa fa-search"></i> Reset Filters and Try Again</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item" ng-repeat="row in records">
+                            <div ng-if="row.featured" class="featured"></div>
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <h5>
+                                        <a href="/#/job/{{row.id}}">
+                                            <i ng-if="row.favorite" class="fa fa-star shine"></i>
+                                            <i ng-if="row.isWorkingFromHome" class="fa fa-home"></i>
+                                            <i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>
+                                             {{row.title}} <small>{{row.company}}</small>
+                                        </a>
+                                    </h5>
+                                    <p class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</p>
+                                    <p class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</p>
+                                    <p class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</p>
+                                    <p>
+                                        {{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
+                                    </p>
+                                </div>
+                                <div class="col-sm-1">
+                                    <div ng-switcher class="pull-right" ng-model="row.selected"></div>
+                                </div>
+                            </div>
+                            <span class="point">
+                                <i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
+                            </span>
+                            <span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
+                            <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
+                            <span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
+                            <span class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4" id="sidebar">
                 <!-- Find a Job Start -->
                 <div class="sidebar-widget" id="jobsearch">
+                    <div class="sidebar-widget">
+                        <span class="btn-group">
+                            <button class="btn btn-primary" ng-click="applyAll()">Apply</button>
+                            <button class="btn btn-warning" ng-click="favoriteAll()">Favorite</button>
+                        </span>
+                    </div>
+
                     <h2>Filter Jobs</h2>
                     <form ng-submit="search(query)">
                         <div class="row">
