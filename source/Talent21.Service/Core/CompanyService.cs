@@ -26,6 +26,7 @@ namespace Talent21.Service.Core
         private readonly ISkillRepository _skillRepository;
         private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IContractorFolderRepository _contractorFolderRepository;
+        private readonly INotificationService _notificationService;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
@@ -39,7 +40,7 @@ namespace Talent21.Service.Core
             ITransactionRepository transactionRepository,
             IAdvertisementRepository advertisementRepository, 
             IScheduleRepository scheduleRepository,
-            IContractorFolderRepository contractorFolderRepository)
+            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService)
             : base(locationRepository, transactionRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -53,6 +54,7 @@ namespace Talent21.Service.Core
             _advertisementRepository = advertisementRepository;
             _scheduleRepository = scheduleRepository;
             _contractorFolderRepository = contractorFolderRepository;
+            _notificationService = notificationService;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -389,6 +391,9 @@ namespace Talent21.Service.Core
             entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
 
             var rowsAffested = _jobApplicationRepository.SaveChanges();
+
+            _notificationService.ActOnApplication(entity,model.Act);
+
             return rowsAffested > 0;
         }
 

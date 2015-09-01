@@ -2,5 +2,8 @@
 
 namespace e10.Shared.Security
 {
-    public interface IIdentityEmailMessageService : IIdentityMessageService { }
+    public interface IIdentityEmailMessageService : IIdentityMessageService
+    {
+       
+    }
 }

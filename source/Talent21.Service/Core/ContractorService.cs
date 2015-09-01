@@ -21,6 +21,7 @@ namespace Talent21.Service.Core
         private readonly IJobRepository _jobRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ISkillRepository _skillRepository;
+        private readonly INotificationService _notificationService;
 
         public ContractorService(IContractorRepository contractorRepository,
             IJobApplicationRepository jobApplicationRepository,
@@ -31,7 +32,7 @@ namespace Talent21.Service.Core
             IContractorVisitRepository contractorVisitRepository,
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
-            ITransactionRepository transactionRepository)
+            ITransactionRepository transactionRepository, INotificationService notificationService)
             : base(locationRepository,transactionRepository)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
@@ -42,6 +43,7 @@ namespace Talent21.Service.Core
             _contractorSkillRepository = contractorSkillRepository;
             _contractorVisitRepository = contractorVisitRepository;
             _jobRepository = jobRepository;
+            _notificationService = notificationService;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -448,6 +450,10 @@ namespace Talent21.Service.Core
             entity.History.Add(new JobApplicationHistory() { Act = model.Act, CreatedBy = CurrentUserId });
 
             var rowsAffested = _jobApplicationRepository.SaveChanges();
+
+            entity = _jobApplicationRepository.ById(entity.Id);
+            _notificationService.ActOnApplication(entity, model.Act);
+
             return rowsAffested > 0;
         }
 
@@ -469,6 +475,10 @@ namespace Talent21.Service.Core
             jobApplication.History.Add(history);
             _jobApplicationRepository.Create(jobApplication);
             _jobApplicationRepository.SaveChanges();
+
+            jobApplication = _jobApplicationRepository.ById(jobApplication.Id);
+            _notificationService.ActOnApplication(jobApplication, JobActionEnum.Application);
+
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
 

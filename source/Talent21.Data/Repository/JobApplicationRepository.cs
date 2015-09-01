@@ -30,6 +30,13 @@ namespace Talent21.Data.Repository
                 .Include(x => x.Job).Where(x => x.Job.Company.OwnerId == userId);
         }
 
+        public override JobApplication ById(int id)
+        {
+            return base.All
+                .Include(x => x.Contractor)
+                .Include(x => x.Job.Company).FirstOrDefault(x => x.Id==id);
+        }
+
         public Task<JobApplication> MineAsync(string userId, string profilepath)
         {
             return base.All.Include(x => x.Contractor).Include(x => x.Contractor.Location).Include(x => x.Job)
@@ -69,13 +76,5 @@ namespace Talent21.Data.Repository
         IQueryable<JobApplication> Contractor(string userId);
         Task<JobApplication> ContractorAsync(string userId, string profilepath);
         JobApplication ByJobId(int id, string userId);
-    }
-
-    public interface IJobApplicationHistoryRespository : IRepository<JobApplicationHistory> { }
-    public class JobApplicationHistoryRespository : EfRepository<JobApplicationHistory>, IJobApplicationHistoryRespository
-    {
-        public JobApplicationHistoryRespository(DbContext context, IEventManager eventManager)
-            : base(context, eventManager)
-        { }
     }
 }

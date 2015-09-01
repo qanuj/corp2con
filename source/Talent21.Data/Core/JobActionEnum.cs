@@ -10,6 +10,7 @@ namespace Talent21.Data.Core
         Reported,
         Rejected,
         Shortlist,
+        Invited,
         Revoke
     }
 }
