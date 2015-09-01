@@ -5,6 +5,18 @@ using System.ComponentModel.DataAnnotations;
 using Talent21.Data.Core;
 namespace Talent21.Service.Models
 {
+    public class VisitViewModel
+    {
+        public string IpAddress { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Browser { get; set; }
+        public string Referer { get; set; }
+        public string OperatingSystem { get; set; }
+        public bool IsMobile { get; set; }
+    }
+
     public class JobApplicationCompanyViewModel : JobApplicationViewModel
     {
         public DictionaryEditViewModel Job { get; set; }

@@ -24,12 +24,12 @@ namespace Talent21.Web.Controllers
         {
             _service = service;
         }
-          
+
         [HttpGet]
         [Route("profile")]
         public CompanyViewModel GetCompanyProfile()
         {
-            var userId = User.Identity.GetUserId<string>(); 
+            var userId = User.Identity.GetUserId<string>();
             return _service.GetProfile(userId);
         }
 
@@ -41,22 +41,11 @@ namespace Talent21.Web.Controllers
             return _service.GetDashboard(userId);
         }
 
-        private static string GetIpAddress()
-        {
-            var ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            ip = !string.IsNullOrEmpty(ip) ? ip.Split(',').FirstOrDefault() : System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-            return ip.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[0];
-        }
-
         [HttpGet]
         [Route("profile/{id}")]
         public CompanyViewModel GetCompanyProfileById(int id)
         {
-            var companyProfile= _service.GetProfile(id);
-            if (companyProfile != null)
-            {
-                _service.AddView(companyProfile.Id, System.Web.HttpContext.Current.Request.UserAgent, GetIpAddress());
-            }
+            var companyProfile = _service.GetProfile(id);
             return companyProfile;
         }
 
@@ -116,7 +105,7 @@ namespace Talent21.Web.Controllers
         public HttpResponseMessage SingleJob(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            var model=_service.ById(id);
+            var model = _service.ById(id);
             return model == null ? NotFound() : Ok(model);
         }
 
@@ -151,7 +140,7 @@ namespace Talent21.Web.Controllers
         [HttpGet]
         [Route("job/promote/{id}/{promotion}")]
         [ResponseType(typeof(bool))]
-        public HttpResponseMessage PromoteJob([FromUri] int id,PromotionEnum promotion)
+        public HttpResponseMessage PromoteJob([FromUri] int id, PromotionEnum promotion)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Promote(new PromoteJobViewModel { Id = id, Promotion = promotion })) : Bad(ModelState);
@@ -172,7 +161,7 @@ namespace Talent21.Web.Controllers
         public HttpResponseMessage DeleteJob([FromUri] int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Delete(new IdModel{Id=id})) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Delete(new IdModel { Id = id })) : Bad(ModelState);
         }
 
         //Job Application Related Api.
@@ -209,7 +198,7 @@ namespace Talent21.Web.Controllers
             _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Applications(id);
         }
-       
+
         [HttpGet]
         [Route("job/application/{id}")]
         [ResponseType(typeof(JobApplicationViewModel))]
@@ -226,7 +215,7 @@ namespace Talent21.Web.Controllers
         public HttpResponseMessage RejectJobApplication([FromUri]int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = id}, JobActionEnum.Rejected)) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Rejected)) : Bad(ModelState);
         }
 
         [HttpPut]
@@ -289,5 +278,21 @@ namespace Talent21.Web.Controllers
             _service.CurrentUserId = User.Identity.GetUserId();
             return _service.TopRatedAvailableProfiles(skill, location);
         }
+
+        [HttpGet]
+        [ResponseType(typeof(bool))]
+        [Route("contractor/{id}/visit")]
+        public HttpResponseMessage VisitContractor([FromUri] int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Ok(_service.VisitContractor(id, new VisitViewModel
+            {
+                IpAddress = GetIpAddress(),
+                Browser = System.Web.HttpContext.Current.Request.UserAgent,
+                Referer = System.Web.HttpContext.Current.Request.UrlReferrer != null ?
+                        System.Web.HttpContext.Current.Request.UrlReferrer.AbsoluteUri : string.Empty
+            }));
+        }
+
     }
 }

@@ -21,6 +21,7 @@
                 $scope.record.favorite = job.actions[act].created;
             }
         }
+        db.contractor.visitJob(param.id);
     });
 
     $scope.revoke = function (record) {

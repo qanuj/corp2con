@@ -16,6 +16,7 @@ namespace Talent21.Service.Core
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyVisitRepository _companyVisitRepository;
+        private readonly IContractorVisitRepository _contractorVisitRepository;
         private readonly IContractorRepository _contractorRepository;
         private readonly IJobRepository _jobRepository;
         private readonly IJobSkillRepository _jobSkillRepository;
@@ -40,7 +41,7 @@ namespace Talent21.Service.Core
             ITransactionRepository transactionRepository,
             IAdvertisementRepository advertisementRepository, 
             IScheduleRepository scheduleRepository,
-            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService)
+            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository)
             : base(locationRepository, transactionRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -55,6 +56,7 @@ namespace Talent21.Service.Core
             _scheduleRepository = scheduleRepository;
             _contractorFolderRepository = contractorFolderRepository;
             _notificationService = notificationService;
+            _contractorVisitRepository = contractorVisitRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -705,6 +707,29 @@ namespace Talent21.Service.Core
                 _contractorFolderRepository.Mine(CurrentUserId)
                     .GroupBy(x => x.Folder)
                     .Select(x => new CountLabel<int>() {Label = x.Key, Count = x.Count()});
+        }
+
+        public bool VisitContractor(int id,VisitViewModel model)
+        {
+            var company = FindCompany();
+            if (!_contractorVisitRepository.VisitedEarlier(id,company.CompanyName))
+            {
+                _contractorVisitRepository.Create(new ContractorVisit
+                {
+                    Visitor = company.CompanyName,
+                    ContractorId = id,
+                    Browser = model.Browser,
+                    City = model.City,
+                    Country = model.Country,
+                    IpAddress = model.IpAddress,
+                    IsMobile = model.IsMobile,
+                    OperatingSystem = model.OperatingSystem,
+                    Referer = model.Referer,
+                    State = model.State,
+                });
+                _contractorVisitRepository.SaveChanges();
+            }
+            return true;
         }
     }
 }

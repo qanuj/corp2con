@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">{{record.views}}</div>
-                                    <div>Profile<br/>Views!</div>
+                                    <div>Profile<br />Views!</div>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header">
-                        Latest {{record.aggregate.skill}} Jobs in {{record.aggregate.location}}
+                        Latest <span class="highlight">{{record.aggregate.skill}}</span> Jobs, in <span class="highlight">{{record.aggregate.location}}</span> (<span class="highlight">{{matching.length}}</span>)
                     </h4>
                 </div>
                 <div class="col-md-12">
@@ -140,22 +140,40 @@
                             <p><a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a></p>
                         </div>
                     </div>
-                    <div ng-repeat="row in matching" class="search-line">
-                        <div class="col-md-9">
-                            <div class="title">
-                                <h5>{{row.firstName}} {{row.lastName}}</h5>
+                    <div ng-repeat="row in matching" class="jobs search-line">
+                        <div class="item">
+                            <div ng-if="row.featured" class="featured"></div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h5>
+                                        <a href="/#/job/{{row.id}}">
+                                            <i ng-if="row.favorite" class="fa fa-star shine"></i>
+                                            <i ng-if="row.isWorkingFromHome" class="fa fa-home"></i>
+                                            <i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>
+                                            {{row.title}} <small>{{row.company}}</small>
+                                        </a>
+                                    </h5>
+                                    <span class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</span>
+                                    <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
+                                    <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
+                                    <p>
+                                        {{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="btn-group">
+                                        <a class="btn btn-info btn-xs" href="#/job/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+                                        <button class="btn btn-info btn-xs" ng-disabled="row.favorite" ng-click="favorite(row)"><i class="fa fa-heart-o"></i> Save</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i> {{row.location}}</span>
-                                <span class="experience"><i class="fa fa-trophy"></i> {{row.experienceYears}}.{{row.experienceMonths}} years</span>
-                                <span class="sallary"><i class="fa fa-inr"></i> {{row.rate}}k</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="btn-group">
-                                <a class="btn btn-info btn-xs" href="#/contractor/{{row.id}}"><i class="fa fa-eye"></i> View</a>
-                                <a class="btn btn-info btn-xs" href="#/contractor/save/{{row.id}}"><i class="fa fa-heart-o"></i> Save</a>
-                            </div>
+                            <span class="point">
+                                <i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
+                            </span>
+                            <span ng-if="row.webSite" class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
+                            <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
+                            <br /><span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
+                            <br /><span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
                         </div>
                     </div>
                 </div>
@@ -164,7 +182,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header">
-                        Top {{record.aggregate.skill}} Jobs, in {{record.aggregate.location}}
+                        Top <span class="highlight">{{record.aggregate.skill}}</span> Jobs, in <span class="highlight">{{record.aggregate.location}}</span> (<span class="highlight">{{matching.length}}</span>)
                     </h4>
                 </div>
                 <div class="col-md-12">
@@ -178,23 +196,40 @@
                             <p><a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a></p>
                         </div>
                     </div>
-                    <div ng-repeat="row in matching" class="search-line bg-success">
-                        <div class="col-md-12">{{row.available}}</div>
-                        <div class="col-md-9">
-                            <div class="title">
-                                <h5>{{row.firstName}} {{row.lastName}}</h5>
+                    <div ng-repeat="row in matching" class="jobs search-line">
+                        <div class="item">
+                            <div ng-if="row.featured" class="featured"></div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h5>
+                                        <a href="/#/job/{{row.id}}">
+                                            <i ng-if="row.favorite" class="fa fa-star shine"></i>
+                                            <i ng-if="row.isWorkingFromHome" class="fa fa-home"></i>
+                                            <i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>
+                                            {{row.title}} <small>{{row.company}}</small>
+                                        </a>
+                                    </h5>
+                                    <span class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</span>
+                                    <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
+                                    <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
+                                    <p>
+                                        {{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="btn-group">
+                                        <a class="btn btn-info btn-xs" href="#/job/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+                                        <button class="btn btn-info btn-xs" ng-disabled="row.favorite" ng-click="favorite(row)"><i class="fa fa-heart-o"></i> Save</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="data">
-                                <span class="city"><i class="fa fa-map-marker"></i> {{row.location}}</span>
-                                <span class="experience"><i class="fa fa-trophy"></i> {{row.experienceYears}}.{{row.experienceMonths}} years</span>
-                                <span class="sallary"><i class="fa fa-inr"></i> {{row.rate}}k</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="btn-group">
-                                <a class="btn btn-info btn-xs" href="#/contractor/{{row.id}}"><i class="fa fa-eye"></i> View</a>
-                                <a class="btn btn-info btn-xs" href="#/contractor/save/{{row.id}}"><i class="fa fa-heart-o"></i> Save</a>
-                            </div>
+                            <span class="point">
+                                <i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
+                            </span>
+                            <span ng-if="row.webSite" class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
+                            <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
+                            <br /><span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
+                            <br /><span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
                         </div>
                     </div>
                 </div>
@@ -213,12 +248,12 @@
                         <tr>
                             <th>Minimum</th>
                             <td>{{record.aggregate.salary.min}}</td>
-                            <td>{{record.aggregate.duration.min | amDifference : null : 'days' }}</td>
+                            <td>{{record.aggregate.duration.min }}</td>
                         </tr>
                         <tr>
                             <th>Maximum</th>
                             <td>{{record.aggregate.salary.max}}</td>
-                            <td>{{record.aggregate.duration.max| amDifference : null : 'days' }}</td>
+                            <td>{{record.aggregate.duration.max}}</td>
                         </tr>
                     </table>
                 </div>
@@ -228,7 +263,7 @@
                     <a class="btn btn-block btn-primary" href="#/schedule"><i class="fa fa-calendar"></i> Manage Schedule</a>
                 </div>
             </div>
-            <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive" style="width: 267px;margin-left: 58px;"/>
+            <img src="{{profile.pictureUrl}}" alt="" class="img-rounded img-responsive" style="width: 267px;margin-left: 58px;" />
             <div class="title">
                 <h5>{{profile.firstName}} {{profile.lastName}}</h5>
                 <progressbar animate="false" value="profile.complete" type="warning"><b>{{profile.complete}}%</b></progressbar>

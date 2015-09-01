@@ -2,8 +2,18 @@
 
     db.contractor.dashboard().success(function (result) {
         $scope.record = result;
+        db.contractor.search({ location: result.aggregate.location, skills: result.aggregate.skill }, 1, 5, 'Days').then(function (result) {
+            $scope.matching = result.items;
+        });
     });
     
+    $scope.favorite=function(row){
+        if (row.favorite) return;
+        db.contractor.favorite(row.id).success(function () {
+            row.favorite = new Date();
+        });
+    }
+
     $scope.search = function (q) {
         window.location = '#/search?q=' + (q.keywords || '') + '&location=' + (q.location || '') + '&skills=' + (q.skills || '');
         return false;

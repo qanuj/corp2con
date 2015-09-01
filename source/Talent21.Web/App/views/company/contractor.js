@@ -24,6 +24,7 @@
 
         db.contractor.get(param.id).success(function (result) {
             $scope.record = result;
+            db.company.visitContractor(param.id);
         });
     });
 

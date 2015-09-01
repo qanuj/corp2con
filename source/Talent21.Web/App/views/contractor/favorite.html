@@ -2,21 +2,41 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h2>{{title}} : {{count}}</h2>
+                <h2><i class="fa fa-star shine"></i> {{title}} : <span class="highlight">{{count}}</span></h2>
                 <div class="jobs">
-                    <a href="#" ng-repeat="row in records" ng-href="/#/job/{{row.id}}">
-                        <div class="featured"></div>
-                        <div class="{{row.ifFeatured}}"></div>
-                        <div class="title">
-                            <h5>{{row.title}}</h5>
-                            <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
+                    <div class="item" ng-repeat="row in records">
+                        <div ng-if="row.featured" class="featured"></div>
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <h5>
+                                    <a href="/#/job/{{row.id}}">
+                                        <i ng-if="row.favorite" class="fa fa-star shine"></i>
+                                        <i ng-if="row.isWorkingFromHome" class="fa fa-home"></i>
+                                        <i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>
+                                        {{row.title}} <small>{{row.company}}</small>
+                                    </a>
+                                </h5>
+                                <span class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</span>
+                                <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
+                                <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
+                                <p>
+                                    {{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-info btn-xs" href="#/job/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>{{row.location}}</span>
-                            <span class="experience"><i class="fa fa-trophy"></i>{{row.experienceYears}} years {{row.experienceMonths}} months</span>
-                            <span class="sallary"><i class="fa fa-dollar"></i>{{row.rate}}</span>
-                        </div>
-                    </a>
+                        <span class="point">
+                            <i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
+                        </span>
+                        <span ng-if="row.webSite" class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
+                        <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
+                        <br /><span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
+                        <br /><span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
+                    </div>
                 </div>
             </div>
         </div>

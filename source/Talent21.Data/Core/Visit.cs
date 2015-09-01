@@ -12,5 +12,6 @@ namespace Talent21.Data.Core
         public string Referer { get; set; }
         public string OperatingSystem { get; set; }
         public bool IsMobile { get; set; }
+        public string Visitor { get; set; }
     }
 }

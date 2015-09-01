@@ -22,10 +22,19 @@ namespace Talent21.Data.Repository
         public JobVisitRepository(DbContext context, IEventManager eventManager)
             : base(context, eventManager)
         { }
+
+        public bool VisitedEarlier(int id, string visitor)
+        {
+            var earlier = DateTime.UtcNow.AddMinutes(-30);
+            if (string.IsNullOrWhiteSpace(visitor)) return false;
+            return All.Any(x => x.Visitor == visitor && x.Created > earlier && x.JobId == id);
+        }
     }
     /// <summary>
     /// 
     /// </summary>
     public interface IJobVisitRepository : IRepository<JobVisit>
-    { }
+    {
+        bool VisitedEarlier(int id, string visitor);
+    }
 }

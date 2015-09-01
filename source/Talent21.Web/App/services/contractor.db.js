@@ -101,6 +101,15 @@
         return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page,pageSize));
     }
 
+
+    contractor.visitCompany = function (id) {
+        return $http.get(v + 'contractor/company/' + id + '/visit');
+    }
+
+    contractor.visitJob = function (id) {
+        return $http.get(v + 'contractor/job/' + id + '/visit');
+    }
+
     contractor.getLatestJobs = function (skill, location, page, pageSize) {
         return $http.get(v + 'contractor/latest/jobs/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
     }
