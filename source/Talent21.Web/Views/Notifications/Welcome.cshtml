@@ -1,7 +1,7 @@
 @using Mvc.Mailer
 Please confirm your email address and agree to our Terms of Service.
 By clicking on the following link, you are agreeing to @Product.Name's 
-<a href="https://sendgrid.com/tos?utm_campaign=website&amp;utm_source=sendgrid.com&amp;utm_medium=email" target="_blank">Terms of Service</a>.
+<a href="@Url.Abs(Url.Action("Home","Terms"))" target="_blank">Terms of Service</a>.
 
 @section mainButton{
     <a href="@ViewBag.Url"
