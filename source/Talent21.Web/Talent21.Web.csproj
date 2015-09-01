@@ -1035,11 +1035,9 @@
     <Content Include="Views\Shared\_Unsecured.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Notifications\GoodBye.cshtml" />
-    <Content Include="Views\Notifications\GoodBye.text.cshtml" />
     <Content Include="Views\Notifications\PasswordRecovery.cshtml" />
     <Content Include="Views\Notifications\Welcome.cshtml" />
     <Content Include="Views\Notifications\_Layout.cshtml" />
-    <Content Include="Views\Notifications\_Layout.text.cshtml" />
     <Content Include="Views\Notifications\Contractor.Application.cshtml" />
     <Content Include="Views\Notifications\Company.Application.cshtml" />
     <Content Include="Views\Notifications\Contractor.Invited.cshtml" />
