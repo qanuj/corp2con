@@ -38,5 +38,8 @@ namespace Talent21.Service.Abstraction
         bool ActOnApplication(DeleteJobApplicationHistoryViewModel model, JobActionEnum jobActionEnum);
 
         JobApplicationContractorViewModel JobById(int id);
+
+        bool VisitCompany(int id, VisitViewModel model);
+        bool VisitJob(int id, VisitViewModel model);
     }
 }

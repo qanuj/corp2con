@@ -76,6 +76,10 @@
             return $http.get(v + 'company/schedule/' + id);
         }
 
+        company.visitContractor=function(id) {
+            return $http.post(v + 'company/contractor/'+id+'/visit');
+        }
+
         company.getFolders = function (jobId) {
             return $http.get(v + 'company/job/' + jobId + '/folders');
         }

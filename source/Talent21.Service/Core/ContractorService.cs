@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoPoco.Configuration;
 using e10.Shared.Data.Abstraction;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
@@ -15,6 +16,9 @@ namespace Talent21.Service.Core
     {
         private readonly IContractorRepository _contractorRepository;
         private readonly IContractorVisitRepository _contractorVisitRepository;
+        private readonly ICompanyVisitRepository _companyVisitRepository;
+        private readonly IJobVisitRepository _jobVisitRepository;
+
         private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IJobApplicationHistoryRespository _jobApplicationHistoryRespository;
@@ -32,7 +36,7 @@ namespace Talent21.Service.Core
             IContractorVisitRepository contractorVisitRepository,
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
-            ITransactionRepository transactionRepository, INotificationService notificationService)
+            ITransactionRepository transactionRepository, INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository)
             : base(locationRepository, transactionRepository)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
@@ -44,6 +48,8 @@ namespace Talent21.Service.Core
             _contractorVisitRepository = contractorVisitRepository;
             _jobRepository = jobRepository;
             _notificationService = notificationService;
+            _companyVisitRepository = companyVisitRepository;
+            _jobVisitRepository = jobVisitRepository;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -542,6 +548,52 @@ namespace Talent21.Service.Core
         public JobApplicationContractorViewModel JobById(int id)
         {
             return Applications().FirstOrDefault(x => x.Id == id);
+        }
+
+        public bool VisitCompany(int id, VisitViewModel model)
+        {
+            var entity = FindContractor(CurrentUserId);
+            var fullName = string.Format("{0} {1}", entity.FirstName, entity.LastName);
+            if (!_companyVisitRepository.VisitedEarlier(id, fullName))
+            {
+                _companyVisitRepository.Create(new CompanyVisit
+                {
+                    Visitor = fullName,
+                    CompanyId = id,
+                    Browser = model.Browser,
+                    City = model.City,
+                    Country = model.Country,
+                    IpAddress = model.IpAddress,
+                    IsMobile = model.IsMobile,
+                    OperatingSystem = model.OperatingSystem,
+                    Referer = model.Referer,
+                    State = model.State,
+                });
+            }
+            return true;
+        }
+        
+        public bool VisitJob(int id, VisitViewModel model)
+        {
+            var entity = FindContractor(CurrentUserId);
+            var fullName = string.Format("{0} {1}", entity.FirstName, entity.LastName);
+            if (!_jobVisitRepository.VisitedEarlier(id, fullName))
+            {
+                _jobVisitRepository.Create(new JobVisit
+                {
+                    Visitor = fullName,
+                    JobId = id,
+                    Browser = model.Browser,
+                    City = model.City,
+                    Country = model.Country,
+                    IpAddress = model.IpAddress,
+                    IsMobile = model.IsMobile,
+                    OperatingSystem = model.OperatingSystem,
+                    Referer = model.Referer,
+                    State = model.State,
+                });
+            }
+            return true;
         }
     }
 }

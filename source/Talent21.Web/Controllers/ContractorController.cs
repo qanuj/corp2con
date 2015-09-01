@@ -275,6 +275,35 @@ namespace Talent21.Web.Controllers
             return _jobService.TopEmployers(skill, location);
         }
 
+        [HttpGet]
+        [ResponseType(typeof(bool))]
+        [Route("company/{id}/visit")]
+        public HttpResponseMessage VisitContractor([FromUri] int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Ok(_service.VisitCompany(id, new VisitViewModel
+            {
+                IpAddress = GetIpAddress(),
+                Browser = System.Web.HttpContext.Current.Request.UserAgent,
+                Referer = System.Web.HttpContext.Current.Request.UrlReferrer != null ?
+                        System.Web.HttpContext.Current.Request.UrlReferrer.AbsoluteUri : string.Empty
+            }));
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(bool))]
+        [Route("job/{id}/visit")]
+        public HttpResponseMessage VisitJob([FromUri] int id)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Ok(_service.VisitJob(id, new VisitViewModel
+            {
+                IpAddress = GetIpAddress(),
+                Browser = System.Web.HttpContext.Current.Request.UserAgent,
+                Referer = System.Web.HttpContext.Current.Request.UrlReferrer != null ?
+                        System.Web.HttpContext.Current.Request.UrlReferrer.AbsoluteUri : string.Empty
+            }));
+        }
 
         [HttpGet]
         [Route("latest/jobs/{skill}/{location}")]

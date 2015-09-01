@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.ServiceModel.Channels;
 using System.Text;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Extensions;
 using System.Web.Http.OData.Query;
+using Microsoft.Owin;
 using Newtonsoft.Json;
 
 namespace Talent21.Web.Controllers
@@ -91,6 +94,53 @@ namespace Talent21.Web.Controllers
             {
                 return Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/";
             }
+        }
+        private const string HttpContext = "MS_HttpContext";
+        private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
+        private const string OwinContext = "MS_OwinContext";
+
+
+        protected static string GetIpAddress()
+        {
+            var ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            ip = !string.IsNullOrEmpty(ip) ? ip.Split(',').FirstOrDefault() : System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            return ip.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[0];
+        }
+        protected string GetClientIp(HttpRequestMessage request)
+        {
+            // Web-hosting
+            if (request.Properties.ContainsKey(HttpContext))
+            {
+                HttpContextWrapper ctx =
+                    (HttpContextWrapper)request.Properties[HttpContext];
+                if (ctx != null)
+                {
+                    return ctx.Request.UserHostAddress;
+                }
+            }
+
+            // Self-hosting
+            if (request.Properties.ContainsKey(RemoteEndpointMessage))
+            {
+                RemoteEndpointMessageProperty remoteEndpoint =
+                    (RemoteEndpointMessageProperty)request.Properties[RemoteEndpointMessage];
+                if (remoteEndpoint != null)
+                {
+                    return remoteEndpoint.Address;
+                }
+            }
+
+            // Self-hosting using Owin
+            if (request.Properties.ContainsKey(OwinContext))
+            {
+                OwinContext owinContext = (OwinContext)request.Properties[OwinContext];
+                if (owinContext != null)
+                {
+                    return owinContext.Request.RemoteIpAddress;
+                }
+            }
+
+            return null;
         }
     }
 }
