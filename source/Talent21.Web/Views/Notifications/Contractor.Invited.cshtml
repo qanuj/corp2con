@@ -1,0 +1,6 @@
+@using Mvc.Mailer
+Welcome to <b>Conctractor's Pool</b>.
+<br /><br />
+Please click on the link below to set up your password and start encoding and archiving your video immediately.
+<br/><br/>
+<a href="@Url.Abs(Url.Action("ResetPassword", "Account", new { area = "", id = ViewBag.key, username = ViewBag.UserName }))">Verify Email Address</a>

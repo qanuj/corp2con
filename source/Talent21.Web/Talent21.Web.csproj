@@ -1043,6 +1043,8 @@
     <Content Include="Views\Notifications\_Layout.text.cshtml" />
     <Content Include="Views\Notifications\Contractor.Application.cshtml" />
     <Content Include="Views\Notifications\Company.Application.cshtml" />
+    <Content Include="Views\Notifications\Contractor.Invited.cshtml" />
+    <Content Include="Views\Notifications\Company.Invited.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

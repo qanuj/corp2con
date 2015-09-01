@@ -34,7 +34,7 @@ namespace Talent21.Data.Repository
         {
             return base.All
                 .Include(x => x.Contractor)
-                .Include(x => x.Job).FirstOrDefault(x => x.Id==id);
+                .Include(x => x.Job.Company).FirstOrDefault(x => x.Id==id);
         }
 
         public Task<JobApplication> MineAsync(string userId, string profilepath)
