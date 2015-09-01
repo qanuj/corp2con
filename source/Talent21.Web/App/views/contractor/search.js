@@ -11,6 +11,11 @@
         $scope.searching = "Matching Jobs for you, next week";
     }
 
+    $scope.toggle=function(allSelected) {
+        for (var x in $scope.records) {
+            $scope.records[x].selected = allSelected;
+        }
+    }
 
     $scope.favoriteAll = function (record) {
         var i = 0;

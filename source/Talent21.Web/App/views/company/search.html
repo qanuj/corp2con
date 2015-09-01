@@ -57,7 +57,7 @@
                             <span class="point"><i class="fa fa-map-marker"></i>{{row.functionalArea}}</span>
                             <span class="point"><i class="fa fa-map-marker"></i>{{row.location}}</span>
                             <span class="point"><i class="fa fa-inr"></i>{{row.rate}}k / {{row.rateType|lowercase}}</span>
-                            <span class="point" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5"><i class="fa fa-asterisk"></i> {{s.code}}</span>
+                            <span class="point" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
                         </div>
                     </div>
                     <cc-pager total-pages="pages" current-page="currentPage"
