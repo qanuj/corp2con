@@ -24,18 +24,20 @@ namespace Talent21.Web.Controllers
         private readonly ApplicationRoleManager _roleManager;
         private readonly IContractorService _contractorService;
         private readonly ICompanyService _companyService;
+        private readonly INotificationService _notificationService;
 
         public static string Contractor = "Contractor";
         public static string Company = "Company";
         public static string Admin = "Admin";
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ICompanyService companyService, IContractorService contractorService, ApplicationRoleManager roleManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ICompanyService companyService, IContractorService contractorService, ApplicationRoleManager roleManager, INotificationService notificationService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _companyService = companyService;
             _contractorService = contractorService;
             _roleManager = roleManager;
+            _notificationService = notificationService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -201,7 +203,8 @@ namespace Talent21.Web.Controllers
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    _notificationService.Welcome(user.Email, callbackUrl);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -262,7 +265,7 @@ namespace Talent21.Web.Controllers
                 // Send an email with this link
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                _notificationService.Welcome(user.Email, callbackUrl);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 

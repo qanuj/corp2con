@@ -6,7 +6,7 @@ namespace Talent21.Service.Abstraction
 {
     public interface INotificationService
     {
-        void Welcome(string toEmail, string url);
+        void Welcome(string toEmail, string key);
         void GoodBye(string toEmail);
         void PasswordRecovery(string toEmail, string key);
         void ActOnApplication(JobApplication application, JobActionEnum act);

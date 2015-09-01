@@ -7,7 +7,7 @@ namespace Talent21.Web
 {
     public class Product
     {
-        public static string Name { get { return "Contractor's Poll"; } }
+        public static string Name { get { return "Contractor's Pool"; } }
     }
     public partial class Startup
     {
