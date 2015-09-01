@@ -1034,13 +1034,13 @@
     <Content Include="Views\Setup\Index.cshtml" />
     <Content Include="Views\Shared\_Unsecured.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\UserMailers\GoodBye.cshtml" />
-    <Content Include="Views\UserMailers\GoodBye.text.cshtml" />
-    <Content Include="Views\UserMailers\PasswordRecovery.cshtml" />
-    <Content Include="Views\UserMailers\Welcome.cshtml" />
-    <Content Include="Views\UserMailers\Welcome.text.cshtml" />
-    <Content Include="Views\UserMailers\_Layout.cshtml" />
-    <Content Include="Views\UserMailers\_Layout.text.cshtml" />
+    <Content Include="Views\Notifications\GoodBye.cshtml" />
+    <Content Include="Views\Notifications\GoodBye.text.cshtml" />
+    <Content Include="Views\Notifications\PasswordRecovery.cshtml" />
+    <Content Include="Views\Notifications\Welcome.cshtml" />
+    <Content Include="Views\Notifications\Welcome.text.cshtml" />
+    <Content Include="Views\Notifications\_Layout.cshtml" />
+    <Content Include="Views\Notifications\_Layout.text.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
