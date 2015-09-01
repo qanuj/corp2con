@@ -31,20 +31,14 @@ namespace Talent21.Web.Mailers
             });
         }
 
-        public void Welcome(string toEmail, string url)
+        public void Welcome(string toEmail, string url,string role)
         {
             var mvcMailMessage = new MvcMailMessage { Subject = "Welcome  to " + Product.Name };
             mvcMailMessage.To.Add(toEmail);
             ViewBag.Url = url;
             ViewBag.UserName = toEmail;
-            PopulateBody(mvcMailMessage, "Welcome");
-            Send(mvcMailMessage, toEmail);
-        }
-
-        public void GoodBye(string toEmail)
-        {
-            var mvcMailMessage = new MvcMailMessage { Subject = "GoodBye" };
-            PopulateBody(mvcMailMessage, "GoodBye");
+            ViewBag.Email = toEmail;
+            PopulateBody(mvcMailMessage,string.Format("{0}.Welcome", role));
             Send(mvcMailMessage, toEmail);
         }
 
@@ -54,6 +48,8 @@ namespace Talent21.Web.Mailers
             mvcMailMessage.To.Add(toEmail);
             ViewBag.key = key;
             ViewBag.UserName = toEmail;
+
+            ViewBag.Email = toEmail;
             PopulateBody(mvcMailMessage,"PasswordRecovery");
             Send(mvcMailMessage,toEmail);
         }
@@ -66,12 +62,14 @@ namespace Talent21.Web.Mailers
             //send to contractor;
             var msg1 = new MvcMailMessage { Subject = string.Format("Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title) };
             msg1.To.Add(jobApplication.Contractor.Email);
+            ViewBag.Email = jobApplication.Contractor.Email;
             PopulateBody(msg1, "Contractor." + act);
             Send(msg1, jobApplication.Contractor.Email);
 
             //send to company;
             var msg2 = new MvcMailMessage { Subject = string.Format("{3} {4} - Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title, jobApplication.Contractor.FirstName, jobApplication.Contractor.LastName) };
             msg2.To.Add(jobApplication.Job.Company.Email);
+            ViewBag.Email = jobApplication.Job.Company.Email;
             PopulateBody(msg2, "Company." + act);
             Send(msg2, jobApplication.Job.Company.Email);
 

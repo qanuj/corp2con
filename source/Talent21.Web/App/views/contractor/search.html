@@ -29,11 +29,11 @@
                                 <p><a class="btn btn-warning" href="#/search"><i class="fa fa-search"></i> Reset Filters and Try Again</a></p>
                             </div>
                         </div>
-                <div class="jobs" href="/#/job/{{row.id}}" ng-repeat="row in records">
+                <div class="jobs" ng-repeat="row in records">
                     <div class="pull-right" ng-switcher ng-click="toggle(selectAll)" ng-model="selectAll"></div>
                     <div ng-if="row.featured" class="featured"></div>
                     <div class="row">
-                                <h5>{{row.title}} <small>{{row.company}}</small></h5>
+                        <h5><a href="/#/job/{{row.id}}">{{row.title}} <small>{{row.company}}</small></a></h5>
                                 <p>{{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}}</p>
                                 <p>&nbsp;</p>
                                 <p><span ng-repeat="s in row.skills" class="badge">{{s.title}}</span> </p>

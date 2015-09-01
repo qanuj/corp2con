@@ -1,9 +1,9 @@
-@using Mvc.Mailer
 @{
-    Layout = "Company._Layout.cshtml";
+    Layout = "Contractor._Layout.cshtml";
 }
+@using Mvc.Mailer
 Please confirm your email address and agree to our Terms of Service.
-By clicking on the following link, you are agreeing to @Product.Name's
+By clicking on the following link, you are agreeing to @Product.Name's 
 <a href="@Url.Abs(Url.Action("Home","Terms"))" target="_blank">Terms of Service</a>.
 
 @section mainButton{

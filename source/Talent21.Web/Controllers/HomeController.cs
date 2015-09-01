@@ -37,10 +37,16 @@ namespace Talent21.Web.Controllers
                 Numbers = _service.GetStats()
             });
         }
-        
+
 
         [Route("welcome")]
         public ActionResult Welcome()
+        {
+            return View();
+        }
+
+        [Route("terms")]
+        public ActionResult Terms()
         {
             return View();
         }
