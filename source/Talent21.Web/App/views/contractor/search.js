@@ -22,6 +22,7 @@
         function favoriteJob(x, next) {
             if (!$scope.records[x]) {
                 $scope.save = "Save";
+                $scope.navigate($scope.currentPage);
                 return;
             }
             $scope.save = (x + 1);
@@ -40,6 +41,7 @@
         function applToJobFolder(x,next) {
             if (!$scope.records[x]) {
                 $scope.save = "Save";
+                $scope.navigate($scope.currentPage);
                 return;
             }
             $scope.save = (x + 1);

@@ -21,7 +21,6 @@ namespace Talent21.Web
 
             bundles.Add(new StyleBundle("~/Content/site/css").Include(
                       "~/Content/css/bootstrap.css",
-                      "~/Content/css/jquery.flexmenu.css",
                       "~/Content/css/owl.carousel.css",
                       "~/Content/css/animate.css",
                       "~/Content/css/jquery.fancybox.css",
@@ -32,7 +31,6 @@ namespace Talent21.Web
 
             bundles.Add(new StyleBundle("~/Content/spa/css").Include(
                       "~/Content/css/bootstrap.css",
-                      "~/Content/css/jquery.flexmenu.css",
                       "~/Content/css/owl.carousel.css",
                       "~/Content/css/animate.css",
                       "~/Content/css/jquery.fancybox.css",
@@ -50,7 +48,6 @@ namespace Talent21.Web
                 .Include("~/Scripts/site/bootstrap.min.js")
                 .Include("~/Scripts/site/retina.min.js")
                 .Include("~/Scripts/site/scrollReveal.min.js")
-                .Include("~/Scripts/site/jquery.flexmenu.js")
                 .Include("~/Scripts/site/jquery.ba-cond.min.js")
                 .Include("~/Scripts/site/jquery.slitslider.js")
                 .Include("~/Scripts/site/owl.carousel.min.js")
@@ -71,7 +68,6 @@ namespace Talent21.Web
                 .Include("~/Scripts/site/bootstrap.min.js")
                 .Include("~/Scripts/site/retina.min.js")
                 .Include("~/Scripts/site/scrollReveal.min.js")
-                .Include("~/Scripts/site/jquery.flexmenu.js")
                 .Include("~/Scripts/site/jquery.ba-cond.min.js")
                 .Include("~/Scripts/site/jquery.slitslider.js")
                 .Include("~/Scripts/site/owl.carousel.min.js")

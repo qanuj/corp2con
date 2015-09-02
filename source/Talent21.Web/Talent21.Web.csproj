@@ -325,7 +325,6 @@
     <Content Include="App\template\css\bootstrap.min.css" />
     <Content Include="App\template\css\font-awesome.min.css" />
     <Content Include="App\template\css\jquery.fancybox.css" />
-    <Content Include="App\template\css\jquery.flexmenu.css" />
     <Content Include="App\template\css\jquery.nouislider.css" />
     <Content Include="App\template\css\owl.carousel.css" />
     <Content Include="App\template\css\style.css" />
@@ -355,7 +354,6 @@
     <Content Include="App\template\js\jquery-1.11.2.min.js" />
     <Content Include="App\template\js\jquery.ba-cond.min.js" />
     <Content Include="App\template\js\jquery.counterup.min.js" />
-    <Content Include="App\template\js\jquery.flexmenu.js" />
     <Content Include="App\template\js\jquery.hotkeys.js" />
     <Content Include="App\template\js\jquery.nouislider.all.min.js" />
     <Content Include="App\template\js\jquery.slitslider.js" />
@@ -450,7 +448,6 @@
     <Content Include="Content\css\extra\uploader.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\jquery.fancybox.css" />
-    <Content Include="Content\css\jquery.flexmenu.css" />
     <Content Include="Content\css\jquery.nouislider.css" />
     <Content Include="Content\css\owl.carousel.css" />
     <Content Include="Content\css\rzslider.css" />
@@ -938,7 +935,6 @@
     <Content Include="Scripts\site\jquery-1.11.2.min.js" />
     <Content Include="Scripts\site\jquery.ba-cond.min.js" />
     <Content Include="Scripts\site\jquery.counterup.min.js" />
-    <Content Include="Scripts\site\jquery.flexmenu.js" />
     <Content Include="Scripts\site\jquery.hotkeys.js" />
     <Content Include="Scripts\site\jquery.nouislider.all.min.js" />
     <Content Include="Scripts\site\jquery.slitslider.js" />

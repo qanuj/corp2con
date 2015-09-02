@@ -122,6 +122,7 @@
         function moveFolder(x, folder, next) {
             if(!$scope.records[x]) {
                 $scope.save = "Save";
+                $scope.navigate($scope.currentPage);
                 return;
             }
             $scope.save = (x + 1);
@@ -139,7 +140,10 @@
     $scope.invite = function (job) {
         var i = 0;
         function inviteToJob(x, job, next) {
-            if (!$scope.records[x]) { return; }
+            if (!$scope.records[x]) {
+                $scope.navigate($scope.currentPage);
+                return;
+            }
             $scope.save = (x + 1);
             if ($scope.records[x].selected == true) {
                 db.company.inviteToJob($scope.records[x].id, job.id).success(next);

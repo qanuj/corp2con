@@ -22,25 +22,6 @@
 
 		// ====================================================================
 
-		// Flex Menu
-
-		$('.menu').flexMenu({
-			breakpoint: 3000,
-			responsivePattern: 'off-canvas',
-			animationSpeed: 300
-		});
-
-		$(".fm-button").click(function(){
-			if($("header").css('left') == '0px'){
-				$("header").stop().animate({left:'240px'},300);
-			};
-			if($("header").css('left') == '240px'){
-				$("header").stop().animate({left:'0px'},300);
-			};
-		 });
-
-		// ====================================================================
-
 		// Searchbox
 
 		if ($(document).width() > 480) {

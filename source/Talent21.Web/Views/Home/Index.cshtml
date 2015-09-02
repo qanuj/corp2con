@@ -21,11 +21,38 @@
         <div id="header-background"></div>
         <div class="container">
             <div class="pull-left">
-                <div id="logo"><a href="#/"><img src="~/content/images/logo.png" alt="Jobseek - Job Board Responsive HTML Template" /></a></div>
+                <div id="logo">
+                    <a href="#/"><img src="~/content/images/logo.png" alt="Jobseek - Job Board Responsive HTML Template"/></a>
+                </div>
             </div>
-            <div id="menu-open" class="pull-right">
-                <a class="fm-button"><i class="fa fa-bars fa-lg"></i></a>
-            </div>
+            <ul class="nav navbar-nav pull-right">
+                @if (Model.Role == AccountController.Company)
+            {
+                    <li><a href="/#/job/new">Post a job</a></li>
+                        <li><a href="/#/jobs">Jobs</a></li>
+                        <li><a href="/#/search">Search Contractor</a></li>
+                        <li><a href="/#/profile">Company Profile</a></li>
+                        <li><a href="/#/bench">Bench Management</a></li>
+                        <li><a href="/#/billing">Billing</a></li>
+                }
+                else if (Model.Role == AccountController.Contractor)
+                {
+                    <li><a href="/#/search">Search Jobs</a></li>
+                        <li><a href="/#/applications">Applications</a></li>
+                        <li><a href="/#/favorite">Favorite Jobs</a></li>
+                        <li><a href="/#/profile">Manage Profile</a></li>
+                        <li><a href="/#/schedule">Manage Schedule</a></li>
+
+                }
+                else if (Model.Role == AccountController.Admin)
+                {
+                    <li><a href="/#/industry">Industry</a></li>
+                        <li><a href="/#/functional">Fuctional Area</a></li>
+                        <li><a href="/#/skills">Skills</a></li>
+                }
+                <li><a href="@Url.Action("Logout", "Account")">Logout</a></li>
+            </ul>
+
             <div id="searchbox" class="pull-right" ng-controller="searchController">
                 <form ng-submit="search(query)">
                     <div class="form-group">
@@ -34,10 +61,10 @@
                     </div>
                 </form>
             </div>
+
             <div id="search" class="pull-right">
                 <a><i class="fa fa-search fa-lg"></i></a>
             </div>
-
         </div>
     </header>
     <div id="loader">
@@ -45,38 +72,7 @@
     </div>
     <div class="fm-container">
         <!-- Menu -->
-        <div class="menu">
-            <div class="button-close text-right">
-                <a class="fm-button"><i class="fa fa-close fa-2x"></i></a>
-            </div>
-            <ul class="nav">
-                @if (Model.Role == AccountController.Company)
-                {
-                    <li><a href="/#/job/new">Post a job</a></li>
-                    <li><a href="/#/jobs">Jobs</a></li>
-                    <li><a href="/#/search">Search Contractor</a></li>
-                    <li><a href="/#/profile">Company Profile</a></li>
-                    <li><a href="/#/bench">Bench Management</a></li>
-                    <li><a href="/#/billing">Billing</a></li>
-                }
-                else if (Model.Role == AccountController.Contractor)
-                {
-                    <li><a href="/#/search">Search Jobs</a></li>
-                    <li><a href="/#/applications">Applications</a></li>
-                    <li><a href="/#/favorite">Favorite Jobs</a></li>
-                    <li><a href="/#/profile">Manage Profile</a></li>
-                    <li><a href="/#/schedule">Manage Schedule</a></li>
-                    
-                }
-                else if (Model.Role == AccountController.Admin)
-                {
-                    <li><a href="/#/industry">Industry</a></li>
-                    <li><a href="/#/functional">Fuctional Area</a></li>
-                    <li><a href="/#/skills">Skills</a></li>
-                }
-                <li><a href="@Url.Action("Logout","Account")">Logout</a></li>
-            </ul>
-        </div>
+
         <div ng-view></div>
         <section id="contact" class="color2">
             <div class="container">
