@@ -658,22 +658,25 @@ namespace Talent21.Service.Core
             var entity = _jobRepository.ById(model.Id);
             if (entity == null) return false;
 
-            _advertisementRepository.Create(new JobAdvertisement()
+            var transaction = new AdvertisementTransaction
             {
-                JobId = entity.Id,
-                Start = DateTime.UtcNow,
-                End = DateTime.UtcNow.AddDays(30),
-                Promotion = model.Promotion,
-                Transaction = new AdvertisementTransaction
+                Amount = ((int) model.Promotion)*10,
+                Credit = ((int) model.Promotion)*100,
+                IsSuccess = true, //should come from PayU Money,
+                PaymentCapture = "Some Data of Payment Capture",
+                UserId = CurrentUserId,
+                Advertisement = new JobAdvertisement()
                 {
-                    Amount = ((int)model.Promotion) * 10,
-                    Credit = ((int)model.Promotion) * 100,
-                    IsSuccess = true, //should come from PayU Money,
-                    PaymentCapture = "Some Data of Payment Capture",
-                    UserId = CurrentUserId
-                },
-                Title = string.Format("Promoted Job ({1}) as {0}", model.Promotion, entity.Id)
-            });
+                    JobId = entity.Id,
+                    Start = DateTime.UtcNow,
+                    End = DateTime.UtcNow.AddDays(30),
+                    Promotion = model.Promotion,
+                    Title = string.Format("Promoted Job ({1}) as {0}", model.Promotion, entity.Id)
+                }
+            };
+
+            _advertisementRepository.Create(transaction.Advertisement);
+            _transactionRepository.Create(transaction);
 
             var rowsAffested = _advertisementRepository.SaveChanges();
             return rowsAffested > 0;
