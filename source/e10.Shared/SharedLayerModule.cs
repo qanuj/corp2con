@@ -8,7 +8,6 @@ namespace e10.Shared
 {
     public class SharedLayerModule : Module
     {
-        
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ApplicationUserStore>().AsSelf().InstancePerRequest();

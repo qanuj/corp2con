@@ -61,9 +61,18 @@ namespace Talent21.Web.Mailers
 
             //send to contractor;
             var msg1 = new MvcMailMessage { Subject = string.Format("Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title) };
+
+            if (act == JobActionEnum.Invited){
+                msg1.Subject = string.Format("Invitation : {0} - {1}", jobApplication.Job.Title,jobApplication.Job.Company.CompanyName);
+            }
+
             ViewBag.Email = jobApplication.Contractor.Email;
+            ViewBag.Application = jobApplication;
+
             PopulateBody(msg1, "Contractor." + act);
             Send(msg1, jobApplication.Contractor.Email);
+
+            if (act == JobActionEnum.Invited) return; //dont send to company if invited.
 
             //send to company;
             var msg2 = new MvcMailMessage { Subject = string.Format("{3} {4} - Application Status : {0} for {2} - {1}", act, Product.Name, jobApplication.Job.Title, jobApplication.Contractor.FirstName, jobApplication.Contractor.LastName) };

@@ -31,15 +31,15 @@
                 templateUrl: '/app/views/contractor/favorite.html',
                 controller: 'contractorFavoriteController'
             })
-              .when('/job/:id', {
-                  templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
-                  controller: 'contractorJobController'
-              })
+            .when('/job/:id', {
+                templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
+                controller: 'contractorJobController'
+            })
             .when('/job/application/favorite/:id', {
                 templateUrl: '/app/views/contractor/favouritejobs.html',
                 controller: 'contractorApplicationController'
             })
-          
+
              .when('/company/:id', {
                  templateUrl: '/app/views/contractor/company.html',
                  controller: 'contractorCompanyProfileController'

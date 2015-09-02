@@ -71,11 +71,6 @@ namespace Talent21.Service.Models
 
     public class ContractorSearchResultViewModel : ContractorViewModel
     {
-        [Field("text", Store = StoreMode.No)]
-        public string SearchText
-        {
-            get { return string.Join(" ", new[] { FirstName, LastName, Mobile, Location, About }); }
-        }
         public DateTime Availability { get; set; }
         public int? Days { get; set; }
         public AvailableEnum Available { get; set; }
@@ -164,6 +159,8 @@ namespace Talent21.Service.Models
         {
             get { return Locations.FirstOrDefault(); }
         }
+
+        public DateTime? Expiry { get; set; }
     }
 
     public class DeleteJobViewModel : IdModel { }

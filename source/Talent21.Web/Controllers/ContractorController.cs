@@ -196,7 +196,15 @@ namespace Talent21.Web.Controllers
         public HttpResponseMessage ApplyToJob(int id)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel {Id=id })) : Bad(ModelState);
+            return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel { Id = id })) : Bad(ModelState);
+        }
+
+        [HttpPost]
+        [Route("job/decline")]
+        public HttpResponseMessage DeclineInvitationToJob(JobDeclineViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.Decline(model)) : Bad(ModelState);
         }
 
         [HttpGet]

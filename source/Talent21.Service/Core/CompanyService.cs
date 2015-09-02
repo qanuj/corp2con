@@ -463,6 +463,7 @@ namespace Talent21.Service.Core
         {
             return jobs.Select(x => new JobViewModel
             {
+                Expiry=x.Expiry,
                 Id = x.Id,
                 Applied = x.Applications.Count,
                 Company = x.Company.CompanyName,
@@ -487,6 +488,13 @@ namespace Talent21.Service.Core
         public virtual IQueryable<JobViewModel> Jobs
         {
             get { return ToJobViewModel(_jobRepository.Mine(CurrentUserId)); }
+        }
+
+        public virtual IQueryable<IdLabel<int>> ActiveJobs
+        {
+            get { return ToJobViewModel(_jobRepository.Mine(CurrentUserId))
+                    .Where(x=>x.IsPublished && !x.IsCancelled && (x.Expiry>DateTime.UtcNow || !x.Expiry.HasValue))
+                    .Select(x=>new IdLabel<int> { Id = x.Id,Label = x.Title}); }
         }
 
         public IQueryable<ContractorSearchResultViewModel> Contractors
@@ -610,6 +618,23 @@ namespace Talent21.Service.Core
             {
                 query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) < model.xTo);
             }
+
+            if (!string.IsNullOrWhiteSpace(model.Keywords))
+            {
+                if (company != null)
+                {
+                    query = query.Where(x =>
+                        x.Company.Contains(model.Keywords) ||
+                        x.Mobile.Contains(model.Keywords) ||
+                        x.Profile.Contains(model.Keywords) ||
+                        x.Location.Contains(model.Keywords) ||
+                        x.About.Contains(model.Keywords) ||
+                        x.FirstName.Contains(model.Keywords) ||
+                        x.LastName.Contains(model.Keywords) 
+                    );
+                }
+
+            }
             if (!string.IsNullOrWhiteSpace(model.Folder))
             {
                 if (company != null)
@@ -658,7 +683,7 @@ namespace Talent21.Service.Core
                 Views = _companyVisitRepository.Mine(userId).Count(),
                 Applications = _jobApplicationRepository.Mine(userId).Count(x => x.History.Any(y => y.Act == JobActionEnum.Application) && x.History.All(y => y.Act != JobActionEnum.Rejected) && x.History.All(y => y.Act != JobActionEnum.Revoke)),
                 Contractors = _contractorRepository.MatchingCompanyJobs(userId).Count(),
-                Jobs = _jobRepository.Mine(userId).Count(x => x.IsPublished && (!x.Expiry.HasValue || x.Expiry > DateTime.UtcNow))
+                Jobs = ActiveJobs.Count()
             };
         }
 
@@ -842,6 +867,26 @@ namespace Talent21.Service.Core
                 Code = invite.Code,
                 CompanyId = benchInvite == null ? (int?)null : benchInvite.CompanyId
             };
+        }
+
+        public bool InviteContractorToJob(JobInviteViewModel model)
+        {
+            var jobApp = _jobApplicationRepository.ByJobId(model.JobId,model.ContractorId);
+            if (jobApp != null && (jobApp.IsRevoked || jobApp.History.Any(x => x.Act == JobActionEnum.Invited ||
+                                                                  x.Act == JobActionEnum.Application ||
+                                                                  x.Act == JobActionEnum.Decline ||
+                                                                  x.Act == JobActionEnum.Rejected ||
+                                                                  x.Act == JobActionEnum.Revoke ||
+                                                                  x.Act == JobActionEnum.Shortlist)))
+            {
+                return false;
+            }
+            if (jobApp == null){
+                jobApp=new JobApplication { ContractorId = model.ContractorId, CreatedBy = CurrentUserId, JobId = model.JobId};
+                _jobApplicationRepository.Create(jobApp);
+                _jobApplicationRepository.SaveChanges();
+            }
+            return ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = jobApp.Id, Notes = "Invited" },JobActionEnum.Invited);
         }
     }
 }

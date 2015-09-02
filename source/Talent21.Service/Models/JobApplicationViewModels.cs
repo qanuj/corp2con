@@ -101,6 +101,10 @@ namespace Talent21.Service.Models
     {
         public JobActionEnum Act { get; set; }
 
+        public CompanyActJobApplicationViewModel()
+        {
+        }
+
         public CompanyActJobApplicationViewModel(int id, JobActionEnum act)
         {
             this.Id = id;
@@ -112,12 +116,24 @@ namespace Talent21.Service.Models
         }
     }
 
+
+    public class JobInviteViewModel
+    {
+        public int ContractorId { get; set; }
+        public int JobId { get; set; }
+    }
+
     public class FolderMoveViewModel
     {
         public int Id { get; set; }
         public string Folder { get; set; }
     }
 
+    public class JobDeclineViewModel
+    {
+        public int JobId { get; set; }
+        public string Reason { get; set; }
+    }
     public class CreateJobApplicationHistoryViewModel
     {
         public int Id { get; set; }

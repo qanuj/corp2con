@@ -113,6 +113,15 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [EnableQuery]
+        [Route("job/active")]
+        public IQueryable<IdLabel<int>> ViewActiveJobsQuery()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.ActiveJobs;
+        }
+
+        [HttpGet]
+        [EnableQuery]
         [Route("schedule/{id}")]
         public IQueryable<ScheduleViewModel> ViewSchedulesQuery([FromUri]int id)
         {
@@ -270,6 +279,14 @@ namespace Talent21.Web.Controllers
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.AddContractorToFolder(new FolderMoveViewModel { Folder = folder, Id = id })) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("contractor/invite")]
+        public HttpResponseMessage AddContractorToFolder(JobInviteViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.InviteContractorToJob(model)) : Bad(ModelState);
         }
 
         [HttpPut]

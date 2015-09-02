@@ -92,7 +92,6 @@
         return db.system.getLocations().success(function (result) {
             $scope.locations = result;
         });
-
     }).then(function() {
         return db.system.getIndustries().success(function (result) {
             $scope.industries = result;

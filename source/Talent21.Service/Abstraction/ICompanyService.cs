@@ -23,6 +23,7 @@ namespace Talent21.Service.Abstraction
         bool Cancel(CancelJobViewModel model);
         IQueryable<CompanyViewModel> Companies { get; }
         IQueryable<JobViewModel> Jobs { get; }
+        IQueryable<IdLabel<int>> ActiveJobs { get; }
 
         IQueryable<JobApplicationCompanyViewModel> Applications(int id);
         bool ActOnApplication(CompanyActJobApplicationViewModel act);
@@ -48,5 +49,6 @@ namespace Talent21.Service.Abstraction
 
         bool InvitePeople(IList<InviteViewModel> model);
         InviteCodeViewModel AcceptInvitation(string code);
-    }
+        bool InviteContractorToJob(JobInviteViewModel model);
+     }
 }
