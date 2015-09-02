@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
@@ -8,6 +9,8 @@ using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using System.Linq;
 using e10.Shared;
+using e10.Shared.Providers;
+using Talent21.Data;
 
 namespace Talent21.Service.Core
 {
@@ -28,6 +31,7 @@ namespace Talent21.Service.Core
         private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IContractorFolderRepository _contractorFolderRepository;
         private readonly INotificationService _notificationService;
+        private readonly SellingOptions _sellingOptions;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
@@ -41,7 +45,7 @@ namespace Talent21.Service.Core
             ITransactionRepository transactionRepository,
             IAdvertisementRepository advertisementRepository, 
             IScheduleRepository scheduleRepository,
-            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository)
+            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository, SellingOptions sellingOptions)
             : base(locationRepository, transactionRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -57,6 +61,7 @@ namespace Talent21.Service.Core
             _contractorFolderRepository = contractorFolderRepository;
             _notificationService = notificationService;
             _contractorVisitRepository = contractorVisitRepository;
+            _sellingOptions = sellingOptions;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -321,10 +326,27 @@ namespace Talent21.Service.Core
             var entity = _jobRepository.ById(model.Id);
             if (entity == null) return false;
 
+            var balance = _transactionRepository.Balance(CurrentUserId);
+            var price = 0 - _sellingOptions.RequirementCredit;
+            var amount = price * _sellingOptions.CreditPrice;
+
+            if (balance < price) throw new Exception("Not enough balance.");
+            _transactionRepository.Create(new JobTransaction
+            {
+                Name=entity.Title,
+                Credit = price,
+                Amount = amount,
+                IsSuccess = true,
+                Code = Transaction.GenerateTransactionId(),
+                UserId = CurrentUserId
+            });
+
             entity.IsPublished = true;
             entity.Published = DateTime.UtcNow;
+            entity.Expiry = DateTime.UtcNow.AddDays(_sellingOptions.Validity);
 
             var rowsAffested = _jobRepository.SaveChanges();
+            
             return rowsAffested > 0;
         }
 
@@ -620,7 +642,7 @@ namespace Talent21.Service.Core
                 Views = _companyVisitRepository.Mine(userId).Count(),
                 Applications = _jobApplicationRepository.Mine(userId).Count(x => x.History.Any(y => y.Act == JobActionEnum.Application) && x.History.All(y => y.Act != JobActionEnum.Rejected) && x.History.All(y => y.Act != JobActionEnum.Revoke)),
                 Contractors = _contractorRepository.MatchingCompanyJobs(userId).Count(),
-                Jobs = _jobRepository.Mine(userId).Count(x => x.IsPublished)
+                Jobs = _jobRepository.Mine(userId).Count(x => x.IsPublished && (!x.Expiry.HasValue || x.Expiry>DateTime.UtcNow))
             };
         }
         public void AddView(int id, string userAgent, string ipAddress)

@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -97,6 +98,7 @@
     <Compile Include="Core\JobActionEnum.cs" />
     <Compile Include="Core\JobAdvertisement.cs" />
     <Compile Include="Core\JobApplication.cs" />
+    <Compile Include="Core\JobTransaction.cs" />
     <Compile Include="Core\JobVisit.cs" />
     <Compile Include="Core\LevelEnum.cs" />
     <Compile Include="Core\Location.cs" />
@@ -201,6 +203,10 @@
     <Compile Include="Migrations\201509020618155_Move Payment to Shared.cs" />
     <Compile Include="Migrations\201509020618155_Move Payment to Shared.Designer.cs">
       <DependentUpon>201509020618155_Move Payment to Shared.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509020643324_Pay for Publishing Job.cs" />
+    <Compile Include="Migrations\201509020643324_Pay for Publishing Job.Designer.cs">
+      <DependentUpon>201509020643324_Pay for Publishing Job.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -309,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509020618155_Move Payment to Shared.resx">
       <DependentUpon>201509020618155_Move Payment to Shared.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509020643324_Pay for Publishing Job.resx">
+      <DependentUpon>201509020643324_Pay for Publishing Job.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

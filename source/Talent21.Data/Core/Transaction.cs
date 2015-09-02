@@ -7,12 +7,13 @@ using e10.Shared.Data.Abstraction;
 
 namespace Talent21.Data.Core
 {
-    public class Transaction : Entity
+    public abstract class Transaction : Entity
     {
         public string Reason { get; set; }
         public bool IsSuccess { get; set; }
         public int Credit { get; set; }
         public string Code { get; set; }
+        public string Name { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string PaymentCapture { get; set; }
