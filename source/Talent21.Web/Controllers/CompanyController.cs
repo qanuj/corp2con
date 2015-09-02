@@ -50,6 +50,20 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpPost]
+        [ResponseType(typeof(JobViewModel))]
+        [Route("credits/{num}")]
+        public HttpResponseMessage AddCredits(int num)
+        {
+            if (num <= 0)
+            {
+                ModelState.AddModelError("Credits", "Credits can't be 0 or less.");
+                return Bad(ModelState);
+            }
+            var code = _service.AddCredits(num, User.Identity.GetUserId<string>());
+            return Ok("/account/pay/"+ code);
+        }
+
+        [HttpPost]
         [Route("profile")]
         public HttpResponseMessage AddCompany(CompanyCreateViewModel model)
         {

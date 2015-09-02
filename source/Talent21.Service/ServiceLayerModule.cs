@@ -15,6 +15,7 @@ namespace Talent21.Service
             builder.RegisterType<ContractorService>().As<IContractorService>();
             builder.RegisterType<SystemService>().As<ISystemService>();
             builder.RegisterType<DemoDataService>().As<IDemoDataService>();
+            builder.RegisterType<SellingOptions>().AsSelf().SingleInstance();
             builder.RegisterType<JobService>().As<IJobService>();
             builder.RegisterType<CompanyService>().As<ICompanyService>().As<IFileAccessProvider>();
         }

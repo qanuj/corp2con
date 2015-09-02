@@ -43,9 +43,13 @@
         company.update = function (formData) {
             return $http.put(v + 'company/profile', formData);
         }
-
+        
         company.myJobs = function (page, pageSize) {
             return $http.get(v + 'company/job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+        }
+
+        company.transactions = function (page, pageSize) {
+            return $http.get(v + 'company/transaction?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }
 
         company.limitJobs = function (page, pageSize) {

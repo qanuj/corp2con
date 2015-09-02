@@ -41,5 +41,6 @@ namespace Talent21.Service.Abstraction
         IQueryable<CountLabel<int>> JobFolders(int id);
         IQueryable<CountLabel<int>> ContractorFolders();
         bool VisitContractor(int id, VisitViewModel model);
+        string AddCredits(int num,string userId);
      }
 }

@@ -6,9 +6,9 @@ namespace Talent21.Service
 {
     public class SellingOptions
     {
-        internal readonly string Key = "JBZaLc";
-        internal readonly string Salt = "GQs7yium";
-        internal readonly string PaymentUrl = "https://test.payu.in/_payment";
+        public readonly string Key = "JBZaLc";
+        public readonly string Salt = "GQs7yium";
+        public readonly string PaymentUrl = "https://test.payu.in/_payment";
         internal readonly int CreditPrice = 999;
         internal readonly int Validity = 30;
         internal readonly int RequirementCredit = 1;

@@ -134,6 +134,7 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="FileAccessInfo.cs" />
     <Compile Include="KeySecret.cs" />
+    <Compile Include="Models\PaymentReceiptViewModel.cs" />
     <Compile Include="OAuthWebConfigProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\DoNotReplyAte10EmailConfigProvider.cs" />

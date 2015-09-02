@@ -224,6 +224,7 @@
     <Compile Include="Repository\JobApplicationHistoryRespository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
+    <Compile Include="Repository\MemberRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
     <Compile Include="Repository\PlanRepository.cs" />
     <Compile Include="Repository\ScheduleRepository.cs" />

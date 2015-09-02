@@ -25,7 +25,7 @@ namespace Talent21.Data.Repository
         }
         public Transaction ByCode(string code)
         {
-            return All.FirstOrDefault(x => x.Code == code);
+            return All.Include(x=>x.User).FirstOrDefault(x => x.Code == code);
         }
 
         public int Balance(string id)
