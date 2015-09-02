@@ -22,6 +22,7 @@ namespace Talent21.Data
             CompanyRepository.Register(modelBuilder);
             JobRepository.Register(modelBuilder);
             ConversationRepository.Register(modelBuilder);
+            VisitRepository.Register(modelBuilder);
         }
     }
 }
