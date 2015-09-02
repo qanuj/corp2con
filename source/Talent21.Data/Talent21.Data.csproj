@@ -200,13 +200,9 @@
     <Compile Include="Migrations\201509011125360_Visits has Visitor Name.Designer.cs">
       <DependentUpon>201509011125360_Visits has Visitor Name.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509020618155_Move Payment to Shared.cs" />
-    <Compile Include="Migrations\201509020618155_Move Payment to Shared.Designer.cs">
-      <DependentUpon>201509020618155_Move Payment to Shared.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509020643324_Pay for Publishing Job.cs" />
-    <Compile Include="Migrations\201509020643324_Pay for Publishing Job.Designer.cs">
-      <DependentUpon>201509020643324_Pay for Publishing Job.cs</DependentUpon>
+    <Compile Include="Migrations\201509020655597_Transactions Into Single Table.cs" />
+    <Compile Include="Migrations\201509020655597_Transactions Into Single Table.Designer.cs">
+      <DependentUpon>201509020655597_Transactions Into Single Table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,11 +309,8 @@
     <EmbeddedResource Include="Migrations\201509011125360_Visits has Visitor Name.resx">
       <DependentUpon>201509011125360_Visits has Visitor Name.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020618155_Move Payment to Shared.resx">
-      <DependentUpon>201509020618155_Move Payment to Shared.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020643324_Pay for Publishing Job.resx">
-      <DependentUpon>201509020643324_Pay for Publishing Job.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509020655597_Transactions Into Single Table.resx">
+      <DependentUpon>201509020655597_Transactions Into Single Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

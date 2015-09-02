@@ -37,6 +37,12 @@ namespace Talent21.Data.Repository
         {
             return All.Where(x => x.IsSuccess).Where(x => x.UserId == id);
         }
+
+
+        public static void Register(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Transaction>().HasKey(x => x.Id);
+        }
     }
 
     /// <summary>

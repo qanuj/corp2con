@@ -16,6 +16,7 @@ namespace Talent21.Data
             base.OnModelCreating(modelBuilder);
             BlockRepository.Register(modelBuilder);
             CountryRepository.Register(modelBuilder);
+            TransactionRepository.Register(modelBuilder);
             ContractorRepository.Register(modelBuilder);
             ContractorFolderRepository.Register(modelBuilder);
             CompanyRepository.Register(modelBuilder);

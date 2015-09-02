@@ -7,13 +7,13 @@ namespace Talent21.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class MovePaymenttoShared : IMigrationMetadata
+    public sealed partial class TransactionsIntoSingleTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MovePaymenttoShared));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TransactionsIntoSingleTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509020618155_Move Payment to Shared"; }
+            get { return "201509020655597_Transactions Into Single Table"; }
         }
         
         string IMigrationMetadata.Source
