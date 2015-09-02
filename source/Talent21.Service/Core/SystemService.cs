@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using e10.Shared.Repository;
 using e10.Shared.Util;
 using Talent21.Data;
 using Talent21.Data.Core;

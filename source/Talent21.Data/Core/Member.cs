@@ -5,6 +5,7 @@ namespace Talent21.Data.Core
 {
     public abstract class Member : Person
     {
+        public IList<Subscription> Subscriptions { get; set; }
         public IList<Block> Blocked { get; set; }
 
         public string Profile { get; set; }

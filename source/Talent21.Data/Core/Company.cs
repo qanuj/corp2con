@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using e10.Shared.Data.Abstraction;
 
 namespace Talent21.Data.Core
 {
-
     public class Company : Member
     {
         public string CompanyName { get; set; }
@@ -21,11 +19,4 @@ namespace Talent21.Data.Core
         public IList<Job> Jobs { get; set; }
 
     }
-
-    public class JobTransaction : Transaction
-    {
-        public Job Job { get; set; }
-        public int JobId { get; set; }
-    }
-
 }

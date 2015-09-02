@@ -7,6 +7,8 @@ namespace e10.Shared.Data.Abstraction
 {
     public abstract class EfMyRepository<TEntity> : EfRepository<TEntity>, IMyRepository<TEntity> where TEntity : Entity
     {
+       
+
         protected EfMyRepository(DbContext db, IEventManager eventManager) : base(db, eventManager) { }
         public TEntity MyOne(string userId, int id)
         {

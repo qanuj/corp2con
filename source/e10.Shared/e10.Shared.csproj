@@ -104,7 +104,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Abstraction\Advertisement.cs" />
     <Compile Include="Data\Abstraction\Conversation.cs" />
     <Compile Include="Data\Abstraction\DataFunctions.cs" />
     <Compile Include="Data\Abstraction\DefaultEventManager.cs" />
@@ -128,15 +127,10 @@
     <Compile Include="Data\Abstraction\IRepository.cs" />
     <Compile Include="Data\Abstraction\ISoftDelete.cs" />
     <Compile Include="Data\Abstraction\IState.cs" />
-    <Compile Include="Data\Abstraction\OfflineTransaction.cs" />
-    <Compile Include="Data\Abstraction\PromotionEnum.cs" />
     <Compile Include="Data\Abstraction\Role.cs" />
     <Compile Include="Data\Abstraction\Social.cs" />
-    <Compile Include="Data\Abstraction\Subscription.cs" />
-    <Compile Include="Data\Abstraction\Transaction.cs" />
     <Compile Include="Data\Abstraction\User.cs" />
     <Compile Include="Data\Abstraction\UserRole.cs" />
-    <Compile Include="Data\Abstraction\Visit.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="FileAccessInfo.cs" />
     <Compile Include="KeySecret.cs" />
@@ -146,8 +140,6 @@
     <Compile Include="Providers\ElmahLogger.cs" />
     <Compile Include="Providers\IEmailConfigProvider.cs" />
     <Compile Include="Providers\NullLogger.cs" />
-    <Compile Include="Repository\PaymentRepository.cs" />
-    <Compile Include="Repository\TransactionRepository.cs" />
     <Compile Include="Security\ApplicationOAuthProvider.cs" />
     <Compile Include="Security\ApplicationRoleManager.cs" />
     <Compile Include="Security\ApplicationRoleStore.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -26,10 +25,6 @@ namespace e10.Shared.Data.Abstraction
         {
             UserName = userName;
         }
-
-
-        public IList<Transaction> Transactions { get; set; }
-        public IList<Subscription> Subscriptions { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoPoco.Configuration;
 using e10.Shared.Data.Abstraction;
-using e10.Shared.Repository;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;

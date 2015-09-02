@@ -1,4 +1,4 @@
-﻿namespace e10.Shared.Data.Abstraction
+﻿namespace Talent21.Data.Core
 {
     public enum PromotionEnum
     {

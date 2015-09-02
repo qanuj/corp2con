@@ -1,6 +1,7 @@
-﻿using System;
+using System;
+using e10.Shared.Data.Abstraction;
 
-namespace e10.Shared.Data.Abstraction
+namespace Talent21.Data.Core
 {
     public class Advertisement : Entity
     {

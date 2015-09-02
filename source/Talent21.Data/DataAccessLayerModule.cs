@@ -3,7 +3,6 @@ using Autofac;
 using e10.Shared;
 using e10.Shared.Data;
 using e10.Shared.Data.Abstraction;
-using e10.Shared.Repository;
 using Talent21.Data.Repository;
 
 namespace Talent21.Data
@@ -41,6 +40,7 @@ namespace Talent21.Data
             builder.RegisterType<ScheduleRepository>().As<IScheduleRepository>();
             builder.RegisterType<SkillRepository>().As<ISkillRepository>();
             builder.RegisterType<SubscriptionRepository>().As<ISubscriptionRepository>();
+            builder.RegisterType<TransactionRepository>().As<ITransactionRepository>();
             builder.RegisterType<CountryRepository>().As<ICountryRepository>();
 
             builder.RegisterType<ApplicationDataContext>().As<ApplicationDbContext>().As<DbContext>().InstancePerRequest();

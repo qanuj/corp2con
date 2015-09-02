@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDataContext.cs" />
+    <Compile Include="Core\Advertisement.cs" />
+    <Compile Include="Core\AdvertisementTransaction.cs" />
     <Compile Include="Core\Block.cs" />
     <Compile Include="Core\CompanyAdvertisement.cs" />
     <Compile Include="Core\Contractor.cs" />
@@ -95,18 +97,22 @@
     <Compile Include="Core\JobActionEnum.cs" />
     <Compile Include="Core\JobAdvertisement.cs" />
     <Compile Include="Core\JobApplication.cs" />
-    <Compile Include="Core\JobSkill.cs" />
     <Compile Include="Core\JobVisit.cs" />
     <Compile Include="Core\LevelEnum.cs" />
     <Compile Include="Core\Location.cs" />
     <Compile Include="Core\Member.cs" />
     <Compile Include="Core\OrganizationTypeEnum.cs" />
+    <Compile Include="Core\Payment.cs" />
     <Compile Include="Core\Person.cs" />
     <Compile Include="Core\Plan.cs" />
     <Compile Include="Core\ProficiencyEnum.cs" />
+    <Compile Include="Core\PromotionEnum.cs" />
     <Compile Include="Core\RateEnum.cs" />
     <Compile Include="Core\Schedule.cs" />
     <Compile Include="Core\Skill.cs" />
+    <Compile Include="Core\Subscription.cs" />
+    <Compile Include="Core\Transaction.cs" />
+    <Compile Include="Core\Visit.cs" />
     <Compile Include="DataAccessLayerModule.cs" />
     <Compile Include="Migrations\201506231104521_Init.cs" />
     <Compile Include="Migrations\201506231104521_Init.Designer.cs">
@@ -208,10 +214,12 @@
     <Compile Include="Repository\JobApplicationHistoryRespository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
+    <Compile Include="Repository\PaymentRepository.cs" />
     <Compile Include="Repository\PlanRepository.cs" />
     <Compile Include="Repository\ScheduleRepository.cs" />
     <Compile Include="Repository\SkillRepository.cs" />
     <Compile Include="Repository\SubscriptionRepository.cs" />
+    <Compile Include="Repository\TransactionRepository.cs" />
     <Compile Include="Repository\CompanyVisitRepository.cs" />
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\ContractScheduleRepository.cs" />
