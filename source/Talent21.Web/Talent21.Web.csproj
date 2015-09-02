@@ -287,6 +287,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -369,6 +370,8 @@
     <Content Include="App\template\js\waypoints.min.js" />
     <Content Include="App\views\admin\dashboard.html" />
     <Content Include="App\views\admin\dashboard.js" />
+    <Content Include="App\views\company\billing.html" />
+    <Content Include="App\views\company\billing.js" />
     <Content Include="App\views\contractor\company.html" />
     <Content Include="App\views\contractor\company.js" />
     <Content Include="App\views\company\contractor.html" />

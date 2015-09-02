@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using e10.Shared.Data;
 using Talent21.Data.Repository;
 
@@ -21,11 +16,13 @@ namespace Talent21.Data
             base.OnModelCreating(modelBuilder);
             BlockRepository.Register(modelBuilder);
             CountryRepository.Register(modelBuilder);
+            TransactionRepository.Register(modelBuilder);
             ContractorRepository.Register(modelBuilder);
             ContractorFolderRepository.Register(modelBuilder);
             CompanyRepository.Register(modelBuilder);
             JobRepository.Register(modelBuilder);
             ConversationRepository.Register(modelBuilder);
+            VisitRepository.Register(modelBuilder);
         }
     }
 }

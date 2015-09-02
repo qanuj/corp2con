@@ -31,7 +31,7 @@ namespace Talent21.Service.Core
                 //TODO:color coded jobs based on dates.
                 
                 var query = from job in _jobRepository.All
-                            where !job.IsCancelled && job.IsPublished
+                            where !job.IsCancelled && job.IsPublished && job.Expiry > DateTime.UtcNow && job.Expiry.HasValue
                             select new JobSearchResultViewModel
                             {
                                 CompanyId=job.CompanyId,

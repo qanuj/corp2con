@@ -12,6 +12,7 @@ namespace Talent21.Data.Core
         public IList<JobSkill> Skills { get; set; }
         public IList<JobVisit> Visits { get; set; }
         public IList<JobApplication> Applications { get; set; }
+        public IList<JobTransaction> Transactions { get; set; }
 
         public int Rate { get; set; } //in 10's thousand.
 
@@ -28,9 +29,9 @@ namespace Talent21.Data.Core
 
         public int Positions { get; set; }
 
-        public bool IsPublished
-        { get; set; }
+        public bool IsPublished { get; set; }
         public DateTime? Published { get; set; }
+        public DateTime? Expiry { get; set; }
 
         public IList<JobAdvertisement> Advertisements { get; set; }
     }

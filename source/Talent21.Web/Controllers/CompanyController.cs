@@ -50,6 +50,18 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpPost]
+        [ResponseType(typeof(RedirectViewModel))]
+        [Route("credits/{num}")]
+        public HttpResponseMessage AddCredits(int num)
+        {
+            if (num <= 0){
+                return Ok(new RedirectViewModel { IsError = true, Error = "Credits can't be 0 or less." });
+            }
+            var code = _service.AddCredits(num, User.Identity.GetUserId<string>());
+            return Ok(new RedirectViewModel { Url= "/pay/" + code});
+        }
+
+        [HttpPost]
         [Route("profile")]
         public HttpResponseMessage AddCompany(CompanyCreateViewModel model)
         {

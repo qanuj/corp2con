@@ -91,6 +91,10 @@
                 templateUrl: '/app/views/company/editProfile.html',
                 controller: 'companyEditProfileController'
             })
+            .when('/billing/:page?', {
+                templateUrl: '/app/views/company/billing.html',
+                controller: 'companyBillingController'
+            })
             .when('/job/new', {
                 templateUrl: '/app/views/company/editOrCreateJob.html',
                 controller: 'editOrCreateJobController'

@@ -39,4 +39,5 @@ namespace Talent21.Data.Repository
         IQueryable<ContractorVisit> Mine(string userId);
         bool VisitedEarlier(int id, string visitor);
     }
+
 }

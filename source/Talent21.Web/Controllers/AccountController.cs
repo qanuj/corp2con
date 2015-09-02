@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -10,9 +11,13 @@ using e10.Shared.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Talent21.Data.Core;
+using Talent21.Data.Repository;
+using Talent21.Service;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using Talent21.Web.Models;
+using Talent21.Web.Results;
 
 namespace Talent21.Web.Controllers
 {

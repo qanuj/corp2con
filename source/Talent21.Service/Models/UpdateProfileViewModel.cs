@@ -45,10 +45,18 @@ namespace Talent21.Service.Models
         public T Max { get; set; }
     }
 
+    public class RedirectViewModel
+    {
+        public bool IsError { get; set; }
+        public string Error { get; set; }
+        public string Url { get; set; }
+    }
+
     public class CompanyDashboardViewModel
     {
         public int Views { get; set; }
         public int Jobs { get; set; }
+        public int Credits { get; set; }
         public int Applications { get; set; }
         public int Contractors { get; set; }
         public CompanyAggregateReport Aggregate { get; set; }

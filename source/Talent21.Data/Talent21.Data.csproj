@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -97,6 +98,7 @@
     <Compile Include="Core\JobActionEnum.cs" />
     <Compile Include="Core\JobAdvertisement.cs" />
     <Compile Include="Core\JobApplication.cs" />
+    <Compile Include="Core\JobTransaction.cs" />
     <Compile Include="Core\JobVisit.cs" />
     <Compile Include="Core\LevelEnum.cs" />
     <Compile Include="Core\Location.cs" />
@@ -198,6 +200,14 @@
     <Compile Include="Migrations\201509011125360_Visits has Visitor Name.Designer.cs">
       <DependentUpon>201509011125360_Visits has Visitor Name.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509020655597_Transactions Into Single Table.cs" />
+    <Compile Include="Migrations\201509020655597_Transactions Into Single Table.Designer.cs">
+      <DependentUpon>201509020655597_Transactions Into Single Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509020705473_Visits Into Single Table.cs" />
+    <Compile Include="Migrations\201509020705473_Visits Into Single Table.Designer.cs">
+      <DependentUpon>201509020705473_Visits Into Single Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdvertisementRepository.cs" />
@@ -214,6 +224,7 @@
     <Compile Include="Repository\JobApplicationHistoryRespository.cs" />
     <Compile Include="Repository\JobSkillRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
+    <Compile Include="Repository\MemberRepository.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
     <Compile Include="Repository\PlanRepository.cs" />
     <Compile Include="Repository\ScheduleRepository.cs" />
@@ -227,6 +238,7 @@
     <Compile Include="Repository\JobApplicationRepository.cs" />
     <Compile Include="Repository\JobRepository.cs" />
     <Compile Include="Repository\JobVisitRepository.cs" />
+    <Compile Include="Repository\VisitRepository.cs" />
     <Compile Include="ViewModels\JobDuration.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +314,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509011125360_Visits has Visitor Name.resx">
       <DependentUpon>201509011125360_Visits has Visitor Name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509020655597_Transactions Into Single Table.resx">
+      <DependentUpon>201509020655597_Transactions Into Single Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509020705473_Visits Into Single Table.resx">
+      <DependentUpon>201509020705473_Visits Into Single Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

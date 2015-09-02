@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
@@ -8,6 +9,8 @@ using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using System.Linq;
 using e10.Shared;
+using e10.Shared.Providers;
+using Talent21.Data;
 
 namespace Talent21.Service.Core
 {
@@ -28,6 +31,7 @@ namespace Talent21.Service.Core
         private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IContractorFolderRepository _contractorFolderRepository;
         private readonly INotificationService _notificationService;
+        private readonly SellingOptions _sellingOptions;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
@@ -39,9 +43,9 @@ namespace Talent21.Service.Core
             IContractorSkillRepository contractorSkillRepository,
             ICompanyVisitRepository companyVisitRepository,
             ITransactionRepository transactionRepository,
-            IAdvertisementRepository advertisementRepository, 
+            IAdvertisementRepository advertisementRepository,
             IScheduleRepository scheduleRepository,
-            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository)
+            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository, SellingOptions sellingOptions)
             : base(locationRepository, transactionRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -57,6 +61,7 @@ namespace Talent21.Service.Core
             _contractorFolderRepository = contractorFolderRepository;
             _notificationService = notificationService;
             _contractorVisitRepository = contractorVisitRepository;
+            _sellingOptions = sellingOptions;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -288,7 +293,7 @@ namespace Talent21.Service.Core
 
         public JobViewModel Update(EditJobViewModel model)
         {
-            var entity = _jobRepository.MineFirst(CurrentUserId,model.Id);
+            var entity = _jobRepository.MineFirst(CurrentUserId, model.Id);
             if (entity == null) throw new Exception("Job Not Found");
 
             entity.Description = model.Description;
@@ -321,10 +326,27 @@ namespace Talent21.Service.Core
             var entity = _jobRepository.ById(model.Id);
             if (entity == null) return false;
 
+            var balance = _transactionRepository.Balance(CurrentUserId);
+            var price = 0 - _sellingOptions.RequirementCredit;
+            var amount = price * _sellingOptions.CreditPrice;
+
+            if (balance < price) throw new Exception("Not enough balance.");
+            _transactionRepository.Create(new JobTransaction
+            {
+                Name = entity.Title,
+                Credit = price,
+                Amount = amount,
+                IsSuccess = true,
+                Code = Transaction.GenerateTransactionId(),
+                UserId = CurrentUserId
+            });
+
             entity.IsPublished = true;
             entity.Published = DateTime.UtcNow;
+            entity.Expiry = DateTime.UtcNow.AddDays(_sellingOptions.Validity);
 
             var rowsAffested = _jobRepository.SaveChanges();
+
             return rowsAffested > 0;
         }
 
@@ -348,7 +370,7 @@ namespace Talent21.Service.Core
                 Job = new DictionaryEditViewModel { Id = x.JobId, Code = x.Job.Code, Title = x.Job.Title },
                 Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
                 Id = x.Id,
-                Folder=x.Folder,
+                Folder = x.Folder,
                 Contractor = new ContractorViewModel
                 {
                     Id = x.Contractor.Id,
@@ -394,7 +416,7 @@ namespace Talent21.Service.Core
 
             var rowsAffested = _jobApplicationRepository.SaveChanges();
 
-            _notificationService.ActOnApplication(entity,model.Act);
+            _notificationService.ActOnApplication(entity, model.Act);
 
             return rowsAffested > 0;
         }
@@ -470,14 +492,14 @@ namespace Talent21.Service.Core
             {
                 var query = from x in _contractorRepository.All
                             let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
-                            let days = DataFunctions.DiffDays2(DateTime.UtcNow,availableDay)
+                            let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
                             select new ContractorSearchResultViewModel
                             {
-                                Folders=x.Folders.Select(z=>new CompanyFolderViewModel{Folder=z.Folder,CompanyId=z.CompanyId}),
+                                Folders = x.Folders.Select(z => new CompanyFolderViewModel { Folder = z.Folder, CompanyId = z.CompanyId }),
                                 Id = x.Id,
                                 About = x.About,
                                 Email = x.Email,
-                                RateType=x.RateType,
+                                RateType = x.RateType,
                                 Nationality = x.Nationality,
                                 AlternateNumber = x.AlternateNumber,
                                 ConsultantType = x.ConsultantType,
@@ -485,7 +507,7 @@ namespace Talent21.Service.Core
                                 Gender = x.Gender,
                                 Profile = x.Profile,
                                 FunctionalArea = x.FunctionalArea.Title,
-                                Industry=x.Industry.Title,
+                                Industry = x.Industry.Title,
                                 FunctionalAreaId = x.FunctionalAreaId,
                                 ExperienceMonths = x.Experience.Months,
                                 ExperienceYears = x.Experience.Years,
@@ -506,7 +528,7 @@ namespace Talent21.Service.Core
                                 Rate = x.Rate,
                                 Availability = availableDay,
                                 Days = days,
-                                Available= days<=6 ? AvailableEnum.Now : days <= 14 ? AvailableEnum.NextWeek : days <= 30 ? AvailableEnum.NextMonth: AvailableEnum.Later,
+                                Available = days <= 6 ? AvailableEnum.Now : days <= 14 ? AvailableEnum.NextWeek : days <= 30 ? AvailableEnum.NextMonth : AvailableEnum.Later,
                                 Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
                                 {
                                     Id = y.Id,
@@ -577,9 +599,9 @@ namespace Talent21.Service.Core
             {
                 if (company != null)
                 {
-                    query = query.Where(x => x.Folders.Any(y => y.Folder == model.Folder && y.CompanyId== company.Id));
+                    query = query.Where(x => x.Folders.Any(y => y.Folder == model.Folder && y.CompanyId == company.Id));
                 }
-                
+
             }
             return query;
         }
@@ -617,10 +639,11 @@ namespace Talent21.Service.Core
                     Salary = aggregateReport.Salary,
                     Duration = aggregateReport.Duration,
                 },
+                Credits = _transactionRepository.Balance(userId),
                 Views = _companyVisitRepository.Mine(userId).Count(),
                 Applications = _jobApplicationRepository.Mine(userId).Count(x => x.History.Any(y => y.Act == JobActionEnum.Application) && x.History.All(y => y.Act != JobActionEnum.Rejected) && x.History.All(y => y.Act != JobActionEnum.Revoke)),
                 Contractors = _contractorRepository.MatchingCompanyJobs(userId).Count(),
-                Jobs = _jobRepository.Mine(userId).Count(x => x.IsPublished)
+                Jobs = _jobRepository.Mine(userId).Count(x => x.IsPublished && (!x.Expiry.HasValue || x.Expiry > DateTime.UtcNow))
             };
         }
         public void AddView(int id, string userAgent, string ipAddress)
@@ -658,22 +681,25 @@ namespace Talent21.Service.Core
             var entity = _jobRepository.ById(model.Id);
             if (entity == null) return false;
 
-            _advertisementRepository.Create(new JobAdvertisement()
+            var transaction = new AdvertisementTransaction
             {
-                JobId = entity.Id,
-                Start = DateTime.UtcNow,
-                End = DateTime.UtcNow.AddDays(30),
-                Promotion = model.Promotion,
-                Transaction = new AdvertisementTransaction
+                Amount = ((int)model.Promotion) * 10,
+                Credit = ((int)model.Promotion) * 100,
+                IsSuccess = true, //should come from PayU Money,
+                PaymentCapture = "Some Data of Payment Capture",
+                UserId = CurrentUserId,
+                Advertisement = new JobAdvertisement()
                 {
-                    Amount = ((int)model.Promotion) * 10,
-                    Credit = ((int)model.Promotion) * 100,
-                    IsSuccess = true, //should come from PayU Money,
-                    PaymentCapture = "Some Data of Payment Capture",
-                    UserId = CurrentUserId
-                },
-                Title = string.Format("Promoted Job ({1}) as {0}", model.Promotion, entity.Id)
-            });
+                    JobId = entity.Id,
+                    Start = DateTime.UtcNow,
+                    End = DateTime.UtcNow.AddDays(30),
+                    Promotion = model.Promotion,
+                    Title = string.Format("Promoted Job ({1}) as {0}", model.Promotion, entity.Id)
+                }
+            };
+
+            _advertisementRepository.Create(transaction.Advertisement);
+            _transactionRepository.Create(transaction);
 
             var rowsAffested = _advertisementRepository.SaveChanges();
             return rowsAffested > 0;
@@ -698,7 +724,7 @@ namespace Talent21.Service.Core
 
         public IQueryable<CountLabel<int>> JobFolders(int id)
         {
-            return Applications().Where(x => x.Job.Id == id).GroupBy(x=>x.Folder).Select(x => new CountLabel<int>() { Label = x.Key,Count = x.Count()});
+            return Applications().Where(x => x.Job.Id == id).GroupBy(x => x.Folder).Select(x => new CountLabel<int>() { Label = x.Key, Count = x.Count() });
         }
 
         public IQueryable<CountLabel<int>> ContractorFolders()
@@ -706,13 +732,13 @@ namespace Talent21.Service.Core
             return
                 _contractorFolderRepository.Mine(CurrentUserId)
                     .GroupBy(x => x.Folder)
-                    .Select(x => new CountLabel<int>() {Label = x.Key, Count = x.Count()});
+                    .Select(x => new CountLabel<int>() { Label = x.Key, Count = x.Count() });
         }
 
-        public bool VisitContractor(int id,VisitViewModel model)
+        public bool VisitContractor(int id, VisitViewModel model)
         {
             var company = FindCompany();
-            if (!_contractorVisitRepository.VisitedEarlier(id,company.CompanyName))
+            if (!_contractorVisitRepository.VisitedEarlier(id, company.CompanyName))
             {
                 _contractorVisitRepository.Create(new ContractorVisit
                 {
@@ -730,6 +756,19 @@ namespace Talent21.Service.Core
                 _contractorVisitRepository.SaveChanges();
             }
             return true;
+        }
+
+        public string AddCredits(int num, string userId)
+        {
+            var transction = new Payment {
+                Code = Transaction.GenerateTransactionId(),
+                UserId = userId, Name = string.Format("{0} Credits Purchased", num),
+                Credit = num,
+                Amount = (num * _sellingOptions.CreditPrice) };
+            _transactionRepository.Create(transction);
+            _transactionRepository.SaveChanges();
+
+            return transction.Code;
         }
     }
 }
