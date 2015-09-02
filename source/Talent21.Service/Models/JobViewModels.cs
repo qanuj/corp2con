@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using e10.Shared.Data.Abstraction;
 using Lucene.Net.Linq.Mapping;
 using Talent21.Data.Core;
 

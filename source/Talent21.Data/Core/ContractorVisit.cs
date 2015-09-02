@@ -1,4 +1,6 @@
-﻿namespace Talent21.Data.Core
+﻿using e10.Shared.Data.Abstraction;
+
+namespace Talent21.Data.Core
 {
     public class ContractorVisit : Visit
     {

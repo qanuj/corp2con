@@ -8,6 +8,7 @@ using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using System.Linq;
 using e10.Shared;
+using e10.Shared.Repository;
 
 namespace Talent21.Service.Core
 {
@@ -323,6 +324,10 @@ namespace Talent21.Service.Core
 
             entity.IsPublished = true;
             entity.Published = DateTime.UtcNow;
+
+            _transactionRepository.Create(new JobTransaction{
+                JobId   = entity.Id
+            });
 
             var rowsAffested = _jobRepository.SaveChanges();
             return rowsAffested > 0;

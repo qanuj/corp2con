@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using e10.Shared.Providers;
+using e10.Shared.Repository;
 using e10.Shared.Security;
 using Microsoft.Owin.Logging;
 
@@ -17,6 +18,7 @@ namespace e10.Shared
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<SendGridEmailService>().As<IIdentityEmailMessageService>().InstancePerRequest();
             builder.RegisterType<SmsService>().As<IIdentitySmsMessageService>().InstancePerRequest();
+            builder.RegisterType<TransactionRepository>().As<ITransactionRepository>().InstancePerRequest();
             builder.RegisterType<DoNotReplyAte10EmailConfigProvider>().As<IEmailConfigProvider>().InstancePerRequest();
             builder.RegisterType<ElmahLogger>().As<ILogger>().InstancePerRequest();
         }

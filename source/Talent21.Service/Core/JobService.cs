@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using e10.Shared.Data.Abstraction;
 using e10.Shared.Util;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
