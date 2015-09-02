@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using Microsoft.AspNet.Identity;
+using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 
@@ -26,7 +27,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("transaction")]
-        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
+        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
         {
             return Page(_service.Transactions(), options);
         }

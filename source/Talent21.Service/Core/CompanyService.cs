@@ -646,6 +646,7 @@ namespace Talent21.Service.Core
                 Jobs = _jobRepository.Mine(userId).Count(x => x.IsPublished && (!x.Expiry.HasValue || x.Expiry > DateTime.UtcNow))
             };
         }
+
         public void AddView(int id, string userAgent, string ipAddress)
         {
             _companyVisitRepository.Create(new CompanyVisit()

@@ -83,6 +83,10 @@
                 templateUrl: '/app/views/company/search.html',
                 controller: 'companySearchController'
             })
+            .when('/bench', {
+                templateUrl: '/app/views/company/bench.html',
+                controller: 'companyBenchController'
+            })
             .when('/profile', {
                 templateUrl: '/app/views/company/profile.html',
                 controller: 'companyProfileController'

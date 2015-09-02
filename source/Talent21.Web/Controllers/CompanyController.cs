@@ -34,6 +34,15 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [Route("balance")]
+        public int GetBalance()
+        {
+            var userId = User.Identity.GetUserId<string>();
+            return _service.GetBalance(userId);
+        }
+
+
+        [HttpGet]
         [Route("dashboard")]
         public CompanyDashboardViewModel GetDashboard()
         {
@@ -256,7 +265,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("transaction")]
-        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
+        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Transactions(), options);

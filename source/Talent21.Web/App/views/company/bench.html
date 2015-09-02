@@ -1,0 +1,73 @@
+﻿<section id="jobs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2><i class="fa fa-check shine"></i> {{title}} : <span class="highlight">{{records.length}}</span></h2>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" class="form-control input-xs" ng-model="people" />
+                    <span class="input-group-btn">
+                        <button ng-click="invite(people)" class="btn btn-success srch-btn-pad">Invite</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <cc-pager total-pages="pages" current-page="currentPage"
+                  page-action="navigate(pageNumber)">
+        </cc-pager>
+        <div class="row">
+            <div class="jobs">
+                <div ng-if="count < 1">
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Ooops! You got us..</strong>
+                        <p>
+                            We could not find one on your bench.
+                        </p>
+                        <p>
+                            <a class="btn btn-success" href="#/invite"><i class="fa fa-search"></i> Invite Some</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="item" href="#/contractor/{{row.id}}" ng-repeat="row in records">
+                    <div ng-if="row.featured" class="featured"></div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded" /></a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h5>
+                                <i class="fa fa-{{row.gender|lowercase}}"></i>
+                                <i ng-if="row.contractType=='WorkFromHome'" class="fa fa-home"></i>
+                                <i ng-if="row.contractType!='WorkFromHome'" class="fa fa-car"></i>
+                                <a href="#/contractor/{{row.id}}">{{row.firstName}} {{row.lastName}} <small>{{row.experienceYears}}.{{row.experienceMonths}} years</small></a>
+                            </h5>
+                            <p>
+                                {{row.about | limitTo: 200}} <a href="#/contractor/{{row.id}}" style="color: #14b1bb;">... View More</a>
+                            </p>
+                        </div>
+                        <div class="col-sm-1">
+                            <div ng-switcher class="pull-right" ng-model="row.selected"></div>
+                        </div>
+                    </div>
+                    <span class="point"><i class="fa fa-clock-o"></i>{{row.available}}</span>
+                    <span class="point"><i class="fa fa-user"></i>{{row.consultantType|uncamel}}</span>
+                    <span class="point"><i class="fa fa-industry"></i>{{row.industry}}</span>
+                    <span class="point"><i class="fa fa-map-marker"></i>{{row.functionalArea}}</span>
+                    <span class="point"><i class="fa fa-map-marker"></i>{{row.location}}</span>
+                    <span class="point"><i class="fa fa-inr"></i>{{row.rate}}k / {{row.rateType|lowercase}}</span>
+                    <span class="point" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
+                </div>
+            </div>
+            <cc-pager total-pages="pages" current-page="currentPage"
+                      page-action="navigate(pageNumber)">
+            </cc-pager>
+        </div>
+        <cc-pager total-pages="pages" current-page="currentPage"
+                  page-action="navigate(pageNumber)">
+        </cc-pager>
+    </div>
+</section>

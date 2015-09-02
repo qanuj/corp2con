@@ -14,6 +14,10 @@
         return $http.get(v + 'contractor/dashboard');
     }
 
+    contractor.balance = function () {
+        return $http.get(v + 'contractor/balance');
+    }
+
     contractor.all = function () {
         return $http.get(v + 'contractor/all');
     }

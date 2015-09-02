@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Talent21.Data.Core;
 using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
@@ -20,6 +21,6 @@ namespace Talent21.Service.Abstraction
         string Upgrade();
         EnumList Enums();
 
-        IQueryable<TransactionViewModel> Transactions();
+        IQueryable<Transaction> Transactions();
     }
 }

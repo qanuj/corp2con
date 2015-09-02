@@ -15,6 +15,9 @@
             return $http.get(v + 'company/dashboard');
         }
 
+        company.balance = function () {
+            return $http.get(v + 'company/balance');
+        }
         
         company.all = function () {
             return $http.get(v + 'company/all');
