@@ -4,49 +4,45 @@
     $scope.role = db.role;
     $scope.id = param.id;
 
+    $scope.reasons = ["Not Available", "No Reason"];
+
     db.contractor.jobById($scope.id).success(function (job) {
         $scope.record = job;
         for (var act in job.actions) {
             $scope.record.applicationId = job.actions[act].applicationId;//job application id;
-            if (job.actions[act].act == 'Application') {
-                $scope.record.isApplied = true;
-                $scope.record.applied = job.actions[act].created;
-            }
-            if (job.actions[act].act == 'Revoke') {
-                $scope.record.isApplied = false;
-                $scope.record.revoked = job.actions[act].created;
-            }
-            if (job.actions[act].act == 'Favorite') {
-                $scope.record.isFavorite = true;
-                $scope.record.favorite = job.actions[act].created;
-            }
+            $scope.record[job.actions[act].act.toLowerCase()] = job.actions[act].created;
         }
         db.contractor.visitJob(param.id);
     });
 
     $scope.revoke = function (record) {
         db.contractor.revoke(record.id).success(function (result) {
-            $scope.record.isApplied = false;
+            $scope.record.revoke = new Date();
         });
     }
 
     $scope.apply = function (record) {
         db.contractor.applyToJob(record.id).success(function (result) {
-            $scope.record.isApplied = true;
-            $scope.record.applied = new Date();
+            $scope.record.application = new Date();
+        });
+    }
+
+    $scope.decline = function (record, reason) {
+        if (!reason) return;//todo:show message;
+        db.contractor.declineToJob(record.id, reason).success(function (result) {
+            $scope.record.decline = new Date();
         });
     }
 
     $scope.favorite = function (record) {
         db.contractor.favorite(record.id).success(function (result) {
-            $scope.record.isFavorite = true;
             $scope.record.favorite = new Date();
         });
     }
 
     $scope.unfavorite = function (record) {
         db.contractor.unfavorite(record.id).success(function (result) {
-            $scope.record.isFavorite = false;
+            delete $scope.record.favorite;
         });
     }
 }]);

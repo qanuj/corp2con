@@ -1,0 +1,52 @@
+﻿<section id="jobs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h2>{{title}} <span class="highlight">{{count}}</span></h2>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-success" ng-click="add(10)">Add 10</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="jobs">
+                        <hot-table settings="ctrl.settings"
+                                   row-headers="ctrl.rowHeaders"
+                                   min-spare-rows="ctrl.minSpareRows"
+                                   datarows="ctrl.db.items"
+                                   height="300"
+                                   width="700">
+                            <hot-column data="id" title="'ID'"></hot-column>
+                            <hot-column data="name.first" title="'First Name'" type="'text'" read-only></hot-column>
+                            <hot-column data="name.last" title="'Last Name'" read-only></hot-column>
+                            <hot-column data="address" title="'Address'" width="150"></hot-column>
+                            <hot-column data="product.description" title="'Favorite food'" type="'autocomplete'">
+                                <hot-autocomplete datarows="description in product.options"></hot-autocomplete>
+                            </hot-column>
+                            <hot-column data="price" title="'Price'" type="'numeric'" width="80" format="'$ 0,0.00'"></hot-column>
+                            <hot-column data="isActive" title="'Is active'" type="'checkbox'" checked-template="'Yes'"
+                                        unchecked-template="'No'"></hot-column>
+                        </hot-table>
+
+
+                        <table class="table table-bordered table-condensed">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                            <tr ng-repeat="row in records">
+                                <td><input type="text" placeholder="Name" class="form-control" ng-model="row.name"/></td>
+                                <td><input type="email" placeholder="Email" class="form-control" ng-model="row.email"/></td>
+                            </tr>
+                        </table>
+                        <p class="text-right">
+                            <button ng-click="sendInvites(records)" class="btn btn-lg btn-success">{{save}}</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

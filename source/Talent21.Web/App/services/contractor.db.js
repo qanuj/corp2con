@@ -1,17 +1,21 @@
-﻿app.factory('contractorService', ['$http', '$q','db.util', function ($http, $q,util) {
+﻿app.factory('contractorService', ['$http', '$q', 'db.util', function ($http, $q, util) {
     var v = 'api/v1/';
 
-    var calculatePaging=util.calculatePaging;
+    var calculatePaging = util.calculatePaging;
     var orderBy = util.orderBy;
 
-    var contractor={};
+    var contractor = {};
 
     contractor.paged = function (page, pageSize) {
-        return $http.get(v + 'contractor/paged?$inlinecount=allpages' + calculatePaging(page,pageSize));
+        return $http.get(v + 'contractor/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
     contractor.dashboard = function () {
         return $http.get(v + 'contractor/dashboard');
+    }
+
+    contractor.balance = function () {
+        return $http.get(v + 'contractor/balance');
     }
 
     contractor.all = function () {
@@ -49,7 +53,7 @@
             });
         });
     }
-    
+
     contractor.jobById = function (id) {
         return $http.get(v + 'contractor/job/' + id);
     }
@@ -58,11 +62,15 @@
         return $http.post(v + 'contractor/job/' + id + '/apply');
     }
 
+    contractor.declineToJob = function (id,reason) {
+        return $http.post(v + 'contractor/job/decline', { applicationId: id, reason: reason });
+    }
+
     contractor.revoke = function (id) {
         return $http.post(v + 'contractor/job/' + id + '/revoke');
     }
-    
-    contractor.getJobApplications = function (jobId,page,pageSize) {
+
+    contractor.getJobApplications = function (jobId, page, pageSize) {
         return $http.get(v + 'contractor/job/application?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
@@ -78,13 +86,13 @@
         return $http.put(v + 'contractor/job/' + id + '/report');
     }
 
-    contractor.getFavorite = function (page,pageSize) {
+    contractor.getFavorite = function (page, pageSize) {
         return $http.get(v + 'contractor/job/favorite/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
     }
 
-     contractor.pagedSchedule = function (page, pageSize) {
-         return $http.get(v + 'contractor/schedule/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
-   }
+    contractor.pagedSchedule = function (page, pageSize) {
+        return $http.get(v + 'contractor/schedule/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+    }
 
     contractor.createSchedule = function (formData) {
         return $http.post(v + 'contractor/schedule', formData);
@@ -97,8 +105,8 @@
         return $http.delete(v + 'contractor/schedule/' + record.id);
     }
 
-    contractor.getSchedule = function (page,pageSize) {
-        return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page,pageSize));
+    contractor.getSchedule = function (page, pageSize) {
+        return $http.get(v + 'contractor/schedule/all?$orderby=Id desc' + calculatePaging(page, pageSize));
     }
 
 

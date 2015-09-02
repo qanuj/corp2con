@@ -31,15 +31,15 @@
                 templateUrl: '/app/views/contractor/favorite.html',
                 controller: 'contractorFavoriteController'
             })
-              .when('/job/:id', {
-                  templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
-                  controller: 'contractorJobController'
-              })
+            .when('/job/:id', {
+                templateUrl: '/app/views/contractor/job.html', //only for jobs about page.
+                controller: 'contractorJobController'
+            })
             .when('/job/application/favorite/:id', {
                 templateUrl: '/app/views/contractor/favouritejobs.html',
                 controller: 'contractorApplicationController'
             })
-          
+
              .when('/company/:id', {
                  templateUrl: '/app/views/contractor/company.html',
                  controller: 'contractorCompanyProfileController'
@@ -82,6 +82,14 @@
             .when('/search/:folder?', {
                 templateUrl: '/app/views/company/search.html',
                 controller: 'companySearchController'
+            })
+            .when('/bench', {
+                templateUrl: '/app/views/company/bench.html',
+                controller: 'companyBenchController'
+            })
+            .when('/invite', {
+                templateUrl: '/app/views/company/invite.html',
+                controller: 'companyInviteController'
             })
             .when('/profile', {
                 templateUrl: '/app/views/company/profile.html',

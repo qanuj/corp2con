@@ -217,8 +217,14 @@ namespace Talent21.Service.Core
 
         public ContractorEditViewModel Create(ContractorCreateViewModel model)
         {
+            return Create(model, null);
+        }
+
+        public ContractorEditViewModel Create(ContractorCreateViewModel model,int? companyId)
+        {
             var entity = new Contractor
             {
+                CompanyId = companyId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 OwnerId = model.OwnerId,
@@ -472,7 +478,7 @@ namespace Talent21.Service.Core
 
             if (entity.History.All(x => x.Act != model.Act))
             {
-                entity.History.Add(new JobApplicationHistory { Act = model.Act, CreatedBy = CurrentUserId });
+                entity.History.Add(new JobApplicationHistory { Act = model.Act, CreatedBy = CurrentUserId, Notes = model.Notes});
 
                 var rowsAffested = _jobApplicationRepository.SaveChanges();
 
@@ -489,6 +495,12 @@ namespace Talent21.Service.Core
         {
             return ActOnApplication(new CompanyActJobApplicationViewModel(model, act));
         }
+
+        public bool Decline(JobDeclineViewModel model)
+        {
+            return ActOnApplication(new CompanyActJobApplicationViewModel { Act = JobActionEnum.Decline, Notes = model.Reason, Id = model.JobId});
+        }
+
 
         public JobApplicationViewModel Apply(JobApplicationCreateViewModel model)
         {

@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using e10.Shared.Data;
+using e10.Shared.Respository;
 using Talent21.Data.Repository;
 
 namespace Talent21.Data
@@ -23,6 +24,7 @@ namespace Talent21.Data
             JobRepository.Register(modelBuilder);
             ConversationRepository.Register(modelBuilder);
             VisitRepository.Register(modelBuilder);
+            InviteRepository.Register(modelBuilder);
         }
     }
 }

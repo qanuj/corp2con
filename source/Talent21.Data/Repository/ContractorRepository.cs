@@ -23,7 +23,7 @@ namespace Talent21.Data.Repository
 
         public override IQueryable<Contractor> All
         {
-            get { return base.All.Include(x => x.Location).Include(x => x.Skills.Select(y=>y.Skill)); }
+            get { return base.All.Include(x => x.Location).Include(x => x.Company).Include(x => x.Skills.Select(y=>y.Skill)); }
         }
 
         internal static void Register(DbModelBuilder modelBuilder)

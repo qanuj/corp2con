@@ -24,6 +24,24 @@ namespace Talent21.Service.Models
         public int CompanyId { get; set; }
     }
 
+    public class InviteViewModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+
+    public class InviteCodeViewModel: InviteViewModel
+    {
+        public InviteCodeViewModel() { }
+        public InviteCodeViewModel(InviteViewModel invite)
+        {
+            this.Name = invite.Name;
+            this.Email = invite.Email;
+        }
+        public string Code { get; set; }
+        public int? CompanyId { get; set; }
+    }
+
     public class CreateJobViewModel : DictionaryViewModel
     {
         public string Description { get; set; }
@@ -53,14 +71,12 @@ namespace Talent21.Service.Models
 
     public class ContractorSearchResultViewModel : ContractorViewModel
     {
-        [Field("text", Store = StoreMode.No)]
-        public string SearchText
-        {
-            get { return string.Join(" ", new[] { FirstName, LastName, Mobile, Location, About }); }
-        }
         public DateTime Availability { get; set; }
         public int? Days { get; set; }
         public AvailableEnum Available { get; set; }
+
+        public int? CompanyId { get; set; }
+        public string Company { get; set; }
     }
 
     public class JobSearchResultViewModel
@@ -143,6 +159,8 @@ namespace Talent21.Service.Models
         {
             get { return Locations.FirstOrDefault(); }
         }
+
+        public DateTime? Expiry { get; set; }
     }
 
     public class DeleteJobViewModel : IdModel { }

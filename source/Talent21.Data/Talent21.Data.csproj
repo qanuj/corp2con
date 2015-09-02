@@ -208,6 +208,10 @@
     <Compile Include="Migrations\201509020705473_Visits Into Single Table.Designer.cs">
       <DependentUpon>201509020705473_Visits Into Single Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509021254147_Invites Added.cs" />
+    <Compile Include="Migrations\201509021254147_Invites Added.Designer.cs">
+      <DependentUpon>201509021254147_Invites Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdvertisementRepository.cs" />
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509020705473_Visits Into Single Table.resx">
       <DependentUpon>201509020705473_Visits Into Single Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509021254147_Invites Added.resx">
+      <DependentUpon>201509021254147_Invites Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

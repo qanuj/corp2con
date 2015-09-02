@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using e10.Shared.Util;
 using Talent21.Data;
 using Talent21.Data.Core;
@@ -316,19 +317,9 @@ namespace Talent21.Service.Core
             return vals;
         }
 
-        public IQueryable<TransactionViewModel> Transactions()
+        public IQueryable<Transaction> Transactions()
         {
-            return _transactionRepository.All.Select(x=> new TransactionViewModel
-            {
-                Id = x.Id,
-                Amount = x.Amount,
-                Credit = x.Credit,
-                Code = x.Code,
-                IsSuccess = x.IsSuccess,
-                PaymentCapture = x.PaymentCapture,
-                Reason = x.Reason,
-                Created = x.Created
-            });
+            return _transactionRepository.All;
         }
     }
 }

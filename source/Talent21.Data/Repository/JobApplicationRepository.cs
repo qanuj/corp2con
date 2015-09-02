@@ -50,7 +50,8 @@ namespace Talent21.Data.Repository
                 .Include(x => x.History)
                 .Include(x => x.Contractor)
                 .Include(x => x.Contractor.Location)
-                .Include(x => x.Job).Where(x => x.Contractor.OwnerId == userId);
+                .Include(x => x.Job.Company)
+                .Where(x => x.Contractor.OwnerId == userId);
         }
 
         public Task<JobApplication> ContractorAsync(string userId, string profilepath)
@@ -59,13 +60,22 @@ namespace Talent21.Data.Repository
                 .FirstOrDefaultAsync(x => x.Contractor.OwnerId == userId && x.Contractor.ProfileUrl.EndsWith(profilepath));
         }
 
-        public JobApplication ByJobId(int id,string userId)
+        public JobApplication ByJobId(int id, string userId)
         {
             return base.All
                 .Include(x => x.History)
                 .Include(x => x.Contractor)
                 .Include(x => x.Contractor.Location)
-                .FirstOrDefault(x => x.JobId == id && x.Contractor.OwnerId==userId);
+                .FirstOrDefault(x => x.JobId == id && x.Contractor.OwnerId == userId);
+        }
+
+        public JobApplication ByJobId(int id, int contractorId)
+        {
+            return base.All
+                .Include(x => x.History)
+                .Include(x => x.Contractor)
+                .Include(x => x.Contractor.Location)
+                .FirstOrDefault(x => x.JobId == id && x.ContractorId == contractorId);
         }
     }
 
@@ -76,5 +86,6 @@ namespace Talent21.Data.Repository
         IQueryable<JobApplication> Contractor(string userId);
         Task<JobApplication> ContractorAsync(string userId, string profilepath);
         JobApplication ByJobId(int id, string userId);
+        JobApplication ByJobId(int id, int contractorId);
     }
 }

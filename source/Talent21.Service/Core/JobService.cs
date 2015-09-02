@@ -28,10 +28,8 @@ namespace Talent21.Service.Core
         {
             get
             {
-                //TODO:color coded jobs based on dates.
-                
                 var query = from job in _jobRepository.All
-                            where !job.IsCancelled && job.IsPublished && job.Expiry > DateTime.UtcNow && job.Expiry.HasValue
+                            where !job.IsCancelled && job.IsPublished && (job.Expiry > DateTime.UtcNow || !job.Expiry.HasValue)
                             select new JobSearchResultViewModel
                             {
                                 CompanyId=job.CompanyId,
@@ -90,11 +88,15 @@ namespace Talent21.Service.Core
             }
             if (!string.IsNullOrWhiteSpace(model.Keywords))
             {
-                query = query.Where(x => x.Title.Contains(model.Keywords));
+                query = query.Where(x =>
+                    x.Title.Contains(model.Keywords) ||
+                    x.Description.Contains(model.Keywords) ||
+                    x.Company.Contains(model.Keywords) ||
+                    x.About.Contains(model.Keywords)
+                );
             }
             if (!string.IsNullOrWhiteSpace(model.Skills))
             {
-                //TODO: AND OR LOGIC
                 var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
             }

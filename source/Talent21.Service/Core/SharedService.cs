@@ -20,21 +20,18 @@ namespace Talent21.Service.Core
             _transactionRepository = transactionRepository;
         }
 
-        public IQueryable<TransactionViewModel> Transactions()
-        {
-            return _transactionRepository.All.Where(x=>x.UserId==CurrentUserId).Select(x=> new TransactionViewModel
-            {
-                Id=x.Id,
-                Amount = x.Amount,
-                Credit = x.Credit,
-                Code = x.Code,
-                IsSuccess = x.IsSuccess,
-                PaymentCapture = x.PaymentCapture,
-                Reason = x.Reason,
-                Created = x.Created
-            });
-        } 
 
+        public int GetBalance(string userId)
+        {
+            return _transactionRepository.Balance(userId);
+        }
+
+
+        public IQueryable<Transaction> Transactions()
+        {
+            return _transactionRepository.All.Where(x => x.UserId == CurrentUserId && x.IsSuccess);
+        }
+        
         protected Location FindLocation(string address,int locationId)
         {
             var location = string.IsNullOrWhiteSpace(address) ? _locationRepository.ById(locationId) : _locationRepository.ByTitle(address);

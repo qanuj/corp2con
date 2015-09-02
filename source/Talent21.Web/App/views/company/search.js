@@ -79,6 +79,13 @@
         $scope.functionals = result;
     });
 
+    db.company.getActiveJobs().success(function (result) {
+        $scope.jobs = result;
+        if (result.length > 0) {
+            $scope.job = result[0];
+        }
+    });
+
     $scope.experienceTranslate = function (value) {
         if (value == 0) return 'Fresher';
         var years = Math.floor(value / 12);
@@ -113,8 +120,9 @@
     $scope.move = function (folder) {
         var i = 0;
         function moveFolder(x, folder, next) {
-            if (!$scope.records[x]) {
+            if(!$scope.records[x]) {
                 $scope.save = "Save";
+                $scope.navigate($scope.currentPage);
                 return;
             }
             $scope.save = (x + 1);
@@ -126,6 +134,25 @@
             moveFolder(++i, folder, onNext);
         }
         moveFolder(i, folder, onNext);
+    }
+
+
+    $scope.invite = function (job) {
+        var i = 0;
+        function inviteToJob(x, job, next) {
+            if (!$scope.records[x]) {
+                $scope.navigate($scope.currentPage);
+                return;
+            }
+            $scope.save = (x + 1);
+            if ($scope.records[x].selected == true) {
+                db.company.inviteToJob($scope.records[x].id, job.id).success(next);
+            } else next();
+        }
+        function onNext() {
+            inviteToJob(++i, job, onNext);
+        }
+        inviteToJob(i, job, onNext);
     }
 
     $scope.$on("slideEnded", function () {

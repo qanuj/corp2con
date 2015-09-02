@@ -77,24 +77,19 @@
                     <form ng-submit="search(query)">
                         <div class="row">
                             <div class="col-xs-12">
-                                <h5>Skill</h5>
-                                <select class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
-                            </div>
-                            <div class="col-xs-12">
-                                <h5>Location</h5>
-                                <select class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
-                            </div>
-                            <div class="col-xs-12">
                                 <h5>Keyword</h5>
                                 <div class="input-group">
                                     <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
                                     <div class="input-group-btn"><button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-xs-12">
-                                <hr>
+                                <h5>Skill</h5>
+                                <select class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
+                            </div>
+                            <div class="col-xs-12">
+                                <h5>Location</h5>
+                                <select class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
                             </div>
                         </div>
                         <div class="row">

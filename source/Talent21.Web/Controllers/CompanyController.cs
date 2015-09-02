@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
@@ -32,6 +33,15 @@ namespace Talent21.Web.Controllers
             var userId = User.Identity.GetUserId<string>();
             return _service.GetProfile(userId);
         }
+
+        [HttpGet]
+        [Route("balance")]
+        public int GetBalance()
+        {
+            var userId = User.Identity.GetUserId<string>();
+            return _service.GetBalance(userId);
+        }
+
 
         [HttpGet]
         [Route("dashboard")]
@@ -99,6 +109,15 @@ namespace Talent21.Web.Controllers
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Jobs;
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [Route("job/active")]
+        public IQueryable<IdLabel<int>> ViewActiveJobsQuery()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.ActiveJobs;
         }
 
         [HttpGet]
@@ -203,6 +222,14 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [Route("bench/folders")]
+        public IQueryable<CountLabel<int>> GetFoldersForBench()
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return _service.ContractorFolders();
+        }
+
+        [HttpGet]
         [Route("job/{id}/applications/all")]
         [EnableQuery]
         public IQueryable<JobApplicationViewModel> ViewJobsQuery(int id)
@@ -254,9 +281,25 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.AddContractorToFolder(new FolderMoveViewModel { Folder = folder, Id = id })) : Bad(ModelState);
         }
 
+        [HttpPut]
+        [Route("contractor/invite")]
+        public HttpResponseMessage AddContractorToFolder(JobInviteViewModel model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.InviteContractorToJob(model)) : Bad(ModelState);
+        }
+
+        [HttpPut]
+        [Route("bench/invite")]
+        public HttpResponseMessage InviteBench(IList<InviteViewModel> model)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return ModelState.IsValid ? Ok(_service.InvitePeople(model)) : Bad(ModelState);
+        }
+
         [HttpGet]
         [Route("transaction")]
-        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
+        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Transactions(), options);
@@ -270,6 +313,14 @@ namespace Talent21.Web.Controllers
         {
             _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Search(model), options);
+        }
+
+        [HttpPost]
+        [Route("bench")]
+        public PageResult<ContractorSearchResultViewModel> GetContractorsBench(SearchQueryViewModel model, ODataQueryOptions<ContractorSearchResultViewModel> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Bench(model), options);
         }
 
         [HttpGet]

@@ -93,3 +93,7 @@
     font-weight: bold;
     font-size: 1.2em;
 }
+hr.q {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -110,6 +110,9 @@ namespace Talent21.Web.Models
 
         [Required]
         public string What { get; set; }
+
+        internal int? CompanyId { get; set; }
+        internal bool ResetPassword { get; set; }
     }
 
     public class ResetPasswordViewModel
