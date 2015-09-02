@@ -7,6 +7,17 @@
             $scope.records = result.items;
         });
     }
+
+    $scope.addCredits=function(credits) {
+        if (credits <= 0) return;
+        db.company.addCredits(credits).success(function (result) {
+            if (result.isError) {
+                $scope.error = result.error;
+                return;
+            }
+            window.location = result.url;
+        });
+    }
     $scope.navigate($routeParams.page);
 }]);
 

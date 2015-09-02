@@ -29,13 +29,14 @@ namespace Talent21.Web.Controllers
         }
 
 
-        [Authorize, Route("~/pay/return"), RequireHttps]
+        [Authorize, Route("~/pay/return")]
         public ActionResult Paid(PaymentReceiptViewModel model)
         {
-            const string hashSeq = "key|txnid|amount|productinfo|firstname|lastname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9";
+            const string hashSeq = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
 
             var transaction = _transactionRepository.ByCode(model.txnid);
-            if (transaction == null){
+            if (transaction == null)
+            {
                 throw new Exception(string.Format("No such transaction found '{0}'", model.txnid));
             }
 
@@ -47,7 +48,6 @@ namespace Talent21.Web.Controllers
                 model.productinfo,
                 model.key,
                 model.firstname,
-                model.lastname,
                 model.email,
                 model.udf1,
                 model.udf2,
@@ -57,7 +57,8 @@ namespace Talent21.Web.Controllers
                 model.udf6,
                 model.udf7,
                 model.udf8,
-                model.udf9
+                model.udf9,
+                model.udf10
             });
 
             var mercHashVarsSeq = hashSeq.Split('|');
@@ -78,22 +79,14 @@ namespace Talent21.Web.Controllers
 
         }
 
-        [Authorize, Route("~/pay/{code}"), RequireHttps, HttpPost]
+        [Authorize, Route("~/pay/{code}")]
         public ActionResult Pay(string code)
         {
             var transction = _transactionRepository.ByCode(code);
             var usr = _memberRepository.ByUserId(transction.UserId);
 
             var amount = transction.Amount.ToString(CultureInfo.InvariantCulture);
-            var hashString = _sellingOptions.Key + "|" 
-                + transction.Code + "|" 
-                + amount + "|" + transction.Name 
-                + "|" + usr.FirstName
-                + "|" + usr.LastName
-                + "|" + usr.Email
-                + "||||||||||" 
-                + _sellingOptions.Salt;
-
+            var hashString = _sellingOptions.Key + "|" + transction.Code + "|" + amount + "|" + transction.Name + "|" + usr.FirstName + "|" + usr.Email + "|||||||||||" + _sellingOptions.Salt;
             var opt = new NameValueCollection
             {
                 {"key", _sellingOptions.Key},
@@ -101,7 +94,6 @@ namespace Talent21.Web.Controllers
                 {"amount", amount},
                 {"productinfo", transction.Name},
                 {"firstname", usr.FirstName},
-                {"lastname", usr.LastName},
                 {"phone", usr.Mobile},
                 {"email", usr.Email},
                 {"surl", Url.Action("Paid","Payment",new {},Request.Url.Scheme)},

@@ -14,7 +14,6 @@ namespace e10.Shared.Models
         public string productinfo { get; set; }
         public string key { get; set; }
         public string firstname { get; set; }
-        public string lastname { get; set; }
         public string email { get; set; }
         public string udf1 { get; set; }
         public string udf2 { get; set; }
@@ -25,5 +24,6 @@ namespace e10.Shared.Models
         public string udf7 { get; set; }
         public string udf8 { get; set; }
         public string udf9 { get; set; }
+        public string udf10 { get; set; }
     }
 }

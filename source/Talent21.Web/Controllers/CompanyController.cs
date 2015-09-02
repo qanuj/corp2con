@@ -50,17 +50,15 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpPost]
-        [ResponseType(typeof(JobViewModel))]
+        [ResponseType(typeof(RedirectViewModel))]
         [Route("credits/{num}")]
         public HttpResponseMessage AddCredits(int num)
         {
-            if (num <= 0)
-            {
-                ModelState.AddModelError("Credits", "Credits can't be 0 or less.");
-                return Bad(ModelState);
+            if (num <= 0){
+                return Ok(new RedirectViewModel { IsError = true, Error = "Credits can't be 0 or less." });
             }
             var code = _service.AddCredits(num, User.Identity.GetUserId<string>());
-            return Ok("/account/pay/"+ code);
+            return Ok(new RedirectViewModel { Url= "/pay/" + code});
         }
 
         [HttpPost]

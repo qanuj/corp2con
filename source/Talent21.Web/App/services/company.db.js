@@ -47,9 +47,13 @@
         company.myJobs = function (page, pageSize) {
             return $http.get(v + 'company/job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }
-
+        
         company.transactions = function (page, pageSize) {
             return $http.get(v + 'company/transaction?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+        }
+
+        company.addCredits = function (credits) {
+            return $http.post(v + 'company/credits/'+credits);
         }
 
         company.limitJobs = function (page, pageSize) {
