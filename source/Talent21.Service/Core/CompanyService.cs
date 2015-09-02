@@ -10,6 +10,7 @@ using Talent21.Service.Models;
 using System.Linq;
 using e10.Shared;
 using e10.Shared.Providers;
+using e10.Shared.Respository;
 using Talent21.Data;
 
 namespace Talent21.Service.Core
@@ -25,6 +26,7 @@ namespace Talent21.Service.Core
         private readonly IJobSkillRepository _jobSkillRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IScheduleRepository _scheduleRepository;
+        private readonly IInviteRepository _inviteRepository;
 
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly ISkillRepository _skillRepository;
@@ -45,7 +47,7 @@ namespace Talent21.Service.Core
             ITransactionRepository transactionRepository,
             IAdvertisementRepository advertisementRepository,
             IScheduleRepository scheduleRepository,
-            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository, SellingOptions sellingOptions)
+            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository, SellingOptions sellingOptions, IInviteRepository inviteRepository)
             : base(locationRepository, transactionRepository)
         {
             _jobSkillRepository = jobSkillRepository;
@@ -62,6 +64,7 @@ namespace Talent21.Service.Core
             _notificationService = notificationService;
             _contractorVisitRepository = contractorVisitRepository;
             _sellingOptions = sellingOptions;
+            _inviteRepository = inviteRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -495,6 +498,8 @@ namespace Talent21.Service.Core
                             let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
                             select new ContractorSearchResultViewModel
                             {
+                                Company = x.Company!=null ? x.Company.CompanyName: "",
+                                CompanyId = x.CompanyId,
                                 Folders = x.Folders.Select(z => new CompanyFolderViewModel { Folder = z.Folder, CompanyId = z.CompanyId }),
                                 Id = x.Id,
                                 About = x.About,
@@ -555,10 +560,20 @@ namespace Talent21.Service.Core
             };
         }
 
+        public IQueryable<ContractorSearchResultViewModel> Bench(SearchQueryViewModel model)
+        {
+            var company = FindCompany();
+            return Search(model, company).Where(x => x.CompanyId == company.Id);
+        }
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model)
         {
             var company = FindCompany();
+            return Search(model, company);
+        }
+
+        public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model,Company company)
+        {
             var query = Contractors;
             //Rules of searching.
             if (!string.IsNullOrWhiteSpace(model.Location))
@@ -736,6 +751,16 @@ namespace Talent21.Service.Core
                     .Select(x => new CountLabel<int>() { Label = x.Key, Count = x.Count() });
         }
 
+        public IQueryable<CountLabel<int>> BenchFolders()
+        {
+            var company = FindCompany();
+            return
+                _contractorFolderRepository.Mine(CurrentUserId)
+                    .Where(x=>x.Contractor.CompanyId == company.Id)
+                    .GroupBy(x => x.Folder)
+                    .Select(x => new CountLabel<int>() { Label = x.Key, Count = x.Count() });
+        }
+
         public bool VisitContractor(int id, VisitViewModel model)
         {
             var company = FindCompany();
@@ -770,6 +795,53 @@ namespace Talent21.Service.Core
             _transactionRepository.SaveChanges();
 
             return transction.Code;
+        }
+
+        public bool InvitePeople(IList<InviteViewModel> model)
+        {
+            var company = FindCompany();
+            var invitees = new List<InviteCodeViewModel>();
+            foreach (var invite in model)
+            {
+                if (!string.IsNullOrWhiteSpace(invite.Email) 
+                    && !string.IsNullOrWhiteSpace(invite.Name)
+                    && invitees.All(x => x.Email != invite.Email)
+                    && _inviteRepository.All.OfType<BenchInvite>().All(x => x.Email != invite.Email && x.CompanyId==company.Id))
+                {
+                    var invitee = new BenchInvite
+                    {
+                        Code = Guid.NewGuid().ToString().ToLower(),
+                        Email = invite.Email,
+                        Name = invite.Email,
+                        CompanyId = company.Id
+                    };
+                    _inviteRepository.Create(invitee);
+                    invitees.Add(new InviteCodeViewModel(invite) { Code = invitee.Code });
+                }
+            }
+            _inviteRepository.SaveChanges();
+            _notificationService.Invite(invitees, company.CompanyName);
+            return true;
+        }
+
+        public InviteCodeViewModel AcceptInvitation(string code)
+        {
+            var invite = _inviteRepository.ByCode(code);
+            if (invite == null || invite.IsCompleted) return null;
+            invite.IsCompleted = true;
+            invite.Completed = DateTime.UtcNow;
+            _inviteRepository.Update(invite);
+            _inviteRepository.SaveChanges();
+
+            var benchInvite = invite as BenchInvite;
+
+            return new InviteCodeViewModel
+            {
+                Email = invite.Email,
+                Name = invite.Name,
+                Code = invite.Code,
+                CompanyId = benchInvite == null ? (int?)null : benchInvite.CompanyId
+            };
         }
     }
 }

@@ -6,13 +6,21 @@
         var orderBy = util.orderBy;
 
         var company = {};
-
+        
         company.paged = function (page, pageSize) {
             return $http.get(v + 'company/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
         }
 
+        company.bench = function (query, page, pageSize, order) {
+            return $http.post(v + 'company/bench?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query);
+        }
+
         company.dashboard = function () {
             return $http.get(v + 'company/dashboard');
+        }
+
+        company.sendInvites  = function (rows) {
+            return $http.put(v + 'company/bench/invite', rows);
         }
 
         company.balance = function () {
@@ -94,9 +102,13 @@
         company.getFolders = function (jobId) {
             return $http.get(v + 'company/job/' + jobId + '/folders');
         }
-
+        
         company.getSearchFolders = function () {
             return $http.get(v + 'company/contractor/folders');
+        }
+
+        company.getBenchFolders = function () {
+            return $http.get(v + 'company/bench/folders');
         }
 
         return company;

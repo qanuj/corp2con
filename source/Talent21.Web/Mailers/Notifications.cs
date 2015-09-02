@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Mvc.Mailer;
 using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
+using Talent21.Service.Models;
+using System.Threading.Tasks;
 
 namespace Talent21.Web.Mailers
 {
@@ -21,23 +23,23 @@ namespace Talent21.Web.Mailers
             MasterName = "_Layout";
         }
 
-        private void Send(MvcMailMessage msg,string to)
+        private void Send(MvcMailMessage msg, string to)
         {
             _emailService.SendAsync(new IdentityMessage()
             {
                 Subject = msg.Subject,
-                Destination =  to,
+                Destination = to,
                 Body = msg.Body
             });
         }
 
-        public void Welcome(string toEmail, string url,string role)
+        public void Welcome(string toEmail, string url, string role)
         {
             var mvcMailMessage = new MvcMailMessage { Subject = "Welcome  to " + Product.Name };
             ViewBag.Url = url;
             ViewBag.UserName = toEmail;
             ViewBag.Email = toEmail;
-            PopulateBody(mvcMailMessage,string.Format("{0}.Welcome", role));
+            PopulateBody(mvcMailMessage, string.Format("{0}.Welcome", role));
             Send(mvcMailMessage, toEmail);
         }
 
@@ -48,8 +50,8 @@ namespace Talent21.Web.Mailers
             ViewBag.UserName = toEmail;
 
             ViewBag.Email = toEmail;
-            PopulateBody(mvcMailMessage,"PasswordRecovery");
-            Send(mvcMailMessage,toEmail);
+            PopulateBody(mvcMailMessage, "PasswordRecovery");
+            Send(mvcMailMessage, toEmail);
         }
 
         public void ActOnApplication(JobApplication jobApplication, JobActionEnum act)
@@ -69,6 +71,19 @@ namespace Talent21.Web.Mailers
             PopulateBody(msg2, "Company." + act);
             Send(msg2, jobApplication.Job.Company.Email);
 
+        }
+
+        public void Invite(IEnumerable<InviteCodeViewModel> invitees, string by)
+        {
+            Parallel.ForEach(invitees, inx =>
+            {
+                var msg2 = new MvcMailMessage { Subject = string.Format("{0} has invited you to {1}", by, Product.Name) };
+                ViewBag.By = by;
+                ViewBag.Email = inx.Email;
+                ViewBag.Invite = inx;
+                PopulateBody(msg2, "Invite");
+                Send(msg2, inx.Email);
+            });
         }
     }
 }

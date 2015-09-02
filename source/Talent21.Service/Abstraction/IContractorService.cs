@@ -8,6 +8,8 @@ namespace Talent21.Service.Abstraction
     public interface IContractorService : IService,ISecuredService,ISharedService,
         IPersonDataService<ContractorEditViewModel, ContractorCreateViewModel,IdModel>
     {
+        ContractorEditViewModel Create(ContractorCreateViewModel model, int? companyId);
+
         ContractorViewModel GetProfile(string userId);
         IQueryable<ContractorViewModel> Contractors { get; }
         IQueryable<ScheduleViewModel> Schedules { get; }

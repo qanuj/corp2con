@@ -23,7 +23,7 @@
                                 </button>
                                 <strong>Ooops! You got us..</strong>
                                 <p>
-                                    We could not find anything.
+                                    We could not find anyone.
                                 </p>
                                 <p>
                                     <a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a>
@@ -37,12 +37,13 @@
                                     <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded"/></a>
                                 </div>
                                 <div class="col-sm-9">
-                                    <h5>
+                                    <h4>
                                         <i class="fa fa-{{row.gender|lowercase}}"></i>
                                         <i ng-if="row.contractType=='WorkFromHome'" class="fa fa-home"></i>
                                         <i ng-if="row.contractType!='WorkFromHome'" class="fa fa-car"></i>
                                         <a href="#/contractor/{{row.id}}">{{row.firstName}} {{row.lastName}} <small>{{row.experienceYears}}.{{row.experienceMonths}} years</small></a>
-                                    </h5>
+                                    </h4>
+                                    <h5 ng-if="row.companyId">{{row.company}}</h5>
                                     <p>
                                         {{row.about | limitTo: 200}} <a href="#/contractor/{{row.id}}" style="color: #14b1bb;">... View More</a>
                                     </p>

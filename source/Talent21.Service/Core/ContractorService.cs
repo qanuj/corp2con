@@ -217,8 +217,14 @@ namespace Talent21.Service.Core
 
         public ContractorEditViewModel Create(ContractorCreateViewModel model)
         {
+            return Create(model, null);
+        }
+
+        public ContractorEditViewModel Create(ContractorCreateViewModel model,int? companyId)
+        {
             var entity = new Contractor
             {
+                CompanyId = companyId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 OwnerId = model.OwnerId,

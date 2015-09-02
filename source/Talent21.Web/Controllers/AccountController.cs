@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,9 +8,6 @@ using e10.Shared.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Talent21.Data.Core;
-using Talent21.Data.Repository;
-using Talent21.Service;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using Talent21.Web.Models;
@@ -67,6 +61,27 @@ namespace Talent21.Web.Controllers
             {
                 _userManager = value;
             }
+        }
+
+
+        [Route("~/contractor/invite/{code}")]
+        public async Task<ActionResult> Invite(string code)
+        {
+            var accept = _companyService.AcceptInvitation(code);
+            if (accept!=null)
+            {
+                return await Register(new RegisterViewModel
+                {
+                    Email=accept.Email,
+                    IsContractor = true,
+                    Password = "Abcd123*",
+                    ConfirmPassword = "Abcd123*",
+                    What = RegisterAsContractor,
+                    CompanyId=accept.CompanyId,
+                    ResetPassword = true
+                });
+            }
+            return HttpNotFound();
         }
 
         //
@@ -186,7 +201,7 @@ namespace Talent21.Web.Controllers
                         _contractorService.Create(new ContractorCreateViewModel()
                         {
                             OwnerId = user.Id, Email = user.Email
-                        });
+                        },model.CompanyId);
                         if(!UserManager.IsInRole(user.Id, Contractor))
                         {
                             UserManager.AddToRole(user.Id, Contractor);
@@ -213,6 +228,11 @@ namespace Talent21.Web.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
                     _notificationService.Welcome(user.Email, callbackUrl, role);
+
+                    if (model.ResetPassword)
+                    {
+                        await SendResetPasswordLinkAsync(user);
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -246,6 +266,15 @@ namespace Talent21.Web.Controllers
             return View();
         }
 
+        private async Task SendResetPasswordLinkAsync(User user)
+        {
+            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+            // Send an email with this link
+            var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            _notificationService.PasswordRecovery(user.Email, callbackUrl);
+        }
+
         //
         // POST: /Account/ForgotPassword
         [HttpPost]
@@ -269,11 +298,8 @@ namespace Talent21.Web.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                _notificationService.PasswordRecovery(user.Email, callbackUrl);
+                await SendResetPasswordLinkAsync(user);
+
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
