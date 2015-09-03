@@ -34,7 +34,7 @@
                             <div ng-if="row.featured" class="featured"></div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded"/></a>
+                                    <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded" /></a>
                                 </div>
                                 <div class="col-sm-9">
                                     <h4>
@@ -71,7 +71,7 @@
                 <div class="sidebar-widget" id="jobsearch">
                     <div class="sidebar-widget">
                         <div class="input-group">
-                            <input type="text" class="form-control input-xs" ng-model="folder"/>
+                            <input type="text" class="form-control input-xs" ng-model="folder" />
                             <span class="input-group-btn">
                                 <button ng-click="move(folder)" class="btn btn-primary srch-btn-pad">{{save}}</button>
                             </span>
@@ -93,7 +93,7 @@
                             <h2>Find a Candidate</h2>
                         </div>
                         <div class="col-sm-1">
-                            <a class="btn btn-danger"href="#/search">x</a>
+                            <a class="btn btn-danger" href="#/search">x</a>
                         </div>
                     </div>
                     <form ng-submit="search(query)">
@@ -151,17 +151,12 @@
                                 <select class="form-control" ng-options="s.id as s.label for s in rateTypes track by s.id" ng-model="query.ratetype" ng-change="search(query)"></select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <!-- Find a Job Start -->
-                                <div class="sidebar-widget">
-                                    <h2>Folders</h2>
-                                    <ul>
-                                        <li ng-repeat="f in folders"><a href="#/search/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
-                                    </ul>
-                                </div>
-                                <!-- Find a Job End -->
-
+                        <div class="row inbox">
+                            <div class="sidebar-widget">
+                                <h2>Folders</h2>
+                                <ul class="inbox-nav margin-bottom-10">
+                                    <li class="inbox" ng-class="{active:f.label.toLowerCase()==query.folder}" ng-repeat="f in folders"><a class="btn" href="#/search/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
+                                </ul>
                             </div>
                         </div>
                     </form>

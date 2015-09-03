@@ -34,12 +34,14 @@ namespace Talent21.Web
                 "~/assets/global/plugins/simple-line-icons/simple-line-icons.css",
                 "~/assets/global/plugins/bootstrap/css/bootstrap.css",
                 "~/assets/global/plugins/uniform/css/uniform.default.css",
-                "~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css"));
+                "~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css",
+                "~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"));
 
             bundles.Add(new StyleBundle("~/Content/spa/css-2").Include(
                 "~/assets/global/css/components.css",
                 "~/assets/global/css/plugins.css",
                 "~/assets/admin/layout/css/layout.css",
+                "~/assets/admin/pages/css/*.css",
                 "~/assets/admin/layout/css/themes/darkblue.css",
                 "~/assets/admin/layout/css/custom.css"));
 

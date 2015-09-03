@@ -14,7 +14,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             controller: role + "DashboardController",
             resolve: {
                 deps: [
-                    '$ocLazyLoad', function($ocLazyLoad) {
+                    '$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'app',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
@@ -62,13 +62,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             data: { pageTitle: 'Edit Profile' },
             controller: role + "EditProfileController",
             resolve: {}
-        })
-        .state('applications', {
-            url: "/applications",
-            templateUrl: "app/views/" + role + "/applications.html",
-            data: { pageTitle: 'Applications' },
-            controller: role + "ApplicationsController",
-            resolve: {}
         });
 
     if (role == 'contractor') {
@@ -78,6 +71,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/job.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "JobController",
+                resolve: {}
+            })
+            .state('applications', {
+                url: "/applications",
+                templateUrl: "app/views/" + role + "/applications.html",
+                data: { pageTitle: 'Applications' },
+                controller: role + "ApplicationsController",
                 resolve: {}
             })
             .state('schedule', {
@@ -101,7 +101,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "CompanyProfileController",
                 resolve: {}
             });
-    }else if (role == 'company') {
+    } else if (role == 'company') {
         $stateProvider
             .state('bench', {
                 url: "/bench",
@@ -111,28 +111,28 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 resolve: {}
             })
             .state('invite', {
-                url: "/schedule",
+                url: "/invite",
                 templateUrl: "app/views/" + role + "/invite.html",
                 data: { pageTitle: 'Invite' },
                 controller: role + "InviteController",
                 resolve: {}
             })
             .state('billing', {
-                url: "/billing/:page?",
+                url: "/billing",
                 templateUrl: "app/views/" + role + "/billing.html",
                 data: { pageTitle: 'Billing' },
                 controller: role + "BillingController",
                 resolve: {}
             })
             .state('jobs', {
-                url: "/jobs/:page?",
+                url: "/jobs",
                 templateUrl: "app/views/" + role + "/jobs.html",
                 data: { pageTitle: 'Jobs' },
                 controller: role + "JobsController",
                 resolve: {}
             })
             .state('jobOne', {
-                url: "/job/:id",
+                url: "/job/{id:int}",
                 templateUrl: "app/views/" + role + "/job.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "JobController",

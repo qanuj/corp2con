@@ -20,6 +20,7 @@
 
     db.company.get().success(function (result) {
         $scope.profile = result;
+        $rootScope.profile = result;
     });
 
     $scope.search = function (q) {

@@ -62,7 +62,8 @@ app.controller('HeaderController', ['$scope', function ($scope) {
 }]);
 
 /* Setup Layout Part - Sidebar */
-app.controller('SidebarController', ['$scope', function ($scope) {
+app.controller('SidebarController', ['$scope',function ($scope) {
+    $scope.role = document.querySelector('html').dataset.role.toLowerCase();;
     $scope.$on('$includeContentLoaded', function () {
         Layout.initSidebar(); // init sidebar
     });

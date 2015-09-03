@@ -1,10 +1,27 @@
 <div class="page-sidebar navbar-collapse collapse">
-	<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+    <ul ng-if="role=='contractor'" class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
         <li class="start"><a href="#/"><i class="icon-home"></i><span class="title">Dashboard</span></a></li>
-	    <li><a href="#/search"><i class="icon-magnifier"></i><span class="title">Search Jobs</span></a></li>
-	    <li><a href="#/applications"><i class="icon-paper-plane"></i><span class="title">Job Applications</span></a></li>
+        <li><a href="#/search"><i class="icon-magnifier"></i><span class="title">Search Jobs</span></a></li>
+        <li><a href="#/applications"><i class="icon-paper-plane"></i><span class="title">Job Applications</span></a></li>
         <li><a href="#/favorite"><i class="icon-heart"></i><span class="title">Favorite Jobs</span></a></li>
-		<li><a href="#/profile" id="sidebar_menu_link_profile"><i class="icon-user"></i><span class="title">Profile</span></a></li>
+        <li><a href="#/profile"><i class="icon-user"></i><span class="title">Profile</span></a></li>
         <li><a href="#/schedule"><i class="icon-calendar"></i><span class="title">Manage Schedule</span></a></li>
-	</ul>
+    </ul>
+    <ul ng-if="role=='company'" class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+        <li class="start"><a href="#/"><i class="icon-home"></i><span class="title">Dashboard</span></a></li>
+        <li><a href="#/search"><i class="icon-magnifier"></i><span class="title">Search Contractors</span></a></li>
+        <li><a href="#/job/new"><i class="icon-plus"></i><span class="title">New Job</span></a></li>
+        <li><a href="#/jobs"><i class="icon-briefcase"></i><span class="title">Jobs</span></a></li>
+        <li><a href="#/bench"><i class="icon-heart"></i><span class="title">Bench Management</span></a></li>
+        <li><a href="#/invite"><i class="icon-user"></i><span class="title">Invite Team</span></a></li>
+        <li><a href="#/billing"><i class="icon-credit-card"></i><span class="title">Billing</span></a></li>
+    </ul>
+    <ul ng-if="role=='admin'" class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+        <li class="start"><a href="#/"><i class="icon-home"></i><span class="title">Dashboard</span></a></li>
+        <li><a href="#/billing"><i class="icon-credit-card"></i><span class="title">Billing</span></a></li>
+        <li><a href="#/industry"><i class="icon-paper-plane"></i><span class="title">Industry</span></a></li>
+        <li><a href="#/functional"><i class="icon-speech"></i><span class="title">Functional Area</span></a></li>
+        <li><a href="#/skills"><i class="icon-tags"></i><span class="title">Skills</span></a></li>
+        <li><a href="#/invite"><i class="icon-calendar"></i><span class="title">Invite</span></a></li>
+    </ul>
 </div>	

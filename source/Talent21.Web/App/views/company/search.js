@@ -18,7 +18,7 @@
         $scope.query = {
             keywords: $stateParams.q || $stateParams.keywords || '',
             location: $stateParams.location || '',
-            folder: $stateParams.folder || '',
+            folder: $stateParams.idea || $stateParams.folder || '',
             industry: $stateParams.industry || '',
             functional: $stateParams.functional || '',
             skills: $stateParams.skills || '',
