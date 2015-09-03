@@ -141,7 +141,8 @@
     <Compile Include="Providers\ElmahLogger.cs" />
     <Compile Include="Providers\IEmailConfigProvider.cs" />
     <Compile Include="Providers\NullLogger.cs" />
-    <Compile Include="Respository\CountryRepository.cs" />
+    <Compile Include="Respository\FaqRepository.cs" />
+    <Compile Include="Respository\InviteRepository.cs" />
     <Compile Include="Security\ApplicationOAuthProvider.cs" />
     <Compile Include="Security\ApplicationRoleManager.cs" />
     <Compile Include="Security\ApplicationRoleStore.cs" />
