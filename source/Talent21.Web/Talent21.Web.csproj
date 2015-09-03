@@ -306,7 +306,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\DashboardController.js" />
     <Content Include="App\controllers\GeneralPageController.js" />
     <Content Include="App\controllers\TodoController.js" />
     <Content Include="App\controllers\UISelectController.js" />

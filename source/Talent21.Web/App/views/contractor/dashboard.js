@@ -1,4 +1,12 @@
-﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$routeParams', '$rootScope', function ($scope, db, $routeParams, $rootScope) {
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = true;
+    $rootScope.settings.layout.pageSidebarClosed = false;
 
     db.contractor.dashboard().success(function (result) {
         $scope.record = result;

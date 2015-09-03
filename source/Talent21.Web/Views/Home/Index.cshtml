@@ -22,65 +22,25 @@
     @Styles.Render("~/Content/spa/css-2")
     <link rel="shortcut icon" href="~/content/images/favicon.png">
 </head>
-<!-- END HEAD -->
-<!-- BEGIN BODY -->
-<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
-<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
-<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
-<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
-<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
-<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
-<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
-<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
-<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
 <body ng-controller="AppController" class="page-header-fixed page-sidebar-closed-hide-logo page-quick-sidebar-over-content page-on-load" 
     ng-class="{'page-container-bg-solid': settings.layout.pageBodySolid, 'page-sidebar-closed': settings.layout.pageSidebarClosed}">
-    <!-- BEGIN PAGE SPINNER -->
     <div ng-spinner-bar class="page-spinner-bar">
         <div class="bounce1"></div>
         <div class="bounce2"></div>
         <div class="bounce3"></div>
     </div>
-    <!-- END PAGE SPINNER -->
-    <!-- BEGIN HEADER -->
-    <div ng-include="'app/views/layout/header.html'" ng-controller="HeaderController" class="page-header navbar navbar-fixed-top">
-    </div>
-    <!-- END HEADER -->
-
-    <div class="clearfix">
-    </div>
-
-    <!-- BEGIN CONTAINER -->
+    <div ng-include="'app/views/layout/header.html'" ng-controller="HeaderController" class="page-header navbar navbar-fixed-top"></div>
+    <div class="clearfix"></div>
     <div class="page-container">
-        <!-- BEGIN SIDEBAR -->
-        <div ng-include="'app/views/layout/sidebar.html'" ng-controller="SidebarController" class="page-sidebar-wrapper">
-        </div>
-        <!-- END SIDEBAR -->
-        <!-- BEGIN CONTENT -->
+        <div ng-include="'app/views/layout/sidebar.html'" ng-controller="SidebarController" class="page-sidebar-wrapper"></div>
         <div class="page-content-wrapper">
             <div class="page-content">
-                <!-- BEGIN STYLE CUSTOMIZER(optional) -->
-                <div ng-include="'app/views/layout/theme-panel.html'" ng-controller="ThemePanelController" class="theme-panel hidden-xs hidden-sm">
-                </div>
-                <!-- END STYLE CUSTOMIZER -->
-                <!-- BEGIN ACTUAL CONTENT -->
                 <div ui-view class="fade-in-up"></div>
-                <!-- END ACTUAL CONTENT -->
             </div>
         </div>
-        <!-- END CONTENT -->
-        <!-- BEGIN QUICK SIDEBAR -->
-        <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-        <div ng-include="'app/views/layout/quick-sidebar.html'" ng-controller="QuickSidebarController" class="page-quick-sidebar-wrapper"></div>
-        <!-- END QUICK SIDEBAR -->
     </div>
-    <!-- END CONTAINER -->
-    <!-- BEGIN FOOTER -->
     <div ng-include="'app/views/layout/footer.html'" ng-controller="FooterController" class="page-footer">
     </div>
-    <!-- END FOOTER -->
-    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-    <!-- BEGIN CORE JQUERY PLUGINS -->
     <!--[if lt IE 9]>
     @Scripts.Render("~/script/ie9")
     <![endif]-->
@@ -88,14 +48,10 @@
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
     @Scripts.Render("~/script/vendors")
     @Scripts.Render("~/script/spa")
-    <!-- END APP LEVEL ANGULARJS SCRIPTS -->
-    <!-- BEGIN APP LEVEL JQUERY SCRIPTS -->
     <script src="~/assets/global/scripts/metronic.js"></script>
     <script src="~/assets/admin/layout/scripts/layout.js" ></script>
     <script src="~/assets/admin/layout/scripts/quick-sidebar.js" ></script>
     <script src="~/assets/admin/layout/scripts/demo.js"></script>
-    <!-- END APP LEVEL JQUERY SCRIPTS -->
-
     <script type="text/javascript">
 		/* Init Metronic's core jquery plugins and layout scripts */
 		$(document).ready(function() {
@@ -103,7 +59,5 @@
 			Metronic.setAssetsPath('~/assets/'); // Set the assets folder path
 		});
     </script>
-    <!-- END JAVASCRIPTS -->
 </body>
-<!-- END BODY -->
 </html>
