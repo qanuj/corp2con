@@ -1,4 +1,4 @@
-﻿app.controller('jobsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('commpanyJobsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
     $scope.title = "Jobs";
     $scope.navigate = function (page) {
         $scope.query = {

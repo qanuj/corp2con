@@ -357,9 +357,7 @@
     <Content Include="App\views\company\editOrCreateJob.js" />
     <Content Include="App\views\layout\footer.html" />
     <Content Include="App\views\layout\header.html" />
-    <Content Include="App\views\layout\quick-sidebar.html" />
     <Content Include="App\views\layout\sidebar.html" />
-    <Content Include="App\views\layout\theme-panel.html" />
     <Content Include="App\views\pager.html" />
     <Content Include="App\views\pager.js" />
     <Content Include="App\views\admin\functional.html" />
