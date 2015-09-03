@@ -1,4 +1,4 @@
-app.controller('contractorFavoriteController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
+app.controller('contractorFavoriteController', ['$scope', 'dataService', '$stateParams', function ($scope, db, params) {
     $scope.title = "Favorite Jobs";
     $scope.count= 'None';
 

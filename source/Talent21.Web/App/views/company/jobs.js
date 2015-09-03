@@ -1,15 +1,15 @@
-﻿app.controller('jobsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('commpanyJobsController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
     $scope.title = "Jobs";
     $scope.navigate = function (page) {
         $scope.query = {
-            keywords: $routeParams.q || $routeParams.keywords || '',
-            location: $routeParams.location || '',
-            skills: $routeParams.skills || '',
-            startrate: $routeParams.startrate || '',
-            endrate: $routeParams.endrate || '',
-            xfrom: $routeParams.xfrom || '',
-            xto: $routeParams.xto || '',
-            industry: $routeParams.industry || ''
+            keywords: $stateParams.q || $stateParams.keywords || '',
+            location: $stateParams.location || '',
+            skills: $stateParams.skills || '',
+            startrate: $stateParams.startrate || '',
+            endrate: $stateParams.endrate || '',
+            xfrom: $stateParams.xfrom || '',
+            xto: $stateParams.xto || '',
+            industry: $stateParams.industry || ''
         }
         function fetchResults(query, page) {
             db.company.myJobs(page).success(function (result) {
@@ -33,7 +33,7 @@
 
         fetchResults($scope.query, page || 1);
     }
-    $scope.navigate($routeParams.page);
+    $scope.navigate($stateParams.page);
 
     db.system.getSkills().success(function (result) {
         $scope.skills = result;

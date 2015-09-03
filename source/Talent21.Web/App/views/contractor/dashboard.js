@@ -1,4 +1,12 @@
-﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = true;
+    $rootScope.settings.layout.pageSidebarClosed = false;
 
     db.contractor.dashboard().success(function (result) {
         $scope.record = result;
@@ -21,6 +29,7 @@
 
     db.contractor.get().success(function (result) {
         $scope.profile = result;
+        $rootScope.profile = result;
         if (!result.firstName && !result.lastName) {
             window.location = "#/profile/edit";
         }

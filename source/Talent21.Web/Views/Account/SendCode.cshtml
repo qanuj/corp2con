@@ -1,8 +1,8 @@
 ﻿@model Talent21.Web.Models.SendCodeViewModel
 @{
     ViewBag.Title = "Send";
+    ViewBag.PageClass = "login";
 }
-
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {

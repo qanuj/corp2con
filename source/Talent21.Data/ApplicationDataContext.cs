@@ -25,6 +25,7 @@ namespace Talent21.Data
             ConversationRepository.Register(modelBuilder);
             VisitRepository.Register(modelBuilder);
             InviteRepository.Register(modelBuilder);
+            FaqRepository.Register(modelBuilder);
         }
     }
 }
