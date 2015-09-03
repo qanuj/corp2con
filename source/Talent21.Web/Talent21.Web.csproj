@@ -4722,6 +4722,7 @@
     <Content Include="Content\images\favicon.png" />
     <Content Include="Content\images\job1.jpg" />
     <Content Include="Content\images\logo%402x.png" />
+    <Content Include="Content\images\logo-big.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\map-marker.png" />
     <Content Include="Content\images\phone.png" />
