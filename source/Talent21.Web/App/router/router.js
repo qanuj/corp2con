@@ -29,7 +29,21 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 
         // AngularJS plugins
         .state('search', {
-            url: "/search/:idea?/:page?",
+            url: "/search",
+            templateUrl: "app/views/" + role + "/search.html",
+            data: { pageTitle: 'Search' },
+            controller: role + "SearchController",
+            resolve: {}
+        })
+        .state('searchIdea', {
+            url: "/search/:idea",
+            templateUrl: "app/views/" + role + "/search.html",
+            data: { pageTitle: 'Search' },
+            controller: role + "SearchController",
+            resolve: {}
+        })
+        .state('searchPaged', {
+            url: "/search/:idea/:page",
             templateUrl: "app/views/" + role + "/search.html",
             data: { pageTitle: 'Search' },
             controller: role + "SearchController",
@@ -38,14 +52,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         .state('profile', {
             url: "/profile",
             templateUrl: "app/views/" + role + "/profile.html",
-            data: { pageTitle: 'Search' },
+            data: { pageTitle: 'Profile' },
             controller: role + "ProfileController",
             resolve: {}
         })
-        .state('profile.edit', {
-            url: "/edit",
+        .state('profileEdit', {
+            url: "/profile/edit",
             templateUrl: "app/views/" + role + "/editProfile.html",
-            data: { pageTitle: 'Search' },
+            data: { pageTitle: 'Edit Profile' },
             controller: role + "EditProfileController",
             resolve: {}
         })
@@ -81,7 +95,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 resolve: {}
             })
             .state('company', {
-                url: "/:id",
+                url: "commpany/:id",
                 templateUrl: "app/views/" + role + "/company.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "CompanyProfileController",
@@ -117,40 +131,36 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "JobsController",
                 resolve: {}
             })
-            .state('job', {
-                url: "/job",
-                'abstract': true
-            })
-            .state('job.one', {
-                url: "/:id",
+            .state('jobOne', {
+                url: "/job/:id",
                 templateUrl: "app/views/" + role + "/job.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "JobController",
                 resolve: {}
             })
-            .state('job.edit', {
-                url: "/edit/:id",
+            .state('jobEdit', {
+                url: "/job/edit/:id",
                 templateUrl: "app/views/" + role + "/editOrCreateJob.html",
                 data: { pageTitle: 'Job Edit' },
                 controller: role + "EditOrCreateJobController",
                 resolve: {}
             })
-            .state('job.new', {
-                url: "/new",
+            .state('jobNew', {
+                url: "/job/new",
                 templateUrl: "app/views/" + role + "/editOrCreateJob.html",
                 data: { pageTitle: 'New Job' },
                 controller: role + "EditOrCreateJobController",
                 resolve: {}
             })
-            .state('job.applications', {
-                url: "/:id/applications/:folder?",
+            .state('jobApplications', {
+                url: "/job/:id/applications/:folder?",
                 templateUrl: "app/views/" + role + "/contractorApplication.html",
                 data: { pageTitle: 'New Job' },
                 controller: role + "ApplicationsController",
                 resolve: {}
             })
-            .state('job.application', {
-                url: "/applications/:id",
+            .state('jobApplication', {
+                url: "/job/applications/:id",
                 templateUrl: "app/views/" + role + "/applications.html",
                 data: { pageTitle: 'New Job' },
                 controller: role + "ApplicationsController",
@@ -199,7 +209,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 data: { pageTitle: 'Billing' },
                 controller: role + "BillingController",
                 resolve: {}
-            })
+            });
     }
 
 }]);

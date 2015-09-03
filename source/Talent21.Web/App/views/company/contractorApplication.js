@@ -1,4 +1,4 @@
-﻿app.controller('companyContractorApplicationController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+﻿app.controller('companyContractorApplicationController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
 
     function loadSchedule(id) {
         return db.company.getSchedule(id).success(function (result) {

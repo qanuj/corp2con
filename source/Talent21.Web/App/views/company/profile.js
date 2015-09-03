@@ -1,4 +1,4 @@
-﻿app.controller('companyProfileController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+﻿app.controller('companyProfileController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
 
     $scope.title = "Company Profile";
 

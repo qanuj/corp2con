@@ -1,4 +1,4 @@
-﻿app.controller('companyContractorController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+﻿app.controller('companyContractorController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
 
     $scope.shortlist=function(id) {
         

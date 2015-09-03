@@ -1,30 +1,30 @@
-﻿app.controller('companyBenchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('companyBenchController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
     $scope.title = "Bench Management";
     $scope.save = "Save";
 
-    if (!isNaN($routeParams.idea)) {
+    if (!isNaN($stateParams.idea)) {
         param.page = page.idea;
-    } else if ($routeParams.idea == "match") {
+    } else if ($stateParams.idea == "match") {
         $scope.searching = "Matching Jobs for you.";
-    } else if ($routeParams.idea == "month") {
+    } else if ($stateParams.idea == "month") {
         $scope.searching = "Matching Jobs for you, next month";
-    } else if ($routeParams.idea == "week") {
+    } else if ($stateParams.idea == "week") {
         $scope.searching = "Matching Jobs for you, next week";
     }
 
     $scope.navigate = function (page) {
         $scope.query = {
-            keywords: $routeParams.q || $routeParams.keywords || '',
-            location: $routeParams.location || '',
-            folder: $routeParams.folder || '',
-            industry: $routeParams.industry || '',
-            functional: $routeParams.functional || '',
-            skills: $routeParams.skills || '',
-            ratestart: $routeParams.ratestart || '',
-            rateend: $routeParams.rateend || '',
-            xfrom: $routeParams.xfrom || '',
-            xto: $routeParams.xto || '',
-            ratetype: $routeParams.ratetype || ''
+            keywords: $stateParams.q || $stateParams.keywords || '',
+            location: $stateParams.location || '',
+            folder: $stateParams.folder || '',
+            industry: $stateParams.industry || '',
+            functional: $stateParams.functional || '',
+            skills: $stateParams.skills || '',
+            ratestart: $stateParams.ratestart || '',
+            rateend: $stateParams.rateend || '',
+            xfrom: $stateParams.xfrom || '',
+            xto: $stateParams.xto || '',
+            ratetype: $stateParams.ratetype || ''
         }
 
         function fetchResults(query, page) {
@@ -47,7 +47,7 @@
 
         fetchResults($scope.query, page || 1);
     }
-    $scope.navigate($routeParams.page);
+    $scope.navigate($stateParams.page);
 
     $scope.toggle=function(allSelected) {
         for (var x in $scope.records) {

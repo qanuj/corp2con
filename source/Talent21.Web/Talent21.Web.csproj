@@ -393,10 +393,8 @@
     <Content Include="App\views\contractor\job.html" />
     <Content Include="App\views\company\jobs.html" />
     <Content Include="App\views\contractor\job.js" />
-    <Content Include="App\views\searchController.js" />
     <Content Include="App\views\admin\skills.html" />
     <Content Include="App\views\admin\skills.js" />
-    <Content Include="App\views\Testimonials.html" />
     <Content Include="App\views\upload\file.html" />
     <Content Include="App_Data\Database.sql" />
     <Content Include="assets\admin\layout2\css\custom.css" />

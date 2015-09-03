@@ -1,4 +1,4 @@
-﻿app.controller('companyEditOrCreateJobController', ['$scope', 'dataService', '$routeParams', '$window', function ($scope, db, param, $window) {
+﻿app.controller('companyEditOrCreateJobController', ['$scope', 'dataService', '$stateParams', '$window', function ($scope, db, param, $window) {
 
     $scope.title = "Create Job";
     $scope.record = {};

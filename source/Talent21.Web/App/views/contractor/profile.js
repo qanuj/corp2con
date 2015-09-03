@@ -1,4 +1,4 @@
-﻿app.controller('contractorProfileController', ['$scope', 'dataService', '$routeParams', function ($scope, db, param) {
+﻿app.controller('contractorProfileController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
 
     function loadSchedule(page) {
         return db.contractor.getSchedule(page).success(function (result) {

@@ -1,4 +1,4 @@
-﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$routeParams', '$rootScope', function ($scope, db, $routeParams, $rootScope) {
+﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();

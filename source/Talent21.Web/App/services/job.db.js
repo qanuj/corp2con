@@ -7,11 +7,12 @@
 
         var job = {};
 
-        job.get = function(id) {
+        job.get = function (id) {
             return $http.get(v + 'company/job/' + id);
         }
 
-        job.paged = function(company,page, pageSize) {
+        job.paged = function (company, page, pageSize) {
+            console.trace(company);
             return $http.get(v + 'job/company/'+company+'?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }
 

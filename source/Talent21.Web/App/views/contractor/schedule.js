@@ -1,4 +1,4 @@
-﻿app.controller('contractorScheduleController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
+﻿app.controller('contractorScheduleController', ['$scope', 'dataService', '$stateParams', function ($scope, db, params) {
 
     $scope.navigate = function(page) {
         db.contractor.pagedSchedule(page).success(function(result) {

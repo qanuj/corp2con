@@ -1,4 +1,4 @@
-﻿app.controller('companyInviteController', ['$scope', 'dataService', '$routeParams', function($scope, db, $routeParams) {
+﻿app.controller('companyInviteController', ['$scope', 'dataService', '$stateParams', function($scope, db, $stateParams) {
     $scope.title = "Invite Bench Team";
     $scope.save = "Sent Invitations";
     $scope.records = [];

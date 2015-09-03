@@ -1,10 +1,10 @@
-﻿app.controller('companyApplicationsController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('companyApplicationsController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
     $scope.title = "Job Applications";
-    var id = $routeParams.id;
+    var id = $stateParams.id;
     $scope.id = id;
     $scope.navigate = function (page) {
         $scope.query = {
-            folder: $routeParams.folder || ''
+            folder: $stateParams.folder || ''
         }
         function fetchResults(query, page) {
             db.company.getJobApplications(id, page).success(function (result) {
@@ -15,12 +15,12 @@
             });
         }
 
-        db.company.getFolders($routeParams.id).success(function (result) {
+        db.company.getFolders($stateParams.id).success(function (result) {
             $scope.folders = result;
         });
 
         fetchResults($scope.query, page || 1);
     }
-    $scope.navigate($routeParams.page);
+    $scope.navigate($stateParams.page);
 
 }]);

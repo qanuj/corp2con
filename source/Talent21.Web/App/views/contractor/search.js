@@ -1,14 +1,15 @@
-﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
     $scope.title = "Jobs : Search Result";
+    var param = $stateParams;
 
-    if (!isNaN($routeParams.idea)) {
-        param.page = page.idea;
-    } else if ($routeParams.idea == "match") {
-        $scope.searching = "Matching Jobs for you.";
-    } else if ($routeParams.idea == "month") {
-        $scope.searching = "Matching Jobs for you, next month";
-    } else if ($routeParams.idea == "week") {
-        $scope.searching = "Matching Jobs for you, next week";
+    if (!isNaN($stateParams.idea)) {
+        param.page = $stateParams.idea;
+    } else if ($stateParams.idea == "match") {
+        $scope.title = "Matching Jobs for you.";
+    } else if ($stateParams.idea == "month") {
+        $scope.title = "Matching Jobs for you, next month";
+    } else if ($stateParams.idea == "week") {
+        $scope.title = "Matching Jobs for you, next week";
     }
 
     $scope.toggle=function(allSelected) {
@@ -57,14 +58,14 @@
 
     $scope.navigate = function (page) {
         $scope.query = {
-            keywords: $routeParams.q || $routeParams.keywords || '',
-            location: $routeParams.location || '',
-            skills: $routeParams.skills || '',
-            startrate: $routeParams.startrate || '',
-            endrate: $routeParams.endrate || '',
-            xfrom: $routeParams.xfrom || '',
-            xto: $routeParams.xto || '',
-            industry: $routeParams.industry || ''
+            keywords: $stateParams.q || $stateParams.keywords || '',
+            location: $stateParams.location || '',
+            skills: $stateParams.skills || '',
+            startrate: $stateParams.startrate || '',
+            endrate: $stateParams.endrate || '',
+            xfrom: $stateParams.xfrom || '',
+            xto: $stateParams.xto || '',
+            industry: $stateParams.industry || ''
         }
 
         function fetchResults(query, page) {
@@ -103,7 +104,7 @@
             $scope.locations = result;
         });
     }).then(function () {
-        $scope.navigate($routeParams.page);
+        $scope.navigate($stateParams.page);
         $scope.resetFilters = function () {
             $scope.query.keywords = '';
             $scope.query.skills = '';

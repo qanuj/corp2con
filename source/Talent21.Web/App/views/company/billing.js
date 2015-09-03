@@ -1,4 +1,4 @@
-﻿app.controller('companyBillingController', ['$scope', 'dataService', '$routeParams', function ($scope, db, $routeParams) {
+﻿app.controller('companyBillingController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
     $scope.title = "Billing Transactions";
     $scope.navigate = function (page) {
         db.company.balance(page).success(function (result) {
@@ -21,6 +21,6 @@
             window.location = result.url;
         });
     }
-    $scope.navigate($routeParams.page);
+    $scope.navigate($stateParams.page);
 }]);
 
