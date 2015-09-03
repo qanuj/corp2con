@@ -43,10 +43,10 @@ namespace Talent21.Web.Mailers
             Send(mvcMailMessage, toEmail);
         }
 
-        public void PasswordRecovery(string toEmail, string key)
+        public void PasswordRecovery(string toEmail, string resetUrl)
         {
             var mvcMailMessage = new MvcMailMessage { Subject = "Reset Your password : " + Product.Name };
-            ViewBag.key = key;
+            ViewBag.ResetUrl = resetUrl;
             ViewBag.UserName = toEmail;
 
             ViewBag.Email = toEmail;

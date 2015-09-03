@@ -166,8 +166,8 @@ namespace Talent21.Web.Controllers
             }
         }
 
-        private const string RegisterAsCompany = "Register As Company";
-        private const string RegisterAsContractor = "Register As Contractor";
+        private const string RegisterAsCompany = "Company";
+        private const string RegisterAsContractor = "Contractor";
         //
         // GET: /Account/Register
         [AllowAnonymous]
