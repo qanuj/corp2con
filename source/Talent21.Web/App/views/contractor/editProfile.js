@@ -1,5 +1,5 @@
 ﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$http',function ($scope, db, $http) {
-
+    $scope.title = "Edit Profile";
     $scope.loadSkills = db.system.getSkills;
 
     $scope.refreshAddresses = function (address) {
