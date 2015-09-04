@@ -293,55 +293,92 @@
                         </li>
                     </ul>
                 </div>
-                <!-- END MENU -->
             </div>
+            <!-- END MENU -->
             <div class="portlet light">
-                <!-- STAT -->
                 <div class="row list-separated profile-stat">
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="uppercase profile-stat-title">
-                            {{profile.experienceYears}}.{{profile.experienceMonths}}yrs
+                            {{profile.skills.length}}
+                        </div>
+                        <div class="uppercase profile-stat-text">
+                            Skills
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="uppercase profile-stat-title">
+                            {{profile.rate | currency : '₹' : 2}}
+                        </div>
+                        <div class="uppercase profile-stat-text">
+                            {{profile.rateType}}
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="uppercase profile-stat-title">
+                            {{profile.experienceYears}}.{{profile.experienceMonths}}
                         </div>
                         <div class="uppercase profile-stat-text">
                             Experience
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="uppercase profile-stat-title">
-                            51
-                        </div>
-                        <div class="uppercase profile-stat-text">
-                            Tasks
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="uppercase profile-stat-title">
-                            61
-                        </div>
-                        <div class="uppercase profile-stat-text">
-                            Uploads
-                        </div>
-                    </div>
                 </div>
                 <!-- END STAT -->
                 <div>
-                    <h4 class="profile-desc-title">About Marcus Doe</h4>
-                    <span class="profile-desc-text">{{profile.contractType | uncamel}}</span>
-                    <span class="profile-desc-text">{{profile.functionalArea}}</span>
-                    <span class="profile-desc-text">{{profile.industry}}</span>
-                    <div class="margin-top-20 profile-desc-link"><i class="fa fa-map-marker"></i>{{profile.location}} </div>
-                    <div class="margin-top-20 profile-desc-link"><i class="fa fa-phone"></i>{{profile.mobile}} </div>
-                    <div class="margin-top-20 profile-desc-link"><i class="fa fa-phone"></i>{{profile.alternateNumber}} </div>
-                    <div class="margin-top-20 profile-desc-link"><i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.facebook"><a href="{{profile.facebook}}"><i class="fa fa-facebook"></i></a></div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.twitter"><a href="{{profile.twitter}}"><i class="fa fa-twitter"></i></a></div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.google"><a href="{{profile.google}}"><i class="fa fa-google-plus"></i></a></div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.linkedin"><a href="{{profile.linkedin}}"><i class="fa fa-linkedin"></i></a></div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.webSite"><a href="{{profile.webSite}}"><i class="fa fa-globe"></i></a></div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.yahoo"><a href="{{profile.yahoo}}"><i class="fa fa-yahoo"></i></a></div>
+                    <div class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-user"></i>
+                        <a href="javascript:;">{{profile.consultantType | uncamel}}</a>
+                    </div>
+                    <div class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-user"></i>
+                        <a href="javascript:;">{{profile.contractType | uncamel}}</a>
+                    </div>
+                    <div ng-if="profile.industry" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-industry"></i>
+                        <a href="javascript:;">{{profile.industry}}</a>
+                    </div>
+                    <div ng-if="profile.functionalArea" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-wrench"></i>
+                        <a href="javascript:;">{{profile.functionalArea}}</a>
+                    </div>
+                    <div ng-if="profile.location" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-map-marker"></i>
+                        <a href="javascript:;">{{profile.location}}</a>
+                    </div>
+                    <div class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-phone"></i>
+                        <a href="javascript:;">{{profile.mobile}}</a>
+                    </div>
+                    <div class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-phone"></i>
+                        <a href="javascript:;">{{profile.alternateNumber}}</a>
+                    </div>
+                    <div ng-if="profile.address" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-home"></i>
+                        <a href="javascript:;">{{profile.address}}</a>
+                    </div>
+                    <div class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-globe"></i>
+                        <a href="javascript:;">{{profile.nationality}}</a>
+                    </div>
+                    <div ng-if="profile.webSite" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-globe"></i>
+                        <a href="{{profile.website}}">{{profile.webSite}}</a>
+                    </div>
+                    <div ng-if="profile.facebook" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-facebook"></i>
+                        <a href="http://www.facebook.com/{{profile.facebook}}/">{{profile.facebook}}</a>
+                    </div>
+                    <div ng-if="profile.linkedin" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-linkedin"></i>
+                        <a href="http://www.linkedin.com/{{profile.linkedin}}/">{{profile.linkedin}}</a>
+                    </div>
+                    <div ng-if="profile.twitter" class="margin-top-20 profile-desc-link">
+                        <i class="fa fa-twitter"></i>
+                        <a href="http://www.twitter.com/{{profile.twitter}}/">@{{profile.twitter}}</a>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 </div>

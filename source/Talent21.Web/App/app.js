@@ -57,9 +57,12 @@ app.controller('AppController', [
     }
 ]);
 
-app.controller('HeaderController', ['$scope', function ($scope) {
+app.controller('HeaderController', ['$scope','$rootScope','dataService', function ($scope,$rootScope,db) {
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
+    });
+    db.contractor.get().success(function(result) {
+        $rootScope.profile = result;
     });
 }]);
 

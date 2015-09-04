@@ -1,5 +1,5 @@
 ﻿<h3 class="page-title">
-    {{title}} <small>{{subtitle}}</small>
+    {{title}} <small>{{record.title}}</small>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -13,7 +13,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">{{subtitle}}</a>
+            <a href="#">{{record.title}}</a>
         </li>
     </ul>
     <div class="page-toolbar">
@@ -38,14 +38,20 @@
                 <input type="number" class="form-control" ng-model="record.positions" placeholder="eg. 5">
             </div>
             <div class="form-group col-sm-2">
-                <label>
-                    <input type="checkbox" class="form-control" ng-model="record.isWorkingFromHome"> Allow Work from Home
-                </label>
+                <div class="row">
+                    <label class="col-xs-12">&nbsp;</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="checkbox" class="form-control" ng-model="record.isWorkingFromHome">
+                        </span>
+                        <input class="form-control" type="text" disabled="" value="Allow Work from Home" /> 
+                    </div>
+                </div>
             </div>
             <div class="form-group col-md-4">
                 <label>Date Range</label>
                 <div class="input-group">
-                    <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="record.date"/>
+                    <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="record.date" />
                     <span class="input-group-btn">
                         <button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
                     </span>

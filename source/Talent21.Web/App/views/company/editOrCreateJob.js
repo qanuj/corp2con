@@ -1,10 +1,11 @@
 ﻿app.controller('companyEditOrCreateJobController', ['$scope', 'dataService', '$stateParams', '$window', '$rootScope', function ($scope, db, param, $window, $rootScope) {
-    
-    $scope.title = "Create Job";
+
+    $scope.title = "Job";
+    $scope.subtitle = "";
     $scope.record = {};
 
     if (param.id) {
-        $scope.title="Edit Job";
+        $scope.titl="Edit Job";
         db.job.get(param.id).success(function (result) {
             result.start = moment(result.start).toDate();
             result.end = moment(result.end).toDate();

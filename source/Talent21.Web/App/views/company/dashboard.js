@@ -20,12 +20,10 @@
 
     db.company.get().success(function (result) {
         $scope.profile = result;
-        $rootScope.profile = result;
     });
 
     $scope.search = function (q) {
         window.location = '#/search?q=' + (q.keywords || '') + '&location=' + (q.location || '') + '&skills=' + (q.skills || '');
         return false;
     }
-
 }]);
