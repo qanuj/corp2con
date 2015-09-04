@@ -1,4 +1,13 @@
-app.controller('contractorFavoriteController', ['$scope', 'dataService', '$stateParams', function ($scope, db, params) {
+app.controller('contractorFavoriteController', ['$scope', 'dataService', '$rootScope', '$stateParams', function ($scope, db,$rootScope, params) {
+     $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = true;
+    $rootScope.settings.layout.pageSidebarClosed = false;
+
     $scope.title = "Favorite Jobs";
     $scope.count= 'None';
 

@@ -19,68 +19,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-3">
-        <!-- Find a Job Start -->
-        <div class="sidebar-widget" id="jobsearch">
-            <div class="sidebar-widget">
-                <div class="btn-group pull-right">
-                    <div ng-switcher ng-click="toggle(selectAll)" ng-model="selectAll"></div>
-                </div>
-            </div>
-            <h2>Filter Jobs</h2>
-            <form ng-submit="search(query)">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h5>Keyword</h5>
-                        <div class="input-group">
-                            <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
-                            <div class="input-group-btn"><button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <h5>Skill</h5>
-                        <select class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
-                    </div>
-                    <div class="col-xs-12">
-                        <h5>Location</h5>
-                        <select class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h5>Experience (months)</h5>
-                        <rzslider rz-slider-floor="experienceSlider.floor"
-                                  rz-slider-ceil="experienceSlider.ceil"
-                                  rz-slider-model="experienceSlider.min"
-                                  rz-slider-high="experienceSlider.max">
-                        </rzslider>
-                    </div>
-                    <div class="col-xs-12">
-                        <h5>Rate (per hour)</h5>
-                        <rzslider rz-slider-floor="rateSlider.floor"
-                                  rz-slider-ceil="rateSlider.ceil"
-                                  rz-slider-model="rateSlider.min"
-                                  rz-slider-high="rateSlider.max"
-                                  rz-slider-on-change="rateChange()">
-                        </rzslider>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <button class="btn btn-primary" ng-click="resetFilters()">Reset All Filters</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- Find a Job End -->
-
-    </div>
-    <div class="col-sm-9">
+        <div class="col-sm-12">
       <cc-pager total-pages="pages" current-page="currentPage"
                   page-action="navigate(pageNumber)">
         </cc-pager>
@@ -99,7 +38,7 @@
                                     <a href="/#/job/{{row.id}}">
                                         <i ng-if="row.favorite" class="fa fa-star shine"></i>
                                         <i ng-if="row.isWorkingFromHome" class="fa fa-home"></i>
-                                        <i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>
+                                        <!--<i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>-->
                                         {{row.title}} <small>{{row.company}}</small>
                                     </a>
                                 </div>

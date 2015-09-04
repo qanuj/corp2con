@@ -79,8 +79,8 @@
             </form>
         </div>
         <!-- Find a Job End -->
-
     </div>
+
     <div class="col-sm-9">
         <cc-pager total-pages="pages" current-page="currentPage"
                   page-action="navigate(pageNumber)">
@@ -115,6 +115,7 @@
                                         <span class="caption-helper">{{row.company}}</span>
                                     </a>
                                 </div>
+
                                 <div class="actions flex">
                                     <a ng-if="row.favorite" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                                         <i class="fa fa-star shine"></i>
@@ -152,37 +153,8 @@
                                 </label>
                             </div>
                         </div>
-                        <!-- END Portlet PORTLET-->
                     </div>
                     <div ng-if="row.featured" class="featured"></div>
-                    <!--<div class="row">
-                        <div class="col-sm-11">
-                            <h5>
-                                <a href="/#/job/{{row.id}}">
-                                    <i ng-if="row.favorite" class="fa fa-star shine"></i>
-                                    <i ng-if="row.isWorkingFromHome" class="fa fa-home"></i>
-                                    <i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>
-                                    {{row.title}} <small>{{row.company}}</small>
-                                </a>
-                            </h5>
-                            <p class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</p>
-                            <p class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</p>
-                            <p class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</p>
-                            <p>
-                                {{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
-                            </p>
-                        </div>
-                        <div class="col-sm-1">
-                            <div ng-switcher class="pull-right" ng-model="row.selected"></div>
-                        </div>
-                    </div>
-                    <span class="point">
-                        <i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
-                    </span>
-                    <span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
-                    <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
-                    <span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
-                    <span class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>-->
                 </div>
             </div>
         </div>
@@ -193,3 +165,4 @@
 <cc-pager total-pages="pages" current-page="currentPage"
           page-action="navigate(pageNumber)">
 </cc-pager>
+

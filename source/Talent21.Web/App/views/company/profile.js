@@ -1,5 +1,12 @@
-﻿app.controller('companyProfileController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
+﻿app.controller('companyProfileController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, param, $rootScope) {
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
 
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = true;
+    $rootScope.settings.layout.pageSidebarClosed = false;
     $scope.title = "Company Profile";
 
     $scope.role = db.role;
