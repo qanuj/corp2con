@@ -96,9 +96,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             })
             .state('billing', {
                 url: "/billing",
-                templateUrl: "app/views/" + role + "/billing.html",
+                templateUrl: "app/views/common/billing.html",
                 data: { pageTitle: 'Billing' },
-                controller: role + "BillingController",
+                controller: "billingController",
+                resolve: {}
+            })
+            .state('invoice', {
+                url: "/invoice/:id",
+                templateUrl: "app/views/common/invoice.html",
+                data: { pageTitle: 'Invoice' },
+                controller: "invoiceController",
+                resolve: {}
+            })
+            .state('credit', {
+                url: "/billing/credit",
+                templateUrl: "app/views/common/addCredit.html",
+                data: { pageTitle: 'Add Credit' },
+                controller: "creditController",
                 resolve: {}
             })
             .state('company', {

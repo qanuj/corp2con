@@ -83,6 +83,7 @@
     <Compile Include="Abstraction\INotificationService.cs" />
     <Compile Include="Abstraction\ISiteService.cs" />
     <Compile Include="Abstraction\IUserService.cs" />
+    <Compile Include="Core\CommonService.cs" />
     <Compile Include="Core\DemoDataService.cs" />
     <Compile Include="Abstraction\IDataService.cs" />
     <Compile Include="Abstraction\IDemoDataService.cs" />

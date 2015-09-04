@@ -4,7 +4,7 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
-    public interface ISharedService
+    public interface ISharedService : ISecuredService
     {
         IQueryable<Transaction> Transactions();
         string AddCredits(int num, string userId);

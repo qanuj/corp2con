@@ -35,41 +35,11 @@ namespace Talent21.Web.Controllers
             var userId = User.Identity.GetUserId<string>();
             return _service.GetDashboard(userId);
         }
-
-
-        [HttpGet]
-        [Route("transaction")]
-        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
-        {
-            _service.CurrentUserId = User.Identity.GetUserId();
-            return Page(_service.Transactions(), options);
-        }
-
-        [HttpGet]
-        [Route("balance")]
-        public int GetBalance()
-        {
-            var userId = User.Identity.GetUserId<string>();
-            return _service.GetBalance(userId);
-        }
-
-        [HttpPost]
-        [ResponseType(typeof(RedirectViewModel))]
-        [Route("credits/{num}")]
-        public HttpResponseMessage AddCredits(int num)
-        {
-            if (num <= 0){
-                return Ok(new RedirectViewModel { IsError = true, Error = "Credits can't be 0 or less." });
-            }
-            var code = _service.AddCredits(num, User.Identity.GetUserId<string>());
-            return Ok(new RedirectViewModel { Url = "/pay/" + code });
-        }
-
+        
         [HttpGet]
         [Route("paged")]
         public PageResult<ContractorViewModel> GetContractors(ODataQueryOptions<ContractorViewModel> options)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Contractors, options);
         }
 
@@ -105,7 +75,6 @@ namespace Talent21.Web.Controllers
         [Route("profile")]
         public HttpResponseMessage AddProfile(ContractorCreateViewModel model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
@@ -113,7 +82,6 @@ namespace Talent21.Web.Controllers
         [Route("profile")]
         public HttpResponseMessage EditProfile(ContractorEditViewModel model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
@@ -121,7 +89,6 @@ namespace Talent21.Web.Controllers
         [Route("profile/{id}")]
         public HttpResponseMessage DeleteProfile([FromUri] int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Delete(new IdModel { Id = id })) : Bad(ModelState);
         }
 
@@ -132,7 +99,6 @@ namespace Talent21.Web.Controllers
         [Route("schedule/paged")]
         public PageResult<ScheduleViewModel> ViewSchedules(ODataQueryOptions<ScheduleViewModel> options)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Schedules, options);
         }
 
@@ -141,7 +107,6 @@ namespace Talent21.Web.Controllers
         [Route("schedule/all")]
         public IQueryable<ScheduleViewModel> ViewSchedulesQuery()
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Schedules;
         }
 
@@ -149,7 +114,6 @@ namespace Talent21.Web.Controllers
         [Route("schedule")]
         public HttpResponseMessage AddSchedule(CreateScheduleViewModel model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
@@ -157,7 +121,6 @@ namespace Talent21.Web.Controllers
         [Route("schedule")]
         public HttpResponseMessage EditSchedule(EditScheduleViewModel model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
@@ -165,7 +128,6 @@ namespace Talent21.Web.Controllers
         [Route("schedule/{id}")]
         public HttpResponseMessage DeleteSchedule([FromUri] int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Delete(new DeleteScheduleViewModel{ Id=id})) : Bad(ModelState);
         }
 
@@ -175,7 +137,6 @@ namespace Talent21.Web.Controllers
         [Route("skill/paged")]
         public PageResult<ContractorSkillViewModel> GetSkills(ODataQueryOptions<ContractorSkillViewModel> options)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.Skills, options);
         }
 
@@ -184,7 +145,6 @@ namespace Talent21.Web.Controllers
         [Route("skill/all")]
         public IQueryable<ContractorSkillViewModel> GetSkillsQuert()
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return _service.Skills;
         }
 
@@ -192,7 +152,6 @@ namespace Talent21.Web.Controllers
         [Route("skill")]
         public HttpResponseMessage AddSkill(ContractorSkillCreateViewModel model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
@@ -200,7 +159,6 @@ namespace Talent21.Web.Controllers
         [Route("skill")]
         public HttpResponseMessage EditSkill(ContractorSkillEditViewModel model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);
         }
 
@@ -208,7 +166,6 @@ namespace Talent21.Web.Controllers
         [Route("skill/{id}")]
         public HttpResponseMessage DeleteSkill([FromUri]int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Delete(new ContractorSkillDeleteViewModel{ Id=id})) : Bad(ModelState);
         }
 
@@ -216,15 +173,13 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/apply")]
         public HttpResponseMessage ApplyToJob(int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
-            return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel { Id = id })) : Bad(ModelState);
+           return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel { Id = id })) : Bad(ModelState);
         }
 
         [HttpPost]
         [Route("job/decline")]
         public HttpResponseMessage DeclineInvitationToJob(JobDeclineViewModel model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.Decline(model)) : Bad(ModelState);
         }
 
@@ -232,7 +187,6 @@ namespace Talent21.Web.Controllers
         [Route("job/application")]
         public PageResult<JobApplicationContractorViewModel> GetJobApplications(ODataQueryOptions<JobApplicationContractorViewModel> options)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.MyApplications(), options);
         }
 
@@ -240,7 +194,6 @@ namespace Talent21.Web.Controllers
         [Route("job/application/history")]
         public IQueryable<JobBasedJobApplicationHistoryViewModel> HasAppliedToJobs(IList<int> model)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return _service.ApplicationHistoryByJobIDs(model);
         }
 
@@ -249,7 +202,6 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/revoke")]
         public HttpResponseMessage RejectJobApplication([FromUri] int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel{Id=id}, JobActionEnum.Revoke)) : Bad(ModelState);
         }
 
@@ -258,7 +210,6 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/favorite")]
         public ContractorViewModel GetContractorFavoriteById(int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return _service.GetFavorite(id);
         }
 
@@ -266,7 +217,6 @@ namespace Talent21.Web.Controllers
         [Route("job/favorite/paged")]
         public PageResult<JobApplicationContractorViewModel> GetFavoriteJobs(ODataQueryOptions<JobApplicationContractorViewModel> options)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Page(_service.FavoriteJobs(), options);
         }
 
@@ -274,7 +224,6 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/favorite")]
         public HttpResponseMessage FavoriteJob([FromUri] int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Favorite)) : Bad(ModelState);
         }
 
@@ -282,7 +231,6 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/favorite")]
         public HttpResponseMessage DeleteFavoriteJob([FromUri] int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return ModelState.IsValid ? Ok(_service.ActOnApplication(new DeleteJobApplicationHistoryViewModel { Id = id }, JobActionEnum.Favorite)) : Bad(ModelState);
         }
 
@@ -291,7 +239,6 @@ namespace Talent21.Web.Controllers
         [ResponseType(typeof(JobApplicationContractorViewModel))]
         public HttpResponseMessage SingleJob(int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             var model = _service.JobById(id);
             return model == null ? NotFound() : Ok(model);
         }
@@ -301,7 +248,6 @@ namespace Talent21.Web.Controllers
         [Route("top/employers/{skill}/{location}")]
         public IQueryable<PictureViewModel> TopEmployers(string skill,string location)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return _jobService.TopEmployers(skill, location);
         }
 
@@ -310,7 +256,6 @@ namespace Talent21.Web.Controllers
         [Route("company/{id}/visit")]
         public HttpResponseMessage VisitContractor([FromUri] int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Ok(_service.VisitCompany(id, new VisitViewModel
             {
                 IpAddress = GetIpAddress(),
@@ -325,7 +270,6 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/visit")]
         public HttpResponseMessage VisitJob([FromUri] int id)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return Ok(_service.VisitJob(id, new VisitViewModel
             {
                 IpAddress = GetIpAddress(),
@@ -340,7 +284,6 @@ namespace Talent21.Web.Controllers
         [EnableQuery]
         public IQueryable<JobSearchResultViewModel> GetLatestJobs(string skill, string location)
         {
-            _service.CurrentUserId = User.Identity.GetUserId();
             return _jobService.TopJobs(skill, location);
         }
     } 

@@ -46,8 +46,9 @@ namespace Talent21.Service.Core
             ITransactionRepository transactionRepository,
             IAdvertisementRepository advertisementRepository,
             IScheduleRepository scheduleRepository,
+            IUserProvider userProvider,
             IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository, SellingOptions sellingOptions, IInviteRepository inviteRepository)
-            : base(locationRepository, transactionRepository, sellingOptions)
+            : base(locationRepository, transactionRepository, sellingOptions, userProvider)
         {
             _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
@@ -644,7 +645,6 @@ namespace Talent21.Service.Core
             return query;
         }
 
-
         public CompanyDashboardViewModel GetDashboard(string userId)
         {
             var skill = "Java";
@@ -685,7 +685,7 @@ namespace Talent21.Service.Core
             };
         }
 
-        public void AddView(int id, string userAgent, string ipAddress)
+        public override void AddView(int id, string userAgent, string ipAddress)
         {
             _companyVisitRepository.Create(new CompanyVisit()
             {

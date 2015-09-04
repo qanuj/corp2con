@@ -1,5 +1,5 @@
-using System;
 using System.Linq;
+using e10.Shared.Providers;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -7,20 +7,28 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public abstract class SharedService : ISecuredService
+    public abstract class SharedService : ISharedService
     {
-        public string CurrentUserId { set; protected get; }
+        public string CurrentUserId
+        {
+            get
+            {
+                return _userProvider.UserName;
+            }
+        }
 
         protected readonly ILocationRepository _locationRepository;
         protected readonly ITransactionRepository _transactionRepository;
         protected readonly SellingOptions _sellingOptions;
+        protected readonly IUserProvider _userProvider;
 
 
-        protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions)
+        protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions, IUserProvider userProvider)
         {
             _locationRepository = locationRepository;
             _transactionRepository = transactionRepository;
             _sellingOptions = sellingOptions;
+            _userProvider = userProvider;
         }
 
 
@@ -29,6 +37,7 @@ namespace Talent21.Service.Core
             return _transactionRepository.Balance(userId);
         }
 
+        public abstract void AddView(int id, string userAgent, string ipAddress);
 
         public IQueryable<Transaction> Transactions()
         {
@@ -50,7 +59,6 @@ namespace Talent21.Service.Core
 
             return transction.Code;
         }
-
 
         protected Location FindLocation(string address,int locationId)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoPoco.Configuration;
 using e10.Shared.Data.Abstraction;
+using e10.Shared.Providers;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -30,6 +31,7 @@ namespace Talent21.Service.Core
         public ContractorService(IContractorRepository contractorRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository,
+            IUserProvider userProvider,
             ISkillRepository skillRepository,
             IContractorSkillRepository contractorSkillRepository,
             ILocationRepository locationRepository,
@@ -38,7 +40,7 @@ namespace Talent21.Service.Core
             IJobRepository jobRepository,
             SellingOptions sellingOptions,
             ITransactionRepository transactionRepository, INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository)
-            : base(locationRepository, transactionRepository, sellingOptions)
+            : base(locationRepository, transactionRepository, sellingOptions, userProvider)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -564,7 +566,7 @@ namespace Talent21.Service.Core
                 Month = _jobRepository.MatchingForConctractor(userId).Count(x => x.Start < nextMonth)
             };
         }
-        public void AddView(int id, string userAgent, string ipAddress)
+        public override void AddView(int id, string userAgent, string ipAddress)
         {
             _contractorVisitRepository.Create(new ContractorVisit
             {

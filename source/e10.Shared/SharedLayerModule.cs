@@ -19,6 +19,7 @@ namespace e10.Shared
             builder.RegisterType<SmsService>().As<IIdentitySmsMessageService>().InstancePerRequest();
             builder.RegisterType<DoNotReplyAte10EmailConfigProvider>().As<IEmailConfigProvider>().InstancePerRequest();
             builder.RegisterType<ElmahLogger>().As<ILogger>().InstancePerRequest();
+            builder.RegisterType<CurrentUserProvider>().As<IUserProvider>().InstancePerRequest();
 
             builder.RegisterType<InviteRepository>().As<IInviteRepository>().InstancePerRequest();
             builder.RegisterType<FaqRepository>().As<IFaqRepository>().InstancePerRequest();
