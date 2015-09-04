@@ -33,6 +33,18 @@
         </p>
     </div>
 </div>
+<div ng-if="status">
+    <div class="note note-bordered" ng-class="status=='success'?'note-success':'note-danger'">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{status}}</strong>
+        <p>{{message}}</p>
+        <p>
+            <a class="btn btn-success" ng-click="addCredits(firstCredit)" href=""><i class="fa fa-inr"></i> {{addMessage}}</a>
+        </p>
+    </div>
+</div>
 <table ng-if="records.length>0" class="table table-bordered table-condensed table-hover">
     <tr>
         <th>Id</th>

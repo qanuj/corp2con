@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace e10.Shared.Providers
 {
@@ -8,7 +9,7 @@ namespace e10.Shared.Providers
         {
             get
             {
-                var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+                var identity = HttpContext.Current.User.Identity;
                 if (identity != null) return identity.GetUserId();
                 return string.Empty;
             }
