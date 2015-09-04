@@ -1,5 +1,5 @@
 ﻿app.controller('contractorJobController', ['$scope', 'dataService', '$stateParams', '$window', function ($scope, db, param, $window) {
-    $scope.isCollapsed = true;
+
     $scope.title = "Job Profile";
     $scope.role = db.role;
     $scope.id = param.id;

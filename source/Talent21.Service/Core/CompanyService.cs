@@ -204,7 +204,6 @@ namespace Talent21.Service.Core
 
         private void ApplySkills(CreateJobViewModel model, Job entity)
         {
-
             var IDs = entity.Skills.Select(x => x.Id).ToList();
             var existingSkills = _jobSkillRepository.ById(IDs).ToList();
 
@@ -477,6 +476,7 @@ namespace Talent21.Service.Core
         {
             return jobs.Select(x => new JobViewModel
             {
+                NewApplications=x.Applications.Count(y=>!y.IsRevoked),
                 Expiry=x.Expiry,
                 Id = x.Id,
                 Applied = x.Applications.Count,

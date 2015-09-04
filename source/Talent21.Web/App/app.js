@@ -13,6 +13,7 @@
     'theaquaNg',
     'daterangepicker',
     'codemwnci.markdown-edit-preview',
+    'frapontillo.bootstrap-switch',
     'humenize',
     'ui.gravatar', //gravtaar for user
     'ui.select', //ui-select for dropdown and multi values.

@@ -1,13 +1,5 @@
 ﻿app.controller('companyContractorController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
-    $scope.$on('$viewContentLoaded', function () {
-        // initialize core components
-        Metronic.initAjax();
-    });
-
-    // set sidebar closed and body solid layout mode
-    $rootScope.settings.layout.pageBodySolid = true;
-    $rootScope.settings.layout.pageSidebarClosed = false;
-
+    
     $scope.shortlist=function(id) {
         
     }

@@ -163,6 +163,7 @@ namespace Talent21.Service.Models
         }
 
         public DateTime? Expiry { get; set; }
+        public int NewApplications { get; set; }
     }
 
     public class DeleteJobViewModel : IdModel { }

@@ -67,6 +67,7 @@
         </div>
     </div>
     <div class="col-sm-3 col-md-2">
+        <h3 class="form-section">Profile Picture</h3>
         <a href="#" class="thumbnail">
             <img ng-src="{{record.picture.url}}" alt="{{record.firstName}} {{record.lastName}}">
         </a>
@@ -76,7 +77,7 @@
                         max-chunk-size="10"
                         multiple="false" size-limit="5000000">
         </ng-upload-form>
-        <hr />
+        <hr/>
         <div class="form-group">
             <ng-upload-form ng-model="record.cv"
                             url="/upload"

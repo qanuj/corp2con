@@ -5,6 +5,21 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     // Redirect any unmatched url
     $urlRouterProvider.otherwise("/");
 
+    var searchDependency = {
+        deps: [
+            '$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                    name: 'app',
+                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                    files: [
+                        '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
+                        '/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js'
+                    ]
+                });
+            }
+        ]
+    };
+
     $stateProvider
         // Dashboard
         .state('dashboard', {
@@ -33,21 +48,21 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "app/views/" + role + "/search.html",
             data: { pageTitle: 'Search' },
             controller: role + "SearchController",
-            resolve: {}
+            resolve: searchDependency
         })
         .state('searchIdea', {
             url: "/search/:idea",
             templateUrl: "app/views/" + role + "/search.html",
             data: { pageTitle: 'Search' },
             controller: role + "SearchController",
-            resolve: {}
+            resolve: searchDependency
         })
         .state('searchPaged', {
             url: "/search/:idea/:page",
             templateUrl: "app/views/" + role + "/search.html",
             data: { pageTitle: 'Search' },
             controller: role + "SearchController",
-            resolve: {}
+            resolve: searchDependency
         })
         .state('profile', {
             url: "/profile",

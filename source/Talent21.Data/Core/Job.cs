@@ -34,5 +34,15 @@ namespace Talent21.Data.Core
         public DateTime? Expiry { get; set; }
 
         public IList<JobAdvertisement> Advertisements { get; set; }
+
+        public Job()
+        {
+            this.Skills = new List<JobSkill>();
+            this.Advertisements = new List<JobAdvertisement>();
+            this.Visits = new List<JobVisit>();
+            this.Locations = new List<Location>();
+            this.Applications = new List<JobApplication>();
+            this.Transactions = new List<JobTransaction>();
+        }
     }
 }

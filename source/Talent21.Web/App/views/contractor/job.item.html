@@ -29,7 +29,7 @@
     <div class="portlet-body">
         <h5><a ng-href="row.webSite">{{row.webSite}}</a></h5>
         <p>
-            {{row.description | limitTo: 200}}{{row.description.length > 300 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
+            {{row.description | plaintext | limitTo: 200}}{{row.description.length > 300 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
         </p>
     </div>
     <div class="portlet-footer">

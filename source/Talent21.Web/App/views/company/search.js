@@ -1,12 +1,5 @@
 ﻿app.controller('companySearchController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
-    $scope.$on('$viewContentLoaded', function () {
-        // initialize core components
-        Metronic.initAjax();
-    });
-
-    // set sidebar closed and body solid layout mode
-    $rootScope.settings.layout.pageBodySolid = true;
-    $rootScope.settings.layout.pageSidebarClosed = false;
+    
 
     $scope.title = "Contractor : Search Result";
     $scope.save = "Save";
@@ -45,6 +38,7 @@
                 $scope.count = result.count;
                 $scope.records = result.items;
                 $scope.page = page;
+                $scope.selectAll = false;
             });
         }
 
@@ -60,7 +54,12 @@
     }
     $scope.navigate($stateParams.page);
 
-    $scope.toggle=function(allSelected) {
+
+    $scope.$watch('selectAll', function () {
+        $scope.toggle($scope.selectAll);
+    });
+
+    $scope.toggle = function (allSelected) {
         for (var x in $scope.records) {
             $scope.records[x].selected = allSelected;
         }
