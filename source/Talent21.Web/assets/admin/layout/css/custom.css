@@ -10,6 +10,10 @@ body {
     border: none;
 }
 
+.page-bar {
+    margin: 20px 0px !important;
+}
+
 a, a:hover {
     text-decoration:none;
 }
