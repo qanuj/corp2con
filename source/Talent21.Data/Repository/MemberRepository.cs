@@ -18,7 +18,7 @@ namespace Talent21.Data.Repository
 
         public Member ByUserId(string userId)
         {
-            return All.FirstOrDefault(x => x.OwnerId == userId);
+            return All.Include(x => x.Location).FirstOrDefault(x => x.OwnerId == userId);
         }
     }
 }

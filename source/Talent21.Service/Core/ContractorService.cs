@@ -13,7 +13,7 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public class ContractorService : SharedService, IContractorService
+    public class ContractorService : SecuredService, IContractorService
     {
         private readonly IContractorRepository _contractorRepository;
         private readonly IContractorVisitRepository _contractorVisitRepository;
@@ -27,20 +27,18 @@ namespace Talent21.Service.Core
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly INotificationService _notificationService;
+        private readonly ISharedService _sharedService;
 
         public ContractorService(IContractorRepository contractorRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository,
-            IUserProvider userProvider,
             ISkillRepository skillRepository,
             IContractorSkillRepository contractorSkillRepository,
-            ILocationRepository locationRepository,
             IContractorVisitRepository contractorVisitRepository,
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
-            SellingOptions sellingOptions,
-            ITransactionRepository transactionRepository, INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository)
-            : base(locationRepository, transactionRepository, sellingOptions, userProvider)
+            INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository, ISharedService sharedService,
+            IUserProvider userProvider) : base(userProvider)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -53,6 +51,7 @@ namespace Talent21.Service.Core
             _notificationService = notificationService;
             _companyVisitRepository = companyVisitRepository;
             _jobVisitRepository = jobVisitRepository;
+            _sharedService = sharedService;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -83,6 +82,8 @@ namespace Talent21.Service.Core
                                 Location = x.Location.Title,
                                 LocationId = x.LocationId,
                                 Mobile = x.Mobile,
+                                PinCode = x.PinCode,
+                                Address = x.Address,
                                 FirstName = x.FirstName,
                                 LastName = x.LastName,
                                 Rss = x.Social.Rss,
@@ -243,6 +244,8 @@ namespace Talent21.Service.Core
                 ContractType = model.ContractType,
                 Gender = model.Gender,
                 Profile = model.Profile,
+                PinCode = model.PinCode,
+                Address = model.Address,
                 Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears },
                 LocationId = model.LocationId,
                 Mobile = model.Mobile,
@@ -346,6 +349,9 @@ namespace Talent21.Service.Core
             entity.ContractType = model.ContractType;
             entity.Gender = model.Gender;
             entity.Profile = model.Profile;
+
+            entity.PinCode = model.PinCode;
+            entity.Address = model.Address;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
             entity.LocationId = model.LocationId;
             entity.IndustryId = model.IndustryId;
@@ -566,7 +572,7 @@ namespace Talent21.Service.Core
                 Month = _jobRepository.MatchingForConctractor(userId).Count(x => x.Start < nextMonth)
             };
         }
-        public override void AddView(int id, string userAgent, string ipAddress)
+        public void AddView(int id, string userAgent, string ipAddress)
         {
             _contractorVisitRepository.Create(new ContractorVisit
             {

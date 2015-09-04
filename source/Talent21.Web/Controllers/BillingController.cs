@@ -41,6 +41,13 @@ namespace Talent21.Web.Controllers
             return Page(_service.Transactions(), options);
         }
 
+        [HttpGet]
+        [Route("transaction/{id}")]
+        public InvoiceViewModel GetTransactionById([FromUri]int id)
+        {
+            return _service.TransactionById(id);
+        }
+
 
         [HttpGet]
         [Route("balance")]

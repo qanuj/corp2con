@@ -9,6 +9,11 @@ namespace Talent21.Service.Abstraction
         IQueryable<Transaction> Transactions();
         string AddCredits(int num, string userId);
         int GetBalance(string userId);
+        InvoiceViewModel TransactionById(int id);
+    }
+
+    public interface IViewService
+    {
         void AddView(int id, string userAgent, string ipAddress);
     }
 }

@@ -9,9 +9,13 @@
     billing.balance = function () {
         return $http.get(v + 'balance');
     }
-
+    
     billing.transactions = function (page, pageSize) {
         return $http.get(v + 'transaction?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+    }
+
+    billing.transaction = function (id) {
+        return $http.get(v + 'transaction/' + id);
     }
 
     billing.addCredits = function (credits) {
