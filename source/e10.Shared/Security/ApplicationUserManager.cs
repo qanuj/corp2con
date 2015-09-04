@@ -59,7 +59,7 @@ namespace e10.Shared.Security
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            return new ApplicationUserManager(context.GetUserManager<ApplicationUserStore>(), new SmsService(), context.Get<IIdentityEmailMessageService>());
+            return new ApplicationUserManager(new ApplicationUserStore(context.Get<ApplicationDbContext>()), new SmsService(), context.Get<IIdentityEmailMessageService>());
         }
         public static IUserTokenProvider<User, string> DefaultTokenProvider()
         {

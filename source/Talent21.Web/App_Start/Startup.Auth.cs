@@ -13,6 +13,7 @@ using System;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Yahoo;
 using Talent21.Data;
+using e10.Shared.Data;
 
 namespace Talent21.Web
 {
@@ -27,9 +28,7 @@ namespace Talent21.Web
         {
 
             // Configure the db context, user manager and signin manager to use a single instance per request
-            var dbContext = ApplicationDataContext.Create();
-            app.CreatePerOwinContext(() => dbContext);
-            app.CreatePerOwinContext(() => new ApplicationUserStore(dbContext));
+            app.CreatePerOwinContext<ApplicationDbContext>(ApplicationDataContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
