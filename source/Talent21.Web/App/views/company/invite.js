@@ -23,6 +23,6 @@
         });
     }
 
-    addRecords(10);
+    addRecords(5);
 
 }]);
