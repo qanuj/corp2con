@@ -1,4 +1,240 @@
-﻿<section id="jobs">
+﻿<div class="profile-sidebar">
+    <div class="portlet light profile-sidebar-portlet">
+        <!-- SIDEBAR USERPIC -->
+        <div class="profile-userpic">
+            <img src="{{record.pictureUrl}}" class="img-responsive" alt="">
+        </div>
+        <!-- END SIDEBAR USERPIC -->
+        <!-- SIDEBAR USER TITLE -->
+        <div class="profile-usertitle">
+            <div class="profile-usertitle-name">
+                {{record.firstName}}
+            </div>
+            <div class="profile-usertitle-job">
+                {{record.lastName}}
+            </div>
+        </div>
+        <!-- END SIDEBAR USER TITLE -->
+        <!-- SIDEBAR BUTTONS -->
+        <div class="profile-userbuttons">
+            <button type="button" class="btn btn-circle green-haze btn-sm" style="text-transform:lowercase">{{record.email}}</button>
+        </div>
+        <!-- END SIDEBAR BUTTONS -->
+        <!-- SIDEBAR MENU -->
+        <div class="profile-usermenu">
+            <ul class="nav">
+                <li class="text-center">
+                    <a href="/#/profile/edit">
+                        <i class="icon-pencil font-red"></i>
+                        Edit Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- END MENU -->
+    </div>
+    <div class="portlet light">
+        <!-- STAT -->
+        <div class="row list-separated profile-stat">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title">
+                    {{record.skills.length}}
+                </div>
+                <div class="uppercase profile-stat-text">
+                    Skills
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title">
+                    {{record.rate}}
+                </div>
+                <div class="uppercase profile-stat-text">
+                    Rate
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title">
+                    {{record.experienceYears}}.{{record.experienceMonths}}
+                </div>
+                <div class="uppercase profile-stat-text">
+                    Experience
+                </div>
+            </div>
+        </div>
+        <!-- END STAT -->
+        <div>
+            <h4 class="profile-desc-title">Details</h4>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-user"></i>
+                <a href="javascript:;">{{record.consultantType}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-map-marker"></i>
+                <a href="javascript:;">{{record.location}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-phone"></i>
+                <a href="javascript:;">{{record.mobile}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-phone"></i>
+                <a href="javascript:;">{{record.alternateNumber}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-home"></i>
+                <a href="javascript:;">{{record.address}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-globe"></i>
+                <a href="javascript:;">{{record.nationality}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-globe"></i>
+                <a href="{{record.website}}">{{record.website}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-facebook"></i>
+                <a href="http://www.facebook.com/{{record.facebook}}/">{{record.facebook}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-linkedin"></i>
+                <a href="http://www.linkedin.com/{{record.linkedin}}/">{{record.linkedin}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-twitter"></i>
+                <a href="http://www.twitter.com/{{record.twitter}}/">@{{record.twitter}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <!-- BEGIN PORTLET -->
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase font-green">Your Schedule</span>
+            </div>
+        </div>
+        <div class="portlet-body bordered">
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light">
+                    <thead>
+                        <tr class="uppercase">
+                            <th>
+                                NOTE
+                            </th>
+                            <th>
+                                START
+                            </th>
+                            <th>
+                                END
+                            </th>
+                            <th>
+                                DURATION
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="s in schedule | orderBy:['-isAvailable','start']">
+                            <td>
+                                <i ng-if="s.isAvailable" class="fa fa-check-circle font-green"></i> {{s.company}}
+                            </td>
+                            <td>
+                                {{s.start | date:'dd-MMM-yyyy'}}
+                            </td>
+                            <td>
+                                {{s.end | date:'dd-MMM-yyyy'}}
+                            </td>
+                            <td>
+                                {{s.end | amDifference : s.start : 'days'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET -->
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase">Profile</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="slimScrollDiv" style="position: relative;">
+                <div class="scroller" style="" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2" data-initialized="1">
+                    <div class="general-item-list">
+                        <div class="item">
+                            <div class="item-body">
+                                <div class="full-text" ng-bind-html="record.profile"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <!-- BEGIN PORTLET -->
+    <div class="portlet light" ng-repeat="l in levels">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase font-green"> {{l.label}} Skills </span>
+            </div>
+        </div>
+        <div class="portlet-body bordered">
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light">
+                    <tbody>
+                        <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
+                            <td>
+                                {{s.title}}
+                            </td>
+                            <td>
+                                {{s.experienceInMonths}} Months
+                            </td>
+                            <td>
+                                {{s.end | date:'dd-MMM-yyyy'}}
+                            </td>
+                            <td>
+                                {{s.proficiency}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET -->
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase">About</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="slimScrollDiv" style="position: relative;">
+                <div class="scroller" style="" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2" data-initialized="1">
+                    <div class="general-item-list">
+                        <div class="item">
+                            <div class="item-body">
+                                <div class="full-text" ng-bind-html="record.about"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="jobs">
     <div class="container">
         <div class="row">
             <div class="col-sm-8">

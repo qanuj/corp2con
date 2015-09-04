@@ -214,9 +214,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             })
             .state('contractor', {
                 url: "/contractor/:id",
-                templateUrl: "app/views/" + role + "/contractorApplication.html",
+                templateUrl: "app/views/" + role + "/contractor.html",
                 data: { pageTitle: 'Contractor' },
-                controller: role + "ContractorApplicationController",
+                controller: role + "ContractorController",
                 resolve: {}
             });
     } else if (role == 'admin') {

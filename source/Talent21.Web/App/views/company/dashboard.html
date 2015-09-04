@@ -115,12 +115,12 @@
                         <tr>
                             <th>Minimum</th>
                             <td>{{record.aggregate.salary.min}}</td>
-                            <td>{{record.aggregate.duration.min }}</td>
+                            <td>{{record.aggregate.duration.min | amDifference : null : 'days' }}</td>
                         </tr>
                         <tr>
                             <th>Maximum</th>
                             <td>{{record.aggregate.salary.max}}</td>
-                            <td>{{record.aggregate.duration.max}}</td>
+                            <td>{{record.aggregate.duration.max| amDifference : null : 'days' }}</td>
                         </tr>
                     </table>
                 </div>
