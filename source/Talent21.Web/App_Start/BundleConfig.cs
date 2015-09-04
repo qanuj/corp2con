@@ -89,6 +89,7 @@ namespace Talent21.Web
                 .Include("~/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js")
                 .Include("~/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js")
                 .Include("~/assets/global/scripts/metronic.js")
+                .Include("~/assets/global/plugins/angularjs/plugins/angular-daterangepicker/angular-daterangepicker.js")
                 .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/angular-*")
                 .Include("~/Scripts/rzslider.js")

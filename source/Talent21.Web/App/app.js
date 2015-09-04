@@ -11,6 +11,7 @@
     'angularMoment',
     'ngCkeditor',
     'theaquaNg',
+    'daterangepicker',
     'codemwnci.markdown-edit-preview',
     'humenize',
     'ui.gravatar', //gravtaar for user
