@@ -56,6 +56,27 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             controller: role + "ProfileController",
             resolve: {}
         })
+        .state('billing', {
+            url: "/billing",
+            templateUrl: "app/views/common/billing.html",
+            data: { pageTitle: 'Billing' },
+            controller: "billingController",
+            resolve: {}
+        })
+        .state('invoice', {
+            url: "/invoice/:id",
+            templateUrl: "app/views/common/invoice.html",
+            data: { pageTitle: 'Invoice' },
+            controller: "invoiceController",
+            resolve: {}
+        })
+        .state('credit', {
+            url: "/billing/credit",
+            templateUrl: "app/views/common/addCredit.html",
+            data: { pageTitle: 'Add Credit' },
+            controller: "creditController",
+            resolve: {}
+        })
         .state('profileEdit', {
             url: "/profile/edit",
             templateUrl: "app/views/" + role + "/editProfile.html",
@@ -85,34 +106,30 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/schedule.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "ScheduleController",
-                resolve: {}
+                resolve: {
+                    deps: [
+                        '$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: 'app',
+                                insertBefore: '#ng_load_plugins_before',
+                                files: [
+                                    '/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
+                                    '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css',
+                                    '/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
+                                    '/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js',
+                                    '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                                    '/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+                                ]
+                            });
+                        }
+                    ]
+                }
             })
             .state('favorite', {
                 url: "/favorite",
                 templateUrl: "app/views/" + role + "/favorite.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "FavoriteController",
-                resolve: {}
-            })
-            .state('billing', {
-                url: "/billing",
-                templateUrl: "app/views/common/billing.html",
-                data: { pageTitle: 'Billing' },
-                controller: "billingController",
-                resolve: {}
-            })
-            .state('invoice', {
-                url: "/invoice/:id",
-                templateUrl: "app/views/common/invoice.html",
-                data: { pageTitle: 'Invoice' },
-                controller: "invoiceController",
-                resolve: {}
-            })
-            .state('credit', {
-                url: "/billing/credit",
-                templateUrl: "app/views/common/addCredit.html",
-                data: { pageTitle: 'Add Credit' },
-                controller: "creditController",
                 resolve: {}
             })
             .state('company', {
@@ -215,13 +232,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/invite.html",
                 data: { pageTitle: 'Invite' },
                 controller: role + "InviteController",
-                resolve: {}
-            })
-            .state('billing', {
-                url: "/billing/:page?",
-                templateUrl: "app/views/" + role + "/billing.html",
-                data: { pageTitle: 'Billing' },
-                controller: role + "BillingController",
                 resolve: {}
             });
     }

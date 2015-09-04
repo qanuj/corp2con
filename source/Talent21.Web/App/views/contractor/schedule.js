@@ -1,7 +1,9 @@
 ﻿app.controller('contractorScheduleController', ['$scope', 'dataService', '$stateParams', function ($scope, db, params) {
+    $scope.title = "Manage Schedule";
+    $scope.today = new Date();
 
-    $scope.navigate = function(page) {
-        db.contractor.pagedSchedule(page).success(function(result) {
+    $scope.navigate = function (page) {
+        db.contractor.pagedSchedule(page).success(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
             $scope.records = result.items;
@@ -9,7 +11,13 @@
     }
 
     $scope.save = function (record) {
-        db.contractor.createSchedule(record).success($scope.navigate).finally(function () {
+        console.log(record);
+        db.contractor.createSchedule({
+            start: record.date.startDate.format(),
+            end: record.date.endDate.format(),
+            company: record.company,
+            isAvailable: record.isAvailable
+        }).success($scope.navigate).finally(function () {
             $scope.start = '';
             $scope.end = '';
         });
@@ -28,5 +36,20 @@
     };
 
     $scope.navigate(params.page);
+
+    $('#defaultrange').daterangepicker({
+        opens: (Metronic.isRTL() ? 'left' : 'right'),
+        format: 'MM/DD/YYYY',
+        separator: ' to ',
+        startDate: moment().subtract('days', 29),
+        endDate: moment(),
+        minDate: '01/01/2012',
+        maxDate: '12/31/2018',
+    },
+        function (start, end) {
+            $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    );
+
 
 }]);

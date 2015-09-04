@@ -2324,6 +2324,7 @@
     <Content Include="assets\global\plugins\angularjs\angular-sanitize.min.js" />
     <Content Include="assets\global\plugins\angularjs\angular-touch.min.js" />
     <Content Include="assets\global\plugins\angularjs\angular.min.js" />
+    <Content Include="assets\global\plugins\angularjs\plugins\angular-daterangepicker\angular-daterangepicker.js" />
     <Content Include="assets\global\plugins\angularjs\plugins\angular-file-upload\angular-file-upload.min.js" />
     <Content Include="assets\global\plugins\angularjs\plugins\angular-ui-router.min.js" />
     <Content Include="assets\global\plugins\angularjs\plugins\ocLazyLoad.min.js" />
