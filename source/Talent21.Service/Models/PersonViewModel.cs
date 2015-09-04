@@ -13,6 +13,8 @@
         public string Location { get; set; }
         public int? LocationId { get; set; }
         public string Mobile { get; set; }
+        public string Address { get; set; }
+        public string PinCode { get; set; }
         public string Twitter { get; set; }
         public string WebSite { get; set; }
         public string Rss { get; set; }

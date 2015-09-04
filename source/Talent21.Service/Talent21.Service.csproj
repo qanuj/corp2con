@@ -91,6 +91,7 @@
     <Compile Include="Abstraction\IPersonDataService.cs" />
     <Compile Include="Abstraction\ISecuredService.cs" />
     <Compile Include="Abstraction\ISharedService.cs" />
+    <Compile Include="Core\SecuredService.cs" />
     <Compile Include="Core\SharedService.cs" />
     <Compile Include="Core\SiteService.cs" />
     <Compile Include="Models\CreateContractorViewModel.cs" />

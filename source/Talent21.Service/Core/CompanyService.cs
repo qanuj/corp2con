@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using e10.Shared.Data.Abstraction;
@@ -11,12 +10,11 @@ using System.Linq;
 using e10.Shared;
 using e10.Shared.Providers;
 using e10.Shared.Respository;
-using Talent21.Data;
 
 namespace Talent21.Service.Core
 {
 
-    public class CompanyService : SharedService, ICompanyService, IFileAccessProvider
+    public class CompanyService : SecuredService, IViewService, ICompanyService, IFileAccessProvider
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyVisitRepository _companyVisitRepository;
@@ -27,28 +25,33 @@ namespace Talent21.Service.Core
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IInviteRepository _inviteRepository;
+        private readonly ILocationRepository _locationRepository;
+        private readonly ITransactionRepository _transactionRepository;
 
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IContractorFolderRepository _contractorFolderRepository;
         private readonly INotificationService _notificationService;
+        private readonly ISharedService _sharedService;
+        private readonly SellingOptions _sellingOptions;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
             ISkillRepository skillRepository,
             IJobSkillRepository jobSkillRepository,
             IJobApplicationRepository jobApplicationRepository,
-            ILocationRepository locationRepository,
             IContractorRepository contractorRepository,
             IContractorSkillRepository contractorSkillRepository,
             ICompanyVisitRepository companyVisitRepository,
-            ITransactionRepository transactionRepository,
             IAdvertisementRepository advertisementRepository,
             IScheduleRepository scheduleRepository,
-            IUserProvider userProvider,
-            IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository, SellingOptions sellingOptions, IInviteRepository inviteRepository)
-            : base(locationRepository, transactionRepository, sellingOptions, userProvider)
+            IContractorFolderRepository contractorFolderRepository, 
+            INotificationService notificationService, 
+            IContractorVisitRepository contractorVisitRepository,
+            IInviteRepository inviteRepository,
+            ISharedService sharedService,
+            IUserProvider userProvider, ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions) :base(userProvider)
         {
             _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
@@ -64,6 +67,10 @@ namespace Talent21.Service.Core
             _notificationService = notificationService;
             _contractorVisitRepository = contractorVisitRepository;
             _inviteRepository = inviteRepository;
+            _sharedService = sharedService;
+            _locationRepository = locationRepository;
+            _transactionRepository = transactionRepository;
+            _sellingOptions = sellingOptions;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -82,6 +89,8 @@ namespace Talent21.Service.Core
                     Location = x.Location.Title,
                     LocationId = x.LocationId,
                     Mobile = x.Mobile,
+                    Address =x.Address,
+                    PinCode = x.PinCode,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     Rss = x.Social.Rss,
@@ -119,6 +128,8 @@ namespace Talent21.Service.Core
                 CompanyName = model.CompanyName,
                 OrganizationType = model.OrganizationType,
                 AlternateNumber = model.AlternateNumber,
+                Address = model.Address,
+                PinCode = model.PinCode,
                 Profile = model.Profile,
                 LocationId = model.LocationId,
                 Mobile = model.Mobile,
@@ -158,6 +169,8 @@ namespace Talent21.Service.Core
             entity.CompanyName = model.CompanyName;
             entity.OrganizationType = model.OrganizationType;
             entity.AlternateNumber = model.AlternateNumber;
+            entity.Address = model.Address;
+            entity.PinCode = model.PinCode;
             entity.Profile = model.Profile;
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
@@ -384,6 +397,8 @@ namespace Talent21.Service.Core
                     ExperienceMonths = x.Contractor.Experience.Months,
                     ExperienceYears = x.Contractor.Experience.Years,
                     Facebook = x.Contractor.Social.Facebook,
+                    PinCode = x.Contractor.PinCode,
+                    Address = x.Contractor.Address,
                     Google = x.Contractor.Social.Google,
                     LinkedIn = x.Contractor.Social.LinkedIn,
                     Location = x.Contractor.Location.Title,
@@ -523,6 +538,8 @@ namespace Talent21.Service.Core
                                 FunctionalAreaId = x.FunctionalAreaId,
                                 ExperienceMonths = x.Experience.Months,
                                 ExperienceYears = x.Experience.Years,
+                                PinCode = x.PinCode,
+                                Address = x.Address,
                                 Facebook = x.Social.Facebook,
                                 Google = x.Social.Google,
                                 LinkedIn = x.Social.LinkedIn,
@@ -677,7 +694,7 @@ namespace Talent21.Service.Core
                     Salary = aggregateReport.Salary,
                     Duration = aggregateReport.Duration,
                 },
-                Credits = _transactionRepository.Balance(userId),
+                Credits = _sharedService.GetBalance(userId),
                 Views = _companyVisitRepository.Mine(userId).Count(),
                 Applications = _jobApplicationRepository.Mine(userId).Count(x => x.History.Any(y => y.Act == JobActionEnum.Application) && x.History.All(y => y.Act != JobActionEnum.Rejected) && x.History.All(y => y.Act != JobActionEnum.Revoke)),
                 Contractors = _contractorRepository.MatchingCompanyJobs(userId).Count(),
@@ -685,7 +702,7 @@ namespace Talent21.Service.Core
             };
         }
 
-        public override void AddView(int id, string userAgent, string ipAddress)
+        public void AddView(int id, string userAgent, string ipAddress)
         {
             _companyVisitRepository.Create(new CompanyVisit()
             {

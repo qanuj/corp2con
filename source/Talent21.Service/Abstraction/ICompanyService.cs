@@ -8,7 +8,6 @@ namespace Talent21.Service.Abstraction
 {
     public interface ICompanyService : IService,
          ISecuredService,
-         ISharedService,
          IPersonDataService<CompanyEditViewModel, CompanyCreateViewModel, IdModel>
      {
         CompanyViewModel GetProfile(string userId);

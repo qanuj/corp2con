@@ -5,7 +5,7 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
 {
-    public interface IContractorService : IService,ISecuredService,ISharedService,
+    public interface IContractorService : IService,ISecuredService,
         IPersonDataService<ContractorEditViewModel, ContractorCreateViewModel,IdModel>
     {
         ContractorEditViewModel Create(ContractorCreateViewModel model, int? companyId);

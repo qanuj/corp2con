@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using e10.Shared.Providers;
 using e10.Shared.Util;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
@@ -9,21 +10,20 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public class JobService : IJobService
+    public class JobService : SecuredService, IJobService
     {
         private readonly IJobRepository _jobRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly IContractorRepository _contractorRepository;
 
-        public JobService(IJobRepository jobRepository,ICompanyRepository companyRepository, IContractorRepository contractorRepository)
+        public JobService(IJobRepository jobRepository,ICompanyRepository companyRepository, IContractorRepository contractorRepository,
+            IUserProvider userProvider) : base(userProvider)
         {
             _jobRepository = jobRepository;
             _companyRepository = companyRepository;
             _contractorRepository = contractorRepository;
         }
         
-        public string CurrentUserId { private get; set; }
-
         protected IQueryable<JobSearchResultViewModel> Jobs
         {
             get
@@ -37,6 +37,8 @@ namespace Talent21.Service.Core
                                 FirstName = job.Company.FirstName,
                                 LastName = job.Company.LastName,
                                 Mobile = job.Company.Mobile,
+                                Address = job.Company.Address,
+                                PinCode = job.Company.PinCode,
                                 WebSite = job.Company.Social.WebSite,
                                 About = job.Company.About,
                                 Email = job.Company.Email,

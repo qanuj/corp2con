@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using e10.Shared.Providers;
 using Talent21.Data.Core;
@@ -7,28 +8,20 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public abstract class SharedService : ISharedService
+    public abstract class SharedService : SecuredService, ISharedService
     {
-        public string CurrentUserId
-        {
-            get
-            {
-                return _userProvider.UserName;
-            }
-        }
-
         protected readonly ILocationRepository _locationRepository;
         protected readonly ITransactionRepository _transactionRepository;
+        protected readonly IMemberRepository _memberRepository;
         protected readonly SellingOptions _sellingOptions;
-        protected readonly IUserProvider _userProvider;
 
 
-        protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions, IUserProvider userProvider)
+        protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions, IUserProvider userProvider, IMemberRepository memberRepository) : base(userProvider)
         {
             _locationRepository = locationRepository;
             _transactionRepository = transactionRepository;
             _sellingOptions = sellingOptions;
-            _userProvider = userProvider;
+            _memberRepository = memberRepository;
         }
 
 
@@ -38,6 +31,37 @@ namespace Talent21.Service.Core
         }
 
         public abstract void AddView(int id, string userAgent, string ipAddress);
+
+        public InvoiceViewModel TransactionById(int id)
+        {
+            var transaction=Transactions().FirstOrDefault(x => x.Id == id);
+            if (transaction == null) return null;
+            var member = _memberRepository.ByUserId(transaction.UserId);
+            return new InvoiceViewModel()
+            {
+                TaxAmount = transaction.Amount*_sellingOptions.TaxRate/100,
+                Tax = _sellingOptions.TaxRate,
+                TaxName =_sellingOptions.TaxName,
+                Id = transaction.Id,
+                Created=transaction.Created,
+                Total=transaction.Amount,
+                UnitPrice= _sellingOptions.CreditPrice,
+                Member = new MemberViewModel
+                {
+                    FirstName=member.FirstName,
+                    LastName=member.LastName,
+                    Location = member.Location!=null ? member.Location.Title : string.Empty,
+                    AlternateNumber = member.AlternateNumber,
+                    Mobile =member.Mobile,
+                    Address=member.Address,
+                    PinCode = member.PinCode,
+                    Email = member.Email
+                },
+                Transactions = new List<Transaction> {
+                    transaction
+                }
+            };
+        }
 
         public IQueryable<Transaction> Transactions()
         {

@@ -124,6 +124,8 @@ namespace Talent21.Service.Models
         public int CompanyId { get; set; }
         public bool IsWorkingFromHome { get; set; }
         public int Positions { get; set; }
+        public string Address { get; set; }
+        public string PinCode { get; set; }
     }
 
     public class SkillConverter : TypeConverter
