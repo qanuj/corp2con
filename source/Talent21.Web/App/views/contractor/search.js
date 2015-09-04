@@ -74,6 +74,7 @@
                 $scope.pages = Math.ceil(result.count / db.pageSize);
                 $scope.count = result.count;
                 $scope.records = result.items;
+                console.log($scope.records);
                 $scope.page = page;
             });
         }
