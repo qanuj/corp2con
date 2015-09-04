@@ -1,5 +1,12 @@
-﻿app.controller('contractorProfileController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
+﻿app.controller('contractorProfileController', ['$scope', 'dataService', '$rootScope', '$stateParams', function ($scope, db,$rootScope, param) {
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
 
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = true;
+    $rootScope.settings.layout.pageSidebarClosed = false;
     function loadSchedule(page) {
         return db.contractor.getSchedule(page).success(function (result) {
             angular.forEach(result, function (d) {
