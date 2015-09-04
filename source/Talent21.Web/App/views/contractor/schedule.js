@@ -31,8 +31,18 @@
         db.contractor.deleteSchedule(s).success($scope.navigate(params.page));
     };
 
-    $scope.toggle = function (s) {
-        s.editMode = !s.editMode;
+    $scope.clean = function () {
+        $scope.record = {};
+        $scope.method = 'Add';
+    }
+
+    $scope.edit = function (s) {
+        s.date = {
+            startDate: moment(s.start),
+            endDate: moment(s.end)
+        }
+        $scope.record = s;
+        $scope.method = 'Update';
     };
 
     $scope.navigate(params.page);
@@ -51,5 +61,6 @@
         }
     );
 
+    $scope.clean();
 
 }]);
