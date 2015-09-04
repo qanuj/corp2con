@@ -18,6 +18,7 @@
         loadSchedule();
         db.contractor.get(param.id).success(function (result) {
             $scope.record = result;
+            console.log('Profile data ', result);
         });
     });
 
