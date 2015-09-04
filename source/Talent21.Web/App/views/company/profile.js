@@ -1,5 +1,5 @@
-﻿app.controller('companyProfileController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
-
+﻿app.controller('companyProfileController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, param, $rootScope) {
+   
     $scope.title = "Company Profile";
 
     $scope.role = db.role;

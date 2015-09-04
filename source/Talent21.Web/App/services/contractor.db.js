@@ -7,6 +7,19 @@
 
     var contractor = {};
 
+    contractor.balance = function () {
+        return $http.get(v + 'balance');
+    }
+
+    contractor.transactions = function (page, pageSize) {
+        return $http.get(v + 'transaction?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+    }
+
+    contractor.addCredits = function (credits) {
+        return $http.post(v + 'credits/' + credits);
+    }
+
+
     contractor.paged = function (page, pageSize) {
         return $http.get(v+'paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }

@@ -20,7 +20,7 @@
     @Styles.Render("~/Content/spa/css-2")
     <link rel="shortcut icon" href="~/content/images/favicon.png">
 </head>
-<body ng-controller="AppController" class="page-header-fixed page-sidebar-fixed page-on-load page-footer-fixed" 
+<body ng-controller="AppController" class="page-header-fixed page-sidebar-fixed page-on-load" 
     ng-class="{'page-container-bg-solid': settings.layout.pageBodySolid, 'page-sidebar-closed': settings.layout.pageSidebarClosed}">
     <div ng-spinner-bar class="page-spinner-bar">
         <div class="bounce1"></div>
@@ -34,6 +34,7 @@
         <div class="page-content-wrapper">
             <div class="page-content">
                 <div ui-view class="fade-in-up"></div>
+                <div class="row"><div class="col-xs-12">&nbsp;</div></div>
             </div>
         </div>
     </div>

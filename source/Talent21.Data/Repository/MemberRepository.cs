@@ -5,12 +5,12 @@ using Talent21.Data.Core;
 
 namespace Talent21.Data.Repository
 {
-    public interface IMemberRepository : IRepository<Company>
+    public interface IMemberRepository : IRepository<Member>
     {
         Member ByUserId(string userId);
     }
 
-    public class MemberRepository : EfRepository<Company>, IMemberRepository
+    public class MemberRepository : EfRepository<Member>, IMemberRepository
     {
         public MemberRepository(DbContext context, IEventManager eventManager) : base(context, eventManager)
         {
@@ -18,7 +18,7 @@ namespace Talent21.Data.Repository
 
         public Member ByUserId(string userId)
         {
-            return All.FirstOrDefault(x => x.OwnerId == userId);
+            return All.Include(x => x.Location).FirstOrDefault(x => x.OwnerId == userId);
         }
     }
 }

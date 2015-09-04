@@ -1,5 +1,5 @@
-﻿app.controller('companyContractorApplicationController', ['$scope', 'dataService', '$stateParams', function ($scope, db, param) {
-
+﻿app.controller('companyContractorApplicationController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, param, $rootScope) {
+    
     function loadSchedule(id) {
         return db.company.getSchedule(id).success(function (result) {
             angular.forEach(result, function (d) {

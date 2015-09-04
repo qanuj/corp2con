@@ -1,4 +1,13 @@
-﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
+﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$rootScope', '$stateParams', function ($scope, db,$rootScope, $stateParams) {
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageSidebarClosed = false;
+
     $scope.title = "Jobs : Search Result";
     var param = $stateParams;
 
@@ -11,6 +20,10 @@
     } else if ($stateParams.idea == "week") {
         $scope.title = "Matching Jobs for you, next week";
     }
+
+    $scope.$watch('selectAll', function () {
+        $scope.toggle($scope.selectAll);
+    });
 
     $scope.toggle=function(allSelected) {
         for (var x in $scope.records) {
@@ -75,6 +88,7 @@
                 $scope.count = result.count;
                 $scope.records = result.items;
                 $scope.page = page;
+                $scope.selectAll = false;
             });
         }
 

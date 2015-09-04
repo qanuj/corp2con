@@ -11,7 +11,9 @@
     'angularMoment',
     'ngCkeditor',
     'theaquaNg',
+    'daterangepicker',
     'codemwnci.markdown-edit-preview',
+    'frapontillo.bootstrap-switch',
     'humenize',
     'ui.gravatar', //gravtaar for user
     'ui.select', //ui-select for dropdown and multi values.
@@ -55,14 +57,18 @@ app.controller('AppController', [
     }
 ]);
 
-app.controller('HeaderController', ['$scope', function ($scope) {
+app.controller('HeaderController', ['$scope','$rootScope','dataService', function ($scope,$rootScope,db) {
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
+    });
+    db.contractor.get().success(function(result) {
+        $rootScope.profile = result;
     });
 }]);
 
 /* Setup Layout Part - Sidebar */
-app.controller('SidebarController', ['$scope', function ($scope) {
+app.controller('SidebarController', ['$scope',function ($scope) {
+    $scope.role = document.querySelector('html').dataset.role.toLowerCase();;
     $scope.$on('$includeContentLoaded', function () {
         Layout.initSidebar(); // init sidebar
     });

@@ -83,6 +83,7 @@
     <Compile Include="Abstraction\INotificationService.cs" />
     <Compile Include="Abstraction\ISiteService.cs" />
     <Compile Include="Abstraction\IUserService.cs" />
+    <Compile Include="Core\CommonService.cs" />
     <Compile Include="Core\DemoDataService.cs" />
     <Compile Include="Abstraction\IDataService.cs" />
     <Compile Include="Abstraction\IDemoDataService.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Abstraction\IPersonDataService.cs" />
     <Compile Include="Abstraction\ISecuredService.cs" />
     <Compile Include="Abstraction\ISharedService.cs" />
+    <Compile Include="Core\SecuredService.cs" />
     <Compile Include="Core\SharedService.cs" />
     <Compile Include="Core\SiteService.cs" />
     <Compile Include="Models\CreateContractorViewModel.cs" />

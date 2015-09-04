@@ -29,7 +29,6 @@
 
     db.contractor.get().success(function (result) {
         $scope.profile = result;
-        $rootScope.profile = result;
         if (!result.firstName && !result.lastName) {
             window.location = "#/profile/edit";
         }

@@ -1,4 +1,6 @@
-﻿app.controller('companySearchController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
+﻿app.controller('companySearchController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
+    
+
     $scope.title = "Contractor : Search Result";
     $scope.save = "Save";
 
@@ -18,7 +20,7 @@
         $scope.query = {
             keywords: $stateParams.q || $stateParams.keywords || '',
             location: $stateParams.location || '',
-            folder: $stateParams.folder || '',
+            folder: $stateParams.idea || $stateParams.folder || '',
             industry: $stateParams.industry || '',
             functional: $stateParams.functional || '',
             skills: $stateParams.skills || '',
@@ -36,6 +38,7 @@
                 $scope.count = result.count;
                 $scope.records = result.items;
                 $scope.page = page;
+                $scope.selectAll = false;
             });
         }
 
@@ -51,7 +54,12 @@
     }
     $scope.navigate($stateParams.page);
 
-    $scope.toggle=function(allSelected) {
+
+    $scope.$watch('selectAll', function () {
+        $scope.toggle($scope.selectAll);
+    });
+
+    $scope.toggle = function (allSelected) {
         for (var x in $scope.records) {
             $scope.records[x].selected = allSelected;
         }

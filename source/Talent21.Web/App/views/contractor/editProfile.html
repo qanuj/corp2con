@@ -1,192 +1,235 @@
-﻿<div class="container margtop">
-    <div class="row">
-        <div class="col-sm-4 col-md-3">
-            <a href="#" class="thumbnail">
-                <img ng-src="{{record.picture.url}}" alt="{{record.firstName}} {{record.lastName}}">
-            </a>
-            <ng-upload-form ng-model="record.picture" url="/upload/picture"
-                            auto-upload="true" title="Your Profile Picture..."
-                            accept-file-types="/(\.|\/)(gif|jpe?g|png)$/i"
-                            max-chunk-size="10"
-                            multiple="false" size-limit="5000000">
-            </ng-upload-form>
-        </div>
-        <div class="col-sm-8 col-md-9">
-            <h2>{{record.firstName}} {{record.lastName}}</h2>
-            <div class="form-group nopadding-left col-xs-5" id="job-email-group">
-                <label>First Name</label>
+﻿<h3 class="page-title">
+    {{title}} <small>{{record.firstName}} {{record.lastName}}</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#/profile">Profile</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Edit</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <span class="btn-group pull-right">
+            <button class="btn btn-primary" ng-click="save(record)">Save Changes</button>
+        </span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-md-9">
+        <h3 class="form-section">Personal Information</h3>
+        <div class="row">
+            <div class="form-group col-xs-5">
+                <label class="col-md-3 control-label">First Name</label>
                 <input type="text" class="form-control" ng-model="record.firstName">
             </div>
-            <div class="form-group col-xs-5" id="job-email-group">
-                <label>Last Name</label>
+            <div class="form-group col-xs-5">
+                <label class="col-md-3 control-label">Last Name</label>
                 <input type="text" class="form-control" ng-model="record.lastName">
             </div>
-            <div class="form-group nopadding-right col-xs-2" id="job-location-group">
-                <label for="location">Gender</label>
+            <div class="form-group col-xs-2">
+                <label class="col-md-3 control-label">Gender</label>
                 <select class="dropdown form-control" data-ng-model="record.gender" data-ng-options="c.id as c.label for c in genders">
                     <option value="">-- Select Gender --</option>
                 </select>
             </div>
-            <div class="form-group" id="job-email-group">
-                <label>Email</label>
+            <div class="form-group col-xs-6">
+                <label class="col-md-3 control-label">Email</label>
                 <input type="email" class="form-control" ng-model="record.email">
             </div>
-            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
-                <label for="location">Nationality</label>
+            <div class="form-group col-xs-6">
+                <label class="col-md-3 control-label">Nationality</label>
                 <select class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.title as nation.title for nation in nations">
                     <option value="">-- Select Nationality --</option>
                 </select>
             </div>
-            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
-                <label for="location">Location</label>
+            <div class="form-group col-xs-8">
+                <label class="col-md-3 control-label">Address</label>
+                <input type="text" class="form-control" ng-model="record.address">
+            </div>
+            <div class="form-group col-xs-4">
+                <label class="col-md-3 control-label">Pin code</label>
+                <input type="text" class="form-control" ng-model="record.pinCode">
+            </div>
+            <div class="form-group col-xs-6">
+                <label class="col-md-3 control-label">Location</label>
                 <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
                     <option value="">-- Select Location --</option>
                 </select>
             </div>
-            <div class="form-group nopadding-left col-xs-6" id="job-region-group">
-                <label>Experience (Years)</label>
-                <input type="number" class="form-control col-xs-6" ng-model="record.experienceYears" min="0" max="80">
-            </div>
-            <div class="form-group col-xs-6 nopadding-right" id="job-region-group">
-                <label>Experience (Months)</label>
-                <input type="number" class="form-control col-xs-6" ng-model="record.experienceMonths" min="0" max="11">
-            </div>
-            <div class="form-group nopadding-left col-xs-6">
-                <label>Rate</label>
-                <input type="number" class="form-control" ng-model="record.rate">
-            </div>
-            <div class="form-group nopadding-right col-xs-6">
-                <label>Rate Type</label>
-                <select class="form-control" ng-model="record.rateType">
-                    <option>Hourly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                </select>
-            </div>
-            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
-                <label for="location">Consultant Type</label>
-                <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c.id as c.label for c in contractorType">
-                    <option value="">-- Select type --</option>
-                </select>
-            </div>
-            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
-                <label for="location">Contract Type</label>
-                <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c.id as c.label for c in contractType">
-                    <option value="">-- Select type --</option>
-                </select>
-            </div>
-            <div class="form-group nopadding-left col-xs-6" id="job-location-group">
-                <label for="location">Industry</label>
-                <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="i.id as i.title for i in industries">
-                    <option value="">-- Select type --</option>
-                </select>
-            </div>
-            <div class="form-group nopadding-right col-xs-6" id="job-location-group">
-                <label for="location">Functional Area</label>
-                <select class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
-                    <option value="">-- Select type --</option>
-                </select>
-            </div>
-            <div ng-repeat="l in levels">
-                <h3>{{l.label}} Skills</h3>
-                <div class="listings strong">
-                    <div class="col-md-4">Skill</div>
-                    <div class="col-md-4">Experience (Months)</div>
-                    <div class="col-md-4">Profficieny</div>
-                </div>
-                <div class="listings" ng-repeat="s in record.skills | filter:{ level: l.label }">
-                    <div class="row">
-                        <div class="col-md-4">{{s.title}}</div>
-                        <div class="col-md-4">
-                            <input class="form-control" type="number" ng-model="s.experienceInMonths" />
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-danger btn-xs" ng-click="remove(s)"><i class="fa fa-close"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-10">
-                        <tags-input placeholder="Add Skill" display-property="title" ng-model="newSkill">
-                            <auto-complete source="loadSkills($query)"></auto-complete>
-                        </tags-input>
-                    </div>
-                    <div class="col-md-2"><button ng-click="addSkill(newSkill,l)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Profile</label>
-                <ng-upload-form ng-model="record.cv"
-                                url="/upload"
-                                auto-upload="true"
-                                title="Your Resume..."
-                                accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i"
-                                max-chunk-size="10"
-                                multiple="false"
-                                size-limit="5000000"></ng-upload-form>
-            </div>
-            <div ng-if="isMarkdown" class="form-group wysiwyg">
-                <textarea class="form-control" markdownedit markdown-hidden-buttons="cmdQuote" rows="10" ng-model="record.about" required placeholder="Your Profile Details"></textarea>
-            </div>
-            <div ng-if="!isMarkdown" class="form-group">
-                <textarea class="form-control" ckeditor="editorOptions" rows="10" ng-model="record.about" required placeholder="Your Profile Details"></textarea>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile </label>
-                    <input type="text" class="form-control" ng-model="record.mobile">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Alternate Contact Number </label>
-                    <input type="text" class="form-control" ng-model="record.alternateNumber">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-globe"></i> Website</label>
-                    <input type="text" class="form-control" ng-model="record.webSite">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-google-plus"></i></label>
-                    <input type="text" class="form-control" ng-model="record.google">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-facebook"></i></label>
-                    <input type="text" class="form-control" ng-model="record.facebook">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-linkedin"></i></label>
-                    <input type="text" class="form-control" ng-model="record.linkedIn">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-twitter"></i></label>
-                    <input type="text" class="form-control" ng-model="record.twitter">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="input-group-addon"><i class="fa fa-yahoo"></i></label>
-                    <input type="text" class="form-control" ng-model="record.yahoo">
-                </div>
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-2">
+        <h3 class="form-section">Profile Picture</h3>
+        <a href="#" class="thumbnail">
+            <img ng-src="{{record.picture.url}}" alt="{{record.firstName}} {{record.lastName}}">
+        </a>
+        <ng-upload-form ng-model="record.picture" url="/upload/picture"
+                        auto-upload="true" title="Your Profile Picture..."
+                        accept-file-types="/(\.|\/)(gif|jpe?g|png)$/i"
+                        max-chunk-size="10"
+                        multiple="false" size-limit="5000000">
+        </ng-upload-form>
+        <hr/>
+        <div class="form-group">
+            <ng-upload-form ng-model="record.cv"
+                            url="/upload"
+                            auto-upload="true"
+                            title="Your Resume..."
+                            accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i"
+                            max-chunk-size="10"
+                            multiple="false"
+                            size-limit="5000000"></ng-upload-form>
+        </div>
+    </div>
+</div>
+<h3 class="form-section">Contact Information</h3>
+<div class="row">
+    <div class="form-group col-xs-3">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile </label>
+            <input type="text" class="form-control" ng-model="record.mobile">
+        </div>
+    </div>
+    <div class="form-group col-xs-3">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile 2 </label>
+            <input type="text" class="form-control" ng-model="record.alternateNumber">
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-globe"></i> Website</label>
+            <input type="text" class="form-control" ng-model="record.webSite">
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-google-plus"></i></label>
+            <input type="text" class="form-control" ng-model="record.google">
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-facebook"></i></label>
+            <input type="text" class="form-control" ng-model="record.facebook">
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-linkedin"></i></label>
+            <input type="text" class="form-control" ng-model="record.linkedIn">
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-twitter"></i></label>
+            <input type="text" class="form-control" ng-model="record.twitter">
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="input-group">
+            <label class="input-group-addon"><i class="fa fa-yahoo"></i></label>
+            <input type="text" class="form-control" ng-model="record.yahoo">
+        </div>
+    </div>
+</div>
+<h3 class="form-section">Techinical Information</h3>
+<div class="row">
+    <div class="form-group col-xs-3">
+        <label class="control-label col-xs-12">Experience</label>
+        <div class="pull-left input-group col-xs-6">
+            <input type="number" class="form-control" ng-model="record.experienceYears" min="0" max="40">
+            <span class="input-group-addon">
+                yrs
+            </span>
+        </div>
+        <div class="input-group col-xs-6">
+            <input type="number" class="form-control" ng-model="record.experienceMonths" min="0" max="11">
+            <span class="input-group-addon">
+                months
+            </span>
+        </div>
+    </div>
+    <div class="form-group col-xs-3">
+        <label class="col-xs-12 control-label">Rate (in Thousands)</label>
+        <div class="input-group">
+            <input type="number" class="form-control" ng-model="record.rate">
+            <div class="input-group-btn">
+                <button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown">{{record.rateType}} <i class="fa fa-angle-down"></i></button>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="#" ng-click="record.rateType='Hourly'">Hourly</a></li>
+                    <li><a href="#" ng-click="record.rateType='Monthly'">Monthly</a></li>
+                    <li><a href="#" ng-click="record.rateType='Yearly'">Yearly</a></li>
+                </ul>
             </div>
         </div>
     </div>
-    <div class="text-center form-group">
-        <input type="button" id="submit" value="Save" ng-click="save(record)" class="btn btn-primary" />
+    <div class="form-group col-xs-3">
+        <label class="col-xs-12 control-label">Consultant Type</label>
+        <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c.id as c.label for c in contractorType">
+            <option value="">-- Select type --</option>
+        </select>
     </div>
-    <div class="loading-spiner-holder" data-loading><div class="loading-spiner"><img src="/Content/images/fancybox_loading.gif" /></div></div>
+    <div class="form-group col-xs-3">
+        <label class="col-md-12 control-label">Contract Type</label>
+        <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c.id as c.label for c in contractType">
+            <option value="">-- Select type --</option>
+        </select>
+    </div>
+    <div class="form-group col-xs-6">
+        <label class="col-md-3 control-label">Industry</label>
+        <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="i.id as i.title for i in industries">
+            <option value="">-- Select type --</option>
+        </select>
+    </div>
+    <div class="form-group col-xs-6">
+        <label class="col-md-3 control-label">Functional Area</label>
+        <select class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
+            <option value="">-- Select type --</option>
+        </select>
+    </div>
+</div>
+<div ng-repeat="l in levels">
+    <h3>{{l.label}} Skills</h3>
+    <table class="table table-advance">
+        <thead>
+            <tr>
+                <th>Skill</th>
+                <th>Experience (Months)</th>
+                <th>Profficieny</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
+            <td>{{s.title}}</td>
+            <td><input class="form-control" type="number" ng-model="s.experienceInMonths" /></td>
+            <td><select class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select></td>
+            <td><button class="btn btn-danger" ng-click="remove(s)"><i class="fa fa-trash"></i></button></td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-md-10">
+            <tags-input placeholder="Add Skill" display-property="title" ng-model="newSkill">
+                <auto-complete source="loadSkills($query)"></auto-complete>
+            </tags-input>
+        </div>
+        <div class="col-md-2">
+            <button ng-click="addSkill(newSkill,l)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+        </div>
+    </div>
+</div>
+<h3 class="form-section">Full Profile</h3>
+<div class="form-group">
+    <textarea class="form-control" ckeditor="editorOptions" rows="15" ng-model="record.about" required placeholder="Your Profile Details"></textarea>
+</div>
+<div class="text-center form-group">
+    <input type="button" id="submit" value="Save" ng-click="save(record)" class="btn btn-primary" />
 </div>

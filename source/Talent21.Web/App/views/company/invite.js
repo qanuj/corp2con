@@ -1,4 +1,5 @@
-﻿app.controller('companyInviteController', ['$scope', 'dataService', '$stateParams', function($scope, db, $stateParams) {
+﻿app.controller('companyInviteController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
+
     $scope.title = "Invite Bench Team";
     $scope.save = "Sent Invitations";
     $scope.records = [];
@@ -22,6 +23,6 @@
         });
     }
 
-    addRecords(10);
+    addRecords(5);
 
 }]);

@@ -5,7 +5,7 @@
     ViewBag.Title = "Log in";
 }
 <h3 class="form-title">Sign In</h3>
-@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "register-form", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-group">

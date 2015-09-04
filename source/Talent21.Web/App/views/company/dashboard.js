@@ -26,5 +26,4 @@
         window.location = '#/search?q=' + (q.keywords || '') + '&location=' + (q.location || '') + '&skills=' + (q.skills || '');
         return false;
     }
-
 }]);

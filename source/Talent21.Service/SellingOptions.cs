@@ -10,8 +10,10 @@ namespace Talent21.Service
         public readonly string Salt = "GQs7yium";
         public readonly string PaymentUrl = "https://test.payu.in/_payment";
         internal readonly int CreditPrice = 999;
+        internal readonly double TaxRate = 14.00;
         internal readonly int Validity = 30;
         internal readonly int RequirementCredit = 1;
+        internal readonly string TaxName = "Service Tax";
         internal readonly string FbHirePage = "341120649428915";
         internal readonly string Title = "Post Job to 50+ Job Boards with One Submission | FBHire";
         internal readonly string Description = "Employers, recruiters and staffing agencies post jobs free to 50+ job boards with 1 click. Active resume database. Free employment postings on FBHire.";
@@ -25,7 +27,7 @@ namespace Talent21.Service
             if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "AppName"))
             {
                 var tmp = ConfigurationManager.AppSettings["AppName"];
-                if (!string.IsNullOrWhiteSpace(tmp)) AppName = AppName;
+                if (!string.IsNullOrWhiteSpace(tmp)) AppName = tmp;
             }
             if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "CreditWarning"))
             {
@@ -78,10 +80,20 @@ namespace Talent21.Service
                 var tmp = ConfigurationManager.AppSettings["RequirementValidity"];
                 if (!string.IsNullOrWhiteSpace(tmp)) Validity = Convert.ToInt32(tmp);
             }
+            if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "TaxRate"))
+            {
+                var tmp = ConfigurationManager.AppSettings["TaxRate"];
+                if (!string.IsNullOrWhiteSpace(tmp)) TaxRate = Convert.ToDouble(tmp);
+            }
             if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "AppTitle"))
             {
                 var tmp = ConfigurationManager.AppSettings["AppTitle"];
                 if (!string.IsNullOrWhiteSpace(tmp)) Title = tmp;
+            }
+            if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "TaxName"))
+            {
+                var tmp = ConfigurationManager.AppSettings["TaxName"];
+                if (!string.IsNullOrWhiteSpace(tmp)) TaxName = tmp;
             }
             if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "AppDescription"))
             {

@@ -1,5 +1,14 @@
-﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$http',function ($scope, db, $http) {
+﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$rootScope', function ($scope, db, $rootScope) {
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
 
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageSidebarClosed = false;
+
+    $scope.title = "Edit Profile";
     $scope.loadSkills = db.system.getSkills;
 
     $scope.refreshAddresses = function (address) {

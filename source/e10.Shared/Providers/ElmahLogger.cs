@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Web;
 using Elmah;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Logging;
 
 namespace e10.Shared.Providers

@@ -1,4 +1,6 @@
-﻿app.controller('companyBenchController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
+﻿app.controller('companyBenchController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
+
+
     $scope.title = "Bench Management";
     $scope.save = "Save";
 
@@ -34,6 +36,7 @@
                 $scope.count = result.count;
                 $scope.records = result.items;
                 $scope.page = page;
+                $scope.selectAll = false;
             });
         }
 
@@ -49,7 +52,12 @@
     }
     $scope.navigate($stateParams.page);
 
-    $scope.toggle=function(allSelected) {
+
+    $scope.$watch('selectAll', function () {
+        $scope.toggle($scope.selectAll);
+    });
+
+    $scope.toggle = function (allSelected) {
         for (var x in $scope.records) {
             $scope.records[x].selected = allSelected;
         }
@@ -86,7 +94,7 @@
     }
 
     $scope.rateTranslate = function (value) {
-        return value+'k';
+        return value + 'k';
     }
 
     //Slider configs
@@ -119,7 +127,7 @@
             $scope.save = (x + 1);
             if ($scope.records[x].selected == true) {
                 db.company.moveContractor($scope.records[x].id, folder).success(next);
-            }else next();
+            } else next();
         }
         function onNext() {
             moveFolder(++i, folder, onNext);

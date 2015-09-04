@@ -1,4 +1,13 @@
-﻿app.controller('contractorApplicationsController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
+﻿app.controller('contractorApplicationsController', ['$scope', 'dataService', '$rootScope', '$stateParams', function ($scope, db,$rootScope, $stateParams) {
+        $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageSidebarClosed = false;
+
     $scope.title = "Job Applications";
     
     $scope.navigate = function (page) {

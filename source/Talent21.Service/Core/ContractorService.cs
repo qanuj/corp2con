@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoPoco.Configuration;
 using e10.Shared.Data.Abstraction;
+using e10.Shared.Providers;
 using Talent21.Data.Core;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
@@ -12,7 +13,7 @@ using Talent21.Service.Models;
 
 namespace Talent21.Service.Core
 {
-    public class ContractorService : SharedService, IContractorService
+    public class ContractorService : SecuredService, IContractorService
     {
         private readonly IContractorRepository _contractorRepository;
         private readonly IContractorVisitRepository _contractorVisitRepository;
@@ -26,18 +27,18 @@ namespace Talent21.Service.Core
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly INotificationService _notificationService;
+        private readonly ISharedService _sharedService;
 
         public ContractorService(IContractorRepository contractorRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository,
             ISkillRepository skillRepository,
             IContractorSkillRepository contractorSkillRepository,
-            ILocationRepository locationRepository,
             IContractorVisitRepository contractorVisitRepository,
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
-            ITransactionRepository transactionRepository, INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository)
-            : base(locationRepository, transactionRepository)
+            INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository, ISharedService sharedService,
+            IUserProvider userProvider) : base(userProvider)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -50,6 +51,7 @@ namespace Talent21.Service.Core
             _notificationService = notificationService;
             _companyVisitRepository = companyVisitRepository;
             _jobVisitRepository = jobVisitRepository;
+            _sharedService = sharedService;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -80,6 +82,8 @@ namespace Talent21.Service.Core
                                 Location = x.Location.Title,
                                 LocationId = x.LocationId,
                                 Mobile = x.Mobile,
+                                PinCode = x.PinCode,
+                                Address = x.Address,
                                 FirstName = x.FirstName,
                                 LastName = x.LastName,
                                 Rss = x.Social.Rss,
@@ -240,6 +244,8 @@ namespace Talent21.Service.Core
                 ContractType = model.ContractType,
                 Gender = model.Gender,
                 Profile = model.Profile,
+                PinCode = model.PinCode,
+                Address = model.Address,
                 Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears },
                 LocationId = model.LocationId,
                 Mobile = model.Mobile,
@@ -343,6 +349,9 @@ namespace Talent21.Service.Core
             entity.ContractType = model.ContractType;
             entity.Gender = model.Gender;
             entity.Profile = model.Profile;
+
+            entity.PinCode = model.PinCode;
+            entity.Address = model.Address;
             entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
             entity.LocationId = model.LocationId;
             entity.IndustryId = model.IndustryId;

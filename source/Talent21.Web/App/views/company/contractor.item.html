@@ -1,0 +1,63 @@
+﻿<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i ng-if="row.consultantType!='IndependentCosultant'" class="fa fa-building-o font-yellow-casablanca"></i>
+            <a href="/#/contractor/{{row.id}}">
+                <span class="caption-subject bold font-yellow-casablanca uppercase">
+                    {{row.firstName}} {{row.lastName}}
+                </span>
+                <span class="caption-helper">{{row.experienceYears}}.{{row.experienceMonths}} years</span>
+            </a>
+            <h5 ng-if="row.companyId">{{row.company}}</h5>
+        </div>
+        <div class="actions flex">
+            <a href="javascript:;" class="btn btn-circle btn-success">
+                {{row.available}}
+            </a>
+            <a href="javascript:;" class="btn btn-circle btn-success">
+                <i class="fa fa-inr"></i> {{row.rate}} / {{row.rateType}}
+            </a>
+            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="fa fa-{{row.gender|lowercase}}"></i>
+            </a>
+            <a ng-if="row.contractType=='WorkFromHome'" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="fa fa-home"></i>
+            </a>
+            <a ng-if="row.contractType=='ClientLocation'" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="fa fa-car"></i>
+            </a>
+            <input type="checkbox" bs-switch class="make-switch" switch-mini ng-model="row.selected" data-on="success" data-off="warning">
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-xs-2">
+                <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded" /></a>
+            </div>
+            <div class="col-xs-10">
+                <span class="badge badge-info" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5">{{s.title}}</span>
+                <div class="row">
+                    <div class="col-xs-12">
+                        {{row.about | plaintext | limitTo: 200 }}...
+                    </div>
+                    <div class="col-xs-12">
+                        <table class="table">
+                            <tr>
+                                <th>Functional Area</th>
+                                <td>{{row.functionalArea}}</td>
+                                <th>Industry</th>
+                                <td>{{row.industry}}</td>
+                            </tr>
+                            <tr>
+                                <th>Location</th>
+                                <td>{{row.location}}</td>
+                                <th>Nationality</th>
+                                <td>{{row.nationality}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

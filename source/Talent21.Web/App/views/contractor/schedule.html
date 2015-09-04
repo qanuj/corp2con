@@ -1,53 +1,65 @@
-﻿<div class="container margtop">
-    <h2>Manage Schedule</h2>
-    <div class="col-md-12">
-        <form ng-submit="save(record)" class="form-inline">
-            <div class="form-group">
-                <label class="checkbox">
-                    <input type="checkbox" ng-model="record.isavailable">
-                    Is Available?
-                </label>
-            </div>
-            <div class="form-group" ng-if="!record.isavailable">
-                <input type="text" class="form-control" id="companyname" placeholder="e.g. IBM" ng-model="record.Company">
-            </div>
-            <div class="form-group">
-                <input type="date" class="form-control" id="startdate" ng-model="record.start" />
-            </div>
-            <div class="form-group">
-                <input type="date" class="form-control" id="enddate" ng-model="record.end" />
-            </div>
-            <div class="form-group">
-                <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
-            </div>         
-        </form>
-        <br />
+﻿<h3 class="page-title">
+    {{title}} <small>{{count}}</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Schedule</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <span class="btn-group pull-right">
+            <button class="btn btn-primary" ng-click="clean()">Add New</button>
+        </span>
     </div>
-    <div class="col-md-12">
-        <div class="listings" ng-repeat="s in records">
-            <div class="row" ng-show="!s.editMode">
-                <div class="col-md-3">{{s.company}}</div>
-                <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
-                <div class="col-md-3">{{s.end | date:'dd-MMM-yyyy'}}</div>
-                <div class="col-md-3">
-                    <button class="btn btn-primary" ng-click="toggle(s)">Edit</button>
-                    <button class="btn btn-danger" ng-click="delete(s)">Delete</button>
-                </div>
-            </div>
-            <div class="row" ng-show="s.editMode">
-                <div class="col-md-3"><input type="text" class="form-control" ng-model="s.company" /></div>
-                <div class="col-md-3"><input type="date" class="form-control" ng-model="s.start" /></div>
-                <div class="col-md-3"><input type="date" class="form-control" ng-model="s.end" /></div>
-                <div class="col-md-3">
-                    <button ng-click="update(s)" id="submit1" class="btn btn-primary">Save</button>
-                    <button ng-click="toggle(s)" class="btn btn-info">Cancel</button>
-                </div>
-            </div>
+</div>
+<form ng-submit="save(record)" class="form-horizontal">
+    <div class="form-group col-md-6">
+        <label>Is Available?</label>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="checked"><input type="checkbox" ng-model="record.isAvailable"></span>
+            </span>
+            <input type="text" class="form-control" id="companyname" ng-disabled="record.isAvailable" placeholder="Description" ng-model="record.company">
         </div>
     </div>
-  
-    <cc-pager total-pages="pages" current-page="currentPage"
-              page-action="navigate(pageNumber)">
-    </cc-pager>
-</div>
-<br />
+    <div class="form-group col-md-6">
+        <label>Date Range</label>
+        <div class="input-group">
+            <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="record.date" />
+            <span class="input-group-btn">
+                <button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
+                <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-plus"></i> {{method}}</button>
+            </span>
+        </div>
+    </div>
+</form>
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tr ng-repeat="s in records">
+        <td>{{s.isAvailable ? 'Available' : s.company}}</td>
+        <td>{{s.start | date:'dd-MMM-yyyy'}}</td>
+        <td>{{s.end | date:'dd-MMM-yyyy'}}</td>
+        <td>{{s.end | amDifference : s.start : 'days'}} Days</td>
+        <td>
+            <button class="btn btn-primary" ng-click="edit(s)"><i class="fa fa-edit"></i> Edit</button>
+            <button class="btn btn-danger" data-toggle="confirmation" data-original-title="Are you sure ?" title=""><i class="fa fa-trash"></i> Delete</button>
+        </td>
+    </tr>
+</table>
+<cc-pager total-pages="pages" current-page="currentPage"
+          page-action="navigate(pageNumber)">
+</cc-pager>

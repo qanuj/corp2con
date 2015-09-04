@@ -589,7 +589,6 @@ namespace Talent21.Service.Core
             foreach (var u in companies)
             {
                 u.OwnerId = await _userService.CreateAsync(u.Email, "Abcd123*", _company);
-                _companyService.CurrentUserId = u.OwnerId;
 
                 var company = _companyService.Create(u);
                 var jobs = jobSession.List<CreateJobViewModel>(_random.Next(5, 25)).Get(); ;

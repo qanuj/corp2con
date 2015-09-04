@@ -1,71 +1,223 @@
-﻿<section id="jobs">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <article>
-                    <div class="row">
-                        <div class="col-sm-4 col-md-3 col-lg-2">
-                            <img src="{{record.pictureUrl}}" alt="{{record.firstName}} {{record.lastName}}" class="pull-left img-responsive img-rounded" />
-                        </div>
-                        <div class="col-sm-8 col-md-9 col-lg-10">
-                            <h2><i class="fa fa-user"></i> {{record.firstName}} {{record.lastName}}</h2>
-                        </div>
-                    </div>
-                    <h3>Schedule</h3>
-                    <div class="listings strong">
-                        <div class="col-md-3">Note</div>
-                        <div class="col-md-3">Start</div>
-                        <div class="col-md-3">End</div>
-                        <div class="col-md-3">Duration</div>
-                    </div>
-                    <div class="listings" ng-repeat="s in schedule | orderBy:['-isAvailable','start']" ng-class="{'bg-success':s.isAvailable}">
-                        <div class="row">
-                            <div class="col-md-3"><i ng-if="s.isAvailable" class="fa fa-check-circle"></i> {{s.company}}</div>
-                            <div class="col-md-3">{{s.start | date:'dd-MMM-yyyy'}}</div>
-                            <div class="col-md-3">{{s.end | date:'dd-MMM-yyyy'}}</div>
-                            <div class="col-md-3">{{s.end | amDifference : s.start : 'days'}}</div>
-                        </div>
-                    </div>
-                    <div ng-repeat="l in levels">
-                        <h3>{{l.label}} Skills</h3>
-                        <div class="listings" ng-repeat="s in record.skills | filter:{ level: l.label }">
-                            <div class="row">
-                                <div class="col-md-4">{{s.title}}</div>
-                                <div class="col-md-4">{{s.experienceInMonths}} Months </div>
-                                <div class="col-md-4">{{s.proficiency}}</div>
+﻿<div class="profile-sidebar">
+    <div class="portlet light profile-sidebar-portlet">
+        <!-- SIDEBAR USERPIC -->
+        <div class="profile-userpic">
+            <img src="{{record.pictureUrl}}" class="img-responsive" alt="">
+        </div>
+        <!-- END SIDEBAR USERPIC -->
+        <!-- SIDEBAR USER TITLE -->
+        <div class="profile-usertitle">
+            <div class="profile-usertitle-name">
+                {{record.firstName}} {{record.lastName}}
+            </div>
+            <div class="profile-usertitle-job">
+                {{record.consultantType | uncamel}}
+            </div>
+        </div>
+        <!-- END SIDEBAR USER TITLE -->
+        <!-- SIDEBAR BUTTONS -->
+        <div class="profile-userbuttons">
+            <button type="button" class="btn btn-circle green-haze btn-sm" style="text-transform:lowercase">{{record.email}}</button>
+        </div>
+        <!-- END SIDEBAR BUTTONS -->
+        <!-- END MENU -->
+    </div>
+    <div class="portlet light">
+        <!-- STAT -->
+        <div class="row list-separated profile-stat">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title">
+                    {{record.skills.length}}
+                </div>
+                <div class="uppercase profile-stat-text">
+                    Skills
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title">
+                    {{record.rate | currency : '₹' : 2}}
+                </div>
+                <div class="uppercase profile-stat-text">
+                    {{record.rateType}}
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title">
+                    {{record.experienceYears}}.{{record.experienceMonths}}
+                </div>
+                <div class="uppercase profile-stat-text">
+                    Experience
+                </div>
+            </div>
+        </div>
+        <!-- END STAT -->
+        <div>
+            <h4 class="profile-desc-title">Details</h4>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-user"></i>
+                <a href="javascript:;">{{record.consultantType | uncamel}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-user"></i>
+                <a href="javascript:;">{{record.contractType | uncamel}}</a>
+            </div>
+            <div ng-if="record.industry" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-industry"></i>
+                <a href="javascript:;">{{record.industry}}</a>
+            </div>
+            <div  ng-if="record.functionalArea" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-wrench"></i>
+                <a href="javascript:;">{{record.functionalArea}}</a>
+            </div>
+            <div ng-if="record.location" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-map-marker"></i>
+                <a href="javascript:;">{{record.location}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-phone"></i>
+                <a href="javascript:;">{{record.mobile}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-phone"></i>
+                <a href="javascript:;">{{record.alternateNumber}}</a>
+            </div>
+            <div ng-if="record.address" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-home"></i>
+                <a href="javascript:;">{{record.address}}</a>
+            </div>
+            <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-globe"></i>
+                <a href="javascript:;">{{record.nationality}}</a>
+            </div>
+            <div ng-if="record.webSite" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-globe"></i>
+                <a href="{{record.website}}">{{record.webSite}}</a>
+            </div>
+            <div ng-if="record.facebook" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-facebook"></i>
+                <a href="http://www.facebook.com/{{record.facebook}}/">{{record.facebook}}</a>
+            </div>
+            <div  ng-if="record.linkedin" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-linkedin"></i>
+                <a href="http://www.linkedin.com/{{record.linkedin}}/">{{record.linkedin}}</a>
+            </div>
+            <div  ng-if="record.twitter" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-twitter"></i>
+                <a href="http://www.twitter.com/{{record.twitter}}/">@{{record.twitter}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <!-- BEGIN PORTLET -->
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase font-green">Your Schedule</span>
+            </div>
+        </div>
+        <div class="portlet-body bordered">
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light">
+                    <thead>
+                        <tr class="uppercase">
+                            <th>
+                                NOTE
+                            </th>
+                            <th>
+                                START
+                            </th>
+                            <th>
+                                END
+                            </th>
+                            <th>
+                                DURATION
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="s in schedule | orderBy:['-isAvailable','start']">
+                            <td>
+                                <i ng-if="s.isAvailable" class="fa fa-check-circle font-green"></i> {{s.company}}
+                            </td>
+                            <td>
+                                {{s.start | date:'dd-MMM-yyyy'}}
+                            </td>
+                            <td>
+                                {{s.end | date:'dd-MMM-yyyy'}}
+                            </td>
+                            <td>
+                                {{s.end | amDifference : s.start : 'days'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET -->
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase">Profile</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="slimScrollDiv" style="position: relative;">
+                <div class="scroller" style="" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2" data-initialized="1">
+                    <div class="general-item-list">
+                        <div class="item">
+                            <div class="item-body">
+                                <div class="full-text" ng-bind-html="record.about"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="full-text" ng-bind-html="record.about"></div>
-                </article>
-            </div>
-            <div class="col-sm-4" id="sidebar">
-                <div class="sidebar-widget">
-                    <div class="input-group">
-                        <input type="text" class="form-control input-xs" ng-model="record.folder" />
-                        <span class="input-group-btn">
-                            <button ng-click="move(record.id,record.folder)" class="btn btn-primary srch-btn-pad"><i class="fa fa-save"></i> Save</button>
-                            <button ng-click="download(record.id,record.folder)" class="btn btn-success srch-btn-pad"><i class="fa fa-cloud-download"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div class="sidebar-widget" id="widget-contact">
-                    <h2>Contact</h2>
-                    <ul>
-                        <li><i class="fa fa-user"></i>{{record.firstName}} {{record.lastName}}</li>
-                        <li ng-if="record.birthday"><i class="fa fa-birthday-cake"></i>{{record.birthday}}</li>
-                        <li ng-if="record.location"><i class="fa fa-map-marker"></i>{{record.location}}</li>
-                        <li ng-if="record.mobile"><i class="fa fa-phone"></i>{{record.mobile}}</li>
-                        <li ng-if="record.alternateNumber"><i class="fa fa-phone"></i>{{record.alternateNumber}}</li>
-                        <li ng-if="record.email"><i class="fa fa-envelope"></i><a href="mailto:{{record.email}}">{{record.email}}</a></li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="sidebar-widget" id="skills">
-                    <h2>Key skills</h2>
-                    <a ng-repeat="s in record.skills" class="badge">{{s.title}}</a>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+<div class="col-md-3">
+    <!-- BEGIN PORTLET -->
+    <div class="sidebar-widget">
+        <div class="input-group">
+            <input type="text" class="form-control input-xs" ng-model="record.folder" />
+            <span class="input-group-btn">
+                <button ng-click="move(record.id,record.folder)" class="btn btn-primary srch-btn-pad"><i class="fa fa-save"></i> Save</button>
+                <button ng-click="download(record.id,record.folder)" class="btn btn-success srch-btn-pad"><i class="fa fa-cloud-download"></i></button>
+            </span>
+        </div>
+    </div>
+    <div class="portlet light" ng-repeat="l in levels">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase font-green"> {{l.label}} Skills </span>
+            </div>
+        </div>
+        <div class="portlet-body bordered">
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light">
+                    <tbody>
+                        <tr ng-repeat="s in record.skills | filter:{ level: l.label } | orderBy:'-experienceInMonths'">
+                            <td>
+                                {{s.title}}
+                            </td>
+                            <td>
+                                {{s.experienceInMonths}} Months
+                            </td>
+                            <td>
+                                {{s.end | date:'dd-MMM-yyyy'}}
+                            </td>
+                            <td>
+                                {{s.proficiency}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

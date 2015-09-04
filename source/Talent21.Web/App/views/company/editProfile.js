@@ -1,4 +1,4 @@
-﻿app.controller('companyEditProfileController', ['$scope', 'dataService', function ($scope, db) {
+﻿app.controller('companyEditProfileController', ['$scope', 'dataService','$rootScope', function ($scope, db, $rootScope) {
 
     db.system.getIndustries().success(function(result) {
         $scope.industries = result;

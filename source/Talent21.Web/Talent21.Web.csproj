@@ -115,24 +115,8 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mvc.Mailer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -281,6 +265,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\BillingController.cs" />
     <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
@@ -315,6 +300,7 @@
     <Content Include="App\directives\uploader.js" />
     <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
+    <Content Include="App\services\billing.db.js" />
     <Content Include="App\services\company.db.js" />
     <Content Include="App\services\contractor.db.js" />
     <Content Include="App\services\dataService.js" />
@@ -338,12 +324,22 @@
     <Content Include="App\template\views\ui_select.html" />
     <Content Include="App\views\admin\dashboard.html" />
     <Content Include="App\views\admin\dashboard.js" />
+    <Content Include="App\views\common\invoice.html" />
+    <Content Include="App\views\common\invoice.js" />
     <Content Include="App\views\company\bench.html" />
     <Content Include="App\views\company\bench.js" />
     <Content Include="App\views\company\billing.html" />
     <Content Include="App\views\company\billing.js" />
+    <Content Include="App\views\company\contractor.filter.html" />
+    <Content Include="App\views\company\contractor.item.html" />
+    <Content Include="App\views\company\contractor.simple.html" />
     <Content Include="App\views\company\invite.html" />
     <Content Include="App\views\company\invite.js" />
+    <Content Include="App\views\common\addCredit.html" />
+    <Content Include="App\views\common\addCredit.js" />
+    <Content Include="App\views\common\billing.html" />
+    <Content Include="App\views\common\billing.js" />
+    <Content Include="App\views\company\job.item.html" />
     <Content Include="App\views\contractor\company.html" />
     <Content Include="App\views\contractor\company.js" />
     <Content Include="App\views\company\contractor.html" />
@@ -357,6 +353,7 @@
     <Content Include="App\views\company\editOrCreateJob.js" />
     <Content Include="App\views\layout\footer.html" />
     <Content Include="App\views\layout\header.html" />
+    <Content Include="App\views\contractor\job.item.html" />
     <Content Include="App\views\layout\sidebar.html" />
     <Content Include="App\views\pager.html" />
     <Content Include="App\views\pager.js" />
@@ -2332,6 +2329,8 @@
     <Content Include="assets\global\plugins\angularjs\angular-sanitize.min.js" />
     <Content Include="assets\global\plugins\angularjs\angular-touch.min.js" />
     <Content Include="assets\global\plugins\angularjs\angular.min.js" />
+    <Content Include="assets\global\plugins\angularjs\plugins\angular-bootstrap-switch.js" />
+    <Content Include="assets\global\plugins\angularjs\plugins\angular-daterangepicker\angular-daterangepicker.js" />
     <Content Include="assets\global\plugins\angularjs\plugins\angular-file-upload\angular-file-upload.min.js" />
     <Content Include="assets\global\plugins\angularjs\plugins\angular-ui-router.min.js" />
     <Content Include="assets\global\plugins\angularjs\plugins\ocLazyLoad.min.js" />
@@ -5623,6 +5622,7 @@
     <Content Include="Views\Notifications\Company._Layout.cshtml" />
     <Content Include="Views\Notifications\Contractor._Layout.cshtml" />
     <Content Include="Views\Notifications\Invite.cshtml" />
+    <Content Include="Views\Shared\_Blank.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />

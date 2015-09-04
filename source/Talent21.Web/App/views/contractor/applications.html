@@ -1,50 +1,93 @@
-﻿<section id="jobs">
-    <div class="container">
+﻿<h3 class="page-title">
+    {{title}} <small>{{records.length}} results</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Applications</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <span class="btn-group pull-right">
+          <button class="btn btn-warning" ng-click="favoriteAll()">Favorite</button>
+        </span>
+    </div>
+</div>
+<div class="row">
+        <div class="col-sm-12">
+      <cc-pager total-pages="pages" current-page="currentPage"
+                  page-action="navigate(pageNumber)">
+        </cc-pager>
+
         <div class="row">
-            <div class="col-sm-8">
-                <h2><i class="fa fa-check shine"></i> {{title}} : <span class="highlight">{{records.length}}</span></h2>
-                <cc-pager total-pages="pages" current-page="currentPage"
-                          page-action="navigate(pageNumber)">
-                </cc-pager>
-                <div class="jobs">
-                    <div class="item" ng-repeat="row in records">
-                        <div ng-if="row.featured" class="featured"></div>
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <h5>
+
+            <div class="jobs">
+                <div class="item" ng-repeat="row in records">
+                    <div ng-if="row.featured" class="featured"></div>
+                    <!--<div class="row">-->
+                    <div class="col-sm-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-paper-plane font-yellow-casablanca"></i>
                                     <a href="/#/job/{{row.id}}">
                                         <i ng-if="row.favorite" class="fa fa-star shine"></i>
                                         <i ng-if="row.isWorkingFromHome" class="fa fa-home"></i>
-                                        <i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>
+                                        <!--<i ng-if="!row.isWorkingFromHome" class="fa fa-car"></i>-->
                                         {{row.title}} <small>{{row.company}}</small>
                                     </a>
-                                </h5>
-                                <span class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</span>
-                                <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
-                                <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
+                                </div>
+                                <div class="actions flex">
+                                    <a ng-if="row.favorite" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                        <i class="fa fa-star shine"></i>
+                                    </a>
+                                    <a ng-if="row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                        <i class="fa fa-home shine"></i>
+                                    </a>
+                                    <a ng-if="!row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                        <i class="fa fa-car shine"></i>
+                                    </a>
+                                    <span class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</span>
+                                    <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
+                                    <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
+                                    <div ng-switcher class="pull-right" ng-model="row.selected"></div>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <h5><a ng-href="row.webSite">{{row.webSite}}</a></h5>
                                 <p>
                                     {{row.description | limitTo: 200}}{{row.description.length > 200 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
                                 </p>
                             </div>
-                            <div class="col-md-2">
-                                <div class="btn-group">
-                                    <a class="btn btn-info btn-xs" href="#/job/{{row.id}}"><i class="fa fa-eye"></i> View</a>
+
+                            <div class="portlet-footer">
+                               <div class="actions">
+                                    <span class="pull-right"><i class="fa fa-calendar-o"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}</span>
+                                    <a href="javascript:;" class="btn btn-circle btn-success">
+                                        <i class="fa fa-inr"></i> {{row.rate}}
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-circle btn-default" ng-repeat="s in row.locations | limitTo:5">
+                                        <i class="fa fa-map-marker"></i> {{s.title}}
+                                    </a>
                                 </div>
+                                <label class="btn btn-circle btn-transparent active" ng-repeat="s in row.skills | limitTo:5">
+                                    <i class="fa fa-star-o"></i> {{s.code}}
+                                </label>
                             </div>
                         </div>
-                        <span class="point">
-                            <i class="fa fa-calendar"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
-                        </span>
-                        <span ng-if="row.webSite" class="point"><a ng-href="row.webSite"><i class="fa fa-globe"></i>{{row.webSite}}</a></span>
-                        <span class="point"><i class="fa fa-inr"></i>{{row.rate}}</span>
-                        <br /><span class="point" ng-repeat="s in row.skills | limitTo:5"><i class="fa fa-asterisk"></i> {{s.title}}</span>
-                        <br /><span class="point" ng-repeat="s in row.locations | limitTo:5"><i class="fa fa-map-marker"></i> {{s.title}}</span>
+                        <!-- END Portlet PORTLET-->
                     </div>
+                    <div ng-if="row.featured" class="featured"></div>
                 </div>
-                <cc-pager total-pages="pages" current-page="currentPage"
-                          page-action="navigate(pageNumber)">
-                </cc-pager>
             </div>
-                    </div>
+        </div>
     </div>
-  </section>
+</div>
+<cc-pager total-pages="pages" current-page="currentPage"
+          page-action="navigate(pageNumber)">
+</cc-pager>

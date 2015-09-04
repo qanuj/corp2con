@@ -13,6 +13,7 @@ namespace Talent21.Service
             builder.RegisterModule<DataAccessLayerModule>();
             builder.RegisterType<SiteService>().As<ISiteService>();
             builder.RegisterType<ContractorService>().As<IContractorService>();
+            builder.RegisterType<CommonService>().As<ISharedService>();
             builder.RegisterType<SystemService>().As<ISystemService>();
             builder.RegisterType<DemoDataService>().As<IDemoDataService>();
             builder.RegisterType<SellingOptions>().AsSelf().SingleInstance();

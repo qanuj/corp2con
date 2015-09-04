@@ -1,4 +1,5 @@
-﻿app.controller('companyApplicationsController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
+﻿app.controller('companyApplicationsController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
+    
     $scope.title = "Job Applications";
     var id = $stateParams.id;
     $scope.id = id;
