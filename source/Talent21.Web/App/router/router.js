@@ -5,6 +5,25 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     // Redirect any unmatched url
     $urlRouterProvider.otherwise("/");
 
+    var datePickerDependency = {
+        deps: [
+            '$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                    name: 'app',
+                    insertBefore: '#ng_load_plugins_before',
+                    files: [
+                        '/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
+                        '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css',
+                        '/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
+                        '/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js',
+                        '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                        '/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+                    ]
+                });
+            }
+        ]
+    };
+
     var searchDependency = {
         deps: [
             '$ocLazyLoad', function($ocLazyLoad) {
@@ -121,24 +140,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/schedule.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "ScheduleController",
-                resolve: {
-                    deps: [
-                        '$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name: 'app',
-                                insertBefore: '#ng_load_plugins_before',
-                                files: [
-                                    '/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
-                                    '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css',
-                                    '/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-                                    '/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js',
-                                    '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
-                                    '/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
-                                ]
-                            });
-                        }
-                    ]
-                }
+                resolve: datePickerDependency
             })
             .state('favorite', {
                 url: "/favorite",
@@ -189,14 +191,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/editOrCreateJob.html",
                 data: { pageTitle: 'Job Edit' },
                 controller: role + "EditOrCreateJobController",
-                resolve: {}
+                resolve: datePickerDependency
             })
             .state('jobNew', {
                 url: "/job/new",
                 templateUrl: "app/views/" + role + "/editOrCreateJob.html",
                 data: { pageTitle: 'New Job' },
                 controller: role + "EditOrCreateJobController",
-                resolve: {}
+                resolve: datePickerDependency
             })
             .state('jobApplications', {
                 url: "/job/:id/applications/:folder?",

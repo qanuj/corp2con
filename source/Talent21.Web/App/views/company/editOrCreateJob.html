@@ -1,67 +1,82 @@
-﻿<section id="jobs">
-    <div class="container margtop">
-        <form ng-submit="save(record)">
-            <div class="row">
-                <div class="col-sm-8 col-md-offset-2">
-                    <h2>{{title}}</h2>
-                    <div class="form-group" id="job-title-group">
-                        <label>Title</label>
-                        <input type="text" class="form-control" ng-model="record.title" placeholder="Enter Job Title">
-                    </div>
-                    <div class="form-group" id="job-title-group">
-                        <label>Job Code</label>
-                        <input type="text" class="form-control" ng-model="record.code" placeholder="eg. IBM-123">
-                    </div>
-                    <div class="form-group" id="job-title-group">
-                        <label>Number of Positions</label>
-                        <input type="number" class="form-control" ng-model="record.positions" placeholder="eg. 5">
-                    </div>
-                    <div class="form-group" id="job-title-group">
-                        <label>Allow Work from Home</label>
-                        <input type="checkbox" class="form-control" ng-model="record.isWorkingFromHome">
-                    </div>
-                    <div class="form-group nopadding-left col-xs-6">
-                        <label>Start Date</label>
-                        <input type="date" class="form-control" ng-model="record.start" placeholder="Enter Start Date">
-                    </div>
-                    <div class="form-group nopadding-right col-xs-6">
-                        <label>End Date</label>
-                        <input type="date" class="form-control" ng-model="record.end" placeholder="Enter End Date">
-                    </div>
-                    <div class="form-group">
-                        <label>Locations</label>
-                        <tags-input placeholder="Add Location" display-property="title" ng-model="record.locations">
-                            <auto-complete source="loadLocations($query)"></auto-complete>
-                        </tags-input>
-                    </div>
-                    <div class="form-group" id="job-email-group">
-                        <label for="job-email">Rate (Monthly in Thousands)</label>
-                        <input type="number" class="form-control" ng-model="record.rate" placeholder="In Thousand">
-                    </div>
-                    <div class="form-group">
-                        <label>Skills</label>
-                        <tags-input placeholder="Add Skill" display-property="title" ng-model="record.primarySkills">
-                            <auto-complete source="loadSkills($query)"></auto-complete>
-                        </tags-input>
-                    </div>
-                    <div class="form-group">
-                        <label>Secondary Skills</label>
-                        <tags-input placeholder="Add Skill" display-property="title" ng-model="record.secondarySkills">
-                            <auto-complete source="loadSkills($query)"></auto-complete>
-                        </tags-input>
-                    </div>
-                    <div ng-if="isMarkdown" class="form-group wysiwyg">
-                        <textarea class="form-control" markdownedit markdown-hidden-buttons="cmdQuote" rows="10" ng-model="record.description" required placeholder="Job Description"></textarea>
-                    </div>
-                    <div ng-if="!isMarkdown" class="form-group">
-                        <textarea class="form-control" ckeditor="editorOptions" rows="10" ng-model="record.description" required placeholder="Job Description"></textarea>
-                    </div>
+﻿<h3 class="page-title">
+    {{title}} <small>{{subtitle}}</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#/jobs">Jobs</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">{{subtitle}}</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <span class="btn-group pull-right">
+            <button class="btn btn-success" ng-click="sendInvites(records)"><i class="fa fa-paper-plane-o"></i> Save Job</button>
+        </span>
+    </div>
+</div>
+<div class="col-x12">
+    <form ng-submit="save(record)">
+        <div class="row">
+            <div class="form-group col-sm-2">
+                <label>Job Code</label>
+                <input type="text" class="form-control" ng-model="record.code" placeholder="eg. IBM-123">
+            </div>
+            <div class="form-group col-sm-10">
+                <label>Title</label>
+                <input type="text" class="form-control" ng-model="record.title" placeholder="Enter Job Title">
+            </div>
+            <div class="form-group col-sm-2">
+                <label>Number of Positions</label>
+                <input type="number" class="form-control" ng-model="record.positions" placeholder="eg. 5">
+            </div>
+            <div class="form-group col-sm-2">
+                <label>
+                    <input type="checkbox" class="form-control" ng-model="record.isWorkingFromHome"> Allow Work from Home
+                </label>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Date Range</label>
+                <div class="input-group">
+                    <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="record.date"/>
+                    <span class="input-group-btn">
+                        <button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
+                    </span>
                 </div>
             </div>
-            <div class="row text-center">
-                <p>&nbsp;</p>
-                <input type="submit" id="submit" value="Save" class="btn btn-primary" />
+
+            <div class="form-group col-md-4">
+                <label>Rate (Monthly in Thousands)</label>
+                <input type="number" class="form-control" ng-model="record.rate" placeholder="In Thousand">
             </div>
-        </form>
-    </div>
-</section>
+            <div class="form-group col-xs-12">
+                <label>Locations</label>
+                <tags-input placeholder="Add Location" display-property="title" ng-model="record.locations">
+                    <auto-complete source="loadLocations($query)"></auto-complete>
+                </tags-input>
+            </div>
+            <div class="form-group col-xs-12">
+                <label>Skills</label>
+                <tags-input placeholder="Add Skill" display-property="title" ng-model="record.primarySkills">
+                    <auto-complete source="loadSkills($query)"></auto-complete>
+                </tags-input>
+            </div>
+            <div class="form-group col-md-12">
+                <label>Secondary Skills</label>
+                <tags-input placeholder="Add Skill" display-property="title" ng-model="record.secondarySkills">
+                    <auto-complete source="loadSkills($query)"></auto-complete>
+                </tags-input>
+            </div>
+            <div class="form-group col-md-12">
+                <textarea class="form-control" ckeditor="editorOptions" rows="10" ng-model="record.description" required placeholder="Job Description"></textarea>
+            </div>
+        </div>
+    </form>
+</div>

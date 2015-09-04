@@ -11,7 +11,7 @@
                 {{record.firstName}} {{record.lastName}}
             </div>
             <div class="profile-usertitle-job">
-                {{record.lastName}}
+                {{record.consultantType | uncamel}}
             </div>
         </div>
         <!-- END SIDEBAR USER TITLE -->
@@ -55,9 +55,21 @@
             <h4 class="profile-desc-title">Details</h4>
             <div class="margin-top-20 profile-desc-link">
                 <i class="fa fa-user"></i>
-                <a href="javascript:;">{{record.consultantType}}</a>
+                <a href="javascript:;">{{record.consultantType | uncamel}}</a>
             </div>
             <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-user"></i>
+                <a href="javascript:;">{{record.contractType | uncamel}}</a>
+            </div>
+            <div ng-if="record.industry" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-industry"></i>
+                <a href="javascript:;">{{record.industry}}</a>
+            </div>
+            <div  ng-if="record.functionalArea" class="margin-top-20 profile-desc-link">
+                <i class="fa fa-wrench"></i>
+                <a href="javascript:;">{{record.functionalArea}}</a>
+            </div>
+            <div ng-if="record.location" class="margin-top-20 profile-desc-link">
                 <i class="fa fa-map-marker"></i>
                 <a href="javascript:;">{{record.location}}</a>
             </div>
