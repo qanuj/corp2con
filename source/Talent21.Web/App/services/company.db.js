@@ -23,10 +23,6 @@
             return $http.put(v + 'bench/invite', rows);
         }
 
-        company.balance = function () {
-            return $http.get(v + 'balance');
-        }
-        
         company.all = function () {
             return $http.get(v + 'all');
         }
@@ -63,6 +59,11 @@
             return $http.get(v + 'job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }
         
+
+        company.balance = function () {
+            return $http.get(v + 'balance');
+        }
+
         company.transactions = function (page, pageSize) {
             return $http.get(v + 'transaction?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }

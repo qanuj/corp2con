@@ -7,6 +7,7 @@ namespace Talent21.Service.Abstraction
     public interface ISharedService
     {
         IQueryable<Transaction> Transactions();
+        string AddCredits(int num, string userId);
         int GetBalance(string userId);
         void AddView(int id, string userAgent, string ipAddress);
     }

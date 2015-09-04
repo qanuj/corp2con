@@ -36,8 +36,9 @@ namespace Talent21.Service.Core
             IContractorVisitRepository contractorVisitRepository,
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
+            SellingOptions sellingOptions,
             ITransactionRepository transactionRepository, INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository)
-            : base(locationRepository, transactionRepository)
+            : base(locationRepository, transactionRepository, sellingOptions)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;

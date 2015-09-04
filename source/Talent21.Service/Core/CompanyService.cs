@@ -33,7 +33,6 @@ namespace Talent21.Service.Core
         private readonly IContractorSkillRepository _contractorSkillRepository;
         private readonly IContractorFolderRepository _contractorFolderRepository;
         private readonly INotificationService _notificationService;
-        private readonly SellingOptions _sellingOptions;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
@@ -48,7 +47,7 @@ namespace Talent21.Service.Core
             IAdvertisementRepository advertisementRepository,
             IScheduleRepository scheduleRepository,
             IContractorFolderRepository contractorFolderRepository, INotificationService notificationService, IContractorVisitRepository contractorVisitRepository, SellingOptions sellingOptions, IInviteRepository inviteRepository)
-            : base(locationRepository, transactionRepository)
+            : base(locationRepository, transactionRepository, sellingOptions)
         {
             _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
@@ -63,7 +62,6 @@ namespace Talent21.Service.Core
             _contractorFolderRepository = contractorFolderRepository;
             _notificationService = notificationService;
             _contractorVisitRepository = contractorVisitRepository;
-            _sellingOptions = sellingOptions;
             _inviteRepository = inviteRepository;
         }
 
@@ -807,19 +805,6 @@ namespace Talent21.Service.Core
                 _contractorVisitRepository.SaveChanges();
             }
             return true;
-        }
-
-        public string AddCredits(int num, string userId)
-        {
-            var transction = new Payment {
-                Code = Transaction.GenerateTransactionId(),
-                UserId = userId, Name = string.Format("{0} Credits Purchased", num),
-                Credit = num,
-                Amount = (num * _sellingOptions.CreditPrice) };
-            _transactionRepository.Create(transction);
-            _transactionRepository.SaveChanges();
-
-            return transction.Code;
         }
 
         public bool InvitePeople(IList<InviteViewModel> model)

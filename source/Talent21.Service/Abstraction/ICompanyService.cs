@@ -45,7 +45,6 @@ namespace Talent21.Service.Abstraction
         IQueryable<CountLabel<int>> ContractorFolders();
         IQueryable<CountLabel<int>> BenchFolders();
         bool VisitContractor(int id, VisitViewModel model);
-        string AddCredits(int num,string userId);
 
         bool InvitePeople(IList<InviteViewModel> model);
         InviteCodeViewModel AcceptInvitation(string code);

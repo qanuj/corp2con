@@ -94,6 +94,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "FavoriteController",
                 resolve: {}
             })
+            .state('billing', {
+                url: "/billing",
+                templateUrl: "app/views/" + role + "/billing.html",
+                data: { pageTitle: 'Billing' },
+                controller: role + "BillingController",
+                resolve: {}
+            })
             .state('company', {
                 url: "commpany/:id",
                 templateUrl: "app/views/" + role + "/company.html",
@@ -115,13 +122,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/invite.html",
                 data: { pageTitle: 'Invite' },
                 controller: role + "InviteController",
-                resolve: {}
-            })
-            .state('billing', {
-                url: "/billing",
-                templateUrl: "app/views/" + role + "/billing.html",
-                data: { pageTitle: 'Billing' },
-                controller: role + "BillingController",
                 resolve: {}
             })
             .state('jobs', {

@@ -328,6 +328,8 @@
     <Content Include="App\views\company\billing.js" />
     <Content Include="App\views\company\invite.html" />
     <Content Include="App\views\company\invite.js" />
+    <Content Include="App\views\contractor\billing.html" />
+    <Content Include="App\views\contractor\billing.js" />
     <Content Include="App\views\contractor\company.html" />
     <Content Include="App\views\contractor\company.js" />
     <Content Include="App\views\company\contractor.html" />

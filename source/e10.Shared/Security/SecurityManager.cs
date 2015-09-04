@@ -61,8 +61,6 @@ namespace e10.Shared.Security
                 app.UseLinkedInAuthentication(SocialProvider.LinkedIn.Key, SocialProvider.LinkedIn.Secret);
             if (!string.IsNullOrWhiteSpace(SocialProvider.GitHub.Key))
                 app.UseGitHubAuthentication(SocialProvider.GitHub.Key, SocialProvider.GitHub.Secret);
-            if (!string.IsNullOrWhiteSpace(SocialProvider.GitHub.Key))
-                app.UseGitHubAuthentication(SocialProvider.GitHub.Key, SocialProvider.GitHub.Secret);
             if (!string.IsNullOrWhiteSpace(SocialProvider.Facebook.Key))
                 app.UseFacebookAuthentication(SocialProvider.Facebook.Key, SocialProvider.Facebook.Secret);
             if (!string.IsNullOrWhiteSpace(SocialProvider.Microsoft.Key))

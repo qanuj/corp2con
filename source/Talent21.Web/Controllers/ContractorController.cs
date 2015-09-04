@@ -36,12 +36,33 @@ namespace Talent21.Web.Controllers
             return _service.GetDashboard(userId);
         }
 
+
+        [HttpGet]
+        [Route("transaction")]
+        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
+        {
+            _service.CurrentUserId = User.Identity.GetUserId();
+            return Page(_service.Transactions(), options);
+        }
+
         [HttpGet]
         [Route("balance")]
         public int GetBalance()
         {
             var userId = User.Identity.GetUserId<string>();
             return _service.GetBalance(userId);
+        }
+
+        [HttpPost]
+        [ResponseType(typeof(RedirectViewModel))]
+        [Route("credits/{num}")]
+        public HttpResponseMessage AddCredits(int num)
+        {
+            if (num <= 0){
+                return Ok(new RedirectViewModel { IsError = true, Error = "Credits can't be 0 or less." });
+            }
+            var code = _service.AddCredits(num, User.Identity.GetUserId<string>());
+            return Ok(new RedirectViewModel { Url = "/pay/" + code });
         }
 
         [HttpGet]
@@ -223,13 +244,6 @@ namespace Talent21.Web.Controllers
             return _service.ApplicationHistoryByJobIDs(model);
         }
 
-        [HttpGet]
-        [Route("transaction")]
-        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
-        {
-            _service.CurrentUserId = User.Identity.GetUserId();
-            return Page(_service.Transactions(), options);
-        }
         
         [HttpPut]
         [Route("job/{id}/revoke")]

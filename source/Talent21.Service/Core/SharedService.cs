@@ -13,11 +13,14 @@ namespace Talent21.Service.Core
 
         protected readonly ILocationRepository _locationRepository;
         protected readonly ITransactionRepository _transactionRepository;
+        protected readonly SellingOptions _sellingOptions;
 
-        protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository)
+
+        protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions)
         {
             _locationRepository = locationRepository;
             _transactionRepository = transactionRepository;
+            _sellingOptions = sellingOptions;
         }
 
 
@@ -31,7 +34,24 @@ namespace Talent21.Service.Core
         {
             return _transactionRepository.All.Where(x => x.UserId == CurrentUserId && x.IsSuccess);
         }
-        
+
+        public string AddCredits(int num, string userId)
+        {
+            var transction = new Payment
+            {
+                Code = Transaction.GenerateTransactionId(),
+                UserId = userId,
+                Name = string.Format("{0} Credits Purchased", num),
+                Credit = num,
+                Amount = (num * _sellingOptions.CreditPrice)
+            };
+            _transactionRepository.Create(transction);
+            _transactionRepository.SaveChanges();
+
+            return transction.Code;
+        }
+
+
         protected Location FindLocation(string address,int locationId)
         {
             var location = string.IsNullOrWhiteSpace(address) ? _locationRepository.ById(locationId) : _locationRepository.ByTitle(address);

@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var pgClass = ViewBag.PageClass;
+    if (string.IsNullOrWhiteSpace(pgClass))
+    {
+        pgClass="login";
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <base href="@Url.Content("~/")">
@@ -22,7 +29,7 @@
     <link href="~/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="~/content/images/favicon.png">
 </head>
-<body class="@ViewBag.PageClass">
+<body class="@pgClass">
     @if (ViewBag.PageClass != "page-500-full-page")
     {
         <div class="menu-toggler sidebar-toggler"></div>
