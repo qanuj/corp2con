@@ -150,7 +150,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 resolve: {}
             })
             .state('company', {
-                url: "commpany/:id",
+                url: "/company/:id",
                 templateUrl: "app/views/" + role + "/company.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "CompanyProfileController",

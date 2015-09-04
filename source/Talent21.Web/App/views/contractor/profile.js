@@ -5,7 +5,7 @@
     });
 
     // set sidebar closed and body solid layout mode
-    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
     function loadSchedule(page) {
