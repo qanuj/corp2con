@@ -25,7 +25,7 @@ namespace Talent21.Service
             if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "AppName"))
             {
                 var tmp = ConfigurationManager.AppSettings["AppName"];
-                if (!string.IsNullOrWhiteSpace(tmp)) AppName = AppName;
+                if (!string.IsNullOrWhiteSpace(tmp)) AppName = tmp;
             }
             if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "CreditWarning"))
             {
