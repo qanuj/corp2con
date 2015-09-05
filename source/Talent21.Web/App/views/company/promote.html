@@ -57,12 +57,12 @@
 <div class="col-md-12 row">
     <div class="tiles">
         <div class="col-md-3" isolate ng-repeat="p in promotions track by $index" ng-click="showConfirm(p)">
-            <div class="tile double {{p.color}}" ng-class="{'selected':$index == selectedItem}">
+            <div class="tile double {{p.color}}" ng-class="{'selected':$index == selectedItem}" ng-click="highlight($index)">
                 <div class="corner" ng-show="$index == selectedItem">
                 </div>
                 <div class="check" ng-show="$index == selectedItem">
                 </div>
-                <div class="tile-body" ng-click="highlight($index)">
+                <div class="tile-body">
                     <i class="fa fa-{{p.icon}}"></i>
                 </div>
                 <div class="tile-object">
