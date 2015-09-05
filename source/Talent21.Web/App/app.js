@@ -32,6 +32,7 @@ app.config([
         $controllerProvider.allowGlobals();
     }
 ]);
+
 app.factory('settings', [
     '$rootScope', function ($rootScope) {
         // supported languages

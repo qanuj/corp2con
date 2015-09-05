@@ -117,13 +117,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             data: { pageTitle: 'Edit Profile' },
             controller: role + "EditProfileController",
             resolve: {}
-        })
-        .state('promote', {
-            url: "/promote/job/:id",
-            templateUrl: "app/views/" + role + "/promote.html",
-            data: { pageTitle: 'Job' },
-            controller: role + "PromoteController",
-            resolve: {}
         });
 
     if (role == 'contractor') {
@@ -164,9 +157,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 resolve: {}
             })
             .state('promote', {
-                url: "/promote/job/:id",
+                url: "/promote",
                 templateUrl: "app/views/" + role + "/promote.html",
-                data: { pageTitle: 'Job' },
+                data: { pageTitle: 'Promote Profile' },
                 controller: role + "PromoteController",
                 resolve: {}
             });
@@ -233,6 +226,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/contractor.html",
                 data: { pageTitle: 'Contractor' },
                 controller: role + "ContractorController",
+                resolve: {}
+            })
+            .state('promote', {
+                url: "/promote/job/:id",
+                templateUrl: "app/views/" + role + "/promote.html",
+                data: { pageTitle: 'Job' },
+                controller: role + "PromoteController",
                 resolve: {}
             });
     } else if (role == 'admin') {
