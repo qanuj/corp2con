@@ -43,7 +43,8 @@ namespace Talent21.Web
                 "~/assets/admin/layout/css/layout.css",
                 "~/assets/admin/pages/css/*.css",
                 "~/assets/admin/layout/css/themes/darkblue.css",
-                "~/assets/admin/layout/css/custom.css"));
+                "~/assets/admin/layout/css/custom.css",
+                "~/Content/css/rzslider.css"));
 
 
             bundles.Add(new ScriptBundle("~/script/site")
