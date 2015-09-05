@@ -44,7 +44,8 @@ namespace Talent21.Web
                 "~/assets/admin/pages/css/*.css",
                 "~/assets/admin/layout/css/themes/darkblue.css",
                 "~/assets/admin/layout/css/custom.css",
-                "~/Content/css/rzslider.css"));
+                "~/Content/css/rzslider.css",
+                "~/Content/css/toastr.css"));
 
 
             bundles.Add(new ScriptBundle("~/script/site")
@@ -96,6 +97,7 @@ namespace Talent21.Web
                 .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/angular-*")
                 .Include("~/Scripts/rzslider.js")
+                .Include("~/Scripts/toastr.min.js")
              );
 
             bundles.Add(new ScriptBundle("~/script/spa")
