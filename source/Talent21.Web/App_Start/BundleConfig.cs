@@ -44,6 +44,8 @@ namespace Talent21.Web
                 "~/assets/admin/pages/css/*.css",
                 "~/assets/admin/layout/css/themes/darkblue.css",
                 "~/assets/admin/layout/css/custom.css",
+                "~/Content/css/extra/ng-tags-input.a.css",
+                "~/Content/css/extra/ng-tags-input.bootstrap.css",
                 "~/Content/css/rzslider.css",
                 "~/Content/css/toastr.css"));
 
