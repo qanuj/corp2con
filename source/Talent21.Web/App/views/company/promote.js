@@ -33,8 +33,12 @@
     }
 
     $scope.confirmPromote = function (jobId) {
-        db.company.promoteJob(jobId, promotedJob.title).success(function (data) {
-            toastr.success('Success', 'Job promoted. Enjoy!')
-        });
+        db.company.promoteJob(jobId, $scope.promotedJob.id)
+            .success(function (data) {
+                toastr.success('Success', 'Job promoted. Enjoy!')
+            })
+            .error(function (data) {
+                console.log(data);
+            });
     }
 }]);
