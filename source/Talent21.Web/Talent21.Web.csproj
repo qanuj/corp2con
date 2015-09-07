@@ -2029,6 +2029,8 @@
     <Content Include="Content\images\slider\slider4.jpg" />
     <Content Include="Content\images\stats.jpg" />
     <Content Include="Content\images\testimonials.jpg" />
+    <Content Include="Content\img\sidebar_toggler_icon_darkblue.png" />
+    <Content Include="Content\img\syncfusion-icons-white.png" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -2393,6 +2395,8 @@
     <Content Include="assets\global\plugins\typeahead\README.md" />
     <Content Include="assets\global\plugins\uniform\css\uniform.default.scss" />
     <Content Include="assets\global\plugins\uniform\README.md" />
+    <Content Include="Content\spa\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\spa\Simple-Line-Icons.woff" />
     <None Include="Properties\PublishProfiles\deploymentTest.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="fonts\fontawesome-webfont.svg" />
