@@ -948,7 +948,6 @@
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-regular.svg" />
     <Content Include="assets\global\plugins\icheck\demo\css\normalize.css" />
     <Content Include="assets\global\plugins\icheck\demo\index.html" />
-    <Content Include="assets\global\plugins\icheck\demo\js\custom.js" />
     <Content Include="assets\global\plugins\icheck\demo\js\custom.min.js" />
     <Content Include="assets\global\plugins\icheck\demo\js\jquery.js" />
     <Content Include="assets\global\plugins\icheck\demo\js\zepto.js" />
@@ -2395,6 +2394,7 @@
     <Content Include="assets\global\plugins\typeahead\README.md" />
     <Content Include="assets\global\plugins\uniform\css\uniform.default.scss" />
     <Content Include="assets\global\plugins\uniform\README.md" />
+    <None Include="Properties\PublishProfiles\deploymentTest.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
