@@ -264,7 +264,7 @@ namespace Talent21.Service.Core
 
             _jobRepository.Create(entity);
             _jobRepository.SaveChanges();
-
+           
             return Jobs.FirstOrDefault(x => x.Id == entity.Id);
 
         }
