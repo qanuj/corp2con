@@ -52,6 +52,7 @@ namespace Talent21.Service.Core
                                 Positions=job.Positions,
                                 End=job.End,
                                 Id=job.Id,
+                                IsFeatured = job.Advertisements.Any(y => y.Promotion == PromotionEnum.Feartured && y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow),
                                 Promotion = job.Advertisements.Where(x => x.Start <= DateTime.UtcNow && x.End > DateTime.UtcNow).Select(x=>x.Promotion).FirstOrDefault(),
                                 Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title }),
                                 Locations = job.Locations.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })

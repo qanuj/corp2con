@@ -1,63 +1,67 @@
-﻿app.controller('companySearchController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
-    
+﻿app.controller('companySearchController', ['$scope', 'dataService','$rootScope',function ($scope, db,  $rootScope) {
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageSidebarClosed = false;
 
     $scope.title = "Contractor : Search Result";
     $scope.save = "Save";
 
-    console.log('Searching Companies',$stateParams);
+    var param = db.args();
 
-    if (!isNaN($stateParams.idea)) {
+    if (!isNaN(param.idea)) {
         param.page = page.idea;
-    } else if ($stateParams.idea == "match") {
+    } else if (param.idea == "match") {
         $scope.searching = "Matching Jobs for you.";
-    } else if ($stateParams.idea == "month") {
+    } else if (param.idea == "month") {
         $scope.searching = "Matching Jobs for you, next month";
-    } else if ($stateParams.idea == "week") {
+    } else if (param.idea == "week") {
         $scope.searching = "Matching Jobs for you, next week";
     }
 
+    console.log('Searching Contractor', param,param);
+
+    $scope.query = {
+        keywords: param.q || param.keywords || '',
+        location: param.location || '',
+        folder: param.idea || param.folder || '',
+        industry: param.industry || '',
+        functional: param.functional || '',
+        skills: param.skills || '',
+        ratestart: param.ratestart || '',
+        rateend: param.rateend || '',
+        xfrom: param.xfrom || '',
+        xto: param.xto || '',
+        ratetype: param.ratetype || ''
+    }
+
+    function fetchResults(query, page) {
+        db.company.search(query, page).success(function (result) {
+            $scope.currentPage = page || 1;
+            $scope.pages = Math.ceil(result.count / db.pageSize);
+            $scope.count = result.count;
+            $scope.records = result.items;
+            $scope.page = page;
+            $scope.selectAll = false;
+        });
+    }
+
+    $scope.search = function (query) {
+        var q = '';
+        for (var x in query) {
+            q += (q === '' ? '?' : '&') + x + '=' + query[x];
+        }
+        fetchResults(query, 1);
+        window.location = '#/search' + q; //this is decoration for URL only.
+    }
+
     $scope.navigate = function (page) {
-        $scope.query = {
-            keywords: $stateParams.q || $stateParams.keywords || '',
-            location: $stateParams.location || '',
-            folder: $stateParams.idea || $stateParams.folder || '',
-            industry: $stateParams.industry || '',
-            functional: $stateParams.functional || '',
-            skills: $stateParams.skills || '',
-            ratestart: $stateParams.ratestart || '',
-            rateend: $stateParams.rateend || '',
-            xfrom: $stateParams.xfrom || '',
-            xto: $stateParams.xto || '',
-            ratetype: $stateParams.ratetype || ''
-        }
-
-        function fetchResults(query, page) {
-            db.company.search(query, page).success(function (result) {
-                $scope.currentPage = page || 1;
-                $scope.pages = Math.ceil(result.count / db.pageSize);
-                $scope.count = result.count;
-                $scope.records = result.items;
-                $scope.page = page;
-                $scope.selectAll = false;
-            });
-        }
-
-        $scope.search = function (query) {
-            var q = '';
-            for (var x in query) {
-                q += (q === '' ? '?' : '&') + x + '=' + query[x];
-            }
-            window.location = '#/search' + q;
-        }
-
         fetchResults($scope.query, page || 1);
     }
-    $scope.navigate($stateParams.page);
-
-
-    $scope.$watch('selectAll', function () {
-        $scope.toggle($scope.selectAll);
-    });
 
     $scope.toggle = function (allSelected) {
         for (var x in $scope.records) {
@@ -103,7 +107,7 @@
     }
 
     $scope.rateTranslate = function (value) {
-        return value+'k';
+        return value + 'k';
     }
 
     //Slider configs
@@ -129,7 +133,7 @@
     $scope.move = function (folder) {
         var i = 0;
         function moveFolder(x, folder, next) {
-            if(!$scope.records[x]) {
+            if (!$scope.records[x]) {
                 $scope.save = "Save";
                 $scope.navigate($scope.currentPage);
                 return;
@@ -137,7 +141,7 @@
             $scope.save = (x + 1);
             if ($scope.records[x].selected == true) {
                 db.company.moveContractor($scope.records[x].id, folder).success(next);
-            }else next();
+            } else next();
         }
         function onNext() {
             moveFolder(++i, folder, onNext);
@@ -164,6 +168,23 @@
         inviteToJob(i, job, onNext);
     }
 
+    $scope.resetFilters = function () {
+        $scope.query.keywords = '';
+        $scope.query.skills = '';
+        $scope.query.location = '';
+        $scope.query.startrate = '';
+        $scope.query.endrate = '';
+        $scope.query.xfrom = '';
+        $scope.query.xto = '';
+        $scope.query.industry = '';
+        $scope.search(query);
+    }
+
+    $scope.$watch('selectAll', function (val) {
+        $scope.toggle($scope.selectAll);
+        console.log('Toggeling', val);
+    });
+
     $scope.$on("slideEnded", function () {
         // user finished sliding a handle 
         console.log('slide ended');
@@ -173,6 +194,8 @@
         $scope.query.xto = $scope.experienceSlider.max;
         $scope.search($scope.query);
     });
+
+    $scope.navigate(param.page);
 
 
 }]);

@@ -43,7 +43,11 @@ namespace Talent21.Web
                 "~/assets/admin/layout/css/layout.css",
                 "~/assets/admin/pages/css/*.css",
                 "~/assets/admin/layout/css/themes/darkblue.css",
-                "~/assets/admin/layout/css/custom.css"));
+                "~/assets/admin/layout/css/custom.css",
+                "~/Content/css/extra/ng-tags-input.a.css",
+                "~/Content/css/extra/ng-tags-input.bootstrap.css",
+                "~/Content/css/rzslider.css",
+                "~/Content/css/toastr.css"));
 
 
             bundles.Add(new ScriptBundle("~/script/site")
@@ -95,6 +99,7 @@ namespace Talent21.Web
                 .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/angular-*")
                 .Include("~/Scripts/rzslider.js")
+                .Include("~/Scripts/toastr.min.js")
              );
 
             bundles.Add(new ScriptBundle("~/script/spa")

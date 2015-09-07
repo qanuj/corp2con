@@ -120,6 +120,10 @@
             return $http.get(v + 'bench/folders');
         }
 
+        company.promoteJob = function (jobId, promo) {
+            return $http.post(v + 'job/promote/' + jobId + '/' + promo);
+        }
+
         return company;
 
     }]);

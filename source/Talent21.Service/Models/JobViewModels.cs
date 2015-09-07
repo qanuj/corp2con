@@ -126,6 +126,8 @@ namespace Talent21.Service.Models
         public int Positions { get; set; }
         public string Address { get; set; }
         public string PinCode { get; set; }
+
+        public bool IsFeatured { get; set; }
     }
 
     public class SkillConverter : TypeConverter

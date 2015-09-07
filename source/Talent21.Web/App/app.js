@@ -15,6 +15,8 @@
     'codemwnci.markdown-edit-preview',
     'frapontillo.bootstrap-switch',
     'humenize',
+    'toastr',
+    'rzModule',
     'ui.gravatar', //gravtaar for user
     'ui.select', //ui-select for dropdown and multi values.
     'ui.bootstrap', // ui-bootstrap (ex: carousel, pagination, dialog)
@@ -30,6 +32,7 @@ app.config([
         $controllerProvider.allowGlobals();
     }
 ]);
+
 app.factory('settings', [
     '$rootScope', function ($rootScope) {
         // supported languages
