@@ -2272,7 +2272,6 @@
     <Content Include="assets\global\plugins\gritter\README.markdown" />
     <Content Include="assets\global\plugins\icheck\bower.json" />
     <Content Include="assets\global\plugins\icheck\CHANGELOG.md" />
-    <Content Include="assets\global\plugins\icheck\demo\css\custom.styl" />
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-bold.eot" />
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-bold.ttf" />
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-bold.woff" />
