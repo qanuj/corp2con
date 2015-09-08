@@ -2041,6 +2041,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="App\views\company\search.js" />
+    <Content Include="fonts\Simple-Line-Icons.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -2397,6 +2398,10 @@
     <Content Include="assets\global\plugins\uniform\README.md" />
     <Content Include="Content\spa\fonts\Simple-Line-Icons.ttf" />
     <Content Include="Content\spa\fonts\Simple-Line-Icons.woff" />
+    <Content Include="fonts\Simple-Line-Icons.eot" />
+    <Content Include="fonts\Simple-Line-Icons.ttf" />
+    <Content Include="fonts\Simple-Line-Icons.woff" />
+    <Content Include="fonts\Simple-Line-Icons.woff2" />
     <None Include="Properties\PublishProfiles\deploymentTest.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="fonts\fontawesome-webfont.svg" />

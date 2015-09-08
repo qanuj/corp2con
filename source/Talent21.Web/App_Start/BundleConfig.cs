@@ -35,6 +35,9 @@ namespace Talent21.Web
                 "~/assets/global/plugins/bootstrap/css/bootstrap.css",
                 "~/assets/global/plugins/uniform/css/uniform.default.css",
                 "~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css",
+                "~/assets/global/plugins/bootstrap-select/bootstrap-select.min.css",
+                "~/assets/global/plugins/select2/select2.css",
+                "~/assets/global/plugins/jquery-multi-select/css/multi-select.css",
                 "~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"));
 
             bundles.Add(new StyleBundle("~/Content/spa/css-2").Include(
@@ -96,6 +99,9 @@ namespace Talent21.Web
                 .Include("~/assets/global/plugins/angularjs/plugins/angular-daterangepicker/angular-daterangepicker.js")
                 .Include("~/assets/global/plugins/angularjs/plugins/angular-bootstrap-switch.js")
                 .Include("~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js")
+                .Include("~/assets/global/plugins/bootstrap-select/bootstrap-select.min.js")
+                .Include("~/assets/global/plugins/select2/select2.min.js")
+                .Include("~/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js")
                 .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/angular-*")
                 .Include("~/Scripts/rzslider.js")
