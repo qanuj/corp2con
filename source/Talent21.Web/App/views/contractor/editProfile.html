@@ -36,7 +36,7 @@
             </div>
             <div class="form-group col-xs-2">
                 <label class="col-md-3 control-label">Gender</label>
-                <select class="dropdown form-control" data-ng-model="record.gender" data-ng-options="c.id as c.label for c in genders">
+                <select ui-select2 class="dropdown form-control" data-ng-model="record.gender" data-ng-options="c.id as c.label for c in genders">
                     <option value="">-- Select Gender --</option>
                 </select>
             </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group col-xs-6">
                 <label class="col-md-3 control-label">Nationality</label>
-                <select class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.title as nation.title for nation in nations">
+                <select ui-select2 class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.title as nation.title for nation in nations">
                     <option value="">-- Select Nationality --</option>
                 </select>
             </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="form-group col-xs-6">
                 <label class="col-md-3 control-label">Location</label>
-                <select class="dropdown form-control" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
+                <select ui-select2 class="layout-style-option form-control input-sm" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
                     <option value="">-- Select Location --</option>
                 </select>
             </div>
@@ -174,25 +174,25 @@
     </div>
     <div class="form-group col-xs-3">
         <label class="col-xs-12 control-label">Consultant Type</label>
-        <select class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c.id as c.label for c in contractorType">
+        <select ui-select2 class="dropdown form-control" data-ng-model="record.consultantType" data-ng-options="c.id as c.label for c in contractorType">
             <option value="">-- Select type --</option>
         </select>
     </div>
     <div class="form-group col-xs-3">
         <label class="col-md-12 control-label">Contract Type</label>
-        <select class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c.id as c.label for c in contractType">
+        <select ui-select2 class="dropdown form-control" data-ng-model="record.contractType" data-ng-options="c.id as c.label for c in contractType">
             <option value="">-- Select type --</option>
         </select>
     </div>
     <div class="form-group col-xs-6">
         <label class="col-md-3 control-label">Industry</label>
-        <select class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="i.id as i.title for i in industries">
+        <select ui-select2 class="dropdown form-control" data-ng-model="record.industryId" data-ng-options="i.id as i.title for i in industries">
             <option value="">-- Select type --</option>
         </select>
     </div>
     <div class="form-group col-xs-6">
         <label class="col-md-3 control-label">Functional Area</label>
-        <select class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
+        <select ui-select2 class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
             <option value="">-- Select type --</option>
         </select>
     </div>
@@ -211,7 +211,7 @@
         <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
             <td>{{s.title}}</td>
             <td><input class="form-control" type="number" ng-model="s.experienceInMonths" /></td>
-            <td><select class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select></td>
+            <td><select ui-select2 class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select></td>
             <td><button class="btn btn-danger" ng-click="remove(s)"><i class="fa fa-trash"></i></button></td>
         </tr>
     </table>

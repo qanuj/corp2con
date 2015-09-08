@@ -40,11 +40,11 @@
                     </div>
                     <div class="col-xs-12">
                         <h5>Skill</h5>
-                        <select class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
+                        <select ui-select2 class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
                     </div>
                     <div class="col-xs-12">
                         <h5>Location</h5>
-                        <select class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
+                        <select ui-select2 class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
                     </div>
                 </div>
                 <div class="row">

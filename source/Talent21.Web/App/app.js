@@ -14,11 +14,12 @@
     'daterangepicker',
     'codemwnci.markdown-edit-preview',
     'frapontillo.bootstrap-switch',
+    'nya.bootstrap.select',
     'humenize',
     'toastr',
     'rzModule',
     'ui.gravatar', //gravtaar for user
-    'ui.select', //ui-select for dropdown and multi values.
+    'ui.select2', //ui-select for dropdown and multi values.
     'ui.bootstrap', // ui-bootstrap (ex: carousel, pagination, dialog)
     'blueimp.fileupload', //jQuery File Uploader Component
     'rzModule' //slider module
@@ -64,7 +65,10 @@ app.controller('HeaderController', ['$scope','$rootScope','dataService', functio
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
     });
-    db.contractor.get().success(function(result) {
+    db.me.get().success(function (result) {
+        if (!result.pictureUrl && result.hash) {
+            result.pictureUrl = "//gravatar.com/avatar/" + result.hash + "?s=50";
+        }
         $rootScope.profile = result;
     });
 }]);

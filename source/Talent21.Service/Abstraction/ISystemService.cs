@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Talent21.Data.Core;
 using Talent21.Service.Models;
@@ -22,5 +23,8 @@ namespace Talent21.Service.Abstraction
         EnumList Enums();
 
         IQueryable<Transaction> Transactions();
+        InvoiceViewModel TransactionById(int id);
+
+        string Hash(string email);
     }
 }

@@ -23,8 +23,6 @@
         $scope.searching = "Matching Jobs for you, next week";
     }
 
-    console.log('Searching Contractor', param,param);
-
     $scope.query = {
         keywords: param.q || param.keywords || '',
         location: param.location || '',
@@ -182,12 +180,10 @@
 
     $scope.$watch('selectAll', function (val) {
         $scope.toggle($scope.selectAll);
-        console.log('Toggeling', val);
     });
 
     $scope.$on("slideEnded", function () {
         // user finished sliding a handle 
-        console.log('slide ended');
         $scope.query.ratestart = $scope.rateSlider.min;
         $scope.query.rateend = $scope.rateSlider.max;
         $scope.query.xfrom = $scope.experienceSlider.min;

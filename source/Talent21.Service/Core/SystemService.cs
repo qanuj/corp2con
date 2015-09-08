@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using e10.Shared.Util;
@@ -21,8 +24,11 @@ namespace Talent21.Service.Core
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICountryRepository _countryRepository;
 
+        protected readonly IMemberRepository _memberRepository;
+        protected readonly SellingOptions _sellingOptions;
+
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
@@ -30,6 +36,8 @@ namespace Talent21.Service.Core
             _functionalAreaRepository = functionalAreaRepository;
             _transactionRepository = transactionRepository;
             _countryRepository = countryRepository;
+            _memberRepository = memberRepository;
+            _sellingOptions = sellingOptions;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -320,6 +328,60 @@ namespace Talent21.Service.Core
         public IQueryable<Transaction> Transactions()
         {
             return _transactionRepository.All;
+        }
+
+        public InvoiceViewModel TransactionById(int id)
+        {
+            var transaction = Transactions().FirstOrDefault(x => x.Id == id);
+            if (transaction == null) return null;
+            var member = _memberRepository.ByUserId(transaction.UserId);
+            return new InvoiceViewModel()
+            {
+                TaxAmount = transaction.Amount * _sellingOptions.TaxRate / 100,
+                Tax = _sellingOptions.TaxRate,
+                TaxName = _sellingOptions.TaxName,
+                Id = transaction.Id,
+                Created = transaction.Created,
+                Total = transaction.Amount,
+                UnitPrice = _sellingOptions.CreditPrice,
+                Member = new MemberViewModel
+                {
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    Location = member.Location != null ? member.Location.Title : string.Empty,
+                    AlternateNumber = member.AlternateNumber,
+                    Mobile = member.Mobile,
+                    Address = member.Address,
+                    PinCode = member.PinCode,
+                    Email = member.Email
+                },
+                Transactions = new List<Transaction> {
+                    transaction
+                }
+            };
+        }
+
+
+        public string Hash(string email)
+        {
+            // Create a new instance of the MD5CryptoServiceProvider object.  
+            MD5 md5Hasher = MD5.Create();
+
+            // Convert the input string to a byte array and compute the hash.  
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(email));
+
+            // Create a new Stringbuilder to collect the bytes  
+            // and create a string.  
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data  
+            // and format each one as a hexadecimal string.  
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            return sBuilder.ToString();  // Return the hexadecimal string. 
         }
     }
 }

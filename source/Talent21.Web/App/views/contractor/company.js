@@ -17,15 +17,9 @@
     db.company.get(param.id).success(function (result) {
         $scope.record = result;
         $scope.page = db.currentPage;
-    });
-
-    function refreshJobs()
-    {
-        db.job.paged(param.id,$scope.page).success(function (result) {
+        db.job.paged(result.id,$scope.page).success(function (result) {
             $scope.jobs = result.items;
         });
-    }
-
-    refreshJobs();
+    });
 
 }]);

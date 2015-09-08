@@ -33,7 +33,7 @@
                 <hr class="q" />
                 <div class="row">
                     <div class="col-sm-6">
-                        <select class="form-control" ng-model="reason" ng-options="s for s in reasons"></select>
+                        <select ui-select2 class="form-control" ng-model="reason" ng-options="s for s in reasons"></select>
                     </div>
                     <div class="col-sm-6">
                         <button ng-click="decline(record,reason)" class="btn btn-danger"><i class="fa fa-cross"></i> Decline</button>
