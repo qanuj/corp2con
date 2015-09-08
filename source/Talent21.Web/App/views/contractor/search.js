@@ -1,4 +1,4 @@
-﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$rootScope', '$stateParams','$state', function ($scope, db,$rootScope, $stateParams,$state) {
+﻿app.controller('contractorSearchController', ['$scope', 'dataService', '$rootScope', '$state', function ($scope, db, $rootScope, $state) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -9,28 +9,19 @@
     $rootScope.settings.layout.pageSidebarClosed = false;
 
     $scope.title = "Jobs : Search Result";
-    var param = $stateParams;
+    var param = db.args();
 
-    if (!isNaN($stateParams.idea)) {
-        param.page = $stateParams.idea;
-    } else if ($stateParams.idea == "match") {
+    if (!isNaN(param.idea)) {
+        param.page = param.idea;
+    } else if (param.idea == "match") {
         $scope.title = "Matching Jobs for you.";
-    } else if ($stateParams.idea == "month") {
+    } else if (param.idea == "month") {
         $scope.title = "Matching Jobs for you, next month";
-    } else if ($stateParams.idea == "week") {
+    } else if (param.idea == "week") {
         $scope.title = "Matching Jobs for you, next week";
     }
 
-    $scope.$watch('selectAll', function (val) {
-        $scope.toggle($scope.selectAll);
-        console.log('Toggeling', val);
-    });
-
-    $scope.toggle=function(allSelected) {
-        for (var x in $scope.records) {
-            $scope.records[x].selected = allSelected;
-        }
-    }
+    console.log('Searching Job', param, param);
 
     $scope.favoriteAll = function (record) {
         var i = 0;
@@ -53,7 +44,7 @@
 
     $scope.applyAll = function () {
         var i = 0;
-        function applToJobFolder(x,next) {
+        function applToJobFolder(x, next) {
             if (!$scope.records[x]) {
                 $scope.save = "Save";
                 $scope.navigate($scope.currentPage);
@@ -65,11 +56,21 @@
             } else next();
         }
         function onNext() {
-            applToJobFolder(++i,onNext);
+            applToJobFolder(++i, onNext);
         }
-        applToJobFolder(i,onNext);
+        applToJobFolder(i, onNext);
     }
 
+    $scope.query = {
+        keywords: param.q || param.keywords || '',
+        location: param.location || '',
+        skills: param.skills || '',
+        startrate: param.startrate || '',
+        endrate: param.endrate || '',
+        xfrom: param.xfrom || '',
+        xto: param.xto || '',
+        //industry: param.industry || ''
+    }
 
     function fetchResults(query, page) {
         db.contractor.search(query, page).then(function (result) {
@@ -82,24 +83,13 @@
         });
     }
 
-    $scope.query = {
-        keywords: $stateParams.q || $stateParams.keywords || '',
-        location: $stateParams.location || '',
-        skills: $stateParams.skills || '',
-        startrate: $stateParams.startrate || '',
-        endrate: $stateParams.endrate || '',
-        xfrom: $stateParams.xfrom || '',
-        xto: $stateParams.xto || '',
-        industry: $stateParams.industry || ''
-    }
-
 
     $scope.search = function (query) {
         var q = '';
         for (var x in query) {
             q += (q === '' ? '?' : '&') + x + '=' + query[x];
         }
-        fetchResults(query, page || 1);
+        fetchResults(query, 1);
         window.location = '#/search' + q; //this is decoration for URL only.
     }
 
@@ -107,39 +97,35 @@
         fetchResults($scope.query, page || 1);
     }
 
-    $scope.move = function (folder) {
-        var i = 0;
-        function moveFolder(x, folder, next) {
-            if (!$scope.records[x]) {
-                $scope.save = "Save";
-                return;
-            }
-            $scope.save = (x + 1);
-            if ($scope.records[x].selected == true) {
-                db.company.moveContractor($scope.records[x].id, folder).success(next);
-            } else next();
+    $scope.toggle = function (allSelected) {
+        for (var x in $scope.records) {
+            $scope.records[x].selected = allSelected;
         }
-        function onNext() {
-            moveFolder(++i, folder, onNext);
-        }
-        moveFolder(i, folder, onNext);
     }
 
-    $scope.resetFilters = function () {
-        $scope.query.keywords = '';
-        $scope.query.skills = '';
-        $scope.query.location = '';
-        $scope.query.startrate = '';
-        $scope.query.endrate = '';
-        $scope.query.xfrom = '';
-        $scope.query.xto = '';
-        $scope.query.industry = '';
-        $scope.search(query);
+
+
+    db.system.getSkills().success(function (result) {
+        $scope.skills = result;
+    });
+    db.system.getLocations().success(function (result) {
+        $scope.locations = result;
+    });
+    db.system.getIndustries().success(function (result) {
+        $scope.industries = result;
+    });
+
+    $scope.experienceTranslate = function (value) {
+        if (value == 0) return 'Fresher';
+        var years = Math.floor(value / 12);
+        var months = value % 12;
+        return years + (months > 0 ? "." + months : "") + 'y';
     }
 
-    db.system.getSkills().success(function(result) { $scope.skills = result; });
-    db.system.getLocations().success(function(result) { $scope.locations = result; });
-    db.system.getIndustries().success(function(result) { $scope.industries = result; });
+    $scope.rateTranslate = function (value) {
+        return value + 'k';
+    }
+
 
     //Slider configs
     $scope.experienceSlider = {
@@ -160,6 +146,43 @@
         return 'INR' + value;
     }
 
+    $scope.move = function (folder) {
+        var i = 0;
+        function moveFolder(x, folder, next) {
+            if (!$scope.records[x]) {
+                $scope.save = "Save";
+                return;
+            }
+            $scope.save = (x + 1);
+            if ($scope.records[x].selected == true) {
+                db.company.moveContractor($scope.records[x].id, folder).success(next);
+            } else next();
+        }
+        function onNext() {
+            moveFolder(++i, folder, onNext);
+        }
+        moveFolder(i, folder, onNext);
+    }
+
+
+    $scope.resetFilters = function () {
+        $scope.query.keywords = '';
+        $scope.query.skills = '';
+        $scope.query.location = '';
+        $scope.query.startrate = '';
+        $scope.query.endrate = '';
+        $scope.query.xfrom = '';
+        $scope.query.xto = '';
+        $scope.query.industry = '';
+        $scope.search(query);
+    }
+
+    $scope.$watch('selectAll', function (val) {
+        $scope.toggle($scope.selectAll);
+        console.log('Toggeling', val);
+    });
+
+
     $scope.$on("slideEnded", function () {
         // user finished sliding a handle 
         $scope.query.startrate = $scope.rateSlider.min;
@@ -169,6 +192,6 @@
         $scope.search($scope.query);
     });
 
-    $scope.navigate($stateParams.page);
+    $scope.navigate(param.page);
 
 }]);
