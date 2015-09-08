@@ -243,9 +243,7 @@
     <div class="col-md-3 col-sm-12">
         <div class="profile">
             <div class="portlet light profile-sidebar-portlet">
-                <div class="profile-userpic">
-                    <img src="{{profile.pictureUrl}}" class="img-responsive" alt="">
-                </div>
+                <img src="{{profile.pictureUrl}}" class="img-responsive img-logo">
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
                         {{profile.companyName}}
@@ -301,22 +299,22 @@
                         <i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link" ng-if="profile.facebook">
-                        <a href="{{profile.facebook}}"><i class="fa fa-facebook"></i></a>
+                        <a href="{{profile.facebook}}"><i class="fa fa-facebook"></i> {{profile.facebook}}</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link" ng-if="profile.twitter">
-                        <a href="{{profile.twitter}}"><i class="fa fa-twitter"></i></a>
+                        <a href="{{profile.twitter}}"><i class="fa fa-twitter"></i>{{profile.twitter}}</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link" ng-if="profile.google">
-                        <a href="{{profile.google}}"><i class="fa fa-google-plus"></i></a>
+                        <a href="{{profile.google}}"><i class="fa fa-google-plus"></i>{{profile.google}}</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link" ng-if="profile.linkedin">
-                        <a href="{{profile.linkedin}}"><i class="fa fa-linkedin"></i></a>
+                        <a href="{{profile.linkedin}}"><i class="fa fa-linkedin"></i>{{profile.linkedin}}</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link" ng-if="profile.webSite">
-                        <a href="{{profile.webSite}}"><i class="fa fa-globe"></i></a>
+                        <a href="{{profile.webSite}}"><i class="fa fa-globe"></i>{{profile.webSite}}</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link" ng-if="profile.yahoo">
-                        <a href="{{profile.yahoo}}"><i class="fa fa-yahoo"></i></a>
+                        <a href="{{profile.yahoo}}"><i class="fa fa-yahoo"></i>{{profile.yahoo}}</a>
                     </div>
                 </div>
             </div>

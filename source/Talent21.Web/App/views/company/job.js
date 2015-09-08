@@ -1,5 +1,13 @@
 ﻿app.controller('companyJobController', ['$scope', 'dataService', '$stateParams', '$window', '$rootScope', function ($scope, db, param, $window, $rootScope) {
-   
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageSidebarClosed = false;
+
     $scope.title = "Job Profile";
     $scope.role = db.role;
     $scope.id = param.id;
