@@ -70,6 +70,15 @@ namespace Talent21.Service.Models
         public int Complete { get; set; }
     }
 
+    public class ProfileViewModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string PictureUrl { get; set; }
+        public string Hash { get; set; }
+    }
+
 
     public class ContractorEditViewModel : PersonViewModel
     {

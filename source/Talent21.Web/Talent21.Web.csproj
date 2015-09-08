@@ -232,7 +232,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WebLayerModule.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -300,6 +299,7 @@
     <Content Include="App\directives\uploader.js" />
     <Content Include="App\directives\directive.js" />
     <Content Include="App\router\router.js" />
+    <Content Include="App\services\admin.db.js" />
     <Content Include="App\services\billing.db.js" />
     <Content Include="App\services\company.db.js" />
     <Content Include="App\services\contractor.db.js" />
@@ -2062,7 +2062,6 @@
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Content\css\ng-app\components-md.css.map" />
     <Content Include="assets\admin\layout7\img\Thumbs.db" />
     <Content Include="assets\admin\pages\media\blog\Thumbs.db" />
@@ -2931,9 +2930,6 @@
     <Content Include="Scripts\toastr.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
   </ItemGroup>
   <ItemGroup>

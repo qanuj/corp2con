@@ -1,11 +1,12 @@
-﻿app.factory('dataService', ['$http', '$q', 'contractorService', 'companyService', 'billingService', 'jobService', 'systemService',
-    function ($http, $q, contractorService, companyService, billingService, jobService, systemService) {
+﻿app.factory('dataService', ['$http', '$q', 'contractorService', 'companyService', 'billingService', 'jobService', 'systemService', 'adminService',
+    function ($http, $q, contractorService, companyService, billingService, jobService, systemService, adminService) {
 
     var factory={
         pageSize: 10,
         contractor: contractorService,
         job:jobService,
         company: companyService,
+        admin: adminService,
         billing:billingService,
         system: systemService,
         role : document.querySelector('html').dataset.role,

@@ -48,6 +48,9 @@ a .caption-helper {
     width: 100%;
     margin: 10px;
 }
+.errors ul li {
+    list-style-type: none;
+}
 /***
 Rounded Portlets
 ***/
