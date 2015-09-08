@@ -7,6 +7,29 @@
 
         var sys = {};
 
+        function buildMaster(master){
+            return {
+                paged: function(page, pageSize) {
+                    return $http.get(v + 'system/' + master + '/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+                },
+                add: function(record) {
+                    return $http.post(v + 'system/' + master + '/create', record);
+                },
+                update: function(formData) {
+                    return $http.put(v + 'system/' + master + '/update', formData);
+                },
+                remove: function(record) {
+                    return $http.delete(v + 'system/' + master + '/' + record.id);
+                }
+            };
+        }
+
+        sys.skill = buildMaster('skill');
+        sys.country = buildMaster('country');
+        sys.location = buildMaster('location');
+        sys.functional = buildMaster('functional');
+        sys.industry = buildMaster('industry');
+
         sys.getSkills = function (q) {
             var uri = v + 'system/skill/all?$orderby=Title';
             if (q) uri += '&$filter=substringof(\'' + q + '\',Title)';
@@ -106,7 +129,7 @@
 
         sys.genders = ['Male', 'Female', 'Other'];
 
-        sys.orgType = ['Corporate','Consultancy'];
+        sys.orgType = ['Corporate', 'Consultancy'];
 
         sys.enums = function (name) {
             var deferred = $q.defer();
