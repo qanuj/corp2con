@@ -40,7 +40,7 @@
             <div class="form-group">
                 <div ng-if="jobs.length>0">
                     <div class="input-group">
-                        <select class="form-control" ng-model="job" ng-options="s.label for s in jobs track by s.id"></select>
+                        <select ui-select2 class="form-control" ng-model="job" ng-options="s.label for s in jobs track by s.id"></select>
                         <span class="input-group-btn">
                             <button ng-click="invite(job)" class="btn btn-primary srch-btn-pad">Invite</button>
                         </span>
