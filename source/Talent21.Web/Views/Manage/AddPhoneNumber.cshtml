@@ -2,12 +2,22 @@
 @{
     ViewBag.Title = "Phone Number";
 }
+
+@if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+{
+    <div class="note note-danger note-bordered">
+        <button class="close" data-close="alert"></button>
+        <span class="errors">
+            <strong>Ooops...</strong>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </span>
+    </div>
+}
 @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h2>@ViewBag.Title.</h2>
     <h4>Add a phone number</h4>
-    @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.Number, new { @class = "control-label visible-ie8 visible-ie9" })
         <div class="col-md-10">
