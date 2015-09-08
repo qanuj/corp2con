@@ -68,7 +68,6 @@ app.controller('HeaderController', ['$scope','$rootScope','dataService', functio
     db.me.get().success(function (result) {
         if (!result.pictureUrl && result.hash) {
             result.pictureUrl = "//gravatar.com/avatar/" + result.hash + "?s=50";
-            console.log(result.pictureUrl);
         }
         $rootScope.profile = result;
     });

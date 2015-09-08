@@ -322,8 +322,14 @@
     <Content Include="App\template\views\tree.html" />
     <Content Include="App\template\views\ui_bootstrap.html" />
     <Content Include="App\template\views\ui_select.html" />
+    <Content Include="App\views\admin\addCredit.html" />
+    <Content Include="App\views\admin\addCredit.js" />
+    <Content Include="App\views\admin\billing.html" />
+    <Content Include="App\views\admin\billing.js" />
     <Content Include="App\views\admin\dashboard.html" />
     <Content Include="App\views\admin\dashboard.js" />
+    <Content Include="App\views\admin\invoice.html" />
+    <Content Include="App\views\admin\invoice.js" />
     <Content Include="App\views\common\invoice.html" />
     <Content Include="App\views\common\invoice.js" />
     <Content Include="App\views\company\bench.html" />

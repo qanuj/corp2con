@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -23,8 +24,11 @@ namespace Talent21.Service.Core
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICountryRepository _countryRepository;
 
+        protected readonly IMemberRepository _memberRepository;
+        protected readonly SellingOptions _sellingOptions;
+
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
@@ -32,6 +36,8 @@ namespace Talent21.Service.Core
             _functionalAreaRepository = functionalAreaRepository;
             _transactionRepository = transactionRepository;
             _countryRepository = countryRepository;
+            _memberRepository = memberRepository;
+            _sellingOptions = sellingOptions;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -323,6 +329,38 @@ namespace Talent21.Service.Core
         {
             return _transactionRepository.All;
         }
+
+        public InvoiceViewModel TransactionById(int id)
+        {
+            var transaction = Transactions().FirstOrDefault(x => x.Id == id);
+            if (transaction == null) return null;
+            var member = _memberRepository.ByUserId(transaction.UserId);
+            return new InvoiceViewModel()
+            {
+                TaxAmount = transaction.Amount * _sellingOptions.TaxRate / 100,
+                Tax = _sellingOptions.TaxRate,
+                TaxName = _sellingOptions.TaxName,
+                Id = transaction.Id,
+                Created = transaction.Created,
+                Total = transaction.Amount,
+                UnitPrice = _sellingOptions.CreditPrice,
+                Member = new MemberViewModel
+                {
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    Location = member.Location != null ? member.Location.Title : string.Empty,
+                    AlternateNumber = member.AlternateNumber,
+                    Mobile = member.Mobile,
+                    Address = member.Address,
+                    PinCode = member.PinCode,
+                    Email = member.Email
+                },
+                Transactions = new List<Transaction> {
+                    transaction
+                }
+            };
+        }
+
 
         public string Hash(string email)
         {

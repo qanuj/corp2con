@@ -24,7 +24,6 @@ namespace Talent21.Service.Core
             _memberRepository = memberRepository;
         }
 
-
         public int GetBalance(string userId)
         {
             return _transactionRepository.Balance(userId);

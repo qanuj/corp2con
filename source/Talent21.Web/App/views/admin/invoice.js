@@ -1,4 +1,4 @@
-﻿app.controller('invoiceController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
+﻿app.controller('adminInvoiceController', ['$scope', 'dataService', '$stateParams', function ($scope, db, $stateParams) {
     $scope.title = "Invoice";
     $scope.noCreditMessage = "Start Adding more credits and Promote your Profile to leading companies around world.";
     $scope.noCreditMessage = "Start Adding more credits and Promote your Profile to leading companies around world.";

@@ -13,15 +13,12 @@ namespace Talent21.Web.Controllers
     [RoutePrefix("api/v1/admin")]
     public class AdminController : BasicApiController
     {
-        private readonly ICompanyService _companyService;
         private readonly ISystemService _service;
         private readonly ApplicationUserManager _userManager;
 
-        public AdminController(ISystemService service, ICompanyService companyService,
-            ApplicationUserManager userManager)
+        public AdminController(ISystemService service,ApplicationUserManager userManager)
         {
             _service = service;
-            _companyService = companyService;
             _userManager = userManager;
         }
 
@@ -31,6 +28,14 @@ namespace Talent21.Web.Controllers
         {
             return Page(_service.Transactions(), options);
         }
+
+        [HttpGet]
+        [Route("transaction/{id}")]
+        public InvoiceViewModel GetTransactionById([FromUri]int id)
+        {
+            return _service.TransactionById(id);
+        }
+
 
         [HttpGet]
         [Route("profile")]

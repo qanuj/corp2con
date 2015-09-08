@@ -1,11 +1,12 @@
-﻿app.controller('functionalController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
-   
+﻿app.controller('adminFunctionalController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
+
+    $scope.title = "Functional Area";
+
     $scope.navigate = function (page) {
         db.system.pagedFunctional(page).success(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
             $scope.records = result.items;
-            console.log(result);
         });
         
 

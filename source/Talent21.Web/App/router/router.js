@@ -1,9 +1,11 @@
 ﻿/* Setup Rounting For All Pages */
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     var role = document.querySelector('html').dataset.role.toLowerCase();
+    var common = role == "admin" ? "admin" : "common";
 
     // Redirect any unmatched url
     $urlRouterProvider.otherwise("/");
+
 
     var datePickerDependency = {
         deps: [
@@ -92,23 +94,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         })
         .state('billing', {
             url: "/billing",
-            templateUrl: "app/views/common/billing.html",
+            templateUrl: "app/views/" + common + "/billing.html",
             data: { pageTitle: 'Billing' },
-            controller: "billingController",
+            controller:  role=="admin" ? "adminBillingController" : "billingController",
             resolve: {}
         })
         .state('invoice', {
             url: "/invoice/:id",
-            templateUrl: "app/views/common/invoice.html",
+            templateUrl: "app/views/" + common + "/invoice.html",
             data: { pageTitle: 'Invoice' },
-            controller: "invoiceController",
+            controller: role=="admin" ? "adminInvoiceController" : "invoiceController",
             resolve: {}
         })
         .state('credit', {
             url: "/billing/credit",
-            templateUrl: "app/views/common/addCredit.html",
+            templateUrl: "app/views/" + common + "/addCredit.html",
             data: { pageTitle: 'Add Credit' },
-            controller: "creditController",
+            controller: role == "admin" ? "adminCreditController" : "creditController",
             resolve: {}
         })
         .state('profileEdit', {
