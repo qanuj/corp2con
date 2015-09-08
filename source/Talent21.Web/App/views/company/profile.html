@@ -1,4 +1,24 @@
-﻿<div class="row">
+﻿<h3 class="page-title">
+    {{title}} <small>{{jobs.length}} jobs</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Profile</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <span class="btn-group pull-right">
+            <a class="btn btn-success" href="#/profile/edit"><i class="fa fa-pencil"></i> Edit Profile</a>
+        </span>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-8">
         <article>
             <h2>About {{record.companyName}}</h2>

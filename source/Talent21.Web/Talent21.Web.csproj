@@ -2798,7 +2798,9 @@
     <Content Include="Scripts\modules\ng-switcher.js" />
     <Content Include="Scripts\modules\ng-tags-input.js" />
     <Content Include="Scripts\modules\ngHandsontable.js" />
+    <Content Include="Scripts\modules\nya-bootstrap-select.js" />
     <Content Include="Scripts\modules\select.js" />
+    <Content Include="Scripts\modules\select2.js" />
     <Content Include="Scripts\modules\slider.js" />
     <Content Include="Scripts\modules\uploader.js" />
     <Content Include="Scripts\respond.js" />
