@@ -1,4 +1,13 @@
-﻿app.controller('adminIndustryController', ['$scope', 'dataService', '$routeParams', function ($scope, db, params) {
+﻿app.controller('adminIndustryController', ['$scope', 'dataService', '$routeParams','$rootScope', function ($scope, db, params,$rootScope) {
+$scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        Metronic.initAjax();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageSidebarClosed = false;
+
     $scope.title = "Industries";
 
     $scope.navigate = function (page) {
