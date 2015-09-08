@@ -87,6 +87,15 @@
             return $http.delete(v + 'system/functional/' + record.id);
         }
 
+
+        sys.pagedLocation = function (page, pageSize) {
+            return $http.get(v + 'system/location/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+        }
+
+        sys.pagedCountry = function (page, pageSize) {
+            return $http.get(v + 'system/country/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+        }
+
         sys.searchLocations = function (address) {
             var params = { address: address, sensor: false };
             return $http.get(

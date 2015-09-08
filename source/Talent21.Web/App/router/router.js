@@ -241,23 +241,37 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         $stateProvider
             .state('industry', {
                 url: "/industry",
-                templateUrl: "app/views/" + role + "/industry.html",
+                templateUrl: "app/views/" + role + "/master.html",
                 data: { pageTitle: 'Industry' },
                 controller: role + "IndustryController",
                 resolve: {}
             })
             .state('functional', {
                 url: "/functional",
-                templateUrl: "app/views/" + role + "/functional.html",
+                templateUrl: "app/views/" + role + "/master.html",
                 data: { pageTitle: 'Functional' },
                 controller: role + "FunctionalController",
                 resolve: {}
             })
             .state('skills', {
                 url: "/skills",
-                templateUrl: "app/views/" + role + "/skills.html",
+                templateUrl: "app/views/" + role + "/master.html",
                 data: { pageTitle: 'Skills' },
                 controller: role + "SkillsController",
+                resolve: {}
+            })
+            .state('country', {
+                url: "/country",
+                templateUrl: "app/views/" + role + "/master.html",
+                data: { pageTitle: 'Countries' },
+                controller: role + "CountryController",
+                resolve: {}
+            })
+            .state('city', {
+                url: "/location",
+                templateUrl: "app/views/" + role + "/master.html",
+                data: { pageTitle: 'Locations' },
+                controller: role + "LocationController",
                 resolve: {}
             })
             .state('invite', {

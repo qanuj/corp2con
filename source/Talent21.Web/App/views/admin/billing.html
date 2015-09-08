@@ -45,19 +45,23 @@
         </p>
     </div>
 </div>
-<table ng-if="records.length>0" class="table table-bordered table-condensed table-hover">
+<table ng-if="records.length>0" class="table table-striped table-bordered table-advance table-hover">
+    <thead>
     <tr>
         <th>Id</th>
         <th>Date</th>
         <th>Description</th>
         <th class="text-right">Amount</th>
     </tr>
-    <tr ng-repeat="row in records">
-        <td>{{row.code}}</td>
-        <td>{{row.created}}</td>
-        <td ng-class="{'text-success':row.isSuccess,'text-danger':!row.isSuccess}"><a href="#/invoice/{{row.id}}">{{row.name}}</a></td>
-        <td class="text-right"><span class="label" ng-class="row.credit>0 ? 'label-success' : 'text-danger'">{{row.amount|currency : '₹'}}</span></td>
-    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in records">
+            <td>{{row.code}}</td>
+            <td>{{row.created}}</td>
+            <td ng-class="{'text-success':row.isSuccess,'text-danger':!row.isSuccess}"><a href="#/invoice/{{row.id}}">{{row.name}}</a></td>
+            <td class="text-right"><span class="label" ng-class="row.credit>0 ? 'label-success' : 'text-danger'">{{row.amount|currency : '₹'}}</span></td>
+        </tr>
+    </tbody>
 </table>
 <cc-pager total-pages="pages" current-page="currentPage"
           page-action="navigate(pageNumber)">
