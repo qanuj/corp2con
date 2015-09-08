@@ -1,7 +1,7 @@
 ﻿app.factory('dataService', ['$http', '$q', 'contractorService', 'companyService', 'billingService', 'jobService', 'systemService',
     function ($http, $q, contractorService, companyService, billingService, jobService, systemService) {
 
-    return {
+    var factory={
         pageSize: 10,
         contractor: contractorService,
         job:jobService,
@@ -11,6 +11,10 @@
         role : document.querySelector('html').dataset.role,
         args:findArguments
     };
+
+    factory.me = factory[factory.role.toLowerCase()];
+
+    return factory;
 
     function findArguments() {
         var tmp = {};

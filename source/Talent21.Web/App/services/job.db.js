@@ -12,7 +12,6 @@
         }
 
         job.paged = function (company, page, pageSize) {
-            console.trace(company);
             return $http.get(v + 'job/company/'+company+'?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }
 

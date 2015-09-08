@@ -64,7 +64,7 @@ app.controller('HeaderController', ['$scope','$rootScope','dataService', functio
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
     });
-    db.contractor.get().success(function(result) {
+    db.me.get().success(function(result) {
         $rootScope.profile = result;
     });
 }]);
