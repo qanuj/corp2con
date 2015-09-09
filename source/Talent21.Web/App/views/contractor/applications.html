@@ -1,15 +1,4 @@
-﻿<div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <i class="fa fa-home"></i>
-            <a href="#/">Home</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="#">Applications</a>
-        </li>
-    </ul>
-</div>
+﻿
 <h3 class="page-title">
     {{title}} <small>{{records.length}} results</small>
 </h3>
@@ -20,7 +9,18 @@
         </cc-pager>
 
         <div class="row">
-
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="#/">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Applications</a>
+                    </li>
+                </ul>
+            </div>
             <div class="jobs">
                 <div class="item" ng-repeat="row in records">
                     <div ng-if="row.featured" class="featured"></div>
