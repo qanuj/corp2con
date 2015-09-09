@@ -56,7 +56,7 @@
         <td>{{s.end | amDifference : s.start : 'days'}} Days</td>
         <td>
             <button class="btn btn-primary" ng-click="edit(s)"><i class="fa fa-edit"></i> Edit</button>
-            <button class="btn btn-danger" data-toggle="confirmation" data-original-title="Are you sure ?" title=""><i class="fa fa-trash"></i> Delete</button>
+            <button class="btn btn-danger" data-toggle="confirmation" data-original-title="Are you sure ?" title="" ng-click="delete(s)"><i class="fa fa-trash"></i> Delete</button>
         </td>
     </tr>
 </table>
