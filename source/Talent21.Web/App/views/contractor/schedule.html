@@ -1,7 +1,4 @@
-﻿<h3 class="page-title">
-    {{title}} <small>{{count}}</small>
-</h3>
-<div class="page-bar">
+﻿<div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
@@ -12,12 +9,10 @@
             <a href="#">Schedule</a>
         </li>
     </ul>
-    <div class="page-toolbar">
-        <span class="btn-group pull-right">
-            <button class="btn btn-primary" ng-click="clean()">Add New</button>
-        </span>
-    </div>
-</div>
+   </div>
+<h3 class="page-title">
+    {{title}} <small>{{count}}</small>
+</h3>
 <form ng-submit="save(record)" class="form-horizontal">
     <div class="form-group col-md-6">
         <label>Is Available?</label>
