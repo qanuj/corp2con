@@ -23,6 +23,7 @@ namespace Talent21.Service.Abstraction
         EnumList Enums();
 
         IQueryable<Transaction> Transactions();
+        InvoiceViewModel TransactionById(int id);
 
         string Hash(string email);
     }

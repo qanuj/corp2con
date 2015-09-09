@@ -11,18 +11,19 @@
     db.system.getIndustries().success(function(result) {
         $scope.industries = result;
     });
-
+    
     db.system.getLocations().success(function (result) {
         $scope.locations = result;
     });
 
-    db.company.get().success(function (result) {
+    db.system.getCountries().success(function (result) {
+        $scope.nations = result;
+    });
 
+    db.company.get().success(function (result) {
         result.picture = { url: result.pictureUrl };
         result.loc = { formatted_address: result.location };
         $scope.record = result;
-        angular.element('#txtemail').val(""); 
-        angular.element('#txtDescription').val("");
     });
 
     $scope.refreshAddresses = function (address) {
@@ -32,9 +33,6 @@
     };
 
     $scope.save = function (record) {
-        $('input[type=text]').each(function () {
-            $(this).val('');
-        });
         if (record.picture) {
             record.pictureUrl = record.picture.url;
         }

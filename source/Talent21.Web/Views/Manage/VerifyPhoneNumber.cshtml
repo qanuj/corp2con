@@ -5,14 +5,22 @@
 
 <h2>@ViewBag.Title.</h2>
 
+@if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+{
+    <div class="note note-danger note-bordered">
+        <button class="close" data-close="alert"></button>
+        <span class="errors">
+            <strong>Ooops...</strong>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </span>
+    </div>
+}
 @using (Html.BeginForm("VerifyPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("phoneNumber", @Model.PhoneNumber)
     <h4>Enter verification code</h4>
     <h5>@ViewBag.Status</h5>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.Code, new { @class = "control-label visible-ie8 visible-ie9" })
         @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-solid placeholder-no-fix", Placeholder = "Code" })

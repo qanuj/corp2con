@@ -1,4 +1,5 @@
-﻿app.controller('invoiceController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, $stateParams,$rootScope) {
+﻿app.controller('adminInvoiceController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, $stateParams,$rootScope) {
+
 
   $scope.$on('$viewContentLoaded', function () {
         // initialize core components

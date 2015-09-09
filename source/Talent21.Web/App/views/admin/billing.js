@@ -1,6 +1,5 @@
-﻿app.controller('billingController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, $stateParams,$rootScope) {
-
-  $scope.$on('$viewContentLoaded', function () {
+﻿app.controller('adminBillingController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, $stateParams,$rootScope) {
+$scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
     });
@@ -22,10 +21,7 @@
     }
 
     $scope.navigate = function (page) {
-        db.billing.balance(page).success(function (result) {
-            $scope.balance = result;
-        });
-        db.billing.transactions(page).success(function (result) {
+        db.admin.transactions(page).success(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
             $scope.records = result.items;

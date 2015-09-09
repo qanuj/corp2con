@@ -3,6 +3,16 @@
     ViewBag.PageClass = "login";
     ViewBag.Title = "Register";
 }
+@if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+{
+    <div class="note note-danger note-bordered">
+        <button class="close" data-close="alert"></button>
+        <span class="errors">
+            <strong>Ooops...</strong>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </span>
+    </div>
+}
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "register-form", role = "form" }))
 {
     @Html.AntiForgeryToken()

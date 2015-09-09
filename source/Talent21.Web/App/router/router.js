@@ -1,9 +1,11 @@
 ﻿/* Setup Rounting For All Pages */
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     var role = document.querySelector('html').dataset.role.toLowerCase();
+    var common = role == "admin" ? "admin" : "common";
 
     // Redirect any unmatched url
     $urlRouterProvider.otherwise("/");
+
 
     var datePickerDependency = {
         deps: [
@@ -92,23 +94,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         })
         .state('billing', {
             url: "/billing",
-            templateUrl: "app/views/common/billing.html",
+            templateUrl: "app/views/" + common + "/billing.html",
             data: { pageTitle: 'Billing' },
-            controller: "billingController",
+            controller:  role=="admin" ? "adminBillingController" : "billingController",
             resolve: {}
         })
         .state('invoice', {
             url: "/invoice/:id",
-            templateUrl: "app/views/common/invoice.html",
+            templateUrl: "app/views/" + common + "/invoice.html",
             data: { pageTitle: 'Invoice' },
-            controller: "invoiceController",
+            controller: role=="admin" ? "adminInvoiceController" : "invoiceController",
             resolve: {}
         })
         .state('credit', {
             url: "/billing/credit",
-            templateUrl: "app/views/common/addCredit.html",
+            templateUrl: "app/views/" + common + "/addCredit.html",
             data: { pageTitle: 'Add Credit' },
-            controller: "creditController",
+            controller: role == "admin" ? "adminCreditController" : "creditController",
             resolve: {}
         })
         .state('profileEdit', {
@@ -239,23 +241,37 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         $stateProvider
             .state('industry', {
                 url: "/industry",
-                templateUrl: "app/views/" + role + "/industry.html",
+                templateUrl: "app/views/" + role + "/master.html",
                 data: { pageTitle: 'Industry' },
                 controller: role + "IndustryController",
                 resolve: {}
             })
             .state('functional', {
                 url: "/functional",
-                templateUrl: "app/views/" + role + "/functional.html",
+                templateUrl: "app/views/" + role + "/master.html",
                 data: { pageTitle: 'Functional' },
                 controller: role + "FunctionalController",
                 resolve: {}
             })
             .state('skills', {
                 url: "/skills",
-                templateUrl: "app/views/" + role + "/skills.html",
+                templateUrl: "app/views/" + role + "/master.html",
                 data: { pageTitle: 'Skills' },
                 controller: role + "SkillsController",
+                resolve: {}
+            })
+            .state('country', {
+                url: "/country",
+                templateUrl: "app/views/" + role + "/master.html",
+                data: { pageTitle: 'Countries' },
+                controller: role + "CountryController",
+                resolve: {}
+            })
+            .state('city', {
+                url: "/location",
+                templateUrl: "app/views/" + role + "/master.html",
+                data: { pageTitle: 'Locations' },
+                controller: role + "LocationController",
                 resolve: {}
             })
             .state('invite', {

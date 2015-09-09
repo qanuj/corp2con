@@ -42,6 +42,11 @@
     }
 
     function getMasters() {
+
+        db.system.getCountries().success(function (result) {
+            $scope.nations = result;
+        });
+
         db.system.getLocations().success(function (result) {
             $scope.locations = result;
         });

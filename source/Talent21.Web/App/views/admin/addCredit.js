@@ -1,6 +1,6 @@
-﻿app.controller('billingController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, $stateParams,$rootScope) {
+﻿app.controller('adminCreditController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, $stateParams,$rootScope) {
 
-  $scope.$on('$viewContentLoaded', function () {
+$scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
     });
@@ -9,18 +9,20 @@
     $rootScope.settings.layout.pageBodySolid = false;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
-    $scope.title = "Billing Transactions";
-    $scope.noCreditMessage = "Start Adding more credits and Promote your Profile to leading companies around world.";
-    $scope.firstCredit = 10;
-    $scope.addMessage = "Add 10 Credits to Start Promoting Your Profile";
-
-    $scope.status = $stateParams.status;
-    if ($stateParams.status == 'success') {
-        $scope.message = "Yipee!, Thank you! Now you are go shopping.";
-    } else if ($stateParams.status == 'success') {
-        $scope.message = "Ouch! Something went wrong, our team will look into this, meanwhile you can use you current credits, or tr one more time.";
-    }
-
+    $scope.title = "Add Credits";
+    $scope.credits = [
+        { color: 'bg-yellow-saffron', size: '', t: 20 },
+        { color: 'bg-yellow-saffron', size: '', t: 30 },
+        { color: 'bg-purple-studio', size: '', t: 40 },
+        { color: 'bg-purple-studio', size: '', t: 50 },
+        { color: 'bg-green-meadow', size: '', t: 60 },
+        { color: 'bg-green-meadow', size: '', t: 70 },
+        { color: 'bg-green-meadow', size: '', t: 80 },
+        { color: 'bg-green-meadow', size: '', t: 90 },
+        { color: 'bg-blue-steel', size: 'double', t: 100 },
+        { color: 'bg-blue-steel', size: 'double', t: 200 },
+        { color: 'bg-red-intense', size: 'double', t: 500 }
+    ];
     $scope.navigate = function (page) {
         db.billing.balance(page).success(function (result) {
             $scope.balance = result;
@@ -31,7 +33,7 @@
             $scope.records = result.items;
         });
     }
-    
+
     $scope.addCredits = function (credits) {
         if (credits <= 0) return;
         db.billing.addCredits(credits).success(function (result) {

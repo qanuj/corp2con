@@ -1,4 +1,5 @@
-﻿app.controller('adminIndustryController', ['$scope', 'dataService', '$routeParams','$rootScope', function ($scope, db, params,$rootScope) {
+﻿app.controller('adminCountryController', ['$scope', 'dataService', '$routeParams','$rootScope', function ($scope, db, params,$rootScope) {
+
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -8,8 +9,8 @@
     $rootScope.settings.layout.pageBodySolid = false;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
-    $scope.title = "Industry";
-    var master = db.system.industry;
+    $scope.title = "Country";
+    var master = db.system.country;
 
     $scope.navigate = function (page) {
         page = page || $scope.currentPage || 1;
@@ -40,4 +41,6 @@
     }
 
     $scope.navigate(params.page);
+
 }]);
+
