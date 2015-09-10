@@ -17,18 +17,21 @@ namespace Talent21.Web.Controllers
         private readonly IDemoDataService _demoDataService;
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
+        private readonly INotificationService _notificationService;
+
         private readonly string[] _systemRoles = { AccountController.Admin, AccountController.Company, AccountController.Contractor };
 
         private const string SuperAdminEmail = "a@e10.in";
         public SetupController(ISystemService service, 
             IDemoDataService demoDataService,
             ApplicationUserManager userManager,
-            ApplicationRoleManager roleManager)
+            ApplicationRoleManager roleManager, INotificationService notificationService)
         {
             _service = service;
             _demoDataService = demoDataService;
             _userManager = userManager;
             _roleManager = roleManager;
+            _notificationService = notificationService;
         }
 
         public ActionResult Upgrade()
@@ -63,9 +66,16 @@ namespace Talent21.Web.Controllers
                 if (!result.Succeeded){ return Json(result, JsonRequestBehavior.AllowGet); }
             }
 
-            var roleResult=await _userManager.AddToRoleAsync(adminUser.Id, AccountController.Admin);
+            if (!await _userManager.IsInRoleAsync(adminUser.Id, AccountController.Admin))
+            {
+                await _userManager.AddToRoleAsync(adminUser.Id, AccountController.Admin);
+            }
 
-            return !roleResult.Succeeded ? Json(roleResult, JsonRequestBehavior.AllowGet) : Json("Success", JsonRequestBehavior.AllowGet);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(adminUser.Id);
+            var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = adminUser.Id, code = code }, protocol: Request.Url.Scheme);
+            _notificationService.PasswordRecovery(adminUser.Email, callbackUrl);
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
 
         }
 
