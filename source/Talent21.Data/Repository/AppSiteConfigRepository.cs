@@ -31,10 +31,12 @@ namespace Talent21.Data.Repository
                 {
                     Company = new AdvertisementPrice(),
                     Contractor = new AdvertisementPrice(),
-                    Credit = new CreditConfig(),
+                    Credit = new RateValidityConfig(),
                     Job = new AdvertisementPrice(),
                     Payment = new PaymentConfig(),
-                    Tax = new TaxConfig()
+                    Tax = new TaxConfig(),
+                    CompanyMembership = new RateValidityConfig(),
+                    ContractorMembership = new RateValidityConfig()
                 };
                 Create(config);
                 SaveChanges();
