@@ -521,6 +521,11 @@ namespace Talent21.Service.Core
             var entity = FindContractor(CurrentUserId);
             if (entity == null) return false;
 
+            if (_advertisementRepository.All.OfType<ContractorAdvertisement>().Any(x => x.Promotion == promotion && x.ContractorId==entity.Id && x.End > DateTime.UtcNow && x.Start < DateTime.UtcNow))
+            {
+                 throw new Exception("Already running promotion");
+            }
+
             var balance=_transactionRepository.Balance(entity.OwnerId);
 
             var config = _appSiteConfigRepository.Config();
