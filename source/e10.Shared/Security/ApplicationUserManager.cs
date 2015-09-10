@@ -63,9 +63,8 @@ namespace e10.Shared.Security
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager= new ApplicationUserManager(new ApplicationUserStore(context.Get<ApplicationDbContext>()), new SmsService(), context.Get<IIdentityEmailMessageService>(), context.Get<IDataProtectionProvider>());
+            var manager= new ApplicationUserManager(new ApplicationUserStore(context.Get<ApplicationDbContext>()), new SmsService(), context.Get<IIdentityEmailMessageService>(), options.DataProtectionProvider);
             manager.Setup();
-
             return manager;
         }
         public static IUserTokenProvider<User, string> DefaultTokenProvider(IDataProtectionProvider dataProtector)
