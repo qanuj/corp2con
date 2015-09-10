@@ -560,6 +560,7 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\ckeditor\lang\en.js" />
     <Content Include="Scripts\modules\select.js" />
     <Content Include="Scripts\modules\select2.js" />
     <Content Include="Scripts\modules\angular-bootstrap-switch.js" />
