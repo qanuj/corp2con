@@ -400,11 +400,15 @@
     <Content Include="App\views\upload\file.html" />
     <Content Include="App_Data\Database.sql" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\css-2\custom\bootstrap-datepicker3.css" />
+    <Content Include="Content\css-2\custom\bootstrap-datetimepicker.css" />
+    <Content Include="Content\css-2\custom\bootstrap-switch.css" />
     <Content Include="Content\css-2\custom\bootstrap.fileinput.css" />
     <Content Include="Content\css-2\custom\bootstrap.select.css" />
     <Content Include="Content\css-1\bootstrap.switch.css" />
     <Content Include="Content\css-1\bootstrap.css" />
     <Content Include="Content\css-1\font-awesome.css" />
+    <Content Include="Content\css-2\custom\daterangepicker-bs3.css" />
     <Content Include="Content\css-2\custom\select2.multi-select.css" />
     <Content Include="Content\css-2\custom\select2-spinner.gif" />
     <Content Include="Content\css-2\custom\select2.css" />
@@ -784,6 +788,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\spa-1\excanvas.min.js" />
+    <Content Include="Scripts\spa-1\layout.js" />
+    <Content Include="Scripts\spa-1\respond.min.js" />
     <Content Include="Scripts\spa-1\rzslider.js" />
     <Content Include="Scripts\site\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\site\bootstrap.js" />
@@ -857,7 +864,11 @@
     <Content Include="Scripts\spa-1\ocLazyLoad.min.js" />
     <Content Include="Scripts\spa-1\select2.js" />
     <Content Include="Scripts\spa-1\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\vendors\bootstrap-datepicker.js" />
+    <Content Include="Scripts\vendors\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\vendors\bootstrap-switch.js" />
     <Content Include="Scripts\vendors\canvas-to-blob.js" />
+    <Content Include="Scripts\vendors\daterangepicker.js" />
     <Content Include="Scripts\vendors\jquery.Jcrop.js" />
     <Content Include="Scripts\vendors\load-image-core.js" />
     <Content Include="Scripts\vendors\load-image-core.meta.js" />

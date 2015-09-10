@@ -7,39 +7,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     $urlRouterProvider.otherwise("/");
 
 
-    var datePickerDependency = {
-        deps: [
-            '$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name: 'app',
-                    insertBefore: '#ng_load_plugins_before',
-                    files: [
-                        '/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
-                        '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css',
-                        '/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-                        '/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js',
-                        '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js',
-                        '/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
-                    ]
-                });
-            }
-        ]
-    };
+    var datePickerDependency = {};
 
-    var searchDependency = {
-        deps: [
-            '$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name: 'app',
-                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
-                    files: [
-                        '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
-                        '/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js'
-                    ]
-                });
-            }
-        ]
-    };
+    var searchDependency = {};
 
     $stateProvider
         // Dashboard
@@ -48,19 +18,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "app/views/" + role + "/dashboard.html",
             data: { pageTitle: 'Dashboard' },
             controller: role + "DashboardController",
-            resolve: {
-                deps: [
-                    '$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            name: 'app',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
-                            files: [
-                                '/assets/admin/pages/css/profile.css'
-                            ]
-                        });
-                    }
-                ]
-            }
+            resolve: {}
         })
 
         // AngularJS plugins
