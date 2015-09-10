@@ -27,17 +27,7 @@ namespace Talent21.Data.Repository
             var config = All.FirstOrDefault();
             if (config == null)
             {
-                config = new AppSiteConfig()
-                {
-                    Company = new AdvertisementPrice(),
-                    Contractor = new AdvertisementPrice(),
-                    Credit = new RateValidityConfig(),
-                    Job = new AdvertisementPrice(),
-                    Payment = new PaymentConfig(),
-                    Tax = new TaxConfig(),
-                    CompanyMembership = new RateValidityConfig(),
-                    ContractorMembership = new RateValidityConfig()
-                };
+                config = new AppSiteConfig();
                 Create(config);
                 SaveChanges();
             }
