@@ -16,7 +16,7 @@ namespace e10.Shared.Security
 {
     public class ApplicationUserManager : UserManager<User>, IUserService
     {
-        public ApplicationUserManager(ApplicationUserStore store, IIdentitySmsMessageService smsService, IIdentityEmailMessageService emailService)
+        public ApplicationUserManager(ApplicationUserStore store, IIdentitySmsMessageService smsService, IIdentityEmailMessageService emailService, IDataProtectionProvider dataProtectionProvider)
             : base(store)
         {
             // Configure validation logic for usernames
@@ -41,29 +41,38 @@ namespace e10.Shared.Security
             this.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             this.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-            // You can write your own provider and plug it in here.
-            //this.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<User>
-            //{
-            //    MessageFormat = "Your security code is {0}"
-            //});
-            //this.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User>
-            //{
-            //    Subject = "Security Code",
-            //    BodyFormat = "Your security code is {0}"
-            //});
             this.EmailService = emailService;
             this.SmsService = smsService;
-            this.UserTokenProvider = DefaultTokenProvider();
+            this.UserTokenProvider = DefaultTokenProvider(dataProtectionProvider);
+        }
+
+        public void Setup()
+        {
+            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
+            // You can write your own provider and plug it in here.
+            this.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<User>
+            {
+                MessageFormat = "Your security code is {0}"
+            });
+            this.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User>
+            {
+                Subject = "Security Code",
+                BodyFormat = "Your security code is {0}"
+            });
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            return new ApplicationUserManager(new ApplicationUserStore(context.Get<ApplicationDbContext>()), new SmsService(), context.Get<IIdentityEmailMessageService>());
+            var manager= new ApplicationUserManager(new ApplicationUserStore(context.Get<ApplicationDbContext>()), new SmsService(), context.Get<IIdentityEmailMessageService>(), options.DataProtectionProvider);
+            manager.Setup();
+            return manager;
         }
-        public static IUserTokenProvider<User, string> DefaultTokenProvider()
+        public static IUserTokenProvider<User, string> DefaultTokenProvider(IDataProtectionProvider dataProtector)
         {
-            return new DataProtectorTokenProvider<User>(new DpapiDataProtectionProvider("FbHireSuperLockerd").Create("EmailConfirmation")); ;
+            return new DataProtectorTokenProvider<User>(dataProtector.Create("ASP.NET Identity"))
+            {
+                TokenLifespan = TimeSpan.FromHours(3)
+            };
         }
 
         public async Task<User> CreateGodAsync(string email, string password)
