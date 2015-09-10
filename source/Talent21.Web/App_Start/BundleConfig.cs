@@ -26,8 +26,7 @@ namespace Talent21.Web
                       "~/Content/css/jquery.fancybox.css",
                       "~/Content/css/jquery.nouislider.css",
                       "~/Content/css/font-awesome.min.css",
-                      "~/Content/css/style.css",
-                      "~/Content/css/site.css"));
+                      "~/Content/css/style.css"));
 
             bundles.Add(new StyleBundle("~/Content/spa/css-1").Include("~/Content/css-1/*.css"));
 
@@ -51,16 +50,9 @@ namespace Talent21.Web
                 .Include("~/Scripts/site/scrollReveal.min.js")
                 .Include("~/Scripts/site/jquery.ba-cond.min.js")
                 .Include("~/Scripts/site/jquery.slitslider.js")
-                .Include("~/Scripts/site/owl.carousel.min.js")
                 .Include("~/Scripts/site/parallax.js")
                 .Include("~/Scripts/site/jquery.counterup.min.js")
                 .Include("~/Scripts/site/waypoints.min.js")
-                .Include("~/Scripts/site/jquery.nouislider.all.min.js")
-                .Include("~/Scripts/site/bootstrap-wysiwyg.js")
-                .Include("~/Scripts/site/jquery.hotkeys.js")
-                .Include("~/Scripts/site/jflickrfeed.min.js")
-                .Include("~/Scripts/site/fancybox.pack.js")
-                .Include("~/Scripts/site/magic.js")
                 .Include("~/Scripts/site/settings.js")
             );
 
