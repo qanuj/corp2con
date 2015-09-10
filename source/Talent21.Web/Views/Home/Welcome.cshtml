@@ -118,7 +118,7 @@
             {
                 <div class="col-sm-4">
                     <h2>Featured Jobs</h2>
-                    <a href="/#/job/@Model.FeaturedJob.Id">
+                    <a href="@Url.Action("Login","Account",new {returnUrl= "/#/job/"+ Model.FeaturedJob.Id })">
                         <img src="@Model.FeaturedJob.PictureUrl" alt="@Model.FeaturedJob.Company" class="img-responsive" />
                         <div class="featured-job">
                             <div class="title">
@@ -152,7 +152,7 @@
                         @foreach (var company in Model.Companies)
                         {
                             <li class="col-sm-4 col-md-3">
-                                <a href="/#/company/@company.Id">
+                                <a href="@Url.Action("Login","Account",new {returnUrl= "/#/company/"+ company.Id })">
                                     <img src="@company.PictureUrl" alt="@company.CompanyName" />
                                     <span class="badge">@company.Jobs</span>
                                 </a>
@@ -171,7 +171,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h1>Corp2Con Stats</h1>
+                    <h1>@Product.Name Stats</h1>
                     <h4>How many people we’ve helped</h4>
                 </div>
             </div>
@@ -217,12 +217,12 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <p>Corp2con allows employers to access a growing community of the best contractors instantly.
+                <p>@Product.Name allows employers to access a growing community of the best contractors instantly.
                     Employers can search for the skills they need, and view and assess profiles of contractors with the required skill set. They can
                     create a shortlist of contractors they’re interested in hiring by paying for quarterly, half yearly and yearly subscription. This results
                     in dramatic savings when compared with typical recruitment costs.</p>
-                <p>Corp2con allows contractors to create an in-depth profile to promote themselves and their experience and be found easily by
-                    potential employers. To-date contractors using Corp2con have increased their earnings significantly by connecting and
+                <p>@Product.Name allows contractors to create an in-depth profile to promote themselves and their experience and be found easily by
+                    potential employers. To-date contractors using @Product.Name have increased their earnings significantly by connecting and
                     negotiating directly with smart employers who want to hire someone with their skillset.
                     Join today to be part of this innovative process where both employers and contractors win!</p>
             </div>
@@ -260,47 +260,6 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>
-            @*<div class="col-sm-6">
-                    <h2>Visit our office</h2>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h5>New York</h5>
-                            <p>
-                                5 Park Avenue<br>
-                                New York, NY 10016<br>
-                                USA
-                            </p>
-                            <p>
-                                <i class="fa fa-phone"></i>+1 718.242.5555<br>
-                                <i class="fa fa-fax"></i>+1 718.242.5556<br>
-                                <i class="fa fa-envelope"></i><a href="mailto:info@corp2con.com">info@corp2con.com</a>
-                            </p>
-                            <p>
-                                <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
-                                <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
-                                <i class="fa fa-clock-o"></i>Sun Closed
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5>Los Angeles</h5>
-                            <p>
-                                8605 Santa Monica Blvd<br>
-                                Los Angeles, CA 90069-4109<br>
-                                USA
-                            </p>
-                            <p>
-                                <i class="fa fa-phone"></i>+1 985.562.5555<br>
-                                <i class="fa fa-fax"></i>+1 985.562.5556<br>
-                                <i class="fa fa-envelope"></i><a href="mailto:la@jobseek.com">la@jobseek.com</a>
-                            </p>
-                            <p>
-                                <i class="fa fa-clock-o"></i>Mon-Fri 9am - 5pm<br>
-                                <i class="fa fa-clock-o"></i>Sat 10am - 2pm<br>
-                                <i class="fa fa-clock-o"></i>Sun Closed
-                            </p>
-                        </div>
-                    </div>
-                </div>*@
         </div>
     </div>
 </section>
@@ -325,9 +284,6 @@
                     <a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
                     <a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
                     <a href="#"><i class="fa fa-2x fa-google-plus-square"></i></a>
-                    <a href="#"><i class="fa fa-2x fa-youtube-square"></i></a>
-                    <a href="#"><i class="fa fa-2x fa-vimeo-square"></i></a>
-                    <a href="#"><i class="fa fa-2x fa-pinterest-square"></i></a>
                     <a href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
                 </div>
             </div>
@@ -337,53 +293,9 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-sm-12">
-                    &copy; 2015 Corp2Con - New Career Begins
+                    &copy; 2015 @Product.Name - New Career Begins
                 </div>
             </div>
         </div>
     </div>
 </footer>
-
-
-<div class="popup" id="register">
-    <div class="popup-form">
-        <div class="popup-header">
-            <a class="close"><i class="fa fa-remove fa-lg"></i></a>
-            <h2>Register</h2>
-        </div>
-        <form>
-            <ul class="social-login">
-                <li><a class="btn btn-facebook"><i class="fa fa-facebook"></i>Register with Facebook</a></li>
-                <li><a class="btn btn-google"><i class="fa fa-google-plus"></i>Register with Google</a></li>
-                <li><a class="btn btn-linkedin"><i class="fa fa-linkedin"></i>Register with LinkedIn</a></li>
-            </ul>
-            <hr>
-            <div class="form-group">
-                <label for="register-name">Name</label>
-                <input type="text" class="form-control" id="register-name">
-            </div>
-            <div class="form-group">
-                <label for="register-surname">Surname</label>
-                <input type="text" class="form-control" id="register-surname">
-            </div>
-            <div class="form-group">
-                <label for="register-email">Email</label>
-                <input type="email" class="form-control" id="register-email">
-            </div>
-            <hr>
-            <div class="form-group">
-                <label for="register-username">Username</label>
-                <input type="text" class="form-control" id="register-username">
-            </div>
-            <div class="form-group">
-                <label for="register-password1">Password</label>
-                <input type="password" class="form-control" id="register-password1">
-            </div>
-            <div class="form-group">
-                <label for="register-password2">Repeat Password</label>
-                <input type="password" class="form-control" id="register-password2">
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-    </div>
-</div>
