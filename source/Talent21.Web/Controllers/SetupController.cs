@@ -53,14 +53,6 @@ namespace Talent21.Web.Controllers
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult Reset()
-        {
-            _configRepository.Delete(_configRepository.Config());
-            _configRepository.SaveChanges();
-            return Json("Success", JsonRequestBehavior.AllowGet);
-        }
-
         public async Task<ActionResult> Verify()
         {
             if (!_roleManager.RoleExists(AccountController.Admin)){ await _roleManager.CreateRolesAsync(new [] {AccountController.Admin});}
