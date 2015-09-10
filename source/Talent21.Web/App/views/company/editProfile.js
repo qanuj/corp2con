@@ -16,10 +16,6 @@
         $scope.locations = result;
     });
 
-    db.system.getCountries().success(function (result) {
-        $scope.nations = result;
-    });
-
     db.company.get().success(function (result) {
         result.picture = { url: result.pictureUrl };
         result.loc = { formatted_address: result.location };
