@@ -77,6 +77,7 @@ namespace Talent21.Web
                 .Include("~/scripts/jquery.migrate.min.js")
                 .Include("~/scripts/bootstrap.js")
                 .Include("~/scripts/angular.js")
+                .Include("~/scripts/moment.js")
                 .Include("~/scripts/spa-1/bootstrap-hover-dropdown.js")
                 .Include("~/scripts/spa-1/jquery.slimscroll.js")
                 .Include("~/scripts/spa-1/jquery.blockui.min.js")
