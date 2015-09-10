@@ -13,7 +13,7 @@
     $scope.record = {};
 
     if (param.id) {
-        $scope.titl="Edit Job";
+        $scope.title="Edit Job";
         db.job.get(param.id).success(function (result) {
             result.start = moment(result.start).toDate();
             result.end = moment(result.end).toDate();
@@ -40,7 +40,8 @@
         }
 
         record.skills = record.primarySkills.concat(record.secondarySkills);
-        
+        record.start = record.date.startDate;
+        record.end = record.date.endDate;
 
         if (param.id) {
             db.job.update(record)
