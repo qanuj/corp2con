@@ -66,13 +66,16 @@ namespace Talent21.Web.Controllers
                 if (!result.Succeeded){ return Json(result, JsonRequestBehavior.AllowGet); }
             }
 
-            var roleResult=await _userManager.AddToRoleAsync(adminUser.Id, AccountController.Admin);
+            if (!await _userManager.IsInRoleAsync(adminUser.Id, AccountController.Admin))
+            {
+                await _userManager.AddToRoleAsync(adminUser.Id, AccountController.Admin);
+            }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(adminUser.Id);
             var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = adminUser.Id, code = code }, protocol: Request.Url.Scheme);
             _notificationService.PasswordRecovery(adminUser.Email, callbackUrl);
 
-            return !roleResult.Succeeded ? Json(roleResult, JsonRequestBehavior.AllowGet) : Json("Success", JsonRequestBehavior.AllowGet);
+            return Json("Success", JsonRequestBehavior.AllowGet);
 
         }
 
