@@ -18,6 +18,7 @@ namespace Talent21.Service.Models
         public string UserName { get; set; }
         public string Mode { get; set; }
         public bool IsFailed { get; set; }
+        public string CreatedBy { get; set; }
     }
     public class DictionaryViewModel  
     {

@@ -5,4 +5,6 @@
         public string Gateway { get; set; }
         public string Capture { get; set; }
     }
+
+    public class Gift : Payment{}
 }

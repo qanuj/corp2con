@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using e10.Shared.Providers;
+using e10.Shared.Security;
 using e10.Shared.Util;
 using Talent21.Data;
 using Talent21.Data.Core;
@@ -23,12 +25,13 @@ namespace Talent21.Service.Core
         private readonly ISkillRepository _skillRepository;
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICountryRepository _countryRepository;
+        private readonly IUserProvider _userProvider;
 
         protected readonly IMemberRepository _memberRepository;
         protected readonly SellingOptions _sellingOptions;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions, IUserProvider userProvider)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
@@ -38,6 +41,7 @@ namespace Talent21.Service.Core
             _countryRepository = countryRepository;
             _memberRepository = memberRepository;
             _sellingOptions = sellingOptions;
+            _userProvider = userProvider;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -325,9 +329,9 @@ namespace Talent21.Service.Core
             return vals;
         }
 
-        public IQueryable<Transaction> Transactions()
+        public IQueryable<Transaction> Transactions(bool includeUser=false)
         {
-            return _transactionRepository.All;
+            return includeUser ? _transactionRepository.Full : _transactionRepository.All;
         }
 
         public InvoiceViewModel TransactionById(int id)
@@ -382,6 +386,49 @@ namespace Talent21.Service.Core
             }
 
             return sBuilder.ToString();  // Return the hexadecimal string. 
+        }
+
+        public bool SendGift(GiftViewModel model)
+        {
+            var toUser = _userProvider.UserIdByEmail(model.Email);
+            var fromUser = _userProvider.UserEmailById(_userProvider.UserName);
+            if (string.IsNullOrWhiteSpace(toUser)) return false;
+            var gift = new Gift
+            {
+                IsSuccess = true,
+                Amount = model.Credit * _sellingOptions.CreditPrice,
+                Capture = "Admin Sent Gift",
+                Code = "gift",
+                CreatedBy = fromUser,
+                Gateway = "internal",
+                Credit = model.Credit,
+                Name = "Administrator sent you gift of credits "+model.Credit,
+                PaymentCapture = "none",
+                UserId = _userProvider.UserIdByEmail(model.Email)
+            };
+            _transactionRepository.Create(gift);
+            return _transactionRepository.SaveChanges() > 0;
+        }
+
+        public IQueryable<TransactionViewModel> AllTransactions()
+        {
+            return from x in _transactionRepository.Full
+                select new TransactionViewModel
+                {
+                    Id = x.Id,
+                    Credit = x.Credit,
+                    PaymentCapture = x.PaymentCapture,
+                    Amount = x.Amount,
+                    Name = x.Name,
+                    IsSuccess = x.IsSuccess,
+                    UserName = x.User.UserName,
+                    Created = x.Created,
+                    CreatedBy=x.CreatedBy,
+                    Code = x.Code,
+                    Reason = x.Reason,
+                    IsFailed = !x.IsSuccess,
+                    Mode = x is Payment ? "Payment" : "Transaction"
+                };
         }
     }
 }

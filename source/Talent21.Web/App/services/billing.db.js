@@ -22,6 +22,5 @@
         return $http.post(v + 'credits/' + credits);
     }
 
-
     return billing;
 }]);

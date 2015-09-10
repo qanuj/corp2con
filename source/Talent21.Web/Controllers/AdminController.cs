@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using e10.Shared.Security;
@@ -24,9 +26,9 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("transaction")]
-        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
+        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
         {
-            return Page(_service.Transactions(), options);
+            return Page(_service.AllTransactions(), options);
         }
 
         [HttpGet]
@@ -34,6 +36,15 @@ namespace Talent21.Web.Controllers
         public InvoiceViewModel GetTransactionById([FromUri]int id)
         {
             return _service.TransactionById(id);
+        }
+
+
+        [HttpPost]
+        [Route("gift")]
+        [ResponseType(typeof(bool))]
+        public HttpResponseMessage GiftCredits(GiftViewModel model)
+        {
+            return !ModelState.IsValid ? Bad(ModelState) : Ok(_service.SendGift(model));
         }
 
 
