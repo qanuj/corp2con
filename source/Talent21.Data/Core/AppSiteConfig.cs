@@ -10,5 +10,17 @@ namespace Talent21.Data.Core
         public RateValidityConfig JobPrice { get; set; }
         public RateValidityConfig ContractorMembership { get; set; }
         public RateValidityConfig CompanyMembership { get; set; }
+
+        public AppSiteConfig()
+        {
+            Company = new AdvertisementPrice();
+            Contractor = new AdvertisementPrice();
+            Credit = new RateValidityConfig();
+            Job = new AdvertisementPrice();
+            Payment = new PaymentConfig();
+            Tax = new TaxConfig();
+            CompanyMembership = new RateValidityConfig();
+            ContractorMembership = new RateValidityConfig();
+        }
     }
 }

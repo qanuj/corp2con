@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Core.Objects.DataClasses;
+using System.Security.Cryptography.X509Certificates;
 
 namespace e10.Shared.Data.Abstraction
 {
@@ -42,6 +43,14 @@ namespace e10.Shared.Data.Abstraction
         public RateValidityConfig Featured { get; set; }
         public RateValidityConfig Global { get; set; }
         public RateValidityConfig Advertise { get; set; }
+
+        public AdvertisementPrice()
+        {
+            this.Highlight = new RateValidityConfig();
+            this.Global = new RateValidityConfig();
+            this.Featured = new RateValidityConfig();
+            this.Advertise = new RateValidityConfig();
+        }
     }
 
     public abstract class SiteConfig : Entity
