@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using e10.Shared.Data.Abstraction;
 using e10.Shared.Util;
 using Microsoft.AspNet.Identity;
+using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Web.Models;
 
@@ -18,6 +19,7 @@ namespace Talent21.Web.Controllers
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
         private readonly INotificationService _notificationService;
+        private readonly IAppSiteConfigRepository _configRepository;
 
         private readonly string[] _systemRoles = { AccountController.Admin, AccountController.Company, AccountController.Contractor };
 
@@ -25,13 +27,14 @@ namespace Talent21.Web.Controllers
         public SetupController(ISystemService service, 
             IDemoDataService demoDataService,
             ApplicationUserManager userManager,
-            ApplicationRoleManager roleManager, INotificationService notificationService)
+            ApplicationRoleManager roleManager, INotificationService notificationService, IAppSiteConfigRepository configRepository)
         {
             _service = service;
             _demoDataService = demoDataService;
             _userManager = userManager;
             _roleManager = roleManager;
             _notificationService = notificationService;
+            _configRepository = configRepository;
         }
 
         public ActionResult Upgrade()
@@ -47,6 +50,14 @@ namespace Talent21.Web.Controllers
         public ActionResult Master()
         {
             _demoDataService.BuildMaster();
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Reset()
+        {
+            _configRepository.Delete(_configRepository.Config());
+            _configRepository.SaveChanges();
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
