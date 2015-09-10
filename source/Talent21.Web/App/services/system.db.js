@@ -10,7 +10,7 @@
         function buildMaster(master){
             return {
                 paged: function(page, pageSize,q,c) {
-                    var uri = v + 'system/' + master + '/paged?$inlinecount=allpages' + calculatePaging(page, pageSize);
+                    var uri = v + 'system/' + master + '/paged?$orderby=Title&$inlinecount=allpages' + calculatePaging(page, pageSize);
                     if (q) uri += '&$filter=substringof(\'' + q + '\',Title)';
                     return $http.get(uri);
                 },

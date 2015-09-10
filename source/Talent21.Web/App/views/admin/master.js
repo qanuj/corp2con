@@ -22,20 +22,24 @@
         });
     }
 
+    function onSaved() {
+        $scope.navigate();
+    }
+
 
     $scope.save = function (record) {
         $('input[type=text]').each(function () {
             $(this).val('');
         });
-        master.add(record).success($scope.navigate);
+        master.add(record).success(onSaved);
     }
 
     $scope.update = function (record) {
-        master.update(record).success($scope.navigate);
+        master.update(record).success(onSaved);
     }
 
     $scope.delete = function (record) {
-        master.remove(record).success($scope.navigate);
+        master.remove(record).success(onSaved);
     }
 
     $scope.toggle = function (record) {
