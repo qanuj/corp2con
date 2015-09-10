@@ -146,7 +146,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             })
             .state('favorite', {
                 url: "/favorite",
-                templateUrl: "app/views/" + role + "/favorite.html",
+                templateUrl: "app/views/" + role + "/applications.html",
                 data: { pageTitle: 'Job' },
                 controller: role + "FavoriteController",
                 resolve: {}

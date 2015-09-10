@@ -1,42 +1,58 @@
-﻿<section id="jobs">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <h2>{{title}}</h2>
-                <cc-pager total-pages="pages" current-page="currentPage"
-                          page-action="navigate(pageNumber)">
-                </cc-pager>
-                <div class="jobs" ng-repeat="row in records">
-                    <a href="#/job/application/{{row.id}}">
-                        <div ng-if="row.featured" class="featured"></div>
-                        <img src="{{row.contractor.pictureUrl}}" alt="" class="img-circle" />
-                        <div class="title">
-                            <h5>{{row.contractor.firstName}} {{row.contractor.lastName}}</h5>
-                            <p ng-bind-html="row.contractor.about | limitTo: 200"></p>
-                            <p><span class="badge">{{row.folder}}</span></p>
-                        </div>
-                        <div class="data">
-                            <span class="city"><i class="fa fa-map-marker"></i>{{row.contractor.location}}</span>
-                            <span class="experience"><i class="fa fa-trophy"></i>{{row.contractor.experienceYears}}.{{row.contractor.experienceMonths}} years</span>
-                            <span class="sallary"><i class="fa fa-inr"></i>{{row.contractor.rate}}k</span>
-                        </div>
-                    </a>
-                </div>
-                <cc-pager total-pages="pages" current-page="currentPage"
-                          page-action="navigate(pageNumber)">
-                </cc-pager>
-            </div>
-            <div class="col-sm-4" id="sidebar">
-                <!-- Find a Job Start -->
-                <div class="sidebar-widget" id="jobsearch">
-                    <h2>Folders</h2>
-                    <ul>
-                        <li ng-repeat="f in folders"><a href="#/job/{{id}}/applications/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
-                    </ul>
-                </div>
-                <!-- Find a Job End -->
-
-            </div>
-        </div>
+﻿<h3 class="page-title">
+    {{title}} <small>{{count}} found</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Job Applications</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <span class="pull-right">
+            <input type="checkbox" bs-switch class="make-switch" switch-mini ng-click="toggle(selectAll)" ng-model="selectAll" data-on="success" data-off="warning">
+        </span>
     </div>
-</section>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        <cc-pager total-pages="pages" current-page="currentPage"
+                  page-action="navigate(pageNumber)">
+        </cc-pager>
+        <div class="jobs" ng-repeat="row in records">
+            <a href="#/job/application/{{row.id}}">
+                <div ng-if="row.featured" class="featured"></div>
+                <img src="{{row.contractor.pictureUrl}}" alt="" class="img-circle" />
+                <div class="title">
+                    <h5>{{row.contractor.firstName}} {{row.contractor.lastName}}</h5>
+                    <p ng-bind-html="row.contractor.about | limitTo: 200"></p>
+                    <p><span class="badge">{{row.folder}}</span></p>
+                </div>
+                <div class="data">
+                    <span class="city"><i class="fa fa-map-marker"></i>{{row.contractor.location}}</span>
+                    <span class="experience"><i class="fa fa-trophy"></i>{{row.contractor.experienceYears}}.{{row.contractor.experienceMonths}} years</span>
+                    <span class="sallary"><i class="fa fa-inr"></i>{{row.contractor.rate}}k</span>
+                </div>
+            </a>
+        </div>
+        <cc-pager total-pages="pages" current-page="currentPage"
+                  page-action="navigate(pageNumber)">
+        </cc-pager>
+    </div>
+    <div class="col-sm-4" id="sidebar">
+        <!-- Find a Job Start -->
+        <div class="sidebar-widget" id="jobsearch">
+            <h2>Folders</h2>
+            <ul>
+                <li ng-repeat="f in folders"><a href="#/job/{{id}}/applications/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
+            </ul>
+        </div>
+        <!-- Find a Job End -->
+
+    </div>
+</div>

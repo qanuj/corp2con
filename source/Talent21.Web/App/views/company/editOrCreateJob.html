@@ -1,4 +1,7 @@
-﻿<div class="page-bar">
+﻿<h3 class="page-title">
+    {{title}} <small>{{record.title}}</small>
+</h3>
+<div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
@@ -15,13 +18,10 @@
     </ul>
     <div class="page-toolbar">
         <span class="btn-group pull-right">
-            <button class="btn btn-success" ng-click="sendInvites(records)"><i class="fa fa-paper-plane-o"></i> Save Job</button>
+            <button class="btn btn-success" ng-click="save(record)"><i class="fa fa-paper-plane-o"></i> Save Job</button>
         </span>
     </div>
 </div>
-<h3 class="page-title">
-    {{title}} <small>{{record.title}}</small>
-</h3>
 
 <div class="col-x12">
     <form ng-submit="save(record)">
