@@ -1,24 +1,20 @@
-﻿<h3 class="page-title">
+﻿
+<h3 class="page-title">
     {{title}} <small>{{count}}</small>
 </h3>
-<div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <i class="fa fa-home"></i>
-            <a href="#/">Home</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="#">Schedule</a>
-        </li>
-    </ul>
-    <div class="page-toolbar">
-        <span class="btn-group pull-right">
-            <button class="btn btn-primary" ng-click="clean()">Add New</button>
-        </span>
-    </div>
-</div>
 <form ng-submit="save(record)" class="form-horizontal">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="#/">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Schedule</a>
+            </li>
+        </ul>
+    </div>
     <div class="form-group col-md-6">
         <label>Is Available?</label>
         <div class="input-group">
@@ -56,7 +52,7 @@
         <td>{{s.end | amDifference : s.start : 'days'}} Days</td>
         <td>
             <button class="btn btn-primary" ng-click="edit(s)"><i class="fa fa-edit"></i> Edit</button>
-            <button class="btn btn-danger" data-toggle="confirmation" data-original-title="Are you sure ?" title=""><i class="fa fa-trash"></i> Delete</button>
+            <button class="btn btn-danger" data-toggle="confirmation" data-original-title="Are you sure ?" title="" ng-click="delete(s)"><i class="fa fa-trash"></i> Delete</button>
         </td>
     </tr>
 </table>

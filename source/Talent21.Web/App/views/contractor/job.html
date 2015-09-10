@@ -1,22 +1,52 @@
-﻿
+﻿<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Search</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <span class="btn-group pull-right">
+            <a ng-if="!record.favorite" href="javascript:;" class="btn blue" ng-click="favorite(record)">
+                <span>
+                    Favourite
+                </span>
+                <i class="fa fa-heart top-news-icon"></i>
+            </a>
+            <a ng-if="record.favorite" href="javascript:;" class="btn yellow" ng-click="unfavorite(record)">
+                <span>
+                    Remove from Favourite
+                </span>
+                <i class="fa fa-heart-o top-news-icon"></i>
+            </a>
+            <a ng-if="!record.application" href="javascript:;" class="btn green" ng-click="apply(record)">
+                <span>
+                    Apply
+                </span>
+                <i class="fa fa-check top-news-icon"></i>
+            </a>
+            <a ng-if="record.application" href="javascript:;" class="btn red" ng-click="revoke(record)">
+                <span>
+                    Revoke
+                </span>
+                <i class="fa fa-close top-news-icon"></i>
+            </a>
+            <!--<button class="btn btn-primary" ng-click="applyAll()">Apply</button>
+            <button class="btn btn-warning" ng-click="favoriteAll()">Favorite</button>-->
+        </span>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-9">
         <article>
+             
             <h2 class="bold font-yellow-casablanca uppercase">
                 {{record.title}} <small>{{record.company}}</small>
             </h2>
-            <div class="page-bar">
-                <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="#/">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Search</a>
-                    </li>
-                </ul>
-            </div>
             <div ng-if="record.invited && !record.decline && !record.application" class="alert alert-warning">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -44,7 +74,7 @@
         </article>
     </div>
     <div class="col-md-3" id="sidebar">
-        <div class="top-news">
+        <!--<div class="top-news">
             <a ng-if="!record.favorite" href="javascript:;" class="btn blue" ng-click="favorite(record)">
                 <span>
                     Favourite
@@ -69,7 +99,7 @@
                 </span>
                 <i class="fa fa-close top-news-icon"></i>
             </a>
-        </div>
+        </div>-->
         <div class="sidebar-widget">
             <table class="table table-bordered">
                 <tr class="bg-info" ng-if="record.invited">

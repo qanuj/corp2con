@@ -23,50 +23,50 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-8 col-md-9">
+    <div class=" col-md-10">
         <h3 class="form-section">Personal Information</h3>
         <div class="row">
             <div class="form-group col-xs-5">
-                <label class="col-md-3 control-label">First Name</label>
+                <label class="col-md-5 control-label">First Name</label>
                 <input type="text" class="form-control" ng-model="record.firstName">
             </div>
             <div class="form-group col-xs-5">
-                <label class="col-md-3 control-label">Last Name</label>
+                <label class="col-md-5 control-label">Last Name</label>
                 <input type="text" class="form-control" ng-model="record.lastName">
             </div>
             <div class="form-group col-xs-2">
-                <label class="col-md-3 control-label">Gender</label>
+                <label class="col-md-5 control-label">Gender</label>
                 <select ui-select2 class="dropdown form-control" data-ng-model="record.gender" data-ng-options="c.id as c.label for c in genders">
                     <option value="">-- Select Gender --</option>
                 </select>
             </div>
             <div class="form-group col-xs-6">
-                <label class="col-md-3 control-label">Email</label>
+                <label class="col-md-5 control-label">Email</label>
                 <input type="email" class="form-control" ng-model="record.email">
             </div>
             <div class="form-group col-xs-6">
-                <label class="col-md-3 control-label">Nationality</label>
+                <label class="col-md-5 control-label">Nationality</label>
                 <select ui-select2 class="dropdown form-control" data-ng-model="record.nationality" data-ng-options="nation.title as nation.title for nation in nations">
                     <option value="">-- Select Nationality --</option>
                 </select>
             </div>
             <div class="form-group col-xs-8">
-                <label class="col-md-3 control-label">Address</label>
+                <label class="col-md-5 control-label">Address</label>
                 <input type="text" class="form-control" ng-model="record.address">
             </div>
             <div class="form-group col-xs-4">
-                <label class="col-md-3 control-label">Pin code</label>
+                <label class="col-md-5 control-label">Pin code</label>
                 <input type="text" class="form-control" ng-model="record.pinCode">
             </div>
             <div class="form-group col-xs-6">
-                <label class="col-md-3 control-label">Location</label>
+                <label class="col-md-5 control-label">Location</label>
                 <select ui-select2 class="layout-style-option form-control input-sm" data-ng-model="record.locationId" data-ng-options="location.id as location.title for location in locations">
                     <option value="">-- Select Location --</option>
                 </select>
             </div>
         </div>
     </div>
-    <div class="col-sm-3 col-md-2">
+    <div class="col-md-2">
         <h3 class="form-section">Profile Picture</h3>
         <a href="#" class="thumbnail">
             <img ng-src="{{record.picture.url}}" alt="{{record.firstName}} {{record.lastName}}">
@@ -191,7 +191,7 @@
         </select>
     </div>
     <div class="form-group col-xs-6">
-        <label class="col-md-3 control-label">Functional Area</label>
+        <label class="col-md-6 control-label">Functional Area</label>
         <select ui-select2 class="dropdown form-control" data-ng-model="record.functionalAreaId" data-ng-options="i.id as i.title for i in functionalAreas">
             <option value="">-- Select type --</option>
         </select>
