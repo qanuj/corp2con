@@ -12,7 +12,6 @@
     'ngCkeditor',
     'theaquaNg',
     'daterangepicker',
-    'codemwnci.markdown-edit-preview',
     'frapontillo.bootstrap-switch',
     'nya.bootstrap.select',
     'humenize',
