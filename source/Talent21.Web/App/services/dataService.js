@@ -24,7 +24,7 @@
             var rgs = args[1].split("&");
             for(var x in rgs) {
                 var k = rgs[x].split('=');
-                tmp[k[0]] = k.length > 1 ? k[1] : null;
+                tmp[k[0]] = k.length > 1 && k[1]!='undefined' ? decodeURIComponent(k[1]) : null;
             }
         }
         return tmp;

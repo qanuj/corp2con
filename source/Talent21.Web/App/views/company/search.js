@@ -37,6 +37,8 @@
         ratetype: param.ratetype || ''
     }
 
+    console.log("Searching", $scope.query);
+
     function fetchResults(query, page) {
         db.company.search(query, page).success(function (result) {
             $scope.currentPage = page || 1;

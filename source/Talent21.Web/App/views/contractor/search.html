@@ -42,10 +42,12 @@
                     <div class="col-xs-12">
                         <h5>Skill</h5>
                         <select ui-select2 class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
+                        <button ng-if="query.skills" ng-click="query.skills=undefined;search(query)" class="btn btn-link">Clear</button>
                     </div>
                     <div class="col-xs-12">
                         <h5>Location</h5>
                         <select ui-select2 class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
+                        <button ng-if="query.location" ng-click="query.location=undefined;search(query)" class="btn btn-link">Clear</button>
                     </div>
                 </div>
                 <div class="row">

@@ -32,14 +32,15 @@ namespace Talent21.Web
             bundles.Add(new StyleBundle("~/Content/spa/css-1").Include("~/Content/css-1/*.css"));
 
             bundles.Add(new StyleBundle("~/Content/spa/css-2")
-                .Include("~/Content/css-2/*.css")
-                .Include("~/Content/css-2/pages/*.css")
-                .Include("~/Content/css-2/themes/darkblue.css",
-                "~/Content/css-2/custom/custom.css",
-                "~/Content/css/extra/ng-tags-input.a.css",
-                "~/Content/css/extra/ng-tags-input.bootstrap.css",
-                "~/Content/css/rzslider.css",
-                "~/Content/css/toastr.css"));
+                .Include(
+                "~/Content/css-2/pages/*.css",
+                "~/Content/css-2/custom/*.css",
+                "~/Content/css-2/components.css",
+                "~/Content/css-2/plugins.css",
+                "~/Content/css-2/layout.css",
+                "~/Content/css-2/themes/darkblue.css",
+                "~/Content/css-2/xtra.css"
+            ));
 
 
             bundles.Add(new ScriptBundle("~/script/site")
@@ -79,14 +80,9 @@ namespace Talent21.Web
                 .Include("~/scripts/spa-1/jquery.cokie.min.js")
                 .Include("~/scripts/spa-1/jquery.uniform.js")
                 .Include("~/scripts/spa-1/bootstrap-switch.js")
-                .Include("~/scripts/spa-1/angular-sanitize.js")
-                .Include("~/scripts/spa-1/angular-touch.min.js")
-                .Include("~/scripts/spa-1/angular-ui-router.min.js")
                 .Include("~/scripts/spa-1/ocLazyLoad.min.js")
                 .Include("~/scripts/spa-1/ui-bootstrap-tpls.js")
                 .Include("~/scripts/spa-1/metronic.js")
-                .Include("~/scripts/spa-1/angular-daterangepicker.js")
-                .Include("~/scripts/spa-1/angular-bootstrap-switch.js")
                 .Include("~/scripts/spa-1/bootstrap-confirmation.js")
                 .Include("~/scripts/spa-1/bootstrap-select.js")
                 .Include("~/scripts/spa-1/select2.js")

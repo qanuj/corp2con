@@ -605,9 +605,13 @@ namespace Talent21.Service.Core
             {
                 query = query.Where(x => x.Location.Contains(model.Location));
             }
-            if (model.IndustryId > 0)
+            if (!string.IsNullOrWhiteSpace(model.Industry))
             {
-                query = query.Where(x => x.IndustryId == model.IndustryId);
+                query = query.Where(x => x.Industry == model.Industry);
+            }
+            if (!string.IsNullOrWhiteSpace(model.Functional))
+            {
+                query = query.Where(x => x.FunctionalArea == model.Functional);
             }
             if (model.RateType.HasValue)
             {

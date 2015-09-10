@@ -80,22 +80,6 @@ app.controller('SidebarController', ['$scope',function ($scope) {
     });
 }]);
 
-/* Setup Layout Part - Quick Sidebar */
-app.controller('QuickSidebarController', ['$scope', function ($scope) {
-    $scope.$on('$includeContentLoaded', function () {
-        setTimeout(function () {
-            QuickSidebar.init(); // init quick sidebar        
-        }, 2000)
-    });
-}]);
-
-/* Setup Layout Part - Theme Panel */
-app.controller('ThemePanelController', ['$scope', function ($scope) {
-    $scope.$on('$includeContentLoaded', function () {
-        Demo.init(); // init theme panel
-    });
-}]);
-
 /* Setup Layout Part - Footer */
 app.controller('FooterController', ['$scope', function ($scope) {
     $scope.$on('$includeContentLoaded', function () {
