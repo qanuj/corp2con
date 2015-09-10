@@ -747,6 +747,12 @@ namespace Talent21.Service.Core
 
             var balance = _transactionRepository.Balance(entity.OwnerId);
 
+            if (_advertisementRepository.All.OfType<CompanyAdvertisement>().Any(x => x.Promotion == promotion && x.CompanyId == entity.Id && x.End > DateTime.UtcNow && x.Start < DateTime.UtcNow))
+            {
+                throw new Exception("Already running promotion");
+            }
+
+
             var config = _appSiteConfigRepository.Config();
             var which = config.Company.Featured;
 
@@ -772,9 +778,9 @@ namespace Talent21.Service.Core
                 IsSuccess = true, //should come from PayU Money,
                 PaymentCapture = "Some Data of Payment Capture",
                 UserId = CurrentUserId,
-                Advertisement = new ContractorAdvertisement
+                Advertisement = new CompanyAdvertisement
                 {
-                    ContractorId = entity.Id,
+                   CompanyId = entity.Id,
                     Start = DateTime.UtcNow,
                     End = DateTime.UtcNow.AddDays(which.Validity),
                     Promotion = promotion,
@@ -795,6 +801,11 @@ namespace Talent21.Service.Core
 
             var entity = _jobRepository.ById(model.Id);
             if (entity == null) return false;
+
+            if (_advertisementRepository.All.OfType<JobAdvertisement>().Any(x => x.Promotion == model.Promotion && x.JobId == entity.Id && x.End > DateTime.UtcNow && x.Start < DateTime.UtcNow))
+            {
+                throw new Exception("Already running promotion");
+            }
 
             var company = _companyRepository.ById(entity.CompanyId);
 

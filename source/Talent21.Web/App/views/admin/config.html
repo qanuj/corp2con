@@ -29,14 +29,13 @@
                         <label class="control-label col-md-6">Credit Rate</label>
                         <div class="col-md-6">
                             <input type="number" ng-model="row.credit.rate" class="form-control" />
-                            <span class="help-block">Credit Unit Price.</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-6">Validity</label>
                         <div class="col-md-6">
                             <input type="number" ng-model="row.credit.validity" class="form-control" />
-                            <span class="help-block">Credit Validity in Days</span>
+
                         </div>
                     </div>
                 </div>
@@ -46,14 +45,13 @@
                         <label class="control-label col-md-6">Tax Name</label>
                         <div class="col-md-6">
                             <input type="text" ng-model="row.tax.name" class="form-control" />
-                            <span class="help-block">e.g. Service Tax / VAT</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-6">Rate</label>
                         <div class="col-md-6">
                             <input type="number" ng-model="row.tax.rate" class="form-control" />
-                            <span class="help-block">e.g 14</span>
+
                         </div>
                     </div>
                 </div>
@@ -62,15 +60,15 @@
                     <div class="form-group">
                         <label class="control-label col-md-6">Credit Rate</label>
                         <div class="col-md-6">
-                            <input type="number" ng-model="row.contractorMembership.rate" class="form-control"/>
-                            <span class="help-block">Validity Based Credits</span>
+                            <input type="number" ng-model="row.contractorMembership.rate" class="form-control" />
+
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-6">Validity</label>
                         <div class="col-md-6">
-                            <input type="number" ng-model="row.contractorMembership.validity" class="form-control"/>
-                            <span class="help-block">Credit Validity in Days</span>
+                            <input type="number" ng-model="row.contractorMembership.validity" class="form-control" />
+
                         </div>
                     </div>
                 </div>
@@ -80,97 +78,77 @@
                         <label class="control-label col-md-6">Credit Rate</label>
                         <div class="col-md-6">
                             <input type="number" ng-model="row.companyMembership.rate" class="form-control" />
-                            <span class="help-block">Validity Based Credits</span>
+
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-6">Validity</label>
                         <div class="col-md-6">
                             <input type="number" ng-model="row.companyMembership.validity" class="form-control" />
-                            <span class="help-block">Credit Validity in Days</span>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                
-                <h3 class="form-section">Job Credits</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-6">Posting Price</label>
-                            <div class="col-md-6">
-                                <input type="number" ng-model="row.jobPrice" class="form-control" />
-                                <span class="help-block">Credits to use</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-6">Featured</label>
-                            <div class="col-md-6">
-                                <input type="number" ng-model="row.job.featured" class="form-control" />
-                                <span class="help-block">Credits to use</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-6">Advertise</label>
-                            <div class="col-md-6">
-                                <input type="number" ng-model="row.job.advertise" class="form-control" />
-                                <span class="help-block">e.g 14</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-6">Highlight</label>
-                            <div class="col-md-6">
-                                <input type="number" ng-model="row.job.highlight" class="form-control" />
-                                <span class="help-block">e.g 14</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-6">Global</label>
-                            <div class="col-md-6">
-                                <input type="number" ng-model="row.job.global" class="form-control" />
-                                <span class="help-block">e.g 14</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="col-md-6">
                 <h3 class="form-section">Company Credits</h3>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-6">Featured</label>
+                            <label class="control-label col-md-6">Advertise Price</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.company.featured" class="form-control" />
-                                <span class="help-block">Credits to use</span>
+                                <input type="number" ng-model="row.company.advertise.rate" class="form-control" />
+
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-6">Advertise</label>
+                            <label class="control-label col-md-6">Advertise Validity</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.company.advertise" class="form-control" />
-                                <span class="help-block">e.g 14</span>
+                                <input type="number" ng-model="row.company.advertise.validity" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Featured Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.company.featured.rate" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Featured Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.company.featured.validity" class="form-control" />
+
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-6">Highlight</label>
+                            <label class="control-label col-md-6">Highlight Price</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.company.highlight" class="form-control" />
-                                <span class="help-block">e.g 14</span>
+                                <input type="number" ng-model="row.company.highlight.rate" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-6">Global</label>
+                            <label class="control-label col-md-6">Highlight Validity</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.company.global" class="form-control" />
-                                <span class="help-block">e.g 14</span>
+                                <input type="number" ng-model="row.company.highlight.validity" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Global Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.company.global.rate" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Global Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.company.global.validity" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -183,73 +161,166 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-6">Featured</label>
+                            <label class="control-label col-md-6">Advertise Price</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.contractor.featured" class="form-control" />
-                                <span class="help-block">Credits to use</span>
+                                <input type="number" ng-model="row.contractor.advertise.rate" class="form-control" />
+
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-6">Advertise</label>
+                            <label class="control-label col-md-6">Advertise Validity</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.contractor.advertise" class="form-control" />
-                                <span class="help-block">e.g 14</span>
+                                <input type="number" ng-model="row.contractor.advertise.validity" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Featured Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.contractor.featured.rate" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Featured Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.contractor.featured.validity" class="form-control" />
+
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-6">Highlight</label>
+                            <label class="control-label col-md-6">Highlight Price</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.contractor.highlight" class="form-control" />
-                                <span class="help-block">e.g 14</span>
+                                <input type="number" ng-model="row.contractor.highlight.rate" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-6">Global</label>
+                            <label class="control-label col-md-6">Highlight Validity</label>
                             <div class="col-md-6">
-                                <input type="number" ng-model="row.contractor.global" class="form-control" />
-                                <span class="help-block">e.g 14</span>
+                                <input type="number" ng-model="row.contractor.highlight.validity" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Global Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.contractor.global.rate" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Global Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.contractor.global.validity" class="form-control" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
 
-            <div class="row">
-                <h3 class="form-section">PayU Payment Gateway</h3>
+                <h3 class="form-section">Job Credits</h3>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-2">Key</label>
-                            <div class="col-md-10">
-                                <input type="text" ng-model="row.payment.key" class="form-control" />
-                                <span class="help-block"></span>
+                            <label class="control-label col-md-6">Posting Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.jobPrice.rate" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">Merchant Id</label>
-                            <div class="col-md-10">
-                                <input type="text" ng-model="row.payment.merchantId" class="form-control" />
-                                <span class="help-block"></span>
+                            <label class="control-label col-md-6">Posting Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.jobPrice.validity" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Advertise Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.advertise.rate" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Advertise Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.advertise.validity" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Featured Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.featured.rate" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Featured Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.featured.validity" class="form-control" />
+
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-2">Salt</label>
-                            <div class="col-md-10">
-                                <input type="text" ng-model="row.payment.salt" class="form-control" />
-                                <span class="help-block"></span>
+                            <label class="control-label col-md-6">Highlight Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.highlight.rate" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Highlight Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.highlight.validity" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">Url</label>
-                            <div class="col-md-10">
-                                <input type="text" ng-model="row.payment.url" class="form-control" />
-                                <span class="help-block"></span>
+                            <label class="control-label col-md-6">Global Price</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.global.rate" class="form-control" />
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-6">Global Validity</label>
+                            <div class="col-md-6">
+                                <input type="number" ng-model="row.job.global.validity" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="form-section">PayU Payment Gateway</h3>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Key</label>
+                    <div class="col-md-10">
+                        <input type="text" ng-model="row.payment.key" class="form-control" />
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Merchant Id</label>
+                    <div class="col-md-10">
+                        <input type="text" ng-model="row.payment.merchantId" class="form-control" />
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Salt</label>
+                    <div class="col-md-10">
+                        <input type="text" ng-model="row.payment.salt" class="form-control" />
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Url</label>
+                    <div class="col-md-10">
+                        <input type="text" ng-model="row.payment.url" class="form-control" />
+                        <span class="help-block"></span>
                     </div>
                 </div>
             </div>
