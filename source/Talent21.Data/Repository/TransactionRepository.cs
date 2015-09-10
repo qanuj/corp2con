@@ -28,6 +28,11 @@ namespace Talent21.Data.Repository
             return All.Include(x=>x.User).FirstOrDefault(x => x.Code == code);
         }
 
+        public IQueryable<Transaction> Full
+        {
+            get { return this.All.Include(x => x.User); }
+        }
+
         public int Balance(string id)
         {
             return Mine(id).Any() ? Mine(id).Sum(x => x.Credit) : 0;
@@ -51,6 +56,7 @@ namespace Talent21.Data.Repository
     public interface ITransactionRepository : IMyRepository<Transaction>
     {
         Transaction ByCode(string code);
+        IQueryable<Transaction> Full { get; } 
         int Balance(string id);
     }
 }

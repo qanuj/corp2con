@@ -48,17 +48,23 @@
 <table ng-if="records.length>0" class="table table-striped table-bordered table-advance table-hover">
     <thead>
     <tr>
-        <th>Id</th>
         <th>Date</th>
+        <th>Id</th>
+        <th>From</th>
+        <th>To</th>
         <th>Description</th>
+        <th class="text-right">Price x Units</th>
         <th class="text-right">Amount</th>
     </tr>
     </thead>
     <tbody>
         <tr ng-repeat="row in records">
-            <td>{{row.code}}</td>
             <td>{{row.created}}</td>
+            <td>{{row.code}}</td>
+            <td><span class="label label-warning">{{row.createdBy}}</span></td>
+            <td>{{row.userName}}</td>
             <td ng-class="{'text-success':row.isSuccess,'text-danger':!row.isSuccess}"><a href="#/invoice/{{row.id}}">{{row.name}}</a></td>
+            <td class="text-right">{{row.amount / row.credit}} x {{row.credit}}</td>
             <td class="text-right"><span class="label" ng-class="row.credit>0 ? 'label-success' : 'text-danger'">{{row.amount|currency : '₹'}}</span></td>
         </tr>
     </tbody>

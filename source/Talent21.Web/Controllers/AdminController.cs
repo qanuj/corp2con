@@ -26,9 +26,9 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("transaction")]
-        public PageResult<Transaction> GetTransactions(ODataQueryOptions<Transaction> options)
+        public PageResult<TransactionViewModel> GetTransactions(ODataQueryOptions<TransactionViewModel> options)
         {
-            return Page(_service.Transactions(), options);
+            return Page(_service.AllTransactions(), options);
         }
 
         [HttpGet]

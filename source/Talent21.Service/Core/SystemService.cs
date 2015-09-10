@@ -329,9 +329,9 @@ namespace Talent21.Service.Core
             return vals;
         }
 
-        public IQueryable<Transaction> Transactions()
+        public IQueryable<Transaction> Transactions(bool includeUser=false)
         {
-            return _transactionRepository.All;
+            return includeUser ? _transactionRepository.Full : _transactionRepository.All;
         }
 
         public InvoiceViewModel TransactionById(int id)
@@ -391,6 +391,7 @@ namespace Talent21.Service.Core
         public bool SendGift(GiftViewModel model)
         {
             var toUser = _userProvider.UserIdByEmail(model.Email);
+            var fromUser = _userProvider.UserEmailById(_userProvider.UserName);
             if (string.IsNullOrWhiteSpace(toUser)) return false;
             var gift = new Gift
             {
@@ -398,7 +399,7 @@ namespace Talent21.Service.Core
                 Amount = model.Credit * _sellingOptions.CreditPrice,
                 Capture = "Admin Sent Gift",
                 Code = "gift",
-                CreatedBy = _userProvider.UserName,
+                CreatedBy = fromUser,
                 Gateway = "internal",
                 Credit = model.Credit,
                 Name = "Administrator sent you gift of credits "+model.Credit,
@@ -407,6 +408,27 @@ namespace Talent21.Service.Core
             };
             _transactionRepository.Create(gift);
             return _transactionRepository.SaveChanges() > 0;
+        }
+
+        public IQueryable<TransactionViewModel> AllTransactions()
+        {
+            return from x in _transactionRepository.Full
+                select new TransactionViewModel
+                {
+                    Id = x.Id,
+                    Credit = x.Credit,
+                    PaymentCapture = x.PaymentCapture,
+                    Amount = x.Amount,
+                    Name = x.Name,
+                    IsSuccess = x.IsSuccess,
+                    UserName = x.User.UserName,
+                    Created = x.Created,
+                    CreatedBy=x.CreatedBy,
+                    Code = x.Code,
+                    Reason = x.Reason,
+                    IsFailed = !x.IsSuccess,
+                    Mode = x is Payment ? "Payment" : "Transaction"
+                };
         }
     }
 }

@@ -22,10 +22,11 @@ namespace Talent21.Service.Abstraction
         string Upgrade();
         EnumList Enums();
 
-        IQueryable<Transaction> Transactions();
+        IQueryable<Transaction> Transactions(bool includeUser);
         InvoiceViewModel TransactionById(int id);
 
         string Hash(string email);
         bool SendGift(GiftViewModel model);
+        IQueryable<TransactionViewModel> AllTransactions();
     }
 }

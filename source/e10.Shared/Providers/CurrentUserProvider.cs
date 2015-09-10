@@ -30,5 +30,12 @@ namespace e10.Shared.Providers
             if (user != null) return user.Id;
             return string.Empty;
         }
+
+        public string UserEmailById(string id)
+        {
+            var user = _userManager.FindById(id);
+            if (user != null) return user.Email;
+            return string.Empty;
+        }
     }
 }

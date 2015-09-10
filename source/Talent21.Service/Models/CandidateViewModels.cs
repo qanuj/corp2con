@@ -26,6 +26,7 @@ namespace Talent21.Service.Models
         public int Credit { get; set; }
         public string Email { get; set; }
     }
+    
 
     public class InvoiceViewModel
     {

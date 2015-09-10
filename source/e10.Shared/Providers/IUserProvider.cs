@@ -1,4 +1,5 @@
-﻿using e10.Shared.Data.Abstraction;
+﻿using System.Linq;
+using e10.Shared.Data.Abstraction;
 
 namespace e10.Shared.Providers
 {
@@ -6,5 +7,6 @@ namespace e10.Shared.Providers
     {
         string UserName { get; }
         string UserIdByEmail(string email);
+        string UserEmailById(string id);
     }
 }
