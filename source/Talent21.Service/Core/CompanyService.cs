@@ -102,6 +102,7 @@ namespace Talent21.Service.Core
                     AlternateNumber = x.AlternateNumber,
                     Complete = x.Complete,
                     Industry = new DictionaryViewModel() { Code = x.Industry.Code, Title = x.Industry.Title },
+                    IndustryId = x.IndustryId,
                     OrganizationType = x.OrganizationType,
                     Profile = x.Profile
                 });
