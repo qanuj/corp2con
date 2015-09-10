@@ -329,8 +329,7 @@
     <Content Include="App\views\admin\dashboard.html" />
     <Content Include="App\views\admin\dashboard.js" />
     <Content Include="App\views\admin\master.html" />
-    <Content Include="App\views\admin\location.js" />
-    <Content Include="App\views\admin\country.js" />
+    <Content Include="App\views\admin\master.js" />
     <Content Include="App\views\admin\invoice.html" />
     <Content Include="App\views\admin\invoice.js" />
     <Content Include="App\views\common\invoice.html" />
@@ -366,8 +365,6 @@
     <Content Include="App\views\layout\sidebar.html" />
     <Content Include="App\views\pager.html" />
     <Content Include="App\views\pager.js" />
-    <Content Include="App\views\admin\functional.js" />
-    <Content Include="App\views\admin\industry.js" />
     <Content Include="App\views\company\editProfile.html" />
     <Content Include="App\views\company\editProfile.js" />
     <Content Include="App\views\company\job.html" />
@@ -396,7 +393,6 @@
     <Content Include="App\views\contractor\job.html" />
     <Content Include="App\views\company\jobs.html" />
     <Content Include="App\views\contractor\job.js" />
-    <Content Include="App\views\admin\skills.js" />
     <Content Include="App\views\upload\file.html" />
     <Content Include="App_Data\Database.sql" />
     <Content Include="Content\bootstrap.css" />

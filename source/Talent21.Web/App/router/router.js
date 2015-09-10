@@ -200,36 +200,36 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             .state('industry', {
                 url: "/industry",
                 templateUrl: "app/views/" + role + "/master.html",
-                data: { pageTitle: 'Industry' },
-                controller: role + "IndustryController",
+                data: { pageTitle: 'Industry',module:'industry' },
+                controller: role + "MasterController",
                 resolve: {}
             })
             .state('functional', {
                 url: "/functional",
                 templateUrl: "app/views/" + role + "/master.html",
-                data: { pageTitle: 'Functional' },
-                controller: role + "FunctionalController",
+                data: { pageTitle: 'Functional Area',module:'functional' },
+                controller: role + "MasterController",
                 resolve: {}
             })
             .state('skills', {
                 url: "/skills",
                 templateUrl: "app/views/" + role + "/master.html",
-                data: { pageTitle: 'Skills' },
-                controller: role + "SkillsController",
+                data: { pageTitle: 'Skills',module:'skill' },
+                controller: role + "MasterController",
                 resolve: {}
             })
             .state('country', {
                 url: "/country",
                 templateUrl: "app/views/" + role + "/master.html",
-                data: { pageTitle: 'Countries' },
-                controller: role + "CountryController",
+                data: { pageTitle: 'Countries',module:'country' },
+                controller: role + "MasterController",
                 resolve: {}
             })
             .state('city', {
                 url: "/location",
                 templateUrl: "app/views/" + role + "/master.html",
-                data: { pageTitle: 'Locations' },
-                controller: role + "LocationController",
+                data: { pageTitle: 'Locations' ,module:'location' },
+                controller: role + "MasterController",
                 resolve: {}
             })
             .state('invite', {

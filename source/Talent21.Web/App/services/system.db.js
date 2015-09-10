@@ -9,8 +9,10 @@
 
         function buildMaster(master){
             return {
-                paged: function(page, pageSize) {
-                    return $http.get(v + 'system/' + master + '/paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+                paged: function(page, pageSize,q,c) {
+                    var uri = v + 'system/' + master + '/paged?$inlinecount=allpages' + calculatePaging(page, pageSize);
+                    if (q) uri += '&$filter=substringof(\'' + q + '\',Title)';
+                    return $http.get(uri);
                 },
                 add: function(record) {
                     return $http.post(v + 'system/' + master + '/create', record);
