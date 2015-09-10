@@ -116,6 +116,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
@@ -173,6 +175,7 @@
     <Compile Include="Security\ApplicationSignInManager.cs" />
     <Compile Include="Security\ApplicationUserManager.cs" />
     <Compile Include="Security\ApplicationUserStore.cs" />
+    <Compile Include="Security\PassiveSessionConfiguration.cs" />
     <Compile Include="Security\SecurityManager.cs" />
     <Compile Include="Security\SmtpEmailService.cs" />
     <Compile Include="Security\IIdentityEmailMessageService.cs" />
