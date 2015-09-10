@@ -75,21 +75,31 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="col-xs-12">
+            <div class="col-xs-12">
                 <h5>Skill</h5>
-                <select ui-select2 class="form-control" ng-selected="query.skills" ng-options="s.title as s.title for s in skills track by s.id" ng-model="query.skills" ng-change="search(query)" value="query.skills"></select>
-            </div>-->
+                <select ui-select2 class="form-control"
+                        ng-selected="query.skills"
+                        ng-options="s.title as s.title for s in skills track by s.title"
+                        ng-model="query.skills"
+                        ng-change="search(query)"
+                        value="query.skills">
+                </select>
+                <button ng-if="query.skills" ng-click="query.skills=undefined" class="btn btn-link">Clear</button>
+            </div>
             <div class="col-xs-12">
                 <h5>Location</h5>
-                <select ui-select2 class="form-control" ng-selected="query.location" ng-options="s.title as s.title for s in locations track by s.id" ng-model="query.location" ng-change="search(query)"></select>
+                <select ui-select2 class="form-control" ng-selected="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-model="query.location" ng-change="search(query)"></select>
+                <button ng-if="query.location" ng-click="query.location=undefined;search(query)" class="btn btn-link">Clear</button>
             </div>
             <div class="col-xs-12">
                 <h5>Industry</h5>
-                <select ui-select2 class="form-control" ng-selected="query.industry" ng-options="s.id as s.title for s in industries track by s.id" ng-model="query.industry" ng-change="search(query)"></select>
+                <select ui-select2 class="form-control" ng-selected="query.industry" ng-options="s.title as s.title for s in industries track by s.title" ng-model="query.industry" ng-change="search(query)"></select>
+                <button ng-if="query.industry" ng-click="query.industry=undefined;search(query)" class="btn btn-link">Clear</button>
             </div>
             <div class="col-xs-12">
                 <h5>Functional Area</h5>
-                <select ui-select2 class="form-control" ng-selected="query.functional" ng-options="s.id as s.title for s in functionals track by s.id" ng-model="query.functional" ng-change="search(query)"></select>
+                <select ui-select2 class="form-control" ng-selected="query.functional" ng-options="s.title as s.title for s in functionals track by s.title" ng-model="query.functional" ng-change="search(query)"></select>
+                <button ng-if="query.functional" ng-click="query.functional=undefined;search(query)" class="btn btn-link">Clear</button>
             </div>
         </div>
         <div class="row">
