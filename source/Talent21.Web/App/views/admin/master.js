@@ -1,4 +1,4 @@
-﻿app.controller('adminSkillsController', ['$scope', 'dataService', '$routeParams','$rootScope', function ($scope, db, params,$rootScope) {
+﻿app.controller('adminMasterController', ['$scope', 'dataService', '$routeParams', '$rootScope', '$state', function ($scope, db, params, $rootScope,$state) {
       $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -8,17 +8,20 @@
     $rootScope.settings.layout.pageBodySolid = false;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
-    $scope.title = "Skills";
-    var master = db.system.skill;
-
-    $scope.navigate = function (page) {
+    $scope.title = $state.current.data.pageTitle;
+    var master = db.system[$state.current.data.module];
+    
+    var pageSize = 1000;
+    $scope.navigate = function (page, q) {
         page = page || $scope.currentPage || 1;
-        master.paged(page).success(function (result) {
+        master.paged(page, pageSize, q).success(function (result) {
             $scope.currentPage = page;
-            $scope.pages = Math.ceil(result.count / db.pageSize);
+            pageSize = !q && page == 1 && result.items.length < pageSize ? result.items.length : pageSize;
+            $scope.pages = Math.ceil(result.count / pageSize);
             $scope.records = result.items;
         });
     }
+
 
     $scope.save = function (record) {
         $('input[type=text]').each(function () {
@@ -40,5 +43,7 @@
     }
 
     $scope.navigate(params.page);
+
+
 }]);
 
