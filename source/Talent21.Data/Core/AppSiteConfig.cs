@@ -21,6 +21,7 @@ namespace Talent21.Data.Core
             Tax = new TaxConfig();
             CompanyMembership = new RateValidityConfig();
             ContractorMembership = new RateValidityConfig();
+            JobPrice=new RateValidityConfig();
         }
     }
 }
