@@ -47,15 +47,11 @@
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
     @Scripts.Render("~/script/vendors")
     @Scripts.Render("~/script/spa")
-    <script src="~/assets/global/scripts/metronic.js"></script>
-    <script src="~/assets/admin/layout/scripts/layout.js" ></script>
-    <script src="~/assets/admin/layout/scripts/quick-sidebar.js" ></script>
-    <script src="~/assets/admin/layout/scripts/demo.js"></script>
     <script type="text/javascript">
 		/* Init Metronic's core jquery plugins and layout scripts */
 		$(document).ready(function() {
 			Metronic.init(); // Run metronic theme
-			Metronic.setAssetsPath('~/assets/'); // Set the assets folder path
+			Metronic.setAssetsPath('/content/images'); // Set the assets folder path
 		});
     </script>
 </body>

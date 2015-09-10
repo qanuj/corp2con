@@ -41,6 +41,17 @@ namespace Talent21.Web
                 "~/Content/css-2/xtra.css"
             ));
 
+            bundles.Add(new StyleBundle("~/Content/spa/unsecured")
+                .Include(
+                "~/Content/css-2/pages/login.css",
+                "~/Content/css-2/pages/error.css",
+                "~/Content/css-2/components.css",
+                "~/Content/css-2/plugins.css",
+                "~/Content/css-2/layout.css",
+                "~/Content/css-2/themes/darkblue.css",
+                "~/Content/css-2/xtra.css"
+            ));
+
 
             bundles.Add(new ScriptBundle("~/script/site")
                 .Include("~/Scripts/jquery-{version}.js")
@@ -57,8 +68,8 @@ namespace Talent21.Web
             );
 
             bundles.Add(new ScriptBundle("~/script/ie9")
-                .Include("~/assets/global/plugins/respond.js")
-                .Include("~/assets/global/plugins/excanvas.js")
+                .Include("~/scripts/spa-1/respond.min.js")
+                .Include("~/scripts/spa-1/excanvas.min.js")
              );
 
             bundles.Add(new ScriptBundle("~/script/vendors")
@@ -81,6 +92,8 @@ namespace Talent21.Web
                 .Include("~/scripts/spa-1/jquery.multi-select.js")
                 .Include("~/Scripts/spa-1/rzslider.js")
                 .Include("~/Scripts/spa-1/toastr.min.js")
+                .Include("~/Scripts/spa-1/metronic.js")
+                .Include("~/Scripts/spa-1/layout.js")
                 .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/angular-*")
              );
