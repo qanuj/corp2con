@@ -2,10 +2,10 @@
 {
     public enum PromotionEnum
     {
-        None,
-        Highlight,
-        Feartured,
-        Advertise,
-        Global,
+        None=0,
+        Highlight=1,
+        Feartured=2,
+        Advertise=3,
+        Global=4,
     }
 }

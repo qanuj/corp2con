@@ -34,8 +34,21 @@ namespace e10.Shared.Data.Abstraction
         public string Url { get; set; }
     }
 
+
+    [ComplexType]
+    public class AdvertisementPrice
+    {
+        public int Highlight { get; set; }
+        public int Featured { get; set; }
+        public int Global { get; set; }
+        public int Advertise { get; set; }
+    }
+
     public abstract class SiteConfig : Entity
     {
+        public AdvertisementPrice Contractor { get; set; }
+        public AdvertisementPrice Company { get; set; }
+        public AdvertisementPrice Job { get; set; }
         public PaymentConfig Payment { get; set; }
         public CreditConfig Credit { get; set; }
         public TaxConfig Tax { get; set; }

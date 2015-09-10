@@ -25,4 +25,9 @@ namespace Talent21.Data.Core
         public Company Company { get; set; }
         public int CompanyId { get; set; }
     }
+
+    public class AppSiteConfig : SiteConfig
+    {
+
+    }
 }

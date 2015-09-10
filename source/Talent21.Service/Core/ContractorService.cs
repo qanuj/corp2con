@@ -27,8 +27,11 @@ namespace Talent21.Service.Core
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly INotificationService _notificationService;
+        private readonly IAdvertisementRepository _advertisementRepository;
+        private readonly ITransactionRepository _transactionRepository;
         private readonly ISharedService _sharedService;
-
+        private readonly SellingOptions _sellingOptions;
+     
         public ContractorService(IContractorRepository contractorRepository,
             IJobApplicationRepository jobApplicationRepository,
             IScheduleRepository scheduleRepository,
@@ -38,7 +41,7 @@ namespace Talent21.Service.Core
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
             INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository, ISharedService sharedService,
-            IUserProvider userProvider) : base(userProvider)
+            IUserProvider userProvider, IAdvertisementRepository advertisementRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions) : base(userProvider)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -52,6 +55,9 @@ namespace Talent21.Service.Core
             _companyVisitRepository = companyVisitRepository;
             _jobVisitRepository = jobVisitRepository;
             _sharedService = sharedService;
+            _advertisementRepository = advertisementRepository;
+            _transactionRepository = transactionRepository;
+            _sellingOptions = sellingOptions;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -508,6 +514,40 @@ namespace Talent21.Service.Core
         public bool Decline(JobDeclineViewModel model)
         {
             return ActOnApplication(new CompanyActJobApplicationViewModel { Act = JobActionEnum.Decline, Notes = model.Reason, Id = model.JobId});
+        }
+
+        public bool Promote(PromotionEnum promotion)
+        {
+            var entity = FindContractor(CurrentUserId);
+            if (entity == null) return false;
+
+            var balance=_transactionRepository.Balance(entity.OwnerId);
+            var credit = ((int) promotion)*100;
+
+            if (balance < credit) return false;
+
+            var transaction = new AdvertisementTransaction
+            {
+                Amount = credit * _sellingOptions.CreditPrice,
+                Credit = credit,
+                IsSuccess = true, //should come from PayU Money,
+                PaymentCapture = "Some Data of Payment Capture",
+                UserId = CurrentUserId,
+                Advertisement = new ContractorAdvertisement
+                {
+                    ContractorId = entity.Id,
+                    Start = DateTime.UtcNow,
+                    End = DateTime.UtcNow.AddDays(30),
+                    Promotion = promotion,
+                    Title = string.Format("Promoted Profile ({1}) as {0}", promotion, entity.Id)
+                }
+            };
+
+            _advertisementRepository.Create(transaction.Advertisement);
+            _transactionRepository.Create(transaction);
+
+            var rowsAffested = _advertisementRepository.SaveChanges();
+            return rowsAffested > 0;
         }
 
 

@@ -171,7 +171,6 @@ namespace Talent21.Service.Models
     public class CancelJobViewModel : IdModel { }
     public class PublishJobViewModel : IdModel { }
 
-
     public class PromoteJobViewModel : IdModel
     {
         public PromotionEnum Promotion { get; set; }

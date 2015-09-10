@@ -15,7 +15,6 @@ namespace Talent21.Service.Core
         protected readonly IMemberRepository _memberRepository;
         protected readonly SellingOptions _sellingOptions;
 
-
         protected SharedService(ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions, IUserProvider userProvider, IMemberRepository memberRepository) : base(userProvider)
         {
             _locationRepository = locationRepository;

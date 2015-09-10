@@ -18,4 +18,5 @@ namespace e10.Shared.Data.Abstraction
         public bool IsCompleted { get; set; }
         public DateTime? Completed { get; set; }
     }
+
 }
