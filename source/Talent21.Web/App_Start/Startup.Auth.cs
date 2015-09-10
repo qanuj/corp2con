@@ -14,6 +14,7 @@ namespace Talent21.Web
 
         public void ConfigureAuth(IAppBuilder app)
         {
+            PassiveSessionConfiguration.ConfigureMackineKeyProtectionForSessionTokens();
             PublicClientId = "corp2con";
             OAuthOptions = SecurityManager.Setup(app, PublicClientId, ApplicationDataContext.Create);
             SocialProvider = SecurityManager.SetupSocial(app, new OAuthWebConfigProvider());
