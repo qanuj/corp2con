@@ -17,7 +17,7 @@
                     <h2>Future proof your career</h2>
                     @*<h3>There’s no better place to start</h3>*@
                     <p>
-                        <a href="/#/search" class="btn btn-lg btn-default">Find a job</a>
+                        <a href="@Url.Action("Login","Account",new {returnUrl="/#/search"})" class="btn btn-lg btn-default">Find a job</a>
                     </p>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                     <h2>Employers Save More</h2>
                     @*<h3>We've got perfect candidates</h3>*@
                     <p>
-                        <a href="/#/job/create" class="btn btn-lg btn-default">Post a job</a>
+                        <a href="@Url.Action("Login","Account",new {returnUrl="/#/job/create"})" class="btn btn-lg btn-default">Post a job</a>
                     </p>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     <h2>Contractors Earn More</h2>
                     @*<h3>Find new opportunities here</h3>*@
                     <p>
-                        <a href="/#/search" class="btn btn-lg btn-default">Find a job</a>
+                        <a href="@Url.Action("Login","Account",new {returnUrl="/#/search"})" class="btn btn-lg btn-default">Find a job</a>
                     </p>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <h2>Instant Access to available Contractors</h2>
                     @*<h3>Find a perfect match</h3>*@
                     <p>
-                        <a href="/#/search" class="btn btn-lg btn-default">Find a cadidate</a>
+                        <a href="@Url.Action("Login","Account",new {returnUrl="/#/search"})" class="btn btn-lg btn-default">Find a cadidate</a>
                     </p>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         <!-- Job offer 1 -->
                         @foreach (var job in Model.Jobs)
                         {
-                            <a href="/#/job/@job.Id" class="promote-@PromotionEnum.Highlight.ToString().ToLower()">
+                            <a href="@Url.Action("Login","Account",new {returnUrl= "/#/job/"+ job.Id })" class="promote-@PromotionEnum.Highlight.ToString().ToLower()">
                                 @if (job.Promotion == PromotionEnum.Highlight)
                                 {
                                     <div class="featured"></div>
