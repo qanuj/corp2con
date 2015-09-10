@@ -29,24 +29,13 @@ namespace Talent21.Web
                       "~/Content/css/style.css",
                       "~/Content/css/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/spa/css-1").Include(
-                "~/assets/global/plugins/font-awesome/css/font-awesome.css",
-                "~/assets/global/plugins/simple-line-icons/simple-line-icons.css",
-                "~/assets/global/plugins/bootstrap/css/bootstrap.css",
-                "~/assets/global/plugins/uniform/css/uniform.default.css",
-                "~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css",
-                "~/assets/global/plugins/bootstrap-select/bootstrap-select.min.css",
-                "~/assets/global/plugins/select2/select2.css",
-                "~/assets/global/plugins/jquery-multi-select/css/multi-select.css",
-                "~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"));
+            bundles.Add(new StyleBundle("~/Content/spa/css-1").Include("~/Content/css-1/*.css"));
 
-            bundles.Add(new StyleBundle("~/Content/spa/css-2").Include(
-                "~/assets/global/css/components.css",
-                "~/assets/global/css/plugins.css",
-                "~/assets/admin/layout/css/layout.css",
-                "~/assets/admin/pages/css/*.css",
-                "~/assets/admin/layout/css/themes/darkblue.css",
-                "~/assets/admin/layout/css/custom.css",
+            bundles.Add(new StyleBundle("~/Content/spa/css-2")
+                .Include("~/Content/css-2/*.css")
+                .Include("~/Content/css-2/pages/*.css")
+                .Include("~/Content/css-2/themes/darkblue.css",
+                "~/Content/css-2/custom/custom.css",
                 "~/Content/css/extra/ng-tags-input.a.css",
                 "~/Content/css/extra/ng-tags-input.bootstrap.css",
                 "~/Content/css/rzslider.css",
@@ -80,37 +69,37 @@ namespace Talent21.Web
              );
 
             bundles.Add(new ScriptBundle("~/script/vendors")
-                .Include("~/assets/global/plugins/jquery.min.js")
-                .Include("~/assets/global/plugins/jquery.migrate.min.js")
-                .Include("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")
-                .Include("~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js")
-                .Include("~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js")
-                .Include("~/assets/global/plugins/jquery.blockui.min.js")
-                .Include("~/assets/global/plugins/jquery.cokie.min.js")
-                .Include("~/assets/global/plugins/uniform/jquery.uniform.min.js")
-                .Include("~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js")
-                .Include("~/assets/global/plugins/angularjs/angular.min.js")
-                .Include("~/assets/global/plugins/angularjs/angular-sanitize.min.js")
-                .Include("~/assets/global/plugins/angularjs/angular-touch.min.js")
-                .Include("~/assets/global/plugins/angularjs/plugins/angular-ui-router.min.js")
-                .Include("~/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js")
-                .Include("~/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js")
-                .Include("~/assets/global/scripts/metronic.js")
-                .Include("~/assets/global/plugins/angularjs/plugins/angular-daterangepicker/angular-daterangepicker.js")
-                .Include("~/assets/global/plugins/angularjs/plugins/angular-bootstrap-switch.js")
-                .Include("~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js")
-                .Include("~/assets/global/plugins/bootstrap-select/bootstrap-select.min.js")
-                .Include("~/assets/global/plugins/select2/select2.min.js")
-                .Include("~/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js")
+                .Include("~/scripts/jquery-{version}.js")
+                .Include("~/scripts/jquery.migrate.min.js")
+                .Include("~/scripts/bootstrap.js")
+                .Include("~/scripts/angular.js")
+                .Include("~/scripts/spa-1/bootstrap-hover-dropdown.js")
+                .Include("~/scripts/spa-1/jquery.slimscroll.js")
+                .Include("~/scripts/spa-1/jquery.blockui.min.js")
+                .Include("~/scripts/spa-1/jquery.cokie.min.js")
+                .Include("~/scripts/spa-1/jquery.uniform.js")
+                .Include("~/scripts/spa-1/bootstrap-switch.js")
+                .Include("~/scripts/spa-1/angular-sanitize.js")
+                .Include("~/scripts/spa-1/angular-touch.min.js")
+                .Include("~/scripts/spa-1/angular-ui-router.min.js")
+                .Include("~/scripts/spa-1/ocLazyLoad.min.js")
+                .Include("~/scripts/spa-1/ui-bootstrap-tpls.js")
+                .Include("~/scripts/spa-1/metronic.js")
+                .Include("~/scripts/spa-1/angular-daterangepicker.js")
+                .Include("~/scripts/spa-1/angular-bootstrap-switch.js")
+                .Include("~/scripts/spa-1/bootstrap-confirmation.js")
+                .Include("~/scripts/spa-1/bootstrap-select.js")
+                .Include("~/scripts/spa-1/select2.js")
+                .Include("~/scripts/spa-1/jquery.multi-select.js")
+                .Include("~/Scripts/spa-1/rzslider.js")
+                .Include("~/Scripts/spa-1/toastr.min.js")
                 .Include("~/Scripts/vendors/*.js")
                 .Include("~/Scripts/angular-*")
-                .Include("~/Scripts/rzslider.js")
-                .Include("~/Scripts/toastr.min.js")
              );
 
             bundles.Add(new ScriptBundle("~/script/spa")
                 .Include("~/app/app.js")
-                .Include("~/Scripts/modules/*.js")
+                .Include("~/scripts/modules/*.js")
                 .Include("~/app/app.*")
                 .Include("~/app/router/*.js")
                 .Include("~/app/controllers/*.js")
