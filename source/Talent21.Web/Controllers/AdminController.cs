@@ -47,6 +47,20 @@ namespace Talent21.Web.Controllers
             return !ModelState.IsValid ? Bad(ModelState) : Ok(_service.SendGift(model));
         }
 
+        [HttpPut]
+        [Route("config")]
+        [ResponseType(typeof(AppSiteConfig))]
+        public HttpResponseMessage UpdateConfig(AppSiteConfig model)
+        {
+            return !ModelState.IsValid ? Bad(ModelState) : Ok(_service.UpdateConfig(model));
+        }
+
+        [HttpGet]
+        [Route("config")]
+        public AppSiteConfig GetConfig()
+        {
+            return _service.GetOrCreateConfig();
+        }
 
         [HttpGet]
         [Route("profile")]

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using e10.Shared.Data.Abstraction;
 
 namespace Talent21.Data.Core
 {
@@ -18,11 +17,5 @@ namespace Talent21.Data.Core
         public IList<Contact> Team { get; set; }
         public IList<Job> Jobs { get; set; }
 
-    }
-
-    public class BenchInvite : Invite
-    {
-        public Company Company { get; set; }
-        public int CompanyId { get; set; }
     }
 }

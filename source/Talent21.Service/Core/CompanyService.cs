@@ -34,7 +34,7 @@ namespace Talent21.Service.Core
         private readonly IContractorFolderRepository _contractorFolderRepository;
         private readonly INotificationService _notificationService;
         private readonly ISharedService _sharedService;
-        private readonly SellingOptions _sellingOptions;
+        private readonly IAppSiteConfigRepository _appSiteConfigRepository;
 
         public CompanyService(ICompanyRepository companyRepository,
             IJobRepository jobRepository,
@@ -51,7 +51,7 @@ namespace Talent21.Service.Core
             IContractorVisitRepository contractorVisitRepository,
             IInviteRepository inviteRepository,
             ISharedService sharedService,
-            IUserProvider userProvider, ILocationRepository locationRepository, ITransactionRepository transactionRepository, SellingOptions sellingOptions) :base(userProvider)
+            IUserProvider userProvider, ILocationRepository locationRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository) :base(userProvider)
         {
             _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
@@ -70,7 +70,7 @@ namespace Talent21.Service.Core
             _sharedService = sharedService;
             _locationRepository = locationRepository;
             _transactionRepository = transactionRepository;
-            _sellingOptions = sellingOptions;
+            _appSiteConfigRepository = appSiteConfigRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -341,9 +341,10 @@ namespace Talent21.Service.Core
             var entity = _jobRepository.ById(model.Id);
             if (entity == null) return false;
 
+            var config = _appSiteConfigRepository.Config();
             var balance = _transactionRepository.Balance(CurrentUserId);
-            var price = 0 - _sellingOptions.RequirementCredit;
-            var amount = price * _sellingOptions.CreditPrice;
+            var price = 0 - config.JobPrice.Rate;
+            var amount = price * config.Credit.Rate;
 
             if (balance < price) throw new Exception("Not enough balance.");
             _transactionRepository.Create(new JobTransaction
@@ -358,7 +359,7 @@ namespace Talent21.Service.Core
 
             entity.IsPublished = true;
             entity.Published = DateTime.UtcNow;
-            entity.Expiry = DateTime.UtcNow.AddDays(_sellingOptions.Validity);
+            entity.Expiry = DateTime.UtcNow.AddDays(config.JobPrice.Validity);
 
             var rowsAffested = _jobRepository.SaveChanges();
 
@@ -737,15 +738,90 @@ namespace Talent21.Service.Core
             });
         }
 
-        public bool Promote(PromoteJobViewModel model)
+        public bool Promote(PromotionEnum promotion)
         {
-            var entity = _jobRepository.ById(model.Id);
+            if (promotion == PromotionEnum.None) return false;
+
+            var entity = FindCompany();
             if (entity == null) return false;
+
+            var balance = _transactionRepository.Balance(entity.OwnerId);
+
+            var config = _appSiteConfigRepository.Config();
+            var which = config.Company.Featured;
+
+            if (promotion == PromotionEnum.Advertise)
+            {
+                which = config.Company.Advertise;
+            }
+            else if (promotion == PromotionEnum.Global)
+            {
+                which = config.Company.Global;
+            }
+            else if (promotion == PromotionEnum.Highlight)
+            {
+                which = config.Company.Highlight;
+            }
+
+            if (balance < which.Rate) throw new Exception("Not enough balance.");
 
             var transaction = new AdvertisementTransaction
             {
-                Amount = ((int)model.Promotion) * 10,
-                Credit = ((int)model.Promotion) * 100,
+                Amount = which.Rate * config.Credit.Rate,
+                Credit = which.Rate,
+                IsSuccess = true, //should come from PayU Money,
+                PaymentCapture = "Some Data of Payment Capture",
+                UserId = CurrentUserId,
+                Advertisement = new ContractorAdvertisement
+                {
+                    ContractorId = entity.Id,
+                    Start = DateTime.UtcNow,
+                    End = DateTime.UtcNow.AddDays(which.Validity),
+                    Promotion = promotion,
+                    Title = string.Format("Promoted Company Profile ({1}) as {0}", promotion, entity.Id)
+                }
+            };
+
+            _advertisementRepository.Create(transaction.Advertisement);
+            _transactionRepository.Create(transaction);
+
+            var rowsAffested = _advertisementRepository.SaveChanges();
+            return rowsAffested > 0;
+        }
+
+        public bool Promote(PromoteJobViewModel model)
+        {
+            if (model.Promotion == PromotionEnum.None) return false;
+
+            var entity = _jobRepository.ById(model.Id);
+            if (entity == null) return false;
+
+            var company = _companyRepository.ById(entity.CompanyId);
+
+            var balance = _transactionRepository.Balance(company.OwnerId);
+
+            var config = _appSiteConfigRepository.Config();
+            var which = config.Job.Featured;
+
+            if (model.Promotion == PromotionEnum.Advertise)
+            {
+                which = config.Job.Advertise;
+            }
+            else if (model.Promotion == PromotionEnum.Global)
+            {
+                which = config.Job.Global;
+            }
+            else if (model.Promotion == PromotionEnum.Highlight)
+            {
+                which = config.Job.Highlight;
+            }
+
+            if (balance < which.Rate) throw new Exception("Not enough balance.");
+
+            var transaction = new AdvertisementTransaction
+            {
+                Amount = which.Rate * config.Credit.Rate,
+                Credit = which.Rate,
                 IsSuccess = true, //should come from PayU Money,
                 PaymentCapture = "Some Data of Payment Capture",
                 UserId = CurrentUserId,
@@ -753,7 +829,7 @@ namespace Talent21.Service.Core
                 {
                     JobId = entity.Id,
                     Start = DateTime.UtcNow,
-                    End = DateTime.UtcNow.AddDays(30),
+                    End = DateTime.UtcNow.AddDays(which.Validity),
                     Promotion = model.Promotion,
                     Title = string.Format("Promoted Job ({1}) as {0}", model.Promotion, entity.Id)
                 }

@@ -22,6 +22,11 @@
         return $http.post(v + 'gift', { email: email, credit: credits });
     }
 
+    admin.config = function (config) {
+        if (!config) return $http.get(v + 'config');
+        return $http.put(v + 'config', config);
+    }
+
 
     return admin;
 }]);

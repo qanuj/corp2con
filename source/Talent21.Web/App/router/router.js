@@ -238,6 +238,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 data: { pageTitle: 'Invite' },
                 controller: role + "InviteController",
                 resolve: {}
+            })
+            .state('config', {
+                url: "/config",
+                templateUrl: "app/views/" + role + "/config.html",
+                data: { pageTitle: 'Configuration' },
+                controller: role + "ConfigController",
+                resolve: {}
             });
     }
 

@@ -286,5 +286,14 @@ namespace Talent21.Web.Controllers
         {
             return _jobService.TopJobs(skill, location);
         }
+
+
+        [HttpPost]
+        [Route("promote/{promotion}")]
+        [ResponseType(typeof(bool))]
+        public HttpResponseMessage PromoteProfile(PromotionEnum promotion)
+        {
+            return ModelState.IsValid ? Ok(_service.Promote(promotion)) : Bad(ModelState);
+        }
     } 
 }

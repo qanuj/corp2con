@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using e10.Shared.Data.Abstraction;
 using e10.Shared.Providers;
 using e10.Shared.Security;
 using e10.Shared.Util;
@@ -28,10 +29,11 @@ namespace Talent21.Service.Core
         private readonly IUserProvider _userProvider;
 
         protected readonly IMemberRepository _memberRepository;
+        protected readonly IAppSiteConfigRepository _siteConfigRepository;
         protected readonly SellingOptions _sellingOptions;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions, IUserProvider userProvider)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions, IUserProvider userProvider, IAppSiteConfigRepository siteConfigRepository)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
@@ -42,6 +44,7 @@ namespace Talent21.Service.Core
             _memberRepository = memberRepository;
             _sellingOptions = sellingOptions;
             _userProvider = userProvider;
+            _siteConfigRepository = siteConfigRepository;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -429,6 +432,18 @@ namespace Talent21.Service.Core
                     IsFailed = !x.IsSuccess,
                     Mode = x is Payment ? "Payment" : "Transaction"
                 };
+        }
+
+        public AppSiteConfig UpdateConfig(AppSiteConfig model)
+        {
+            _siteConfigRepository.Update(model);
+            _siteConfigRepository.SaveChanges();
+            return model;
+        }
+
+        public AppSiteConfig GetOrCreateConfig()
+        {
+            return _siteConfigRepository.Config();
         }
     }
 }

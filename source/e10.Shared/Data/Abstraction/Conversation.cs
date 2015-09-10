@@ -12,7 +12,7 @@ namespace e10.Shared.Data.Abstraction
     }
 
     [ComplexType]
-    public class CreditConfig
+    public class RateValidityConfig
     {
         public int Rate { get; set; }
         public int Validity { get; set; }
@@ -34,10 +34,20 @@ namespace e10.Shared.Data.Abstraction
         public string Url { get; set; }
     }
 
+
+    [ComplexType]
+    public class AdvertisementPrice
+    {
+        public RateValidityConfig Highlight { get; set; }
+        public RateValidityConfig Featured { get; set; }
+        public RateValidityConfig Global { get; set; }
+        public RateValidityConfig Advertise { get; set; }
+    }
+
     public abstract class SiteConfig : Entity
     {
         public PaymentConfig Payment { get; set; }
-        public CreditConfig Credit { get; set; }
+        public RateValidityConfig Credit { get; set; }
         public TaxConfig Tax { get; set; }
     }
 }

@@ -43,6 +43,7 @@ namespace Talent21.Data
             builder.RegisterType<TransactionRepository>().As<ITransactionRepository>();
             builder.RegisterType<CountryRepository>().As<ICountryRepository>();
             builder.RegisterType<MemberRepository>().As<IMemberRepository>();
+            builder.RegisterType<AppSiteConfigRepository>().As<IAppSiteConfigRepository>();
 
             builder.RegisterType<ApplicationDataContext>().As<ApplicationDbContext>().As<DbContext>().InstancePerRequest();
         }

@@ -27,7 +27,9 @@ namespace Talent21.Service.Core
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly INotificationService _notificationService;
-        private readonly ISharedService _sharedService;
+        private readonly IAdvertisementRepository _advertisementRepository;
+        private readonly ITransactionRepository _transactionRepository;
+        private readonly IAppSiteConfigRepository _appSiteConfigRepository;
 
         public ContractorService(IContractorRepository contractorRepository,
             IJobApplicationRepository jobApplicationRepository,
@@ -37,8 +39,8 @@ namespace Talent21.Service.Core
             IContractorVisitRepository contractorVisitRepository,
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
-            INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository, ISharedService sharedService,
-            IUserProvider userProvider) : base(userProvider)
+            INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository,
+            IUserProvider userProvider, IAdvertisementRepository advertisementRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository) : base(userProvider)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -51,7 +53,9 @@ namespace Talent21.Service.Core
             _notificationService = notificationService;
             _companyVisitRepository = companyVisitRepository;
             _jobVisitRepository = jobVisitRepository;
-            _sharedService = sharedService;
+            _advertisementRepository = advertisementRepository;
+            _transactionRepository = transactionRepository;
+            _appSiteConfigRepository = appSiteConfigRepository;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -508,6 +512,57 @@ namespace Talent21.Service.Core
         public bool Decline(JobDeclineViewModel model)
         {
             return ActOnApplication(new CompanyActJobApplicationViewModel { Act = JobActionEnum.Decline, Notes = model.Reason, Id = model.JobId});
+        }
+
+        public bool Promote(PromotionEnum promotion)
+        {
+            if (promotion == PromotionEnum.None) return false;
+
+            var entity = FindContractor(CurrentUserId);
+            if (entity == null) return false;
+
+            var balance=_transactionRepository.Balance(entity.OwnerId);
+
+            var config = _appSiteConfigRepository.Config();
+            var which = config.Contractor.Featured;
+
+            if (promotion == PromotionEnum.Advertise)
+            {
+                which = config.Contractor.Advertise;
+            }
+            else if (promotion == PromotionEnum.Global)
+            {
+                which = config.Contractor.Global;
+            }
+            else if (promotion == PromotionEnum.Highlight)
+            {
+                which = config.Contractor.Highlight;
+            }
+
+            if (balance < which.Rate) throw new Exception("Not enough balance.");
+
+            var transaction = new AdvertisementTransaction
+            {
+                Amount = which.Rate * config.Credit.Rate,
+                Credit = which.Rate,
+                IsSuccess = true, //should come from PayU Money,
+                PaymentCapture = "Some Data of Payment Capture",
+                UserId = CurrentUserId,
+                Advertisement = new ContractorAdvertisement
+                {
+                    ContractorId = entity.Id,
+                    Start = DateTime.UtcNow,
+                    End = DateTime.UtcNow.AddDays(which.Validity),
+                    Promotion = promotion,
+                    Title = string.Format("Promoted Profile ({1}) as {0}", promotion, entity.Id)
+                }
+            };
+
+            _advertisementRepository.Create(transaction.Advertisement);
+            _transactionRepository.Create(transaction);
+
+            var rowsAffested = _advertisementRepository.SaveChanges();
+            return rowsAffested > 0;
         }
 
 

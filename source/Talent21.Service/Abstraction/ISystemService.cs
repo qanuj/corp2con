@@ -28,5 +28,7 @@ namespace Talent21.Service.Abstraction
         string Hash(string email);
         bool SendGift(GiftViewModel model);
         IQueryable<TransactionViewModel> AllTransactions();
+        AppSiteConfig UpdateConfig(AppSiteConfig model);
+        AppSiteConfig GetOrCreateConfig();
     }
 }
