@@ -38,10 +38,10 @@ namespace e10.Shared.Data.Abstraction
     [ComplexType]
     public class AdvertisementPrice
     {
-        public int Highlight { get; set; }
-        public int Featured { get; set; }
-        public int Global { get; set; }
-        public int Advertise { get; set; }
+        public RateValidityConfig Highlight { get; set; }
+        public RateValidityConfig Featured { get; set; }
+        public RateValidityConfig Global { get; set; }
+        public RateValidityConfig Advertise { get; set; }
     }
 
     public abstract class SiteConfig : Entity

@@ -37,7 +37,8 @@ namespace Talent21.Service.Abstraction
         CompanyDashboardViewModel GetDashboard(string userId);
         IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location);
         IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location);
-        bool  Promote(PromoteJobViewModel model);
+        bool Promote(PromoteJobViewModel model);
+        bool Promote(PromotionEnum promotion);
         IQueryable<ScheduleViewModel> Schedules(int id);
         JobApplicationCompanyViewModel Application(int id);
         IQueryable<CountLabel<int>> JobFolders(int id);

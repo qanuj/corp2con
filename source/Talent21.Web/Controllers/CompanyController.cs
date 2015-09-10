@@ -148,6 +148,14 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Promote(new PromoteJobViewModel { Id = id, Promotion = promotion })) : Bad(ModelState);
         }
 
+        [HttpPost]
+        [Route("promote/{promotion}")]
+        [ResponseType(typeof(bool))]
+        public HttpResponseMessage PromoteProfile(PromotionEnum promotion)
+        {
+            return ModelState.IsValid ? Ok(_service.Promote(promotion)) : Bad(ModelState);
+        }
+
         [HttpPut]
         [Route("job/cancel")]
         [ResponseType(typeof(bool))]
