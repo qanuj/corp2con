@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using e10.Shared.Providers;
+using e10.Shared.Security;
 using e10.Shared.Util;
 using Talent21.Data;
 using Talent21.Data.Core;
@@ -23,12 +25,13 @@ namespace Talent21.Service.Core
         private readonly ISkillRepository _skillRepository;
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICountryRepository _countryRepository;
+        private readonly IUserProvider _userProvider;
 
         protected readonly IMemberRepository _memberRepository;
         protected readonly SellingOptions _sellingOptions;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions, IUserProvider userProvider)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
@@ -38,6 +41,7 @@ namespace Talent21.Service.Core
             _countryRepository = countryRepository;
             _memberRepository = memberRepository;
             _sellingOptions = sellingOptions;
+            _userProvider = userProvider;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -382,6 +386,27 @@ namespace Talent21.Service.Core
             }
 
             return sBuilder.ToString();  // Return the hexadecimal string. 
+        }
+
+        public bool SendGift(GiftViewModel model)
+        {
+            var toUser = _userProvider.UserIdByEmail(model.Email);
+            if (string.IsNullOrWhiteSpace(toUser)) return false;
+            var gift = new Gift
+            {
+                IsSuccess = true,
+                Amount = model.Credit * _sellingOptions.CreditPrice,
+                Capture = "Admin Sent Gift",
+                Code = "gift",
+                CreatedBy = _userProvider.UserName,
+                Gateway = "internal",
+                Credit = model.Credit,
+                Name = "Administrator sent you gift of credits "+model.Credit,
+                PaymentCapture = "none",
+                UserId = _userProvider.UserIdByEmail(model.Email)
+            };
+            _transactionRepository.Create(gift);
+            return _transactionRepository.SaveChanges() > 0;
         }
     }
 }

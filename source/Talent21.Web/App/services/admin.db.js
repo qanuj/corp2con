@@ -18,5 +18,10 @@
         return $http.get(v + 'transaction/' + id);
     }
 
+    admin.gift = function (email, credits) {
+        return $http.post(v + 'gift', { email: email, credit: credits });
+    }
+
+
     return admin;
 }]);

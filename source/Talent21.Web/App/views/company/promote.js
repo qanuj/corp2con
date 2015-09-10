@@ -23,7 +23,6 @@
         { id: 3, title: 'Global', credits: 100, color: 'bg-blue-hoki', icon: 'globe' }
     ];
 
-    $scope.promotedJob;
     $scope.selectedItem = null;
 
     $scope.highlight = function (index) {

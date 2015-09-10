@@ -21,6 +21,12 @@ namespace Talent21.Service.Models
         public string PinCode { get; set; }
     }
 
+    public class GiftViewModel
+    {
+        public int Credit { get; set; }
+        public string Email { get; set; }
+    }
+
     public class InvoiceViewModel
     {
         public MemberViewModel Member { get; set; }

@@ -17,11 +17,16 @@
         </li>
     </ul>
 </div>
+<h4>Who would you like to gift credits ?</h4>
+<div class="form-group">
+    <label>Email</label>
+    <input type="email" ng-model="email" required class="form-control"/>
+</div>
 <h4>How Much Prepaid Credit Do You Want To Deposit?</h4>
 <p>Deposits are in INR, are non-refundable and will expire one year from your last deposit. For larger amounts, contact the <a href="help@contractorspoll.com">Help Team.</a>
 </p>
 <div class="tiles">
-    <div ng-repeat="t in credits" ng-click="addCredits(t.t)" class="tile" ng-class="[t.color,t.size]">
+    <div ng-repeat="t in credits" ng-click="addCredits(email,t.t)" class="tile" ng-class="[t.color,t.size]">
         <div class="tile-body">
             <i class="fa fa-inr">{{t.t}}</i>
         </div>

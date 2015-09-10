@@ -1,4 +1,4 @@
-﻿app.controller('adminCreditController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, $stateParams,$rootScope) {
+﻿app.controller('adminCreditController', ['$scope', 'dataService', '$stateParams', '$rootScope', 'toastr', function ($scope, db, $stateParams, $rootScope,toastr) {
 
 $scope.$on('$viewContentLoaded', function () {
         // initialize core components
@@ -34,14 +34,18 @@ $scope.$on('$viewContentLoaded', function () {
         });
     }
 
-    $scope.addCredits = function (credits) {
+    $scope.addCredits = function (email,credits) {
         if (credits <= 0) return;
-        db.billing.addCredits(credits).success(function (result) {
-            if (result.isError) {
-                $scope.error = result.error;
-                return;
+        if (!email) {
+            toastr.error('Did you forgot email ?', 'Oops!');
+            return;
+        }
+        db.admin.gift(email, credits).success(function (result) {
+            if (result == true) {
+                toastr.success('Yipee! Sent', 'Success');
+            } else {
+                toastr.error(email+' doesn\'t have an account here yet', 'Oops!');
             }
-            window.location = result.url;
         });
     }
     $scope.navigate($stateParams.page);

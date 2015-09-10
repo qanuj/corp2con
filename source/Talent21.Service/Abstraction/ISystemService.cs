@@ -26,5 +26,6 @@ namespace Talent21.Service.Abstraction
         InvoiceViewModel TransactionById(int id);
 
         string Hash(string email);
+        bool SendGift(GiftViewModel model);
     }
 }
