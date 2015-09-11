@@ -34,7 +34,7 @@
     }
 
     $scope.confirmPromote = function (Id) {
-        db.contractor.promote($scope.promoted.id)
+        db.contractor.promote($scope.promoted.title)
             .success(function (data) {
                 toastr.success('Success', 'Profile promoted. Enjoy!');
                 console.log(data);

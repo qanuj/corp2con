@@ -146,7 +146,7 @@ namespace Talent21.Service.Core
 
         public JobSearchResultViewModel GetFeaturedJob()
         {
-            return Jobs.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.IsFeatured);
+            return Jobs.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.IsHome);
         }
 
         public IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count)

@@ -133,7 +133,7 @@
                                     <span class="sallary"><i class="fa fa-inr"></i>@(Model.FeaturedJob.Rate)k</span>
                                 </div>
                             }
-                            <div class="description">@Model.FeaturedJob.Description</div>
+                            <div class="description">@Html.Raw(Model.FeaturedJob.Description)</div>
                         </div>
                     </a>
                 </div>
