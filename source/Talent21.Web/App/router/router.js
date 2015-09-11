@@ -239,6 +239,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "InviteController",
                 resolve: {}
             })
+            .state('feedback', {
+                url: "/feedback",
+                templateUrl: "app/views/" + role + "/feedback.html",
+                data: { pageTitle: 'Feedback' },
+                controller: role + "FeedbackController",
+                resolve: {}
+            })
             .state('config', {
                 url: "/config",
                 templateUrl: "app/views/" + role + "/config.html",

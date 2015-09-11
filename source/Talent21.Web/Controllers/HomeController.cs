@@ -38,13 +38,6 @@ namespace Talent21.Web.Controllers
             });
         }
 
-
-        [Route("welcome")]
-        public ActionResult Welcome()
-        {
-            return View();
-        }
-
         [Route("terms")]
         public ActionResult Terms()
         {
@@ -56,7 +49,8 @@ namespace Talent21.Web.Controllers
         public ActionResult Contact(FeedbackViewModel model)
         {
             if(ModelState.IsValid) _siteService.AddFeedback(model);
-            return RedirectToAction("welcome");
+            ViewBag.Message = "Thank you for your feedback";
+            return Index();
         }
 
         public ActionResult Contact()

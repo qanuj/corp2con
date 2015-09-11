@@ -31,9 +31,10 @@ namespace Talent21.Service.Core
         protected readonly IMemberRepository _memberRepository;
         protected readonly IAppSiteConfigRepository _siteConfigRepository;
         protected readonly SellingOptions _sellingOptions;
+        protected readonly IFeedbackRepository _feedbackRepository;
 
         public SystemService(ILocationRepository locationRepository,
-           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions, IUserProvider userProvider, IAppSiteConfigRepository siteConfigRepository)
+           IIndustryRepository industryRepository, ISkillRepository skillRepository, IFunctionalAreaRepository functionalAreaRepository, ITransactionRepository transactionRepository, ICountryRepository countryRepository, IMemberRepository memberRepository, SellingOptions sellingOptions, IUserProvider userProvider, IAppSiteConfigRepository siteConfigRepository, IFeedbackRepository feedbackRepository)
         {
             _locationRepository = locationRepository;
             _industryRepository = industryRepository;
@@ -45,6 +46,7 @@ namespace Talent21.Service.Core
             _sellingOptions = sellingOptions;
             _userProvider = userProvider;
             _siteConfigRepository = siteConfigRepository;
+            _feedbackRepository = feedbackRepository;
         }
 
         public bool Delete(IndustryDeleteViewModel model)
@@ -444,6 +446,26 @@ namespace Talent21.Service.Core
         public AppSiteConfig GetOrCreateConfig()
         {
             return _siteConfigRepository.Config();
+        }
+
+        public IQueryable<FeedbackViewModel> Feedbacks()
+        {
+            return _feedbackRepository.All.Select(x => new FeedbackViewModel()
+            {
+                Id =x.Id,
+                Name = x.Name,
+                Email = x.Email,
+                Subject = x.Subject,
+                Message = x.Message,
+                IsRead = x.IsRead,
+                Created = x.Created,
+            });
+        }
+
+        public bool DeleteFeedback(int id)
+        {
+            _feedbackRepository.Delete(id);
+            return _feedbackRepository.SaveChanges() > 0;
         }
     }
 }

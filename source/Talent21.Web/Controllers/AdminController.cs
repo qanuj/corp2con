@@ -32,6 +32,21 @@ namespace Talent21.Web.Controllers
         }
 
         [HttpGet]
+        [Route("feedback")]
+        public PageResult<FeedbackViewModel> GetFeedbacks(ODataQueryOptions<FeedbackViewModel> options)
+        {
+            return Page(_service.Feedbacks(), options);
+        }
+
+        [HttpDelete]
+        [Route("feedback/{id}")]
+        [ResponseType(typeof(bool))]
+        public HttpResponseMessage DeleteFeedback([FromUri] int id)
+        {
+            return !ModelState.IsValid ? Bad(ModelState) : Ok(_service.DeleteFeedback(id));
+        }
+
+        [HttpGet]
         [Route("transaction/{id}")]
         public InvoiceViewModel GetTransactionById([FromUri]int id)
         {

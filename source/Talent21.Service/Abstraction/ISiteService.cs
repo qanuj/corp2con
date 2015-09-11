@@ -4,6 +4,6 @@ namespace Talent21.Service.Abstraction
 {
     public interface ISiteService : IService
     {
-        void AddFeedback(FeedbackViewModel model);
+        void AddFeedback(FeedbackCreateViewModel model);
     }
 }

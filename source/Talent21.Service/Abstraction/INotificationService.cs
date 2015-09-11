@@ -11,5 +11,6 @@ namespace Talent21.Service.Abstraction
         void PasswordRecovery(string toEmail, string key);
         void ActOnApplication(JobApplication application, JobActionEnum act);
         void Invite(IEnumerable<InviteCodeViewModel> invitees,string by);
+        void Feedback(FeedbackCreateViewModel model);
     }
 }

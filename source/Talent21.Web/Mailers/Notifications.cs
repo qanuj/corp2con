@@ -9,17 +9,20 @@ using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using System.Threading.Tasks;
+using Talent21.Data.Repository;
 
 namespace Talent21.Web.Mailers
 {
     public sealed class Notifications : MailerBase, INotificationService
     {
         private readonly IIdentityEmailMessageService _emailService;
+        private readonly IAppSiteConfigRepository _configRepository;
 
-        public Notifications(IIdentityEmailMessageService emailService) :
+        public Notifications(IIdentityEmailMessageService emailService, IAppSiteConfigRepository configRepository) :
             base()
         {
             _emailService = emailService;
+            _configRepository = configRepository;
             MasterName = "_Layout";
         }
 
@@ -93,6 +96,14 @@ namespace Talent21.Web.Mailers
                 PopulateBody(msg2, "Invite");
                 Send(msg2, inx.Email);
             });
+        }
+
+        public void Feedback(FeedbackCreateViewModel model)
+        {
+            var mvcMailMessage = new MvcMailMessage { Subject = "New Feedback :"+Product.Name };
+            ViewBag.Feedback = model;
+            PopulateBody(mvcMailMessage, "Feedback");
+            Send(mvcMailMessage, _configRepository.Config().Notification.Feedback);
         }
     }
 }

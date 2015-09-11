@@ -9,13 +9,15 @@ namespace Talent21.Service.Core
     public class SiteService : ISiteService
     {
         private readonly IFeedbackRepository _feedbackRepository;
+        private readonly INotificationService _notification;
 
-        public SiteService(IFeedbackRepository feedbackRepository)
+        public SiteService(IFeedbackRepository feedbackRepository, INotificationService notification)
         {
             _feedbackRepository = feedbackRepository;
+            _notification = notification;
         }
 
-        public void AddFeedback(FeedbackViewModel model)
+        public void AddFeedback(FeedbackCreateViewModel model)
         {
             _feedbackRepository.Create(new Feedback
             {
@@ -25,6 +27,7 @@ namespace Talent21.Service.Core
                 Subject = model.Subject
             });
             _feedbackRepository.SaveChanges();
+            _notification.Feedback(model);
         }
     }
 }
