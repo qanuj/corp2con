@@ -32,5 +32,6 @@ namespace Talent21.Service.Abstraction
         AppSiteConfig GetOrCreateConfig();
         IQueryable<FeedbackViewModel> Feedbacks();
         bool DeleteFeedback(int id);
+        bool ReadFeedback(int id, bool what);
     }
 }

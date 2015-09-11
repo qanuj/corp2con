@@ -38,6 +38,14 @@ namespace Talent21.Web.Controllers
             return Page(_service.Feedbacks(), options);
         }
 
+        [HttpPut]
+        [Route("feedback/{id}/{read}")]
+        [ResponseType(typeof(bool))]
+        public HttpResponseMessage ReadFeedback([FromUri] int id,[FromUri] bool read)
+        {
+            return !ModelState.IsValid ? Bad(ModelState) : Ok(_service.ReadFeedback(id, read));
+        }
+
         [HttpDelete]
         [Route("feedback/{id}")]
         [ResponseType(typeof(bool))]

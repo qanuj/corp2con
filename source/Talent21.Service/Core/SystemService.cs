@@ -467,5 +467,11 @@ namespace Talent21.Service.Core
             _feedbackRepository.Delete(id);
             return _feedbackRepository.SaveChanges() > 0;
         }
+
+        public bool ReadFeedback(int id,bool what)
+        {
+            _feedbackRepository.Read(id,what);
+            return _feedbackRepository.SaveChanges() > 0;
+        }
     }
 }

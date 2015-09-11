@@ -146,12 +146,12 @@ namespace Talent21.Service.Core
 
         public JobSearchResultViewModel GetFeaturedJob()
         {
-            return Jobs.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.Promotion==PromotionEnum.Global);
+            return Jobs.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.IsFeatured);
         }
 
         public IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count)
         {
-            return Companies.Where(x => x.Promotion == PromotionEnum.Global).OrderByDescending(x => x.Id).Take(count).ToList();
+            return Companies.Where(x => x.IsHome).OrderByDescending(x => x.Id).Take(count).ToList();
         }
 
         public StatsViewModel GetStats()

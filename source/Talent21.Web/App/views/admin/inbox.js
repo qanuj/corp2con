@@ -21,7 +21,36 @@ $scope.$on('$viewContentLoaded', function () {
             $scope.records = result.items;
         });
     }
-    
+
+    $scope.toggleMessage = function (row) {
+        if (!row.isRead) {
+            read(row, true);
+        }
+        row.show = !row.show;
+    }
+
+    $scope.markRead = function (row) {
+        read(row, true);
+    }
+
+    $scope.markDelete = function (row) {
+        return db.admin.deleteFeedback(row.id).success(function (result) {
+            $scope.navigate();
+        });
+    }
+
+    $scope.markUnRead = function (row) {
+        read(row, false);
+    }
+
     $scope.navigate($stateParams.page);
+
+
+    function read(row, what) {
+        return db.admin.feedback(row.id, what).success(function (result) {
+            row.isRead = what;
+        });
+    }
+
 }]);
 
