@@ -80,7 +80,30 @@ namespace Talent21.Service.Core
                                 CompanyName = company.CompanyName,
                                 PictureUrl = company.PictureUrl,
                                 Id = company.Id,
-                                Jobs=company.Jobs.Count(x=>!x.IsCancelled && x.IsPublished)
+                                Jobs=company.Jobs.Count(x=>!x.IsCancelled && x.IsPublished && (x.Expiry > DateTime.UtcNow || !x.Expiry.HasValue))
+                            };
+                return query;
+            }
+        }
+
+
+        protected IQueryable<FeaturedContractorViewModel> Contractors
+        {
+            get
+            {
+                var query = from contractor in _contractorRepository.All
+                            let promotions = contractor.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
+                            select new FeaturedContractorViewModel
+                            {
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
+                                IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
+                                IsHome = promotions.Any(y => y == PromotionEnum.Global),
+                                Experience = contractor.Experience.Years+"."+contractor.Experience.Months,
+                                Name = contractor.FirstName +" "+contractor.LastName,
+                                PictureUrl = contractor.PictureUrl,
+                                Id = contractor.Id,
+                                Skills = contractor.Skills.Where(x=>x.Level==LevelEnum.Primary).OrderByDescending(x=>x.ExperienceInMonths).Take(5).Select(x => x.Skill.Title)
                             };
                 return query;
             }
@@ -162,6 +185,11 @@ namespace Talent21.Service.Core
                 Companies = _companyRepository.All.Count(),
                 Contractors = _contractorRepository.All.Count()
             };
+        }
+
+        public FeaturedContractorViewModel GetFeaturedContractor()
+        {
+            return Contractors.OrderByDescending(x => x.Id).FirstOrDefault(x => x.IsHome);
         }
     }
 }

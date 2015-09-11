@@ -196,6 +196,19 @@ namespace Talent21.Service.Models
         public bool IsHome { get; set; }
     }
 
+    public class FeaturedContractorViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string PictureUrl { get; set; }
+        public string Experience { get; set; }
+        public IEnumerable<string> Skills { get; set; }
+        public bool IsFeatured { get; set; }
+        public bool IsHighlight { get; set; }
+        public bool IsAdvertised { get; set; }
+        public bool IsHome { get; set; }
+    }
+
     public class StatsViewModel
     {
         public int Members

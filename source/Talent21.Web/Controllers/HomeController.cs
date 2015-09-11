@@ -34,7 +34,8 @@ namespace Talent21.Web.Controllers
                 Jobs = _service.LatestJobs(10),
                 FeaturedJob = _service.GetFeaturedJob(),
                 Companies = _service.GetFeaturedCompanies(20),
-                Numbers = _service.GetStats()
+                Numbers = _service.GetStats(),
+                FeaturedContractor = _service.GetFeaturedContractor()
             });
         }
 
