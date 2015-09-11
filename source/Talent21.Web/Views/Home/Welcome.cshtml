@@ -92,7 +92,7 @@
                         @foreach (var job in Model.Jobs)
                         {
                             <a href="@Url.Action("Login","Account",new {returnUrl= "/#/job/"+ job.Id })" class="promote-@PromotionEnum.Highlight.ToString().ToLower()">
-                                @if (job.Promotion == PromotionEnum.Highlight)
+                                @if (job.IsFeatured)
                                 {
                                     <div class="featured"></div>
                                 }
