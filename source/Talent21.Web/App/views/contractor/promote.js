@@ -1,4 +1,4 @@
-﻿app.controller('companyPromoteController', ['$scope', 'dataService', '$stateParams', '$rootScope','toastr','$state', function ($scope, db, $stateParams, $rootScope, toastr, $state) {
+﻿app.controller('contractorPromoteController', ['$scope', 'dataService', '$stateParams', '$rootScope','toastr','$state', function ($scope, db, $stateParams, $rootScope, toastr, $state) {
     
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
@@ -33,19 +33,20 @@
         $scope.promoCredit = p.credits;
     }
 
-    $scope.confirmPromote = function (jobId) {
-        db.company.promote($scope.promoted.id)
+    $scope.confirmPromote = function (Id) {
+        db.contractor.promote($scope.promoted.id)
             .success(function (data) {
                 toastr.success('Success', 'Profile promoted. Enjoy!');
                 console.log(data);
-                $state.go('profile');
+                //$state.go('profile');
             })
             .error(function (data) {
                 console.log(data);
             });
     }
 
-    db.company.get().success(function (result) {
+    db.contractor.get().success(function (result) {
+        console.log('profile data', result)
         $scope.record = result;
     });
 }]);
