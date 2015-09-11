@@ -562,7 +562,7 @@ namespace Talent21.Service.Core
                                 Rate = x.Rate,
                                 Availability = availableDay,
                                 Days = days,
-                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                                 IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
                                 IsHome = promotions.Any(y => y == PromotionEnum.Global),
