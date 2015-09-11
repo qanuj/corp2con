@@ -124,6 +124,10 @@
             return $http.post(v + 'job/promote/' + jobId + '/' + promo);
         }
 
+        company.promote = function(p) {
+            return $http.post(v+'promote/'+p)
+        }
+
         return company;
 
     }]);

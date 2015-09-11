@@ -352,6 +352,8 @@
     <Content Include="App\views\company\job.item.html" />
     <Content Include="App\views\company\promote.html" />
     <Content Include="App\views\company\promote.js" />
+    <Content Include="App\views\company\promotejob.html" />
+    <Content Include="App\views\company\promotejob.js" />
     <Content Include="App\views\company\search.js" />
     <Content Include="App\views\contractor\company.html" />
     <Content Include="App\views\contractor\company.js" />
@@ -363,6 +365,8 @@
     <Content Include="App\views\company\contractorApplication.js" />
     <Content Include="App\views\company\editOrCreateJob.html" />
     <Content Include="App\views\company\editOrCreateJob.js" />
+    <Content Include="App\views\contractor\promote.html" />
+    <Content Include="App\views\contractor\promote.js" />
     <Content Include="App\views\layout\footer.html" />
     <Content Include="App\views\layout\header.html" />
     <Content Include="App\views\contractor\job.item.html" />
