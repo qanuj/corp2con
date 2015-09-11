@@ -290,10 +290,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\GeneralPageController.js" />
-    <Content Include="App\controllers\TodoController.js" />
-    <Content Include="App\controllers\UISelectController.js" />
-    <Content Include="App\controllers\UserProfileController.js" />
     <Content Include="App\directives\humenize.js" />
     <Content Include="App\directives\ng-ckeditor.js" />
     <Content Include="App\directives\uploader.js" />
@@ -307,21 +303,6 @@
     <Content Include="App\services\db.util.js" />
     <Content Include="App\services\job.db.js" />
     <Content Include="App\services\system.db.js" />
-    <Content Include="App\template\views\dashboard.html" />
-    <Content Include="App\template\views\datatables\advanced.html" />
-    <Content Include="App\template\views\datatables\ajax.html" />
-    <Content Include="App\template\views\dropdowns.html" />
-    <Content Include="App\template\views\file_upload.html" />
-    <Content Include="App\template\views\form_tools.html" />
-    <Content Include="App\template\views\pickers.html" />
-    <Content Include="App\template\views\profile\account.html" />
-    <Content Include="App\template\views\profile\dashboard.html" />
-    <Content Include="App\template\views\profile\help.html" />
-    <Content Include="App\template\views\profile\main.html" />
-    <Content Include="App\template\views\todo.html" />
-    <Content Include="App\template\views\tree.html" />
-    <Content Include="App\template\views\ui_bootstrap.html" />
-    <Content Include="App\template\views\ui_select.html" />
     <Content Include="App\views\admin\addCredit.html" />
     <Content Include="App\views\admin\addCredit.js" />
     <Content Include="App\views\admin\inbox.html" />
