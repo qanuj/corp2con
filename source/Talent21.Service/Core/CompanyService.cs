@@ -347,8 +347,10 @@ namespace Talent21.Service.Core
             var amount = price * config.Credit.Rate;
 
             if (balance < price) throw new Exception("Not enough balance.");
+
             _transactionRepository.Create(new JobTransaction
             {
+                JobId = entity.Id,
                 Name = entity.Title,
                 Credit = price,
                 Amount = amount,
