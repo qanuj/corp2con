@@ -246,6 +246,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "InviteController",
                 resolve: {}
             })
+            .state('feedback', {
+                url: "/inbox/feedback",
+                templateUrl: "app/views/" + role + "/inbox.html",
+                data: { pageTitle: 'site feedback',module:'feedback' },
+                controller: role + "InboxController",
+                resolve: {}
+            })
             .state('config', {
                 url: "/config",
                 templateUrl: "app/views/" + role + "/config.html",

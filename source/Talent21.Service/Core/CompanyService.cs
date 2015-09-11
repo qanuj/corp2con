@@ -347,8 +347,10 @@ namespace Talent21.Service.Core
             var amount = price * config.Credit.Rate;
 
             if (balance < price) throw new Exception("Not enough balance.");
+
             _transactionRepository.Create(new JobTransaction
             {
+                JobId = entity.Id,
                 Name = entity.Title,
                 Credit = price,
                 Amount = amount,
@@ -520,6 +522,7 @@ namespace Talent21.Service.Core
                 var query = from x in _contractorRepository.All
                             let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
                             let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
+                            let promotions = x.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
                             select new ContractorSearchResultViewModel
                             {
                                 Company = x.Company!=null ? x.Company.CompanyName: "",
@@ -559,6 +562,10 @@ namespace Talent21.Service.Core
                                 Rate = x.Rate,
                                 Availability = availableDay,
                                 Days = days,
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
+                                IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
+                                IsHome = promotions.Any(y => y == PromotionEnum.Global),
                                 Available = days <= 6 ? AvailableEnum.Now : days <= 14 ? AvailableEnum.NextWeek : days <= 30 ? AvailableEnum.NextMonth : AvailableEnum.Later,
                                 Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
                                 {

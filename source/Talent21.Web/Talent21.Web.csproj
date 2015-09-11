@@ -324,6 +324,8 @@
     <Content Include="App\template\views\ui_select.html" />
     <Content Include="App\views\admin\addCredit.html" />
     <Content Include="App\views\admin\addCredit.js" />
+    <Content Include="App\views\admin\inbox.html" />
+    <Content Include="App\views\admin\inbox.js" />
     <Content Include="App\views\admin\config.html" />
     <Content Include="App\views\admin\config.js" />
     <Content Include="App\views\admin\billing.html" />
@@ -934,6 +936,7 @@
     <Content Include="Views\Notifications\Invite.cshtml" />
     <Content Include="Views\Shared\_Blank.cshtml" />
     <Content Include="Scripts\spa-1\toastr.min.js" />
+    <Content Include="Views\Notifications\Feedback.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
