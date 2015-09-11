@@ -240,10 +240,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 resolve: {}
             })
             .state('feedback', {
-                url: "/feedback",
-                templateUrl: "app/views/" + role + "/feedback.html",
-                data: { pageTitle: 'Feedback' },
-                controller: role + "FeedbackController",
+                url: "/inbox/feedback",
+                templateUrl: "app/views/" + role + "/inbox.html",
+                data: { pageTitle: 'site feedback',module:'feedback' },
+                controller: role + "InboxController",
                 resolve: {}
             })
             .state('config', {
