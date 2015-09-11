@@ -53,7 +53,7 @@ namespace Talent21.Service.Core
                                 Positions=job.Positions,
                                 End=job.End,
                                 Id=job.Id,
-                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                                 IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
                                 IsHome = promotions.Any(y => y == PromotionEnum.Global),
@@ -72,7 +72,7 @@ namespace Talent21.Service.Core
                             let promotions = company.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
                             select new FeaturedCompanyViewModel
                             {
-                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                                 IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
                                 IsHome = promotions.Any(y => y == PromotionEnum.Global),
@@ -95,7 +95,7 @@ namespace Talent21.Service.Core
                             let promotions = contractor.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
                             select new FeaturedContractorViewModel
                             {
-                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                                 IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
                                 IsHome = promotions.Any(y => y == PromotionEnum.Global),
