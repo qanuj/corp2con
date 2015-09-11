@@ -13,6 +13,18 @@
     admin.transactions=function(page,pageSize) {
         return $http.get(v + 'transaction?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
     }
+    
+    admin.feedbacks=function(page,pageSize) {
+        return $http.get(v + 'feedback?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+    }
+    
+    admin.deleteFeedback = function (id) {
+        return $http.delete(v + 'feedback/'+id);
+    }
+
+    admin.feedback = function (id,what) {
+        return $http.put(v + 'feedback/'+id+'/'+what.toString().toLowerCase());
+    }
 
     admin.transaction = function (id) {
         return $http.get(v + 'transaction/' + id);

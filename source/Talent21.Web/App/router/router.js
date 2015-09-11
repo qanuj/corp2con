@@ -188,10 +188,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "ContractorController",
                 resolve: {}
             })
-            .state('promote', {
+            .state('promotejob', {
                 url: "/promote/job/:id",
-                templateUrl: "app/views/" + role + "/promote.html",
+                templateUrl: "app/views/" + role + "/promotejob.html",
                 data: { pageTitle: 'Job' },
+                controller: role + "PromoteJobController",
+                resolve: {}
+            })
+            .state('promote', {
+                url: "/promote",
+                templateUrl: "app/views/" + role + "/promote.html",
+                data: { pageTitle: 'Profile' },
                 controller: role + "PromoteController",
                 resolve: {}
             });
@@ -237,6 +244,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 templateUrl: "app/views/" + role + "/invite.html",
                 data: { pageTitle: 'Invite' },
                 controller: role + "InviteController",
+                resolve: {}
+            })
+            .state('feedback', {
+                url: "/inbox/feedback",
+                templateUrl: "app/views/" + role + "/inbox.html",
+                data: { pageTitle: 'site feedback',module:'feedback' },
+                controller: role + "InboxController",
                 resolve: {}
             })
             .state('config', {

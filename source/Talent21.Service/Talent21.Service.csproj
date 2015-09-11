@@ -111,7 +111,7 @@
     <Compile Include="Core\SharedService.cs" />
     <Compile Include="Core\SiteService.cs" />
     <Compile Include="Models\CreateContractorViewModel.cs" />
-    <Compile Include="Models\FeedbackViewModel.cs" />
+    <Compile Include="Models\FeedbackCreateViewModel.cs" />
     <Compile Include="Models\JobViewModels.cs" />
     <Compile Include="Models\JobApplicationViewModels.cs" />
     <Compile Include="Models\CandidateViewModels.cs" />

@@ -140,5 +140,9 @@
         return $http.get(v+'top/employers/' + skill + '/' + location + '?' + calculatePaging(page, pageSize));
     }
 
+    contractor.promote = function(p) {
+        return $http.post(v+'promote/'+p)
+    }
+
     return contractor;
 }]);

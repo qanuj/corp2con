@@ -128,6 +128,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Abstraction\AdvertisementPrice.cs" />
     <Compile Include="Data\Abstraction\Conversation.cs" />
     <Compile Include="Data\Abstraction\DataFunctions.cs" />
     <Compile Include="Data\Abstraction\DefaultEventManager.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Data\Abstraction\EfMyRepository.cs" />
     <Compile Include="Data\Abstraction\EfRepository.cs" />
     <Compile Include="Data\Abstraction\Entity.cs" />
+    <Compile Include="Data\Abstraction\Faq.cs" />
     <Compile Include="Data\Abstraction\Feedback.cs" />
     <Compile Include="Data\Abstraction\IDictionary.cs" />
     <Compile Include="Data\Abstraction\IDictionaryRepository.cs" />
@@ -151,8 +153,14 @@
     <Compile Include="Data\Abstraction\IRepository.cs" />
     <Compile Include="Data\Abstraction\ISoftDelete.cs" />
     <Compile Include="Data\Abstraction\IState.cs" />
+    <Compile Include="Data\Abstraction\PaymentConfig.cs" />
+    <Compile Include="Data\Abstraction\Post.cs" />
+    <Compile Include="Data\Abstraction\RateValidityConfig.cs" />
     <Compile Include="Data\Abstraction\Role.cs" />
+    <Compile Include="Data\Abstraction\SiteConfig.cs" />
     <Compile Include="Data\Abstraction\Social.cs" />
+    <Compile Include="Data\Abstraction\TaxConfig.cs" />
+    <Compile Include="Data\Abstraction\Topic.cs" />
     <Compile Include="Data\Abstraction\User.cs" />
     <Compile Include="Data\Abstraction\UserRole.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />

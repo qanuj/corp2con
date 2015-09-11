@@ -60,6 +60,9 @@ tags-input .tags.focused{
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+.inbox .table > tbody + tbody {
+    border: none;
+}
 /***
 Rounded Portlets
 ***/

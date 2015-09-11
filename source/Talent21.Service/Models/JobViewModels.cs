@@ -76,6 +76,10 @@ namespace Talent21.Service.Models
 
         public int? CompanyId { get; set; }
         public string Company { get; set; }
+        public bool IsFeatured { get; set; }
+        public bool IsHighlight { get; set; }
+        public bool IsAdvertised { get; set; }
+        public bool IsHome { get; set; }
     }
 
     public class JobSearchResultViewModel
@@ -119,14 +123,17 @@ namespace Talent21.Service.Models
         {
             get { return Locations.FirstOrDefault(); }
         }
-        public PromotionEnum Promotion { get; set; }
         public int CompanyId { get; set; }
         public bool IsWorkingFromHome { get; set; }
         public int Positions { get; set; }
         public string Address { get; set; }
         public string PinCode { get; set; }
-
+        
+        public bool IsPromoted { get; set; }
         public bool IsFeatured { get; set; }
+        public bool IsHighlight { get; set; }
+        public bool IsAdvertised { get; set; }
+        public bool IsHome { get; set; }
     }
 
     public class SkillConverter : TypeConverter
@@ -183,7 +190,10 @@ namespace Talent21.Service.Models
         public string PictureUrl { get; set; }
         public int Jobs { get; set; }
         public string WebSite { get; set; }
-        public PromotionEnum Promotion { get; set; }
+        public bool IsFeatured { get; set; }
+        public bool IsHighlight { get; set; }
+        public bool IsAdvertised { get; set; }
+        public bool IsHome { get; set; }
     }
 
     public class StatsViewModel

@@ -30,6 +30,7 @@ namespace Talent21.Service.Core
             {
                 var query = from job in _jobRepository.All
                             where !job.IsCancelled && job.IsPublished && (job.Expiry > DateTime.UtcNow || !job.Expiry.HasValue)
+                            let promotions= job.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(x=>x.Promotion)
                             select new JobSearchResultViewModel
                             {
                                 CompanyId=job.CompanyId,
@@ -52,8 +53,10 @@ namespace Talent21.Service.Core
                                 Positions=job.Positions,
                                 End=job.End,
                                 Id=job.Id,
-                                IsFeatured = job.Advertisements.Any(y => y.Promotion == PromotionEnum.Feartured && y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow),
-                                Promotion = job.Advertisements.Where(x => x.Start <= DateTime.UtcNow && x.End > DateTime.UtcNow).Select(x=>x.Promotion).FirstOrDefault(),
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
+                                IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
+                                IsHome = promotions.Any(y => y == PromotionEnum.Global),
                                 Skills = job.Skills.Select(y => new DictionaryViewModel() { Code = y.Skill.Code, Title = y.Skill.Title }),
                                 Locations = job.Locations.Select(y => new DictionaryViewModel() { Code = y.Code, Title = y.Title })
                             };
@@ -65,17 +68,19 @@ namespace Talent21.Service.Core
         {
             get
             {
-                //TODO:color coded jobs based on dates.
-
                 var query = from company in _companyRepository.All
+                            let promotions = company.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
                             select new FeaturedCompanyViewModel
                             {
+                                IsFeatured = promotions.Any(y => y == PromotionEnum.Feartured),
+                                IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
+                                IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
+                                IsHome = promotions.Any(y => y == PromotionEnum.Global),
                                 WebSite = company.Social.WebSite,
                                 CompanyName = company.CompanyName,
                                 PictureUrl = company.PictureUrl,
                                 Id = company.Id,
-                                Jobs=company.Jobs.Count(x=>!x.IsCancelled && x.IsPublished),
-                                Promotion = company.Advertisements.Where(x => x.Start <= DateTime.UtcNow && x.End > DateTime.UtcNow).Select(x => x.Promotion).FirstOrDefault(),
+                                Jobs=company.Jobs.Count(x=>!x.IsCancelled && x.IsPublished)
                             };
                 return query;
             }
@@ -141,12 +146,12 @@ namespace Talent21.Service.Core
 
         public JobSearchResultViewModel GetFeaturedJob()
         {
-            return Jobs.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.Promotion==PromotionEnum.Global);
+            return Jobs.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.IsFeatured);
         }
 
         public IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count)
         {
-            return Companies.Where(x => x.Promotion == PromotionEnum.Global).OrderByDescending(x => x.Id).Take(count).ToList();
+            return Companies.Where(x => x.IsHome).OrderByDescending(x => x.Id).Take(count).ToList();
         }
 
         public StatsViewModel GetStats()
