@@ -34,7 +34,7 @@
     }
 
     $scope.confirmPromote = function (jobId) {
-        db.company.promote($scope.promoted.id)
+        db.company.promote($scope.promoted.title)
             .success(function (data) {
                 toastr.success('Success', 'Profile promoted. Enjoy!');
                 console.log(data);

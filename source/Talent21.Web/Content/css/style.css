@@ -1009,6 +1009,8 @@ header {
 
 		.featured-job .description {
 			padding: 0 15px;
+		    max-height: 200px;
+		    overflow-y: hidden;
 		}
 
 	/* 5.2. RESUME

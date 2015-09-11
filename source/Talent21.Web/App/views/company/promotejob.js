@@ -1,5 +1,5 @@
-﻿app.controller('companyPromoteJobController', ['$scope', 'dataService', '$stateParams', '$rootScope','toastr','$state', function ($scope, db, $stateParams, $rootScope, toastr, $state) {
-    
+﻿app.controller('companyPromoteJobController', ['$scope', 'dataService', '$stateParams', '$rootScope', 'toastr', '$state', function ($scope, db, $stateParams, $rootScope, toastr, $state) {
+
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -37,7 +37,7 @@
     }
 
     $scope.confirmPromote = function (jobId) {
-        db.company.promoteJob(jobId, $scope.promotedJob.id)
+        db.company.promoteJob(jobId, $scope.promotedJob.title)
             .success(function (data) {
                 toastr.success('Success', 'Job promoted. Enjoy!');
                 $state.go('jobs');
@@ -47,7 +47,3 @@
             });
     }
 }]);
-
-app.directive('isolate', function () {
-    return { scope: true };
-});

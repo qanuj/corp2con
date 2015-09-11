@@ -12,6 +12,7 @@ namespace Talent21.Web.Models
         public IList<JobSearchResultViewModel> Jobs { get; set; }
         public IList<FeaturedCompanyViewModel> Companies { get; set; }
         public JobSearchResultViewModel FeaturedJob { get; set; }
+        public FeaturedContractorViewModel FeaturedContractor { get; set; }
     }
     public class FrontEndViewModel
     {

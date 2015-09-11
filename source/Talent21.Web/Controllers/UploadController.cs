@@ -58,7 +58,6 @@ namespace Talent21.Web.Controllers
                 string.Format("{0}{1}{2}{3}", applicant.Name, applicant.Location, applicant.Id, f.Extension));
         }
 
-        [Authorize]
         [Route("~/picture/{filename}")]
         public ActionResult ViewPicture(string filename)
         {

@@ -91,7 +91,7 @@
                         <!-- Job offer 1 -->
                         @foreach (var job in Model.Jobs)
                         {
-                            <a href="@Url.Action("Login","Account",new {returnUrl= "/#/job/"+ job.Id })" class="promote-@PromotionEnum.Highlight.ToString().ToLower()">
+                            <a href="@Url.Action("Login", "Account", new {returnUrl = "/#/job/" + job.Id})" class="promote-@PromotionEnum.Highlight.ToString().ToLower()">
                                 @if (job.IsFeatured)
                                 {
                                     <div class="featured"></div>
@@ -108,17 +108,16 @@
                             </a>
                         }
                     </div>
-                    <a class="btn btn-primary" id="more-jobs">
+                    <a class="btn btn-primary" href="@Url.Action("Login", "Account", new {returnUrl = "/#/search"})">
                         <span class="more">Show More Jobs <i class="fa fa-arrow-down"></i></span>
-                        <span class="less">Show Less Jobs <i class="fa fa-arrow-up"></i></span>
                     </a>
                 </div>
             }
-            @if (Model.FeaturedJob != null)
-            {
-                <div class="col-sm-4">
+            <div class="col-sm-4">
+                @if (Model.FeaturedJob != null)
+                {
                     <h2>Featured Jobs</h2>
-                    <a href="@Url.Action("Login","Account",new {returnUrl= "/#/job/"+ Model.FeaturedJob.Id })">
+                    <a href="@Url.Action("Login", "Account", new {returnUrl = "/#/job/" + Model.FeaturedJob.Id})">
                         <img src="@Model.FeaturedJob.PictureUrl" alt="@Model.FeaturedJob.Company" class="img-responsive" />
                         <div class="featured-job">
                             <div class="title">
@@ -133,11 +132,29 @@
                                     <span class="sallary"><i class="fa fa-inr"></i>@(Model.FeaturedJob.Rate)k</span>
                                 </div>
                             }
-                            <div class="description">@Model.FeaturedJob.Description</div>
                         </div>
                     </a>
-                </div>
-            }
+                }
+                @if (Model.FeaturedContractor != null)
+                {
+                    <h2>Featured Contractor</h2>
+                    <a href="@Url.Action("Login", "Account", new {returnUrl = "/#/contractor/" + Model.FeaturedContractor.Id})">
+                        <img src="@Model.FeaturedContractor.PictureUrl" alt="@Model.FeaturedContractor.Name" class="img-responsive" />
+                        <div class="featured-job">
+                            <div class="title">
+                                <h5>@Model.FeaturedContractor.Name</h5>
+                                <p>@Model.FeaturedContractor.Experience</p>
+                            </div>
+                            <div class="data">
+                                @foreach (var loc in Model.FeaturedContractor.Skills)
+                                {
+                                    <span class="badge">@loc</span>
+                                }
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
         </div>
     </div>
 </section>
@@ -152,7 +169,7 @@
                         @foreach (var company in Model.Companies)
                         {
                             <li class="col-sm-4 col-md-3">
-                                <a href="@Url.Action("Login","Account",new {returnUrl= "/#/company/"+ company.Id })">
+                                <a href="@Url.Action("Login", "Account", new {returnUrl = "/#/company/" + company.Id})">
                                     <img src="@company.PictureUrl" alt="@company.CompanyName" />
                                     <span class="badge">@company.Jobs</span>
                                 </a>
@@ -217,14 +234,18 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <p>@Product.Name allows employers to access a growing community of the best contractors instantly.
+                <p>
+                    @Product.Name allows employers to access a growing community of the best contractors instantly.
                     Employers can search for the skills they need, and view and assess profiles of contractors with the required skill set. They can
                     create a shortlist of contractors they’re interested in hiring by paying for quarterly, half yearly and yearly subscription. This results
-                    in dramatic savings when compared with typical recruitment costs.</p>
-                <p>@Product.Name allows contractors to create an in-depth profile to promote themselves and their experience and be found easily by
+                    in dramatic savings when compared with typical recruitment costs.
+                </p>
+                <p>
+                    @Product.Name allows contractors to create an in-depth profile to promote themselves and their experience and be found easily by
                     potential employers. To-date contractors using @Product.Name have increased their earnings significantly by connecting and
                     negotiating directly with smart employers who want to hire someone with their skillset.
-                    Join today to be part of this innovative process where both employers and contractors win!</p>
+                    Join today to be part of this innovative process where both employers and contractors win!
+                </p>
             </div>
             <div class="col-sm-6">
                 <div class="video-wrapper">
