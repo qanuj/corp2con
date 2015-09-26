@@ -16,6 +16,7 @@ using Talent21.Web.Results;
 namespace Talent21.Web.Controllers
 {
     [Authorize]
+    [HandleError(ExceptionType = typeof(HttpAntiForgeryException),  View = "Unauthorized")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
