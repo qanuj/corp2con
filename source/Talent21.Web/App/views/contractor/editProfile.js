@@ -32,7 +32,7 @@
 
     $scope.addSkill = function (skills, level) {
         for (var x in skills) {
-            $scope.record.skills.push({ level: level, proficiency: "Beginer", experienceInMonths: 0, code: skills[x].code, title: skills[x].title });
+            $scope.record.skills.push({ level: level.id, proficiency: "Beginer", experienceInMonths: 0, code: skills[x].code, title: skills[x].title });
         }
         $scope.newSkill = [];
     }
