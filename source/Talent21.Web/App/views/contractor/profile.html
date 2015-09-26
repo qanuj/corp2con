@@ -55,7 +55,7 @@
                     {{record.rate}}
                 </div>
                 <div class="uppercase profile-stat-text">
-                    Rate
+                    {{record.rateType}}
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-6">
@@ -71,7 +71,7 @@
         <div>
             <h4 class="profile-desc-title">Details</h4>
             <div class="margin-top-20 profile-desc-link" ng-if="record.consultantType">
-                <i class="fa fa-user"></i>
+                <i class="fa fa-{{record.gender|lowercase}}"></i>
                 <a href="javascript:;">{{record.consultantType | uncamel}}</a>
             </div>
             <div class="margin-top-20 profile-desc-link" ng-if="record.location">

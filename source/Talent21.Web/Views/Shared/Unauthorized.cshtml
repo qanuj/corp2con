@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Unauthorized";
+}
+<br />
+<br />
+<h2>@ViewBag.Title.</h2>
+<div>
+    <p>
+        Couldn't validate your credentials, please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </p>
+</div>
