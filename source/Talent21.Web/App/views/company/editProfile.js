@@ -1,4 +1,4 @@
-﻿app.controller('companyEditProfileController', ['$scope', 'dataService','$rootScope', function ($scope, db, $rootScope) {
+﻿app.controller('companyEditProfileController', ['$scope', 'dataService','$rootScope','$q', function ($scope, db, $rootScope,$q) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -10,16 +10,16 @@
 
     db.system.getIndustries().success(function(result) {
         $scope.industries = result;
-    });
-    
-    db.system.getLocations().success(function (result) {
-        $scope.locations = result;
-    });
-
-    db.company.get().success(function (result) {
-        result.picture = { url: result.pictureUrl };
-        result.loc = { formatted_address: result.location };
-        $scope.record = result;
+    }).then(function() {
+        return db.system.getLocations().success(function (result) {
+            $scope.locations = result;
+        });
+    }).then(function() {
+        db.company.get().success(function (result) {
+            result.picture = { url: result.pictureUrl };
+            result.loc = { formatted_address: result.location };
+            $scope.record = result;
+        });
     });
 
     $scope.refreshAddresses = function (address) {

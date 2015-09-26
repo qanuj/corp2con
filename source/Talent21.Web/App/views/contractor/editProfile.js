@@ -18,7 +18,7 @@
     };
 
     $scope.save = function (record) {
-            if (record.cv) {
+        if (record.cv) {
             record.profileUrl = record.cv.url;
         }
         if (record.picture) {
@@ -32,7 +32,7 @@
 
     $scope.addSkill = function (skills, level) {
         for (var x in skills) {
-            $scope.record.skills.push({ level: level, proficiency: "Beginer", experienceInMonths: 0, code: skills[x].code, title: skills[x].title});
+            $scope.record.skills.push({ level: level, proficiency: "Beginer", experienceInMonths: 0, code: skills[x].code, title: skills[x].title });
         }
         $scope.newSkill = [];
     }
@@ -41,35 +41,33 @@
         $scope.record.skills.splice(index, 1);
     }
 
+    function preloader(func, prop) {
+        return function () {
+            return func().success(function (result) {
+                $scope[prop] = result;
+            });
+        }
+    }
+    function preloaderenum(func,name, prop) {
+        return function () {
+            return func(name).then(function (result) {
+                $scope[prop] = result;
+            });
+        }
+    }
+
     function getMasters() {
-
-        db.system.getCountries().success(function (result) {
-            $scope.nations = result;
-        });
-
-        db.system.getLocations().success(function (result) {
-            $scope.locations = result;
-        });
-
-        db.system.enums('proficiencyEnum').then(function (enums) {
-            $scope.proficiencies = enums;
-            db.system.enums('levelEnum').then(function (levels) {
-                $scope.levels = levels;
-            });
-            db.system.enums('contractorTypeEnum').then(function (contractorTypes) {
-                $scope.contractorType = contractorTypes;
-            });
-            db.system.enums('contractTypeEnum').then(function (contractTypes) {
-                $scope.contractType = contractTypes;
-            });
-            db.system.enums('genderEnum').then(function (genders) {
-                $scope.genders = genders;
-            });
-        });
+        return preloader(db.system.getCountries, 'nations')()
+            .then(preloader(db.system.getLocations, 'locations'))
+            .then(preloaderenum(db.system.enums, 'proficiencyEnum', 'proficiencies'))
+            .then(preloaderenum(db.system.enums, 'levelEnum', 'levels'))
+            .then(preloaderenum(db.system.enums, 'contractorTypeEnum', 'contractorType'))
+            .then(preloaderenum(db.system.enums, 'contractTypeEnum', 'contractType'))
+            .then(preloaderenum(db.system.enums, 'genderEnum', 'genders'));
     }
 
     function navigate() {
-        db.contractor.get().success(function (result) {
+        return db.contractor.get().success(function (result) {
             result.picture = {
                 url: result.pictureUrl
             };
@@ -92,7 +90,6 @@
         $scope.nations = data;
     });
 
-    getMasters();
-    navigate();
+    navigate().then(getMasters);
 
 }]);
