@@ -385,6 +385,7 @@ namespace Talent21.Service.Core
         {
             var entity = _scheduleRepository.ById(model.Id);
             if (entity == null) throw new Exception("Schedule not found");
+            if (!Valid(model,entity.ContractorId,entity.Id)) throw new Exception("Overlapping Schedule");
 
             entity.Start = model.Start;
             entity.End = model.End;
@@ -438,6 +439,12 @@ namespace Talent21.Service.Core
             return false;
         }
 
+        public bool Valid(CreateScheduleViewModel model,int contractorId,int id=0)
+        {
+            return !_scheduleRepository.All.Any(x => x.ContractorId==contractorId && (id==0 || x.Id!=id) &&
+                ((model.Start >= x.Start && model.Start <= x.End) ||
+                (model.End >= x.Start && model.End <= x.End)));
+        }
 
         public ScheduleViewModel Create(CreateScheduleViewModel model)
         {
@@ -447,6 +454,7 @@ namespace Talent21.Service.Core
 
         public ScheduleViewModel Create(CreateScheduleViewModel model, int contractorId)
         {
+            if (!Valid(model, contractorId)) throw new Exception("Overlapping Schedule");
             var entity = new Schedule
             {
                 ContractorId = contractorId,
