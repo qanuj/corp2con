@@ -1,4 +1,4 @@
-﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$rootScope', function ($scope, db, $rootScope) {
+﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$rootScope','toastr', function ($scope, db, $rootScope,toastr) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -18,6 +18,10 @@
     };
 
     $scope.save = function (record) {
+        if (record.mobile == record.alternateNumber) {
+            toastr.error('Mobile and Mobile 2 Number can\'t be same.', 'Validation');
+            return;
+        }
         if (record.cv) {
             record.profileUrl = record.cv.url;
         }
