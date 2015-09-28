@@ -87,8 +87,8 @@
                 <tr ng-class="{'unread':!row.isRead}" ng-click="toggleMessage(row)">
                     <!--<td class="inbox-small-cells"><div class="checker"><span><input type="checkbox" class="mail-checkbox"></span></div></td>-->
                     <td class="view-message hidden-xs"><a href="mailto:{{row.email}}">{{row.name}} &lt;{{row.email}}&gt;</a></td>
-                    <td class="view-messag">{{row.subject}}</td>
-                    <td class="view-messag">{{row.created | amCalendar}}</td>
+                    <td class="view-message">{{row.subject}}</td>
+                    <td class="view-message">{{row.created | amCalendar}}</td>
                 </tr>
                 <tr ng-hide="!row.show">
                     <td colspan="3">
