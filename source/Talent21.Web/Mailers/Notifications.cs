@@ -26,14 +26,17 @@ namespace Talent21.Web.Mailers
             MasterName = "_Layout";
         }
 
-        private void Send(MvcMailMessage msg, string to)
+        private void Send(MvcMailMessage msg,params string[] to)
         {
-            _emailService.SendAsync(new IdentityMessage()
+            foreach (var eml in to)
             {
-                Subject = msg.Subject,
-                Destination = to,
-                Body = msg.Body
-            });
+                _emailService.SendAsync(new IdentityMessage
+                {
+                    Subject = msg.Subject,
+                    Destination = eml,
+                    Body = msg.Body
+                });
+            }
         }
 
         public void Welcome(string toEmail, string url, string role)
@@ -103,7 +106,7 @@ namespace Talent21.Web.Mailers
             var mvcMailMessage = new MvcMailMessage { Subject = "New Feedback :"+Product.Name };
             ViewBag.Feedback = model;
             PopulateBody(mvcMailMessage, "Feedback");
-            Send(mvcMailMessage, _configRepository.Config().Notification.Feedback);
+            Send(mvcMailMessage, _configRepository.Config().Notification.Feedback.Split(new [] {','},StringSplitOptions.RemoveEmptyEntries));
         }
     }
 }
