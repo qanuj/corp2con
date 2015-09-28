@@ -18,7 +18,7 @@
     };
 
     $scope.save = function (record) {
-        if (record.mobile == record.alternateNumber) {
+        if (record.mobile == record.alternateNumber && record.mobile) {
             toastr.error('Mobile and Mobile 2 Number can\'t be same.', 'Validation');
             return;
         }
