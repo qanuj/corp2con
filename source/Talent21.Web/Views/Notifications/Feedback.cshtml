@@ -1,5 +1,4 @@
-﻿@using Mvc.Mailer
-<table>
+﻿<table>
     <tr>
         <th>Name</th>
         <td>@ViewBag.Feedback.Name</td>
@@ -14,9 +13,3 @@
     </tr>
 </table>
 @ViewBag.Feedback.Message
-@section mainButton{
-    <a href="@ViewBag.ResetUrl"
-       style="font-size: 13px; color: #ffffff; background-color: #3bca96; text-decoration: none; text-decoration: none; padding: 11px 44px 10px; border: 1px solid #3bca96; display: inline-block" target="_blank">
-        Reset Password
-    </a>
-}

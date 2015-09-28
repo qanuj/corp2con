@@ -1,11 +1,14 @@
-﻿using e10.Shared.Security;
+﻿using System;
+using e10.Shared.Security;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using e10.Shared.Data.Abstraction;
 using e10.Shared.Util;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using Talent21.Data.Repository;
 using Talent21.Service.Abstraction;
 using Talent21.Web.Models;
@@ -37,14 +40,49 @@ namespace Talent21.Web.Controllers
             _configRepository = configRepository;
         }
 
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+
         public ActionResult Upgrade()
         {
             return Json(_service.Upgrade(), JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Demo()
         {
             return Json(await _demoDataService.BuildAsync(), JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Impersonate(string email)
+        {
+            //does user exists
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return HttpNotFound();
+
+            //log off current user
+            Session.Abandon();
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+            AuthenticationManager.SignOut();
+
+            //log in this user
+            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties()
+            {
+                IsPersistent = false,
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(10)
+            }, identity);
+
+            //back to home
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         public ActionResult Master()

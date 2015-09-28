@@ -141,7 +141,7 @@
     }
 
     contractor.promote = function(p) {
-        return $http.post(v+'promote/'+p)
+        return $http.post(v + 'promote/' + p);
     }
 
     return contractor;
