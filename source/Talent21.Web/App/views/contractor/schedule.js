@@ -1,4 +1,4 @@
-﻿app.controller('contractorScheduleController', ['$scope', 'dataService', '$rootScope', '$stateParams', function ($scope, db,$rootScope, params) {
+﻿app.controller('contractorScheduleController', ['$scope', 'dataService', '$rootScope', '$stateParams', 'toastr', function ($scope, db, $rootScope, params, toastr) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -25,7 +25,11 @@
             end: record.date.endDate.format(),
             company: record.company,
             isAvailable: record.isAvailable
-        }).success($scope.navigate).finally(function () {
+        }).success(function (result) {
+            $scope.navigate();
+        }).error(function (err) {
+            toastr.error(err.exceptionMessage,err.message);
+        }).then(function () {
             $scope.start = '';
             $scope.end = '';
         });
