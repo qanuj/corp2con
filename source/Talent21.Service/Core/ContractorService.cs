@@ -378,6 +378,7 @@ namespace Talent21.Service.Core
             entity.ConsultantType = model.ConsultantType;
             entity.ContractType = model.ContractType;
             entity.Gender = model.Gender;
+            entity.Complete = model.Complete;
 
             entity.PinCode = model.PinCode;
             entity.Address = model.Address;

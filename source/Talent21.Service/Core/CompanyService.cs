@@ -557,6 +557,7 @@ namespace Talent21.Service.Core
                                 OwnerId = x.OwnerId,
                                 Rate = x.Rate,
                                 Availability = availableDay,
+                                Complete = x.Complete,
                                 Days = days,
                                 IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
@@ -603,7 +604,7 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model,Company company)
         {
-            var query = Contractors;
+            var query = Contractors.Where(x=>x.Complete > 0);
             //Rules of searching.
             if (!string.IsNullOrWhiteSpace(model.Location))
             {

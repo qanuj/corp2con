@@ -95,6 +95,7 @@ namespace Talent21.Service.Models
         public ContractTypeEnum ContractType { get; set; }
         public GenderEnum Gender { get; set; }
 
+        public int Complete { get; set; }
         public IEnumerable<ContractorSkillViewModel> Skills { get; set; }
         internal IEnumerable<CompanyFolderViewModel> Folders { get; set; }
     }
@@ -120,7 +121,6 @@ namespace Talent21.Service.Models
         public string Industry { get; set; }
         public string FunctionalArea { get; set; }
 
-        public int Complete { get; set; }
         public IEnumerable<ScheduleViewModel> Schedules { get; set; }
         public int? CompanyId { get; set; }
     }

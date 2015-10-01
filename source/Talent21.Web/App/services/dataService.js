@@ -17,8 +17,8 @@
 
     return factory;
 
-    function findArguments() {
-        var tmp = {};
+    function findArguments(sp) {
+        var tmp = sp || {};
         var args = window.location.hash.split('?');
         if (args.length > 1) {
             var rgs = args[1].split("&");

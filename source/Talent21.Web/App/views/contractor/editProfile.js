@@ -19,14 +19,14 @@
 
     var ignoreList = ['rss','locationCode','profile','companyId'];
 
-    $scope.$watch('record', function (newVal) {
+    function calculateProgress(newVal) {
         $scope.pendings = [];
-        var total = 0,pg=0;
+        var total = 0, pg = 0;
         for (var x in newVal) {
-            if (ignoreList.indexOf(x)>-1) continue;
+            if (ignoreList.indexOf(x) > -1) continue;
             if (angular.isArray(newVal[x]) && (newVal[x] && newVal[x].length > 0)) {
                 pg++;
-            }else if (newVal[x]) {
+            } else if (newVal[x]) {
                 pg++;
             } else {
                 $scope.pendings.push(x);
@@ -34,10 +34,14 @@
             total++;
         }
         var complete = Math.round(pg / total * 100, 0);
-        $scope.status = complete == 100 ? 'success' : complete < 20 ? 'danger' : complete > 20 && complete< 50 ? 'warning' :'info' ;
+        $scope.status = complete == 100 ? 'success' : complete < 20 ? 'danger' : complete > 20 && complete < 50 ? 'warning' : 'info';
         $scope.complete = complete;
-        if(newVal) newVal.complete = complete;
-    },true);
+        if (newVal && newVal.complete != complete) {
+            newVal.complete = complete;
+        }
+    }
+
+    $scope.$watch('record', calculateProgress, true);
 
     $scope.save = function (record) {
         if (record.mobile == record.alternateNumber && record.mobile) {
@@ -52,7 +56,8 @@
         }
         record.experienceYears = Math.floor(record.experience / 12);
         record.experienceInMonths = record.experience % 12;
-
+        calculateProgress(record);
+        console.log('Progress', record.complete);
         db.contractor.update(record).success(function (result) {
             window.location = "#/profile";
         });
