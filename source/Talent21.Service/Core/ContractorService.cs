@@ -162,7 +162,9 @@ namespace Talent21.Service.Core
 
         public IQueryable<JobApplicationContractorViewModel> MyApplications()
         {
-            return Applications().Where(x => x.Actions.Any());
+            return Applications().Where(x => x.Actions.Any(y => y.Act == JobActionEnum.Application) &&
+                        x.Actions.All(y => y.Act != JobActionEnum.Decline) &&
+                        x.Actions.All(y => y.Act != JobActionEnum.Revoke));
         }
 
         public IQueryable<JobApplicationContractorViewModel> Applications(int id = 0)

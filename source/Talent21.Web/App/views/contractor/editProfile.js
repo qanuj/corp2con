@@ -17,6 +17,25 @@
         });
     };
 
+    $scope.$watch('record', function(newVal) {
+        var total = 0,pg=0;
+        for (var x in newVal) {
+            if (angular.isArray(newVal[x])) {
+                console.log(x, newVal[x]);
+                if (newVal[x] && newVal[x].length > 0) {
+                    pg++;
+                }
+            }else if (newVal[x]) {
+                pg++;
+            }
+            total++;
+        }
+        var complete = Math.round(pg / total * 100, 0);
+        $scope.status = complete == 100 ? 'success' : complete < 20 ? 'danger' : complete > 20 && complete< 50 ? 'warning' :'info' ;
+        $scope.complete = complete;
+
+    },true);
+
     $scope.save = function (record) {
         if (record.mobile == record.alternateNumber && record.mobile) {
             toastr.error('Mobile and Mobile 2 Number can\'t be same.', 'Validation');
@@ -33,6 +52,8 @@
             window.location = "#/profile";
         });
     }
+
+
 
     $scope.addSkill = function (skills, level) {
         for (var x in skills) {

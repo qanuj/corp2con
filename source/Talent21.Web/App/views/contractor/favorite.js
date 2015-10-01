@@ -12,13 +12,13 @@ app.controller('contractorFavoriteController', ['$scope', 'dataService', '$rootS
     $scope.count = 'None';
 
     $scope.navigate = function (page) {
-        db.contractor.getFavorite(page).success(function (result) {
+        db.contractor.getFavorite(page).then(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
             $scope.records = result.items;
             $scope.count = result.count;
             console.log(result);
-        }).error(function (err) { console.log(err) });
+        });
     }
 
     $scope.update = function (record) {

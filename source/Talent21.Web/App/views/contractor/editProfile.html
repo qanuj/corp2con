@@ -27,46 +27,105 @@
     </div>
 </div>
 <div class="row">
-    <div class=" col-md-10">
+    <div class="col-md-12">
+        <progressbar value="complete" type="{{status}}"><b>Profile Complete {{complete}}%</b></progressbar>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
         <h3 class="form-section">Personal Information</h3>
         <div class="row">
-            <div class="form-group col-xs-5">
+            <div class="form-group col-sm-5">
                 <label class="col-md-5 control-label">First Name</label>
                 <input type="text" class="form-control" ng-model="record.firstName">
             </div>
-            <div class="form-group col-xs-5">
+            <div class="form-group col-sm-5">
                 <label class="col-md-5 control-label">Last Name</label>
                 <input type="text" class="form-control" ng-model="record.lastName">
             </div>
-            <div class="form-group col-xs-2">
+            <div class="form-group col-sm-2">
                 <label class="col-md-5 control-label">Gender</label>
                 <select ui-select2 class="dropdown form-control" ng-model="record.gender" ng-options="c.id as c.label for c in genders">
                     <option value="">-- Select Gender --</option>
                 </select>
             </div>
-            <div class="form-group col-xs-6">
-                <label class="col-md-5 control-label">Email</label>
-                <input type="email" class="form-control" ng-model="record.email">
+            <div class="form-group col-sm-8">
+                <label class="col-md-5 control-label">Address</label>
+                <input type="text" class="form-control" ng-model="record.address">
             </div>
-            <div class="form-group col-xs-6">
+            <div class="form-group col-sm-4">
+                <label class="col-md-5 control-label">Pin code</label>
+                <input type="text" class="form-control" ng-model="record.pinCode">
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="col-md-5 control-label">Location</label>
+                <select ui-select2 class="layout-style-option form-control input-sm" ng-model="record.locationId" ng-options="location.id as location.title for location in locations">
+                    <option value="">-- Select Location --</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-4">
                 <label class="col-md-5 control-label">Nationality</label>
                 <select ui-select2 class="dropdown form-control" ng-model="record.nationality" ng-options="n.title as n.title for n in nations">
                     <option value="">-- Select Nationality --</option>
                 </select>
             </div>
-            <div class="form-group col-xs-8">
-                <label class="col-md-5 control-label">Address</label>
-                <input type="text" class="form-control" ng-model="record.address">
+        </div>
+        <h3 class="form-section">Contact Information</h3>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-envelope"></i> Email</label>
+                    <input type="email" class="form-control" ng-model="record.email">
+                </div>
             </div>
-            <div class="form-group col-xs-4">
-                <label class="col-md-5 control-label">Pin code</label>
-                <input type="text" class="form-control" ng-model="record.pinCode">
+            <div class="form-group col-sm-4">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile </label>
+                    <input type="text" class="form-control" ng-model="record.mobile">
+                </div>
             </div>
-            <div class="form-group col-xs-6">
-                <label class="col-md-5 control-label">Location</label>
-                <select ui-select2 class="layout-style-option form-control input-sm" ng-model="record.locationId" ng-options="location.id as location.title for location in locations">
-                    <option value="">-- Select Location --</option>
-                </select>
+            <div class="form-group col-sm-4">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile 2 </label>
+                    <input type="text" class="form-control" ng-model="record.alternateNumber">
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-globe"></i> Website</label>
+                    <input type="text" class="form-control" ng-model="record.webSite">
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-google-plus"></i></label>
+                    <input type="text" class="form-control" ng-model="record.google">
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-facebook"></i></label>
+                    <input type="text" class="form-control" ng-model="record.facebook">
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-linkedin"></i></label>
+                    <input type="text" class="form-control" ng-model="record.linkedIn">
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-twitter"></i></label>
+                    <input type="text" class="form-control" ng-model="record.twitter">
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="input-group">
+                    <label class="input-group-addon"><i class="fa fa-yahoo"></i></label>
+                    <input type="text" class="form-control" ng-model="record.yahoo">
+                </div>
             </div>
         </div>
     </div>
@@ -81,7 +140,7 @@
                         max-chunk-size="10"
                         multiple="false" size-limit="5000000">
         </ng-upload-form>
-        <hr/>
+        <hr />
         <div class="form-group">
             <ng-upload-form ng-model="record.cv"
                             url="/upload"
@@ -91,57 +150,6 @@
                             max-chunk-size="10"
                             multiple="false"
                             size-limit="5000000"></ng-upload-form>
-        </div>
-    </div>
-</div>
-<h3 class="form-section">Contact Information</h3>
-<div class="row">
-    <div class="form-group col-xs-3">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile </label>
-            <input type="text" class="form-control" ng-model="record.mobile">
-        </div>
-    </div>
-    <div class="form-group col-xs-3">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-mobile"></i> Mobile 2 </label>
-            <input type="text" class="form-control" ng-model="record.alternateNumber">
-        </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-globe"></i> Website</label>
-            <input type="text" class="form-control" ng-model="record.webSite">
-        </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-google-plus"></i></label>
-            <input type="text" class="form-control" ng-model="record.google">
-        </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-facebook"></i></label>
-            <input type="text" class="form-control" ng-model="record.facebook">
-        </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-linkedin"></i></label>
-            <input type="text" class="form-control" ng-model="record.linkedIn">
-        </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-twitter"></i></label>
-            <input type="text" class="form-control" ng-model="record.twitter">
-        </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="input-group">
-            <label class="input-group-addon"><i class="fa fa-yahoo"></i></label>
-            <input type="text" class="form-control" ng-model="record.yahoo">
         </div>
     </div>
 </div>
@@ -205,16 +213,16 @@
     <h3>{{l.label}} Skills</h3>
     <table class="table table-advance">
         <thead>
-        <tr>
-            <th>Skill</th>
-            <th>Experience (Months)</th>
-            <th>Profficieny</th>
-            <th>&nbsp;</th>
-        </tr>
+            <tr>
+                <th>Skill</th>
+                <th>Experience (Months)</th>
+                <th>Profficieny</th>
+                <th>&nbsp;</th>
+            </tr>
         </thead>
         <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
             <td>{{s.title}}</td>
-            <td><input class="form-control" type="number" ng-model="s.experienceInMonths"/></td>
+            <td><input class="form-control" type="number" ng-model="s.experienceInMonths" /></td>
             <td><select ui-select2 class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select></td>
             <td><button class="btn btn-danger" ng-click="remove(s)"><i class="fa fa-trash"></i></button></td>
         </tr>
@@ -233,13 +241,13 @@
 <h3 class="form-section">Schedule</h3>
 <table class="table table-advance">
     <thead>
-    <tr>
-        <th>Status</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Days</th>
-        <th>&nbsp;</th>
-    </tr>
+        <tr>
+            <th>Status</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days</th>
+            <th>&nbsp;</th>
+        </tr>
     </thead>
     <tr ng-repeat="s in record.schedules track by $index">
         <td>{{s.isAvailable ? 'Available' : s.company}}</td>

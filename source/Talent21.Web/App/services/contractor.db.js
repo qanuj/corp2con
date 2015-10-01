@@ -21,126 +21,139 @@
 
 
     contractor.paged = function (page, pageSize) {
-        return $http.get(v+'paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
+        return $http.get(v + 'paged?$inlinecount=allpages' + calculatePaging(page, pageSize));
     }
 
     contractor.dashboard = function () {
-        return $http.get(v+'dashboard');
+        return $http.get(v + 'dashboard');
     }
 
     contractor.balance = function () {
-        return $http.get(v+'balance');
+        return $http.get(v + 'balance');
     }
 
     contractor.all = function () {
-        return $http.get(v+'all');
+        return $http.get(v + 'all');
     }
 
     contractor.get = function (id) {
-        return $http.get(v+'profile' + (!!id ? '/' + id : ''));
+        return $http.get(v + 'profile' + (!!id ? '/' + id : ''));
     }
 
     contractor.update = function (formData) {
-        return $http.put(v+'profile', formData);
+        return $http.put(v + 'profile', formData);
+    }
+
+    function parseJobs(result, resolve, reject) {
+        var jobIds = [];
+        var mapping = {};
+        for (var x in result.items) {
+            mapping[result.items[x].id] = result.items[x];
+            jobIds.push(result.items[x].id);
+        }
+        $http.post(v + 'job/application/history', jobIds).success(function (applications) {
+            for (var x in applications) {
+                var j = mapping[applications[x].id];
+                for (var y in applications[x].history) {
+                    var k = applications[x].history[y];
+                    j.applicationId = k.applicationId;
+                    j[k.act.toLowerCase()] = k.created;
+                }
+            }
+            resolve(result);
+        });
+    }
+
+    contractor.getJobApplications = function (jobId, page, pageSize) {
+        return $q(function (resolve, reject) {
+            $http.get(v + 'job/application?$inlinecount=allpages' + calculatePaging(page, pageSize)).success(function (result) {
+                parseJobs(result, resolve, reject);
+            });
+        });
+    }
+
+    contractor.getFavorite = function (page, pageSize) {
+        return $q(function (resolve, reject) {
+            $http.get(v + 'job/favorite/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize)).success(function (result) {
+                parseJobs(result, resolve, reject);
+            });
+        });
     }
 
     contractor.search = function (query, page, pageSize) {
         return $q(function (resolve, reject) {
             $http.post(vJ + 'search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query).success(function (result) {
-                var jobIds = [];
-                var mapping = {};
-                for (var x in result.items) {
-                    mapping[result.items[x].id] = result.items[x];
-                    jobIds.push(result.items[x].id);
-                }
-                $http.post(v+'job/application/history', jobIds).success(function (applications) {
-                    for (var x in applications) {
-                        var j = mapping[applications[x].id];
-                        for (var y in applications[x].history) {
-                            var k = applications[x].history[y];
-                            j.applicationId = k.applicationId;
-                            j[k.act.toLowerCase()] = k.created;
-                        }
-                    }
-                    resolve(result);
-                });
+                parseJobs(result, resolve, reject);
             });
         });
     }
 
     contractor.jobById = function (id) {
-        return $http.get(v+'job/' + id);
+        return $http.get(v + 'job/' + id);
     }
 
     contractor.applyToJob = function (id) {
-        return $http.post(v+'job/' + id + '/apply');
+        return $http.post(v + 'job/' + id + '/apply');
     }
 
-    contractor.declineToJob = function (id,reason) {
-        return $http.post(v+'job/decline', { applicationId: id, reason: reason });
+    contractor.declineToJob = function (id, reason) {
+        return $http.post(v + 'job/decline', { applicationId: id, reason: reason });
     }
 
     contractor.revoke = function (id) {
-        return $http.post(v+'job/' + id + '/revoke');
+        return $http.post(v + 'job/' + id + '/revoke');
     }
 
-    contractor.getJobApplications = function (jobId, page, pageSize) {
-        return $http.get(v+'job/application?$inlinecount=allpages' + calculatePaging(page, pageSize));
-    }
 
     contractor.favorite = function (id) {
-        return $http.put(v+'job/' + id + '/favorite');
+        return $http.put(v + 'job/' + id + '/favorite');
     }
 
     contractor.unfavorite = function (id) {
-        return $http.delete(v+'job/' + id + '/favorite');
+        return $http.delete(v + 'job/' + id + '/favorite');
     }
 
     contractor.report = function (id) {
-        return $http.put(v+'job/' + id + '/report');
-    }
-
-    contractor.getFavorite = function (page, pageSize) {
-        return $http.get(v+'job/favorite/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+        return $http.put(v + 'job/' + id + '/report');
     }
 
     contractor.pagedSchedule = function (page, pageSize) {
-        return $http.get(v+'schedule/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
+        return $http.get(v + 'schedule/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
     }
 
     contractor.createSchedule = function (formData) {
-        return $http.post(v+'schedule', formData);
+        return $http.post(v + 'schedule', formData);
     }
 
     contractor.editSchedule = function (formData) {
-        return $http.put(v+'schedule', formData);
+        return $http.put(v + 'schedule', formData);
     }
     contractor.deleteSchedule = function (record) {
-        return $http.delete(v+'schedule/' + record.id);
+        return $http.delete(v + 'schedule/' + record.id);
     }
 
     contractor.getSchedule = function () {
-        return $http.get(v+'schedule/all?$orderby=Start');
+        return $http.get(v + 'schedule/all?$orderby=Start');
     }
 
 
     contractor.visitCompany = function (id) {
-        return $http.get(v+'company/' + id + '/visit');
+        return $http.get(v + 'company/' + id + '/visit');
     }
 
     contractor.visitJob = function (id) {
-        return $http.get(v+'job/' + id + '/visit');
+        return $http.get(v + 'job/' + id + '/visit');
     }
 
     contractor.getLatestJobs = function (skill, location, page, pageSize) {
-        return $http.get(v+'latest/jobs/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
+        return $http.get(v + 'latest/jobs/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
     }
 
     contractor.topEmployers = function (skill, location, page, pageSize) {
-        return $http.get(v+'top/employers/' + skill + '/' + location + '?' + calculatePaging(page, pageSize));
+        return $http.get(v + 'top/employers/' + skill + '/' + location + '?' + calculatePaging(page, pageSize));
     }
 
-    contractor.promote = function(p) {
+    contractor.promote = function (p) {
         return $http.post(v + 'promote/' + p);
     }
 
