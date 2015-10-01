@@ -66,6 +66,7 @@ namespace Talent21.Web.Controllers
 
 
         [Route("~/contractor/invite/{code}")]
+        [AllowAnonymous]
         public async Task<ActionResult> Invite(string code)
         {
             var accept = _companyService.AcceptInvitation(code);
