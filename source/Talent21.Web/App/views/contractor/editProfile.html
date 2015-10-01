@@ -29,6 +29,7 @@
 <div class="row">
     <div class="col-md-12">
         <progressbar value="complete" type="{{status}}"><b>Profile Complete {{complete}}%</b></progressbar>
+        <a href="javascript:;" class="btn btn-circle btn-default red-sunglo" ng-repeat="s in pendings">{{s | uncamel}}</a>
     </div>
 </div>
 <div class="row">
@@ -49,15 +50,15 @@
                     <option value="">-- Select Gender --</option>
                 </select>
             </div>
-            <div class="form-group col-sm-8">
+            <div class="form-group col-sm-8" ng-if="!record.companyId">
                 <label class="col-md-5 control-label">Address</label>
                 <input type="text" class="form-control" ng-model="record.address">
             </div>
-            <div class="form-group col-sm-4">
+            <div class="form-group col-sm-4" ng-if="!record.companyId">
                 <label class="col-md-5 control-label">Pin code</label>
                 <input type="text" class="form-control" ng-model="record.pinCode">
             </div>
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-6" ng-if="!record.companyId">
                 <label class="col-md-5 control-label">Location</label>
                 <select ui-select2 class="layout-style-option form-control input-sm" ng-model="record.locationId" ng-options="location.id as location.title for location in locations">
                     <option value="">-- Select Location --</option>
@@ -71,8 +72,8 @@
                 </select>
             </div>
         </div>
-        <h3 class="form-section">Contact Information</h3>
-        <div class="row">
+        <h3 class="form-section" ng-if="!record.companyId">Contact Information</h3>
+        <div class="row" ng-if="!record.companyId">
             <div class="form-group col-sm-4">
                 <div class="input-group">
                     <label class="input-group-addon"><i class="fa fa-envelope"></i> Email</label>
@@ -128,6 +129,57 @@
                 </div>
             </div>
         </div>
+
+        <h3 ng-if="record.companyId" class="form-section">Technical Information</h3>
+        <div ng-if="record.companyId" class="row">
+            <div class="form-group col-sm-8">
+                <label>Experience</label>
+                <rzslider rz-slider-floor="1"
+                          rz-slider-ceil="600"
+                          rz-slider-model="record.experience"
+                          rz-slider-translate="experienceTranslate"></rzslider>
+            </div>
+            <div class="form-group col-sm-4">
+                <label class="col-sm-12 control-label">Rate</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                    <input type="number" class="form-control" ng-model="record.rate">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown">{{record.rateType}} <i class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#" ng-click="record.rateType='Monthly'">Monthly</a></li>
+                            <li><a href="#" ng-click="record.rateType='Hourly'">Hourly</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="record.companyId" class="row">
+            <div class="form-group col-md-3">
+                <label class="col-sm-12 control-label">Consultant Type</label>
+                <select ng-disabled="record.companyId" ui-select2 class="dropdown form-control" ng-model="record.consultantType" ng-options="c.id as c.label for c in contractorType">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="col-md-12 control-label">Contract Type</label>
+                <select ng-disabled="record.companyId" ui-select2 class="dropdown form-control" ng-model="record.contractType" ng-options="c.id as c.label for c in contractType">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="col-md-12 control-label">Industry</label>
+                <select ui-select2 class="dropdown form-control" ng-model="record.industryId" ng-options="i.id as i.title for i in industries">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="col-md-12 control-label">Functional Area</label>
+                <select ui-select2 class="dropdown form-control" ng-model="record.functionalAreaId" ng-options="i.id as i.title for i in functionalAreas">
+                    <option value="">-- Select type --</option>
+                </select>
+            </div>
+        </div>
     </div>
     <div class="col-md-2">
         <h3 class="form-section">Profile Picture</h3>
@@ -145,7 +197,7 @@
             <ng-upload-form ng-model="record.cv"
                             url="/upload"
                             auto-upload="true"
-                            title="Your Resume..."
+                            title="{{record.profileUrl ? 'Uploaded' : 'Your Resume..'}}"
                             accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i"
                             max-chunk-size="10"
                             multiple="false"
@@ -153,62 +205,57 @@
         </div>
     </div>
 </div>
-<h3 class="form-section">Techinical Information</h3>
-<div class="row">
-    <div class="form-group col-xs-3">
-        <label class="control-label col-xs-12">Experience</label>
-        <div class="pull-left input-group col-xs-6">
-            <input type="number" class="form-control" ng-model="record.experienceYears" min="0" max="40">
-            <span class="input-group-addon">
-                yrs
-            </span>
-        </div>
-        <div class="input-group col-xs-6">
-            <input type="number" class="form-control" ng-model="record.experienceMonths" min="0" max="11">
-            <span class="input-group-addon">
-                months
-            </span>
-        </div>
+<h3 ng-if="!record.companyId" class="form-section">Technical Information</h3>
+<div ng-if="!record.companyId" class="row">
+    <div class="form-group col-sm-8">
+        <label>Experience</label>
+        <rzslider rz-slider-floor="1"
+                  rz-slider-ceil="600"
+                  rz-slider-model="record.experience"
+                  rz-slider-translate="experienceTranslate"></rzslider>
     </div>
-    <div class="form-group col-xs-3">
-        <label class="col-xs-12 control-label">Rate (in Thousands)</label>
+    <div class="form-group col-sm-4">
+        <label class="col-sm-12 control-label">Rate</label>
         <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-inr"></i></span>
             <input type="number" class="form-control" ng-model="record.rate">
             <div class="input-group-btn">
                 <button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown">{{record.rateType}} <i class="fa fa-angle-down"></i></button>
                 <ul class="dropdown-menu pull-right">
-                    <li><a href="#" ng-click="record.rateType='Hourly'">Hourly</a></li>
                     <li><a href="#" ng-click="record.rateType='Monthly'">Monthly</a></li>
-                    <li><a href="#" ng-click="record.rateType='Yearly'">Yearly</a></li>
+                    <li><a href="#" ng-click="record.rateType='Hourly'">Hourly</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="form-group col-xs-3">
-        <label class="col-xs-12 control-label">Consultant Type</label>
-        <select ui-select2 class="dropdown form-control" ng-model="record.consultantType" ng-options="c.id as c.label for c in contractorType">
+</div>
+<div ng-if="!record.companyId" class="row">
+    <div class="form-group col-md-3">
+        <label class="col-sm-12 control-label">Consultant Type</label>
+        <select ng-disabled="record.companyId" ui-select2 class="dropdown form-control" ng-model="record.consultantType" ng-options="c.id as c.label for c in contractorType">
             <option value="">-- Select type --</option>
         </select>
     </div>
-    <div class="form-group col-xs-3">
+    <div class="form-group col-md-3">
         <label class="col-md-12 control-label">Contract Type</label>
-        <select ui-select2 class="dropdown form-control" ng-model="record.contractType" ng-options="c.id as c.label for c in contractType">
+        <select ng-disabled="record.companyId" ui-select2 class="dropdown form-control" ng-model="record.contractType" ng-options="c.id as c.label for c in contractType">
             <option value="">-- Select type --</option>
         </select>
     </div>
-    <div class="form-group col-xs-6">
-        <label class="col-md-3 control-label">Industry</label>
+    <div class="form-group col-md-3">
+        <label class="col-md-12 control-label">Industry</label>
         <select ui-select2 class="dropdown form-control" ng-model="record.industryId" ng-options="i.id as i.title for i in industries">
             <option value="">-- Select type --</option>
         </select>
     </div>
-    <div class="form-group col-xs-6">
-        <label class="col-md-6 control-label">Functional Area</label>
+    <div class="form-group col-md-3">
+        <label class="col-md-12 control-label">Functional Area</label>
         <select ui-select2 class="dropdown form-control" ng-model="record.functionalAreaId" ng-options="i.id as i.title for i in functionalAreas">
             <option value="">-- Select type --</option>
         </select>
     </div>
 </div>
+
 <div ng-repeat="l in levels">
     <h3>{{l.label}} Skills</h3>
     <table class="table table-advance">
@@ -263,7 +310,7 @@
     <div class="col-md-12">
         <div class="col-md-6">
             <div class="row">
-                <label class="col-xs-12">&nbsp;</label>
+                <label class="col-sm-12">&nbsp;</label>
                 <div class="input-group">
                     <span class="input-group-addon">
                         <input type="checkbox" class="form-control" ng-model="sch.isAvailable">
@@ -291,7 +338,4 @@
 <h3 class="form-section">Full Profile</h3>
 <div class="form-group">
     <textarea class="form-control" ckeditor="editorOptions" rows="15" ng-model="record.about" required placeholder="Your Profile Details"></textarea>
-</div>
-<div class="text-center form-group">
-    <input type="button" id="submit" value="Save" ng-click="save(record)" class="btn btn-primary" />
 </div>
