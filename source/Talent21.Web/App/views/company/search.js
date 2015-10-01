@@ -113,8 +113,8 @@
     //Slider configs
     $scope.experienceSlider = {
         min: $scope.query.xfrom || 0,
-        max: $scope.query.xto || 500,
-        ceil: 240,
+        max: $scope.query.xto || 600,
+        ceil: 600,
         floor: 0
     };
 
