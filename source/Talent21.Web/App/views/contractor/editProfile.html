@@ -1,5 +1,5 @@
 ﻿<h3 class="page-title">
-    {{title}} <small>{{record.firstName}} {{record.lastName}}</small>
+    {{title}}
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -10,6 +10,10 @@
         </li>
         <li>
             <a href="#/profile">Profile</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">{{record.firstName}} {{record.lastName}}</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -201,16 +205,16 @@
     <h3>{{l.label}} Skills</h3>
     <table class="table table-advance">
         <thead>
-            <tr>
-                <th>Skill</th>
-                <th>Experience (Months)</th>
-                <th>Profficieny</th>
-                <th>&nbsp;</th>
-            </tr>
+        <tr>
+            <th>Skill</th>
+            <th>Experience (Months)</th>
+            <th>Profficieny</th>
+            <th>&nbsp;</th>
+        </tr>
         </thead>
         <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
             <td>{{s.title}}</td>
-            <td><input class="form-control" type="number" ng-model="s.experienceInMonths" /></td>
+            <td><input class="form-control" type="number" ng-model="s.experienceInMonths"/></td>
             <td><select ui-select2 class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select></td>
             <td><button class="btn btn-danger" ng-click="remove(s)"><i class="fa fa-trash"></i></button></td>
         </tr>
@@ -226,6 +230,56 @@
         </div>
     </div>
 </div>
+<h3 class="form-section">Schedule</h3>
+<table class="table table-advance">
+    <thead>
+    <tr>
+        <th>Status</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Days</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tr ng-repeat="s in record.schedules track by $index">
+        <td>{{s.isAvailable ? 'Available' : s.company}}</td>
+        <td>{{s.start | date:'dd-MMM-yyyy'}}</td>
+        <td>{{s.end | date:'dd-MMM-yyyy'}}</td>
+        <td>{{s.end | amDifference : s.start : 'days'}} Days</td>
+        <td>
+            <button class="btn btn-danger" data-toggle="confirmation" data-original-title="Are you sure ?" title="" ng-click="deleteSchedule(s,$index)"><i class="fa fa-trash"></i> Delete</button>
+        </td>
+    </tr>
+</table>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="row">
+                <label class="col-xs-12">&nbsp;</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" class="form-control" ng-model="sch.isAvailable">
+                    </span>
+                    <span class="input-group-addon">
+                        Available?
+                    </span>
+                    <input type="text" class="form-control" id="companyname" ng-disabled="sch.isAvailable" placeholder="Description" ng-model="sch.company">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label>Date Range</label>
+            <div class="input-group">
+                <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="sch.date" />
+                <span class="input-group-btn">
+                    <button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
+                    <button ng-click="saveSchedule(sch)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h3 class="form-section">Full Profile</h3>
 <div class="form-group">
     <textarea class="form-control" ckeditor="editorOptions" rows="15" ng-model="record.about" required placeholder="Your Profile Details"></textarea>

@@ -14,45 +14,63 @@
     </ul>
     <div class="page-toolbar">
         <span class="pull-right">
-            <input type="checkbox" bs-switch class="make-switch" switch-mini ng-click="toggle(selectAll)" ng-model="selectAll" data-on="success" data-off="warning">
+            <input type="checkbox" class="btn default" ng-model="selectAll" />
         </span>
     </div>
 </div>
 
 <div class="row">
+    <div class="col-sm-4" id="sidebar">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Save</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-xs" ng-model="folder" />
+                        <span class="input-group-btn">
+                            <button ng-click="move(folder)" class="btn btn-primary srch-btn-pad">{{save}}</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div ng-if="jobs.length==0" class="text-danger">
+                        No active published jobs yet.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div ng-if="jobs.length>0">
+                        <div class="input-group">
+                            <select ui-select2 class="form-control" ng-model="job" ng-options="s.label for s in jobs track by s.id"></select>
+                            <span class="input-group-btn">
+                                <button ng-click="invite(job)" class="btn btn-primary srch-btn-pad">Invite</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 inbox">
+                <h2>Folders</h2>
+                <ul class="inbox-nav margin-bottom-10">
+                    <li class="inbox" ng-class="{active:f.label.toLowerCase()==query.folder}" ng-repeat="f in folders">
+                        <a class="btn" href="#/job/{{id}}/applications/{{f.label|lowercase}}">{{f.label ||'Unknown'}} ({{f.count}})</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-8">
         <cc-pager total-pages="pages" current-page="currentPage"
                   page-action="navigate(pageNumber)">
         </cc-pager>
-        <div class="jobs" ng-repeat="row in records">
-            <a href="#/job/application/{{row.id}}">
-                <div ng-if="row.featured" class="featured"></div>
-                <img src="{{row.contractor.pictureUrl}}" alt="" class="img-circle" />
-                <div class="title">
-                    <h5>{{row.contractor.firstName}} {{row.contractor.lastName}}</h5>
-                    <p ng-bind-html="row.contractor.about | limitTo: 200"></p>
-                    <p><span class="badge">{{row.folder}}</span></p>
-                </div>
-                <div class="data">
-                    <span class="city"><i class="fa fa-map-marker"></i>{{row.contractor.location}}</span>
-                    <span class="experience"><i class="fa fa-trophy"></i>{{row.contractor.experienceYears}}.{{row.contractor.experienceMonths}} years</span>
-                    <span class="sallary"><i class="fa fa-inr"></i>{{row.contractor.rate}}k</span>
-                </div>
-            </a>
-        </div>
+        <div class="col-xs-12" ng-repeat="row in records" ng-include="'app/views/company/contractor.app.html'"></div>
         <cc-pager total-pages="pages" current-page="currentPage"
                   page-action="navigate(pageNumber)">
         </cc-pager>
-    </div>
-    <div class="col-sm-4" id="sidebar">
-        <!-- Find a Job Start -->
-        <div class="sidebar-widget" id="jobsearch">
-            <h2>Folders</h2>
-            <ul>
-                <li ng-repeat="f in folders"><a href="#/job/{{id}}/applications/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
-            </ul>
-        </div>
-        <!-- Find a Job End -->
-
     </div>
 </div>

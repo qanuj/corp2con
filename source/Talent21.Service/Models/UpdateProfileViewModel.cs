@@ -121,6 +121,7 @@ namespace Talent21.Service.Models
         public string FunctionalArea { get; set; }
 
         public int Complete { get; set; }
+        public IEnumerable<ScheduleViewModel> Schedules { get; set; } 
     }
 
 }

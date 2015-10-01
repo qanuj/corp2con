@@ -81,6 +81,33 @@
             $scope.record = result;
         });
     }
+    function loadSchedule() {
+        db.contractor.getSchedule().success(function(result) {
+            $scope.record.schedules = result;
+        });
+    }
+
+    $scope.deleteSchedule = function (s, i) {
+        db.contractor.deleteSchedule(s).success(loadSchedule);
+    };
+
+
+    $scope.saveSchedule = function (record) {
+        db.contractor.createSchedule({
+            start: record.date.startDate.format(),
+            end: record.date.endDate.format(),
+            company: record.company,
+            isAvailable: record.isAvailable
+        })
+        .success(loadSchedule)
+        .error(function (err) {
+            toastr.error(err.exceptionMessage, err.message);
+        }).then(function () {
+            $scope.start = '';
+            $scope.end = '';
+        });
+    }
+
 
     $scope.genders = db.system.genders;
 

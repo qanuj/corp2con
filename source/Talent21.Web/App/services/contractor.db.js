@@ -119,8 +119,8 @@
         return $http.delete(v+'schedule/' + record.id);
     }
 
-    contractor.getSchedule = function (page, pageSize) {
-        return $http.get(v+'schedule/all?$orderby=Id desc' + calculatePaging(page, pageSize));
+    contractor.getSchedule = function () {
+        return $http.get(v+'schedule/all?$orderby=Start');
     }
 
 

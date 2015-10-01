@@ -100,6 +100,14 @@ namespace Talent21.Service.Core
                                 Rate = x.Rate,
                                 RateType = x.RateType,
                                 LocationCode = x.Location.Code,
+                                Schedules = _scheduleRepository.All.Where(y=>y.ContractorId==x.Id).Select(y=>new ScheduleViewModel()
+                                {
+                                    Company = y.Description,
+                                    Id = y.Id,
+                                    Start = y.Start,
+                                    End = y.End,
+                                    IsAvailable = y.IsAvailable
+                                }),
                                 Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
                                 {
                                     Id = y.Id,
