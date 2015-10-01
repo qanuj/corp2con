@@ -17,6 +17,32 @@
         });
     };
 
+    var ignoreList = ['rss','locationCode','profile','companyId'];
+
+    function calculateProgress(newVal) {
+        $scope.pendings = [];
+        var total = 0, pg = 0;
+        for (var x in newVal) {
+            if (ignoreList.indexOf(x) > -1) continue;
+            if (angular.isArray(newVal[x]) && (newVal[x] && newVal[x].length > 0)) {
+                pg++;
+            } else if (newVal[x]) {
+                pg++;
+            } else {
+                $scope.pendings.push(x);
+            }
+            total++;
+        }
+        var complete = Math.round(pg / total * 100, 0);
+        $scope.status = complete == 100 ? 'success' : complete < 20 ? 'danger' : complete > 20 && complete < 50 ? 'warning' : 'info';
+        $scope.complete = complete;
+        if (newVal && newVal.complete != complete) {
+            newVal.complete = complete;
+        }
+    }
+
+    $scope.$watch('record', calculateProgress, true);
+
     $scope.save = function (record) {
         if (record.mobile == record.alternateNumber && record.mobile) {
             toastr.error('Mobile and Mobile 2 Number can\'t be same.', 'Validation');
@@ -28,11 +54,16 @@
         if (record.picture) {
             record.pictureUrl = record.picture.url;
         }
-
+        record.experienceYears = Math.floor(record.experience / 12);
+        record.experienceInMonths = record.experience % 12;
+        calculateProgress(record);
+        console.log('Progress', record.complete);
         db.contractor.update(record).success(function (result) {
             window.location = "#/profile";
         });
     }
+
+
 
     $scope.addSkill = function (skills, level) {
         for (var x in skills) {
@@ -72,15 +103,53 @@
 
     function navigate() {
         return db.contractor.get().success(function (result) {
+            //result.companyId = !result.companyId ? 1 : result.companyId; //TODO:remove this line
             result.picture = {
                 url: result.pictureUrl
             };
             result.loc = {
                 formatted_address: result.location
             };
+            result.experience = (result.experienceYears * 12) + result.experienceMonths;
             $scope.record = result;
         });
     }
+    function loadSchedule() {
+        db.contractor.getSchedule().success(function(result) {
+            $scope.record.schedules = result;
+        });
+    }
+    
+
+    $scope.experienceTranslate = function (value) {
+        if (value == 0) return 'Fresher';
+        var years = Math.floor(value / 12);
+        var months = value % 12;
+        return years + (months > 0 ? "." + months : "") + 'y';
+    }
+
+
+    $scope.deleteSchedule = function (s, i) {
+        db.contractor.deleteSchedule(s).success(loadSchedule);
+    };
+
+
+    $scope.saveSchedule = function (record) {
+        db.contractor.createSchedule({
+            start: record.date.startDate.format(),
+            end: record.date.endDate.format(),
+            company: record.company,
+            isAvailable: record.isAvailable
+        })
+        .success(loadSchedule)
+        .error(function (err) {
+            toastr.error(err.exceptionMessage, err.message);
+        }).then(function () {
+            $scope.start = '';
+            $scope.end = '';
+        });
+    }
+
 
     $scope.genders = db.system.genders;
 

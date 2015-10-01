@@ -29,6 +29,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             controller: role + "SearchController",
             resolve: searchDependency
         })
+        .state('searchFolder', {
+            url: "/search/folder/:folder",
+            templateUrl: "app/views/" + role + "/search.html",
+            data: { pageTitle: 'Search' },
+            controller: role + "SearchController",
+            resolve: searchDependency
+        })
         .state('searchIdea', {
             url: "/search/:idea",
             templateUrl: "app/views/" + role + "/search.html",

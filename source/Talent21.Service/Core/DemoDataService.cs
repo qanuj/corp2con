@@ -500,7 +500,6 @@ namespace Talent21.Service.Core
                     .Setup(u => u.ExperienceYears).Use<IntegerSource>(1, 60)
                     .Setup(u => u.Location).Use<IndianCitySource>()
                     .Setup(u => u.Nationality).Use<CountrySource>()
-                    .Setup(u => u.Profile).Use<LoremIpsumSource>(20)
                     .Setup(u => u.AlternateNumber).Use<DutchTelephoneSource>()
                     .Setup(u => u.Mobile).Use<DutchTelephoneSource>()
                     .Setup(u => u.RateType).Use<EnumSource<RateEnum>>()

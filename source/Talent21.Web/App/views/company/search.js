@@ -1,4 +1,4 @@
-﻿app.controller('companySearchController', ['$scope', 'dataService','$rootScope',function ($scope, db,  $rootScope) {
+﻿app.controller('companySearchController', ['$scope', 'dataService','$rootScope','$stateParams',function ($scope, db,  $rootScope,$stateParams) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -11,7 +11,7 @@
     $scope.title = "Contractor : Search Result";
     $scope.save = "Save";
 
-    var param = db.args();
+    var param = db.args($stateParams);
 
     if (!isNaN(param.idea)) {
         param.page = page.idea;
@@ -22,6 +22,8 @@
     } else if (param.idea == "week") {
         $scope.searching = "Matching Jobs for you, next week";
     }
+
+    console.log(param);
 
     $scope.query = {
         keywords: param.q || param.keywords || '',
@@ -113,8 +115,8 @@
     //Slider configs
     $scope.experienceSlider = {
         min: $scope.query.xfrom || 0,
-        max: $scope.query.xto || 500,
-        ceil: 240,
+        max: $scope.query.xto || 600,
+        ceil: 600,
         floor: 0
     };
 
@@ -135,6 +137,9 @@
         function moveFolder(x, folder, next) {
             if (!$scope.records[x]) {
                 $scope.save = "Save";
+                db.company.getSearchFolders().success(function (result) {
+                    $scope.folders = result;
+                });
                 $scope.navigate($scope.currentPage);
                 return;
             }

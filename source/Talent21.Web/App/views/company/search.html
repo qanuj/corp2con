@@ -1,5 +1,5 @@
 ﻿<h3 class="page-title">
-    {{title}} <small>{{count}} results</small>
+    {{title}}
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -10,16 +10,11 @@
         </li>
         <li>
             <a href="#">Search</a>
+            <i class="fa fa-angle-right"></i>
         </li>
+        <li>{{count}}</li>
     </ul>
     <div class="page-toolbar">
-        <!--<span class="pull-right">-->
-        <ul class="page-breadcrumb">
-            <li>
-                <input type="checkbox" class="btn default" ng-model="selectAll" />
-            </li>
-        </ul>
-        <!--</span>-->
     </div>
 </div>
 <div class="row">
@@ -29,12 +24,11 @@
                 <h3>Save</h3>
             </div>
         </div>
-
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control input-xs" ng-model="folder" />
+                        <input type="text" class="form-control input-xs" ng-model="folder"/>
                         <span class="input-group-btn">
                             <button ng-click="move(folder)" class="btn btn-primary srch-btn-pad">{{save}}</button>
                         </span>
@@ -62,14 +56,15 @@
                 <h3>Filter</h3>
             </div>
             <div class="col-xs-2">
-                <h3><a class="btn btn-danger btn-xs" href="#" ng-click=""><i class="fa fa-trash"></i></a></h3>
+                <h3><a class="btn btn-danger btn-xs" href="#" ng-click=""><i class="fa fa-trash"></i></a>
+                </h3>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <h5>Keyword</h5>
                 <div class="input-group">
-                    <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                    <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant"/>
                     <div class="input-group-btn">
                         <button class="btn btn-primary srch-btn-pad" ng-click="search(query)"><i class="fa fa-search"></i></button>
                     </div>
@@ -143,34 +138,49 @@
             <div class="col-xs-12 inbox">
                 <h2>Folders</h2>
                 <ul class="inbox-nav margin-bottom-10">
-                    <li class="inbox" ng-class="{active:f.label.toLowerCase()==query.folder}" ng-repeat="f in folders"><a class="btn" href="#/search/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
+                    <li class="inbox" ng-class="{active:f.label.toLowerCase()==query.folder}" 
+                        ng-repeat="f in folders"><a class="btn" href="#/search/folder/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
                 </ul>
             </div>
         </div>
-        <!--<div class="col-xs-12" ng-include="'app/views/company/contractor.filter.html'"></div>-->
-        <!-- Find a Job End -->
     </div>
     <div class="col-sm-9">
-        <cc-pager total-pages="pages" current-page="currentPage"
-                  page-action="navigate(pageNumber)">
-        </cc-pager>
-        <div ng-if="count < 1">
-            <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Ooops! You got us..</strong>
-                <p>
-                    We could not find anyone.
-                </p>
-                <p>
-                    <a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a>
-                </p>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <input type="checkbox" bs-switch class="make-switch"
+                               switch-size="mini" ng-click="toggle(selectAll)"
+                               ng-model="selectAll" data-on="success" data-off="warning">
+                    </div>
+                    <div class="col-xs-10 text-right">
+                        <cc-pager total-pages="pages" current-page="currentPage"
+                                  page-action="navigate(pageNumber)">
+                        </cc-pager>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="count < 1">
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Ooops! You got us..</strong>
+                    <p>
+                        We could not find anyone.
+                    </p>
+                    <p>
+                        <a class="btn btn-success" href="#/search"><i class="fa fa-search"></i> Search Again</a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-12" ng-repeat="row in records" ng-include="'app/views/company/contractor.item.html'"></div>
+            <div class="col-xs-12">
+                <cc-pager total-pages="pages" current-page="currentPage"
+                          page-action="navigate(pageNumber)">
+                </cc-pager>
             </div>
         </div>
-        <div class="col-xs-12" ng-repeat="row in records" ng-include="'app/views/company/contractor.item.html'"></div>
-        <cc-pager total-pages="pages" current-page="currentPage"
-                  page-action="navigate(pageNumber)">
-        </cc-pager>
     </div>
 </div>

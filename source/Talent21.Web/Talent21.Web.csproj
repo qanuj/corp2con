@@ -322,6 +322,7 @@
     <Content Include="App\views\company\bench.html" />
     <Content Include="App\views\company\bench.js" />
     <Content Include="App\views\company\contractor.filter.html" />
+    <Content Include="App\views\company\contractor.app.html" />
     <Content Include="App\views\company\contractor.item.html" />
     <Content Include="App\views\company\contractor.simple.html" />
     <Content Include="App\views\company\invite.html" />

@@ -9,6 +9,8 @@
     $rootScope.settings.layout.pageSidebarClosed = false;
 
     $scope.title = "Job Applications";
+    $scope.save = "Save";
+
     var id = $stateParams.id;
     $scope.id = id;
     $scope.navigate = function (page) {
@@ -30,6 +32,27 @@
 
         fetchResults($scope.query, page || 1);
     }
+
+    $scope.move = function (folder) {
+        var i = 0;
+        function moveFolder(x, folder, next) {
+            if (!$scope.records[x]) {
+                $scope.save = "Save";
+                $scope.navigate($scope.currentPage);
+                return;
+            }
+            $scope.save = (x + 1);
+            if ($scope.records[x].selected == true) {
+                db.company.saveApplication($scope.records[x].contracter.id, folder).success(next);
+            } else next();
+        }
+        function onNext() {
+            moveFolder(++i, folder, onNext);
+        }
+        moveFolder(i, folder, onNext);
+    }
+
+
     $scope.navigate($stateParams.page);
 
 }]);

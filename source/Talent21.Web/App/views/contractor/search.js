@@ -179,9 +179,13 @@
 
     $scope.$watch('selectAll', function (val) {
         $scope.toggle($scope.selectAll);
-        console.log('Toggeling', val);
     });
 
+    $scope.toggle = function (allSelected) {
+        for (var x in $scope.records) {
+            $scope.records[x].selected = allSelected;
+        }
+    }
 
     $scope.$on("slideEnded", function () {
         // user finished sliding a handle 

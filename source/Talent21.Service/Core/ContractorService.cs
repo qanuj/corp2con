@@ -17,6 +17,7 @@ namespace Talent21.Service.Core
     {
         private readonly IContractorRepository _contractorRepository;
         private readonly IContractorVisitRepository _contractorVisitRepository;
+        private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyVisitRepository _companyVisitRepository;
         private readonly IJobVisitRepository _jobVisitRepository;
 
@@ -40,7 +41,7 @@ namespace Talent21.Service.Core
             IJobApplicationHistoryRespository jobApplicationHistoryRespository,
             IJobRepository jobRepository,
             INotificationService notificationService, ICompanyVisitRepository companyVisitRepository, IJobVisitRepository jobVisitRepository,
-            IUserProvider userProvider, IAdvertisementRepository advertisementRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository) : base(userProvider)
+            IUserProvider userProvider, IAdvertisementRepository advertisementRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository, ICompanyRepository companyRepository) : base(userProvider)
         {
             _jobApplicationHistoryRespository = jobApplicationHistoryRespository;
             _contractorRepository = contractorRepository;
@@ -56,6 +57,7 @@ namespace Talent21.Service.Core
             _advertisementRepository = advertisementRepository;
             _transactionRepository = transactionRepository;
             _appSiteConfigRepository = appSiteConfigRepository;
+            _companyRepository = companyRepository;
         }
 
         public IQueryable<ContractorViewModel> Contractors
@@ -65,6 +67,7 @@ namespace Talent21.Service.Core
                 var query = from x in _contractorRepository.All
                             select new ContractorViewModel
                             {
+                                CompanyId=x.CompanyId,
                                 Id = x.Id,
                                 About = x.About,
                                 Email = x.Email,
@@ -76,7 +79,6 @@ namespace Talent21.Service.Core
                                 ConsultantType = x.ConsultantType,
                                 ContractType = x.ContractType,
                                 Gender = x.Gender,
-                                Profile = x.Profile,
                                 FunctionalAreaId = x.FunctionalAreaId,
                                 ExperienceMonths = x.Experience.Months,
                                 ExperienceYears = x.Experience.Years,
@@ -100,6 +102,15 @@ namespace Talent21.Service.Core
                                 Rate = x.Rate,
                                 RateType = x.RateType,
                                 LocationCode = x.Location.Code,
+                                ProfileUrl=x.ProfileUrl,
+                                Schedules = _scheduleRepository.All.Where(y=>y.ContractorId==x.Id).Select(y=>new ScheduleViewModel()
+                                {
+                                    Company = y.Description,
+                                    Id = y.Id,
+                                    Start = y.Start,
+                                    End = y.End,
+                                    IsAvailable = y.IsAvailable
+                                }),
                                 Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
                                 {
                                     Id = y.Id,
@@ -154,7 +165,9 @@ namespace Talent21.Service.Core
 
         public IQueryable<JobApplicationContractorViewModel> MyApplications()
         {
-            return Applications().Where(x => x.Actions.Any());
+            return Applications().Where(x => x.Actions.Any(y => y.Act == JobActionEnum.Application) &&
+                        x.Actions.All(y => y.Act != JobActionEnum.Decline) &&
+                        x.Actions.All(y => y.Act != JobActionEnum.Revoke));
         }
 
         public IQueryable<JobApplicationContractorViewModel> Applications(int id = 0)
@@ -238,23 +251,23 @@ namespace Talent21.Service.Core
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 OwnerId = model.OwnerId,
-                Email = model.Email,
                 PictureUrl = model.PictureUrl,
                 About = model.About,
                 Rate = model.Rate,
                 RateType = model.RateType,
                 Nationality = model.Nationality,
                 FunctionalAreaId = model.FunctionalAreaId,
-                AlternateNumber = model.AlternateNumber,
-                ConsultantType = model.ConsultantType,
-                ContractType = model.ContractType,
+                ConsultantType = companyId>0 ? ContractorTypeEnum.AlignedToConsultingOrganistion : model.ConsultantType,
+                ContractType = companyId > 0 ? ContractTypeEnum.ClientLocation : model.ContractType,
                 Gender = model.Gender,
-                Profile = model.Profile,
                 PinCode = model.PinCode,
+                ProfileUrl = model.ProfileUrl,
                 Address = model.Address,
-                Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears },
+                Experience = new Duration { Months = model.ExperienceMonths, Years = model.ExperienceYears },
                 LocationId = model.LocationId,
+                Email =  model.Email,
                 Mobile = model.Mobile,
+                AlternateNumber = model.AlternateNumber,
                 Social = new Social
                 {
                     Twitter = model.Twitter,
@@ -266,6 +279,16 @@ namespace Talent21.Service.Core
                     WebSite = model.WebSite
                 }
             };
+
+            var company = _companyRepository.ById(companyId ?? 0);
+            if (company != null)
+            {
+                entity.Social = company.Social;
+                entity.Email = company.Email;
+                entity.Mobile = company.Mobile;
+                entity.AlternateNumber = company.AlternateNumber;
+            }
+
 
             if (model.Skills != null)
             {
@@ -344,6 +367,7 @@ namespace Talent21.Service.Core
             entity.FirstName = model.FirstName;
             entity.LastName = model.LastName;
             entity.PictureUrl = model.PictureUrl;
+            entity.ProfileUrl = model.ProfileUrl;
             entity.Email = model.Email;
             entity.About = model.About;
             entity.Rate = model.Rate;
@@ -354,7 +378,7 @@ namespace Talent21.Service.Core
             entity.ConsultantType = model.ConsultantType;
             entity.ContractType = model.ContractType;
             entity.Gender = model.Gender;
-            entity.Profile = model.Profile;
+            entity.Complete = model.Complete;
 
             entity.PinCode = model.PinCode;
             entity.Address = model.Address;
@@ -372,6 +396,17 @@ namespace Talent21.Service.Core
                 Rss = model.Rss,
                 WebSite = model.WebSite
             };
+
+
+            var company = _companyRepository.ById(entity.CompanyId ?? 0);
+            if (company != null)
+            {
+                entity.Social = company.Social;
+                entity.Email = company.Email;
+                entity.Mobile = company.Mobile;
+                entity.AlternateNumber = company.AlternateNumber;
+            }
+
 
             ApplySkills(model, entity);
 

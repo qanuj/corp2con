@@ -20,7 +20,7 @@
             <a class="btn btn-primary" ng-if="record.isPublished===false" href="/#/job/edit/{{record.id}}">
                 <i class="fa fa-edit"></i> Edit Job
             </a>
-            <a class="btn btn-primary" ng-if="record.isPublished===true" href="/#/job/{{record.id}}/applications">
+            <a class="btn btn-primary" ng-if="record.isPublished===true" href="/#/job/applications/{{record.id}}">
                 <i class="fa fa-file-code-o"></i> View applications <span class="badge">{{record.applied}}</span>
             </a>
             <button class="btn btn-success" ng-click="publish(record.id)" ng-if="record.isPublished===false">

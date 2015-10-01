@@ -73,8 +73,7 @@ namespace Talent21.Service.Models
         public DateTime Availability { get; set; }
         public int? Days { get; set; }
         public AvailableEnum Available { get; set; }
-
-        public int? CompanyId { get; set; }
+        
         public string Company { get; set; }
         public bool IsFeatured { get; set; }
         public bool IsHighlight { get; set; }

@@ -103,8 +103,7 @@ namespace Talent21.Service.Core
                     Complete = x.Complete,
                     Industry = new DictionaryViewModel() { Code = x.Industry.Code, Title = x.Industry.Title },
                     IndustryId = x.IndustryId,
-                    OrganizationType = x.OrganizationType,
-                    Profile = x.Profile
+                    OrganizationType = x.OrganizationType
                 });
             }
         }
@@ -131,7 +130,6 @@ namespace Talent21.Service.Core
                 AlternateNumber = model.AlternateNumber,
                 Address = model.Address,
                 PinCode = model.PinCode,
-                Profile = model.Profile,
                 LocationId = model.LocationId,
                 Mobile = model.Mobile,
                 IndustryId = model.IndustryId,
@@ -172,7 +170,6 @@ namespace Talent21.Service.Core
             entity.AlternateNumber = model.AlternateNumber;
             entity.Address = model.Address;
             entity.PinCode = model.PinCode;
-            entity.Profile = model.Profile;
             entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
             entity.IndustryId = model.IndustryId;
@@ -537,7 +534,6 @@ namespace Talent21.Service.Core
                                 ConsultantType = x.ConsultantType,
                                 ContractType = x.ContractType,
                                 Gender = x.Gender,
-                                Profile = x.Profile,
                                 FunctionalArea = x.FunctionalArea.Title,
                                 Industry = x.Industry.Title,
                                 FunctionalAreaId = x.FunctionalAreaId,
@@ -561,6 +557,7 @@ namespace Talent21.Service.Core
                                 OwnerId = x.OwnerId,
                                 Rate = x.Rate,
                                 Availability = availableDay,
+                                Complete = x.Complete,
                                 Days = days,
                                 IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
@@ -607,7 +604,7 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model,Company company)
         {
-            var query = Contractors;
+            var query = Contractors.Where(x=>x.Complete > 0);
             //Rules of searching.
             if (!string.IsNullOrWhiteSpace(model.Location))
             {
@@ -655,7 +652,6 @@ namespace Talent21.Service.Core
                     query = query.Where(x =>
                         x.Company.Contains(model.Keywords) ||
                         x.Mobile.Contains(model.Keywords) ||
-                        x.Profile.Contains(model.Keywords) ||
                         x.Location.Contains(model.Keywords) ||
                         x.About.Contains(model.Keywords) ||
                         x.FirstName.Contains(model.Keywords) ||
