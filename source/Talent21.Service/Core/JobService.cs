@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using e10.Shared.Extensions;
 using e10.Shared.Providers;
 using e10.Shared.Util;
 using Talent21.Data.Core;
@@ -196,6 +198,7 @@ namespace Talent21.Service.Core
         {
             return _jobRepository.All.Select(x => new JobPublicViewModel
             {
+                PictureUrl = x.Company.PictureUrl,
                 Id = x.Id,
                 Company = x.Company.CompanyName,
                 IsCancelled = x.IsCancelled,
@@ -217,7 +220,10 @@ namespace Talent21.Service.Core
 
         public JobPublicViewModel JobById(int id)
         {
-            return Applications().FirstOrDefault(x => x.Id == id);
+            var job = Applications().FirstOrDefault(x => x.Id == id);
+            if (job == null) return null;
+            job.JobCode = job.Id.Base10ToString();
+            return job;
         }
 
         protected IQueryable<CompanyPublicViewModel> PublicCompany
@@ -251,9 +257,19 @@ namespace Talent21.Service.Core
                 });
             }
         }
+        public Job FullById(int id)
+        {
+            return _jobRepository.All.Include(x => x.Skills.Select(y => y.Skill))
+                    .Include(x => x.Locations)
+                    .Include(x => x.Company.Location)
+                    .FirstOrDefault(x => x.Id == id);
+        }
         public CompanyPublicViewModel CompanyById(int id)
         {
-            return PublicCompany.FirstOrDefault(x => x.Id == id);
+            var company = PublicCompany.FirstOrDefault(x => x.Id == id);
+            if (company == null) return null;
+            company.CompanyCode = company.Id.Base10ToString();
+            return company;
         }
     }
 }

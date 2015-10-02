@@ -2,10 +2,23 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Talent21.Data.Core;
 using Talent21.Service.Models;
 
 namespace Talent21.Web.Models
 {
+    public class FacebookJobPageViewModel
+    {
+        public JobPublicViewModel Requirement { get; set; }
+        public string Url { get; set; }
+        public string FacebookId { get; set; }
+    }
+    public class FacebookCompanyPageViewModel
+    {
+        public CompanyPublicViewModel Company { get; set; }
+        public string Url { get; set; }
+        public string FacebookId { get; set; }
+    }
     public class WelcomePageViewModel
     {
         public StatsViewModel Numbers { get; set; }

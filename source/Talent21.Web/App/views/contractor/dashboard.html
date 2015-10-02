@@ -16,7 +16,7 @@
 <div class="hide note note-success note-bordered">
     <h3>Welcome to Contractor's Pool <span class="close" data-close="note"></span></h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sagittis odio aliquam nunc gravida, non rhoncus dui porttitor. Suspendisse euismod elit eu odio laoreet, sed vehicula augue rutrum.</p>
-    <span class="label label-danger">NOTE:</span> Suspendisse euismod elit eu odio laoreet, sed vehicula augue rutrum.</span>
+    <span class="label label-danger">NOTE:</span> Suspendisse euismod elit eu odio laoreet, sed vehicula augue rutrum.
 </div>
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -93,8 +93,38 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-equalizer font-red-sunglo"></i>
+                    <span class="caption-subject font-red-sunglo bold uppercase">Search</span>
+                    <span class="caption-helper">Jobs</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form ng-submit="search(query)" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Skill</span>
+                                <input class="form-control input-lg" type="text" ng-model="query.skills" placeholder="" />
+                                <span class="input-group-addon">Location</span>
+                                <input class="form-control input-lg" type="text" ng-model="query.location" placeholder="" />
+                                <span class="input-group-addon">Keywords</span>
+                                <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="" />
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="search(query)" class="btn btn-lg green">Search</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
+    </div>
+    <div class="col-md-6 col-lg-6">
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption caption-md">
@@ -126,7 +156,6 @@
                 </div>
             </div>
         </div>
-        <!-- BEGIN PORTLET-->
         <div class="portlet light">
             <div class="portlet-title tabbable-line">
                 <div class="caption caption-md">
@@ -186,115 +215,63 @@
                 <!--END TABS-->
             </div>
         </div>
-        <!-- END PORTLET-->
     </div>
-    <div class="col-md-5 col-sm-12">
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-equalizer font-red-sunglo"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Search</span>
-                    <span class="caption-helper">Jobs</span>
+    <div class="col-md-6 col-lg-3">
+        <div class="portlet light profile-sidebar-portlet">
+            <!-- SIDEBAR USERPIC -->
+            <div class="profile-userpic">
+                <img src="{{profile.pictureUrl}}" class="img-responsive" alt="">
+            </div>
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    {{profile.firstName}} {{profile.lastName}}
+                </div>
+                <div class="profile-usertitle-job">
+                    {{profile.consultantType | uncamel}}
                 </div>
             </div>
-            <div class="portlet-body form">
-                <form ng-submit="search(query)" class="form-horizontal">
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Skills</label>
-                            <div class="col-md-9">
-                                <input class="form-control input-lg" type="text" ng-model="query.skills" placeholder="" />
-                                <span class="help-block">
-                                    e.g ASP.net, C#, Java
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Location</label>
-                            <div class="col-md-9">
-                                <input class="form-control input-lg" type="text" ng-model="query.location" placeholder="" />
-                                <span class="help-block">
-                                    e.g. Mumbai OR Delhi
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Keywords</label>
-                            <div class="col-md-9">
-                                <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="" />
-                                <span class="help-block">
-                                    e.g. Senior Consultant
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <div class="row">
-                            <div class="col-md-offset-3 col-md-9">
-                                <button type="button" ng-click="search(query)" class="btn green">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+            <!-- END SIDEBAR USER TITLE -->
+            <!-- SIDEBAR BUTTONS -->
+            <!--<div class="profile-userbuttons">
+            <a href="#/profile/edit" class="btn btn-circle green-haze btn-sm">Edit Profile</a>
+            <a href="#/schedule" class="btn btn-circle btn-danger btn-sm">Schedule</a>
+        </div>-->
+            <!-- END SIDEBAR BUTTONS -->
+            <!-- SIDEBAR MENU -->
+            <div class="profile-usermenu">
+                <ul class="nav">
+                    <li class="active">
+                        <a href="#/profile">
+                            <i class="icon-home"></i>
+                            Overview
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/profile/edit">
+                            <i class="icon-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/schedule">
+                            <i class="icon-calendar"></i>
+                            Schedule
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/faq">
+                            <i class="icon-info"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-
     </div>
-    <div class="col-md-3 col-sm-12">
+    <div class="col-md-6 col-lg-3 col-md-offset-6 col-lg-offset-0">
         <div class="profile">
-            <div class="portlet light profile-sidebar-portlet">
-                <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
-                    <img src="{{profile.pictureUrl}}" class="img-responsive" alt="">
-                </div>
-                <!-- END SIDEBAR USERPIC -->
-                <!-- SIDEBAR USER TITLE -->
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        {{profile.firstName}} {{profile.lastName}}
-                    </div>
-                    <div class="profile-usertitle-job">
-                        {{profile.consultantType | uncamel}}
-                    </div>
-                </div>
-                <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                <!--<div class="profile-userbuttons">
-                    <a href="#/profile/edit" class="btn btn-circle green-haze btn-sm">Edit Profile</a>
-                    <a href="#/schedule" class="btn btn-circle btn-danger btn-sm">Schedule</a>
-                </div>-->
-                <!-- END SIDEBAR BUTTONS -->
-                <!-- SIDEBAR MENU -->
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="extra_profile.html">
-                                <i class="icon-home"></i>
-                                Overview
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/profile/edit">
-                                <i class="icon-user"></i>
-                                Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/schedule">
-                                <i class="icon-calendar"></i>
-                                Schedule
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/faq">
-                                <i class="icon-info"></i>
-                                Help
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END MENU -->
             <div class="portlet light">
                 <div class="row list-separated profile-stat">
                     <div class="col-md-4 col-sm-4 col-xs-6">

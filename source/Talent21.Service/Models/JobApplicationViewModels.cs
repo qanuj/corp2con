@@ -70,6 +70,8 @@ namespace Talent21.Service.Models
         public IEnumerable<JobLocationEditViewModel> Locations { get; set; }
         public bool IsWorkingFromHome { get; set; }
         public int Positions { get; set; }
+        public string JobCode { get; set; }
+        public string PictureUrl { get; set; }
     }
 
     public class JobApplicationContractorViewModel : JobApplicationViewModel

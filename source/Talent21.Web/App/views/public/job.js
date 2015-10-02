@@ -14,6 +14,7 @@
 
     db.job.byId($scope.id).success(function (job) {
         $scope.record = job;
+        $scope.page = window.location.origin + '/go/' + result.job.jobCode;
         db.job.visitJob(param.id);
     });
 

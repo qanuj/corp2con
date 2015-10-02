@@ -1,0 +1,24 @@
+﻿@using e10.Shared.Extensions
+@using Mvc.Mailer
+@model Talent21.Web.Models.FacebookJobPageViewModel
+@{
+    ViewBag.Title = Model.Requirement.Title;
+    Layout = "~/Views/Shared/_Unsecured.cshtml";
+    var pictureUrl = "~/content/images/logo-color.png";
+    if (!string.IsNullOrWhiteSpace(Model.Requirement.PictureUrl))
+    {
+        pictureUrl = Url.Content(Model.Requirement.PictureUrl);
+    }
+}
+@section Head {
+    <meta property="og:title" content="@Model.Requirement.Title - @Model.Requirement.Company" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@Model.Url" />
+    <meta property="og:image" content="@Url.Abs(Url.Content(pictureUrl))" />
+    <meta property="og:site_name" content="@Product.Name" />
+    <meta property="og:description" content="@Model.Requirement.Description.StripHTML()" />
+    <meta property="fb:app_id" content="@Model.FacebookId" />
+}
+<script>
+    window.location.href = "/jobs#/job/@Model.Requirement.Id";
+</script>

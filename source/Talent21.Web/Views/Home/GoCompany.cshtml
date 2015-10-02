@@ -1,0 +1,24 @@
+﻿@using e10.Shared.Extensions
+@using Mvc.Mailer
+@model Talent21.Web.Models.FacebookCompanyPageViewModel
+@{
+    ViewBag.Title = Model.Company.CompanyName;
+    Layout = "~/Views/Shared/_Unsecured.cshtml";
+    var pictureUrl = "~/content/images/logo-color.png";
+    if (!string.IsNullOrWhiteSpace(Model.Company.PictureUrl))
+    {
+        pictureUrl = Url.Content(Model.Company.PictureUrl);
+    }
+}
+@section Head {
+    <meta property="og:title" content="@Model.Company.CompanyName" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@Model.Url" />
+    <meta property="og:image" content="@Url.Abs(Url.Content(pictureUrl))" />
+    <meta property="og:site_name" content="@Product.Name" />
+    <meta property="og:description" content="@Model.Company.About.StripHTML()" />
+    <meta property="fb:app_id" content="@Model.FacebookId" />
+}
+<script>
+    window.location.href = "/jobs#/company/@Model.Company.Id";
+</script>

@@ -64,7 +64,7 @@ namespace Talent21.Service.Models
 
     public class CompanyPublicViewModel : CompanyEditViewModel
     {
-        
+        public string CompanyCode { get; set; }
     }
 
     public class CompanyViewModel : CompanyEditViewModel

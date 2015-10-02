@@ -871,6 +871,8 @@
     <Content Include="Scripts\spa-1\toastr.min.js" />
     <Content Include="Views\Notifications\Feedback.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <None Include="Views\Home\Go.cshtml" />
+    <None Include="Views\Home\GoCompany.cshtml" />
     <None Include="Views\Home\Jobs.cshtml" />
   </ItemGroup>
   <ItemGroup />

@@ -11,6 +11,7 @@ namespace Talent21.Web
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
         public static string PublicClientId { get; private set; }
         public static OAuthWebConfigProvider SocialProvider { get; private set; }
+        public static string FacebookAppId { get; set; }
 
         public void ConfigureAuth(IAppBuilder app)
         {
