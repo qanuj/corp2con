@@ -55,16 +55,13 @@
             record.pictureUrl = record.picture.url;
         }
         record.experienceYears = Math.floor(record.experience / 12);
-        record.experienceInMonths = record.experience % 12;
+        record.experienceMonths = record.experience % 12;
         calculateProgress(record);
         console.log('Progress', record.complete);
         db.contractor.update(record).success(function (result) {
             window.location = "#/profile";
         });
     }
-
-
-
     $scope.addSkill = function (skills, level) {
         for (var x in skills) {
             $scope.record.skills.push({ level: level.id, proficiency: "Beginer", experienceInMonths: 0, code: skills[x].code, title: skills[x].title });

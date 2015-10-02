@@ -15,20 +15,26 @@ namespace Talent21.Web.Controllers
     public class UploadController : CoreController
     {
         private readonly IFileAccessProvider _fileAccessProvider;
-        private readonly string _storageRoot;
-
-        public UploadController(IFileAccessProvider fileAccessProvider)
+        private static string _storageRoot;
+        public static string FindStorageRoot()
         {
-            _fileAccessProvider = fileAccessProvider;
+            if (!string.IsNullOrWhiteSpace(_storageRoot)) return _storageRoot;
             var folder = "~/App_Data/Uploads";
             if (ConfigurationManager.AppSettings.AllKeys.Any(x => x == "StorageRoot"))
             {
                 var tmp = ConfigurationManager.AppSettings["StorageRoot"];
                 if (!string.IsNullOrWhiteSpace(tmp)) folder = tmp;
             }
-            _storageRoot = HostingEnvironment.MapPath(folder);
-            if (!string.IsNullOrWhiteSpace(_storageRoot) && !Directory.Exists(_storageRoot))
-                Directory.CreateDirectory(_storageRoot);
+            var storageRoot = HostingEnvironment.MapPath(folder);
+            if (!string.IsNullOrWhiteSpace(storageRoot) && !Directory.Exists(storageRoot))
+                Directory.CreateDirectory(storageRoot);
+            return storageRoot;
+        }
+
+        public UploadController(IFileAccessProvider fileAccessProvider)
+        {
+            _fileAccessProvider = fileAccessProvider;
+            _storageRoot = FindStorageRoot();
         }
 
         [HttpPost]

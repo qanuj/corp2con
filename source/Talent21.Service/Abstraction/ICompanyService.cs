@@ -49,5 +49,7 @@ namespace Talent21.Service.Abstraction
         bool InvitePeople(IList<InviteViewModel> model);
         InviteCodeViewModel AcceptInvitation(string code);
         bool InviteContractorToJob(JobInviteViewModel model);
+        string BenchOwnerIdById(int benchId);
+        ContractorViewModel GetContractorById(int id);
      }
 }

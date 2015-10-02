@@ -8,6 +8,7 @@ using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using System.Linq;
 using e10.Shared;
+using e10.Shared.Extensions;
 using e10.Shared.Providers;
 using e10.Shared.Respository;
 
@@ -46,12 +47,12 @@ namespace Talent21.Service.Core
             ICompanyVisitRepository companyVisitRepository,
             IAdvertisementRepository advertisementRepository,
             IScheduleRepository scheduleRepository,
-            IContractorFolderRepository contractorFolderRepository, 
-            INotificationService notificationService, 
+            IContractorFolderRepository contractorFolderRepository,
+            INotificationService notificationService,
             IContractorVisitRepository contractorVisitRepository,
             IInviteRepository inviteRepository,
             ISharedService sharedService,
-            IUserProvider userProvider, ILocationRepository locationRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository) :base(userProvider)
+            IUserProvider userProvider, ILocationRepository locationRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository) : base(userProvider)
         {
             _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
@@ -89,7 +90,7 @@ namespace Talent21.Service.Core
                     Location = x.Location.Title,
                     LocationId = x.LocationId,
                     Mobile = x.Mobile,
-                    Address =x.Address,
+                    Address = x.Address,
                     PinCode = x.PinCode,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
@@ -192,7 +193,10 @@ namespace Talent21.Service.Core
 
         public CompanyViewModel GetProfile(string userId)
         {
-            return Companies.FirstOrDefault(x => x.OwnerId == userId);
+            var company = Companies.FirstOrDefault(x => x.OwnerId == userId);
+            if (company == null) return null;
+            company.CompanyCode = company.Id.Base10ToString();
+            return company;
         }
 
         public CompanyViewModel GetProfile(int id)
@@ -262,7 +266,7 @@ namespace Talent21.Service.Core
 
             _jobRepository.Create(entity);
             _jobRepository.SaveChanges();
-           
+
             return Jobs.FirstOrDefault(x => x.Id == entity.Id);
 
         }
@@ -384,43 +388,40 @@ namespace Talent21.Service.Core
             {
                 Job = new DictionaryEditViewModel { Id = x.JobId, Code = x.Job.Code, Title = x.Job.Title },
                 Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
-                Id = x.Id,
+                JobId = x.Id,
                 Folder = x.Folder,
-                Contractor = new ContractorViewModel
+                Id = x.Contractor.Id,
+                About = x.Contractor.About,
+                Email = x.Contractor.Email,
+                Complete = x.Contractor.Complete,
+                FunctionalArea = x.Contractor.FunctionalArea.Title,
+                Industry = x.Contractor.Industry.Title,
+                ExperienceMonths = x.Contractor.Experience.Months,
+                ExperienceYears = x.Contractor.Experience.Years,
+                Facebook = x.Contractor.Social.Facebook,
+                PinCode = x.Contractor.PinCode,
+                Address = x.Contractor.Address,
+                Google = x.Contractor.Social.Google,
+                LinkedIn = x.Contractor.Social.LinkedIn,
+                Location = x.Contractor.Location.Title,
+                Mobile = x.Contractor.Mobile,
+                FirstName = x.Contractor.FirstName,
+                LastName = x.Contractor.LastName,
+                Rss = x.Contractor.Social.Rss,
+                Twitter = x.Contractor.Social.Twitter,
+                WebSite = x.Contractor.Social.WebSite,
+                Yahoo = x.Contractor.Social.Yahoo,
+                PictureUrl = x.Contractor.PictureUrl,
+                OwnerId = x.Contractor.OwnerId,
+                Rate = x.Contractor.Rate,
+                Skills = x.Contractor.Skills.Select(y => new ContractorSkillViewModel()
                 {
-                    Id = x.Contractor.Id,
-                    About = x.Contractor.About,
-                    Email = x.Contractor.Email,
-                    Complete = x.Contractor.Complete,
-                    FunctionalArea = x.Contractor.FunctionalArea.Title,
-                    Industry = x.Contractor.Industry.Title,
-                    ExperienceMonths = x.Contractor.Experience.Months,
-                    ExperienceYears = x.Contractor.Experience.Years,
-                    Facebook = x.Contractor.Social.Facebook,
-                    PinCode = x.Contractor.PinCode,
-                    Address = x.Contractor.Address,
-                    Google = x.Contractor.Social.Google,
-                    LinkedIn = x.Contractor.Social.LinkedIn,
-                    Location = x.Contractor.Location.Title,
-                    Mobile = x.Contractor.Mobile,
-                    FirstName = x.Contractor.FirstName,
-                    LastName = x.Contractor.LastName,
-                    Rss = x.Contractor.Social.Rss,
-                    Twitter = x.Contractor.Social.Twitter,
-                    WebSite = x.Contractor.Social.WebSite,
-                    Yahoo = x.Contractor.Social.Yahoo,
-                    PictureUrl = x.Contractor.PictureUrl,
-                    OwnerId = x.Contractor.OwnerId,
-                    Rate = x.Contractor.Rate,
-                    Skills = x.Contractor.Skills.Select(y => new ContractorSkillViewModel()
-                    {
-                        Code = y.Skill.Code,
-                        Title = y.Skill.Title,
-                        ExperienceInMonths = y.ExperienceInMonths,
-                        Level = y.Level,
-                        Proficiency = y.Proficiency
-                    })
-                }
+                    Code = y.Skill.Code,
+                    Title = y.Skill.Title,
+                    ExperienceInMonths = y.ExperienceInMonths,
+                    Level = y.Level,
+                    Proficiency = y.Proficiency
+                })
             });
         }
 
@@ -477,8 +478,8 @@ namespace Talent21.Service.Core
         {
             return jobs.Select(x => new JobViewModel
             {
-                NewApplications=x.Applications.Count(y=>!y.IsRevoked),
-                Expiry=x.Expiry,
+                NewApplications = x.Applications.Count(y => !y.IsRevoked),
+                Expiry = x.Expiry,
                 Id = x.Id,
                 Applied = x.Applications.Count,
                 Company = x.Company.CompanyName,
@@ -507,22 +508,25 @@ namespace Talent21.Service.Core
 
         public virtual IQueryable<IdLabel<int>> ActiveJobs
         {
-            get { return ToJobViewModel(_jobRepository.Mine(CurrentUserId))
-                    .Where(x=>x.IsPublished && !x.IsCancelled && (x.Expiry>DateTime.UtcNow || !x.Expiry.HasValue))
-                    .Select(x=>new IdLabel<int> { Id = x.Id,Label = x.Title}); }
-        }
-
-        public IQueryable<ContractorSearchResultViewModel> Contractors
-        {
             get
             {
+                return ToJobViewModel(_jobRepository.Mine(CurrentUserId))
+                  .Where(x => x.IsPublished && !x.IsCancelled && (x.Expiry > DateTime.UtcNow || !x.Expiry.HasValue))
+                  .Select(x => new IdLabel<int> { Id = x.Id, Label = x.Title });
+            }
+        }
+
+        public IQueryable<ContractorSearchResultViewModel> Contractors(int currentCompanyId=-1)
+        {
                 var query = from x in _contractorRepository.All
                             let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
                             let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
                             let promotions = x.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
                             select new ContractorSearchResultViewModel
                             {
-                                Company = x.Company!=null ? x.Company.CompanyName: "",
+                                ProfileUrl = x.ProfileUrl,
+                                IsBench = x.CompanyId== currentCompanyId,
+                                Company = x.Company != null ? x.Company.CompanyName : "",
                                 CompanyId = x.CompanyId,
                                 Folders = x.Folders.Select(z => new CompanyFolderViewModel { Folder = z.Folder, CompanyId = z.CompanyId }),
                                 Id = x.Id,
@@ -575,7 +579,6 @@ namespace Talent21.Service.Core
                                 })
                             };
                 return query;
-            }
         }
 
         public async Task<FileAccessInfo> ByUrlAsync(string userId, string filepath)
@@ -602,9 +605,9 @@ namespace Talent21.Service.Core
             return Search(model, company);
         }
 
-        public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model,Company company)
+        public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model, Company company)
         {
-            var query = Contractors.Where(x=>x.Complete > 0);
+            var query = Contractors(company.Id).Where(x => (x.Complete > 0 || x.CompanyId==company.Id));
             //Rules of searching.
             if (!string.IsNullOrWhiteSpace(model.Location))
             {
@@ -655,7 +658,7 @@ namespace Talent21.Service.Core
                         x.Location.Contains(model.Keywords) ||
                         x.About.Contains(model.Keywords) ||
                         x.FirstName.Contains(model.Keywords) ||
-                        x.LastName.Contains(model.Keywords) 
+                        x.LastName.Contains(model.Keywords)
                     );
                 }
 
@@ -723,12 +726,12 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location)
         {
-            return Contractors.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
+            return Contractors().Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
         }
 
         public IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location)
         {
-            return Contractors.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location).Select(x => new AvailableRatedCandidateProfileViewModel
+            return Contractors().Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location).Select(x => new AvailableRatedCandidateProfileViewModel
             {
                 Id = x.Id,
                 ExperienceInMonths = x.ExperienceMonths,
@@ -783,7 +786,7 @@ namespace Talent21.Service.Core
                 UserId = CurrentUserId,
                 Advertisement = new CompanyAdvertisement
                 {
-                   CompanyId = entity.Id,
+                    CompanyId = entity.Id,
                     Start = DateTime.UtcNow,
                     End = DateTime.UtcNow.AddDays(which.Validity),
                     Promotion = promotion,
@@ -891,7 +894,7 @@ namespace Talent21.Service.Core
             var company = FindCompany();
             return
                 _contractorFolderRepository.Mine(CurrentUserId)
-                    .Where(x=>x.Contractor.CompanyId == company.Id)
+                    .Where(x => x.Contractor.CompanyId == company.Id)
                     .GroupBy(x => x.Folder)
                     .Select(x => new CountLabel<int>() { Label = x.Key, Count = x.Count() });
         }
@@ -925,10 +928,10 @@ namespace Talent21.Service.Core
             var invitees = new List<InviteCodeViewModel>();
             foreach (var invite in model)
             {
-                if (!string.IsNullOrWhiteSpace(invite.Email) 
+                if (!string.IsNullOrWhiteSpace(invite.Email)
                     && !string.IsNullOrWhiteSpace(invite.Name)
                     && invitees.All(x => x.Email != invite.Email)
-                    && _inviteRepository.All.OfType<BenchInvite>().All(x => x.Email != invite.Email && x.CompanyId==company.Id))
+                    && _inviteRepository.All.OfType<BenchInvite>().All(x => x.Email != invite.Email && x.CompanyId == company.Id))
                 {
                     var invitee = new BenchInvite
                     {
@@ -968,7 +971,7 @@ namespace Talent21.Service.Core
 
         public bool InviteContractorToJob(JobInviteViewModel model)
         {
-            var jobApp = _jobApplicationRepository.ByJobId(model.JobId,model.ContractorId);
+            var jobApp = _jobApplicationRepository.ByJobId(model.JobId, model.ContractorId);
             if (jobApp != null && (jobApp.IsRevoked || jobApp.History.Any(x => x.Act == JobActionEnum.Invited ||
                                                                   x.Act == JobActionEnum.Application ||
                                                                   x.Act == JobActionEnum.Decline ||
@@ -978,12 +981,25 @@ namespace Talent21.Service.Core
             {
                 return false;
             }
-            if (jobApp == null){
-                jobApp=new JobApplication { ContractorId = model.ContractorId, CreatedBy = CurrentUserId, JobId = model.JobId};
+            if (jobApp == null)
+            {
+                jobApp = new JobApplication { ContractorId = model.ContractorId, CreatedBy = CurrentUserId, JobId = model.JobId };
                 _jobApplicationRepository.Create(jobApp);
                 _jobApplicationRepository.SaveChanges();
             }
-            return ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = jobApp.Id, Notes = "Invited" },JobActionEnum.Invited);
+            return ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = jobApp.Id, Notes = "Invited" }, JobActionEnum.Invited);
+        }
+
+        public string BenchOwnerIdById(int benchId)
+        {
+            var company = FindCompany();
+            return Contractors(company.Id).Where(x => x.CompanyId == company.Id && x.Id==benchId).Select(x=>x.OwnerId).FirstOrDefault();
+        }
+
+        public ContractorViewModel GetContractorById(int id)
+        {
+            var company = FindCompany();
+            return Contractors(company.Id).FirstOrDefault(x=>x.Id==id);
         }
     }
 }

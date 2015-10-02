@@ -164,8 +164,11 @@
     <Compile Include="Data\Abstraction\User.cs" />
     <Compile Include="Data\Abstraction\UserRole.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Extensions\Base10Converter.cs" />
+    <Compile Include="Extensions\NumberExtensions.cs" />
     <Compile Include="FileAccessInfo.cs" />
     <Compile Include="KeySecret.cs" />
+    <Compile Include="Models\MessageAttachement.cs" />
     <Compile Include="Models\PaymentReceiptViewModel.cs" />
     <Compile Include="OAuthWebConfigProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

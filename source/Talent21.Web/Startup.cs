@@ -7,7 +7,10 @@ namespace Talent21.Web
 {
     public class Product
     {
-        public static string Name { get { return "Contractor's Pool"; } }
+        public static string Name => "Contractor's Pool";
+        public static string Slogan => "Connect More";
+        public static string Address => "Hyderabad, India";
+        public static string Color => "#3bca96";
     }
     public partial class Startup
     {

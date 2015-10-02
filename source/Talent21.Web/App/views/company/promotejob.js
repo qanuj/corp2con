@@ -41,9 +41,8 @@
             .success(function (data) {
                 toastr.success('Success', 'Job promoted. Enjoy!');
                 $state.go('jobs');
-            })
-            .error(function (data) {
-                console.log(data);
-            });
+            }).error(function (err) {
+                toastr.error(err.exceptionMessage, err.message);
+            });;
     }
 }]);

@@ -1,23 +1,7 @@
 ﻿<div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption">
-            <input type="checkbox" ng-model="row.selected" />
-            <i ng-if="row.consultantType!='IndependentCosultant'" class="fa fa-building-o font-yellow-casablanca"></i>
-            <a href="/#/contractor/{{row.id}}">
-                <span class="caption-subject bold font-yellow-casablanca uppercase">
-                    {{row.firstName}} {{row.lastName}}
-                </span>
-                <span class="caption-helper">{{row.experienceYears}}.{{row.experienceMonths}} years</span>
-            </a>
-            <h5 ng-if="row.companyId">{{row.company}}</h5>
-        </div>
-        <div class="actions flex">
-            <a href="javascript:;" class="btn btn-circle" ng-class="row.available=='Now' ? 'green-jungle' : row.available=='Later' ? 'blue' : 'yellow-lemon'">
-                {{row.available}}
-            </a>
-            <a href="javascript:;" class="btn btn-circle btn-success">
-                <i class="fa fa-inr"></i> {{row.rate}} / {{row.rateType}}
-            </a>
+            <input type="checkbox" ng-model="row.selected"/>
             <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                 <i class="fa fa-{{row.gender|lowercase}}"></i>
             </a>
@@ -27,15 +11,26 @@
             <a ng-if="row.contractType=='ClientLocation'" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                 <i class="fa fa-car"></i>
             </a>
+            <i ng-if="row.consultantType!='IndependentCosultant'" class="fa fa-building-o font-yellow-casablanca"></i>
+            <a href="/#/contractor/{{row.id}}">
+                <span class="caption-subject bold font-yellow-casablanca uppercase">
+                    {{row.firstName}} {{row.lastName}}
+                </span>
+                <span  ng-if="row.companyId" class="caption-helper">{{row.company}}</span>
+            </a>
+        </div>
+        <div class="actions flex">
+            <a ng-if="row.available" href="javascript:;" class="btn btn-circle" ng-class="row.available=='Now' ? 'green-jungle' : row.available=='Later' ? 'blue' : 'yellow-lemon'">
+                {{row.available}}
+            </a>
         </div>
     </div>
     <div class="portlet-body">
         <div class="row">
             <div class="col-xs-2">
-                <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded" /></a>
+                <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img ng-src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded"/></a>
             </div>
             <div class="col-xs-10">
-                <span class="badge badge-info" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5">{{s.title}}</span>
                 <div class="row">
                     <div class="col-xs-12">
                         {{row.about | plaintext | limitTo: 200 }}...
@@ -45,18 +40,33 @@
                             <tr>
                                 <th>Functional Area</th>
                                 <td>{{row.functionalArea}}</td>
-                                <th>Industry</th>
-                                <td>{{row.industry}}</td>
                             </tr>
                             <tr>
-                                <th>Location</th>
-                                <td>{{row.location}}</td>
-                                <th>Nationality</th>
-                                <td>{{row.nationality}}</td>
+                                <th>Industry</th>
+                                <td>{{row.industry}}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet-footer">
+        <div class="actions">
+            <div class="row">
+                <a href="javascript:;" ng-if="row.experienceMonths>0 || row.experienceYears>0" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'blue':'default'">
+                    {{row.experienceYears}}.{{row.experienceMonths}}yrs
+                </a>
+                <a href="javascript:;" ng-if="row.rate>0" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
+                    <i class="fa fa-inr"></i> {{row.rate}}/{{row.rateType| limitTo: 2}}
+                </a>
+                <a href="javascript:;" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-warning':'default'">
+                    <i class="fa fa-map-marker"></i> {{row.location}} - {{row.nationality}}
+                </a>
+                <a href="javascript:;" title="{{s.experienceInMonths|years}} " class="btn btn-circle" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
+                    <i class="fa fa-star-o"></i> {{s.title}}
+                </a>
             </div>
         </div>
     </div>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using e10.Shared.Extensions;
 using e10.Shared.Providers;
 using e10.Shared.Util;
 using Talent21.Data.Core;
@@ -190,6 +192,84 @@ namespace Talent21.Service.Core
         public FeaturedContractorViewModel GetFeaturedContractor()
         {
             return Contractors.OrderByDescending(x => x.Id).FirstOrDefault(x => x.IsHome);
+        }
+
+        public IQueryable<JobPublicViewModel> Applications(int id = 0)
+        {
+            return _jobRepository.All.Select(x => new JobPublicViewModel
+            {
+                PictureUrl = x.Company.PictureUrl,
+                Id = x.Id,
+                Company = x.Company.CompanyName,
+                IsCancelled = x.IsCancelled,
+                Cancelled = x.Cancelled,
+                Published = x.Published,
+                Skills = x.Skills.Select(y => new JobSkillEditViewModel { Code = y.Skill.Code, Id = y.Id, Title = y.Skill.Title, Level = y.Level }),
+                Locations = x.Locations.Select(y => new JobLocationEditViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                CompanyId = x.CompanyId,
+                Description = x.Description,
+                Code = x.Code,
+                Title = x.Title,
+                End = x.End,
+                Rate = x.Rate,
+                Start = x.Start,
+                IsWorkingFromHome = x.IsWorkingFromHome,
+                Positions = x.Positions
+            });
+        }
+
+        public JobPublicViewModel JobById(int id)
+        {
+            var job = Applications().FirstOrDefault(x => x.Id == id);
+            if (job == null) return null;
+            job.JobCode = job.Id.Base10ToString();
+            return job;
+        }
+
+        protected IQueryable<CompanyPublicViewModel> PublicCompany
+        {
+            get
+            {
+                return _companyRepository.All.Select(x => new CompanyPublicViewModel
+                {
+                    Id = x.Id,
+                    About = x.About,
+                    Email = x.Email,
+                    Facebook = x.Social.Facebook,
+                    Google = x.Social.Google,
+                    LinkedIn = x.Social.LinkedIn,
+                    Location = x.Location.Title,
+                    LocationId = x.LocationId,
+                    Mobile = x.Mobile,
+                    Address = x.Address,
+                    PinCode = x.PinCode,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Rss = x.Social.Rss,
+                    Twitter = x.Social.Twitter,
+                    WebSite = x.Social.WebSite,
+                    Yahoo = x.Social.Yahoo,
+                    PictureUrl = x.PictureUrl,
+                    CompanyName = x.CompanyName,
+                    AlternateNumber = x.AlternateNumber,
+                    IndustryId = x.IndustryId,
+                    OrganizationType = x.OrganizationType
+                });
+            }
+        }
+        public Job FullById(int id)
+        {
+            return _jobRepository.All.Include(x => x.Skills.Select(y => y.Skill))
+                    .Include(x => x.Locations)
+                    .Include(x => x.Company.Location)
+                    .FirstOrDefault(x => x.Id == id);
+        }
+        public CompanyPublicViewModel CompanyById(int id)
+        {
+            var company = PublicCompany.FirstOrDefault(x => x.Id == id);
+            if (company == null) return null;
+            company.CompanyCode = company.Id.Base10ToString();
+            return company;
         }
     }
 }

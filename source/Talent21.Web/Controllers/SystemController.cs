@@ -55,6 +55,7 @@ namespace Talent21.Web.Controllers
         [HttpGet]
         [Route("industry/all")]
         [EnableQuery]
+        [AllowAnonymous]
         public IQueryable<IndustryDictionaryViewModel> ViewIndustriesQuery()
         {
             return _service.Industries;
@@ -92,6 +93,7 @@ namespace Talent21.Web.Controllers
         [HttpGet]
         [Route("skill/all")]
         [EnableQuery]
+        [AllowAnonymous]
         public IQueryable<SkillDictionaryViewModel> ViewSkillsQuery()
         {
             return _service.Skills;
@@ -129,6 +131,7 @@ namespace Talent21.Web.Controllers
         [HttpGet]
         [Route("location/all")]
         [EnableQuery]
+        [AllowAnonymous]
         public IQueryable<LocationDictionaryViewModel> ViewLocationsQuery()
         {
             return _service.Locations;
@@ -165,6 +168,7 @@ namespace Talent21.Web.Controllers
 
         [HttpGet]
         [Route("functional/all")]
+        [AllowAnonymous]
         [EnableQuery]
         public IQueryable<FunctionalAreaDictionaryViewModel> ViewFunctionalsQuery()
         {

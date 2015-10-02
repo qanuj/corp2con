@@ -14,12 +14,14 @@
     $scope.page = 1;
     $scope.pages = 1;
 
-    db.company.get(param.id).success(function (result) {
+    db.job.company(param.id).success(function (result) {
         $scope.record = result;
         $scope.page = db.currentPage;
-        db.job.paged(result.id,$scope.page).success(function (result) {
+        $scope.pageUrl = window.location.origin + '/go/company/' + result.companyCode;
+        db.job.paged(result.id, $scope.page).success(function (result) {
             $scope.jobs = result.items;
         });
     });
+
 
 }]);

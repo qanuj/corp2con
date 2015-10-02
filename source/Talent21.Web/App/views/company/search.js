@@ -23,8 +23,6 @@
         $scope.searching = "Matching Jobs for you, next week";
     }
 
-    console.log(param);
-
     $scope.query = {
         keywords: param.q || param.keywords || '',
         location: param.location || '',
@@ -36,10 +34,8 @@
         rateend: param.rateend || '',
         xfrom: param.xfrom || '',
         xto: param.xto || '',
-        ratetype: param.ratetype || ''
+        ratetype: param.ratetype || 'Monthly'
     }
-
-    console.log("Searching", $scope.query);
 
     function fetchResults(query, page) {
         db.company.search(query, page).success(function (result) {

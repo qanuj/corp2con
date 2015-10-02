@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoPoco.Configuration;
@@ -616,7 +617,7 @@ namespace Talent21.Service.Core
         }
 
 
-        public JobApplicationViewModel Apply(JobApplicationCreateViewModel model)
+        public JobApplicationViewModel Apply(JobApplicationCreateViewModel model, string viewApplicationUrl, string storageRoot)
         {
             var contractor = FindContractor(CurrentUserId);
 
@@ -625,18 +626,23 @@ namespace Talent21.Service.Core
                 ContractorId = contractor.Id,
                 JobId = model.Id,
             };
-            var history = new JobApplicationHistory() { Act = JobActionEnum.Application };
+            var history = new JobApplicationHistory { Act = JobActionEnum.Application };
             jobApplication.History.Add(history);
             _jobApplicationRepository.Create(jobApplication);
             _jobApplicationRepository.SaveChanges();
 
             jobApplication = _jobApplicationRepository.ById(jobApplication.Id);
-            _notificationService.ActOnApplication(jobApplication, JobActionEnum.Application);
+            _notificationService.SendApplication(jobApplication, viewApplicationUrl, new FileInfo(GetFullFileName(jobApplication.Contractor.ProfileUrl, storageRoot)));
 
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
         }
 
-        public ContractorViewModel GetFavorite(int id)
+        private string GetFullFileName(string fileName, string storageRoot)
+        {
+            return Path.Combine(storageRoot, Path.GetFileName(fileName));
+        }
+
+        public ContractorViewModel GetProfileById(int id)
         {
             return Contractors.FirstOrDefault(n => n.Id == id);
         }
@@ -706,15 +712,20 @@ namespace Talent21.Service.Core
             return Applications().FirstOrDefault(x => x.Id == id);
         }
 
-        public bool VisitCompany(int id, VisitViewModel model)
+        public string CurrentOrAnonymousName()
         {
             var entity = FindContractor(CurrentUserId);
-            var fullName = string.Format("{0} {1}", entity.FirstName, entity.LastName);
-            if (!_companyVisitRepository.VisitedEarlier(id, fullName))
+            return entity == null ? "Anonymous" : string.Format("{0} {1}", entity.FirstName, entity.LastName);
+        }
+
+        public bool VisitCompany(int id, VisitViewModel model)
+        {
+            var visitor = CurrentOrAnonymousName();
+            if (!_companyVisitRepository.VisitedEarlier(id,model.IpAddress, visitor))
             {
                 _companyVisitRepository.Create(new CompanyVisit
                 {
-                    Visitor = fullName,
+                    Visitor = visitor,
                     CompanyId = id,
                     Browser = model.Browser,
                     City = model.City,
@@ -732,13 +743,12 @@ namespace Talent21.Service.Core
 
         public bool VisitJob(int id, VisitViewModel model)
         {
-            var entity = FindContractor(CurrentUserId);
-            var fullName = string.Format("{0} {1}", entity.FirstName, entity.LastName);
-            if (!_jobVisitRepository.VisitedEarlier(id, fullName))
+            var visitor = CurrentOrAnonymousName();
+            if (!_jobVisitRepository.VisitedEarlier(id, model.IpAddress, visitor))
             {
                 _jobVisitRepository.Create(new JobVisit
                 {
-                    Visitor = fullName,
+                    Visitor = visitor,
                     JobId = id,
                     Browser = model.Browser,
                     City = model.City,

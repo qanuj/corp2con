@@ -37,16 +37,12 @@
         db.contractor.promote($scope.promoted.title)
             .success(function (data) {
                 toastr.success('Success', 'Profile promoted. Enjoy!');
-                console.log(data);
-                //$state.go('profile');
-            })
-            .error(function (data) {
-                console.log(data);
-            });
+            }).error(function (err) {
+                toastr.error(err.exceptionMessage, err.message);
+            });;
     }
 
     db.contractor.get().success(function (result) {
-        console.log('profile data', result)
         $scope.record = result;
     });
 }]);

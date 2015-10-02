@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using e10.Shared.Models;
 using e10.Shared.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Logging;
@@ -43,6 +44,10 @@ namespace e10.Shared.Security
                 await smtp.SendMailAsync(message);
                 _logger.WriteInformation(string.Format("Email '{0}' Sent to {1}", msg.Subject, msg.Destination));
             }
+        }
+        public Task SendAsync(IdentityMessage message, params MessageAttachement[] attachments)
+        {
+            throw new NotImplementedException();
         }
     }
 }

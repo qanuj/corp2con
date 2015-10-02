@@ -28,11 +28,11 @@ namespace Talent21.Data.Repository
             return base.All.Where(x => x.Company.OwnerId == userId);
         }
 
-        public bool VisitedEarlier(int id, string visitor)
+        public bool VisitedEarlier(int id,string ip, string visitor)
         {
             var earlier = DateTime.UtcNow.AddMinutes(-30);
             if (string.IsNullOrWhiteSpace(visitor)) return false;
-            return All.Any(x => x.Visitor == visitor && x.Created > earlier && x.CompanyId==id);
+            return All.Any(x => x.Visitor == visitor && x.Created > earlier && x.CompanyId==id && x.IpAddress==ip);
         }
     }
 
@@ -42,6 +42,6 @@ namespace Talent21.Data.Repository
     public interface ICompanyVisitRepository : IRepository<CompanyVisit>
     {
         IQueryable<CompanyVisit> Mine(string userId);
-        bool VisitedEarlier(int id, string visitor);
+        bool VisitedEarlier(int id,string ip, string visitor);
     }
 }

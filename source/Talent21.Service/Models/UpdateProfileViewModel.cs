@@ -62,12 +62,18 @@ namespace Talent21.Service.Models
         public CompanyAggregateReport Aggregate { get; set; }
     }
 
+    public class CompanyPublicViewModel : CompanyEditViewModel
+    {
+        public string CompanyCode { get; set; }
+    }
+
     public class CompanyViewModel : CompanyEditViewModel
     {
         public DictionaryViewModel Industry { get; set; }
         public string OwnerId { get; set; }
 
         public int Complete { get; set; }
+        public string CompanyCode { get; set; }
     }
 
     public class ProfileViewModel

@@ -1,0 +1,256 @@
+﻿<div class="row">
+    <div class="col-sm-9">
+        <div ng-if="count<1">
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Ooops! You got us..</strong>
+                <p>
+                    We could not find anything.
+                </p>
+                <p>
+                    <a class="btn btn-warning" ui-href="home"><i class="fa fa-search"></i> Reset Filters and Try Again</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-2">
+                    {{count}} {{count>0?"jobs found..":count==1?"job found..":"Searching.."}}
+                </div>
+                <div class="col-xs-10 text-right">
+                    <cc-pager total-pages="pages" current-page="currentPage"
+                              page-action="navigate(pageNumber)">
+                    </cc-pager>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12" ng-repeat="row in records" ng-include="'app/views/contractor/job.item.html'"></div>
+        <div class="col-xs-12">
+            <cc-pager total-pages="pages" current-page="currentPage"
+                      page-action="navigate(pageNumber)">
+            </cc-pager>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <form ng-submit="search(query)">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5>Keyword</h5>
+                    <div class="input-group">
+                        <input class="form-control" type="text" ng-model="query.keywords" placeholder="e.g. Senior Consultant" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary srch-btn-pad"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <h5>Skill</h5>
+                    <select ui-select2 class="form-control" ng-model="query.skills" ng-options="s.title as s.title for s in skills track by s.title" ng-change="search(query)"></select>
+                    <button ng-if="query.skills" ng-click="query.skills=undefined;search(query)" class="btn btn-link">Clear</button>
+                </div>
+                <div class="col-xs-12">
+                    <h5>Functional Area</h5>
+                    <select ui-select2 class="form-control" ng-model="query.functional" ng-options="s.title as s.title for s in functionals track by s.title" ng-change="search(query)"></select>
+                    <button ng-if="query.functional" ng-click="query.functional=undefined;search(query)" class="btn btn-link">Clear</button>
+                </div>
+                <div class="col-xs-12">
+                    <h5>Location</h5>
+                    <select ui-select2 class="form-control" ng-model="query.location" ng-options="s.title as s.title for s in locations track by s.title" ng-change="search(query)"></select>
+                    <button ng-if="query.location" ng-click="query.location=undefined;search(query)" class="btn btn-link">Clear</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5>Experience</h5>
+                    <rzslider rz-slider-floor="experienceSlider.floor"
+                              rz-slider-ceil="experienceSlider.ceil"
+                              rz-slider-model="experienceSlider.min"
+                              rz-slider-translate="experienceTranslate"
+                              rz-slider-high="experienceSlider.max">
+                    </rzslider>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5>Salary</h5>
+                    <rzslider rz-slider-floor="salarySlider.floor"
+                              rz-slider-ceil="salarySlider.ceil"
+                              rz-slider-model="salarySlider.min"
+                              rz-slider-translate="translate"
+                              rz-slider-high="salarySlider.max">
+                    </rzslider>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary" ng-click="resetFilters()">Reset All Filters</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row" ng-if="query.tab">
+    <div class="col-sm-6">
+        <div class="fb-page" data-href="https://www.facebook.com/{{query.tab}}"
+             data-width="500"
+             data-small-header="false"
+             data-adapt-container-width="true"
+             data-hide-cover="false"
+             data-show-facepile="true"
+             data-show-posts="false">
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <div class="portlet">
+            <div class="portlet-body">
+                <a ui-sref="company({id:record.id})"><img ng-src="{{record.pictureUrl}}" class="img-responsive" alt="{{record.companyName}}" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <div class="portlet">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font hide"></i>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="javascript:;" data-toggle="tab">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <!--BEGIN TABS-->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1_1">
+                        <div class="slimScrollDiv">
+                            <ul class="feeds">
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-success">
+                                                    <i class="fa fa-building"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc">
+                                                    {{record.companyName}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-success">
+                                                    <i class="fa fa-file-code-o"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc">
+                                                    {{record.firstName}} {{record.lastName}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-success">
+                                                    <i class="fa fa-map-marker"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc">
+                                                    {{record.location}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-success">
+                                                    <i class="fa fa-phone"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc">
+                                                    {{record.mobile}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-success">
+                                                    <i class="fa fa-envelope-o"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc">
+                                                    <a href="mailto:{{record.email}}">{{record.email}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--END TABS-->
+            </div>
+        </div>
+        <div class="portlet">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font hide"></i>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="javascript:;" data-toggle="tab">
+                            Share it
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1_1">
+                        <div class="slimScrollDiv">
+                            <ul class="feeds">
+                                <li>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{pgUrl}}" data-original-title="linkedin" class="social-icon social-icon-color facebook"></a>
+                                    <a href="https://twitter.com/home?status={{pgUrl}}" data-original-title="linkedin" class="social-icon social-icon-color twitter"></a>
+                                    <a href="https://plus.google.com/share?url={{pgUrl}}" data-original-title="linkedin" class="social-icon social-icon-color googleplus"></a>
+                                    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{pgUrl}}" data-original-title="linkedin" class="social-icon social-icon-color linkedin"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--END TABS-->
+            </div>
+        </div>
+    </div>
+</div>

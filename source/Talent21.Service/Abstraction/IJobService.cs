@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Talent21.Data.Core;
 using Talent21.Service.Models;
 
 namespace Talent21.Service.Abstraction
@@ -15,5 +16,8 @@ namespace Talent21.Service.Abstraction
         IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count);
         StatsViewModel GetStats();
         FeaturedContractorViewModel GetFeaturedContractor();
+        JobPublicViewModel JobById(int id);
+        CompanyPublicViewModel CompanyById(int id);
+        Job FullById(int id);
     }
 }

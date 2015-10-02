@@ -24,6 +24,14 @@ namespace Talent21.Data.Core
             this.History=new List<JobApplicationHistory>();
         }
 
+        public string DownloadableName()
+        {
+            return string.Format("{0}_{1}_{2}_{3}yrs{4}", 
+                Contractor.FirstName,
+                Contractor.LastName,
+                Contractor.Experience.Years,
+                Contractor.Experience.Months, Contractor.Company!=null ? "_"+Contractor.Company.CompanyName:"").Replace(" ", "_").Replace(".", "_");
+        }
     }
 
     public class JobApplicationHistory : Entity

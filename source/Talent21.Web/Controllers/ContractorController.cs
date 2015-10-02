@@ -68,7 +68,7 @@ namespace Talent21.Web.Controllers
         [Route("profile/{id}")]
         public ContractorViewModel GetContractorProfileById(int id)
         {
-            return _service.GetFavorite(id);
+            return _service.GetProfileById(id);
         }
 
         [HttpPost]
@@ -173,7 +173,9 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/apply")]
         public HttpResponseMessage ApplyToJob(int id)
         {
-           return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel { Id = id })) : Bad(ModelState);
+           return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel { Id = id },
+               Url.Content("~/account/login?returnUrl=/%23/applications"),
+               UploadController.FindStorageRoot())) : Bad(ModelState);
         }
 
         [HttpPost]
@@ -204,15 +206,7 @@ namespace Talent21.Web.Controllers
         {
             return ModelState.IsValid ? Ok(_service.ActOnApplication(new CreateJobApplicationHistoryViewModel{Id=id}, JobActionEnum.Revoke)) : Bad(ModelState);
         }
-
-        //Favorite related api
-        [HttpGet]
-        [Route("job/{id}/favorite")]
-        public ContractorViewModel GetContractorFavoriteById(int id)
-        {
-            return _service.GetFavorite(id);
-        }
-
+        
         [HttpGet]
         [Route("job/favorite/paged")]
         public PageResult<JobApplicationContractorViewModel> GetFavoriteJobs(ODataQueryOptions<JobApplicationContractorViewModel> options)

@@ -21,8 +21,12 @@
             db.company.getJobApplications(id, page).success(function (result) {
                 $scope.currentPage = page || 1;
                 $scope.pages = Math.ceil(result.count / db.pageSize);
+                $scope.count = result.count;
                 $scope.records = result.items;
-                $scope.jobId = $scope.records[0].job.id;
+                $scope.selectAll = false;
+                if (result.items.length > 0) {
+                    $scope.jobId = $scope.records[0].job.id;
+                }
             });
         }
 
@@ -43,7 +47,7 @@
             }
             $scope.save = (x + 1);
             if ($scope.records[x].selected == true) {
-                db.company.saveApplication($scope.records[x].contracter.id, folder).success(next);
+                db.company.saveApplication($scope.records[x].id, folder).success(next);
             } else next();
         }
         function onNext() {
@@ -52,6 +56,14 @@
         moveFolder(i, folder, onNext);
     }
 
+    $scope.toggle = function (allSelected) {
+        for (var x in $scope.records) {
+            $scope.records[x].selected = allSelected;
+        }
+    }
+    $scope.$watch('selectAll', function (val) {
+        $scope.toggle($scope.selectAll);
+    });
 
     $scope.navigate($stateParams.page);
 

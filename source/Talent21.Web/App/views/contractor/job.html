@@ -70,36 +70,10 @@
                     </div>
                 </div>
             </div>
-            <p>{{record.description}}</p>
+            <div ng-bind-html="record.description"></div>
         </article>
     </div>
     <div class="col-md-3" id="sidebar">
-        <!--<div class="top-news">
-            <a ng-if="!record.favorite" href="javascript:;" class="btn blue" ng-click="favorite(record)">
-                <span>
-                    Favourite
-                </span>
-                <i class="fa fa-heart top-news-icon"></i>
-            </a>
-            <a ng-if="record.favorite" href="javascript:;" class="btn yellow" ng-click="unfavorite(record)">
-                <span>
-                    Remove from Favourite
-                </span>
-                <i class="fa fa-heart-o top-news-icon"></i>
-            </a>
-            <a ng-if="!record.application" href="javascript:;" class="btn green" ng-click="apply(record)">
-                <span>
-                    Apply
-                </span>
-                <i class="fa fa-check top-news-icon"></i>
-            </a>
-            <a ng-if="record.application" href="javascript:;" class="btn red" ng-click="revoke(record)">
-                <span>
-                    Revoke
-                </span>
-                <i class="fa fa-close top-news-icon"></i>
-            </a>
-        </div>-->
         <div class="sidebar-widget">
             <table class="table table-bordered">
                 <tr class="bg-info" ng-if="record.invited">
@@ -257,183 +231,153 @@
                     <!--END TABS-->
                 </div>
             </div>
-            <div class="sidebar-widget" id="share">
-                <div class="portlet light">
-                    <div class="portlet-title tabbable-line">
-                        <div class="caption caption-md">
-                            <i class="icon-globe theme-font hide"></i>
-                        </div>
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="javascript:;" data-toggle="tab">
-                                    Contact
-                                </a>
-                            </li>
-                        </ul>
+        <div class="sidebar-widget" id="share">
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <i class="icon-globe theme-font hide"></i>
                     </div>
-                    <div class="portlet-body">
-                        <!--BEGIN TABS-->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab_1_1">
-                                <div class="slimScrollDiv">
-                                    <ul class="feeds">
-                                        <li>
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-success">
-                                                            <i class="fa fa-building"></i>
-                                                        </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="javascript:;" data-toggle="tab">
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="portlet-body">
+                    <!--BEGIN TABS-->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1_1">
+                            <div class="slimScrollDiv">
+                                <ul class="feeds">
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-building"></i>
                                                     </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc">
-                                                            {{record.company}}
-                                                        </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc">
+                                                        {{record.company}}
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-success">
-                                                            <i class="fa fa-file-code-o"></i>
-                                                        </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-file-code-o"></i>
                                                     </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc">
-                                                            {{record.firstName}} {{record.lastName}}
-                                                        </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc">
+                                                        {{record.firstName}} {{record.lastName}}
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-success">
-                                                            <i class="fa fa-map-marker"></i>
-                                                        </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-map-marker"></i>
                                                     </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc">
-                                                            {{record.location.title}}
-                                                        </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc">
+                                                        {{record.location.title}}
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-success">
-                                                            <i class="fa fa-phone"></i>
-                                                        </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-phone"></i>
                                                     </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc">
-                                                            {{record.mobile}}
-                                                        </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc">
+                                                        {{record.mobile}}
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-success">
-                                                            <i class="fa fa-envelope-o"></i>
-                                                        </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-envelope-o"></i>
                                                     </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc">
-                                                            <a href="mailto:{{record.email}}">{{record.email}}</a>
-                                                        </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc">
+                                                        <a href="mailto:{{record.email}}">{{record.email}}</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <!--END TABS-->
                     </div>
+                    <!--END TABS-->
                 </div>
             </div>
-            <div class="sidebar-widget">
-                <div class="portlet light">
-                    <div class="portlet-title tabbable-line">
-                        <div class="caption caption-md">
-                            <i class="icon-globe theme-font hide"></i>
-                        </div>
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="javascript:;" data-toggle="tab">
-                                    Share it
-                                </a>
-                            </li>
-                        </ul>
+        </div>
+        <div class="sidebar-widget">
+            <div ng-include="'app/views/common/share.html'"></div>
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <i class="icon-globe theme-font hide"></i>
                     </div>
-                    <div class="portlet-body">
-                        <!--BEGIN TABS-->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab_1_1">
-                                <div class="slimScrollDiv">
-                                    <ul class="feeds">
-                                        <li>
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{page}}" data-original-title="linkedin" class="social-icon social-icon-color facebook"></a>
-                                            <a href="https://twitter.com/home?status={{page}}" data-original-title="linkedin" class="social-icon social-icon-color twitter"></a>
-                                            <a href="https://plus.google.com/share?url={{page}}" data-original-title="linkedin" class="social-icon social-icon-color googleplus"></a>
-                                            <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{page}}" data-original-title="linkedin" class="social-icon social-icon-color linkedin"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!--END TABS-->
-                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="javascript:;" data-toggle="tab">
+                                About Company
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="portlet light">
-                    <div class="portlet-title tabbable-line">
-                        <div class="caption caption-md">
-                            <i class="icon-globe theme-font hide"></i>
-                        </div>
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="javascript:;" data-toggle="tab">
-                                    About Company
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="portlet-body">
-                        <!--BEGIN TABS-->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab_1_1">
-                                <div class="slimScrollDiv">
-                                    <ul class="feeds">
-                                        <li>
-                                            <p>
-                                                <img src="{{record.logo}}" alt="" class="img-responsive">
-                                            </p>
-                                            <div class="full-text" ng-bind-html="record.about"></div>
-                                            <p>
-                                                <a href="#/company/{{record.companyId}}" class="btn btn-primary">Read more</a>
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
+                <div class="portlet-body">
+                    <!--BEGIN TABS-->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1_1">
+                            <div class="slimScrollDiv">
+                                <ul class="feeds">
+                                    <li>
+                                        <p>
+                                            <img src="{{record.logo}}" alt="" class="img-responsive">
+                                        </p>
+                                        <div class="full-text" ng-bind-html="record.about"></div>
+                                        <p>
+                                            <a href="#/company/{{record.companyId}}" class="btn btn-primary">Read more</a>
+                                        </p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <!--END TABS-->
                     </div>
+                    <!--END TABS-->
                 </div>
             </div>
+        </div>
+
             <hr ng-if="jobs">
             <div ng-if="jobs" class="sidebar-widget" id="company-jobs">
                 <h2>More jobs from this company</h2>

@@ -1,4 +1,4 @@
-﻿app.controller('companyJobController', ['$scope', 'dataService', '$stateParams', '$window', '$rootScope', function ($scope, db, param, $window, $rootScope) {
+﻿app.controller('companyJobController', ['$scope', 'dataService', '$stateParams', '$window', '$rootScope','$state', function ($scope, db, param, $window, $rootScope,$state) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -14,7 +14,8 @@
 
     db.job.get($scope.id).success(function (result) {
         $scope.record = result;
-        console.log($scope.record);
+    }).error(function() {
+        $state.go('lost');
     });
 
     $scope.publish = function (id) {

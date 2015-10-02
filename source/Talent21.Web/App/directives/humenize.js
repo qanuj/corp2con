@@ -29,4 +29,15 @@ angular
          div.innerHTML = html;
          return div.textContent || div.innerText || "";
      };
+ })
+ .filter('years', function () {
+     return function (value, inbox) {
+         if (isNaN(value)) return value;
+         if (value == 0) return '';
+         var years = Math.floor(value / 12);
+         var months = value % 12;
+         var val = years + (months > 0 ? "." + months : "") + 'y';
+         if (inbox) return "(" + val + ")";
+         return val;
+     };
  });

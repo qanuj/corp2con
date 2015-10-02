@@ -205,7 +205,7 @@ namespace Talent21.Web.Controllers
         [HttpGet]
         [Route("job/{id}/applications/all")]
         [EnableQuery]
-        public IQueryable<JobApplicationViewModel> ViewJobsQuery(int id)
+        public IQueryable<JobApplicationCompanyViewModel> ViewJobsQuery(int id)
         {
             return _service.Applications(id);
         }
@@ -268,6 +268,13 @@ namespace Talent21.Web.Controllers
         public PageResult<ContractorSearchResultViewModel> GetContractorsSearch(SearchQueryViewModel model, ODataQueryOptions<ContractorSearchResultViewModel> options)
         {
             return Page(_service.Search(model), options);
+        }
+
+        [HttpGet]
+        [Route("contractor/{id}")]
+        public ContractorViewModel GetContractorProfileById(int id)
+        {
+            return _service.GetContractorById(id);
         }
 
         [HttpPost]
