@@ -128,6 +128,11 @@
             return $http.post(v + 'promote/' + p);
         }
 
+        company.getContractor = function (id) {
+            return $http.get(v + 'contractor/' + id);
+        }
+
+
         return company;
 
     }]);

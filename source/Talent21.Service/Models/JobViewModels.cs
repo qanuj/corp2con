@@ -79,6 +79,7 @@ namespace Talent21.Service.Models
         public bool IsHighlight { get; set; }
         public bool IsAdvertised { get; set; }
         public bool IsHome { get; set; }
+        public bool IsBench { get; set; }
     }
 
     public class JobSearchResultViewModel

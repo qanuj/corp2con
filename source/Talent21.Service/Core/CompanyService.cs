@@ -519,16 +519,15 @@ namespace Talent21.Service.Core
             }
         }
 
-        public IQueryable<ContractorSearchResultViewModel> Contractors
+        public IQueryable<ContractorSearchResultViewModel> Contractors(int currentCompanyId=-1)
         {
-            get
-            {
                 var query = from x in _contractorRepository.All
                             let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
                             let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
                             let promotions = x.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
                             select new ContractorSearchResultViewModel
                             {
+                                IsBench = x.CompanyId== currentCompanyId,
                                 Company = x.Company != null ? x.Company.CompanyName : "",
                                 CompanyId = x.CompanyId,
                                 Folders = x.Folders.Select(z => new CompanyFolderViewModel { Folder = z.Folder, CompanyId = z.CompanyId }),
@@ -582,7 +581,6 @@ namespace Talent21.Service.Core
                                 })
                             };
                 return query;
-            }
         }
 
         public async Task<FileAccessInfo> ByUrlAsync(string userId, string filepath)
@@ -611,7 +609,7 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model, Company company)
         {
-            var query = Contractors.Where(x => x.Complete > 0);
+            var query = Contractors(company.Id).Where(x => (x.Complete > 0 || x.CompanyId==company.Id));
             //Rules of searching.
             if (!string.IsNullOrWhiteSpace(model.Location))
             {
@@ -730,12 +728,12 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location)
         {
-            return Contractors.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
+            return Contractors().Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
         }
 
         public IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location)
         {
-            return Contractors.Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location).Select(x => new AvailableRatedCandidateProfileViewModel
+            return Contractors().Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location).Select(x => new AvailableRatedCandidateProfileViewModel
             {
                 Id = x.Id,
                 ExperienceInMonths = x.ExperienceMonths,
@@ -992,6 +990,18 @@ namespace Talent21.Service.Core
                 _jobApplicationRepository.SaveChanges();
             }
             return ActOnApplication(new CreateJobApplicationHistoryViewModel { Id = jobApp.Id, Notes = "Invited" }, JobActionEnum.Invited);
+        }
+
+        public string BenchOwnerIdById(int benchId)
+        {
+            var company = FindCompany();
+            return Contractors(company.Id).Where(x => x.CompanyId == company.Id && x.Id==benchId).Select(x=>x.OwnerId).FirstOrDefault();
+        }
+
+        public ContractorViewModel GetContractorById(int id)
+        {
+            var company = FindCompany();
+            return Contractors(company.Id).FirstOrDefault(x=>x.Id==id);
         }
     }
 }

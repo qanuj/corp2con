@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -99,7 +102,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if(!ModelState.IsValid)
@@ -142,7 +145,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
             if(!ModelState.IsValid)
@@ -184,7 +187,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if(ModelState.IsValid)
@@ -281,7 +284,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if(ModelState.IsValid)
@@ -329,7 +332,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if(!ModelState.IsValid)
@@ -363,7 +366,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
@@ -389,7 +392,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
             if(!ModelState.IsValid)
@@ -439,7 +442,7 @@ namespace Talent21.Web.Controllers
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if(User.Identity.IsAuthenticated)
@@ -473,12 +476,78 @@ namespace Talent21.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Company")]
+        [Route("~/impersonate/{benchId}")]
+        public async Task<ActionResult> Impersonate(int benchId)
+        {
+            var userId = _companyService.BenchOwnerIdById(benchId);
+            if (string.IsNullOrWhiteSpace(userId)) return HttpNotFound();
+            if (!await ImpersonateAsync(userId)){
+                return HttpNotFound();
+            }
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
+        private string Encrypt(string data)
+        {
+            var md5 = MD5.Create();
+            var hashData = md5.ComputeHash(Encoding.Default.GetBytes(data));
+            var returnValue = new StringBuilder();
+            for (int i = 0; i < hashData.Length; i++){
+                returnValue.Append(i.ToString());
+            }
+            return returnValue.ToString();
+        }
+        
+        protected async Task<bool> ImpersonateAsync(string userId,bool isLogOff=false) {
+            
+            //does user exists
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return false;
+
+            var currentUserId = User.Identity.GetUserId();
+
+            //log off current user
+            Session.Abandon();
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+            AuthenticationManager.SignOut();
+
+            //log in this user
+            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties()
+            {
+                IsPersistent = false,
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(10)
+            }, identity);
+
+            if(!isLogOff)
+            {
+                Session.Add(impersonatorField, currentUserId);
+                Session.Add(impersonatorHashField, Encrypt(currentUserId));
+            }
+            return true;
+        }
+
+        private const string impersonatorField = "Impersonater";
+        private const string impersonatorHashField = "ImpersonaterHash";
+
+
         //
         // POST: /Account/LogOff
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public async Task<ActionResult> LogOff()
         {
+            if (Session[impersonatorField] != null)
+            {
+                var impersonator = Session[impersonatorField].ToString();
+                if (!string.IsNullOrWhiteSpace(impersonator))
+                {
+                    if (await ImpersonateAsync(impersonator, true))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
@@ -486,10 +555,9 @@ namespace Talent21.Web.Controllers
         //
         // POST: /Account/LogOut
         [HttpGet]
-        public ActionResult LogOut()
+        public Task<ActionResult> LogOut()
         {
-            AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return LogOff();
         }
 
         //

@@ -270,6 +270,13 @@ namespace Talent21.Web.Controllers
             return Page(_service.Search(model), options);
         }
 
+        [HttpGet]
+        [Route("contractor/{id}")]
+        public ContractorViewModel GetContractorProfileById(int id)
+        {
+            return _service.GetContractorById(id);
+        }
+
         [HttpPost]
         [Route("bench")]
         public PageResult<ContractorSearchResultViewModel> GetContractorsBench(SearchQueryViewModel model, ODataQueryOptions<ContractorSearchResultViewModel> options)

@@ -642,7 +642,7 @@ namespace Talent21.Service.Core
             return Path.Combine(storageRoot, Path.GetFileName(fileName));
         }
 
-        public ContractorViewModel GetFavorite(int id)
+        public ContractorViewModel GetProfileById(int id)
         {
             return Contractors.FirstOrDefault(n => n.Id == id);
         }
