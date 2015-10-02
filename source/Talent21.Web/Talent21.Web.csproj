@@ -317,6 +317,7 @@
     <Content Include="App\views\admin\master.js" />
     <Content Include="App\views\admin\invoice.html" />
     <Content Include="App\views\admin\invoice.js" />
+    <Content Include="App\views\common\404.html" />
     <Content Include="App\views\common\invoice.html" />
     <Content Include="App\views\common\invoice.js" />
     <Content Include="App\views\common\share.html" />
