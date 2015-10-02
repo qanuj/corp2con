@@ -88,8 +88,9 @@
             return $http.get(v + 'top/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
         }
 
-        company.getJobApplications = function (id, page, pageSize) {
-            return $http.get(v + 'job/' + id + '/applications/paged?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id desc'));
+        company.getJobApplications = function (filter, page, pageSize) {
+            var folderFilter = filter.folder ? '&$filter=Folder eq \''+filter.folder+'\'' : '';
+            return $http.get(v + 'job/' + filter.id + '/applications/paged?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id desc') + folderFilter);
         }
 
         company.getJobApplication = function (id) {

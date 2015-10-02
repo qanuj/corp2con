@@ -28,6 +28,7 @@ namespace Talent21.Service.Models
         public DictionaryEditViewModel Job { get; set; }
         public string Folder { get; set; }
         public int JobId { get; set; }
+        public int AppicationId { get; set; }
     }
 
     public class AvailableRatedCandidateProfileViewModel : CandidateProfileViewModel

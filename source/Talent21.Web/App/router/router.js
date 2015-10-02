@@ -193,17 +193,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "EditOrCreateJobController"
                 
             })
-            .state('jobApplications', {
-                url: "/job/:id/applications/:folder?",
-                templateUrl: "app/views/" + role + "/contractorApplication.html",
-                data: { pageTitle: 'New Job' },
+            .state('applicationFolder', {
+                url: "/job/applications/:id/:folder",
+                templateUrl: "app/views/" + role + "/applications.html",
+                data: { pageTitle: 'Applications' },
                 controller: role + "ApplicationsController"
                 
             })
             .state('jobApplication', {
                 url: "/job/applications/:id",
                 templateUrl: "app/views/" + role + "/applications.html",
-                data: { pageTitle: 'New Job' },
+                data: { pageTitle: 'Applications' },
                 controller: role + "ApplicationsController"
                 
             })

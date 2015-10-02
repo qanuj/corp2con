@@ -15,10 +15,11 @@
     $scope.id = id;
     $scope.navigate = function (page) {
         $scope.query = {
-            folder: $stateParams.folder || ''
+            folder: $stateParams.folder || '',
+            id:id
         }
         function fetchResults(query, page) {
-            db.company.getJobApplications(id, page).success(function (result) {
+            db.company.getJobApplications($scope.query, page).success(function (result) {
                 $scope.currentPage = page || 1;
                 $scope.pages = Math.ceil(result.count / db.pageSize);
                 $scope.count = result.count;
@@ -47,7 +48,7 @@
             }
             $scope.save = (x + 1);
             if ($scope.records[x].selected == true) {
-                db.company.saveApplication($scope.records[x].id, folder).success(next);
+                db.company.saveApplication($scope.records[x].appicationId, folder).success(next);
             } else next();
         }
         function onNext() {
@@ -57,6 +58,7 @@
     }
 
     $scope.toggle = function (allSelected) {
+       console.log(allSelected);
         for (var x in $scope.records) {
             $scope.records[x].selected = allSelected;
         }
