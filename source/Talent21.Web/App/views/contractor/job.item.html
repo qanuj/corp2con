@@ -2,19 +2,19 @@
     <div class="portlet-title">
         <div class="caption">
             <span class="caption-subject bold">
-                <input type="checkbox" ng-model="row.selected" />
+                <input ng-if="!hideCheckbox" type="checkbox" ng-model="row.selected" />
                 <i ng-if="row.favorite" class="fa fa-star yellow-gold"></i>
+                <a ng-if="!row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                    <i class="fa fa-car shine"></i>
+                </a>
                 <a ng-if="row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                     <i class="fa fa-home"></i>
                 </a>
-                <a href="/#/job/{{row.id}}">{{row.title}}</a>
+                <a ui-sref="job({id:row.id})">{{row.title}}</a>
             </span>
             <span class="caption-helper">{{row.company}} <i ng-if="row.application" class="fa fa-check-circle-o green-jungle"></i></span>
         </div>
         <div class="actions flex">
-            <a ng-if="!row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                <i class="fa fa-car shine"></i>
-            </a>
             <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
             <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
         </div>
@@ -22,7 +22,7 @@
     <div class="portlet-body">
         <h5><a ng-href="row.webSite">{{row.webSite}}</a></h5>
         <p>
-            {{row.description | plaintext | limitTo: 200}}{{row.description.length > 300 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
+            {{row.description | plaintext | limitTo: 200}}{{row.description.length > 300 ? '...' : ''}} <a  ui-sref="job({id:row.id})" style="color: #14b1bb;">... View More</a>
         </p>
     </div>
     <div class="portlet-footer">

@@ -45,6 +45,12 @@ namespace Talent21.Web.Controllers
             return View();
         }
 
+        [Route("~/jobs")]
+        public ActionResult Jobs(string pg = "")
+        {
+            return View("Jobs", new FrontEndViewModel() { Role = "Public" });
+        }
+
         [Route("contact")]
         [HttpPost]
         public ActionResult Contact(FeedbackViewModel model)

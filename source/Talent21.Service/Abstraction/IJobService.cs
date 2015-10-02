@@ -15,5 +15,7 @@ namespace Talent21.Service.Abstraction
         IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count);
         StatsViewModel GetStats();
         FeaturedContractorViewModel GetFeaturedContractor();
+        JobPublicViewModel JobById(int id);
+        CompanyPublicViewModel CompanyById(int id);
     }
 }

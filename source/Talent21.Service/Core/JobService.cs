@@ -191,5 +191,69 @@ namespace Talent21.Service.Core
         {
             return Contractors.OrderByDescending(x => x.Id).FirstOrDefault(x => x.IsHome);
         }
+
+        public IQueryable<JobPublicViewModel> Applications(int id = 0)
+        {
+            return _jobRepository.All.Select(x => new JobPublicViewModel
+            {
+                Id = x.Id,
+                Company = x.Company.CompanyName,
+                IsCancelled = x.IsCancelled,
+                Cancelled = x.Cancelled,
+                Published = x.Published,
+                Skills = x.Skills.Select(y => new JobSkillEditViewModel { Code = y.Skill.Code, Id = y.Id, Title = y.Skill.Title, Level = y.Level }),
+                Locations = x.Locations.Select(y => new JobLocationEditViewModel { Code = y.Code, Id = y.Id, Title = y.Title }),
+                CompanyId = x.CompanyId,
+                Description = x.Description,
+                Code = x.Code,
+                Title = x.Title,
+                End = x.End,
+                Rate = x.Rate,
+                Start = x.Start,
+                IsWorkingFromHome = x.IsWorkingFromHome,
+                Positions = x.Positions
+            });
+        }
+
+        public JobPublicViewModel JobById(int id)
+        {
+            return Applications().FirstOrDefault(x => x.Id == id);
+        }
+
+        protected IQueryable<CompanyPublicViewModel> PublicCompany
+        {
+            get
+            {
+                return _companyRepository.All.Select(x => new CompanyPublicViewModel
+                {
+                    Id = x.Id,
+                    About = x.About,
+                    Email = x.Email,
+                    Facebook = x.Social.Facebook,
+                    Google = x.Social.Google,
+                    LinkedIn = x.Social.LinkedIn,
+                    Location = x.Location.Title,
+                    LocationId = x.LocationId,
+                    Mobile = x.Mobile,
+                    Address = x.Address,
+                    PinCode = x.PinCode,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Rss = x.Social.Rss,
+                    Twitter = x.Social.Twitter,
+                    WebSite = x.Social.WebSite,
+                    Yahoo = x.Social.Yahoo,
+                    PictureUrl = x.PictureUrl,
+                    CompanyName = x.CompanyName,
+                    AlternateNumber = x.AlternateNumber,
+                    IndustryId = x.IndustryId,
+                    OrganizationType = x.OrganizationType
+                });
+            }
+        }
+        public CompanyPublicViewModel CompanyById(int id)
+        {
+            return PublicCompany.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

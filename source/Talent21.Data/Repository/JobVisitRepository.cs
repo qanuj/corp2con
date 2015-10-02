@@ -23,11 +23,11 @@ namespace Talent21.Data.Repository
             : base(context, eventManager)
         { }
 
-        public bool VisitedEarlier(int id, string visitor)
+        public bool VisitedEarlier(int id,string ip, string visitor)
         {
             var earlier = DateTime.UtcNow.AddMinutes(-30);
             if (string.IsNullOrWhiteSpace(visitor)) return false;
-            return All.Any(x => x.Visitor == visitor && x.Created > earlier && x.JobId == id);
+            return All.Any(x => x.Visitor == visitor && x.Created > earlier && x.JobId == id && x.IpAddress==ip);
         }
     }
     /// <summary>
@@ -35,6 +35,6 @@ namespace Talent21.Data.Repository
     /// </summary>
     public interface IJobVisitRepository : IRepository<JobVisit>
     {
-        bool VisitedEarlier(int id, string visitor);
+        bool VisitedEarlier(int id,string ip, string visitor);
     }
 }

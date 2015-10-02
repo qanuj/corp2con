@@ -1,4 +1,4 @@
-﻿app.controller('contractorCompanyProfileController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, param,$rootScope) {
+﻿app.controller('publicCompanyController', ['$scope', 'dataService', '$stateParams','$rootScope', function ($scope, db, param,$rootScope) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -14,7 +14,10 @@
     $scope.page = 1;
     $scope.pages = 1;
 
+    console.log('param', param);
+
     db.job.company(param.id).success(function (result) {
+        console.log(result);
         $scope.record = result;
         $scope.page = db.currentPage;
         db.job.paged(result.id,$scope.page).success(function (result) {

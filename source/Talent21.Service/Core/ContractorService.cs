@@ -706,15 +706,20 @@ namespace Talent21.Service.Core
             return Applications().FirstOrDefault(x => x.Id == id);
         }
 
-        public bool VisitCompany(int id, VisitViewModel model)
+        public string CurrentOrAnonymousName()
         {
             var entity = FindContractor(CurrentUserId);
-            var fullName = string.Format("{0} {1}", entity.FirstName, entity.LastName);
-            if (!_companyVisitRepository.VisitedEarlier(id, fullName))
+            return entity == null ? "Anonymous" : string.Format("{0} {1}", entity.FirstName, entity.LastName);
+        }
+
+        public bool VisitCompany(int id, VisitViewModel model)
+        {
+            var visitor = CurrentOrAnonymousName();
+            if (!_companyVisitRepository.VisitedEarlier(id,model.IpAddress, visitor))
             {
                 _companyVisitRepository.Create(new CompanyVisit
                 {
-                    Visitor = fullName,
+                    Visitor = visitor,
                     CompanyId = id,
                     Browser = model.Browser,
                     City = model.City,
@@ -732,13 +737,12 @@ namespace Talent21.Service.Core
 
         public bool VisitJob(int id, VisitViewModel model)
         {
-            var entity = FindContractor(CurrentUserId);
-            var fullName = string.Format("{0} {1}", entity.FirstName, entity.LastName);
-            if (!_jobVisitRepository.VisitedEarlier(id, fullName))
+            var visitor = CurrentOrAnonymousName();
+            if (!_jobVisitRepository.VisitedEarlier(id, model.IpAddress, visitor))
             {
                 _jobVisitRepository.Create(new JobVisit
                 {
-                    Visitor = fullName,
+                    Visitor = visitor,
                     JobId = id,
                     Browser = model.Browser,
                     City = model.City,

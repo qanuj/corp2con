@@ -21,8 +21,6 @@
         $scope.title = "Matching Jobs for you, next week";
     }
 
-    console.log('Searching Job', param, param);
-
     $scope.favoriteAll = function (record) {
         var i = 0;
         function favoriteJob(x, next) {

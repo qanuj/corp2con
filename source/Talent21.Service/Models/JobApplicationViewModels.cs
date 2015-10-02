@@ -51,6 +51,27 @@ namespace Talent21.Service.Models
         public string Picture { get; set; }
     }
 
+    public class JobPublicViewModel
+    {
+        public int Id { get; set; }
+        public string Company { get; set; }
+        public bool IsCancelled { get; set; }
+        public DateTime? Cancelled { get; set; }
+        public DateTime? Published { get; set; }
+
+        public IEnumerable<JobSkillEditViewModel> Skills { get; set; }
+        public int CompanyId { get; set; }
+        public string Description { get; set; }
+        public string Code { get; set; }
+        public string Title { get; set; }
+        public DateTime End { get; set; }
+        public int Rate { get; set; }
+        public DateTime Start { get; set; }
+        public IEnumerable<JobLocationEditViewModel> Locations { get; set; }
+        public bool IsWorkingFromHome { get; set; }
+        public int Positions { get; set; }
+    }
+
     public class JobApplicationContractorViewModel : JobApplicationViewModel
     {
         public string Company { get; set; }

@@ -64,12 +64,18 @@ app.controller('HeaderController', ['$scope','$rootScope','dataService', functio
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
     });
-    db.me.get().success(function (result) {
-        if (!result.pictureUrl && result.hash) {
-            result.pictureUrl = "//gravatar.com/avatar/" + result.hash + "?s=50";
-        }
-        $rootScope.profile = result;
-    });
+    var role = document.querySelector('html').dataset.role.toLowerCase();
+    $scope.role = role;
+    if (role != 'public') {
+        db.me.get().success(function (result) {
+            if (result) {
+                if (!result.pictureUrl && result.hash) {
+                    result.pictureUrl = "//gravatar.com/avatar/" + result.hash + "?s=50";
+                }
+                $rootScope.profile = result;
+            }
+        });
+    }
 }]);
 
 /* Setup Layout Part - Sidebar */

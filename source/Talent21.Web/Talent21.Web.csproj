@@ -350,6 +350,7 @@
     <Content Include="App\views\contractor\promote.html" />
     <Content Include="App\views\contractor\promote.js" />
     <Content Include="App\views\layout\footer.html" />
+    <Content Include="App\views\layout\header-box.html" />
     <Content Include="App\views\layout\header.html" />
     <Content Include="App\views\contractor\job.item.html" />
     <Content Include="App\views\layout\sidebar.html" />
@@ -383,6 +384,12 @@
     <Content Include="App\views\contractor\job.html" />
     <Content Include="App\views\company\jobs.html" />
     <Content Include="App\views\contractor\job.js" />
+    <Content Include="App\views\public\company.html" />
+    <Content Include="App\views\public\company.js" />
+    <Content Include="App\views\public\job.html" />
+    <Content Include="App\views\public\job.js" />
+    <Content Include="App\views\public\search.html" />
+    <Content Include="App\views\public\search.js" />
     <Content Include="App\views\upload\file.html" />
     <Content Include="App_Data\Database.sql" />
     <Content Include="Content\bootstrap.css" />
@@ -864,6 +871,7 @@
     <Content Include="Scripts\spa-1\toastr.min.js" />
     <Content Include="Views\Notifications\Feedback.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <None Include="Views\Home\Jobs.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
