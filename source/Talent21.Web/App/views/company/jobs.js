@@ -9,6 +9,7 @@
     $rootScope.settings.layout.pageSidebarClosed = false;
 
     $scope.title = "Jobs";
+    $scope.hideCheckbox = true;
     $scope.navigate = function (page) {
         $scope.query = {
             keywords: $stateParams.q || $stateParams.keywords || '',
@@ -32,7 +33,6 @@
             });
         }
         $scope.search = function (query) {
-            console.log('query', query.skills)
             var q = '';
             for (var x in query) {
                 q += (q === '' ? '?' : '&') + x + '=' + query[x];
@@ -44,55 +44,55 @@
     }
     $scope.navigate($stateParams.page);
 
-    db.system.getSkills().success(function (result) {
-        $scope.skills = result;
-    });
-    db.system.getLocations().success(function (result) {
-        $scope.locations = result;
-    });
-    db.system.getIndustries().success(function (result) {
-        $scope.industries = result;
-    });
+    //db.system.getSkills().success(function (result) {
+    //    $scope.skills = result;
+    //});
+    //db.system.getLocations().success(function (result) {
+    //    $scope.locations = result;
+    //});
+    //db.system.getIndustries().success(function (result) {
+    //    $scope.industries = result;
+    //});
 
-    $scope.resetFilters = function () {
-        $scope.query.keywords = '';
-        $scope.query.skills = '';
-        $scope.query.location = '';
-        $scope.query.startrate = '';
-        $scope.query.endrate = '';
-        $scope.query.xfrom = '';
-        $scope.query.xto = '';
-        $scope.query.industry = '';
-        $scope.search(query);
-    }
+    //$scope.resetFilters = function () {
+    //    $scope.query.keywords = '';
+    //    $scope.query.skills = '';
+    //    $scope.query.location = '';
+    //    $scope.query.startrate = '';
+    //    $scope.query.endrate = '';
+    //    $scope.query.xfrom = '';
+    //    $scope.query.xto = '';
+    //    $scope.query.industry = '';
+    //    $scope.search(query);
+    //}
 
-    //Slider configs
-    $scope.experienceSlider = {
-        min: $scope.query.xfrom || 0,
-        max: $scope.query.xto || 500,
-        ceil: 500,
-        floor: 0
-    };
+    ////Slider configs
+    //$scope.experienceSlider = {
+    //    min: $scope.query.xfrom || 0,
+    //    max: $scope.query.xto || 500,
+    //    ceil: 500,
+    //    floor: 0
+    //};
 
-    $scope.rateSlider = {
-        min: $scope.query.startrate || 0,
-        max: $scope.query.endrate || 500,
-        ceil: 500,
-        floor: 0
-    };
+    //$scope.rateSlider = {
+    //    min: $scope.query.startrate || 0,
+    //    max: $scope.query.endrate || 500,
+    //    ceil: 500,
+    //    floor: 0
+    //};
 
-    $scope.translate = function (value) {
-        return '$' + value;
-    }
+    //$scope.translate = function (value) {
+    //    return '$' + value;
+    //}
 
-    $scope.$on("slideEnded", function () {
-        // user finished sliding a handle 
-        console.log('slide ended')
-        $scope.query.startrate = $scope.rateSlider.min;
-        $scope.query.endrate = $scope.rateSlider.max;
-        $scope.query.xfrom = $scope.experienceSlider.min;
-        $scope.query.xto = $scope.experienceSlider.max;
-        $scope.search($scope.query);
+    //$scope.$on("slideEnded", function () {
+    //    // user finished sliding a handle 
+    //    console.log('slide ended')
+    //    $scope.query.startrate = $scope.rateSlider.min;
+    //    $scope.query.endrate = $scope.rateSlider.max;
+    //    $scope.query.xfrom = $scope.experienceSlider.min;
+    //    $scope.query.xto = $scope.experienceSlider.max;
+    //    $scope.search($scope.query);
 
-    });
+    //});
 }]);

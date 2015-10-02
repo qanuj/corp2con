@@ -17,17 +17,17 @@ namespace Talent21.Service.Models
         public bool IsMobile { get; set; }
     }
 
-    public class JobApplicationCompanyViewModel : JobApplicationViewModel
-    {
-        public DictionaryEditViewModel Job { get; set; }
-        public ContractorViewModel Contractor { get; set; }
-        public string Folder { get; set; }
-    }
-
     public class JobApplicationViewModel
     {
-        public int Id { get; set; }
         public IEnumerable<JobApplicationHistoryViewModel> Actions { get; set; }
+        public int Id { get; set; }
+    }
+    public class JobApplicationCompanyViewModel : ContractorViewModel
+    {
+        public IEnumerable<JobApplicationHistoryViewModel> Actions { get; set; }
+        public DictionaryEditViewModel Job { get; set; }
+        public string Folder { get; set; }
+        public int JobId { get; set; }
     }
 
     public class AvailableRatedCandidateProfileViewModel : CandidateProfileViewModel

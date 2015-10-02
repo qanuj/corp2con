@@ -1,55 +1,60 @@
-﻿<div class="portlet light bordered">
+﻿<div class="portlet bordered light solid" ng-class="{'dark grey':row.isHighlight,'dark blue-steel':row.isFeatured}">
     <div class="portlet-title">
-        <div class="caption">
-            <i class="icon-paper-plane font-yellow-casablanca"></i>
-            <a href="/#/job/{{row.id}}">
-                <span class="caption-subject bold font-yellow-casablanca uppercase">
-                    {{row.title}}
-                </span>
-                <span class="caption-helper">{{row.company}}</span>
-            </a>
+        <div class="caption" ng-class="{'blue-madison':row.isHighlight,'font-yellow-saffron':row.isFeatured}">
+            <span class="caption-subject bold">
+                <input ng-if="!hideCheckbox" type="checkbox" ng-model="row.selected" />
+                <i ng-if="row.favorite" class="fa fa-star yellow-gold"></i>
+                <a ng-if="!row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                    <i class="fa fa-car shine"></i>
+                </a>
+                <a ng-if="row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                    <i class="fa fa-home"></i>
+                </a>
+                <a ui-sref="job({id:row.id})" ng-class="{'blue':row.isHighlight}">{{row.title}}</a>
+            </span>
+            <span class="caption-subject" ng-class="{'yellow-lemon':row.isHighlight,'font-yellow-saffron':row.isFeatured}">
+                {{row.company}}
+            </span>
         </div>
-
-        <div class="actions flex">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <div class="actions">
+            <a ng-if="row.newApplications" class="btn btn-circle btn-sm" ng-class="row.newApplications>0?'red-sunglo':'btn-default'" ui-sref="jobApplication({id:row.id})">
                 <i class="icon-bell"></i>
-                <span class="badge badge-default">
-                    {{row.newApplications}}
-                </span>
+                {{row.newApplications}}
             </a>
-            <a ng-if="row.favorite" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                <i class="fa fa-star shine"></i>
+            <a ng-if="row.isPublished" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="icon-check"></i>
             </a>
-            <a ng-if="row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                <i class="fa fa-home shine"></i>
+            <a  ng-if="!row.isPublished" class="btn btn-circle btn-icon-only btn-default" ui-sref="jobEdit({id:row.id})">
+                <i class="icon-pencil"></i>
             </a>
-            <a ng-if="!row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                <i class="fa fa-car shine"></i>
+            <a class="btn btn-circle e btn-sm btn-default " href="javascript:;">
+                <i class="icon-calender"></i>
+                {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}
             </a>
-            <span class="highlight" ng-if="row.application">Applied on {{row.application | date:'dd-MMM-yy'}}</span>
-            <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
-            <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
-            <div ng-switcher class="pull-right" ng-model="row.selected"></div>
         </div>
     </div>
     <div class="portlet-body">
         <h5><a ng-href="row.webSite">{{row.webSite}}</a></h5>
         <p>
-            {{row.description | plaintext | limitTo: 200}}{{row.description.length > 300 ? '...' : ''}} <a href="#/job/{{row.id}}" style="color: #14b1bb;">... View More</a>
+            {{row.description | plaintext | limitTo: 200}}{{row.description.length > 300 ? '...' : ''}} <a ui-sref="job({id:row.id})" style="color: #14b1bb;">... View More</a>
         </p>
     </div>
     <div class="portlet-footer">
         <div class="actions">
-            <span class="pull-right"><i class="fa fa-calendar-o"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}</span>
-            <a href="javascript:;" class="btn btn-circle btn-success">
-                <i class="fa fa-inr"></i> {{row.rate}}
-            </a>
-            <a href="javascript:;" class="btn btn-circle btn-default" ng-repeat="s in row.locations | limitTo:5">
-                <i class="fa fa-map-marker"></i> {{s.title}}
-            </a>
+            <div class="row">
+                <a href="javascript:;" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-danger':'default'">
+                    {{row.rate | currency : '₹' : 0}} / Monthly
+                </a>
+                <a href="javascript:;" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-info':'default'">
+                    {{row.end | amDifference : row.start: 'days' }} Days
+                </a>
+                <a href="javascript:;" class="btn btn-circle" ng-repeat="s in row.locations | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-warning':'default'">
+                    <i class="fa fa-map-marker"></i> {{s.title}}
+                </a>
+                <a href="javascript:;" class="btn btn-circle" ng-repeat="s in row.skills | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
+                    <i class="fa fa-star-o"></i> {{s.code}}
+                </a>
+            </div>
         </div>
-        <label class="btn btn-circle btn-transparent active" ng-repeat="s in row.skills | limitTo:5">
-            <i class="fa fa-star-o"></i> {{s.code}}
-        </label>
     </div>
 </div>

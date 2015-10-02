@@ -172,7 +172,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: role + "JobsController"
                 
             })
-            .state('jobOne', {
+            .state('job', {
                 url: "/job/{id:int}",
                 templateUrl: "app/views/" + role + "/job.html",
                 data: { pageTitle: 'Job' },

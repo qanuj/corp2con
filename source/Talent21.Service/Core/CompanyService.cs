@@ -388,43 +388,40 @@ namespace Talent21.Service.Core
             {
                 Job = new DictionaryEditViewModel { Id = x.JobId, Code = x.Job.Code, Title = x.Job.Title },
                 Actions = x.History.Select(y => new JobApplicationHistoryViewModel() { Act = y.Act, Created = y.Created, CreateBy = y.CreatedBy }),
-                Id = x.Id,
+                JobId = x.Id,
                 Folder = x.Folder,
-                Contractor = new ContractorViewModel
+                Id = x.Contractor.Id,
+                About = x.Contractor.About,
+                Email = x.Contractor.Email,
+                Complete = x.Contractor.Complete,
+                FunctionalArea = x.Contractor.FunctionalArea.Title,
+                Industry = x.Contractor.Industry.Title,
+                ExperienceMonths = x.Contractor.Experience.Months,
+                ExperienceYears = x.Contractor.Experience.Years,
+                Facebook = x.Contractor.Social.Facebook,
+                PinCode = x.Contractor.PinCode,
+                Address = x.Contractor.Address,
+                Google = x.Contractor.Social.Google,
+                LinkedIn = x.Contractor.Social.LinkedIn,
+                Location = x.Contractor.Location.Title,
+                Mobile = x.Contractor.Mobile,
+                FirstName = x.Contractor.FirstName,
+                LastName = x.Contractor.LastName,
+                Rss = x.Contractor.Social.Rss,
+                Twitter = x.Contractor.Social.Twitter,
+                WebSite = x.Contractor.Social.WebSite,
+                Yahoo = x.Contractor.Social.Yahoo,
+                PictureUrl = x.Contractor.PictureUrl,
+                OwnerId = x.Contractor.OwnerId,
+                Rate = x.Contractor.Rate,
+                Skills = x.Contractor.Skills.Select(y => new ContractorSkillViewModel()
                 {
-                    Id = x.Contractor.Id,
-                    About = x.Contractor.About,
-                    Email = x.Contractor.Email,
-                    Complete = x.Contractor.Complete,
-                    FunctionalArea = x.Contractor.FunctionalArea.Title,
-                    Industry = x.Contractor.Industry.Title,
-                    ExperienceMonths = x.Contractor.Experience.Months,
-                    ExperienceYears = x.Contractor.Experience.Years,
-                    Facebook = x.Contractor.Social.Facebook,
-                    PinCode = x.Contractor.PinCode,
-                    Address = x.Contractor.Address,
-                    Google = x.Contractor.Social.Google,
-                    LinkedIn = x.Contractor.Social.LinkedIn,
-                    Location = x.Contractor.Location.Title,
-                    Mobile = x.Contractor.Mobile,
-                    FirstName = x.Contractor.FirstName,
-                    LastName = x.Contractor.LastName,
-                    Rss = x.Contractor.Social.Rss,
-                    Twitter = x.Contractor.Social.Twitter,
-                    WebSite = x.Contractor.Social.WebSite,
-                    Yahoo = x.Contractor.Social.Yahoo,
-                    PictureUrl = x.Contractor.PictureUrl,
-                    OwnerId = x.Contractor.OwnerId,
-                    Rate = x.Contractor.Rate,
-                    Skills = x.Contractor.Skills.Select(y => new ContractorSkillViewModel()
-                    {
-                        Code = y.Skill.Code,
-                        Title = y.Skill.Title,
-                        ExperienceInMonths = y.ExperienceInMonths,
-                        Level = y.Level,
-                        Proficiency = y.Proficiency
-                    })
-                }
+                    Code = y.Skill.Code,
+                    Title = y.Skill.Title,
+                    ExperienceInMonths = y.ExperienceInMonths,
+                    Level = y.Level,
+                    Proficiency = y.Proficiency
+                })
             });
         }
 
@@ -527,6 +524,7 @@ namespace Talent21.Service.Core
                             let promotions = x.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
                             select new ContractorSearchResultViewModel
                             {
+                                ProfileUrl = x.ProfileUrl,
                                 IsBench = x.CompanyId== currentCompanyId,
                                 Company = x.Company != null ? x.Company.CompanyName : "",
                                 CompanyId = x.CompanyId,
