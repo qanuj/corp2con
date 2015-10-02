@@ -21,7 +21,7 @@
                 <i class="icon-bell"></i>
                 {{row.newApplications}}
             </a>
-            <a ng-if="row.isPublished" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+            <a ng-if="row.isPublished" class="btn btn-circle btn-icon-only btn-success" href="javascript:;">
                 <i class="icon-check"></i>
             </a>
             <a  ng-if="!row.isPublished" class="btn btn-circle btn-icon-only btn-default" ui-sref="jobEdit({id:row.id})">

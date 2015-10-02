@@ -47,7 +47,7 @@
             }
             $scope.save = (x + 1);
             if ($scope.records[x].selected == true) {
-                db.company.saveApplication($scope.records[x].id, folder).success(next);
+                db.company.saveApplication($scope.records[x].appicationId, folder).success(next);
             } else next();
         }
         function onNext() {
@@ -57,6 +57,7 @@
     }
 
     $scope.toggle = function (allSelected) {
+       console.log(allSelected);
         for (var x in $scope.records) {
             $scope.records[x].selected = allSelected;
         }
