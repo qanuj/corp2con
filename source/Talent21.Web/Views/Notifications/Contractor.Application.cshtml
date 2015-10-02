@@ -1,14 +1,17 @@
 @using Mvc.Mailer
 @{
-    Layout = "Contractor._Layout.cshtml";
+    const string pCSS = "font - size: 15px; font - weight: 300; color: #a5a5a5; line-height: 1.4; margin: 0 10px";
 }
-Please confirm your email address and agree to our Terms of Service.
-By clicking on the following link, you are agreeing to @Product.Name's
-<a href="@Url.Abs(Url.Action("Home","Terms"))" target="_blank">Terms of Service</a>.
+<p style="@pCSS">
+    Hello <strong>@ViewBag.Model.FirstName</strong><br /><br />
+    Thank You for applying to <strong>@ViewBag.Job.Title</strong>
+</p>
+<p style="@pCSS">It takes sometime for the recruiters to respond to your application, mean while you can find other suitable jobs and apply by visiting jobs portal.</p>
+<p style="@pCSS">Thanks & Regards<br /><strong>@Product.Name</strong> Team</p>
 
-@section mainButton{
+@section mainButton {
     <a href="@ViewBag.Url"
-       style="font-size: 13px; color: #ffffff; background-color: #3bca96; text-decoration: none; text-decoration: none; padding: 11px 44px 10px; border: 1px solid #3bca96; display: inline-block" target="_blank">
-        Confirm Your Email Address
+       style="font-size: 13px; color: #ffffff; background-color: @Product.Color; text-decoration: none; text-decoration: none; padding: 11px 44px 10px; border: 1px solid @Product.Color; display: inline-block" target="_blank">
+        View Applications
     </a>
 }

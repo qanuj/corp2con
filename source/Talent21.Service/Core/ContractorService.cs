@@ -626,7 +626,7 @@ namespace Talent21.Service.Core
                 ContractorId = contractor.Id,
                 JobId = model.Id,
             };
-            var history = new JobApplicationHistory() { Act = JobActionEnum.Application };
+            var history = new JobApplicationHistory { Act = JobActionEnum.Application };
             jobApplication.History.Add(history);
             _jobApplicationRepository.Create(jobApplication);
             _jobApplicationRepository.SaveChanges();

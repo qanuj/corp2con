@@ -1,14 +1,17 @@
-@using Mvc.Mailer
 @{
-    Layout = "Company._Layout.cshtml";
+    const string pCSS = "font - size: 15px; font - weight: 300; color: #a5a5a5; line-height: 1.4; margin: 0 10px";
 }
-Please confirm your email address and agree to our Terms of Service.
-By clicking on the following link, you are agreeing to @Product.Name's
-<a href="@Url.Abs(Url.Action("Home","Terms"))" target="_blank">Terms of Service</a>.
-
-@section mainButton{
-    <a href="@ViewBag.Url"
-       style="font-size: 13px; color: #ffffff; background-color: #3bca96; text-decoration: none; text-decoration: none; padding: 11px 44px 10px; border: 1px solid #3bca96; display: inline-block" target="_blank">
-        Confirm Your Email Address
+<p style="@pCSS">
+    Hello <strong>@ViewBag.Company.FirstName</strong><br /><br />
+    @ViewBag.Model.FullName has applied for the requirement @ViewBag.Job.Title
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Model.Job.Code))
+    {<text>(Code - @ViewBag.Model.Job.Code)</text>}. Please find a brief profile of the applicant below and the detailed resume attached to this email.
+    <br /><br />
+    Thanks & Regards<br /><strong>@Product.Name</strong> Team
+</p>
+@section mainButton {
+    <a href="@ViewBag.Url/@ViewBag.Job.Id"
+       style="font-size: 13px; color: #ffffff; background-color: @Product.Color; text-decoration: none; text-decoration: none; padding: 11px 44px 10px; border: 1px solid @Product.Color; display: inline-block" target="_blank">
+        View Application
     </a>
 }

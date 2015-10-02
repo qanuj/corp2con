@@ -127,15 +127,15 @@ namespace Talent21.Web.Mailers
         public void SendApplication(JobApplication application, string viewApplicationUrl, FileInfo resume)
         {
             //send to contractor;
-            var msg1 = new MvcMailMessage
-            {
-                Subject =
-                    string.Format("Application Received for {0} - {1}", application.Job.Title,
-                        application.Job.Company.CompanyName)
+            var msg1 = new MvcMailMessage {
+                Subject = string.Format("Application Received for {0} - {1}", application.Job.Title,application.Job.Company.CompanyName)
             };
             ViewBag.Email = application.Contractor.Email;
-            ViewBag.Model = application;
+            ViewBag.Company = application.Job.Company;
+            ViewBag.Model = application.Contractor;
+            ViewBag.Job = application.Job;
             ViewBag.Subject = "Thank You!";
+            ViewBag.Url = viewApplicationUrl;
 
             PopulateBody(msg1, "Candidate.Application");
             Send(msg1, application.Contractor.Email);
@@ -149,7 +149,6 @@ namespace Talent21.Web.Mailers
                         Product.Name)
             };
             ViewBag.Email = application.Job.Company.Email;
-            ViewBag.Url = viewApplicationUrl;
             ViewBag.Subject = "New Application Received";
             PopulateBody(msg2, "Company.Application");
             Send(msg2,
