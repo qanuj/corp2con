@@ -168,6 +168,7 @@
     <Compile Include="Extensions\NumberExtensions.cs" />
     <Compile Include="FileAccessInfo.cs" />
     <Compile Include="KeySecret.cs" />
+    <Compile Include="Models\MessageAttachement.cs" />
     <Compile Include="Models\PaymentReceiptViewModel.cs" />
     <Compile Include="OAuthWebConfigProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoPoco.Configuration;
@@ -616,7 +617,7 @@ namespace Talent21.Service.Core
         }
 
 
-        public JobApplicationViewModel Apply(JobApplicationCreateViewModel model)
+        public JobApplicationViewModel Apply(JobApplicationCreateViewModel model, string viewApplicationUrl, string storageRoot)
         {
             var contractor = FindContractor(CurrentUserId);
 
@@ -631,9 +632,14 @@ namespace Talent21.Service.Core
             _jobApplicationRepository.SaveChanges();
 
             jobApplication = _jobApplicationRepository.ById(jobApplication.Id);
-            _notificationService.ActOnApplication(jobApplication, JobActionEnum.Application);
+            _notificationService.SendApplication(jobApplication, viewApplicationUrl, new FileInfo(GetFullFileName(jobApplication.Contractor.ProfileUrl, storageRoot)));
 
             return Applications(jobApplication.JobId).FirstOrDefault(x => x.Id == jobApplication.Id);
+        }
+
+        private string GetFullFileName(string fileName, string storageRoot)
+        {
+            return Path.Combine(storageRoot, Path.GetFileName(fileName));
         }
 
         public ContractorViewModel GetFavorite(int id)

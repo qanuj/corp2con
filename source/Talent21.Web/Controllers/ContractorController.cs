@@ -173,7 +173,9 @@ namespace Talent21.Web.Controllers
         [Route("job/{id}/apply")]
         public HttpResponseMessage ApplyToJob(int id)
         {
-           return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel { Id = id })) : Bad(ModelState);
+           return ModelState.IsValid ? Ok(_service.Apply(new JobApplicationCreateViewModel { Id = id },
+               Url.Content(string.Format("~/account/login?returnUrl=/%23/applications/{0}", id)),
+               UploadController.FindStorageRoot())) : Bad(ModelState);
         }
 
         [HttpPost]

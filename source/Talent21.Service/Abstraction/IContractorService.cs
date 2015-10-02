@@ -24,7 +24,7 @@ namespace Talent21.Service.Abstraction
         ScheduleViewModel Update(EditScheduleViewModel model);
         bool Delete(DeleteScheduleViewModel model);
 
-        JobApplicationViewModel Apply(JobApplicationCreateViewModel model);
+        JobApplicationViewModel Apply(JobApplicationCreateViewModel model, string viewApplicationUrl, string storageRoot);
 
         bool ActOnApplication(CreateJobApplicationHistoryViewModel model, JobActionEnum jobActionEnum);
 
