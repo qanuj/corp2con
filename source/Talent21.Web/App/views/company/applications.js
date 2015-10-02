@@ -15,10 +15,11 @@
     $scope.id = id;
     $scope.navigate = function (page) {
         $scope.query = {
-            folder: $stateParams.folder || ''
+            folder: $stateParams.folder || '',
+            id:id
         }
         function fetchResults(query, page) {
-            db.company.getJobApplications(id, page).success(function (result) {
+            db.company.getJobApplications($scope.query, page).success(function (result) {
                 $scope.currentPage = page || 1;
                 $scope.pages = Math.ceil(result.count / db.pageSize);
                 $scope.count = result.count;
