@@ -3,6 +3,10 @@
         <li>
             <i class="fa fa-home"></i>
             <a ui-sref="home()">Search</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">{{record.title}}</a>
         </li>
     </ul>
     <div class="page-toolbar">
@@ -25,33 +29,9 @@
 <div class="row">
     <div class="col-md-9">
         <article>
-             
-            <h2 class="bold font-yellow-casablanca uppercase">
+            <h2 class="bold font-yellow-casablanca">
                 {{record.title}} <small>{{record.company}}</small>
             </h2>
-            <div ng-if="record.invited && !record.decline && !record.application" class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Congratulations, You are invited to apply for this job</strong>
-                <p>
-                    Go, ahead and accept, the invitation, but if you are busy or not available can always decline it.
-                </p>
-
-                <hr class="q" />
-                <p>
-                    <a class="btn btn-success" ng-click="apply(record)" href=""><i class="fa fa-check"></i> Accept & Apply</a>
-                </p>
-                <hr class="q" />
-                <div class="row">
-                    <div class="col-sm-6">
-                        <select ui-select2 class="form-control" ng-model="reason" ng-options="s for s in reasons"></select>
-                    </div>
-                    <div class="col-sm-6">
-                        <button ng-click="decline(record,reason)" class="btn btn-danger"><i class="fa fa-cross"></i> Decline</button>
-                    </div>
-                </div>
-            </div>
             <p>{{record.description}}</p>
         </article>
     </div>

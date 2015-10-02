@@ -13,11 +13,9 @@
     $scope.role = db.role;
     $scope.page = 1;
     $scope.pages = 1;
-
-    console.log('param', param);
+    $scope.hideCheckbox = true;
 
     db.job.company(param.id).success(function (result) {
-        console.log(result);
         $scope.record = result;
         $scope.page = db.currentPage;
         db.job.paged(result.id,$scope.page).success(function (result) {
