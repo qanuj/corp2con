@@ -29,21 +29,18 @@
     <div class="portlet-footer">
         <div class="actions">
             <div class="row">
-                <div class="col-xs-12">
-                    <a href="javascript:;" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-danger':'default'">
-                        {{row.rate | currency : '₹' : 0}} / Monthly
-                    </a>
-                    <a href="javascript:;" class="btn btn-circle" ng-repeat="s in row.locations | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-warning':'default'">
-                        <i class="fa fa-map-marker"></i> {{s.title}}
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <a href="javascript:;" class="btn btn-circle" ng-repeat="s in row.skills | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
-                        <i class="fa fa-star-o"></i> {{s.code}}
-                    </a>
-                </div>
+                <a href="javascript:;" class="btn btn-circle col-xs-2" ng-class="row.isHighlight || row.isFeatured ? 'btn-danger':'default'">
+                    {{row.rate | currency : '₹' : 0}} / Monthly
+                </a>
+                <a href="javascript:;" class="btn btn-circle col-xs-2" ng-class="row.isHighlight || row.isFeatured ? 'btn-info':'default'">
+                    {{row.end | amDifference : row.start: 'days' }} Days
+                </a>
+                <a href="javascript:;" class="btn btn-circle col-xs-2" ng-repeat="s in row.locations | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-warning':'default'">
+                    <i class="fa fa-map-marker"></i> {{s.title}}
+                </a>
+                <a href="javascript:;" class="btn btn-circle col-xs-2" ng-repeat="s in row.skills | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
+                    <i class="fa fa-star-o"></i> {{s.code}}
+                </a>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     var common = role == "admin" ? "admin" : "common";
 
     // Redirect any unmatched url
-    $urlRouterProvider.otherwise("/404");
+    $urlRouterProvider.otherwise("/");
 
     $stateProvider.state('lost', {
         url: "/404",

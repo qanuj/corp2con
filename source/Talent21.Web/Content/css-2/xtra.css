@@ -42,6 +42,7 @@ a .caption-helper {
     -moz-box-shadow: none;
     box-shadow: none;
     text-shadow: none;
+    margin: 2px;
 
 }
 .img-logo {
