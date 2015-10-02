@@ -28,7 +28,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         });
     } else {
         // Dashboard
-        $stateProvider.state('dashboard', {
+        $stateProvider.state('home', {
             url: "/",
             templateUrl: "app/views/" + role + "/dashboard.html",
             data: { pageTitle: 'Dashboard' },

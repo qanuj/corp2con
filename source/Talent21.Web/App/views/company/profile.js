@@ -14,6 +14,7 @@
     db.company.get(param.id).success(function (result) {
         $scope.record = result;
         $scope.page = db.currentPage;
+        $scope.pageUrl = window.location.origin + '/go/company/' + result.companyCode;
         db.job.paged(result.id, 1).success(function (result) {
             $scope.jobs = result.items;
         });

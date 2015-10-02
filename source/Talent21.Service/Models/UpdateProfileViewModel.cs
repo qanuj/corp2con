@@ -73,6 +73,7 @@ namespace Talent21.Service.Models
         public string OwnerId { get; set; }
 
         public int Complete { get; set; }
+        public string CompanyCode { get; set; }
     }
 
     public class ProfileViewModel
