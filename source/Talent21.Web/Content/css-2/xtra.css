@@ -320,6 +320,7 @@ a, a:hover {
 
 tags-input .tags {
     background-color: transparent;
+    height: 100%;
 }
 
     tags-input .tags.focused {

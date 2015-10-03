@@ -228,25 +228,23 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <div class="row">
-                    <div class="col-md-10">
-                        <tags-input placeholder="Add Skill" display-property="title" ng-model="newSkill">
-                            <auto-complete source="loadSkills($query)"></auto-complete>
-                        </tags-input>
-                    </div>
-                    <div class="col-md-2">
-                        <button ng-click="addSkill(newSkill,l)" class="btn btn-primary btn-icon-only"><i class="icon-plus"></i></button>
+                <div class="input-group">
+                    <tags-input placeholder="Add Skill" display-property="title" ng-model="newSkill">
+                        <auto-complete source="loadSkills($query)"></auto-complete>
+                    </tags-input>
+                    <div class="input-group-btn">
+                        <button ng-click="addSkill(newSkill,l)" class="btn btn-primary"><i class="icon-plus"></i></button>
                     </div>
                 </div>
                 <div class="table-scrollable table-scrollable-borderless">
                     <table class="table table-responsive table-hover table-light">
                         <thead>
-                            <tr class="uppercase">
-                                <th>Skill</th>
-                                <th>Rating</th>
-                                <th>Experience</th>
-                                <th>&nbsp;</th>
-                            </tr>
+                        <tr class="uppercase">
+                            <th class="col-sm-3">Skill</th>
+                            <th class="col-sm-2">Rating</th>
+                            <th class="col-sm-5">Experience</th>
+                            <th class="col-xs-1">&nbsp;</th>
+                        </tr>
                         </thead>
                         <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
                             <td>{{s.title}}</td>

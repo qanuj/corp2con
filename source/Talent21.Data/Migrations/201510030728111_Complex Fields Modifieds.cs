@@ -8,10 +8,9 @@ namespace Talent21.Data.Migrations
         public override void Up()
         {
             AddColumn("dbo.Members", "Experience", c => c.Int());
-            AddColumn("dbo.Jobs", "Duration_Start", c => c.DateTime(nullable: false));
-            AddColumn("dbo.Jobs", "Duration_End", c => c.DateTime(nullable: false));
             AddColumn("dbo.Jobs", "Experience_Start", c => c.Int(nullable: false));
             AddColumn("dbo.Jobs", "Experience_End", c => c.Int(nullable: false));
+
             AddColumn("dbo.Jobs", "IsContractExtendable", c => c.Boolean(nullable: false));
             AddColumn("dbo.Jobs", "IsContractToHire", c => c.Boolean(nullable: false));
 
@@ -19,12 +18,12 @@ namespace Talent21.Data.Migrations
 
             DropColumn("dbo.Members", "Experience_Years");
             DropColumn("dbo.Members", "Experience_Months");
-            DropColumn("dbo.Jobs", "Start");
-            DropColumn("dbo.Jobs", "End");
 
+            RenameColumn("dbo.Jobs", "Start", "Duration_Start");
+            RenameColumn("dbo.Jobs", "End", "Duration_End");
             RenameColumn("dbo.ContractorSkills", "ExperienceInMonths", "Experience");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.ContractorSkills", "ExperienceInMonths", c => c.Int(nullable: false));
