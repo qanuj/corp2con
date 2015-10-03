@@ -254,9 +254,17 @@ namespace Talent21.Service.Core
                 Description = model.Description,
                 Code = model.Code,
                 Title = model.Title,
-                End = model.End,
+                Duration = new DateRangeData
+                {
+                    Start = model.Start,
+                    End = model.End
+                },
+                Experience = new IntRangeData
+                {
+                    Start = model.ExperienceStart,
+                    End = model.ExperienceEnd
+                },
                 Rate = model.Rate,
-                Start = model.Start,
                 IsWorkingFromHome = model.IsWorkingFromHome,
                 Positions = model.Positions
             };
@@ -315,9 +323,11 @@ namespace Talent21.Service.Core
             entity.Description = model.Description;
             entity.Code = model.Code;
             entity.Title = model.Title;
-            entity.End = model.End;
             entity.Rate = model.Rate;
-            entity.Start = model.Start;
+            entity.Duration.End = model.End;
+            entity.Duration.Start = model.Start;
+            entity.Experience.End = model.ExperienceEnd;
+            entity.Experience.Start = model.ExperienceEnd;
             entity.IsWorkingFromHome = model.IsWorkingFromHome;
             entity.Positions = model.Positions;
 
@@ -397,8 +407,7 @@ namespace Talent21.Service.Core
                 Complete = x.Contractor.Complete,
                 FunctionalArea = x.Contractor.FunctionalArea.Title,
                 Industry = x.Contractor.Industry.Title,
-                ExperienceMonths = x.Contractor.Experience.Months,
-                ExperienceYears = x.Contractor.Experience.Years,
+                Experience = x.Contractor.Experience,
                 Facebook = x.Contractor.Social.Facebook,
                 PinCode = x.Contractor.PinCode,
                 Address = x.Contractor.Address,
@@ -419,7 +428,7 @@ namespace Talent21.Service.Core
                 {
                     Code = y.Skill.Code,
                     Title = y.Skill.Title,
-                    ExperienceInMonths = y.ExperienceInMonths,
+                    Experience = y.Experience,
                     Level = y.Level,
                     Proficiency = y.Proficiency
                 })
@@ -494,9 +503,11 @@ namespace Talent21.Service.Core
                 Description = x.Description,
                 Code = x.Code,
                 Title = x.Title,
-                End = x.End,
                 Rate = x.Rate,
-                Start = x.Start,
+                End = x.Duration.End,
+                Start = x.Duration.Start,
+                ExperienceEnd = x.Experience.End,
+                ExperienceStart = x.Experience.Start,
                 IsWorkingFromHome = x.IsWorkingFromHome,
                 Positions = x.Positions
             });
@@ -542,8 +553,7 @@ namespace Talent21.Service.Core
                                 FunctionalArea = x.FunctionalArea.Title,
                                 Industry = x.Industry.Title,
                                 FunctionalAreaId = x.FunctionalAreaId,
-                                ExperienceMonths = x.Experience.Months,
-                                ExperienceYears = x.Experience.Years,
+                                Experience = x.Experience,
                                 PinCode = x.PinCode,
                                 Address = x.Address,
                                 Facebook = x.Social.Facebook,
@@ -574,7 +584,7 @@ namespace Talent21.Service.Core
                                     Id = y.Id,
                                     Code = y.Skill.Code,
                                     Title = y.Skill.Title,
-                                    ExperienceInMonths = y.ExperienceInMonths,
+                                    Experience = y.Experience,
                                     Level = y.Level,
                                     Proficiency = y.Proficiency
                                 })
@@ -642,11 +652,11 @@ namespace Talent21.Service.Core
             }
             if (model.xFrom > 0)
             {
-                query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) > model.xFrom);
+                query = query.Where(x => x.Experience > model.xFrom);
             }
             if (model.xTo > 0)
             {
-                query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) < model.xTo);
+                query = query.Where(x => x.Experience < model.xTo);
             }
 
             if (!string.IsNullOrWhiteSpace(model.Keywords))
@@ -735,8 +745,7 @@ namespace Talent21.Service.Core
             return Contractors().Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location).Select(x => new AvailableRatedCandidateProfileViewModel
             {
                 Id = x.Id,
-                ExperienceInMonths = x.ExperienceMonths,
-                ExperienceInYears = x.ExperienceYears,
+                Experience = x.Experience,
                 Name = x.FirstName + " " + x.LastName,
                 Picture = x.PictureUrl,
                 Rate = x.Rate,

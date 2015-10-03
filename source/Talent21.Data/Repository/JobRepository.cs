@@ -62,7 +62,7 @@ namespace Talent21.Data.Repository
                     Skill = y.Skill.Title,
                     Location =location,
                     Rate=x.Rate,
-                    Duration = DbFunctions.DiffDays(x.Start, x.End) ?? 0
+                    Duration = DbFunctions.DiffDays(x.Duration.Start, x.Duration.End) ?? 0
                 }));
         }
     }

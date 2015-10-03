@@ -52,6 +52,8 @@ namespace Talent21.Service.Models
         public DateTime End { get; set; }
         public bool IsWorkingFromHome { get; set; }
         public int Positions { get; set; }
+        public int ExperienceStart { get; set; }
+        public int ExperienceEnd { get; set; }
     }
 
     public enum AvailableEnum
@@ -134,6 +136,8 @@ namespace Talent21.Service.Models
         public bool IsHighlight { get; set; }
         public bool IsAdvertised { get; set; }
         public bool IsHome { get; set; }
+        public int ExperienceStart { get; set; }
+        public int ExperienceEnd { get; set; }
     }
 
     public class SkillConverter : TypeConverter
@@ -201,7 +205,7 @@ namespace Talent21.Service.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string PictureUrl { get; set; }
-        public string Experience { get; set; }
+        public int Experience { get; set; }
         public IEnumerable<string> Skills { get; set; }
         public bool IsFeatured { get; set; }
         public bool IsHighlight { get; set; }

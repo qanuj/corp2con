@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-4 col-sm-4 col-xs-6">
                 <div class="uppercase profile-stat-title">
-                    {{record.experienceYears}}.{{record.experienceMonths}}
+                    {{record.experience | years}}
                 </div>
                 <div class="uppercase profile-stat-text">
                     Experience
@@ -166,7 +166,7 @@
                                 {{s.title}}
                             </td>
                             <td>
-                                {{s.experienceInMonths}} Months
+                                {{s.experience | years}}
                             </td>
                             <td>
                                 {{s.end | date:'dd-MMM-yyyy'}}

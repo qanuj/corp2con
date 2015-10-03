@@ -50,11 +50,13 @@ namespace Talent21.Service.Core
                                 Description=job.Description,
                                 Company=job.Company.CompanyName,
                                 Rate=job.Rate,
-                                Start=job.Start,
                                 IsWorkingFromHome=job.IsWorkingFromHome,
                                 Positions=job.Positions,
-                                End=job.End,
-                                Id=job.Id,
+                                Start = job.Duration.Start,
+                                End = job.Duration.End,
+                                ExperienceStart = job.Experience.Start,
+                                ExperienceEnd = job.Experience.End,
+                                Id = job.Id,
                                 IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                                 IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
@@ -101,11 +103,11 @@ namespace Talent21.Service.Core
                                 IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                                 IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
                                 IsHome = promotions.Any(y => y == PromotionEnum.Global),
-                                Experience = contractor.Experience.Years+"."+contractor.Experience.Months,
+                                Experience = contractor.Experience,
                                 Name = contractor.FirstName +" "+contractor.LastName,
                                 PictureUrl = contractor.PictureUrl,
                                 Id = contractor.Id,
-                                Skills = contractor.Skills.Where(x=>x.Level==LevelEnum.Primary).OrderByDescending(x=>x.ExperienceInMonths).Take(5).Select(x => x.Skill.Title)
+                                Skills = contractor.Skills.Where(x=>x.Level==LevelEnum.Primary).OrderByDescending(x=>x.Experience).Take(5).Select(x => x.Skill.Title)
                             };
                 return query;
             }
@@ -210,9 +212,11 @@ namespace Talent21.Service.Core
                 Description = x.Description,
                 Code = x.Code,
                 Title = x.Title,
-                End = x.End,
                 Rate = x.Rate,
-                Start = x.Start,
+                End = x.Duration.End,
+                Start = x.Duration.Start,
+                ExperienceEnd = x.Experience.End,
+                ExperienceStart = x.Experience.Start,
                 IsWorkingFromHome = x.IsWorkingFromHome,
                 Positions = x.Positions
             });

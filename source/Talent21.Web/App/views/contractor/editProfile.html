@@ -269,7 +269,7 @@
         </thead>
         <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
             <td>{{s.title}}</td>
-            <td><input class="form-control" type="number" ng-model="s.experienceInMonths" /></td>
+            <td><rzslider rz-slider-floor="1" rz-slider-ceil="600" rz-slider-model="s.experience" rz-slider-translate="experienceTranslate"></rzslider></td>
             <td><select ui-select2 class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select></td>
             <td><button class="btn btn-danger" ng-click="remove(s)"><i class="fa fa-trash"></i></button></td>
         </tr>

@@ -41,8 +41,7 @@ namespace Talent21.Service.Models
     {
         public string Skill { get; set; }
         public int Rate { get; set; }
-        public int ExperienceInMonths { get; set; }
-        public int ExperienceInYears { get; set; }
+        public int Experience { get; set; }
     }
 
     public class PictureViewModel
@@ -73,6 +72,8 @@ namespace Talent21.Service.Models
         public int Positions { get; set; }
         public string JobCode { get; set; }
         public string PictureUrl { get; set; }
+        public int ExperienceEnd { get; set; }
+        public int ExperienceStart { get; set; }
     }
 
     public class JobApplicationContractorViewModel : JobApplicationViewModel
@@ -87,12 +88,14 @@ namespace Talent21.Service.Models
         public string Description { get; set; }
         public string Code { get; set; }
         public string Title { get; set; }
-        public DateTime End { get; set; }
         public int Rate { get; set; }
+        public DateTime End { get; set; }
         public DateTime Start { get; set; }
         public IEnumerable<JobLocationEditViewModel> Locations { get; set; }
         public bool IsWorkingFromHome { get; set; }
         public int Positions { get; set; }
+        public int ExperienceEnd { get; set; }
+        public int ExperienceStart { get; set; }
     }
 
     public class JobBasedJobApplicationHistoryViewModel

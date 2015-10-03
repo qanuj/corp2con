@@ -111,6 +111,7 @@
     <Compile Include="Core\Plan.cs" />
     <Compile Include="Core\ProficiencyEnum.cs" />
     <Compile Include="Core\PromotionEnum.cs" />
+    <Compile Include="Core\RangeData.cs" />
     <Compile Include="Core\RateEnum.cs" />
     <Compile Include="Core\Schedule.cs" />
     <Compile Include="Core\Skill.cs" />

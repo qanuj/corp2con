@@ -81,8 +81,7 @@ namespace Talent21.Service.Core
                                 ContractType = x.ContractType,
                                 Gender = x.Gender,
                                 FunctionalAreaId = x.FunctionalAreaId,
-                                ExperienceMonths = x.Experience.Months,
-                                ExperienceYears = x.Experience.Years,
+                                Experience = x.Experience,
                                 Facebook = x.Social.Facebook,
                                 Google = x.Social.Google,
                                 LinkedIn = x.Social.LinkedIn,
@@ -117,7 +116,7 @@ namespace Talent21.Service.Core
                                     Id = y.Id,
                                     Code = y.Skill.Code,
                                     Title = y.Skill.Title,
-                                    ExperienceInMonths = y.ExperienceInMonths,
+                                    Experience = y.Experience,
                                     Level = y.Level,
                                     Proficiency = y.Proficiency
                                 })
@@ -135,7 +134,7 @@ namespace Talent21.Service.Core
                     Id = y.Skill.Id,
                     Code = y.Skill.Code,
                     Title = y.Skill.Title,
-                    ExperienceInMonths = y.ExperienceInMonths,
+                    Experience = y.Experience,
                     Level = y.Level,
                     Proficiency = y.Proficiency
                 }));
@@ -188,9 +187,11 @@ namespace Talent21.Service.Core
                 Description = x.Description,
                 Code = x.Code,
                 Title = x.Title,
-                End = x.End,
                 Rate = x.Rate,
-                Start = x.Start,
+                End = x.Duration.End,
+                Start = x.Duration.Start,
+                ExperienceEnd = x.Experience.End,
+                ExperienceStart = x.Experience.Start,
                 IsWorkingFromHome = x.IsWorkingFromHome,
                 Positions = x.Positions
             });
@@ -264,7 +265,7 @@ namespace Talent21.Service.Core
                 PinCode = model.PinCode,
                 ProfileUrl = model.ProfileUrl,
                 Address = model.Address,
-                Experience = new Duration { Months = model.ExperienceMonths, Years = model.ExperienceYears },
+                Experience = model.Experience,
                 LocationId = model.LocationId,
                 Email =  model.Email,
                 Mobile = model.Mobile,
@@ -300,7 +301,7 @@ namespace Talent21.Service.Core
                         Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code },
                         Level = mskill.Level,
                         Proficiency = mskill.Proficiency,
-                        ExperienceInMonths = mskill.ExperienceInMonths,
+                        Experience = mskill.Experience,
                         Contractor = entity
                     });
                 }
@@ -333,7 +334,7 @@ namespace Talent21.Service.Core
                 skill.Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code };
                 skill.Level = mskill.Level;
                 skill.Proficiency = mskill.Proficiency;
-                skill.ExperienceInMonths = mskill.ExperienceInMonths;
+                skill.Experience = mskill.Experience;
                 _contractorSkillRepository.Update(skill);
             }
 
@@ -346,7 +347,7 @@ namespace Talent21.Service.Core
                     Skill = _skillRepository.ByTitle(mskill.Title) ?? new Skill() { Title = mskill.Title, Code = mskill.Code },
                     Level = mskill.Level,
                     Proficiency = mskill.Proficiency,
-                    ExperienceInMonths = mskill.ExperienceInMonths,
+                    Experience = mskill.Experience,
                     Contractor = entity
                 });
             }
@@ -383,7 +384,7 @@ namespace Talent21.Service.Core
 
             entity.PinCode = model.PinCode;
             entity.Address = model.Address;
-            entity.Experience = new Duration() { Months = model.ExperienceMonths, Years = model.ExperienceYears };
+            entity.Experience = model.Experience;
             entity.LocationId = model.LocationId;
             entity.IndustryId = model.IndustryId;
             entity.Mobile = model.Mobile;
@@ -441,7 +442,7 @@ namespace Talent21.Service.Core
             var entity = _contractorSkillRepository.ById(model.Id);
             if (entity == null || entity.ContractorId != contractor.Id) throw new Exception("Skill not found");
 
-            entity.ExperienceInMonths = model.ExperienceInMonths;
+            entity.Experience = model.Experience;
             entity.Level = model.Level;
             entity.Proficiency = model.Proficiency;
 
@@ -514,7 +515,7 @@ namespace Talent21.Service.Core
             {
                 ContractorId = contractor.Id,
                 Skill = skill,
-                ExperienceInMonths = model.ExperienceInMonths,
+                Experience = model.Experience,
                 Level = model.Level,
                 Proficiency = model.Proficiency
             };
@@ -657,7 +658,7 @@ namespace Talent21.Service.Core
             var location = contractor.Location.Title;
 
             var skillRow = _contractorSkillRepository.All.Where(x => x.Contractor.OwnerId == userId && x.Level == LevelEnum.Primary)
-                .OrderByDescending(x => x.ExperienceInMonths).FirstOrDefault();
+                .OrderByDescending(x => x.Experience).FirstOrDefault();
             if (skillRow != null) skill = skillRow.Skill.Title;
             
             var aggregateReport = _jobRepository.Durations(location)
@@ -679,8 +680,8 @@ namespace Talent21.Service.Core
                 },
                 Views = _contractorVisitRepository.Mine(userId).Count(),
                 Jobs = _jobRepository.MatchingForConctractor(userId).Count(),
-                Week = _jobRepository.MatchingForConctractor(userId).Count(x => x.Start < nextWeek),
-                Month = _jobRepository.MatchingForConctractor(userId).Count(x => x.Start < nextMonth)
+                Week = _jobRepository.MatchingForConctractor(userId).Count(x => x.Duration.Start < nextWeek),
+                Month = _jobRepository.MatchingForConctractor(userId).Count(x => x.Duration.Start < nextMonth)
             };
         }
         public void AddView(int id, string userAgent, string ipAddress)

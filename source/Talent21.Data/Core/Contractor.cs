@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using e10.Shared.Data.Abstraction;
 
 namespace Talent21.Data.Core
@@ -14,7 +16,7 @@ namespace Talent21.Data.Core
         public Company Company { get; set; }
         public int? CompanyId { get; set; }
 
-        public Duration Experience { get; set; } //in Years and Months
+        public int Experience { get; set; } //in Months
         
         public string ProfileUrl { get; set; } //cv Url
 
@@ -30,9 +32,20 @@ namespace Talent21.Data.Core
 
         public string Nationality { get; set; }
 
+        [NotMapped]
+        public int ExperienceMonths => Experience % 12;
+
+        [NotMapped]
+        // ReSharper disable once PossibleLossOfFraction
+        public int ExperienceYears => (int) Math.Floor((decimal) (Experience / 12));
+
         public Contractor()
         {
-            Experience = new Duration();
+            this.Skills = new List<ContractorSkill>();
+            this.Visits = new List<ContractorVisit>();
+            this.Folders = new List<ContractorFolder>();
+            this.Schedules = new List<Schedule>();
+            this.Advertisements=new List<ContractorAdvertisement>();
         }
     }
 }

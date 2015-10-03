@@ -54,10 +54,7 @@
         if (record.picture) {
             record.pictureUrl = record.picture.url;
         }
-        record.experienceYears = Math.floor(record.experience / 12);
-        record.experienceMonths = record.experience % 12;
         calculateProgress(record);
-        console.log('Progress', record.complete);
         db.contractor.update(record).success(function (result) {
             window.location = "#/profile";
         });
@@ -100,14 +97,8 @@
 
     function navigate() {
         return db.contractor.get().success(function (result) {
-            //result.companyId = !result.companyId ? 1 : result.companyId; //TODO:remove this line
-            result.picture = {
-                url: result.pictureUrl
-            };
-            result.loc = {
-                formatted_address: result.location
-            };
-            result.experience = (result.experienceYears * 12) + result.experienceMonths;
+            result.picture = { url: result.pictureUrl };
+            result.loc = { formatted_address: result.location };
             $scope.record = result;
         });
     }

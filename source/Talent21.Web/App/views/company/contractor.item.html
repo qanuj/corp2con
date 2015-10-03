@@ -56,7 +56,7 @@
         <div class="actions">
             <div class="row">
                 <a href="javascript:;" ng-if="row.experienceMonths>0 || row.experienceYears>0" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'blue':'default'">
-                    {{row.experienceYears}}.{{row.experienceMonths}}yrs
+                    {{row.experience | years}}
                 </a>
                 <a href="javascript:;" ng-if="row.rate>0" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
                     <i class="fa fa-inr"></i> {{row.rate}}/{{row.rateType| limitTo: 2}}
@@ -64,7 +64,7 @@
                 <a href="javascript:;" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-warning':'default'">
                     <i class="fa fa-map-marker"></i> {{row.location}} - {{row.nationality}}
                 </a>
-                <a href="javascript:;" title="{{s.experienceInMonths|years}} " class="btn btn-circle" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
+                <a href="javascript:;" title="{{s.experience|years}} " class="btn btn-circle" ng-repeat="s in row.skills | orderBy:'-experienceInMonths' | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
                     <i class="fa fa-star-o"></i> {{s.title}}
                 </a>
             </div>

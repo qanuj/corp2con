@@ -57,6 +57,7 @@ namespace e10.Shared.Extensions
         readonly Dictionary<int, char> _indexToDigitMap;
         readonly int _radix;
 
+        
         public long StringToBase10(string number)
         {
             Func<char, int, long> selector =

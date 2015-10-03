@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -25,6 +26,10 @@ namespace e10.Shared.Extensions
 
         private static readonly Base10Converter Convertror = new Base10Converter(Jokers);
 
+        public static string ToYears(this int number)
+        {
+            return string.Format("{0}.{1}yrs", number % 12, (int)Math.Floor((decimal)(number / 12)));
+        }
 
         public static long ToBase10(this string hexValue)
         {

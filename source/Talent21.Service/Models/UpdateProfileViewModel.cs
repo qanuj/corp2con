@@ -88,8 +88,7 @@ namespace Talent21.Service.Models
 
     public class ContractorEditViewModel : PersonViewModel
     {
-        public int ExperienceMonths { get; set; }
-        public int ExperienceYears { get; set; }
+        public int Experience { get; set; }
 
         public int Rate { get; set; }
         public RateEnum RateType { get; set; }
