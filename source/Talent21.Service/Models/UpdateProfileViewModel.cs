@@ -36,7 +36,7 @@ namespace Talent21.Service.Models
         public MinMax Salary { get; set; }
     }
 
-    public class MinMaxLabel<T> : MinMax
+    public class MinMaxLabel<T> : MinMax<int>
     {
         public T Label { get; set; }
     }
@@ -44,7 +44,8 @@ namespace Talent21.Service.Models
     public class MinMax : MinMax<int>
     {
     }
-    public class MinMax<T>
+
+    public class MinMax<T> where T : struct
     {
         public T Min { get; set; }
         public T Max { get; set; }

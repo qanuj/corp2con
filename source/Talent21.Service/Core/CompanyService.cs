@@ -586,8 +586,8 @@ namespace Talent21.Service.Core
                             (model.RateType == null || x.RateType == model.RateType.Value) &&
                             (model.RateStart <= 0 || x.Rate >= model.RateStart) &&
                             (model.RateEnd <= 0 || x.Rate <= model.RateEnd) &&
-                            (model.xFrom <= 0 || x.Experience >= model.xFrom) &&
-                            (model.xTo <= 0 || x.Experience <= model.xTo) &&
+                            (model.ExperienceStart <= 0 || x.Experience >= model.ExperienceStart) &&
+                            (model.ExperienceEnd <= 0 || x.Experience <= model.ExperienceEnd) &&
                             (!hasSkills || skill.Any(y => skills.Any(z => y.Title.Contains(z)))) &&
                             (model.Keywords == null || model.Keywords.Trim() == string.Empty || x.Company.CompanyName.Contains(model.Keywords) ||
                                                                                                 x.Mobile.Contains(model.Keywords) ||
@@ -980,8 +980,8 @@ namespace Talent21.Service.Core
             return new JobSearchFilterViewModel
             {
                 Companies = query.GroupBy(x => x.Company).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x=>x.Count).Take(10),
-                Rates = query.GroupBy(x => x.RateType).Select(x => new MinMaxLabel<RateEnum> { Label = x.Key, Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate) }).Take(10),
-                Experience = new MinMax { Min = query.Min(x => x.Experience), Max = query.Max(x => x.Experience) },
+                Rate = query.GroupBy(x => x.RateType).Select(x => new MinMaxLabel<RateEnum> { Label = x.Key, Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate) }).Take(10),
+                Experience = new MinMax { Min = query.Min(x => (int?) x.Experience)??0, Max = query.Max(x => (int?)x.Experience)??0 },
                 Skills = query.SelectMany(x => x.Skills.Select(y => new { x.Id, Skill = y.Title })).GroupBy(x => x.Skill).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
                 Availables = query.GroupBy(x => x.Available).Select(x => new CountLabel<int, AvailableEnum> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
                 Industries = query.GroupBy(x => x.Industry).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),

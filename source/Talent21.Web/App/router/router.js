@@ -41,7 +41,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             
         })
         .state('search', {
-            url: "/search?companies&folder&page&skills&rateType&availables&functionals&consultantTypes&contractTypes&locations&experience&rates&industries",
+            url: "/search?keywords&companies&folder&page&skills&rateType&availables&functionals&consultantTypes&contractTypes&locations&experience&rates&industries&experienceStart&experienceEnd&rateStart&rateEnd",
             templateUrl: "app/views/" + role + "/search.html",
             data: { pageTitle: 'Search' },
             controller: role + "SearchController"

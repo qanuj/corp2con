@@ -56,7 +56,7 @@
 
     $scope.search = function (query) {
         console.log($scope.query);
-        $state.go('search', query);
+        $state.transitionTo('search', query, { location:true,reload:false });
     }
 
     $scope.navigate = function (page) {

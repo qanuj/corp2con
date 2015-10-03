@@ -16,8 +16,8 @@ namespace Talent21.Service.Models
         public string Folder { get; set; }
         public string Industries { get; set; }
         public string Functionals { get; set; }
-        public int xFrom { get; set; }
-        public int xTo { get; set; }
+        public int ExperienceStart { get; set; }
+        public int ExperienceEnd { get; set; }
         public int RateStart { get; set; }
         public int RateEnd { get; set; }
         public RateEnum? RateType { get; set; }
@@ -172,7 +172,7 @@ namespace Talent21.Service.Models
         public IEnumerable<CountLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
         public IEnumerable<CountLabel<int>> Locations { get; set; }
         public MinMax Experience { get; set; }
-        public IQueryable<MinMaxLabel<RateEnum>> Rates { get; set; }
+        public IQueryable<MinMaxLabel<RateEnum>> Rate { get; set; }
     }
 
     public class JobTinyViewModel : EditJobViewModel
