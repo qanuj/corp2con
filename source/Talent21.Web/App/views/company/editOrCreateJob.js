@@ -15,8 +15,7 @@
     if (param.id) {
         $scope.title="Edit Job";
         db.job.get(param.id).success(function (result) {
-            result.start = moment(result.start).toDate();
-            result.end = moment(result.end).toDate();
+            result.date = { startDate :moment(result.start).toDate(),endDate:moment(result.end).toDate()}
             result.primarySkills = [];
             result.secondarySkills = [];
             for (var x in result.skills) {
@@ -30,6 +29,13 @@
         });
     }
 
+    $scope.experienceTranslate = function (value) {
+        if (value == 0) return 'Fresher';
+        var years = Math.floor(value / 12);
+        var months = value % 12;
+        return years + (months > 0 ? "." + months : "") + 'y';
+    }
+
     $scope.loadSkills = db.system.getSkills;
     $scope.loadLocations = db.system.getLocations;
 
@@ -40,8 +46,11 @@
         }
 
         record.skills = record.primarySkills.concat(record.secondarySkills);
-        record.start = record.date.startDate;
-        record.end = record.date.endDate;
+
+        if (record.date) {
+            record.start = record.date.startDate;
+            record.end = record.date.endDate;
+        }
 
         if (param.id) {
             db.job.update(record)

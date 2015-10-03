@@ -124,9 +124,15 @@ namespace Talent21.Web.Controllers
             return ModelState.IsValid ? Ok(_service.Create(model)) : Bad(ModelState);
         }
 
+        [HttpPost]
+        [Route("filters")]
+        public JobSearchFilterViewModel GetFiltersForContractorSearch(SearchQueryViewModel model)
+        {
+            return _service.ContractorFilters(model);
+        }
+
         [HttpPut]
         [Route("job")]
-        [ResponseType(typeof(JobViewModel))]
         public HttpResponseMessage EditJob(EditJobViewModel model)
         {
             return ModelState.IsValid ? Ok(_service.Update(model)) : Bad(ModelState);

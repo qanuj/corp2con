@@ -41,32 +41,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             
         })
         .state('search', {
-            url: "/search",
+            url: "/search?companies&folder&page&skills&rateType&availables&functionals&consultantTypes&contractTypes&locations&experience&rates&industries",
             templateUrl: "app/views/" + role + "/search.html",
             data: { pageTitle: 'Search' },
             controller: role + "SearchController"
-            
-        })
-        .state('searchFolder', {
-            url: "/search/folder/:folder",
-            templateUrl: "app/views/" + role + "/search.html",
-            data: { pageTitle: 'Search' },
-            controller: role + "SearchController"
-           
-        })
-        .state('searchIdea', {
-            url: "/search/:idea",
-            templateUrl: "app/views/" + role + "/search.html",
-            data: { pageTitle: 'Search' },
-            controller: role + "SearchController"
-            
-        })
-        .state('searchPaged', {
-            url: "/search/:idea/:page",
-            templateUrl: "app/views/" + role + "/search.html",
-            data: { pageTitle: 'Search' },
-            controller: role + "SearchController"
-            
         })
         .state('profile', {
             url: "/profile",

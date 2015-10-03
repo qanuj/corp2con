@@ -9,12 +9,13 @@ namespace Talent21.Service.Models
 {
     public class SearchQueryViewModel
     {
-        public string Location { get; set; }
+        public string Locations { get; set; }
+        public string Companies { get; set; }
         public string Skills { get; set; }
         public string Keywords { get; set; }
         public string Folder { get; set; }
-        public string Industry { get; set; }
-        public string Functional { get; set; }
+        public string Industries { get; set; }
+        public string Functionals { get; set; }
         public int xFrom { get; set; }
         public int xTo { get; set; }
         public int RateStart { get; set; }
@@ -54,6 +55,8 @@ namespace Talent21.Service.Models
         public int Positions { get; set; }
         public int ExperienceStart { get; set; }
         public int ExperienceEnd { get; set; }
+        public bool IsContractExtendable { get; set; }
+        public bool IsContractToHire { get; set; }
     }
 
     public enum AvailableEnum
@@ -63,7 +66,7 @@ namespace Talent21.Service.Models
         NextMonth,
         Later
     }
-
+    
     public class CompanyFolderViewModel
     {
         internal int CompanyId { get; set; }
@@ -154,6 +157,22 @@ namespace Talent21.Service.Models
 
         public bool IsPublished { get; set; }
         public DateTime? Published { get; set; }
+        
+    }
+
+    public class JobSearchFilterViewModel
+    {
+        public IEnumerable<CountLabel<int>> Companies { get; set; }
+        public IEnumerable<CountLabel<int>> Skills { get; set; }
+        public IEnumerable<CountLabel<int, AvailableEnum>> Availables { get; set; }
+        public IEnumerable<CountLabel<int>> Industries { get; set; }
+        //public IEnumerable<CountLabel<int, bool>> Bench { get; set; }
+        public IEnumerable<CountLabel<int>> Functionals { get; set; }
+        public IEnumerable<CountLabel<int, ContractorTypeEnum>> ConsultantTypes { get; set; }
+        public IEnumerable<CountLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
+        public IEnumerable<CountLabel<int>> Locations { get; set; }
+        public MinMax Experience { get; set; }
+        public IQueryable<MinMaxLabel<RateEnum>> Rates { get; set; }
     }
 
     public class JobTinyViewModel : EditJobViewModel

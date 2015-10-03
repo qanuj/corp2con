@@ -117,9 +117,9 @@ namespace Talent21.Service.Core
         {
             var query = Jobs;
             //Rules of searching.
-            if(!string.IsNullOrWhiteSpace(model.Location))
+            if(!string.IsNullOrWhiteSpace(model.Locations))
             {
-                query = query.Where(x => x.Locations.Any(y=>y.Title==model.Location));
+                query = query.Where(x => x.Locations.Any(y=>y.Title==model.Locations));
             }
             if (!string.IsNullOrWhiteSpace(model.Keywords))
             {

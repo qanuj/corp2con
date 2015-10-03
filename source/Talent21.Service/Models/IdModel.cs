@@ -13,11 +13,13 @@ namespace Talent21.Service.Models
         public string Label { get; set; }
     }
 
-    public class CountLabel<T>
-    {     
+    public class CountLabel<T,L>
+    {
         public T Count { get; set; }
-        public string Label { get; set; }
+        public L Label { get; set; }
     }
+
+    public class CountLabel<T> : CountLabel<T,string>{}
 
     public class EnumList : Dictionary<string, IEnumerable<IdLabel<string>>>
     {

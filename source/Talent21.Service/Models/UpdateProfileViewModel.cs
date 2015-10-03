@@ -36,6 +36,11 @@ namespace Talent21.Service.Models
         public MinMax Salary { get; set; }
     }
 
+    public class MinMaxLabel<T> : MinMax
+    {
+        public T Label { get; set; }
+    }
+
     public class MinMax : MinMax<int>
     {
     }
@@ -102,7 +107,6 @@ namespace Talent21.Service.Models
 
         public int Complete { get; set; }
         public IEnumerable<ContractorSkillViewModel> Skills { get; set; }
-        internal IEnumerable<CompanyFolderViewModel> Folders { get; set; }
     }
 
     public class ContractorCreateViewModel : ContractorEditViewModel

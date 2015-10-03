@@ -1,4 +1,4 @@
-﻿app.controller('companySearchController', ['$scope', 'dataService','$rootScope','$stateParams',function ($scope, db,  $rootScope,$stateParams) {
+﻿app.controller('companySearchController', ['$scope', 'dataService', '$rootScope', '$stateParams', '$state', function ($scope, db, $rootScope, $stateParams, $state) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -8,36 +8,28 @@
     $rootScope.settings.layout.pageBodySolid = false;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
+    $scope.loadSkills = db.system.getSearchSkills;
     $scope.title = "Contractor : Search Result";
     $scope.save = "Save";
 
-    var param = db.args($stateParams);
-
-    if (!isNaN(param.idea)) {
-        param.page = page.idea;
-    } else if (param.idea == "match") {
-        $scope.searching = "Matching Jobs for you.";
-    } else if (param.idea == "month") {
-        $scope.searching = "Matching Jobs for you, next month";
-    } else if (param.idea == "week") {
-        $scope.searching = "Matching Jobs for you, next week";
-    }
-
-    $scope.query = {
-        keywords: param.q || param.keywords || '',
-        location: param.location || '',
-        folder: param.idea || param.folder || '',
-        industry: param.industry || '',
-        functional: param.functional || '',
-        skills: param.skills || '',
-        ratestart: param.ratestart || '',
-        rateend: param.rateend || '',
-        xfrom: param.xfrom || '',
-        xto: param.xto || '',
-        ratetype: param.ratetype || 'Monthly'
-    }
+    $scope.query = $stateParams;
 
     function fetchResults(query, page) {
+
+        db.company.getSearchFolders().success(function (result) {
+            $scope.folders = result;
+        });
+
+        db.company.getActiveJobs().success(function (result) {
+            $scope.jobs = result;
+            if (result.length > 0) {
+                $scope.job = result[0];
+            }
+        });
+
+        db.company.filters(query).success(function (result) {
+            $scope.filters = result;
+        });
         db.company.search(query, page).success(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
@@ -48,13 +40,23 @@
         });
     }
 
+    $scope.addFilter = function (name, value) {
+        $scope.query[name] = value;
+        $scope.search($scope.query);
+    }
+
+    $scope.removeFilter = function (name) {
+        $scope.query[name] = null;
+        $scope.search($scope.query);
+    }
+
+    $scope.hasFilter = function (name) {
+        return !!$scope.query[name];
+    }
+
     $scope.search = function (query) {
-        var q = '';
-        for (var x in query) {
-            q += (q === '' ? '?' : '&') + x + '=' + query[x];
-        }
-        fetchResults(query, 1);
-        window.location = '#/search' + q; //this is decoration for URL only.
+        console.log($scope.query);
+        $state.go('search', query);
     }
 
     $scope.navigate = function (page) {
@@ -67,35 +69,9 @@
         }
     }
 
-    db.system.getSkills().success(function (result) {
-        $scope.skills = result;
-    });
-
-    db.system.enums('rateEnum').then(function (result) {
-        $scope.rateTypes = result;
-    });
-
-    db.company.getSearchFolders().success(function (result) {
-        $scope.folders = result;
-    });
-
-    db.system.getLocations().success(function (result) {
-        $scope.locations = result;
-    });
-    db.system.getIndustries().success(function (result) {
-        $scope.industries = result;
-    });
-
-    db.system.getFunctionals().success(function (result) {
-        $scope.functionals = result;
-    });
-
-    db.company.getActiveJobs().success(function (result) {
-        $scope.jobs = result;
-        if (result.length > 0) {
-            $scope.job = result[0];
-        }
-    });
+    $scope.translate = function (key) {
+        return $scope[key + 'Translate'];
+    }
 
     $scope.experienceTranslate = function (value) {
         if (value == 0) return 'Fresher';
@@ -104,29 +80,9 @@
         return years + (months > 0 ? "." + months : "") + 'y';
     }
 
-    $scope.rateTranslate = function (value) {
-        return value + 'k';
+    $scope.ratesTranslate = function (value) {
+        return value;
     }
-
-    //Slider configs
-    $scope.experienceSlider = {
-        min: $scope.query.xfrom || 0,
-        max: $scope.query.xto || 600,
-        ceil: 600,
-        floor: 0
-    };
-
-    $scope.rateSlider = {
-        min: $scope.query.ratestart || 0,
-        max: $scope.query.rateend || 500,
-        ceil: 500,
-        floor: 1
-    };
-
-    $scope.translate = function (value) {
-        return '$' + value;
-    }
-
 
     $scope.move = function (folder) {
         var i = 0;
@@ -194,7 +150,6 @@
         $scope.search($scope.query);
     });
 
-    $scope.navigate(param.page);
-
+    fetchResults($scope.query,1);
 
 }]);
