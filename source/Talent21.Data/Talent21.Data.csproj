@@ -111,6 +111,7 @@
     <Compile Include="Core\Plan.cs" />
     <Compile Include="Core\ProficiencyEnum.cs" />
     <Compile Include="Core\PromotionEnum.cs" />
+    <Compile Include="Core\RangeData.cs" />
     <Compile Include="Core\RateEnum.cs" />
     <Compile Include="Core\Schedule.cs" />
     <Compile Include="Core\Skill.cs" />
@@ -237,6 +238,10 @@
     <Compile Include="Migrations\201509110702223_Feedback Email Send and Feedback is Read.cs" />
     <Compile Include="Migrations\201509110702223_Feedback Email Send and Feedback is Read.Designer.cs">
       <DependentUpon>201509110702223_Feedback Email Send and Feedback is Read.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510030728111_Complex Fields Modifieds.cs" />
+    <Compile Include="Migrations\201510030728111_Complex Fields Modifieds.Designer.cs">
+      <DependentUpon>201510030728111_Complex Fields Modifieds.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -372,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509110702223_Feedback Email Send and Feedback is Read.resx">
       <DependentUpon>201509110702223_Feedback Email Send and Feedback is Read.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510030728111_Complex Fields Modifieds.resx">
+      <DependentUpon>201510030728111_Complex Fields Modifieds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

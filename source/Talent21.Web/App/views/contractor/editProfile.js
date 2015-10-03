@@ -54,19 +54,16 @@
         if (record.picture) {
             record.pictureUrl = record.picture.url;
         }
-        record.experienceYears = Math.floor(record.experience / 12);
-        record.experienceMonths = record.experience % 12;
         calculateProgress(record);
-        console.log('Progress', record.complete);
         db.contractor.update(record).success(function (result) {
             window.location = "#/profile";
         });
     }
     $scope.addSkill = function (skills, level) {
         for (var x in skills) {
-            $scope.record.skills.push({ level: level.id, proficiency: "Beginer", experienceInMonths: 0, code: skills[x].code, title: skills[x].title });
+            $scope.record.skills.push({ level: level.id, proficiency: "Beginer", experience: 0, code: skills[x].code, title: skills[x].title });
         }
-        $scope.newSkill = [];
+        $scope.newSkill.length = 0;
     }
     $scope.remove = function (item) {
         var index = $scope.record.skills.indexOf(item);
@@ -100,14 +97,8 @@
 
     function navigate() {
         return db.contractor.get().success(function (result) {
-            //result.companyId = !result.companyId ? 1 : result.companyId; //TODO:remove this line
-            result.picture = {
-                url: result.pictureUrl
-            };
-            result.loc = {
-                formatted_address: result.location
-            };
-            result.experience = (result.experienceYears * 12) + result.experienceMonths;
+            result.picture = { url: result.pictureUrl };
+            result.loc = { formatted_address: result.location };
             $scope.record = result;
         });
     }

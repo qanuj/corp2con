@@ -80,6 +80,10 @@
             return $http.post(v + 'search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query);
         }
 
+        company.filters = function (query) {
+            return $http.post(v + 'filters', query);
+        }
+
         company.getLatestProfiles = function (skill, location, page, pageSize) {
             return $http.get(v + 'latest/profiles/' + skill + '/' + location + '?$orderby=Id desc' + calculatePaging(page, pageSize));
         }

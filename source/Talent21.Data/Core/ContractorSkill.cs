@@ -13,7 +13,7 @@ namespace Talent21.Data.Core
         public ProficiencyEnum Proficiency { get; set; }
         public LevelEnum Level { get; set; }
 
-        public int ExperienceInMonths { get; set; }
+        public int Experience { get; set; }
     }
 
     public class JobSkill : Entity

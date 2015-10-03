@@ -51,5 +51,6 @@ namespace Talent21.Service.Abstraction
         bool InviteContractorToJob(JobInviteViewModel model);
         string BenchOwnerIdById(int benchId);
         ContractorViewModel GetContractorById(int id);
+        JobSearchFilterViewModel ContractorFilters(SearchQueryViewModel model);
      }
 }

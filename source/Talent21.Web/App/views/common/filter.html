@@ -1,0 +1,35 @@
+﻿<div class="row">
+    <div ng-if="!filter.max">
+        <div class="col-xl-11 col-xs-8">
+            <h4>{{key |uncamel}}</h4>
+        </div>
+        <div class="col-xl-1 col-xs-4 text-right">
+            <a ng-if="hasFilter(key)" ng-click="removeFilter(key)" class="btn btn-icon-only btn-circle red-flamingo"><i class="icon-trash"></i></a>
+        </div>
+        <div class="col-xs-12 inbox">
+            <ul class="inbox-nav margin-bottom-10">
+                <li class="inbox" ng-repeat="f in filter" ng-class="{active:f.label==query[key]}">
+                    <a class="btn" ng-click="addFilter(key,f.label)" href="javascript:;">{{(f.label||'Unspecified')}} ({{f.count>0 ? f.count : f.min+"-"+f.max}})</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div ng-if="filter.max && filter.min!=filter.max">
+        <div class="col-xl-11 col-xs-8">
+            <h4>{{key |uncamel}}</h4>
+        </div>
+        <div class="col-xl-1 col-xs-4 text-right">
+            <a ng-if="hasFilter(key)" ng-click="removeFilter(key)" class="btn btn-icon-only btn-circle red-flamingo"><i class="icon-trash"></i></a>
+        </div>
+        <div class="col-xs-12 inbox">
+            <rzslider rz-slider-hide-limit-labels="true"
+                      rz-slider-on-change="addFilter(key)"
+                      rz-slider-translate="translate(key)"
+                      rz-slider-floor="filter.min"
+                      rz-slider-ceil="filter.max"
+                      rz-slider-model="query[key+'Start']"
+                      rz-slider-high="query[key+'End']">
+            </rzslider>
+        </div>
+    </div>
+</div>

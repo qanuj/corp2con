@@ -6,7 +6,7 @@
                 <span class="caption-subject bold font-yellow-casablanca uppercase">
                     {{row.firstName}} {{row.lastName[0]}}.
                 </span>
-                <span class="caption-helper">{{row.experienceYears}}.{{row.experienceMonths}}</span>
+                <span class="caption-helper">{{row.experience | years}}</span>
             </a>
             <h5 ng-if="row.companyId">{{row.company}}</h5>
         </div>

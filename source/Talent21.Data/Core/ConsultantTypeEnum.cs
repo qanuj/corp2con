@@ -2,7 +2,7 @@
 {
     public enum ContractorTypeEnum
     {
-        IndependentCosultant,
+        IndependentConsultant,
         AlignedToConsultingOrganistion,
         RetiredProfessional
     }

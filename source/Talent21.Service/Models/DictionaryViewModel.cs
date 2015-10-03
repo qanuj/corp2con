@@ -61,7 +61,7 @@ namespace Talent21.Service.Models
     {
         public LevelEnum Level { get; set; }
         public ProficiencyEnum Proficiency { get; set; }
-        public int ExperienceInMonths { get; set; }
+        public int Experience { get; set; }
     }
 
     public class ContractorSkillDeleteViewModel : IdModel

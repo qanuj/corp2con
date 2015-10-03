@@ -1,4 +1,5 @@
-﻿@using Talent21.Data.Core
+﻿@using e10.Shared.Extensions
+@using Talent21.Data.Core
 @model Talent21.Web.Models.WelcomePageViewModel
 @{
     ViewBag.PageId = "home";
@@ -143,7 +144,7 @@
                         <div class="featured-job">
                             <div class="title">
                                 <h5>@Model.FeaturedContractor.Name</h5>
-                                <p>@Model.FeaturedContractor.Experience</p>
+                                <p>@Model.FeaturedContractor.Experience.ToYears()</p>
                             </div>
                             <div class="data">
                                 @foreach (var loc in Model.FeaturedContractor.Skills)

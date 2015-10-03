@@ -254,11 +254,21 @@ namespace Talent21.Service.Core
                 Description = model.Description,
                 Code = model.Code,
                 Title = model.Title,
-                End = model.End,
+                Duration = new DateRangeData
+                {
+                    Start = model.Start,
+                    End = model.End
+                },
+                Experience = new IntRangeData
+                {
+                    Start = model.ExperienceStart,
+                    End = model.ExperienceEnd
+                },
                 Rate = model.Rate,
-                Start = model.Start,
                 IsWorkingFromHome = model.IsWorkingFromHome,
-                Positions = model.Positions
+                Positions = model.Positions,
+                IsContractExtendable = model.IsContractExtendable,
+                IsContractToHire = model.IsContractToHire
             };
 
             ApplySkills(model, entity);
@@ -315,11 +325,15 @@ namespace Talent21.Service.Core
             entity.Description = model.Description;
             entity.Code = model.Code;
             entity.Title = model.Title;
-            entity.End = model.End;
             entity.Rate = model.Rate;
-            entity.Start = model.Start;
+            entity.Duration.End = model.End;
+            entity.Duration.Start = model.Start;
+            entity.Experience.End = model.ExperienceEnd;
+            entity.Experience.Start = model.ExperienceStart;
             entity.IsWorkingFromHome = model.IsWorkingFromHome;
             entity.Positions = model.Positions;
+            entity.IsContractExtendable = model.IsContractExtendable;
+            entity.IsContractToHire = model.IsContractToHire;
 
             ApplySkills(model, entity);
             ApplyLocations(model, entity);
@@ -397,8 +411,7 @@ namespace Talent21.Service.Core
                 Complete = x.Contractor.Complete,
                 FunctionalArea = x.Contractor.FunctionalArea.Title,
                 Industry = x.Contractor.Industry.Title,
-                ExperienceMonths = x.Contractor.Experience.Months,
-                ExperienceYears = x.Contractor.Experience.Years,
+                Experience = x.Contractor.Experience,
                 Facebook = x.Contractor.Social.Facebook,
                 PinCode = x.Contractor.PinCode,
                 Address = x.Contractor.Address,
@@ -419,7 +432,7 @@ namespace Talent21.Service.Core
                 {
                     Code = y.Skill.Code,
                     Title = y.Skill.Title,
-                    ExperienceInMonths = y.ExperienceInMonths,
+                    Experience = y.Experience,
                     Level = y.Level,
                     Proficiency = y.Proficiency
                 })
@@ -479,6 +492,8 @@ namespace Talent21.Service.Core
         {
             return jobs.Select(x => new JobViewModel
             {
+                IsContractExtendable = x.IsContractExtendable,
+                IsContractToHire = x.IsContractToHire,
                 NewApplications = x.Applications.Count(y => !y.IsRevoked),
                 Expiry = x.Expiry,
                 Id = x.Id,
@@ -494,9 +509,11 @@ namespace Talent21.Service.Core
                 Description = x.Description,
                 Code = x.Code,
                 Title = x.Title,
-                End = x.End,
                 Rate = x.Rate,
-                Start = x.Start,
+                End = x.Duration.End,
+                Start = x.Duration.Start,
+                ExperienceEnd = x.Experience.End,
+                ExperienceStart = x.Experience.Start,
                 IsWorkingFromHome = x.IsWorkingFromHome,
                 Positions = x.Positions
             });
@@ -515,71 +532,6 @@ namespace Talent21.Service.Core
                   .Where(x => x.IsPublished && !x.IsCancelled && (x.Expiry > DateTime.UtcNow || !x.Expiry.HasValue))
                   .Select(x => new IdLabel<int> { Id = x.Id, Label = x.Title });
             }
-        }
-
-        public IQueryable<ContractorSearchResultViewModel> Contractors(int currentCompanyId=-1)
-        {
-                var query = from x in _contractorRepository.All
-                            let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
-                            let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
-                            let promotions = x.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
-                            select new ContractorSearchResultViewModel
-                            {
-                                ProfileUrl = x.ProfileUrl,
-                                IsBench = x.CompanyId== currentCompanyId,
-                                Company = x.Company != null ? x.Company.CompanyName : "",
-                                CompanyId = x.CompanyId,
-                                Folders = x.Folders.Select(z => new CompanyFolderViewModel { Folder = z.Folder, CompanyId = z.CompanyId }),
-                                Id = x.Id,
-                                About = x.About,
-                                Email = x.Email,
-                                RateType = x.RateType,
-                                Nationality = x.Nationality,
-                                AlternateNumber = x.AlternateNumber,
-                                ConsultantType = x.ConsultantType,
-                                ContractType = x.ContractType,
-                                Gender = x.Gender,
-                                FunctionalArea = x.FunctionalArea.Title,
-                                Industry = x.Industry.Title,
-                                FunctionalAreaId = x.FunctionalAreaId,
-                                ExperienceMonths = x.Experience.Months,
-                                ExperienceYears = x.Experience.Years,
-                                PinCode = x.PinCode,
-                                Address = x.Address,
-                                Facebook = x.Social.Facebook,
-                                Google = x.Social.Google,
-                                LinkedIn = x.Social.LinkedIn,
-                                Location = x.Location.Title,
-                                LocationCode = x.Location.Code,
-                                Mobile = x.Mobile,
-                                FirstName = x.FirstName,
-                                LastName = x.LastName,
-                                Rss = x.Social.Rss,
-                                Twitter = x.Social.Twitter,
-                                WebSite = x.Social.WebSite,
-                                Yahoo = x.Social.Yahoo,
-                                PictureUrl = x.PictureUrl,
-                                OwnerId = x.OwnerId,
-                                Rate = x.Rate,
-                                Availability = availableDay,
-                                Complete = x.Complete,
-                                Days = days,
-                                IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
-                                IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
-                                IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
-                                IsHome = promotions.Any(y => y == PromotionEnum.Global),
-                                Available = days <= 6 ? AvailableEnum.Now : days <= 14 ? AvailableEnum.NextWeek : days <= 30 ? AvailableEnum.NextMonth : AvailableEnum.Later,
-                                Skills = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel()
-                                {
-                                    Id = y.Id,
-                                    Code = y.Skill.Code,
-                                    Title = y.Skill.Title,
-                                    ExperienceInMonths = y.ExperienceInMonths,
-                                    Level = y.Level,
-                                    Proficiency = y.Proficiency
-                                })
-                            };
-                return query;
         }
 
         public async Task<FileAccessInfo> ByUrlAsync(string userId, string filepath)
@@ -608,70 +560,88 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model, Company company)
         {
-            var query = Contractors(company.Id).Where(x => (x.Complete > 0 || x.CompanyId==company.Id));
-            //Rules of searching.
-            if (!string.IsNullOrWhiteSpace(model.Location))
-            {
-                query = query.Where(x => x.Location.Contains(model.Location));
-            }
-            if (!string.IsNullOrWhiteSpace(model.Industry))
-            {
-                query = query.Where(x => x.Industry == model.Industry);
-            }
-            if (!string.IsNullOrWhiteSpace(model.Functional))
-            {
-                query = query.Where(x => x.FunctionalArea == model.Functional);
-            }
-            if (model.RateType.HasValue)
-            {
-                query = query.Where(x => x.RateType == model.RateType.Value);
-            }
+            var skills = string.IsNullOrWhiteSpace(model.Skills) ? new string[] {} : model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var hasSkills = skills.Length > 0;
 
-            if (model.RateStart > 0)
-            {
-                query = query.Where(x => x.Rate > model.RateStart);
-            }
-            if (model.RateEnd > 0)
-            {
-                query = query.Where(x => x.Rate < model.RateEnd);
-            }
-            if (!string.IsNullOrWhiteSpace(model.Skills))
-            {
-                var skills = model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                query = query.Where(x => x.Skills.Any(y => skills.Any(z => y.Title.Contains(z))));
-            }
-            if (model.xFrom > 0)
-            {
-                query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) > model.xFrom);
-            }
-            if (model.xTo > 0)
-            {
-                query = query.Where(x => (x.ExperienceYears * 12 + x.ExperienceMonths) < model.xTo);
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Keywords))
-            {
-                if (company != null)
-                {
-                    query = query.Where(x =>
-                        x.Company.Contains(model.Keywords) ||
-                        x.Mobile.Contains(model.Keywords) ||
-                        x.Location.Contains(model.Keywords) ||
-                        x.About.Contains(model.Keywords) ||
-                        x.FirstName.Contains(model.Keywords) ||
-                        x.LastName.Contains(model.Keywords)
-                    );
-                }
-
-            }
-            if (!string.IsNullOrWhiteSpace(model.Folder))
-            {
-                if (company != null)
-                {
-                    query = query.Where(x => x.Folders.Any(y => y.Folder == model.Folder && y.CompanyId == company.Id));
-                }
-
-            }
+            var query = from x in _contractorRepository.All
+                        let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
+                        let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
+                        let promotions = x.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
+                        let skill = _contractorSkillRepository.All.Where(y => y.ContractorId == x.Id).Select(y => new ContractorSkillViewModel
+                        {
+                            Id = y.Id,
+                            Code = y.Skill.Code,
+                            Title = y.Skill.Title,
+                            Experience = y.Experience,
+                            Level = y.Level,
+                            Proficiency = y.Proficiency
+                        })
+                        where
+                            (model.Folder == null || model.Folder.Trim() == string.Empty || (x.Folders.Any(y => y.Folder == model.Folder) && model.CompanyId == x.CompanyId)) &&
+                            (model.CompanyId <= 0 || model.CompanyId == x.CompanyId) &&
+                            (model.Locations == null || model.Locations.Trim() == string.Empty || x.Location.Title.Contains(model.Locations)) &&
+                            (model.Companies == null || model.Companies.Trim() == string.Empty || x.Company.CompanyName.Contains(model.Companies)) &&
+                            (model.Industries == null || model.Industries.Trim() == string.Empty || x.Industry.Title.Contains(model.Industries)) &&
+                            (model.Functionals == null || model.Functionals.Trim() == string.Empty || x.FunctionalArea.Title.Contains(model.Functionals)) &&
+                            (model.RateType == null || x.RateType == model.RateType.Value) &&
+                            (model.RateStart <= 0 || x.Rate >= model.RateStart) &&
+                            (model.RateEnd <= 0 || x.Rate <= model.RateEnd) &&
+                            (model.xFrom <= 0 || x.Experience >= model.xFrom) &&
+                            (model.xTo <= 0 || x.Experience <= model.xTo) &&
+                            (!hasSkills || skill.Any(y => skills.Any(z => y.Title.Contains(z)))) &&
+                            (model.Keywords == null || model.Keywords.Trim() == string.Empty || x.Company.CompanyName.Contains(model.Keywords) ||
+                                                                                                x.Mobile.Contains(model.Keywords) ||
+                                                                                                x.Location.Title.Contains(model.Keywords) ||
+                                                                                                x.About.Contains(model.Keywords) ||
+                                                                                                x.FirstName.Contains(model.Keywords) ||
+                                                                                                x.LastName.Contains(model.Keywords))// &&
+                            //(x.Complete > 0 || x.CompanyId == company.Id)
+                        select new ContractorSearchResultViewModel
+                        {
+                            About = x.About,
+                            Address = x.Address,
+                            AlternateNumber = x.AlternateNumber,
+                            Availability = availableDay,
+                            Available = days <= 6 ? AvailableEnum.Now : days <= 14 ? AvailableEnum.NextWeek : days <= 30 ? AvailableEnum.NextMonth : AvailableEnum.Later,
+                            Company = x.Company != null ? x.Company.CompanyName : "",
+                            CompanyId = x.CompanyId,
+                            Complete = x.Complete,
+                            ConsultantType = x.ConsultantType,
+                            ContractType = x.ContractType,
+                            Days = days,
+                            Email = x.Email,
+                            Experience = x.Experience,
+                            Facebook = x.Social.Facebook,
+                            FirstName = x.FirstName,
+                            FunctionalArea = x.FunctionalArea.Title,
+                            FunctionalAreaId = x.FunctionalAreaId,
+                            Gender = x.Gender,
+                            Google = x.Social.Google,
+                            Id = x.Id,
+                            Industry = x.Industry.Title,
+                            IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
+                            IsBench = x.CompanyId == model.CompanyId,
+                            IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
+                            IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
+                            IsHome = promotions.Any(y => y == PromotionEnum.Global),
+                            LastName = x.LastName,
+                            LinkedIn = x.Social.LinkedIn,
+                            Location = x.Location.Title,
+                            LocationCode = x.Location.Code,
+                            Mobile = x.Mobile,
+                            Nationality = x.Nationality,
+                            OwnerId = x.OwnerId,
+                            PictureUrl = x.PictureUrl,
+                            PinCode = x.PinCode,
+                            ProfileUrl = x.ProfileUrl,
+                            Rate = x.Rate,
+                            RateType = x.RateType,
+                            Rss = x.Social.Rss,
+                            Twitter = x.Social.Twitter,
+                            WebSite = x.Social.WebSite,
+                            Yahoo = x.Social.Yahoo,
+                            Skills = skill
+                        };
             return query;
         }
 
@@ -727,16 +697,15 @@ namespace Talent21.Service.Core
 
         public IQueryable<ContractorSearchResultViewModel> LatestProfiles(string skill, string location)
         {
-            return Contractors().Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
+            return Search(new SearchQueryViewModel { Skills = skill, Locations = location }).Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location);
         }
 
         public IQueryable<AvailableRatedCandidateProfileViewModel> TopRatedAvailableProfiles(string skill, string location)
         {
-            return Contractors().Where(x => x.Skills.Any(y => y.Code == skill) && x.LocationCode == location).Select(x => new AvailableRatedCandidateProfileViewModel
+            return Search(new SearchQueryViewModel { Skills = skill, Locations = location }).Select(x => new AvailableRatedCandidateProfileViewModel
             {
                 Id = x.Id,
-                ExperienceInMonths = x.ExperienceMonths,
-                ExperienceInYears = x.ExperienceYears,
+                Experience = x.Experience,
                 Name = x.FirstName + " " + x.LastName,
                 Picture = x.PictureUrl,
                 Rate = x.Rate,
@@ -966,7 +935,7 @@ namespace Talent21.Service.Core
                 Email = invite.Email,
                 Name = invite.Name,
                 Code = invite.Code,
-                CompanyId = benchInvite == null ? (int?)null : benchInvite.CompanyId
+                CompanyId = benchInvite?.CompanyId
             };
         }
 
@@ -994,13 +963,34 @@ namespace Talent21.Service.Core
         public string BenchOwnerIdById(int benchId)
         {
             var company = FindCompany();
-            return Contractors(company.Id).Where(x => x.CompanyId == company.Id && x.Id==benchId).Select(x=>x.OwnerId).FirstOrDefault();
+            return Search(new SearchQueryViewModel { CompanyId = company.Id }).Where(x => x.CompanyId == company.Id && x.Id == benchId).Select(x => x.OwnerId).FirstOrDefault();
         }
 
         public ContractorViewModel GetContractorById(int id)
         {
             var company = FindCompany();
-            return Contractors(company.Id).FirstOrDefault(x=>x.Id==id);
+            return Search(new SearchQueryViewModel { CompanyId = company.Id }).FirstOrDefault(x => x.Id == id);
+        }
+
+        public JobSearchFilterViewModel ContractorFilters(SearchQueryViewModel model)
+        {
+            var company = FindCompany();
+            var query = Search(model, company);
+
+            return new JobSearchFilterViewModel
+            {
+                Companies = query.GroupBy(x => x.Company).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x=>x.Count).Take(10),
+                Rates = query.GroupBy(x => x.RateType).Select(x => new MinMaxLabel<RateEnum> { Label = x.Key, Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate) }).Take(10),
+                Experience = new MinMax { Min = query.Min(x => x.Experience), Max = query.Max(x => x.Experience) },
+                Skills = query.SelectMany(x => x.Skills.Select(y => new { x.Id, Skill = y.Title })).GroupBy(x => x.Skill).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+                Availables = query.GroupBy(x => x.Available).Select(x => new CountLabel<int, AvailableEnum> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+                Industries = query.GroupBy(x => x.Industry).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+                Functionals = query.GroupBy(x => x.FunctionalArea).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+                //Bench = query.GroupBy(x => x.IsBench).Select(x => new CountLabel<int, bool> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+                ConsultantTypes = query.GroupBy(x => x.ConsultantType).Select(x => new CountLabel<int, ContractorTypeEnum> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+                ContractTypes = query.GroupBy(x => x.ContractType).Select(x => new CountLabel<int, ContractTypeEnum> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+                Locations = query.GroupBy(x => x.Location).Select(x => new CountLabel<int> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
+            };
         }
     }
 }

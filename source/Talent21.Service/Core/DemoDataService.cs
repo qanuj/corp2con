@@ -476,7 +476,7 @@ namespace Talent21.Service.Core
                 x.Conventions(c => { c.UseDefaultConventions(); });
                 x.AddFromAssemblyContainingType<ContractorSkillViewModel>();
                 x.Include<ContractorSkillViewModel>()
-                    .Setup(u => u.ExperienceInMonths).Use<IntegerSource>(1, 60 * 12)
+                    .Setup(u => u.Experience).Use<IntegerSource>(1, 60 * 12)
                     .Setup(u => u.Level).Use<EnumSource<LevelEnum>>()
                     .Setup(u => u.Proficiency).Use<EnumSource<ProficiencyEnum>>()
                     .Setup(u => u.Title).Use<DictionaryCodeSource>(new[] { skills });
@@ -496,8 +496,7 @@ namespace Talent21.Service.Core
                     .Setup(u => u.ConsultantType).Use<EnumSource<ContractorTypeEnum>>()
                     .Setup(u => u.Gender).Use<EnumSource<GenderEnum>>()
                     .Setup(u => u.Rate).Use<IntegerSource>(100, 10000)
-                    .Setup(u => u.ExperienceMonths).Use<IntegerSource>(1, 11)
-                    .Setup(u => u.ExperienceYears).Use<IntegerSource>(1, 60)
+                    .Setup(u => u.Experience).Use<IntegerSource>(1, 600)
                     .Setup(u => u.Location).Use<IndianCitySource>()
                     .Setup(u => u.Nationality).Use<CountrySource>()
                     .Setup(u => u.AlternateNumber).Use<DutchTelephoneSource>()

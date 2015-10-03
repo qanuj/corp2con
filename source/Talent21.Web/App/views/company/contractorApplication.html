@@ -54,7 +54,7 @@
             </div>
             <div class="col-md-4 col-sm-4 col-xs-6">
                 <div class="uppercase profile-stat-title">
-                    {{record.experienceYears}}.{{record.experienceMonths}}
+                    {{record.experience | years}}
                 </div>
                 <div class="uppercase profile-stat-text">
                     Experience
@@ -196,7 +196,7 @@
                                 {{s.title}}
                             </td>
                             <td>
-                                {{s.experienceInMonths}} Months
+                                {{s.experience | years}}
                             </td>
                             <td>
                                 {{s.end | date:'dd-MMM-yyyy'}}
@@ -274,7 +274,7 @@
                         <div class="listings" ng-repeat="s in record.skills | filter:{ level: l.label }">
                             <div class="row">
                                 <div class="col-md-4">{{s.title}}</div>
-                                <div class="col-md-4">{{s.experienceInMonths}} Months </div>
+                                <div class="col-md-4">{{s.experience | years}}</div>
                                 <div class="col-md-4">{{s.proficiency}}</div>
                             </div>
                         </div>
