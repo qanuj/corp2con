@@ -61,9 +61,9 @@
     }
     $scope.addSkill = function (skills, level) {
         for (var x in skills) {
-            $scope.record.skills.push({ level: level.id, proficiency: "Beginer", experienceInMonths: 0, code: skills[x].code, title: skills[x].title });
+            $scope.record.skills.push({ level: level.id, proficiency: "Beginer", experience: 0, code: skills[x].code, title: skills[x].title });
         }
-        $scope.newSkill = [];
+        $scope.newSkill.length = 0;
     }
     $scope.remove = function (item) {
         var index = $scope.record.skills.indexOf(item);
