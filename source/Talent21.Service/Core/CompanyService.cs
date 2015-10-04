@@ -596,6 +596,7 @@ namespace Talent21.Service.Core
                                                                                                 x.Location.Title.Contains(model.Keywords) ||
                                                                                                 x.About.Contains(model.Keywords) ||
                                                                                                 x.FirstName.Contains(model.Keywords) ||
+                                                                                                x.Skills.Any(y => model.Keywords.Contains(y.Skill.Title)) ||
                                                                                                 x.LastName.Contains(model.Keywords))// &&
                             //(x.Complete > 0 || x.CompanyId == company.Id)
                         select new ContractorSearchResultViewModel
