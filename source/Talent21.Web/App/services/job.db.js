@@ -38,6 +38,11 @@
             });
         }
 
+
+        job.filters = function (query) {
+            return $http.post(vJ + 'filters', query);
+        }
+
         job.byId = function (id) {
             return $http.get(vJ + id);
         }

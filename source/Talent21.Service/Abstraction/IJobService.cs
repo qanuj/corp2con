@@ -19,5 +19,6 @@ namespace Talent21.Service.Abstraction
         JobPublicViewModel JobById(int id);
         CompanyPublicViewModel CompanyById(int id);
         Job FullById(int id);
+        JobSearchFilterViewModel JobFilters(SearchQueryViewModel model);
     }
 }

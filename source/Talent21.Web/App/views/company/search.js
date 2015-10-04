@@ -14,49 +14,68 @@
 
     $scope.query = $stateParams;
 
+    db.company.getSearchFolders().success(function (result) {
+        $scope.folders = result;
+    });
+
+    db.company.getActiveJobs().success(function (result) {
+        $scope.jobs = result;
+        if (result.length > 0) {
+            $scope.job = result[0];
+        }
+    });
+
+    db.company.filters($scope.query).success(function (result) {
+        $scope.filters = result;
+    });
+
     function fetchResults(query, page) {
-
-        db.company.getSearchFolders().success(function (result) {
-            $scope.folders = result;
-        });
-
-        db.company.getActiveJobs().success(function (result) {
-            $scope.jobs = result;
-            if (result.length > 0) {
-                $scope.job = result[0];
-            }
-        });
-
-        db.company.filters(query).success(function (result) {
-            $scope.filters = result;
-        });
+        if (query.functionals) {
+            query.functionals = decodeURIComponent(query.functionals);
+        }
+        if (query.industries) {
+            query.industries = decodeURIComponent(query.industries);
+        }
         db.company.search(query, page).success(function (result) {
             $scope.currentPage = page || 1;
             $scope.pages = Math.ceil(result.count / db.pageSize);
             $scope.count = result.count;
             $scope.records = result.items;
             $scope.page = page;
+            $scope.start = ((page - 1) * db.pageSize)+1;
+            $scope.end = $scope.start + result.items.length;
             $scope.selectAll = false;
         });
     }
 
+    $scope.addRemoveFilter = function (name, value, selected) {
+        $scope[selected ? 'addFilter' : 'removeFilter'](name, value);
+    }
+
     $scope.addFilter = function (name, value) {
-        $scope.query[name] = value;
+        if ((name == 'skills') && $scope.query[name]) {
+             $scope.query[name] += ",";
+        }else {
+            $scope.query[name] = "";
+        }
+        $scope.query[name] += value;
         $scope.search($scope.query);
     }
 
-    $scope.removeFilter = function (name) {
-        $scope.query[name] = null;
+    $scope.removeFilter = function (name, value) {
+        if (!value) {
+            $scope.query[name] = null;
+        }
+        else if (name == 'skills') {
+            $scope.query[name] = $scope.query[name].replace(',' + value);
+        } else {
+            $scope.query[name] = null;
+        }
         $scope.search($scope.query);
-    }
-
-    $scope.hasFilter = function (name) {
-        return !!$scope.query[name];
     }
 
     $scope.search = function (query) {
-        console.log($scope.query);
-        $state.go('search', query);
+        $state.go('search', query, { location:true,reload:true });
     }
 
     $scope.navigate = function (page) {

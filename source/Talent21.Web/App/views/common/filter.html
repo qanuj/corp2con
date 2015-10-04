@@ -1,15 +1,25 @@
 ﻿<div class="row">
-    <div ng-if="!filter.max">
+    <div class="tasks-widget" ng-if="!filter.max && filter.length">
         <div class="col-xl-11 col-xs-8">
             <h4>{{key |uncamel}}</h4>
         </div>
         <div class="col-xl-1 col-xs-4 text-right">
             <a ng-if="hasFilter(key)" ng-click="removeFilter(key)" class="btn btn-icon-only btn-circle red-flamingo"><i class="icon-trash"></i></a>
         </div>
-        <div class="col-xs-12 inbox">
-            <ul class="inbox-nav margin-bottom-10">
-                <li class="inbox" ng-repeat="f in filter" ng-class="{active:f.label==query[key]}">
-                    <a class="btn" ng-click="addFilter(key,f.label)" href="javascript:;">{{(f.label||'Unspecified')}} ({{f.count>0 ? f.count : f.min+"-"+f.max}})</a>
+        <div class="col-xs-12 task-content">
+            <ul class="task-list">
+                <li ng-repeat="f in filter">
+                    <div class="task-checkbox">
+                        <input type="checkbox" class="liChild" ng-change="addRemoveFilter(key,f.label,f.selected)" ng-model="f.selected"/>
+                    </div>
+                    <div class="task-title">
+                        <span class="task-title-sp">
+                            <a ng-click="addFilter(key,f.label)" href="javascript:;">
+                                {{f.label | readable:f.mode}}
+                            </a>
+                        </span>
+                        <span class="label label-sm label-default">{{f.count>0 ? f.count : f.min+"-"+f.max}}</span>
+                    </div>
                 </li>
             </ul>
         </div>

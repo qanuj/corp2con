@@ -1,9 +1,12 @@
-﻿namespace Talent21.Data.Core
+﻿using System;
+
+namespace Talent21.Data.Core
 {
+    [Flags]
     public enum ContractorTypeEnum
     {
-        IndependentConsultant,
-        AlignedToConsultingOrganistion,
-        RetiredProfessional
+        IndependentConsultant=0,
+        AlignedToConsultingOrganistion=1,
+        RetiredProfessional=2
     }
 }

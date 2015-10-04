@@ -23,6 +23,23 @@ angular
          return result;
      };
  })
+ .filter('readable', function () {
+     return function (input, mode) {
+
+         if (input == true) return "Yes";
+         if (input == false) return "No";
+         if (input == null) return "Uspecified";
+         if (mode == 'date') return moment(input).fromNow();
+
+         return input;
+
+     };
+ })
+ .filter('fromNow', function () {
+     return function (date) {
+         return moment(date).fromNow();
+     }
+ })
  .filter('plaintext', function () {
      return function (html) {
          var div = document.createElement("div");

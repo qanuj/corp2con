@@ -15,7 +15,7 @@
             <span class="caption-subject" ng-class="{'yellow-lemon':row.isHighlight,'font-yellow-saffron':row.isFeatured}">{{row.company}} <i ng-if="row.application" class="fa fa-check-circle-o green-jungle"></i></span>
         </div>
         <div class="actions flex">
-            <span class="highlight-danger"><i class="fa fa-calendar-o"></i> {{row.start | date:'dd-MMM-yy'}} to {{row.end | date:'dd-MMM-yy'}}</span>
+            <span class="highlight-danger"><i class="fa fa-calendar-o"></i> {{row.start | fromNow }}</span>
             <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
             <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
         </div>
