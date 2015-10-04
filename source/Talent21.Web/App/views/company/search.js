@@ -42,6 +42,8 @@
             $scope.count = result.count;
             $scope.records = result.items;
             $scope.page = page;
+            $scope.start = ((page - 1) * db.pageSize)+1;
+            $scope.end = $scope.start + result.items.length;
             $scope.selectAll = false;
         });
     }
@@ -70,10 +72,6 @@
             $scope.query[name] = null;
         }
         $scope.search($scope.query);
-    }
-
-    $scope.hasFilter = function (name) {
-        return !!$scope.query[name];
     }
 
     $scope.search = function (query) {

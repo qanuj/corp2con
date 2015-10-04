@@ -28,6 +28,11 @@ namespace Talent21.Service.Models
     public class FilterLabel<T,X> : CountLabel<T, X>
     {
         public bool? Selected { get; set; }
+        public string Mode { get; set; } 
+        public FilterLabel()
+        {
+            this.Mode = "string";
+        } 
     }
 
     public class EnumList : Dictionary<string, IEnumerable<IdLabel<string>>>

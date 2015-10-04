@@ -29,6 +29,13 @@ namespace Talent21.Web.Controllers
             return Page(_service.Search(model), options);
         }
 
+        [HttpPost]
+        [Route("filters")]
+        public JobSearchFilterViewModel GetFiltersForContractorSearch(SearchQueryViewModel model)
+        {
+            return _service.JobFilters(model);
+        }
+
         [HttpGet]
         [Route("company/{id}/jobs")]
         public PageResult<JobSearchResultViewModel> GetJobsByCompany([FromUri]int id,ODataQueryOptions<JobSearchResultViewModel> options)

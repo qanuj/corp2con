@@ -976,12 +976,12 @@ namespace Talent21.Service.Core
             return Search(new SearchQueryViewModel { CompanyId = company.Id }).FirstOrDefault(x => x.Id == id);
         }
 
-        public JobSearchFilterViewModel ContractorFilters(SearchQueryViewModel model)
+        public ContractorSearchFilterViewModel ContractorFilters(SearchQueryViewModel model)
         {
             var company = FindCompany();
             var query = Search(model, company);
 
-            return new JobSearchFilterViewModel
+            return new ContractorSearchFilterViewModel
             {
                 Companies = query.GroupBy(x => x.Company).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Companies.Contains(x.Key)}).OrderByDescending(x=>x.Count).Take(10),
                 Rate = query.GroupBy(x => x.RateType).Select(x => new MinMaxLabel<RateEnum> { Label = x.Key, Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate) }).Take(10),
@@ -990,7 +990,6 @@ namespace Talent21.Service.Core
                 Availables = query.GroupBy(x => x.Available).Select(x => new FilterLabel<int, AvailableEnum> { Count = x.Count(), Label = x.Key, Selected = model.Availables==x.Key }).OrderByDescending(x => x.Count).Take(10),
                 Industries = query.GroupBy(x => x.Industry).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Industries.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),
                 Functionals = query.GroupBy(x => x.FunctionalArea).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Functionals.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),
-                //Bench = query.GroupBy(x => x.IsBench).Select(x => new FilterLabel<int, bool> { Count = x.Count(), Label = x.Key }).OrderByDescending(x => x.Count).Take(10),
                 ConsultantTypes = query.GroupBy(x => x.ConsultantType).Select(x => new FilterLabel<int, ContractorTypeEnum> { Count = x.Count(), Label = x.Key, Selected = model.ConsultantTypes==x.Key }).OrderByDescending(x => x.Count).Take(10),
                 ContractTypes = query.GroupBy(x => x.ContractType).Select(x => new FilterLabel<int, ContractTypeEnum> { Count = x.Count(), Label = x.Key, Selected = model.ContractTypes == x.Key } ).OrderByDescending(x => x.Count).Take(10),
                 Locations = query.GroupBy(x => x.Location).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Locations.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),

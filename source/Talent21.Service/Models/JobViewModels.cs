@@ -21,12 +21,17 @@ namespace Talent21.Service.Models
         public int ExperienceEnd { get; set; }
         public int RateStart { get; set; }
         public int RateEnd { get; set; }
-        public int CompanyId { get; set; }
+
+        public int? CompanyId { get; set; }
+
+        public bool? ContractExtendable { get; set; }
+        public bool? ContractToHire { get; set; }
 
         public AvailableEnum? Availables { get; set; }
         public RateEnum? RateType { get; set; }
         public ContractorTypeEnum? ConsultantTypes { get; set; }
         public ContractTypeEnum? ContractTypes { get; set; }
+        public DateTime? Starting { get; set; }
     }
 
     public class InviteViewModel
@@ -116,6 +121,11 @@ namespace Talent21.Service.Models
         public string LastName { get; set; }
         public string Mobile { get; set; }
         public string WebSite { get; set; }
+        public string Industry { get; set; }
+
+
+        public bool IsContractExtendable { get; set; }
+        public bool IsContractToHire { get; set; }
 
         [NumericField]
         public int Rate { get; set; }
@@ -165,8 +175,23 @@ namespace Talent21.Service.Models
         public DateTime? Published { get; set; }
         
     }
-
     public class JobSearchFilterViewModel
+    {
+        public IEnumerable<FilterLabel<int>> Companies { get; set; }
+        public IEnumerable<FilterLabel<int>> Skills { get; set; }
+        public IEnumerable<FilterLabel<int>> Industries { get; set; }
+        public IEnumerable<FilterLabel<int>> Functionals { get; set; }
+        public IEnumerable<FilterLabel<int, ContractorTypeEnum>> ConsultantTypes { get; set; }
+        public IEnumerable<FilterLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
+        public IEnumerable<FilterLabel<int, bool?>> ContractExtendable { get; set; }
+        public IEnumerable<FilterLabel<int, bool?>> ContractToHire { get; set; }
+        public IEnumerable<FilterLabel<int>> Locations { get; set; }
+        public MinMax Experience { get; set; }
+        public IEnumerable<MinMaxLabel<int>> Rate { get; set; }
+        public IEnumerable<FilterLabel<int, DateTime>> Starting { get; set; }
+    }
+
+    public class ContractorSearchFilterViewModel
     {
         public IEnumerable<FilterLabel<int>> Companies { get; set; }
         public IEnumerable<FilterLabel<int>> Skills { get; set; }
@@ -178,7 +203,7 @@ namespace Talent21.Service.Models
         public IEnumerable<FilterLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
         public IEnumerable<FilterLabel<int>> Locations { get; set; }
         public MinMax Experience { get; set; }
-        public IQueryable<MinMaxLabel<RateEnum>> Rate { get; set; }
+        public IEnumerable<MinMaxLabel<RateEnum>> Rate { get; set; }
     }
 
     public class JobTinyViewModel : EditJobViewModel

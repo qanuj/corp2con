@@ -126,7 +126,7 @@ namespace Talent21.Web.Controllers
 
         [HttpPost]
         [Route("filters")]
-        public JobSearchFilterViewModel GetFiltersForContractorSearch(SearchQueryViewModel model)
+        public ContractorSearchFilterViewModel GetFiltersForContractorSearch(SearchQueryViewModel model)
         {
             return _service.ContractorFilters(model);
         }

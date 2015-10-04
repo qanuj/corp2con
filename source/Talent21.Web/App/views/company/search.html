@@ -12,7 +12,7 @@
             <a href="#">Search</a>
             <i class="fa fa-angle-right"></i>
         </li>
-        <li>{{count}}</li>
+        <li><a href="#">{{start}}-{{end}} of {{count}}</a></li>
     </ul>
     <div class="page-toolbar">
         <div class="btn btn-group">
@@ -23,38 +23,6 @@
 </div>
 <div class="row">
     <div class="col-sm-3">
-        <!--<div class="row">
-            <div class="col-xs-12">
-                <h3>Save</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control input-xs" ng-model="folder"/>
-                        <span class="input-group-btn">
-                            <button ng-click="move(folder)" class="btn btn-primary srch-btn-pad">{{save}}</button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div ng-if="jobs.length==0" class="text-danger">
-                        No active published jobs yet.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div ng-if="jobs.length>0">
-                        <div class="input-group">
-                            <select ui-select2 class="form-control" ng-model="job" ng-options="s.label for s in jobs track by s.id"></select>
-                            <span class="input-group-btn">
-                                <button ng-click="invite(job)" class="btn btn-primary srch-btn-pad">Invite</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
@@ -83,7 +51,7 @@
                 <h2>Folders</h2>
                 <ul class="inbox-nav margin-bottom-10">
                     <li class="inbox" ng-class="{active:f.label.toLowerCase()==query.folder}"
-                        ng-repeat="f in folders"><a class="btn" href="#/search/folder/{{f.label|lowercase}}">{{f.label}} ({{f.count}})</a></li>
+                        ng-repeat="f in folders"><a class="btn" ui-sref="search({folder:f.label})">{{f.label}} ({{f.count}})</a></li>
                 </ul>
             </div>
         </div>
@@ -99,7 +67,7 @@
                     We could not find anything.
                 </p>
                 <p>
-                    <a class="btn btn-warning" href="#/search"><i class="fa fa-search"></i> Reset Filters and Try Again</a>
+                    <a class="btn btn-warning" ui-sref="search"><i class="fa fa-search"></i> Reset Filters and Try Again</a>
                 </p>
             </div>
         </div>

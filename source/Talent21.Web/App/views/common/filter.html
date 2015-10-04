@@ -15,7 +15,7 @@
                     <div class="task-title">
                         <span class="task-title-sp">
                             <a ng-click="addFilter(key,f.label)" href="javascript:;">
-                                {{(f.label||'Unspecified')}}
+                                {{f.label | readable:f.mode}}
                             </a>
                         </span>
                         <span class="label label-sm label-default">{{f.count>0 ? f.count : f.min+"-"+f.max}}</span>
