@@ -19,7 +19,16 @@ namespace Talent21.Service.Models
         public L Label { get; set; }
     }
 
-    public class CountLabel<T> : CountLabel<T,string>{}
+    public class CountLabel<T> : CountLabel<T, string> { }
+
+    public class FilterLabel<T> : FilterLabel<T, string>
+    {
+    }
+
+    public class FilterLabel<T,X> : CountLabel<T, X>
+    {
+        public bool? Selected { get; set; }
+    }
 
     public class EnumList : Dictionary<string, IEnumerable<IdLabel<string>>>
     {

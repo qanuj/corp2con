@@ -16,12 +16,17 @@ namespace Talent21.Service.Models
         public string Folder { get; set; }
         public string Industries { get; set; }
         public string Functionals { get; set; }
+
         public int ExperienceStart { get; set; }
         public int ExperienceEnd { get; set; }
         public int RateStart { get; set; }
         public int RateEnd { get; set; }
-        public RateEnum? RateType { get; set; }
         public int CompanyId { get; set; }
+
+        public AvailableEnum? Availables { get; set; }
+        public RateEnum? RateType { get; set; }
+        public ContractorTypeEnum? ConsultantTypes { get; set; }
+        public ContractTypeEnum? ContractTypes { get; set; }
     }
 
     public class InviteViewModel
@@ -59,12 +64,13 @@ namespace Talent21.Service.Models
         public bool IsContractToHire { get; set; }
     }
 
+    [Flags]
     public enum AvailableEnum
     {
-        Now,
-        NextWeek,
-        NextMonth,
-        Later
+        Now=1,
+        NextWeek=2,
+        NextMonth=4,
+        Later=8
     }
     
     public class CompanyFolderViewModel
@@ -162,15 +168,15 @@ namespace Talent21.Service.Models
 
     public class JobSearchFilterViewModel
     {
-        public IEnumerable<CountLabel<int>> Companies { get; set; }
-        public IEnumerable<CountLabel<int>> Skills { get; set; }
-        public IEnumerable<CountLabel<int, AvailableEnum>> Availables { get; set; }
-        public IEnumerable<CountLabel<int>> Industries { get; set; }
+        public IEnumerable<FilterLabel<int>> Companies { get; set; }
+        public IEnumerable<FilterLabel<int>> Skills { get; set; }
+        public IEnumerable<FilterLabel<int, AvailableEnum>> Availables { get; set; }
+        public IEnumerable<FilterLabel<int>> Industries { get; set; }
         //public IEnumerable<CountLabel<int, bool>> Bench { get; set; }
-        public IEnumerable<CountLabel<int>> Functionals { get; set; }
-        public IEnumerable<CountLabel<int, ContractorTypeEnum>> ConsultantTypes { get; set; }
-        public IEnumerable<CountLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
-        public IEnumerable<CountLabel<int>> Locations { get; set; }
+        public IEnumerable<FilterLabel<int>> Functionals { get; set; }
+        public IEnumerable<FilterLabel<int, ContractorTypeEnum>> ConsultantTypes { get; set; }
+        public IEnumerable<FilterLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
+        public IEnumerable<FilterLabel<int>> Locations { get; set; }
         public MinMax Experience { get; set; }
         public IQueryable<MinMaxLabel<RateEnum>> Rate { get; set; }
     }
