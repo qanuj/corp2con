@@ -100,6 +100,7 @@ namespace Talent21.Service.Core
                             (model.Keywords == null || model.Keywords.Trim() == string.Empty || job.Company.CompanyName.Contains(model.Keywords) ||
                                                                                                 job.Title.Contains(model.Keywords) ||
                                                                                                 job.Skills.Any(y => model.Keywords.Contains(y.Skill.Title)) ||
+                                                                                                job.Locations.Any(y => model.Keywords.Contains(y.Title)) ||
                                                                                                 job.Description.Contains(model.Keywords))
                         select new JobSearchResultViewModel
                         {
