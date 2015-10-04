@@ -50,7 +50,7 @@
                     New Jobs
                 </div>
             </div>
-            <a class="more" href="#/search/match">
+            <a class="more" ui-sref="search()">
                 View more <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
@@ -68,7 +68,7 @@
                     Next Week
                 </div>
             </div>
-            <a class="more" href="#/search/week">
+            <a class="more" ui-sref="search({starting:nextWeek})">
                 View more <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
@@ -86,7 +86,7 @@
                     Next Month
                 </div>
             </div>
-            <a class="more" href="#/search/month">
+            <a class="more" ui-sref="search({starting:nextMonth})">
                 View more <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
@@ -110,7 +110,7 @@
                                 <span class="input-group-addon">Skill</span>
                                 <input class="form-control input-lg" type="text" ng-model="query.skills" placeholder="" />
                                 <span class="input-group-addon">Location</span>
-                                <input class="form-control input-lg" type="text" ng-model="query.location" placeholder="" />
+                                <input class="form-control input-lg" type="text" ng-model="query.locations" placeholder="" />
                                 <span class="input-group-addon">Keywords</span>
                                 <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="" />
                                 <span class="input-group-btn">

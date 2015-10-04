@@ -60,7 +60,7 @@ app.controller('AppController', [
     }
 ]);
 
-app.controller('HeaderController', ['$scope','$rootScope','dataService', function ($scope,$rootScope,db) {
+app.controller('HeaderController', ['$scope', '$rootScope', 'dataService', '$state', function ($scope, $rootScope, db, $state) {
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
     });
@@ -75,6 +75,9 @@ app.controller('HeaderController', ['$scope','$rootScope','dataService', functio
                 $rootScope.profile = result;
             }
         });
+    }
+    $scope.search=function(query) {
+        $state.go('search',{ keywords: query });
     }
 }]);
 

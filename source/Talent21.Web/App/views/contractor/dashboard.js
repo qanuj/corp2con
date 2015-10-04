@@ -1,4 +1,4 @@
-﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, $stateParams, $rootScope) {
+﻿app.controller('contractorDashboardController', ['$scope', 'dataService', '$stateParams', '$rootScope','$state', function ($scope, db, $stateParams, $rootScope,$state) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -22,9 +22,11 @@
         });
     }
 
-    $scope.search = function (q) {
-        window.location = '#/search?q=' + (q.keywords || '') + '&location=' + (q.location || '') + '&skills=' + (q.skills || '');
-        return false;
+    $scope.nextWeek = moment().add(7, 'days').format();
+    $scope.nextMonth = moment().add(1, 'months').format();
+
+    $scope.search = function (query) {
+        $state.go('search',query);
     }
 
     db.contractor.get().success(function (result) {

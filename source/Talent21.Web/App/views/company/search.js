@@ -144,18 +144,6 @@
         inviteToJob(i, job, onNext);
     }
 
-    $scope.resetFilters = function () {
-        $scope.query.keywords = '';
-        $scope.query.skills = '';
-        $scope.query.location = '';
-        $scope.query.startrate = '';
-        $scope.query.endrate = '';
-        $scope.query.xfrom = '';
-        $scope.query.xto = '';
-        $scope.query.industry = '';
-        $scope.search(query);
-    }
-
     $scope.$watch('selectAll', function (val) {
         $scope.toggle($scope.selectAll);
     });

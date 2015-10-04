@@ -1,4 +1,4 @@
-﻿app.controller('companyDashboardController', ['$rootScope', '$scope', 'dataService', function ($rootScope,$scope, db) {
+﻿app.controller('companyDashboardController', ['$rootScope', '$scope', 'dataService','$state', function ($rootScope,$scope, db,$state) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -18,12 +18,15 @@
         });
     });
 
+    $scope.nextWeek = moment().add(7, 'days');
+    $scope.nextMonth = moment().add(21, 'days');
+
     db.company.get().success(function (result) {
         $scope.profile = result;
     });
 
-    $scope.search = function (q) {
-        window.location = '#/search?q=' + (q.keywords || '') + '&location=' + (q.location || '') + '&skills=' + (q.skills || '');
-        return false;
+    $scope.search = function (query) {
+        $state.go('search', query);
     }
+
 }]);
