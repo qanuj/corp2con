@@ -2,17 +2,17 @@
     <div class="portlet-title">
         <div class="caption">
             <input type="checkbox" ng-model="row.selected"/>
-            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+            <a class="btn btn-circle btn-icon-only btn-default" title="{{row.gender|uncamel}}" href="javascript:;">
                 <i class="fa fa-{{row.gender|lowercase}}"></i>
             </a>
-            <a ng-if="row.contractType=='WorkFromHome'" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                <i class="fa fa-home"></i>
+            <a title="{{row.contractType|uncamel}}" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i ng-if="row.contractType=='WorkFromHome'" class="icon-home"></i>
+                <i ng-if="row.contractType=='ClientLocation'" class="fa fa-car"></i>
             </a>
-            <a ng-if="row.consultantType!='IndependentConsultant'" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                <i class="fa fa-building-o"></i>
-            </a>
-            <a ng-if="row.contractType=='ClientLocation'" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                <i class="fa fa-car"></i>
+            <a title="{{row.consultantType|uncamel}}" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i ng-if="row.consultantType=='IndependentConsultant'" class="fa fa-hand-o-up"></i>
+                <i ng-if="row.consultantType=='RetiredProfessional'" class="fa fa-user-secret"></i>
+                <i ng-if="row.consultantType=='AlignedToConsultingOrganistion'" class="fa fa-building-o"></i>
             </a>
             <a href="/#/contractor/{{row.id}}">
                 <span class="caption-subject bold font-yellow-casablanca uppercase">
@@ -57,8 +57,8 @@
     <div class="portlet-footer">
         <div class="actions">
             <div class="row">
-                <a href="javascript:;" ng-if="row.experienceMonths>0 || row.experienceYears>0" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'blue':'default'">
-                    {{row.experience | years}}
+                <a href="javascript:;" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'blue':'default'">
+                    <i class="fa fa-graduation-cap"></i> {{row.experience | years}}
                 </a>
                 <a href="javascript:;" ng-if="row.rate>0" class="btn btn-circle" ng-class="row.isHighlight || row.isFeatured ? 'btn-success':'default'">
                     <i class="fa fa-inr"></i> {{row.rate}}/{{row.rateType| limitTo: 2}}
