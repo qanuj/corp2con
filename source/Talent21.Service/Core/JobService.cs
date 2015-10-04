@@ -91,12 +91,11 @@ namespace Talent21.Service.Core
                             (!hasLocations || job.Locations.Any(y => locations.Any(z => y.Title == z))) &&
                             (!model.ContractExtendable.HasValue || job.IsContractExtendable == model.ContractExtendable) &&
                             (!model.ContractToHire.HasValue || job.IsContractToHire == model.ContractToHire) &&
+                            (!model.WorkFromHome.HasValue || job.IsWorkingFromHome == model.WorkFromHome) &&
                             (!model.CompanyId.HasValue || job.CompanyId == model.CompanyId) &&
-                            (model.RateStart <= 0 || job.Rate >= model.RateStart) &&
-                            (model.RateEnd <= 0 || job.Rate <= model.RateEnd) &&
                             (!model.Starting.HasValue || job.Duration.Start >= model.Starting) &&
-                            (model.ExperienceStart <= 0 || job.Experience.Start >= model.ExperienceStart) &&
-                            (model.ExperienceEnd <= 0 || job.Experience.Start <= model.ExperienceEnd) &&
+                            (!model.Rate.HasValue || job.Rate >= model.Rate) &&
+                            (!model.Experience.HasValue || job.Experience.Start >= model.Experience) &&
                             (model.Companies == null || model.Companies.Trim() == string.Empty || job.Company.CompanyName.Contains(model.Companies)) &&
                             (model.Keywords == null || model.Keywords.Trim() == string.Empty || job.Company.CompanyName.Contains(model.Keywords) ||
                                                                                                 job.Title.Contains(model.Keywords) ||
@@ -267,6 +266,20 @@ namespace Talent21.Service.Core
 
         public JobSearchFilterViewModel JobFilters(SearchQueryViewModel model)
         {
+            var rateValues = new List<dynamic>
+            {
+                new {Start = 1000, End = 9999},
+                new {Start = 10000, End = 19999},
+                new {Start = 20000, End = 39999},
+                new {Start = 40000, End = 49999},
+                new {Start = 50000, End = 79999},
+                new {Start = 80000, End = 99999},
+                new {Start = 100000, End = 124999},
+                new {Start = 125000, End = 149999},
+                new {Start = 150000, End = 199999},
+                new {Start = 200000, End = 0}
+            };
+
             var startDate = model.Starting ?? DateTime.UtcNow;
             var dates = Enumerable.Range(0, 10).Select(x => new { Start= startDate, End = startDate = startDate.AddDays(x * 7) });
             var query = Search(model);
@@ -284,15 +297,29 @@ namespace Talent21.Service.Core
                              Selected = model.Starting >= grp.Key
                          };
 
+            var rates =from rate in rateValues
+                       from row in query
+                       where row.Rate >= rate.Start && (row.Rate <= rate.End || rate.End==0)
+                       group rate.Start by rate.Start into grp
+                       orderby grp.Key
+                       select new FilterLabel<int, int>
+                       {
+                           Label = grp.Key,
+                           Count = grp.Count(),
+                           Mode = "inr",
+                           Selected = model.Rate >= grp.Key
+                       };
+
             return new JobSearchFilterViewModel
             {
                 Starting = starting,
-                Rate = query.GroupBy(x => x.Rate / 10000).Select(x => new MinMaxLabel<int> { Label = x.Key, Min = x.Min(y => y.Rate), Max = x.Max(y => y.Rate) }).Take(10),
+                Rate = rates,
                 Companies = query.GroupBy(x => x.Company).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Companies.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),
                 Experience = new MinMax { Min = query.Min(x => (int?)x.ExperienceStart) ?? 0, Max = query.Max(x => (int?)x.ExperienceEnd) ?? 0 },
                 Skills = query.SelectMany(x => x.Skills.Select(y => new { x.Id, Skill = y.Title })).GroupBy(x => x.Skill).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Skills.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),
                 Industries = query.GroupBy(x => x.Industry).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Industries.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),
                 ContractExtendable = query.GroupBy(x => x.IsContractExtendable).Select(x => new FilterLabel<int, bool?> { Count = x.Count(), Label = x.Key, Selected = model.ContractExtendable == x.Key }).OrderByDescending(x => x.Count).Take(10),
+                WorkFromHome = query.GroupBy(x => x.IsWorkingFromHome).Select(x => new FilterLabel<int, bool?> { Count = x.Count(), Label = x.Key, Selected = model.WorkFromHome == x.Key }).OrderByDescending(x => x.Count).Take(10),
                 ContractToHire = query.GroupBy(x => x.IsContractToHire).Select(x => new FilterLabel<int, bool?> { Count = x.Count(), Label = x.Key, Selected = model.ContractToHire == x.Key }).OrderByDescending(x => x.Count).Take(10),
                 Locations = query.SelectMany(x => x.Locations.Select(y => new { x.Id, Location = y.Title })).GroupBy(x => x.Location).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Locations.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),
             };

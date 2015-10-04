@@ -17,15 +17,13 @@ namespace Talent21.Service.Models
         public string Industries { get; set; }
         public string Functionals { get; set; }
 
-        public int ExperienceStart { get; set; }
-        public int ExperienceEnd { get; set; }
-        public int RateStart { get; set; }
-        public int RateEnd { get; set; }
-
+        public int? Experience { get; set; }
+        public int? Rate { get; set; }
         public int? CompanyId { get; set; }
 
         public bool? ContractExtendable { get; set; }
         public bool? ContractToHire { get; set; }
+        public bool? WorkFromHome { get; set; }
 
         public AvailableEnum? Availables { get; set; }
         public RateEnum? RateType { get; set; }
@@ -184,10 +182,11 @@ namespace Talent21.Service.Models
         public IEnumerable<FilterLabel<int, ContractorTypeEnum>> ConsultantTypes { get; set; }
         public IEnumerable<FilterLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
         public IEnumerable<FilterLabel<int, bool?>> ContractExtendable { get; set; }
+        public IEnumerable<FilterLabel<int, bool?>> WorkFromHome { get; set; }
         public IEnumerable<FilterLabel<int, bool?>> ContractToHire { get; set; }
         public IEnumerable<FilterLabel<int>> Locations { get; set; }
         public MinMax Experience { get; set; }
-        public IEnumerable<MinMaxLabel<int>> Rate { get; set; }
+        public IEnumerable<FilterLabel<int,int>> Rate { get; set; }
         public IEnumerable<FilterLabel<int, DateTime>> Starting { get; set; }
     }
 

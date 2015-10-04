@@ -588,10 +588,8 @@ namespace Talent21.Service.Core
                             (model.Industries == null || model.Industries.Trim() == string.Empty || x.Industry.Title.Contains(model.Industries)) &&
                             (model.Functionals == null || model.Functionals.Trim() == string.Empty || x.FunctionalArea.Title.Contains(model.Functionals)) &&
                             (model.RateType == null || x.RateType == model.RateType.Value) &&
-                            (model.RateStart <= 0 || x.Rate >= model.RateStart) &&
-                            (model.RateEnd <= 0 || x.Rate <= model.RateEnd) &&
-                            (model.ExperienceStart <= 0 || x.Experience >= model.ExperienceStart) &&
-                            (model.ExperienceEnd <= 0 || x.Experience <= model.ExperienceEnd) &&
+                            (!model.Rate.HasValue || x.Rate >= model.Rate) &&
+                            (!model.Experience.HasValue || x.Experience >= model.Experience) &&
                             (!hasSkills || skill.Any(y => skills.Any(z => y.Title==z))) &&
                             (model.Keywords == null || model.Keywords.Trim() == string.Empty || x.Company.CompanyName.Contains(model.Keywords) ||
                                                                                                 x.Mobile.Contains(model.Keywords) ||

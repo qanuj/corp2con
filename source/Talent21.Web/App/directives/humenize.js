@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 angular
   .module('humenize', [])
  .filter('uncamel', function () {
@@ -30,6 +30,7 @@ angular
          if (input == false) return "No";
          if (input == null) return "Uspecified";
          if (mode == 'date') return moment(input).fromNow();
+         if (mode == 'inr') return ">= ₹" + input.toFixed(0).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 
          return input;
 
@@ -38,6 +39,11 @@ angular
  .filter('fromNow', function () {
      return function (date) {
          return moment(date).fromNow();
+     }
+ })
+ .filter('amHumanize', function () {
+     return function (date,to) {
+         return moment.duration(moment(date).diff(to)).humanize();
      }
  })
  .filter('plaintext', function () {
