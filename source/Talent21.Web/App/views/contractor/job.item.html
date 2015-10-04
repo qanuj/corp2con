@@ -4,10 +4,10 @@
             <span class="caption-subject bold">
                 <input ng-if="!hideCheckbox" type="checkbox" ng-model="row.selected" />
                 <i ng-if="row.favorite" class="fa fa-star yellow-gold"></i>
-                <a ng-if="!row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <a ng-if="!row.isWorkingFromHome" title="Client Location" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                     <i class="fa fa-car shine"></i>
                 </a>
-                <a ng-if="row.isWorkingFromHome" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <a ng-if="row.isWorkingFromHome" title="Can work from home"  class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                     <i class="fa fa-home"></i>
                 </a>
                 <a ui-sref="job({id:row.id})" ng-class="{'blue':row.isHighlight}">{{row.title}}</a>
@@ -15,6 +15,12 @@
             <span class="caption-subject" ng-class="{'yellow-lemon':row.isHighlight,'font-yellow-saffron':row.isFeatured}">{{row.company}} <i ng-if="row.application" class="fa fa-check-circle-o green-jungle"></i></span>
         </div>
         <div class="actions flex">
+            <a ng-if="row.isContractToHire" title="Contract To Hire" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="icon-badge"></i>
+            </a>
+            <a ng-if="row.isContractExtendable" title="Contract Extendible" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                <i class="icon-magic-wand"></i>
+            </a>
             <span class="highlight-danger"><i class="fa fa-calendar-o"></i> {{row.start | fromNow }}</span>
             <span class="highlight-danger" ng-if="row.revoke">Revoked on {{row.revoke | date:'dd-MMM-yy'}}</span>
             <span class="highlight-danger" ng-if="row.rejected">Rejected on {{row.rejected | date:'dd-MMM-yy'}}</span>
@@ -33,7 +39,7 @@
                     {{row.rate | currency : '₹' : 0}} / Monthly
                 </a>
                 <a href="javascript:;" class="btn btn-circle col-xs-2" ng-class="row.isHighlight || row.isFeatured ? 'btn-info':'default'">
-                    {{row.end | amDifference : row.start: 'days' }} Days
+                    {{row.end | amHumanize:row.start }}
                 </a>
                 <a href="javascript:;" class="btn btn-circle col-xs-2" ng-repeat="s in row.locations | limitTo:5" ng-class="row.isHighlight || row.isFeatured ? 'btn-warning':'default'">
                     <i class="fa fa-map-marker"></i> {{s.title}}
