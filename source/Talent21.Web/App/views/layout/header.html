@@ -9,11 +9,11 @@
     </div>
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
     <!-- BEGIN HEADER SEARCH BOX -->
-    <form class="search-form search-form-expanded" method="GET">
+    <form class="search-form search-form-expanded" ng-submit="search(keyword)">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search..." name="query">
+            <input type="text" class="form-control" ng-model="keyword" placeholder="Search..." name="query">
             <span class="input-group-btn">
-                <a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+                <a ui-sref="search(keyword)" class="btn submit"><i class="icon-magnifier"></i></a>
             </span>
         </div>
     </form>
