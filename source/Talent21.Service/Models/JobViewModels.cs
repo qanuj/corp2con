@@ -24,12 +24,11 @@ namespace Talent21.Service.Models
         public bool? ContractExtendable { get; set; }
         public bool? ContractToHire { get; set; }
         public bool? WorkFromHome { get; set; }
-
-        public AvailableEnum? Availables { get; set; }
-        public RateEnum? RateType { get; set; }
+        
         public ContractorTypeEnum? ConsultantTypes { get; set; }
         public ContractTypeEnum? ContractTypes { get; set; }
         public DateTime? Starting { get; set; }
+        public DateTime? Available { get; set; }
     }
 
     public class InviteViewModel
@@ -194,7 +193,6 @@ namespace Talent21.Service.Models
     {
         public IEnumerable<FilterLabel<int>> Companies { get; set; }
         public IEnumerable<FilterLabel<int>> Skills { get; set; }
-        public IEnumerable<FilterLabel<int, AvailableEnum>> Availables { get; set; }
         public IEnumerable<FilterLabel<int>> Industries { get; set; }
         //public IEnumerable<CountLabel<int, bool>> Bench { get; set; }
         public IEnumerable<FilterLabel<int>> Functionals { get; set; }
@@ -202,7 +200,8 @@ namespace Talent21.Service.Models
         public IEnumerable<FilterLabel<int, ContractTypeEnum>> ContractTypes { get; set; }
         public IEnumerable<FilterLabel<int>> Locations { get; set; }
         public MinMax Experience { get; set; }
-        public IEnumerable<MinMaxLabel<RateEnum>> Rate { get; set; }
+        public IEnumerable<FilterLabel<int, int>> Rate { get; set; }
+        public IEnumerable<FilterLabel<int, DateTime>> Available { get; set; }
     }
 
     public class JobTinyViewModel : EditJobViewModel
