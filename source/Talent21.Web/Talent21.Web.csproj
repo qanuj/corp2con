@@ -875,7 +875,7 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <None Include="Views\Home\Go.cshtml" />
     <None Include="Views\Home\GoCompany.cshtml" />
-    <None Include="Views\Home\Jobs.cshtml" />
+    <Content Include="Views\Home\Jobs.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
