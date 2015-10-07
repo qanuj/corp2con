@@ -5,6 +5,7 @@ using Talent21.Data.Repository;
 
 namespace Talent21.Data
 {
+    [DbConfigurationType(typeof(BasicConfiguration))]
     public class ApplicationDataContext : ApplicationDbContext
     {
        public ApplicationDataContext():base("DefaultConnection"){}
