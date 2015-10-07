@@ -1,16 +1,4 @@
-﻿<div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <i class="fa fa-home"></i>
-            <a href="#/">Home</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="#">Dashboard</a>
-        </li>
-    </ul>
-</div>
-<h3 class="page-title">
+﻿<h3 class="page-title">
     Dashboard
 </h3>
 <div class="hide note note-success note-bordered">
@@ -33,7 +21,7 @@
                 </div>
             </div>
             <a class="more" href="#/stats">
-                View more <i class="m-icon-swapright m-icon-white"></i>
+                People who viewed your profile <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
     </div>
@@ -156,6 +144,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
         <div class="portlet light">
             <div class="portlet-title tabbable-line">
                 <div class="caption caption-md">
@@ -164,12 +154,12 @@
                     <span class="caption-helper">{{record.aggregate.location}}</span>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li class="active">
+                    <!--<li>
                         <a href="#" data-target="#tab_1_1" data-toggle="tab">
                             Top
                         </a>
-                    </li>
-                    <li>
+                    </li>-->
+                    <li class="active">
                         <a href="#" data-target="#tab_1_2" data-toggle="tab">
                             Latest
                         </a>
@@ -213,142 +203,6 @@
                     </div>
                 </div>
                 <!--END TABS-->
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="portlet light profile-sidebar-portlet">
-            <!-- SIDEBAR USERPIC -->
-            <div class="profile-userpic">
-                <img src="{{profile.pictureUrl}}" class="img-responsive" alt="">
-            </div>
-            <!-- END SIDEBAR USERPIC -->
-            <!-- SIDEBAR USER TITLE -->
-            <div class="profile-usertitle">
-                <div class="profile-usertitle-name">
-                    {{profile.firstName}} {{profile.lastName}}
-                </div>
-                <div class="profile-usertitle-job">
-                    {{profile.consultantType | uncamel}}
-                </div>
-            </div>
-            <!-- END SIDEBAR USER TITLE -->
-            <!-- SIDEBAR BUTTONS -->
-            <!--<div class="profile-userbuttons">
-            <a href="#/profile/edit" class="btn btn-circle green-haze btn-sm">Edit Profile</a>
-            <a href="#/schedule" class="btn btn-circle btn-danger btn-sm">Schedule</a>
-        </div>-->
-            <!-- END SIDEBAR BUTTONS -->
-            <!-- SIDEBAR MENU -->
-            <div class="profile-usermenu">
-                <ul class="nav">
-                    <li class="active">
-                        <a href="#/profile">
-                            <i class="icon-home"></i>
-                            Overview
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/profile/edit">
-                            <i class="icon-user"></i>
-                            Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/faq">
-                            <i class="icon-info"></i>
-                            Help
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3 col-md-offset-6 col-lg-offset-0">
-        <div class="profile">
-            <div class="portlet light">
-                <div class="row list-separated profile-stat">
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="uppercase profile-stat-title">
-                            {{profile.skills.length}}
-                        </div>
-                        <div class="uppercase profile-stat-text">
-                            Skills
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="uppercase profile-stat-title">
-                            {{profile.rate | currency : '₹' : 0}}
-                        </div>
-                        <div class="uppercase profile-stat-text">
-                            {{profile.rateType}}
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="uppercase profile-stat-title">
-                            {{profile.experience | years}}
-                        </div>
-                        <div class="uppercase profile-stat-text">
-                            Experience
-                        </div>
-                    </div>
-                </div>
-                <!-- END STAT -->
-                <div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-user"></i>
-                        <a href="javascript:;">{{profile.consultantType | uncamel}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-user"></i>
-                        <a href="javascript:;">{{profile.contractType | uncamel}}</a>
-                    </div>
-                    <div ng-if="profile.industry" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-industry"></i>
-                        <a href="javascript:;">{{profile.industry}}</a>
-                    </div>
-                    <div ng-if="profile.functionalArea" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-wrench"></i>
-                        <a href="javascript:;">{{profile.functionalArea}}</a>
-                    </div>
-                    <div ng-if="profile.location" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-map-marker"></i>
-                        <a href="javascript:;">{{profile.location}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-phone"></i>
-                        <a href="javascript:;">{{profile.mobile}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-phone"></i>
-                        <a href="javascript:;">{{profile.alternateNumber}}</a>
-                    </div>
-                    <div ng-if="profile.address" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-home"></i>
-                        <a href="javascript:;">{{profile.address}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-globe"></i>
-                        <a href="javascript:;">{{profile.nationality}}</a>
-                    </div>
-                    <div ng-if="profile.webSite" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-globe"></i>
-                        <a href="{{profile.website}}">{{profile.webSite}}</a>
-                    </div>
-                    <div ng-if="profile.facebook" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-facebook"></i>
-                        <a href="http://www.facebook.com/{{profile.facebook}}/">{{profile.facebook}}</a>
-                    </div>
-                    <div ng-if="profile.linkedin" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-linkedin"></i>
-                        <a href="http://www.linkedin.com/{{profile.linkedin}}/">{{profile.linkedin}}</a>
-                    </div>
-                    <div ng-if="profile.twitter" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-twitter"></i>
-                        <a href="http://www.twitter.com/{{profile.twitter}}/">@{{profile.twitter}}</a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

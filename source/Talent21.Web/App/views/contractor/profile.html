@@ -8,10 +8,10 @@
         <!-- SIDEBAR USER TITLE -->
         <div class="profile-usertitle">
             <div class="profile-usertitle-name">
-                {{record.firstName}}
+                {{record.firstName}} {{record.lastName}}
             </div>
             <div class="profile-usertitle-job">
-                {{record.lastName}}
+               
             </div>
         </div>
         <!-- END SIDEBAR USER TITLE -->
@@ -51,8 +51,8 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-6">
-                <div class="uppercase profile-stat-title">
-                    {{record.rate | currency : '₹' : 0}}
+                <div class="uppercase profile-stat-title" title="{{record.rate | currency : '₹' : 0}}">
+                    {{record.rate/1000 | currency : '₹' : 0}}k
                 </div>
                 <div class="uppercase profile-stat-text">
                     {{record.rateType}}
