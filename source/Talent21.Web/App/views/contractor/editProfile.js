@@ -127,7 +127,7 @@
             start: record.date.startDate.format(),
             end: record.date.endDate.format(),
             company: record.company,
-            isAvailable: record.isAvailable
+            isAvailable: true // record.isAvailable
         })
         .success(loadSchedule)
         .error(function (err) {

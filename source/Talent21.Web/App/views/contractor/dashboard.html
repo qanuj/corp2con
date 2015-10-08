@@ -96,11 +96,9 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Skill</span>
-                                <input class="form-control input-lg" type="text" ng-model="query.skills" placeholder="" />
+                                <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="" />
                                 <span class="input-group-addon">Location</span>
                                 <input class="form-control input-lg" type="text" ng-model="query.locations" placeholder="" />
-                                <span class="input-group-addon">Keywords</span>
-                                <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="" />
                                 <span class="input-group-btn">
                                     <button type="button" ng-click="search(query)" class="btn btn-lg green">Search</button>
                                 </span>
@@ -124,11 +122,11 @@
                 <div class="table-scrollable table-scrollable-borderless">
                     <table class="table table-hover table-light">
                         <thead>
-                            <tr class="uppercase">
-                                <th>For {{record.aggregate.skill}}, {{record.aggregate.location}}</th>
-                                <th>Salary (Monthly)</th>
-                                <th>Duration (Days)</th>
-                            </tr>
+                        <tr class="uppercase">
+                            <th>For {{record.aggregate.skill}}, {{record.aggregate.location}}</th>
+                            <th>Salary (Monthly)</th>
+                            <th>Duration (Days)</th>
+                        </tr>
                         </thead>
                         <tr>
                             <th>Minimum</th>
@@ -141,6 +139,19 @@
                             <td>{{record.aggregate.duration.max}}</td>
                         </tr>
                     </table>
+                </div>
+            </div>
+        </div>
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font hide"></i>
+                    <span class="caption-subject font-blue-madison bold uppercase">Top Employers</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    
                 </div>
             </div>
         </div>

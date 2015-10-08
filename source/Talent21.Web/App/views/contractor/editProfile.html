@@ -267,30 +267,14 @@
     </div>
     <div class="portlet-body">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="row">
-                        <label class="col-sm-12">&nbsp;</label>
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <input type="checkbox" class="form-control" ng-model="sch.isAvailable">
-                            </span>
-                            <span class="input-group-addon">
-                                Available?
-                            </span>
-                            <input type="text" class="form-control" id="companyname" ng-disabled="sch.isAvailable" placeholder="Description" ng-model="sch.company">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label>Date Range</label>
-                    <div class="input-group">
-                        <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="sch.date" />
-                        <span class="input-group-btn">
-                            <button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
-                            <button ng-click="saveSchedule(sch)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
-                        </span>
-                    </div>
+            <div class="col-md-6">
+                <label>Date Range</label>
+                <div class="input-group">
+                    <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="sch.date" />
+                    <span class="input-group-btn">
+                        <button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
+                        <button ng-click="saveSchedule(sch)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+                    </span>
                 </div>
             </div>
         </div>
@@ -298,7 +282,6 @@
             <table class="table  table-responsive table-hover table-light">
                 <thead>
                     <tr class="uppercase">
-                        <th>Status</th>
                         <th>From</th>
                         <th>To</th>
                         <th>Days</th>
@@ -306,7 +289,6 @@
                     </tr>
                 </thead>
                 <tr ng-repeat="s in record.schedules track by $index">
-                    <td>{{s.isAvailable ? 'Available' : s.company}}</td>
                     <td>{{s.start | date:'dd-MMM-yyyy'}}</td>
                     <td>{{s.end | date:'dd-MMM-yyyy'}}</td>
                     <td>{{s.end | amDifference : s.start : 'days'}} Days</td>

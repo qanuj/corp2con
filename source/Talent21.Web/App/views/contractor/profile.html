@@ -128,9 +128,6 @@
                     <thead>
                         <tr class="uppercase">
                             <th>
-                                NOTE
-                            </th>
-                            <th>
                                 START
                             </th>
                             <th>
@@ -144,10 +141,7 @@
                     <tbody>
                         <tr ng-repeat="s in schedule | orderBy:['-isAvailable','start']">
                             <td>
-                                <i ng-if="s.isAvailable" class="fa fa-check-circle font-green"></i> {{s.company}}
-                            </td>
-                            <td>
-                                {{s.start | date:'dd-MMM-yyyy'}}
+                                {{s.start | date:'dd-MMM-yyyy'}} <i ng-if="s.isAvailable" class="fa fa-check-circle font-green"></i> 
                             </td>
                             <td>
                                 {{s.end | date:'dd-MMM-yyyy'}}

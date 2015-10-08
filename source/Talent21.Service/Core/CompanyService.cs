@@ -549,13 +549,19 @@ namespace Talent21.Service.Core
         public IQueryable<ContractorSearchResultViewModel> Bench(SearchQueryViewModel model)
         {
             var company = FindCompany();
-            return Search(model, company).Where(x => x.CompanyId == company.Id);
+            model.CompanyId = company.Id;
+            return Search(model, company).Where(x => x.IsBench);
         }
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model)
         {
             var company = FindCompany();
             return Search(model, company);
+        }
+
+        public ContractorViewModel GetContractorById(int id)
+        {
+            return Search(new SearchQueryViewModel()).FirstOrDefault(x => x.Id == id);
         }
 
         public IQueryable<ContractorSearchResultViewModel> Search(SearchQueryViewModel model, Company company)
@@ -579,8 +585,6 @@ namespace Talent21.Service.Core
                         })
                         where
                             (model.Folder == null || model.Folder.Trim() == string.Empty || (x.Folders.Any(y => y.Folder == model.Folder) && model.CompanyId == x.CompanyId)) &&
-                            (model.CompanyId <= 0 || model.CompanyId == x.CompanyId) &&
-                            //(!model.Availables.HasValue || model.Availables.Value.HasFlag(available)) &&
                             (!model.ConsultantTypes.HasValue || x.ConsultantType == model.ConsultantTypes.Value) &&
                             (!model.ContractTypes.HasValue || x.ContractType == model.ContractTypes.Value) &&
                             (model.Locations == null || model.Locations.Trim() == string.Empty || x.Location.Title.Contains(model.Locations)) &&
@@ -597,8 +601,7 @@ namespace Talent21.Service.Core
                                                                                                 x.About.Contains(model.Keywords) ||
                                                                                                 x.FirstName.Contains(model.Keywords) ||
                                                                                                 x.Skills.Any(y => model.Keywords.Contains(y.Skill.Title)) ||
-                                                                                                x.LastName.Contains(model.Keywords))// &&
-                            //(x.Complete > 0 || x.CompanyId == company.Id)
+                                                                                                x.LastName.Contains(model.Keywords))
                         select new ContractorSearchResultViewModel
                         {
                             About = x.About,
@@ -623,7 +626,7 @@ namespace Talent21.Service.Core
                             Id = x.Id,
                             Industry = x.Industry.Title,
                             IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
-                            IsBench = x.CompanyId == model.CompanyId,
+                            IsBench = x.CompanyId == company.Id,
                             IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                             IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                             IsHome = promotions.Any(y => y == PromotionEnum.Global),
@@ -643,7 +646,14 @@ namespace Talent21.Service.Core
                             Twitter = x.Social.Twitter,
                             WebSite = x.Social.WebSite,
                             Yahoo = x.Social.Yahoo,
-                            Skills = skill
+                            Skills = skill,
+                            Schedules = x.Schedules.Where(y=>y.IsAvailable && !y.IsDeleted).Select(y=>new ScheduleViewModel
+                            {
+                                Company = y.Description,
+                                IsAvailable = y.IsAvailable,
+                                Start = y.Start,
+                                End=y.End
+                            })
                         };
             return query;
         }
@@ -967,12 +977,6 @@ namespace Talent21.Service.Core
         {
             var company = FindCompany();
             return Search(new SearchQueryViewModel { CompanyId = company.Id }).Where(x => x.CompanyId == company.Id && x.Id == benchId).Select(x => x.OwnerId).FirstOrDefault();
-        }
-
-        public ContractorViewModel GetContractorById(int id)
-        {
-            var company = FindCompany();
-            return Search(new SearchQueryViewModel { CompanyId = company.Id }).FirstOrDefault(x => x.Id == id);
         }
 
         public ContractorSearchFilterViewModel ContractorFilters(SearchQueryViewModel model)
