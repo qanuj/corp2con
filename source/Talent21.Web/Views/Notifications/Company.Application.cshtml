@@ -3,9 +3,9 @@
 }
 <p style="@pCSS">
     Hello <strong>@ViewBag.Company.FirstName</strong><br /><br />
-    @ViewBag.Model.FullName has applied for the requirement @ViewBag.Job.Title
-    @if (!string.IsNullOrWhiteSpace(ViewBag.Model.Job.Code))
-    {<text>(Code - @ViewBag.Model.Job.Code)</text>}. Please find a brief profile of the applicant below and the detailed resume attached to this email.
+    <strong>@ViewBag.Model.FirstName @ViewBag.Model.LastName</strong> has applied for the requirement @ViewBag.Job.Title
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Job.Code))
+    {<text>(Code - @ViewBag.Job.Code)</text>}. Please find a brief profile of the applicant below and the detailed resume attached to this email.
     <br /><br />
     Thanks & Regards<br /><strong>@Product.Name</strong> Team
 </p>

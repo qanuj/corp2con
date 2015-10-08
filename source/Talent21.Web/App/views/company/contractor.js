@@ -12,6 +12,11 @@
         
     }
 
+    $scope.folders = [
+        "Shortlisted",
+        "Rejected"
+    ];
+
     db.system.enums('proficiencyEnum').then(function (enums) {
         $scope.proficiencies = enums;
         db.system.enums('levelEnum').then(function (levels) {

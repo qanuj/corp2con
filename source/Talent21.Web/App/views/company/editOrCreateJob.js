@@ -10,7 +10,10 @@
 
     $scope.title = "Job";
     $scope.subtitle = "";
-    $scope.record = {};
+    $scope.record = {
+        experienceStart: 12 * 2,
+        experienceEnd:12*8
+    };
 
     if (param.id) {
         $scope.title="Edit Job";

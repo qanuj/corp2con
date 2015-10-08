@@ -10,13 +10,10 @@
         </li>
     </ul>
 </div>
-<h3 class="page-title">
-    Dashboard
-</h3>
 <div class="hide note note-success note-bordered">
     <h3>Welcome to Contractor's Pool <span class="close" data-close="note"></span></h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sagittis odio aliquam nunc gravida, non rhoncus dui porttitor. Suspendisse euismod elit eu odio laoreet, sed vehicula augue rutrum.</p>
-    <span class="label label-danger">NOTE:</span> Suspendisse euismod elit eu odio laoreet, sed vehicula augue rutrum.</span>
+    <span class="label label-danger">NOTE:</span> Suspendisse euismod elit eu odio laoreet, sed vehicula augue rutrum.
 </div>
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -108,12 +105,9 @@
                     <div class="form-body">
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">Skill</span>
-                                <input class="form-control input-lg" type="text" ng-model="query.skills" placeholder="" />
+                                <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="Skills, Industry, Company" />
                                 <span class="input-group-addon">Location</span>
-                                <input class="form-control input-lg" type="text" ng-model="query.locations" placeholder="" />
-                                <span class="input-group-addon">Keywords</span>
-                                <input class="form-control input-lg" type="text" ng-model="query.keywords" placeholder="" />
+                                <input class="form-control input-lg" type="text" ng-model="query.locations" placeholder="Location" />
                                 <span class="input-group-btn">
                                     <button type="button" ng-click="search(query)" class="btn btn-lg green">Search</button>
                                 </span>
@@ -141,23 +135,26 @@
                             <tr class="uppercase">
                                 <th>For {{record.aggregate.skill}}, {{record.aggregate.location}}</th>
                                 <th>Salary (Monthly)</th>
-                                <th>Duration (Days)</th>
+                                <th>Available in</th>
                             </tr>
                         </thead>
                         <tr>
                             <th>Minimum</th>
                             <td>{{record.aggregate.salary.min}}</td>
-                            <td>{{record.aggregate.duration.min | amDifference : null : 'days' }}</td>
+                            <td><a ui-sref="search({skills:record.aggregate.skill,locations:record.aggregate.location})">{{record.aggregate.duration.min | amDifference : null : 'days' }} Days</a></td>
                         </tr>
                         <tr>
                             <th>Maximum</th>
                             <td>{{record.aggregate.salary.max}}</td>
-                            <td>{{record.aggregate.duration.max| amDifference : null : 'days' }}</td>
+                            <td><a ui-sref="search({skills:record.aggregate.skill,locations:record.aggregate.location})">{{record.aggregate.duration.max| amDifference : null : 'days' }} Days</a></td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
+
+    </div>
+    <div class="col-md-6 col-lg-6">
         <!-- BEGIN PORTLET-->
         <div class="portlet light">
             <div class="portlet-title tabbable-line">
@@ -219,86 +216,5 @@
             </div>
         </div>
         <!-- END PORTLET-->
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="profile">
-            <div class="portlet light profile-sidebar-portlet">
-                <img src="{{profile.pictureUrl}}" class="img-responsive img-logo">
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        {{profile.companyName}}
-                    </div>
-                    <div class="profile-usertitle-job">
-                        {{profile.firstName}} {{profile.lastName}}
-                    </div>
-                </div>
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="#/profile">
-                                <i class="icon-home"></i>
-                                Overview
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/profile/edit">
-                                <i class="icon-user"></i>
-                                Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/jobs">
-                                <i class="icon-briefcase"></i>
-                                Jobs
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/faq">
-                                <i class="icon-info"></i>
-                                Help
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- END MENU -->
-            </div>
-            <div class="portlet light">
-                <div>
-                    <h4 class="profile-desc-title">About {{profile.companyName}}</h4>
-                    <span class="profile-desc-text">{{profile.industry.title}}</span>
-                    <div ng-if="profile.adddress" class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-map-marker"></i>{{profile.address}}
-                    </div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-phone"></i>{{profile.mobile}}
-                    </div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-phone"></i>{{profile.alternateNumber}}
-                    </div>
-                    <div class="margin-top-20 profile-desc-link">
-                        <i class="fa fa-envelope"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.facebook">
-                        <a href="{{profile.facebook}}"><i class="fa fa-facebook"></i> {{profile.facebook}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.twitter">
-                        <a href="{{profile.twitter}}"><i class="fa fa-twitter"></i>{{profile.twitter}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.google">
-                        <a href="{{profile.google}}"><i class="fa fa-google-plus"></i>{{profile.google}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.linkedin">
-                        <a href="{{profile.linkedin}}"><i class="fa fa-linkedin"></i>{{profile.linkedin}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.webSite">
-                        <a href="{{profile.webSite}}"><i class="fa fa-globe"></i>{{profile.webSite}}</a>
-                    </div>
-                    <div class="margin-top-20 profile-desc-link" ng-if="profile.yahoo">
-                        <a href="{{profile.yahoo}}"><i class="fa fa-yahoo"></i>{{profile.yahoo}}</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
 </div>
