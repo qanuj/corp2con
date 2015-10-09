@@ -16,24 +16,7 @@
     <span class="label label-danger">NOTE:</span> Suspendisse euismod elit eu odio laoreet, sed vehicula augue rutrum.
 </div>
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat blue-madison">
-            <div class="visual">
-                <i class="fa fa-eye"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    {{record.views}}
-                </div>
-                <div class="desc">
-                    Profile Views
-                </div>
-            </div>
-            <a class="more" href="#/stats">
-                View more <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
+
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="dashboard-stat red-intense">
             <div class="visual">
@@ -48,6 +31,24 @@
                 </div>
             </div>
             <a class="more" href="#/jobs">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-eye"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    {{record.views}}
+                </div>
+                <div class="desc">
+                    Job Views
+                </div>
+            </div>
+            <a class="more" href="#/stats">
                 View more <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
@@ -166,12 +167,12 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#" data-target="#tab_1_1" data-toggle="tab">
-                            Top
+                            Availability
                         </a>
                     </li>
                     <li>
                         <a href="#" data-target="#tab_1_2" data-toggle="tab">
-                            Latest
+                            Rate
                         </a>
                     </li>
                 </ul>
@@ -191,7 +192,7 @@
                                 </p>
                             </div>
                             <div class="general-item-list">
-                                <div ng-repeat="row in matching" ng-include="'app/views/company/contractor.simple.html'"></div>
+                                <div ng-repeat="row in matchingAvailable" ng-include="'app/views/company/contractor.item.html'"></div>
                             </div>
                         </div>
                     </div>
@@ -207,7 +208,7 @@
                                 </p>
                             </div>
                             <div class="general-item-list">
-                                <div ng-repeat="row in matching" ng-include="'app/views/company/contractor.simple.html'"></div>
+                                <div ng-repeat="row in matchingRate" ng-include="'app/views/company/contractor.item.html'"></div>
                             </div>
                         </div>
                     </div>

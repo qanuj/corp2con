@@ -29,6 +29,16 @@ namespace Talent21.Data.Repository
             if (string.IsNullOrWhiteSpace(visitor)) return false;
             return All.Any(x => x.Visitor == visitor && x.Created > earlier && x.JobId == id && x.IpAddress==ip);
         }
+
+        public IQueryable<JobVisit> Mine(string userId)
+        {
+            return All.Where(x => x.Job.Company.OwnerId == userId);
+        }
+
+        public IQueryable<JobVisit> ByJobId(IQueryable<int> jobIds)
+        {
+            return All.Where(x => jobIds.Contains(x.JobId));
+        }
     }
     /// <summary>
     /// 
@@ -36,5 +46,7 @@ namespace Talent21.Data.Repository
     public interface IJobVisitRepository : IRepository<JobVisit>
     {
         bool VisitedEarlier(int id,string ip, string visitor);
+        IQueryable<JobVisit> Mine(string userId);
+        IQueryable<JobVisit> ByJobId(IQueryable<int> jobIds);
     }
 }

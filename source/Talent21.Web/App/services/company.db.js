@@ -80,7 +80,7 @@
         }
 
         company.search = function (query, page, pageSize, order) {
-            return $http.post(v + 'search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy('Id'), query);
+            return $http.post(v + 'search?$inlinecount=allpages' + calculatePaging(page, pageSize) + orderBy(order||'Id'), query);
         }
 
         company.filters = function (query) {

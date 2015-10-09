@@ -19,6 +19,7 @@ namespace Talent21.Service.Core
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyVisitRepository _companyVisitRepository;
+        private readonly IJobVisitRepository _jobVisitRepository;
         private readonly IContractorVisitRepository _contractorVisitRepository;
         private readonly IContractorRepository _contractorRepository;
         private readonly IJobRepository _jobRepository;
@@ -52,7 +53,7 @@ namespace Talent21.Service.Core
             IContractorVisitRepository contractorVisitRepository,
             IInviteRepository inviteRepository,
             ISharedService sharedService,
-            IUserProvider userProvider, ILocationRepository locationRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository) : base(userProvider)
+            IUserProvider userProvider, ILocationRepository locationRepository, ITransactionRepository transactionRepository, IAppSiteConfigRepository appSiteConfigRepository, IJobVisitRepository jobVisitRepository) : base(userProvider)
         {
             _jobSkillRepository = jobSkillRepository;
             _companyRepository = companyRepository;
@@ -72,6 +73,7 @@ namespace Talent21.Service.Core
             _locationRepository = locationRepository;
             _transactionRepository = transactionRepository;
             _appSiteConfigRepository = appSiteConfigRepository;
+            _jobVisitRepository = jobVisitRepository;
         }
 
         public IQueryable<CompanyViewModel> Companies
@@ -570,6 +572,8 @@ namespace Talent21.Service.Core
             var hasSkills = skills.Length > 0;
 
             var query = from x in _contractorRepository.All
+                        let isBench= x.CompanyId == company.Id
+                        let isApplied = x.Applications.Any(y=> y.Job.CompanyId == company.Id && (!model.JobId.HasValue || y.JobId == model.JobId.Value ))
                         let availableDay = x.Schedules.Where(y => y.IsAvailable).OrderBy(y => y.Start).Select(y => y.Start).FirstOrDefault()
                         let days = DataFunctions.DiffDays2(DateTime.UtcNow, availableDay)
                         let promotions = x.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
@@ -587,6 +591,8 @@ namespace Talent21.Service.Core
                             (model.Folder == null || model.Folder.Trim() == string.Empty || (x.Folders.Any(y => y.Folder == model.Folder) && model.CompanyId == x.CompanyId)) &&
                             (!model.ConsultantTypes.HasValue || x.ConsultantType == model.ConsultantTypes.Value) &&
                             (!model.ContractTypes.HasValue || x.ContractType == model.ContractTypes.Value) &&
+                            (!model.IsBench.HasValue || isBench == model.IsBench.Value) &&
+                            (!model.IsApplied.HasValue || isApplied == model.IsApplied.Value) &&
                             (model.Locations == null || model.Locations.Trim() == string.Empty || x.Location.Title.Contains(model.Locations)) &&
                             (model.Companies == null || model.Companies.Trim() == string.Empty || x.Company.CompanyName.Contains(model.Companies)) &&
                             (model.Industries == null || model.Industries.Trim() == string.Empty || x.Industry.Title.Contains(model.Industries)) &&
@@ -626,7 +632,7 @@ namespace Talent21.Service.Core
                             Id = x.Id,
                             Industry = x.Industry.Title,
                             IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
-                            IsBench = x.CompanyId == company.Id,
+                            IsBench = isBench,
                             IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
                             IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
                             IsHome = promotions.Any(y => y == PromotionEnum.Global),
@@ -691,7 +697,7 @@ namespace Talent21.Service.Core
                     Duration = aggregateReport.Duration,
                 },
                 Credits = _sharedService.GetBalance(userId),
-                Views = _companyVisitRepository.Mine(userId).Count(),
+                Views = _jobVisitRepository.ByJobId(ActiveJobs.Select(x=>x.Id)).Count(),
                 Applications = _jobApplicationRepository.Mine(userId).Count(x => x.History.Any(y => y.Act == JobActionEnum.Application) && x.History.All(y => y.Act != JobActionEnum.Rejected) && x.History.All(y => y.Act != JobActionEnum.Revoke)),
                 Contractors = _contractorRepository.MatchingCompanyJobs(userId).Count(),
                 Jobs = ActiveJobs.Count()
