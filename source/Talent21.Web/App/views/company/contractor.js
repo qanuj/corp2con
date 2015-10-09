@@ -1,4 +1,4 @@
-﻿app.controller('companyContractorController', ['$scope', 'dataService', '$stateParams', '$rootScope', function ($scope, db, param, $rootScope) {
+﻿app.controller('companyContractorController', ['$scope', 'dataService', '$stateParams', '$rootScope', 'toastr', function ($scope, db, param, $rootScope, toastr) {
         $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -16,6 +16,20 @@
         "Shortlisted",
         "Rejected"
     ];
+
+    $scope.updateRate=function(record) {
+        db.company.updateBenchRate({
+            id: record.id,
+            rateType: record.rateType,
+            rate:record.rate
+        }).success(function (result) {
+            if (result == true) {
+                toastr.success('Success', 'New Rates Updates. Enjoy!');
+            }
+        }).error(function (err) {
+            toastr.error(err.exceptionMessage, err.message);
+        });
+    }
 
     db.system.enums('proficiencyEnum').then(function (enums) {
         $scope.proficiencies = enums;

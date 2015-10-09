@@ -1042,5 +1042,18 @@ namespace Talent21.Service.Core
                 Locations = query.GroupBy(x => x.Location).Select(x => new FilterLabel<int> { Count = x.Count(), Label = x.Key, Selected = model.Locations.Contains(x.Key) }).OrderByDescending(x => x.Count).Take(10),
             };
         }
+
+        public bool UpdateRate(BenchRateUpdateViewModel model)
+        {
+            var company = FindCompany();
+            var entity=_contractorRepository.All.FirstOrDefault(x => x.CompanyId == company.Id && x.Id == model.Id);
+            if(entity==null) throw new Exception("No such bench found");
+
+            entity.RateType = model.RateType;
+            entity.Rate = model.Rate;
+            
+            _contractorRepository.Update(entity);
+            return _contractorRepository.SaveChanges()>0;
+        }
     }
 }

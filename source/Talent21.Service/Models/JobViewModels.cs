@@ -31,6 +31,13 @@ namespace Talent21.Service.Models
         public DateTime? Available { get; set; }
     }
 
+    public class BenchRateUpdateViewModel
+    {
+        public int Id { get; set; }
+        public int Rate { get; set; }
+        public RateEnum RateType { get; set; }
+    }
+
     public class InviteViewModel
     {
         public string Name { get; set; }

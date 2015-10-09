@@ -59,6 +59,9 @@
             return $http.get(v + 'job/paged?$inlinecount=allpages&$orderby=Id desc' + calculatePaging(page, pageSize));
         }
         
+        company.updateBenchRate=function(model) {
+            return $http.put(v + 'bench', model);
+        }
 
         company.balance = function () {
             return $http.get(v + 'balance');

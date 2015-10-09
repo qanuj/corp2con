@@ -41,7 +41,7 @@
                 $state.go('profile');
             }).error(function (err) {
                 toastr.error(err.exceptionMessage, err.message);
-            });;
+            });
     }
 
     db.company.get().success(function (result) {
