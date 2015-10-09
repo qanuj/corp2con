@@ -20,8 +20,7 @@
 
     var ignoreList = [];
     var firstIgnore = ['rss', 'locationCode', 'profile', 'companyId'];
-    var secondIgnore = ['address', 'functionalArea', 'functionalAreaId', 'industry','rate','rateType',
-                        'industryId', 'location', 'locationId', 'pinCode', 'google', 'facebook', 'yahoo'];
+    var secondIgnore = ['address', 'industry','rate','rateType','industryId', 'location', 'locationId', 'pinCode', 'google', 'facebook', 'yahoo'];
 
     $scope.options = {
         animate: {

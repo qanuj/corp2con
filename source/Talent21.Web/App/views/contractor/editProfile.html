@@ -34,7 +34,7 @@
     </div>
     <div class="portlet-body">
         <div class="row">
-            <div class="col-md-2 col-xl-1">
+            <div class="col-md-2 col-sm-2 col-xl-1">
                 <a href="#" class="thumbnail">
                     <img class="img-responsive" ng-src="{{record.picture.url}}" fallback-src loading-src alt="{{record.firstName}} {{record.lastName}}">
                 </a>
@@ -45,44 +45,52 @@
                                 multiple="false" size-limit="5000000">
                 </ng-upload-form>
             </div>
-            <div class="col-md-8 col-xl-10">
+            <div class="col-md-8 col-sm-8 col-xl-10">
                 <div class="row">
-                    <div class="form-group col-sm-5">
-                        <label class="col-md-5 control-label">First Name</label>
+                    <div class="form-group col-sm-6">
+                        <label class="control-label">First Name</label>
                         <input type="text" class="form-control" ng-model="record.firstName">
                     </div>
-                    <div class="form-group col-sm-5">
-                        <label class="col-md-5 control-label">Last Name</label>
+                    <div class="form-group col-sm-6">
+                        <label class="control-label">Last Name</label>
                         <input type="text" class="form-control" ng-model="record.lastName">
                     </div>
-                    <div class="form-group col-sm-2">
-                        <label class="col-md-5 control-label">Gender</label>
+                    <div class="form-group col-sm-4">
+                        <label class="control-label">Gender</label>
                         <select ui-select2 class="dropdown form-control" ng-model="record.gender" ng-options="c.id as c.label for c in genders">
                             <option value="">-- Select Gender --</option>
                         </select>
                     </div>
                     <div class="form-group col-sm-8" ng-if="!record.companyId">
-                        <label class="col-md-5 control-label">Address</label>
+                        <label class="control-label">Address</label>
                         <input type="text" class="form-control" ng-model="record.address">
                     </div>
                     <div class="form-group col-sm-4" ng-if="!record.companyId">
-                        <label class="col-md-5 control-label">Pin code</label>
+                        <label class="control-label">Pin code</label>
                         <input type="text" class="form-control" ng-model="record.pinCode">
                     </div>
                     <div class="form-group col-sm-6" ng-if="!record.companyId">
-                        <label class="col-md-5 control-label">Location</label>
+                        <label class="control-label">Location</label>
                         <select ui-select2 class="layout-style-option form-control input-sm" ng-model="record.locationId" ng-options="location.id as location.title for location in locations">
                             <option value="">-- Select Location --</option>
                         </select>
                     </div>
 
-                    <div class="form-group col-sm-4">
-                        <label class="col-md-5 control-label">Nationality</label>
+                    <div class="form-group col-sm-8">
+                        <label class="control-label">Nationality</label>
                         <select ui-select2 class="dropdown form-control" ng-model="record.nationality" ng-options="n.title as n.title for n in nations">
                             <option value="">-- Select Nationality --</option>
                         </select>
                     </div>
-                    <div class="form-group col-sm-8" ng-if="record.companyId">
+
+                    <div class="form-group col-md-12" ng-if="record.companyId">
+                        <label class="control-label">Functional Area</label>
+                        <select ui-select2 class="dropdown form-control" ng-model="record.functionalAreaId" ng-options="i.id as i.title for i in functionalAreas">
+                            <option value="">-- Select type --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-12" ng-if="record.companyId">
                         <label>Experience</label>
                         <rzslider rz-slider-floor="1"
                                   rz-slider-ceil="600"
@@ -92,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-xl-1">
+            <div class="col-md-2 col-sm-2 col-xl-1">
                 <div class="easy-pie-chart">
                     <div class="bounce" easypiechart percent="complete" options="options">
                         <span>
