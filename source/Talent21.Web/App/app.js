@@ -9,9 +9,11 @@
     'ui-rangeSlider',
     'ngTagsInput',
     'angularMoment',
+    'dcbImgFallback',
     'ngCkeditor',
     'theaquaNg',
     'daterangepicker',
+    'easypiechart',
     'frapontillo.bootstrap-switch',
     'nya.bootstrap.select',
     'humenize',
@@ -76,8 +78,10 @@ app.controller('HeaderController', ['$scope', '$rootScope', 'dataService', '$sta
             }
         });
     }
-    $scope.search=function(query) {
-        $state.go('search',{ keywords: query });
+    $scope.search = function (query) {
+        if (!!query) {
+            $state.go('search', { keywords: query });
+        }
     }
 }]);
 

@@ -20,15 +20,25 @@ namespace Talent21.Service.Models
         public int? Experience { get; set; }
         public int? Rate { get; set; }
         public int? CompanyId { get; set; }
+        public int? JobId { get; set; }
 
         public bool? ContractExtendable { get; set; }
         public bool? ContractToHire { get; set; }
         public bool? WorkFromHome { get; set; }
-        
+        public bool? IsApplied { get; set; }
+        public bool? IsBench { get; set; }
+
         public ContractorTypeEnum? ConsultantTypes { get; set; }
         public ContractTypeEnum? ContractTypes { get; set; }
         public DateTime? Starting { get; set; }
         public DateTime? Available { get; set; }
+    }
+
+    public class BenchRateUpdateViewModel
+    {
+        public int Id { get; set; }
+        public int Rate { get; set; }
+        public RateEnum RateType { get; set; }
     }
 
     public class InviteViewModel

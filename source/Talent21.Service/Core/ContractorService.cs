@@ -370,23 +370,23 @@ namespace Talent21.Service.Core
             entity.LastName = model.LastName;
             entity.PictureUrl = model.PictureUrl;
             entity.ProfileUrl = model.ProfileUrl;
-            entity.Email = model.Email;
             entity.About = model.About;
-            entity.Rate = model.Rate;
-            entity.RateType = model.RateType;
             entity.Nationality = model.Nationality;
+            entity.Gender = model.Gender;
+            entity.Complete = model.Complete;
+            entity.Experience = model.Experience;
             entity.FunctionalAreaId = model.FunctionalAreaId;
+
+            //only non company contractors can update this;
+
+            entity.Email = model.Email;
+            entity.PinCode = model.PinCode;
+            entity.Address = model.Address;
             entity.AlternateNumber = model.AlternateNumber;
             entity.ConsultantType = model.ConsultantType;
             entity.ContractType = model.ContractType;
-            entity.Gender = model.Gender;
-            entity.Complete = model.Complete;
-
-            entity.PinCode = model.PinCode;
-            entity.Address = model.Address;
-            entity.Experience = model.Experience;
-            entity.LocationId = model.LocationId;
             entity.IndustryId = model.IndustryId;
+            entity.LocationId = model.LocationId;
             entity.Mobile = model.Mobile;
             entity.Social = new Social
             {
@@ -403,12 +403,19 @@ namespace Talent21.Service.Core
             var company = _companyRepository.ById(entity.CompanyId ?? 0);
             if (company != null)
             {
-                entity.Social = company.Social;
+                entity.AlternateNumber = company.AlternateNumber;
+                entity.ConsultantType = ContractorTypeEnum.AlignedToConsultingOrganistion;
+                entity.ContractType = ContractTypeEnum.ClientLocation;
+                entity.IndustryId = company.IndustryId;
+                entity.LocationId = company.LocationId;
+
                 entity.Email = company.Email;
                 entity.Mobile = company.Mobile;
                 entity.AlternateNumber = company.AlternateNumber;
+                entity.Social = company.Social;
+                entity.Address = company.Address;
+                entity.PinCode = company.PinCode;
             }
-
 
             ApplySkills(model, entity);
 

@@ -12,6 +12,7 @@ namespace Talent21.Data.Core
         public ICollection<ContractorFolder> Folders { get; set; }
         public IList<Schedule> Schedules { get; set; }
         public IList<ContractorAdvertisement> Advertisements { get; set; }
+        public IList<JobApplication> Applications { get; set; }
 
         public Company Company { get; set; }
         public int? CompanyId { get; set; }

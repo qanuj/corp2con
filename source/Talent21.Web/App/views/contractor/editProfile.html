@@ -26,12 +26,6 @@
         </span>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <progressbar value="complete" type="{{status}}"><b>Profile Complete {{complete}}%</b></progressbar>
-        <a href="javascript:;" class="btn btn-circle btn-default red-sunglo" ng-repeat="s in pendings">{{s | uncamel}}</a>
-    </div>
-</div>
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -40,48 +34,9 @@
     </div>
     <div class="portlet-body">
         <div class="row">
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="form-group col-sm-5">
-                        <label class="col-md-5 control-label">First Name</label>
-                        <input type="text" class="form-control" ng-model="record.firstName">
-                    </div>
-                    <div class="form-group col-sm-5">
-                        <label class="col-md-5 control-label">Last Name</label>
-                        <input type="text" class="form-control" ng-model="record.lastName">
-                    </div>
-                    <div class="form-group col-sm-2">
-                        <label class="col-md-5 control-label">Gender</label>
-                        <select ui-select2 class="dropdown form-control" ng-model="record.gender" ng-options="c.id as c.label for c in genders">
-                            <option value="">-- Select Gender --</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-8" ng-if="!record.companyId">
-                        <label class="col-md-5 control-label">Address</label>
-                        <input type="text" class="form-control" ng-model="record.address">
-                    </div>
-                    <div class="form-group col-sm-4" ng-if="!record.companyId">
-                        <label class="col-md-5 control-label">Pin code</label>
-                        <input type="text" class="form-control" ng-model="record.pinCode">
-                    </div>
-                    <div class="form-group col-sm-6" ng-if="!record.companyId">
-                        <label class="col-md-5 control-label">Location</label>
-                        <select ui-select2 class="layout-style-option form-control input-sm" ng-model="record.locationId" ng-options="location.id as location.title for location in locations">
-                            <option value="">-- Select Location --</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-sm-4">
-                        <label class="col-md-5 control-label">Nationality</label>
-                        <select ui-select2 class="dropdown form-control" ng-model="record.nationality" ng-options="n.title as n.title for n in nations">
-                            <option value="">-- Select Nationality --</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-2 col-xl-1">
                 <a href="#" class="thumbnail">
-                    <img class="img-responsive" ng-src="{{record.picture.url}}" alt="{{record.firstName}} {{record.lastName}}">
+                    <img class="img-responsive" ng-src="{{record.picture.url}}" fallback-src loading-src alt="{{record.firstName}} {{record.lastName}}">
                 </a>
                 <ng-upload-form ng-model="record.picture" url="/upload/picture"
                                 auto-upload="true" title="Browse..."
@@ -90,9 +45,76 @@
                                 multiple="false" size-limit="5000000">
                 </ng-upload-form>
             </div>
+            <div class="col-md-8 col-sm-8 col-xl-10">
+                <div class="row">
+                    <div class="form-group col-sm-6 col-md-4">
+                        <label class="control-label">First Name</label>
+                        <input type="text" class="form-control" ng-model="record.firstName">
+                    </div>
+                    <div class="form-group col-sm-6 col-md-4">
+                        <label class="control-label">Last Name</label>
+                        <input type="text" class="form-control" ng-model="record.lastName">
+                    </div>
+                    <div class="form-group col-sm-4 col-md-4">
+                        <label class="control-label">Gender</label>
+                        <select ui-select2 class="dropdown form-control" ng-model="record.gender" ng-options="c.id as c.label for c in genders">
+                            <option value="">-- Select Gender --</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-8 col-md-8" ng-if="!record.companyId">
+                        <label class="control-label">Address</label>
+                        <input type="text" class="form-control" ng-model="record.address">
+                    </div>
+                    <div class="form-group col-sm-4 col-md-4" ng-if="!record.companyId">
+                        <label class="control-label">Pin code</label>
+                        <input type="text" class="form-control" ng-model="record.pinCode">
+                    </div>
+                    <div class="form-group col-sm-6 col-md-4" ng-if="!record.companyId">
+                        <label class="control-label">Location</label>
+                        <select ui-select2 class="layout-style-option form-control input-sm" ng-model="record.locationId" ng-options="location.id as location.title for location in locations">
+                            <option value="">-- Select Location --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-8">
+                        <label class="control-label">Nationality</label>
+                        <select ui-select2 class="dropdown form-control" ng-model="record.nationality" ng-options="n.title as n.title for n in nations">
+                            <option value="">-- Select Nationality --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12" ng-if="record.companyId">
+                        <label class="control-label">Functional Area</label>
+                        <select ui-select2 class="dropdown form-control" ng-model="record.functionalAreaId" ng-options="i.id as i.title for i in functionalAreas">
+                            <option value="">-- Select type --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-12" ng-if="record.companyId">
+                        <label>Experience</label>
+                        <rzslider rz-slider-floor="1"
+                                  rz-slider-ceil="600"
+                                  rz-slider-model="record.experience"
+                                  rz-slider-hide-limit-labels="true"
+                                  rz-slider-translate="experienceTranslate"></rzslider>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xl-1">
+                <div class="easy-pie-chart">
+                    <div class="bounce" easypiechart percent="complete" options="options">
+                        <span>
+                            {{complete}}
+                        </span>
+                        %
+                    </div>
+                    <span class="badge" ng-class="complete<100?'bg-red-thunderbird':'bg-green-jungle'" href="javascript:;">{{pendings.length ? pendings[0] :"Complete" | uncamel}}</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="portlet light bordered" ng-if="!record.companyId">
     <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -158,7 +180,7 @@
         </div>
     </div>
 </div>
-<div class="portlet light bordered">
+<div class="portlet light bordered" ng-if="!record.companyId">
     <div class="portlet-title">
         <div class="caption font-green-sharp">
             Technical Information
@@ -168,7 +190,7 @@
         <div class="row">
             <div class="form-group col-sm-8">
                 <label>Experience</label>
-                <rzslider rz-slider-floor="1" 
+                <rzslider rz-slider-floor="1"
                           rz-slider-ceil="600"
                           rz-slider-model="record.experience"
                           rz-slider-hide-limit-labels="true"
@@ -225,32 +247,32 @@
                     {{l.label}} Skills
                 </div>
                 <div class="actions">
-
+                    <a href="javascript:;">{{(record.skills | filter:{ level: l.label }).length}} of {{maxskills}} Added</a>
                 </div>
             </div>
             <div class="portlet-body">
-                <div class="input-group">
+                <div class="input-group" ng-if="(record.skills | filter:{ level: l.label }).length<maxskills">
                     <tags-input placeholder="Add Skill" display-property="title" ng-model="newSkill">
                         <auto-complete source="loadSkills($query)"></auto-complete>
                     </tags-input>
                     <div class="input-group-btn">
-                        <button ng-click="addSkill(newSkill,l)" class="btn btn-primary"><i class="icon-plus"></i></button>
+                        <button ng-click="addSkill(newSkill,l,(record.skills | filter:{ level: l.label }).length)" class="btn btn-primary"><i class="icon-plus"></i></button>
                     </div>
                 </div>
                 <div class="table-scrollable table-scrollable-borderless">
                     <table class="table table-responsive table-hover table-light">
                         <thead>
-                        <tr class="uppercase">
-                            <th class="col-sm-3">Skill</th>
-                            <th class="col-sm-2">Rating</th>
-                            <th class="col-sm-5">Experience</th>
-                            <th class="col-xs-1">&nbsp;</th>
-                        </tr>
+                            <tr class="uppercase">
+                                <th class="col-sm-3">Skill</th>
+                                <th class="col-sm-2">Rating</th>
+                                <th class="col-sm-5">Experience</th>
+                                <th class="col-xs-1">&nbsp;</th>
+                            </tr>
                         </thead>
                         <tr ng-repeat="s in record.skills | filter:{ level: l.label }">
                             <td>{{s.title}}</td>
                             <td><select ui-select2 class="form-control" ng-model="s.proficiency" ng-options="c.id as c.label for c in proficiencies"></select></td>
-                            <td><rzslider rz-slider-hide-limit-labels="true" rz-slider-floor="0" rz-slider-ceil="300" rz-slider-model="s.experience" rz-slider-translate="experienceTranslate"></rzslider></td>
+                            <td><rzslider rz-slider-show-ticks-value="true" rz-slider-hide-limit-labels="true" rz-slider-floor="0" rz-slider-ceil="300" rz-slider-model="s.experience" rz-slider-translate="experienceTranslate"></rzslider></td>
                             <td><button class="btn btn-danger btn-icon-only" ng-click="remove(s)"><i class="icon-trash"></i></button></td>
                         </tr>
                     </table>
@@ -264,20 +286,19 @@
         <div class="caption font-green-sharp">
             Schedule
         </div>
-    </div>
-    <div class="portlet-body">
-        <div class="row">
-            <div class="col-md-6">
-                <label>Date Range</label>
+        <div class="inputs">
+            <div class="portlet-input input-inline input-large">
                 <div class="input-group">
                     <input date-range-picker class="form-control date-picker" min="today" options="{format:'MM/DD/YYYY'}" type="text" ng-model="sch.date" />
                     <span class="input-group-btn">
-                        <button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
+                        <button date-range-picker class="btn default date-range-toggle" ng-model="sch.date" type="button"><i class="fa fa-calendar"></i></button>
                         <button ng-click="saveSchedule(sch)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
                     </span>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="portlet-body">
         <div class="table-scrollable table-scrollable-borderless">
             <table class="table  table-responsive table-hover table-light">
                 <thead>
@@ -293,27 +314,30 @@
                     <td>{{s.end | date:'dd-MMM-yyyy'}}</td>
                     <td>{{s.end | amDifference : s.start : 'days'}} Days</td>
                     <td>
-                        <button class="btn btn-danger" data-toggle="confirmation" data-original-title="Are you sure ?" title="" ng-click="deleteSchedule(s,$index)"><i class="fa fa-trash"></i> Delete</button>
+                        <button class="btn btn-danger btn-icon-only" data-toggle="confirmation" data-original-title="Are you sure ?" title="" ng-click="deleteSchedule(s,$index)"><i class="icon-trash"></i></button>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
-
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption font-green-sharp">
             Full Profile
         </div>
-        <ng-upload-form class="col-md-2 col-lg-1 pull-right col-sm-3 col-xs-6 col-xl-1" ng-model="record.cv"
-                        url="/upload"
-                        auto-upload="true"
-                        title="{{record.profileUrl ? 'Uploaded' : 'Your Resume..'}}"
-                        accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i"
-                        max-chunk-size="10"
-                        multiple="false"
-                        size-limit="5000000"></ng-upload-form>
+        <div class="inputs">
+            <div class="portlet-input input-inline input-small">
+                <ng-upload-form ng-model="record.cv"
+                                url="/upload"
+                                auto-upload="true"
+                                title="{{record.profileUrl ? 'Uploaded' : 'Your Resume..'}}"
+                                accept-file-types="/(\.|\/)(doc|docx|pdf|txt|rtf)$/i"
+                                max-chunk-size="10"
+                                multiple="false"
+                                size-limit="5000000"></ng-upload-form>
+            </div>
+        </div>
     </div>
     <div class="portlet-body">
         <textarea class="form-control" ckeditor="editorOptions" rows="15" ng-model="record.about" required placeholder="Your Profile Details"></textarea>

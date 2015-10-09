@@ -267,6 +267,14 @@ namespace Talent21.Web.Controllers
         {
             return ModelState.IsValid ? Ok(_service.InvitePeople(model)) : Bad(ModelState);
         }
+
+        [HttpPut]
+        [Route("bench")]
+        public HttpResponseMessage BenchRate(BenchRateUpdateViewModel model)
+        {
+            return ModelState.IsValid ? Ok(_service.UpdateRate(model)) : Bad(ModelState);
+        }
+
         //contractor related api
 
         [HttpPost]

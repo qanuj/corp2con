@@ -52,5 +52,6 @@ namespace Talent21.Service.Abstraction
         string BenchOwnerIdById(int benchId);
         ContractorViewModel GetContractorById(int id);
         ContractorSearchFilterViewModel ContractorFilters(SearchQueryViewModel model);
+        bool UpdateRate(BenchRateUpdateViewModel model);
      }
 }

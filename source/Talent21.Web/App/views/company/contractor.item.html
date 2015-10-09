@@ -1,7 +1,7 @@
 ﻿<div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption">
-            <input type="checkbox" ng-model="row.selected"/>
+            <input ng-if="!hideCheckbox" type="checkbox" ng-model="row.selected"/>
             <a class="btn btn-circle btn-icon-only btn-default" title="{{row.gender|uncamel}}" href="javascript:;">
                 <i class="fa fa-{{row.gender|lowercase}}"></i>
             </a>
@@ -22,7 +22,7 @@
             </a>
         </div>
         <div class="actions flex">
-            <a ng-if="row.available" href="javascript:;" class="btn btn-circle" ng-class="row.available=='Now' ? 'green-jungle' : row.available=='Later' ? 'blue' : 'yellow-lemon'">
+            <a ng-if="row.available" href="javascript:;" title="{{row.availability | amDateFormat:'MM-DDD-YYYY'}}" class="btn btn-circle" ng-class="row.available=='Now' ? 'green-jungle' : row.available=='Later' ? 'blue' : 'yellow-lemon'">
                 {{row.available}}
             </a>
         </div>

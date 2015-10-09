@@ -1,4 +1,4 @@
-﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$rootScope','toastr', function ($scope, db, $rootScope,toastr) {
+﻿app.controller('contractorEditProfileController', ['$scope', 'dataService', '$rootScope', 'toastr', function ($scope, db, $rootScope, toastr) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -10,6 +10,7 @@
 
     $scope.title = "Edit Profile";
     $scope.loadSkills = db.system.getSkills;
+    $scope.maxskills = 10;
 
     $scope.refreshAddresses = function (address) {
         return db.system.searchLocations(address).then(function (response) {
@@ -17,7 +18,21 @@
         });
     };
 
-    var ignoreList = ['rss','locationCode','profile','companyId'];
+    var ignoreList = [];
+    var firstIgnore = ['rss', 'locationCode', 'profile', 'companyId'];
+    var secondIgnore = ['address', 'industry','rate','rateType','industryId', 'location', 'locationId', 'pinCode', 'google', 'facebook', 'yahoo'];
+
+    $scope.options = {
+        animate: {
+            duration: 0,
+            enabled: false
+        },
+        barColor: '#2C3E50',
+        scaleColor: false,
+        trackColor:'#f2f2f2',
+        lineWidth: 3,
+        lineCap: 'circle'
+    };
 
     function calculateProgress(newVal) {
         $scope.pendings = [];
@@ -34,7 +49,7 @@
             total++;
         }
         var complete = Math.round(pg / total * 100, 0);
-        $scope.status = complete == 100 ? 'success' : complete < 20 ? 'danger' : complete > 20 && complete < 50 ? 'warning' : 'info';
+        $scope.options.barColor = complete == 100 ? Metronic.getBrandColor('green') : complete < 20 ? Metronic.getBrandColor('red') : Metronic.getBrandColor('yellow');
         $scope.complete = complete;
         if (newVal && newVal.complete != complete) {
             newVal.complete = complete;
@@ -59,12 +74,17 @@
             window.location = "#/profile";
         });
     }
-    $scope.addSkill = function (skills, level) {
+
+    $scope.addSkill = function (skills, level,c) {
         for (var x in skills) {
-            $scope.record.skills.push({ level: level.id, proficiency: "Beginer", experience: 0, code: skills[x].code, title: skills[x].title });
+            if (c < $scope.maxskills) {
+                $scope.record.skills.push({ level: level.id, proficiency: level == "Primary" ? "Expert" : "Beginer", experience: 0, code: skills[x].code, title: skills[x].title });
+                c++;
+            }
         }
-        $scope.newSkill.length = 0;
+        skills.length = 0;
     }
+
     $scope.remove = function (item) {
         var index = $scope.record.skills.indexOf(item);
         $scope.record.skills.splice(index, 1);
@@ -77,7 +97,7 @@
             });
         }
     }
-    function preloaderenum(func,name, prop) {
+    function preloaderenum(func, name, prop) {
         return function () {
             return func(name).then(function (result) {
                 $scope[prop] = result;
@@ -99,15 +119,20 @@
         return db.contractor.get().success(function (result) {
             result.picture = { url: result.pictureUrl };
             result.loc = { formatted_address: result.location };
+            if (result.companyId > 0) {
+                ignoreList = firstIgnore.concat(secondIgnore);
+            } else {
+                ignoreList = firstIgnore;
+            }
             $scope.record = result;
         });
     }
     function loadSchedule() {
-        db.contractor.getSchedule().success(function(result) {
+        db.contractor.getSchedule().success(function (result) {
             $scope.record.schedules = result;
         });
     }
-    
+
 
     $scope.experienceTranslate = function (value) {
         if (value == 0) return 'Fresher';

@@ -84,7 +84,7 @@
                 <i class="fa fa-industry"></i>
                 <a href="javascript:;">{{record.industry}}</a>
             </div>
-            <div  ng-if="record.functionalArea" class="margin-top-20 profile-desc-link">
+            <div ng-if="record.functionalArea" class="margin-top-20 profile-desc-link">
                 <i class="fa fa-industry"></i>
                 <a href="javascript:;">{{record.functionalArea}}</a>
             </div>
@@ -116,11 +116,11 @@
                 <i class="fa fa-facebook"></i>
                 <a href="http://www.facebook.com/{{record.facebook}}/">{{record.facebook}}</a>
             </div>
-            <div  ng-if="record.linkedin" class="margin-top-20 profile-desc-link">
+            <div ng-if="record.linkedin" class="margin-top-20 profile-desc-link">
                 <i class="fa fa-linkedin"></i>
                 <a href="http://www.linkedin.com/{{record.linkedin}}/">{{record.linkedin}}</a>
             </div>
-            <div  ng-if="record.twitter" class="margin-top-20 profile-desc-link">
+            <div ng-if="record.twitter" class="margin-top-20 profile-desc-link">
                 <i class="fa fa-twitter"></i>
                 <a href="http://www.twitter.com/{{record.twitter}}/">@{{record.twitter}}</a>
             </div>
@@ -198,12 +198,30 @@
 <div class="col-md-3">
     <!-- BEGIN PORTLET -->
     <div class="portlet light">
-        <div class="input-group">
-            <input type="text" class="form-control input-xs" ng-model="record.folder" placeholder="Folder Name" />
-            <span class="input-group-btn">
-                <button ng-click="move(record.id,record.folder)" class="btn btn-primary srch-btn-pad"><i class="fa fa-save"></i> Save</button>
-                <a ng-if="record.profileUrl" href="{{record.profileUrl}}" class="btn btn-success srch-btn-pad"><i class="fa fa-cloud-download"></i></a>
-            </span>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control input-xs" ng-model="record.folder" placeholder="Folder Name" />
+                <span class="input-group-btn">
+                    <button ng-click="move(record.id,record.folder)" class="btn btn-primary srch-btn-pad"><i class="fa fa-save"></i> Save</button>
+                    <a ng-if="record.profileUrl" href="{{record.profileUrl}}" class="btn btn-success srch-btn-pad"><i class="fa fa-cloud-download"></i></a>
+                </span>
+            </div>
+        </div>
+        <div class="form-group" ng-if="record.isBench">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                <input type="number" class="form-control" ng-model="record.rate">
+                <div class="input-group-btn">
+                    <button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown">{{record.rateType}} <i class="fa fa-angle-down"></i></button>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#" ng-click="record.rateType='Monthly'">Monthly</a></li>
+                        <li><a href="#" ng-click="record.rateType='Hourly'">Hourly</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-if="record.isBench">
+            <button class="btn btn-primary" ng-click="updateRate(record)">Update Rate</button>
         </div>
     </div>
     <div class="portlet light" ng-repeat="l in levels">

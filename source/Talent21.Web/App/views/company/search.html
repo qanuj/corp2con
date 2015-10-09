@@ -97,7 +97,7 @@
             <div class="col-xs-12 inbox">
                 <h2>Folders</h2>
                 <ul class="inbox-nav margin-bottom-10">
-                    <li class="inbox" ng-class="{active:f.label.toLowerCase()==query.folder}"
+                    <li class="inbox" ng-class="{active:f.label==query.folder}"
                         ng-repeat="f in folders"><a class="btn" ui-sref="search({folder:f.label})">{{f.label}} ({{f.count}})</a></li>
                 </ul>
             </div>

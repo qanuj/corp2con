@@ -865,7 +865,7 @@ var Metronic = function() {
                     }
                 });
             } else {
-                handleUniform();
+                //handleUniform();
             }
         },
 
