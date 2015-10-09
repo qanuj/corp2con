@@ -10,8 +10,7 @@
 
     db.contractor.dashboard().success(function (result) {
         $scope.record = result;
-        //, locations: result.aggregate.location, skills: result.aggregate.skill
-        db.system.getEmployeers({ promotion: 'Advertise', count: 20 }).then(function (result) {
+        db.system.getEmployeers({ promotion: 'Advertise', count: 20, locations: result.aggregate.location, skills: result.aggregate.skill }).then(function (result) {
             $scope.topEmployers = result;
         });
         db.contractor.search({ location: result.aggregate.location, skills: result.aggregate.skill }, 1, 5, 'Days').then(function (result) {
