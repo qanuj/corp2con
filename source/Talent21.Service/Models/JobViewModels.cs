@@ -245,6 +245,13 @@ namespace Talent21.Service.Models
         public PromotionEnum Promotion { get; set; }
     }
 
+    public class AdvertisementViewModel
+    {
+        public PromotionEnum Promotion { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+    }
+
     public class CompanySearchViewModel
     {
         public string Skills { get; set; }
@@ -260,6 +267,7 @@ namespace Talent21.Service.Models
         public string PictureUrl { get; set; }
         public int Jobs { get; set; }
         public string WebSite { get; set; }
+        internal IEnumerable<AdvertisementViewModel> Promotions { get; set; }
     }
 
     public class FeaturedContractorViewModel

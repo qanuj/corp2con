@@ -46,7 +46,14 @@ namespace Talent21.Service.Core
                             CompanyName = company.CompanyName,
                             PictureUrl = company.PictureUrl,
                             Id = company.Id,
-                            Jobs = company.Jobs.Count(x => !x.IsCancelled && x.IsPublished && (x.Expiry > DateTime.UtcNow || !x.Expiry.HasValue))
+                            Jobs = company.Jobs.Count(x => !x.IsCancelled && x.IsPublished && (x.Expiry > DateTime.UtcNow || !x.Expiry.HasValue)),
+                            Promotions= company.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow)
+                                    .Select(x=>new AdvertisementViewModel
+                                    {
+                                        Promotion = x.Promotion,
+                                        Start = x.Start,
+                                        End = x.End
+                                    })
                         };
             return query.Take(model.Count);
         }
