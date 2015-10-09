@@ -342,3 +342,37 @@ tags-input .tags {
     background-color: #fff;
     padding: 10px;
 }
+
+
+#featured-companies {
+	list-style: none;
+	padding: 0;
+}
+
+	#featured-companies li {
+		margin: 0 0 30px;
+	}
+
+		#featured-companies li a {
+			background: #fff;
+			display: block;
+			height: 100px;
+			position: relative;
+			text-align: center;
+		}
+
+			#featured-companies li a img {
+				max-width: 100%;
+			}
+
+			#featured-companies li a span {
+				background: #14b1bb;
+				border-radius: 50% !important;
+				font-family: "Montserrat", Arial;
+				height: 30px;
+				line-height: 24px;
+				position: absolute;
+				right: -5px;
+				top: -5px;
+				width: 30px;
+			}

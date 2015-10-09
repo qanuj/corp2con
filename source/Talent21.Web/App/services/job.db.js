@@ -26,8 +26,8 @@
 
         job.publish = function(id) { return $http.put(v + 'company/job/publish', { id: id }); }
         job.unpublish = function(id) { return $http.put(v + 'company/job/unpublish', { id: id }); }
-        job.cancel = function(id) { return $http.put(v + 'company/job/cancel', { id: id }); }
-        job.delete = function(id) { return $http.delete(v + 'company/job/' + id); }
+        job.cancel = function (id) { return $http.put(v + 'company/job/cancel', { id: id }); }
+        job.delete = function (id) { return $http.delete(v + 'company/job/' + id); }
 
 
         job.search = function (query, page, pageSize) {
@@ -37,7 +37,6 @@
                 });
             });
         }
-
 
         job.filters = function (query) {
             return $http.post(vJ + 'filters', query);

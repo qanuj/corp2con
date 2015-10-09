@@ -245,6 +245,14 @@ namespace Talent21.Service.Models
         public PromotionEnum Promotion { get; set; }
     }
 
+    public class CompanySearchViewModel
+    {
+        public string Skills { get; set; }
+        public string Locations { get; set; }
+        public int Count { get; set; }
+        public PromotionEnum? Promotion { get; set; }
+    }
+
     public class FeaturedCompanyViewModel
     {
         public int Id { get; set; }
@@ -252,10 +260,6 @@ namespace Talent21.Service.Models
         public string PictureUrl { get; set; }
         public int Jobs { get; set; }
         public string WebSite { get; set; }
-        public bool IsFeatured { get; set; }
-        public bool IsHighlight { get; set; }
-        public bool IsAdvertised { get; set; }
-        public bool IsHome { get; set; }
     }
 
     public class FeaturedContractorViewModel

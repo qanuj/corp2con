@@ -129,6 +129,16 @@
             );
         }
 
+        sys.getEmployeers = function (query) {
+            return $q(function (resolve, reject) {
+                $http.post(v + 'system/company/promoted', query).success(function (result) {
+                    resolve(result);
+                });
+            });
+        }
+
+
+
         sys.genders = ['Male', 'Female', 'Other'];
         sys.orgType = ['Corporate', 'Consultancy'];
 

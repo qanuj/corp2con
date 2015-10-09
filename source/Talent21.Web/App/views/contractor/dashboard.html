@@ -149,9 +149,14 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <div class="table-scrollable table-scrollable-borderless">
-                    
-                </div>
+                <ul id="featured-companies" class="row">
+                    <li class="col-sm-4 col-md-3" ng-repeat="row in topEmployers">
+                        <a ui-sref="company({id:row.id})">
+                            <img ng-src="{{row.pictureUrl}}" alt="{{row.companyName}}"/>
+                            <span class="badge">{{row.jobs}}</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
