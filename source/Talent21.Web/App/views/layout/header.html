@@ -11,9 +11,9 @@
     <!-- BEGIN HEADER SEARCH BOX -->
     <form class="search-form search-form-expanded" ng-submit="search(keyword)">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="keyword" placeholder="Search..." name="query">
+            <input type="text" class="form-control" ng-model="keyword" placeholder="Search...">
             <span class="input-group-btn">
-                <a ui-sref="search(keyword)" class="btn submit"><i class="icon-magnifier"></i></a>
+                <a ng-click="search(keyword)" href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
             </span>
         </div>
     </form>
