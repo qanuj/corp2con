@@ -7,6 +7,7 @@
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
+    $scope.hideCheckbox = true;
 
     db.contractor.dashboard().success(function (result) {
         $scope.record = result;

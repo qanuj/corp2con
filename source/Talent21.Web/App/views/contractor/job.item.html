@@ -3,7 +3,9 @@
         <div class="caption" ng-class="{'blue-madison':row.isHighlight,'font-yellow-saffron':row.isFeatured}">
             <span class="caption-subject bold">
                 <input ng-if="!hideCheckbox" type="checkbox" ng-model="row.selected" />
-                <i ng-if="row.favorite" class="fa fa-star yellow-gold"></i>
+                <a ng-if="row.favorite" title="Favorite" class="btn btn-circle btn-icon-only btn-default bg-yellow-gold" href="javascript:;">
+                    <i class="fa fa-star bg-yellow-gold"></i>
+                </a>
                 <a ng-if="!row.isWorkingFromHome" title="Client Location" class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                     <i class="fa fa-car shine"></i>
                 </a>
