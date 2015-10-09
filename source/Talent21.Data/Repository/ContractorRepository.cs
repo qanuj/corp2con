@@ -37,7 +37,8 @@ namespace Talent21.Data.Repository
 
         public IQueryable<Contractor> MatchingCompanyJobs(string userId)
         {
-            return All;//TODO:search function fix.
+            var aMonthAgo = DateTime.UtcNow.AddMonths(-1);
+            return All.Where(x=>x.Created>aMonthAgo);//TODO:search function fix.
         }
 
         public override Contractor ById(int id)
