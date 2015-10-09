@@ -28,7 +28,7 @@
     </div>
     <div class="col-sm-4" id="sidebar">
         <div class="portlet light">
-            <img src="{{record.pictureUrl}}" class="img-responsive" alt="">
+            <img src="{{record.pictureUrl}}" fallback-src loading-src  class="img-responsive" alt="">
         </div>
         <div ng-include="'app/views/common/share.html'"></div>
         <hr>
