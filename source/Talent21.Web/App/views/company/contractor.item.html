@@ -30,7 +30,7 @@
     <div class="portlet-body">
         <div class="row">
             <div class="col-xs-2">
-                <a class="picture" ng-if="row.pictureUrl" href="#/contractor/{{row.id}}"><img ng-src="{{row.pictureUrl}}" alt="" class="img-responsive img-rounded"/></a>
+                <a class="picture" href="#/contractor/{{row.id}}"><img ng-src="{{row.pictureUrl}}" alt="" fallback-src loading-src class="img-responsive img-rounded"/></a>
             </div>
             <div class="col-xs-10">
                 <div class="row">

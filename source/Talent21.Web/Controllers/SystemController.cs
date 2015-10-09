@@ -17,11 +17,13 @@ namespace Talent21.Web.Controllers
     {
         private readonly ISystemService _service;
         private readonly ICompanyService _companyService;
+        private readonly IJobService _jobService;
 
-        public SystemController(ISystemService service, ICompanyService companyService)
+        public SystemController(ISystemService service, ICompanyService companyService, IJobService jobService)
         {
             _service = service;
             _companyService = companyService;
+            _jobService = jobService;
         }
 
         [HttpGet, Route("enums")]
@@ -43,6 +45,14 @@ namespace Talent21.Web.Controllers
         public IQueryable<CompanyViewModel> ViewCompaniesQuery()
         {
             return _companyService.Companies;
+        }
+
+        [HttpPost]
+        [Route("company/promoted")]
+        [EnableQuery]
+        public IQueryable<FeaturedCompanyViewModel> GetPromotedCompanies(CompanySearchViewModel model)
+        {
+            return _jobService.GetTopCompanies(model);
         }
 
         [HttpGet]

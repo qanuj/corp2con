@@ -65,7 +65,7 @@
             </div>
             <div class="col-sm-3 col-md-2">
                 <a href="#" class="thumbnail">
-                    <img ng-src="{{record.picture.url}}" alt="{{record.companyName}}">
+                    <img ng-src="{{record.picture.url}}" fallback-src loading-src  alt="{{record.companyName}}">
                 </a>
                 <ng-upload-form ng-model="record.picture" url="/upload/picture"
                                 auto-upload="true" title="Company Logo..."

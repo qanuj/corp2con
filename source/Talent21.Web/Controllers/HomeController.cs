@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web.Mvc;
 using System.Web.UI;
 using e10.Shared.Extensions;
+using Talent21.Data.Core;
 using Talent21.Service.Abstraction;
 using Talent21.Service.Models;
 using Talent21.Web.Models;
@@ -30,11 +32,17 @@ namespace Talent21.Web.Controllers
                 else if (User.IsInRole("Company")) model.Role = "Company";
                 return View(model);
             }
+            return Welcome();
+        }
+
+        [Route("welcome")]
+        public ActionResult Welcome()
+        {
             return View("Welcome", new WelcomePageViewModel
             {
                 Jobs = _service.LatestJobs(10),
                 FeaturedJob = _service.GetFeaturedJob(),
-                Companies = _service.GetFeaturedCompanies(20),
+                Companies = _service.GetTopCompanies(new CompanySearchViewModel { Count = 20, Promotion = PromotionEnum.Global }).ToList(),
                 Numbers = _service.GetStats(),
                 FeaturedContractor = _service.GetFeaturedContractor()
             });

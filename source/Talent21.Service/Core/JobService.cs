@@ -18,7 +18,7 @@ namespace Talent21.Service.Core
         private readonly ICompanyRepository _companyRepository;
         private readonly IContractorRepository _contractorRepository;
 
-        public JobService(IJobRepository jobRepository,ICompanyRepository companyRepository, IContractorRepository contractorRepository,
+        public JobService(IJobRepository jobRepository, ICompanyRepository companyRepository, IContractorRepository contractorRepository,
             IUserProvider userProvider) : base(userProvider)
         {
             _jobRepository = jobRepository;
@@ -26,26 +26,36 @@ namespace Talent21.Service.Core
             _contractorRepository = contractorRepository;
         }
 
-        protected IQueryable<FeaturedCompanyViewModel> Companies
+        protected IQueryable<FeaturedCompanyViewModel> Companies(CompanySearchViewModel model=null)
         {
-            get
-            {
-                var query = from company in _companyRepository.All
-                            let promotions = company.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow).Select(z => z.Promotion)
-                            select new FeaturedCompanyViewModel
-                            {
-                                IsFeatured = promotions.Any(y => y == PromotionEnum.Featured),
-                                IsHighlight = promotions.Any(y => y == PromotionEnum.Highlight),
-                                IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
-                                IsHome = promotions.Any(y => y == PromotionEnum.Global),
-                                WebSite = company.Social.WebSite,
-                                CompanyName = company.CompanyName,
-                                PictureUrl = company.PictureUrl,
-                                Id = company.Id,
-                                Jobs=company.Jobs.Count(x=>!x.IsCancelled && x.IsPublished && (x.Expiry > DateTime.UtcNow || !x.Expiry.HasValue))
-                            };
-                return query;
-            }
+            if(model==null) model=new CompanySearchViewModel();
+
+            var skills = string.IsNullOrWhiteSpace(model.Skills) ? new string[] { } : model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var hasSkills = skills.Length > 0;
+
+            var locations = string.IsNullOrWhiteSpace(model.Locations) ? new string[] { } : model.Locations.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var hasLocations = locations.Length > 0;
+
+            var query = from company in _companyRepository.All
+                        where (!hasSkills || company.Jobs.Any(y => y.Skills.Any(q => skills.Any(z => q.Skill.Title == z)))) &&
+                            (!hasLocations || company.Jobs.Any(y => y.Locations.Any(q => locations.Contains(q.Title)))) &&
+                        company.Advertisements.Any(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow && y.Promotion==model.Promotion)
+                        select new FeaturedCompanyViewModel
+                        {
+                            WebSite = company.Social.WebSite,
+                            CompanyName = company.CompanyName,
+                            PictureUrl = company.PictureUrl,
+                            Id = company.Id,
+                            Jobs = company.Jobs.Count(x => !x.IsCancelled && x.IsPublished && (x.Expiry > DateTime.UtcNow || !x.Expiry.HasValue)),
+                            Promotions= company.Advertisements.Where(y => y.End > DateTime.UtcNow && y.Start <= DateTime.UtcNow)
+                                    .Select(x=>new AdvertisementViewModel
+                                    {
+                                        Promotion = x.Promotion,
+                                        Start = x.Start,
+                                        End = x.End
+                                    })
+                        };
+            return query.Take(model.Count);
         }
 
 
@@ -62,10 +72,10 @@ namespace Talent21.Service.Core
                                 IsAdvertised = promotions.Any(y => y == PromotionEnum.Advertise),
                                 IsHome = promotions.Any(y => y == PromotionEnum.Global),
                                 Experience = contractor.Experience,
-                                Name = contractor.FirstName +" "+contractor.LastName,
+                                Name = contractor.FirstName + " " + contractor.LastName,
                                 PictureUrl = contractor.PictureUrl,
                                 Id = contractor.Id,
-                                Skills = contractor.Skills.Where(x=>x.Level==LevelEnum.Primary).OrderByDescending(x=>x.Experience).Take(5).Select(x => x.Skill.Title)
+                                Skills = contractor.Skills.Where(x => x.Level == LevelEnum.Primary).OrderByDescending(x => x.Experience).Take(5).Select(x => x.Skill.Title)
                             };
                 return query;
             }
@@ -74,7 +84,7 @@ namespace Talent21.Service.Core
         protected IQueryable<JobSearchResultViewModel> Search()
         {
             return Search(new SearchQueryViewModel());
-        } 
+        }
         public IQueryable<JobSearchResultViewModel> Search(SearchQueryViewModel model)
         {
             var skills = string.IsNullOrWhiteSpace(model.Skills) ? new string[] { } : model.Skills.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -104,8 +114,8 @@ namespace Talent21.Service.Core
                                                                                                 job.Description.Contains(model.Keywords))
                         select new JobSearchResultViewModel
                         {
-                            IsContractExtendable=job.IsContractExtendable,
-                            IsContractToHire=job.IsContractToHire,
+                            IsContractExtendable = job.IsContractExtendable,
+                            IsContractToHire = job.IsContractToHire,
                             Industry = job.Company.Industry.Title,
                             CompanyId = job.CompanyId,
                             PictureUrl = job.Company.PictureUrl,
@@ -148,19 +158,19 @@ namespace Talent21.Service.Core
         public IQueryable<PictureViewModel> TopEmployers(string skill, string location)
         {
             var query = from company in _companyRepository.All
-                join job in _jobRepository.All on company.Id equals job.CompanyId
-                select new PictureViewModel
-                {
-                    Id = company.Id,
-                    Name = company.CompanyName,
-                    Picture = company.PictureUrl
-                };
+                        join job in _jobRepository.All on company.Id equals job.CompanyId
+                        select new PictureViewModel
+                        {
+                            Id = company.Id,
+                            Name = company.CompanyName,
+                            Picture = company.PictureUrl
+                        };
             return query;
         }
 
         public IQueryable<JobSearchResultViewModel> TopJobs(string skill, string location)
         {
-            return Search(new SearchQueryViewModel { Skills = skill, Locations = location});
+            return Search(new SearchQueryViewModel { Skills = skill, Locations = location });
         }
 
         public IList<JobSearchResultViewModel> LatestJobs(int count)
@@ -170,19 +180,19 @@ namespace Talent21.Service.Core
 
         public JobSearchResultViewModel GetFeaturedJob()
         {
-            return Search().OrderByDescending(x=>x.Id).FirstOrDefault(x => x.IsHome);
+            return Search().OrderByDescending(x => x.Id).FirstOrDefault(x => x.IsHome);
         }
 
-        public IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count)
+        public IQueryable<FeaturedCompanyViewModel> GetTopCompanies(CompanySearchViewModel model)
         {
-            return Companies.Where(x => x.IsHome).OrderByDescending(x => x.Id).Take(count).ToList();
+            return Companies(model).OrderByDescending(x => x.Id);
         }
 
         public StatsViewModel GetStats()
         {
             return new StatsViewModel
             {
-                Jobs = _jobRepository.All.Count(x=>!x.IsCancelled && x.IsPublished),
+                Jobs = _jobRepository.All.Count(x => !x.IsCancelled && x.IsPublished),
                 Companies = _companyRepository.All.Count(),
                 Contractors = _contractorRepository.All.Count()
             };
@@ -283,34 +293,34 @@ namespace Talent21.Service.Core
             };
 
             var startDate = model.Starting ?? DateTime.UtcNow;
-            var dates = Enumerable.Range(0, 10).Select(x => new { Start= startDate, End = startDate = startDate.AddDays(x * 7) });
+            var dates = Enumerable.Range(0, 10).Select(x => new { Start = startDate, End = startDate = startDate.AddDays(x * 7) });
             var query = Search(model);
 
-            var starting=from dte in dates
-                         from row in query
-                         where row.Start >= dte.Start && row.Start <= dte.End
-                         group dte.Start by dte.Start into grp
-                         orderby grp.Key 
-                         select new FilterLabel<int,DateTime>
-                         {
-                             Label = grp.Key,
-                             Count = grp.Count(),
-                             Mode = "date",
-                             Selected = model.Starting >= grp.Key
-                         };
+            var starting = from dte in dates
+                           from row in query
+                           where row.Start >= dte.Start && row.Start <= dte.End
+                           group dte.Start by dte.Start into grp
+                           orderby grp.Key
+                           select new FilterLabel<int, DateTime>
+                           {
+                               Label = grp.Key,
+                               Count = grp.Count(),
+                               Mode = "date",
+                               Selected = model.Starting >= grp.Key
+                           };
 
-            var rates =from rate in rateValues
-                       from row in query
-                       where row.Rate >= rate.Start && (row.Rate <= rate.End || rate.End==0)
-                       group rate.Start by rate.Start into grp
-                       orderby grp.Key
-                       select new FilterLabel<int, int>
-                       {
-                           Label = grp.Key,
-                           Count = grp.Count(),
-                           Mode = "inr",
-                           Selected = model.Rate >= grp.Key
-                       };
+            var rates = from rate in rateValues
+                        from row in query
+                        where row.Rate >= rate.Start && (row.Rate <= rate.End || rate.End == 0)
+                        group rate.Start by rate.Start into grp
+                        orderby grp.Key
+                        select new FilterLabel<int, int>
+                        {
+                            Label = grp.Key,
+                            Count = grp.Count(),
+                            Mode = "inr",
+                            Selected = model.Rate >= grp.Key
+                        };
 
             return new JobSearchFilterViewModel
             {

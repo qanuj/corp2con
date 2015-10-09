@@ -13,7 +13,7 @@ namespace Talent21.Service.Abstraction
         IQueryable<JobSearchResultViewModel> TopJobs(string skill, string location);
         IList<JobSearchResultViewModel> LatestJobs(int count);
         JobSearchResultViewModel GetFeaturedJob();
-        IList<FeaturedCompanyViewModel> GetFeaturedCompanies(int count);
+        IQueryable<FeaturedCompanyViewModel> GetTopCompanies(CompanySearchViewModel model);
         StatsViewModel GetStats();
         FeaturedContractorViewModel GetFeaturedContractor();
         JobPublicViewModel JobById(int id);

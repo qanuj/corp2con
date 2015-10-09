@@ -110,7 +110,7 @@
     <div class="col-xs-6 col-sm-3">
         <div class="portlet">
             <div class="portlet-body">
-                <a ui-sref="company({id:record.id})"><img ng-src="{{record.pictureUrl}}" class="img-responsive" alt="{{record.companyName}}" /></a>
+                <a ui-sref="company({id:record.id})"><img ng-src="{{record.pictureUrl}}" fallback-src loading-src class="img-responsive" alt="{{record.companyName}}" /></a>
             </div>
         </div>
     </div>
