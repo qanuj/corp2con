@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav pull-right">
             <li class="dropdown dropdown-user">
                 <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
-                    <img alt="" class="img-circle" ng-src="{{profile.pictureUrl}}" />
+                    <img alt="" class="img-circle" ng-src="{{profile.pictureUrl}}" fallback-src loading-src />
                     <span class="username username-hide-on-mobile">
                         {{profile.firstName || profile.email}}
                     </span>
